@@ -1,0 +1,9 @@
+#
+# Ignore all .data directories
+#
+/**/.data/*
+
+#
+# Ignore all directories that contain compilation output
+#
+*/classes/*
