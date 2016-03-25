@@ -25,7 +25,7 @@
 package jmul.cache.contracts;
 
 
-import jmul.id.ID;
+import jmul.persistence.id.ID;
 
 
 /**

@@ -41,6 +41,7 @@ import jmul.transformation.TransformationPath;
 import jmul.classes.AccessorHelper;
 import jmul.classes.ClassDefinition;
 import jmul.classes.ClassHelper;
+
 import jmul.string.StringConcatenator;
 
 
@@ -71,8 +72,7 @@ public final class TransformationHelper {
     public static TransformationParameters newTransformationParameters(TransformationPath aTransformationPath,
                                                                        Object anObject) {
 
-        TransformationParameters parameters =
-            new TransformationParametersImpl(aTransformationPath, anObject);
+        TransformationParameters parameters = new TransformationParametersImpl(aTransformationPath, anObject);
 
         return parameters;
     }
@@ -91,12 +91,10 @@ public final class TransformationHelper {
      * @return transformation parameters without additional informations
      */
     public static TransformationParameters newTransformationParameters(TransformationPath aTransformationPath,
-                                                                       Object anObject,
-                                                                       Class aDeclaredType) {
+                                                                       Object anObject, Class aDeclaredType) {
 
         TransformationParameters parameters =
-            new TransformationParametersImpl(aTransformationPath, anObject,
-                                             aDeclaredType);
+            new TransformationParametersImpl(aTransformationPath, anObject, aDeclaredType);
 
         return parameters;
     }
@@ -127,8 +125,7 @@ public final class TransformationHelper {
      *
      * @return all declared fields
      */
-    public static Collection<Field> getAllPersistableFields(Class aClass,
-                                                            Class anExemptedSuperclass) {
+    public static Collection<Field> getAllPersistableFields(Class aClass, Class anExemptedSuperclass) {
 
         // Check parameter.
         if (aClass == null) {
@@ -139,9 +136,7 @@ public final class TransformationHelper {
 
         if (aClass.isInterface()) {
 
-            StringConcatenator message =
-                new StringConcatenator("The specified class is an interface (",
-                                       aClass, ")!");
+            StringConcatenator message = new StringConcatenator("The specified class is an interface (", aClass, ")!");
             throw new IllegalArgumentException(message.toString());
         }
 
@@ -164,8 +159,7 @@ public final class TransformationHelper {
         for (Field field : locallyDeclaredFields) {
 
             int modifiers = field.getModifiers();
-            if (!Modifier.isStatic(modifiers) &&
-                !field.isAnnotationPresent(Exempted.class)) {
+            if (!Modifier.isStatic(modifiers) && !field.isAnnotationPresent(Exempted.class)) {
 
                 result.add(field);
             }
@@ -177,10 +171,9 @@ public final class TransformationHelper {
 
         Class superclass = aClass.getSuperclass();
 
-        if (superclass != anExemptedSuperclass) {
+        if (!superclass.equals(anExemptedSuperclass)) {
 
-            result.addAll(TransformationHelper.getAllPersistableFields(superclass,
-                                                                       anExemptedSuperclass));
+            result.addAll(TransformationHelper.getAllPersistableFields(superclass, anExemptedSuperclass));
         }
 
         return result;
@@ -217,8 +210,7 @@ public final class TransformationHelper {
      * @return <code>true</code> if this class represents a composite type, else
      *         <code>false</code>
      */
-    public static boolean isComposite(Class aClass,
-                                      Class anExemptedSuperclass) {
+    public static boolean isComposite(Class aClass, Class anExemptedSuperclass) {
 
         // Check the specified parameter.
 
@@ -231,8 +223,7 @@ public final class TransformationHelper {
         } catch (ClassNotFoundException e) {
 
             StringConcatenator message =
-                new StringConcatenator("An invalid class has been specified (",
-                                       aClass.getName(), ")!");
+                new StringConcatenator("An invalid class has been specified (", aClass.getName(), ")!");
             throw new IllegalArgumentException(message.toString(), e);
         }
 
@@ -240,8 +231,7 @@ public final class TransformationHelper {
         // Check each persistable field.
 
 
-        Collection<Field> fields =
-            getAllPersistableFields(aClass, anExemptedSuperclass);
+        Collection<Field> fields = getAllPersistableFields(aClass, anExemptedSuperclass);
 
         boolean result = !fields.isEmpty();
 
@@ -254,9 +244,7 @@ public final class TransformationHelper {
 
             try {
 
-                getter =
-                        definition.getAccessor(AccessorHelper.GETTER_PREFIX, fieldName,
-                                               true);
+                getter = definition.getAccessor(AccessorHelper.GETTER_PREFIX, fieldName, true);
 
             } catch (NoSuchMethodException e) {
 
@@ -265,9 +253,7 @@ public final class TransformationHelper {
 
             try {
 
-                setter =
-                        definition.getAccessor(AccessorHelper.SETTER_PREFIX, fieldName,
-                                               true);
+                setter = definition.getAccessor(AccessorHelper.SETTER_PREFIX, fieldName, true);
 
             } catch (NoSuchMethodException e) {
 

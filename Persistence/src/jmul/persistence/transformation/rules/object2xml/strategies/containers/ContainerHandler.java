@@ -52,7 +52,6 @@ public interface ContainerHandler {
      * @param aContainer
      *        a container
      */
-    void processContainerContent(TransformationParameters someParameters,
-                                 Element aParentElement, Object aContainer);
+    void processContainerContent(TransformationParameters someParameters, Element aParentElement, Object aContainer);
 
 }

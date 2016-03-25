@@ -1,8 +1,5 @@
 /*
- * (J)ava (M)iscellaneous (U)tility (L)ibraries
- *
- * JMUL is a central repository for utilities which are used in my
- * other public and private repositories.
+ * This software module is part of the REMABS project.
  *
  * Copyright (C) 2013  Kristian Kutin
  *
@@ -25,14 +22,14 @@
 package jmul.persistence.transformation.rules.xml2object;
 
 
-import java.util.Collection;
-
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
+import jmul.cache.transformation.Xml2ObjectCache;
+import jmul.cache.transformation.Xml2ObjectCacheImpl;
 
 import jmul.persistence.transformation.TransformationHelper;
-import jmul.persistence.transformation.rules.TransformationCommons;
+import static jmul.persistence.transformation.rules.PersistenceMarkups.OBJECTS_ELEMENT;
+import static jmul.persistence.transformation.rules.TransformationConstants.OBJECT_CACHE;
+
+import jmul.string.StringConcatenator;
 
 import jmul.transformation.TransformationException;
 import jmul.transformation.TransformationFactory;
@@ -40,10 +37,11 @@ import jmul.transformation.TransformationParameters;
 import jmul.transformation.TransformationResources;
 import jmul.transformation.TransformationRuleBase;
 
-import jmul.cache.transformation.Xml2ObjectCache;
-import jmul.cache.transformation.Xml2ObjectCacheImpl;
-import jmul.string.StringConcatenator;
-import jmul.xml.XmlHelper;
+import jmul.xml.SubelementList;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
 
 
 /**
@@ -51,7 +49,7 @@ import jmul.xml.XmlHelper;
  *
  * @author Kristian Kutin
  */
-public class Document2ObjectRule extends TransformationRuleBase implements TransformationCommons {
+public class Document2ObjectRule extends TransformationRuleBase {
 
     /**
      * Constructs a transformation rule.
@@ -110,7 +108,7 @@ public class Document2ObjectRule extends TransformationRuleBase implements Trans
         // Check some plausibilities.
 
         String rootElementName = rootElement.getNodeName();
-        if (!rootElementName.equals(OBJECTS_ELEMENT_TAGNAME)) {
+        if (!rootElementName.equals(OBJECTS_ELEMENT.getTagname())) {
 
             StringConcatenator message = new StringConcatenator("Invalid root element (", rootElementName, ")!");
             throw new TransformationException(message.toString());
@@ -121,7 +119,7 @@ public class Document2ObjectRule extends TransformationRuleBase implements Trans
 
         Object deserializedObject = null;
 
-        Collection<Node> childNodes = XmlHelper.extractChildElements(rootElement);
+        SubelementList childNodes = new SubelementList(rootElement);
 
         for (Node node : childNodes) {
 

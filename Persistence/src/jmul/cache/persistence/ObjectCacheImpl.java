@@ -30,7 +30,7 @@ import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.Map;
 
-import jmul.id.ID;
+import jmul.persistence.id.ID;
 
 
 /**

@@ -27,22 +27,30 @@ package jmul.persistence.transformation.rules.xml2object;
 
 import java.lang.reflect.Field;
 
-import org.w3c.dom.Document;
-import org.w3c.dom.Node;
+import jmul.cache.transformation.Xml2ObjectCache;
 
-import jmul.persistence.transformation.rules.TransformationCommons;
+import jmul.classes.ClassDefinition;
+import jmul.classes.ClassHelper;
+
+import jmul.persistence.id.ID;
+import jmul.persistence.id.IntegerID;
+
+import static jmul.persistence.transformation.rules.PersistenceMarkups.ID_ATTRIBUTE;
+import static jmul.persistence.transformation.rules.PersistenceMarkups.OBJECT_ELEMENT;
+import static jmul.persistence.transformation.rules.PersistenceMarkups.TYPE_ATTRIBUTE;
+import static jmul.persistence.transformation.rules.PersistenceMarkups.VALUE_ATTRIBUTE;
+import static jmul.persistence.transformation.rules.TransformationConstants.OBJECT_CACHE;
+
+import jmul.string.StringConcatenator;
 
 import jmul.transformation.TransformationException;
 import jmul.transformation.TransformationParameters;
 import jmul.transformation.TransformationRuleBase;
 
-import jmul.cache.transformation.Xml2ObjectCache;
-import jmul.classes.ClassDefinition;
-import jmul.classes.ClassHelper;
-import jmul.id.ID;
-import jmul.id.IntegerID;
-import jmul.string.StringConcatenator;
-import jmul.xml.ElementWrapper;
+import jmul.xml.XmlParserHelper;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.Node;
 
 
 /**
@@ -50,7 +58,7 @@ import jmul.xml.ElementWrapper;
  *
  * @author Kristian Kutin
  */
-public class Xml2FieldRule extends TransformationRuleBase implements TransformationCommons {
+public class Xml2FieldRule extends TransformationRuleBase {
 
     /**
      * Constructs a transformation rule.
@@ -82,18 +90,15 @@ public class Xml2FieldRule extends TransformationRuleBase implements Transformat
 
         Object target = someParameters.getObject();
 
-        if (!Document.class.isInstance(target) &&
-            Node.class.isInstance(target)) {
+        if (!Document.class.isInstance(target) && Node.class.isInstance(target)) {
 
-            ElementWrapper element = new ElementWrapper((Node)target);
+            Node objectElement = (Node) target;
 
-            if (element.equalsName(OBJECT_ELEMENT_TAGNAME)) {
+            if (XmlParserHelper.matchesXmlElement(objectElement, OBJECT_ELEMENT) &&
+                XmlParserHelper.existsXmlAttribute(objectElement, TYPE_ATTRIBUTE)) {
 
-                if (element.existsAttribute(TYPE_ATTRIBUTE_TAGNAME)) {
-
-                    String type = element.getAttribute(TYPE_ATTRIBUTE_TAGNAME);
-                    return type.equals(Field.class.getName());
-                }
+                String type = XmlParserHelper.getXmlAttributeValue(objectElement, TYPE_ATTRIBUTE);
+                return type.equals(Field.class.getName());
             }
         }
 
@@ -116,62 +121,27 @@ public class Xml2FieldRule extends TransformationRuleBase implements Transformat
         if (!someParameters.containsPrerequisite(OBJECT_CACHE)) {
 
             StringConcatenator message =
-                new StringConcatenator("Prerequisites for the transformation are missing (",
-                                       OBJECT_CACHE, ")!");
+                new StringConcatenator("Prerequisites for the transformation are missing (", OBJECT_CACHE, ")!");
             throw new TransformationException(message.toString());
         }
 
 
         Object target = someParameters.getObject();
-        ElementWrapper element = new ElementWrapper((Node)target);
+        Node objectElement = (Node) target;
 
-        if (!element.equalsName(OBJECT_ELEMENT_TAGNAME)) {
-
-            StringConcatenator message =
-                new StringConcatenator("Invalid element (", element.getName(),
-                                       ")!");
-            throw new TransformationException(message.toString());
-        }
-
-
-        if (!element.existsAttribute(ID_ATTRIBUTE_TAGNAME)) {
-
-            StringConcatenator message =
-                new StringConcatenator("The element \"", element.getName(),
-                                       "\" is missing the attribute \"",
-                                       ID_ATTRIBUTE_TAGNAME, "\"!");
-            throw new TransformationException(message.toString());
-        }
-
-
-        if (!element.existsAttribute(TYPE_ATTRIBUTE_TAGNAME)) {
-
-            StringConcatenator message =
-                new StringConcatenator("The element \"", element.getName(),
-                                       "\" is missing the attribute \"",
-                                       TYPE_ATTRIBUTE_TAGNAME, "\"!");
-            throw new TransformationException(message.toString());
-        }
-
-
-        if (!element.existsAttribute(VALUE_ATTRIBUTE_TAGNAME)) {
-
-            StringConcatenator message =
-                new StringConcatenator("The element \"", element.getName(),
-                                       "\" is missing the attribute \"",
-                                       VALUE_ATTRIBUTE_TAGNAME, "\"!");
-            throw new TransformationException(message.toString());
-        }
+        XmlParserHelper.assertMatchesXmlElement(objectElement, OBJECT_ELEMENT);
+        XmlParserHelper.assertExistsXmlAttribute(objectElement, ID_ATTRIBUTE);
+        XmlParserHelper.assertExistsXmlAttribute(objectElement, TYPE_ATTRIBUTE);
+        XmlParserHelper.assertExistsXmlAttribute(objectElement, VALUE_ATTRIBUTE);
 
 
         // Get the required informations.
 
-        Xml2ObjectCache objectCache =
-            (Xml2ObjectCache)someParameters.getPrerequisite(OBJECT_CACHE);
+        Xml2ObjectCache objectCache = (Xml2ObjectCache) someParameters.getPrerequisite(OBJECT_CACHE);
 
-        String idString = element.getAttribute(ID_ATTRIBUTE_TAGNAME);
-        String typeString = element.getAttribute(TYPE_ATTRIBUTE_TAGNAME);
-        String valueString = element.getAttribute(VALUE_ATTRIBUTE_TAGNAME);
+        String idString = XmlParserHelper.getXmlAttributeValue(objectElement, ID_ATTRIBUTE);
+        String typeString = XmlParserHelper.getXmlAttributeValue(objectElement, TYPE_ATTRIBUTE);
+        String valueString = XmlParserHelper.getXmlAttributeValue(objectElement, VALUE_ATTRIBUTE);
 
         String[] substrings = valueString.split("#");
         String className = substrings[0];
@@ -186,10 +156,8 @@ public class Xml2FieldRule extends TransformationRuleBase implements Transformat
 
         } catch (ClassNotFoundException e) {
 
-            StringConcatenator message =
-                new StringConcatenator("An unknown class was specified (",
-                                       typeString, ")!");
-            throw new TransformationException(message.toString());
+            StringConcatenator message = new StringConcatenator("An unknown class was specified (", typeString, ")!");
+            throw new TransformationException(message.toString(), e);
         }
 
 
@@ -201,10 +169,8 @@ public class Xml2FieldRule extends TransformationRuleBase implements Transformat
 
         } catch (ClassNotFoundException e) {
 
-            StringConcatenator message =
-                new StringConcatenator("An unknown class was specified (",
-                                       valueString, ")!");
-            throw new TransformationException(message.toString());
+            StringConcatenator message = new StringConcatenator("An unknown class was specified (", valueString, ")!");
+            throw new TransformationException(message.toString(), e);
         }
 
 
@@ -217,10 +183,8 @@ public class Xml2FieldRule extends TransformationRuleBase implements Transformat
         } catch (NoSuchFieldException e) {
 
             StringConcatenator message =
-                new StringConcatenator("The class ", className,
-                                       " doesn't have a field with the name ",
-                                       fieldName, "!");
-            throw new TransformationException(message.toString());
+                new StringConcatenator("The class ", className, " doesn't have a field with the name ", fieldName, "!");
+            throw new TransformationException(message.toString(), e);
         }
 
 

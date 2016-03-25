@@ -133,13 +133,13 @@ public class TransformationFactoryImpl implements TransformationFactory {
 
                     // Ignore this exception. Continue with the next
                     // configuration file.
-                    ;
+                    continue;
 
                 } catch (IOException e) {
 
                     // Ignore this exception. Continue with the next
                     // configuration file.
-                    ;
+                    continue;
                 }
             }
 
@@ -178,13 +178,13 @@ public class TransformationFactoryImpl implements TransformationFactory {
 
                         // Ignore this exception and continbue with the next
                         // configuration.
-                        ;
+                        continue;
 
                     } catch (IOException e) {
 
                         // Ignore this exception and continbue with the next
                         // configuration.
-                        ;
+                        continue;
                     }
                 }
             }

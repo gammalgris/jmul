@@ -29,10 +29,10 @@ import java.io.IOException;
 
 import java.lang.reflect.Constructor;
 
-import org.w3c.dom.Document;
-import org.w3c.dom.Node;
+import jmul.classes.ClassDefinition;
+import jmul.classes.ClassHelper;
 
-import org.xml.sax.SAXException;
+import jmul.string.StringConcatenator;
 
 import jmul.transformation.TransformationException;
 import jmul.transformation.TransformationResources;
@@ -46,14 +46,16 @@ import static jmul.transformation.configuration.ConfigurationMarkups.PriorityAtt
 import static jmul.transformation.configuration.ConfigurationMarkups.RuleElement;
 import static jmul.transformation.configuration.ConfigurationMarkups.TransformationPathElement;
 
-import jmul.classes.ClassDefinition;
-import jmul.classes.ClassHelper;
-import jmul.string.StringConcatenator;
 import jmul.xml.ParsingException;
 import jmul.xml.SubelementMap;
 import static jmul.xml.XmlParserHelper.assertHasXmlSubelements;
-import static jmul.xml.XmlParserHelper.assertMatchingXmlElement;
+import static jmul.xml.XmlParserHelper.assertMatchesXmlElement;
 import static jmul.xml.XmlParserHelper.getXmlAttribute;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.Node;
+
+import org.xml.sax.SAXException;
 
 
 /**
@@ -262,7 +264,7 @@ public class ConfigurationReaderImpl implements ConfigurationReader {
          */
         private ConfigurationData(Node aRootNode) {
 
-            assertMatchingXmlElement(aRootNode, RuleElement);
+            assertMatchesXmlElement(aRootNode, RuleElement);
 
 
             Node priorityAttribute = getXmlAttribute(aRootNode, PriorityAttribute);

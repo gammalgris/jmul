@@ -28,9 +28,9 @@ package jmul.cache.transformation;
 import java.util.HashMap;
 import java.util.Map;
 
-import jmul.id.ID;
-import jmul.id.IDGenerator;
-import jmul.id.IntegerIDGenerator;
+import jmul.persistence.id.ID;
+import jmul.persistence.id.IDGenerator;
+import jmul.persistence.id.IntegerIDGenerator;
 
 
 /**

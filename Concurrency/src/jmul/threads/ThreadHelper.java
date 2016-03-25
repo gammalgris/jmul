@@ -33,11 +33,6 @@ package jmul.threads;
 public final class ThreadHelper {
 
     /**
-     * A second in milliseconds.
-     */
-    public static final long ONE_SECOND = 1000L;
-
-    /**
      * The default constructor.
      */
     private ThreadHelper() {

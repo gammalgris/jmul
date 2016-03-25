@@ -26,7 +26,7 @@ package jmul.reflection;
 
 
 /**
- * This exception is thrown if a object cannot be initialized by exdception
+ * This exception is thrown if a object cannot be initialized by exception
  * mechanisms.
  *
  * @author Kristian Kutin
@@ -36,12 +36,12 @@ public class InitializerException extends RuntimeException {
     /**
      * Constructs a new exception.
      *
-     * @param aCause
-     *        the actual cause for this exception
      * @param aMessage
      *        a message which provides additional details about this exception
+     * @param aCause
+     *        the actual cause for this exception
      */
-    public InitializerException(Exception aCause, String aMessage) {
+    public InitializerException(String aMessage, Exception aCause) {
 
         super(aMessage, aCause);
     }

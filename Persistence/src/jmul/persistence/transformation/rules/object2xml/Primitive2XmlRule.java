@@ -25,21 +25,31 @@
 package jmul.persistence.transformation.rules.object2xml;
 
 
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
+import jmul.cache.transformation.Object2XmlCache;
 
-import jmul.persistence.transformation.rules.TransformationCommons;
+import jmul.classes.ClassDefinition;
+import jmul.classes.ClassHelper;
+
+import jmul.persistence.id.ID;
+
+import static jmul.persistence.transformation.rules.PersistenceMarkups.ID_ATTRIBUTE;
+import static jmul.persistence.transformation.rules.PersistenceMarkups.OBJECT_ELEMENT;
+import static jmul.persistence.transformation.rules.PersistenceMarkups.TYPE_ATTRIBUTE;
+import static jmul.persistence.transformation.rules.PersistenceMarkups.VALUE_ATTRIBUTE;
+import static jmul.persistence.transformation.rules.TransformationConstants.OBJECT_CACHE;
+import static jmul.persistence.transformation.rules.TransformationConstants.ROOT_ELEMENT;
+import static jmul.persistence.transformation.rules.TransformationConstants.XML_DOCUMENT;
+
+import jmul.string.StringConcatenator;
 
 import jmul.transformation.TransformationException;
 import jmul.transformation.TransformationParameters;
 import jmul.transformation.TransformationRuleBase;
 
-import jmul.cache.transformation.Object2XmlCache;
-import jmul.classes.ClassDefinition;
-import jmul.classes.ClassHelper;
-import jmul.id.ID;
-import jmul.string.StringConcatenator;
 import jmul.xml.XmlHelper;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
 
 /**
@@ -47,7 +57,7 @@ import jmul.xml.XmlHelper;
  *
  * @author Kristian Kutin
  */
-public class Primitive2XmlRule extends TransformationRuleBase implements TransformationCommons {
+public class Primitive2XmlRule extends TransformationRuleBase {
 
     /**
      * Constructs a transformation rule.
@@ -59,8 +69,7 @@ public class Primitive2XmlRule extends TransformationRuleBase implements Transfo
      * @param aPriority
      *        a rule priority
      */
-    public Primitive2XmlRule(String anOrigin, String aDestination,
-                             int aPriority) {
+    public Primitive2XmlRule(String anOrigin, String aDestination, int aPriority) {
 
         super(anOrigin, aDestination, aPriority);
     }
@@ -82,17 +91,14 @@ public class Primitive2XmlRule extends TransformationRuleBase implements Transfo
 
         try {
 
-            ClassDefinition definition =
-                ClassHelper.getClass(someParameters.getDeclaredType());
-            result =
-                    definition.isPrimitiveType() || definition.isPrimitiveWrapper();
+            ClassDefinition definition = ClassHelper.getClass(someParameters.getDeclaredType());
+            result = definition.isPrimitiveType() || definition.isPrimitiveWrapper();
 
         } catch (ClassNotFoundException e) {
 
             StringConcatenator message =
-                new StringConcatenator("Unknown class (",
-                                       someParameters.getDeclaredType(), ")!");
-            throw new IllegalArgumentException(message.toString());
+                new StringConcatenator("Unknown class (", someParameters.getDeclaredType(), ")!");
+            throw new IllegalArgumentException(message.toString(), e);
         }
 
         return result;
@@ -111,8 +117,7 @@ public class Primitive2XmlRule extends TransformationRuleBase implements Transfo
 
         // Check parameters.
 
-        if (!(someParameters.containsPrerequisite(OBJECT_CACHE) &&
-              someParameters.containsPrerequisite(ROOT_ELEMENT))) {
+        if (!(someParameters.containsPrerequisite(OBJECT_CACHE) && someParameters.containsPrerequisite(ROOT_ELEMENT))) {
 
             String message = "No root node could be identified!";
             throw new TransformationException(message);
@@ -128,12 +133,9 @@ public class Primitive2XmlRule extends TransformationRuleBase implements Transfo
 
         // Retrieve other prerequisites for the transformation.
 
-        Document document =
-            (Document)someParameters.getPrerequisite(XML_DOCUMENT);
-        Object2XmlCache cache =
-            (Object2XmlCache)someParameters.getPrerequisite(OBJECT_CACHE);
-        Element rootElement =
-            (Element)someParameters.getPrerequisite(ROOT_ELEMENT);
+        Document document = (Document) someParameters.getPrerequisite(XML_DOCUMENT);
+        Object2XmlCache cache = (Object2XmlCache) someParameters.getPrerequisite(OBJECT_CACHE);
+        Element rootElement = (Element) someParameters.getPrerequisite(ROOT_ELEMENT);
 
 
         // Step 1
@@ -156,12 +158,11 @@ public class Primitive2XmlRule extends TransformationRuleBase implements Transfo
 
         ID id = cache.addObject(object, declaredType);
 
-        Element element =
-            XmlHelper.createXmlElement(document, OBJECT_ELEMENT_TAGNAME);
+        Element element = XmlHelper.createXmlElement(document, OBJECT_ELEMENT);
 
-        element.setAttribute(ID_ATTRIBUTE_TAGNAME, id.toString());
-        element.setAttribute(TYPE_ATTRIBUTE_TAGNAME, realType.getName());
-        element.setAttribute(VALUE_ATTRIBUTE_TAGNAME, String.valueOf(object));
+        element.setAttribute(ID_ATTRIBUTE.getTagname(), id.toString());
+        element.setAttribute(TYPE_ATTRIBUTE.getTagname(), realType.getName());
+        element.setAttribute(VALUE_ATTRIBUTE.getTagname(), String.valueOf(object));
 
         rootElement.appendChild(element);
 

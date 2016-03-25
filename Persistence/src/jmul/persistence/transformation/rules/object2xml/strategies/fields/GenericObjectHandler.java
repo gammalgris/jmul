@@ -33,13 +33,27 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Map;
 
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
+import jmul.cache.transformation.Object2XmlCache;
+
+import jmul.persistence.id.ID;
 
 import jmul.persistence.annotations.ContainerInformations;
 import jmul.persistence.annotations.MapInformations;
 import jmul.persistence.transformation.TransformationHelper;
-import jmul.persistence.transformation.rules.TransformationCommons;
+import static jmul.persistence.transformation.rules.PersistenceMarkups.DECLARED_TYPE_ATTRIBUTE;
+import static jmul.persistence.transformation.rules.PersistenceMarkups.FIELD_ELEMENT;
+import static jmul.persistence.transformation.rules.PersistenceMarkups.NAME_ATTRIBUTE;
+import static jmul.persistence.transformation.rules.PersistenceMarkups.REFERENCED_OBJECT_ATTRIBUTE;
+import static jmul.persistence.transformation.rules.TransformationConstants.DECLARED_ELEMENT_TYPE;
+import static jmul.persistence.transformation.rules.TransformationConstants.DECLARED_KEY_TYPE;
+import static jmul.persistence.transformation.rules.TransformationConstants.DECLARED_VALUE_TYPE;
+import static jmul.persistence.transformation.rules.TransformationConstants.OBJECT_CACHE;
+import static jmul.persistence.transformation.rules.TransformationConstants.ROOT_ELEMENT;
+import static jmul.persistence.transformation.rules.TransformationConstants.XML_DOCUMENT;
+
+import jmul.reflection.ReflectionHelper;
+
+import jmul.string.StringConcatenator;
 
 import jmul.transformation.TransformationException;
 import jmul.transformation.TransformationFactory;
@@ -47,11 +61,10 @@ import jmul.transformation.TransformationParameters;
 import jmul.transformation.TransformationPath;
 import jmul.transformation.TransformationResources;
 
-import jmul.cache.transformation.Object2XmlCache;
-import jmul.id.ID;
-import jmul.reflection.ReflectionHelper;
-import jmul.string.StringConcatenator;
 import jmul.xml.XmlHelper;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
 
 /**
@@ -59,8 +72,7 @@ import jmul.xml.XmlHelper;
  *
  * @author Kristian Kutin
  */
-public class GenericObjectHandler implements TransformationCommons,
-                                             FieldsHandler {
+public class GenericObjectHandler implements FieldsHandler {
 
     /**
      * The default constructor.
@@ -80,8 +92,7 @@ public class GenericObjectHandler implements TransformationCommons,
      * @param anObject
      *        the object whose fields are to be processed
      */
-    public void processFields(TransformationParameters someParameters,
-                              Element aParentElement, Object anObject) {
+    public void processFields(TransformationParameters someParameters, Element aParentElement, Object anObject) {
 
         processFields(someParameters, aParentElement, anObject, null);
     }
@@ -102,8 +113,7 @@ public class GenericObjectHandler implements TransformationCommons,
      *        the specified class is examined only up to the specified
      *        superclass (excluding the superclass)
      */
-    public void processFields(TransformationParameters someParameters,
-                              Element aParentElement, Object anObject,
+    public void processFields(TransformationParameters someParameters, Element aParentElement, Object anObject,
                               Class anExemptedSuperclass) {
 
         // Step 1
@@ -120,16 +130,11 @@ public class GenericObjectHandler implements TransformationCommons,
         // Retrieve other prerequisites for the transformation of the container
         // elements.
 
-        TransformationFactory factory =
-            TransformationResources.getTransformationFactory();
-        TransformationPath transformationPath =
-            someParameters.getTransformationPath();
-        Document document =
-            (Document)someParameters.getPrerequisite(XML_DOCUMENT);
-        Object2XmlCache cache =
-            (Object2XmlCache)someParameters.getPrerequisite(OBJECT_CACHE);
-        Element rootElement =
-            (Element)someParameters.getPrerequisite(ROOT_ELEMENT);
+        TransformationFactory factory = TransformationResources.getTransformationFactory();
+        TransformationPath transformationPath = someParameters.getTransformationPath();
+        Document document = (Document) someParameters.getPrerequisite(XML_DOCUMENT);
+        Object2XmlCache cache = (Object2XmlCache) someParameters.getPrerequisite(OBJECT_CACHE);
+        Element rootElement = (Element) someParameters.getPrerequisite(ROOT_ELEMENT);
 
 
         // Step 3
@@ -149,8 +154,7 @@ public class GenericObjectHandler implements TransformationCommons,
         // persisting.
 
         Collection<Field> persistableFields =
-            TransformationHelper.getAllPersistableFields(realType,
-                                                         anExemptedSuperclass);
+            TransformationHelper.getAllPersistableFields(realType, anExemptedSuperclass);
 
         Collection<String> processedFields = new ArrayList<String>();
 
@@ -170,8 +174,7 @@ public class GenericObjectHandler implements TransformationCommons,
             if (Modifier.isFinal(fieldModifiers)) {
 
                 StringConcatenator message =
-                    new StringConcatenator("The field ", realType.getName(),
-                                           "#", fieldName,
+                    new StringConcatenator("The field ", realType.getName(), "#", fieldName,
                                            " is final which will be an issue with deserialization!",
                                            " Consider changing the field's modifier or implement a custom transformation rule for this class.");
                 throw new TransformationException(message.toString());
@@ -184,8 +187,7 @@ public class GenericObjectHandler implements TransformationCommons,
 
                 StringConcatenator message =
                     new StringConcatenator("The class ", realType.getName(),
-                                           " possesses more than one field with the name \"",
-                                           fieldName, "\"!",
+                                           " possesses more than one field with the name \"", fieldName, "\"!",
                                            " This ambiguity makes it too complicated to access the field's value with getter and setter methods.");
                 throw new TransformationException(message.toString());
             }
@@ -200,24 +202,21 @@ public class GenericObjectHandler implements TransformationCommons,
             } catch (NoSuchMethodException e) {
 
                 StringConcatenator message =
-                    new StringConcatenator("No public getter method could be identified for ",
-                                           realType.getName(), "#", fieldName,
-                                           "!");
+                    new StringConcatenator("No public getter method could be identified for ", realType.getName(), "#",
+                                           fieldName, "!");
                 throw new TransformationException(message.toString(), e);
 
             } catch (IllegalAccessException e) {
 
                 StringConcatenator message =
-                    new StringConcatenator("Couldn't access getter method for ",
-                                           realType.getName(), "#", fieldName,
+                    new StringConcatenator("Couldn't access getter method for ", realType.getName(), "#", fieldName,
                                            "!");
                 throw new TransformationException(message.toString(), e);
 
             } catch (InvocationTargetException e) {
 
                 StringConcatenator message =
-                    new StringConcatenator("Invoking the getter method for ",
-                                           realType.getName(), "#", fieldName,
+                    new StringConcatenator("Invoking the getter method for ", realType.getName(), "#", fieldName,
                                            " caused an exception!");
                 throw new TransformationException(message.toString(), e);
             }
@@ -235,9 +234,7 @@ public class GenericObjectHandler implements TransformationCommons,
 
 
             TransformationParameters fieldParameters =
-                TransformationHelper.newTransformationParameters(transformationPath,
-                                                                 fieldValue,
-                                                                 field.getType());
+                TransformationHelper.newTransformationParameters(transformationPath, fieldValue, field.getType());
             fieldParameters.addPrerequisite(OBJECT_CACHE, cache);
             fieldParameters.addPrerequisite(XML_DOCUMENT, document);
             fieldParameters.addPrerequisite(ROOT_ELEMENT, rootElement);
@@ -252,17 +249,15 @@ public class GenericObjectHandler implements TransformationCommons,
                 if (!field.isAnnotationPresent(expectedAnnotation)) {
 
                     StringConcatenator message =
-                        new StringConcatenator("The declared element type of a container (",
-                                               realType.getName(), "#",
+                        new StringConcatenator("The declared element type of a container (", realType.getName(), "#",
                                                fieldName,
                                                ") was not specified! Use the annotation @ContainerInformations.");
                     throw new TransformationException(message.toString());
                 }
 
                 ContainerInformations containerInformations =
-                    (ContainerInformations)field.getAnnotation(expectedAnnotation);
-                fieldParameters.addPrerequisite(DECLARED_ELEMENT_TYPE,
-                                                containerInformations.declaredElementType());
+                    (ContainerInformations) field.getAnnotation(expectedAnnotation);
+                fieldParameters.addPrerequisite(DECLARED_ELEMENT_TYPE, containerInformations.declaredElementType());
 
             } else if (Map.class.isInstance(fieldValue)) {
 
@@ -271,37 +266,30 @@ public class GenericObjectHandler implements TransformationCommons,
                 if (!field.isAnnotationPresent(expectedAnnotation)) {
 
                     StringConcatenator message =
-                        new StringConcatenator("The declared key and value types of a container (",
-                                               realType.getName(), "#",
-                                               fieldName,
+                        new StringConcatenator("The declared key and value types of a container (", realType.getName(),
+                                               "#", fieldName,
                                                ") were not specified!  Use the annotation @MapInformations.");
                     throw new TransformationException(message.toString());
                 }
 
-                MapInformations mapInformations =
-                    (MapInformations)field.getAnnotation(expectedAnnotation);
-                fieldParameters.addPrerequisite(DECLARED_KEY_TYPE,
-                                                mapInformations.declaredKeyType());
-                fieldParameters.addPrerequisite(DECLARED_VALUE_TYPE,
-                                                mapInformations.declaredValueType());
+                MapInformations mapInformations = (MapInformations) field.getAnnotation(expectedAnnotation);
+                fieldParameters.addPrerequisite(DECLARED_KEY_TYPE, mapInformations.declaredKeyType());
+                fieldParameters.addPrerequisite(DECLARED_VALUE_TYPE, mapInformations.declaredValueType());
             }
 
 
             // Call the transformation factory to process the field.
 
-            ID fieldID = (ID)factory.transform(fieldParameters);
+            ID fieldID = (ID) factory.transform(fieldParameters);
 
 
             // This composite element requires references to its fields. The
             // document (i.e. this element) needs to be updated.
 
-            Element fieldElement =
-                XmlHelper.createXmlElement(document, FIELD_ELEMENT_TAGNAME);
-            fieldElement.setAttribute(NAME_ATTRIBUTE_TAGNAME, fieldName);
-            fieldElement.setAttribute(DECLARED_TYPE_ATTRIBUTE_TAGNAME,
-                                      declaredFieldType.getName());
-            fieldElement.setAttribute(REFERENCED_OBJECT_ATTRIBUTE_TAGNAME,
-                                      fieldID.toString());
+            Element fieldElement = XmlHelper.createXmlElement(document, FIELD_ELEMENT);
+            fieldElement.setAttribute(NAME_ATTRIBUTE.getTagname(), fieldName);
+            fieldElement.setAttribute(DECLARED_TYPE_ATTRIBUTE.getTagname(), declaredFieldType.getName());
+            fieldElement.setAttribute(REFERENCED_OBJECT_ATTRIBUTE.getTagname(), fieldID.toString());
             aParentElement.appendChild(fieldElement);
 
 

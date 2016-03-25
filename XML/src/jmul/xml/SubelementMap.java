@@ -26,7 +26,7 @@ package jmul.xml;
 
 
 import java.util.Collections;
-import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.w3c.dom.Node;
@@ -59,7 +59,10 @@ public class SubelementMap {
     public SubelementMap(Node node) {
 
         parentName = node.getNodeName();
-        subelements = Collections.unmodifiableMap(extractChildElements(node));
+
+        List<Node> tmpList = XmlHelper.extractChildElementNodes(node);
+        Map<String, Node> tmpMap = XmlHelper.nodeList2Map(tmpList);
+        subelements = Collections.unmodifiableMap(tmpMap);
     }
 
     /**
@@ -75,9 +78,10 @@ public class SubelementMap {
         XmlParserHelper.assertDescribesXmlElement(markup);
 
         String subelementName = markup.getTagname();
-        boolean existsSubelement = subelements.containsKey(subelementName);
+        Node subelement = subelements.get(subelementName);
 
-        if (!existsSubelement) {
+        boolean notExistsSubelement = (subelement == null);
+        if (notExistsSubelement) {
 
             StringBuffer message = new StringBuffer();
 
@@ -90,7 +94,6 @@ public class SubelementMap {
             throw new ParsingException(message);
         }
 
-        Node subelement = subelements.get(subelementName);
         return subelement;
     }
 
@@ -115,54 +118,18 @@ public class SubelementMap {
     }
 
     /**
-     * Extracts all subelements of the specified XML element.<br />
-     * <br />
-     * <i>Note:<br />
-     * The specified XML element should not have more than one subelement with
-     * the same tagname. If that should be the case an exception is thrown.</i>
+     * Checks if a subelement, which matches the specified markup details, exists.
      *
-     * @param parentNode
+     * @param markup
      *
-     * @return a map which contains all subelements
+     * @return <code>true</code> if a subelement exists, else <code>false</code>
      */
-    private static Map<String, Node> extractChildElements(Node parentNode) {
+    public boolean hasSubelement(XmlMarkup markup) {
 
-        Map<String, Node> map = new HashMap<String, Node>();
+        XmlParserHelper.assertDescribesXmlElement(markup);
+        String subelementName = markup.getTagname();
 
-        StringBuffer debugDetails = new StringBuffer();
-        boolean first = true;
-
-        for (Node node : XmlHelper.extractChildElements(parentNode)) {
-
-            String tagname = node.getNodeName();
-            String value = node.getTextContent();
-
-            if (first) {
-
-                first = false;
-
-            } else {
-
-                debugDetails.append(" // ");
-            }
-
-            debugDetails.append(tagname);
-            debugDetails.append("=\"");
-            debugDetails.append(value);
-            debugDetails.append("\"");
-
-            if (map.containsKey(tagname)) {
-
-                String message =
-                    "The specified node \"" + parentNode.getNodeName() + "\" has more than one subelement of type \"" +
-                    tagname + "\"! " + String.valueOf(debugDetails);
-                throw new ParsingException(message);
-            }
-
-            map.put(tagname, node);
-        }
-
-        return map;
+        return subelements.containsKey(subelementName);
     }
 
 }

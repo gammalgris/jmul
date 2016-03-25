@@ -49,8 +49,7 @@ public interface FieldsHandler {
      * @param anObject
      *        the object whose fields are to be processed
      */
-    void processFields(TransformationParameters someParameters,
-                       Element aParentElement, Object anObject);
+    void processFields(TransformationParameters someParameters, Element aParentElement, Object anObject);
 
     /**
      * Processes an object's fields and attaches informations to the specified
@@ -68,8 +67,7 @@ public interface FieldsHandler {
      *        the specified class is examined only up to the specified
      *        superclass (excluding the superclass)
      */
-    void processFields(TransformationParameters someParameters,
-                       Element aParentElement, Object anObject,
+    void processFields(TransformationParameters someParameters, Element aParentElement, Object anObject,
                        Class anExemptedSuperclass);
 
 }

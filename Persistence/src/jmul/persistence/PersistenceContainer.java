@@ -27,7 +27,7 @@ package jmul.persistence;
 
 import java.util.Collection;
 
-import jmul.id.ID;
+import jmul.persistence.id.ID;
 import jmul.xpath.XPathQuery;
 
 

@@ -25,23 +25,37 @@
 package jmul.persistence.transformation.rules.xml2object;
 
 
-import org.w3c.dom.Document;
-import org.w3c.dom.Node;
+import jmul.cache.transformation.Xml2ObjectCache;
 
-import jmul.persistence.transformation.rules.TransformationCommons;
+import jmul.classes.ClassDefinition;
+import jmul.classes.ClassHelper;
+
+import jmul.persistence.id.ID;
+import jmul.persistence.id.IntegerID;
+
+import static jmul.persistence.transformation.rules.PersistenceMarkups.DECLARED_TYPE_ATTRIBUTE;
+import static jmul.persistence.transformation.rules.PersistenceMarkups.ELEMENT_ELEMENT;
+import static jmul.persistence.transformation.rules.PersistenceMarkups.FIELD_ELEMENT;
+import static jmul.persistence.transformation.rules.PersistenceMarkups.ID_ATTRIBUTE;
+import static jmul.persistence.transformation.rules.PersistenceMarkups.NAME_ATTRIBUTE;
+import static jmul.persistence.transformation.rules.PersistenceMarkups.OBJECT_ELEMENT;
+import static jmul.persistence.transformation.rules.PersistenceMarkups.REFERENCED_OBJECT_ATTRIBUTE;
+import static jmul.persistence.transformation.rules.PersistenceMarkups.TYPE_ATTRIBUTE;
+import static jmul.persistence.transformation.rules.TransformationConstants.OBJECT_CACHE;
+
+import jmul.reflection.Initializer;
+
+import jmul.string.StringConcatenator;
 
 import jmul.transformation.TransformationException;
 import jmul.transformation.TransformationParameters;
 import jmul.transformation.TransformationRuleBase;
 
-import jmul.cache.transformation.Xml2ObjectCache;
-import jmul.classes.ClassDefinition;
-import jmul.classes.ClassHelper;
-import jmul.id.ID;
-import jmul.id.IntegerID;
-import jmul.reflection.Initializer;
-import jmul.string.StringConcatenator;
-import jmul.xml.ElementWrapper;
+import jmul.xml.SubelementList;
+import jmul.xml.XmlParserHelper;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.Node;
 
 
 /**
@@ -49,7 +63,7 @@ import jmul.xml.ElementWrapper;
  *
  * @author Kristian Kutin
  */
-public class Xml2CompositeRule extends TransformationRuleBase implements TransformationCommons {
+public class Xml2CompositeRule extends TransformationRuleBase {
 
     /**
      * Constructs a transformation rule.
@@ -61,8 +75,7 @@ public class Xml2CompositeRule extends TransformationRuleBase implements Transfo
      * @param aPriority
      *        a rule priority
      */
-    public Xml2CompositeRule(String anOrigin, String aDestination,
-                             int aPriority) {
+    public Xml2CompositeRule(String anOrigin, String aDestination, int aPriority) {
 
         super(anOrigin, aDestination, aPriority);
     }
@@ -82,13 +95,17 @@ public class Xml2CompositeRule extends TransformationRuleBase implements Transfo
 
         Object target = someParameters.getObject();
 
-        if (!Document.class.isInstance(target) &&
-            Node.class.isInstance(target)) {
+        if (!Document.class.isInstance(target) && Node.class.isInstance(target)) {
 
-            ElementWrapper element = new ElementWrapper((Node)target);
+            Node objectElement = (Node) target;
 
-            return (element.existsSubelement(FIELD_ELEMENT_TAGNAME) &&
-                    !element.existsSubelement(ELEMENT_ELEMENT_TAGNAME));
+            if (XmlParserHelper.matchesXmlElement(objectElement, OBJECT_ELEMENT)) {
+
+                SubelementList objectSubelements = new SubelementList(objectElement);
+
+                return XmlParserHelper.hasXmlSubelements(objectSubelements, FIELD_ELEMENT) &&
+                       !XmlParserHelper.hasXmlSubelements(objectSubelements, ELEMENT_ELEMENT);
+            }
         }
 
         return false;
@@ -110,51 +127,25 @@ public class Xml2CompositeRule extends TransformationRuleBase implements Transfo
         if (!someParameters.containsPrerequisite(OBJECT_CACHE)) {
 
             StringConcatenator message =
-                new StringConcatenator("Prerequisites for the transformation are missing (",
-                                       OBJECT_CACHE, ")!");
+                new StringConcatenator("Prerequisites for the transformation are missing (", OBJECT_CACHE, ")!");
             throw new TransformationException(message.toString());
         }
 
 
         Object target = someParameters.getObject();
-        ElementWrapper element = new ElementWrapper((Node)target);
+        Node objectElement = (Node) target;
 
-        if (!element.equalsName(OBJECT_ELEMENT_TAGNAME)) {
-
-            StringConcatenator message =
-                new StringConcatenator("Invalid element (", element.getName(),
-                                       ")!");
-            throw new TransformationException(message.toString());
-        }
-
-
-        if (!element.existsAttribute(ID_ATTRIBUTE_TAGNAME)) {
-
-            StringConcatenator message =
-                new StringConcatenator("The element \"", element.getName(),
-                                       "\" is missing the attribute \"",
-                                       ID_ATTRIBUTE_TAGNAME, "\"!");
-            throw new TransformationException(message.toString());
-        }
-
-
-        if (!element.existsAttribute(TYPE_ATTRIBUTE_TAGNAME)) {
-
-            StringConcatenator message =
-                new StringConcatenator("The element \"", element.getName(),
-                                       "\" is missing the attribute \"",
-                                       TYPE_ATTRIBUTE_TAGNAME, "\"!");
-            throw new TransformationException(message.toString());
-        }
+        XmlParserHelper.assertMatchesXmlElement(objectElement, OBJECT_ELEMENT);
+        XmlParserHelper.assertExistsXmlAttribute(objectElement, ID_ATTRIBUTE);
+        XmlParserHelper.assertExistsXmlAttribute(objectElement, TYPE_ATTRIBUTE);
 
 
         // Get the required informations.
 
-        Xml2ObjectCache objectCache =
-            (Xml2ObjectCache)someParameters.getPrerequisite(OBJECT_CACHE);
+        Xml2ObjectCache objectCache = (Xml2ObjectCache) someParameters.getPrerequisite(OBJECT_CACHE);
 
-        String idString = element.getAttribute(ID_ATTRIBUTE_TAGNAME);
-        String typeString = element.getAttribute(TYPE_ATTRIBUTE_TAGNAME);
+        String idString = XmlParserHelper.getXmlAttributeValue(objectElement, ID_ATTRIBUTE);
+        String typeString = XmlParserHelper.getXmlAttributeValue(objectElement, TYPE_ATTRIBUTE);
 
         ID id = new IntegerID(idString);
         ClassDefinition type = null;
@@ -165,59 +156,30 @@ public class Xml2CompositeRule extends TransformationRuleBase implements Transfo
 
         } catch (ClassNotFoundException e) {
 
-            StringConcatenator message =
-                new StringConcatenator("An unknown class was specified (",
-                                       typeString, ")!");
-            throw new TransformationException(message.toString());
+            StringConcatenator message = new StringConcatenator("An unknown class was specified (", typeString, ")!");
+            throw new TransformationException(message.toString(), e);
         }
 
 
         // Instantiate and initialize the specified object
 
         Initializer initializer = new Initializer(type);
+        SubelementList objectSubelements = new SubelementList(objectElement);
 
-        for (Node subelement : element.getSubelement(FIELD_ELEMENT_TAGNAME)) {
+        for (Node fieldElement : objectSubelements.getSubelements(FIELD_ELEMENT)) {
 
             // Check some plausibilites first.
 
-            ElementWrapper field = new ElementWrapper(subelement);
-
-            if (!field.existsAttribute(DECLARED_TYPE_ATTRIBUTE_TAGNAME)) {
-
-                StringConcatenator message =
-                    new StringConcatenator("The element \"", field.getName(),
-                                           "\" is missing the attribute \"",
-                                           DECLARED_TYPE_ATTRIBUTE_TAGNAME,
-                                           "\"!");
-                throw new TransformationException(message.toString());
-            }
-
-            if (!field.existsAttribute(NAME_ATTRIBUTE_TAGNAME)) {
-
-                StringConcatenator message =
-                    new StringConcatenator("The element \"", field.getName(),
-                                           "\" is missing the attribute \"",
-                                           NAME_ATTRIBUTE_TAGNAME, "\"!");
-                throw new TransformationException(message.toString());
-            }
-
-            if (!field.existsAttribute(REFERENCED_OBJECT_ATTRIBUTE_TAGNAME)) {
-
-                StringConcatenator message =
-                    new StringConcatenator("The element \"", field.getName(),
-                                           "\" is missing the attribute \"",
-                                           REFERENCED_OBJECT_ATTRIBUTE_TAGNAME,
-                                           "\"!");
-                throw new TransformationException(message.toString());
-            }
+            XmlParserHelper.assertExistsXmlAttribute(fieldElement, DECLARED_TYPE_ATTRIBUTE);
+            XmlParserHelper.assertExistsXmlAttribute(fieldElement, NAME_ATTRIBUTE);
+            XmlParserHelper.assertExistsXmlAttribute(fieldElement, REFERENCED_OBJECT_ATTRIBUTE);
 
 
             // Get the required field informations.
 
-            // String declaredFieldType = field.getAttribute(DECLARED_TYPE_ATTRIBUTE_TAGNAME);
-            String fieldName = field.getAttribute(NAME_ATTRIBUTE_TAGNAME);
-            String referencedObject =
-                field.getAttribute(REFERENCED_OBJECT_ATTRIBUTE_TAGNAME);
+            // String declaredFieldType = XmlParserHelper.getXmlAttributeValue(fieldElement, DECLARED_TYPE_ATTRIBUTE);
+            String fieldName = XmlParserHelper.getXmlAttributeValue(fieldElement, NAME_ATTRIBUTE);
+            String referencedObject = XmlParserHelper.getXmlAttributeValue(fieldElement, REFERENCED_OBJECT_ATTRIBUTE);
 
             ID fieldID = new IntegerID(referencedObject);
             Object fieldValue = objectCache.getObject(fieldID);

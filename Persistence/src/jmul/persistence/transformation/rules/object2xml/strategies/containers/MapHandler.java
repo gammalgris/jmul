@@ -27,20 +27,29 @@ package jmul.persistence.transformation.rules.object2xml.strategies.containers;
 
 import java.util.Map;
 
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
+import jmul.cache.transformation.Object2XmlCache;
+
+import jmul.persistence.id.ID;
 
 import jmul.persistence.transformation.TransformationHelper;
-import jmul.persistence.transformation.rules.TransformationCommons;
+import static jmul.persistence.transformation.rules.PersistenceMarkups.ENTRY_ELEMENT;
+import static jmul.persistence.transformation.rules.PersistenceMarkups.REFERENCED_KEY_ATTRIBUTE;
+import static jmul.persistence.transformation.rules.PersistenceMarkups.REFERENCED_VALUE_ATTRIBUTE;
+import static jmul.persistence.transformation.rules.TransformationConstants.DECLARED_KEY_TYPE;
+import static jmul.persistence.transformation.rules.TransformationConstants.DECLARED_VALUE_TYPE;
+import static jmul.persistence.transformation.rules.TransformationConstants.OBJECT_CACHE;
+import static jmul.persistence.transformation.rules.TransformationConstants.ROOT_ELEMENT;
+import static jmul.persistence.transformation.rules.TransformationConstants.XML_DOCUMENT;
 
 import jmul.transformation.TransformationFactory;
 import jmul.transformation.TransformationParameters;
 import jmul.transformation.TransformationPath;
 import jmul.transformation.TransformationResources;
 
-import jmul.cache.transformation.Object2XmlCache;
-import jmul.id.ID;
 import jmul.xml.XmlHelper;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
 
 /**
@@ -48,7 +57,7 @@ import jmul.xml.XmlHelper;
  *
  * @author Kristian Kutin
  */
-public class MapHandler implements TransformationCommons, ContainerHandler {
+public class MapHandler implements ContainerHandler {
 
     /**
      * The default constructor.
@@ -68,8 +77,7 @@ public class MapHandler implements TransformationCommons, ContainerHandler {
      * @param aContainer
      *        a container
      */
-    public void processContainerContent(TransformationParameters someParameters,
-                                        Element aParentElement,
+    public void processContainerContent(TransformationParameters someParameters, Element aParentElement,
                                         Object aContainer) {
 
         // Step 1
@@ -83,7 +91,7 @@ public class MapHandler implements TransformationCommons, ContainerHandler {
             throw new IllegalArgumentException(message);
         }
 
-        Map map = (Map)aContainer;
+        Map map = (Map) aContainer;
 
 
         // Step 2
@@ -91,20 +99,13 @@ public class MapHandler implements TransformationCommons, ContainerHandler {
         // Retrieve other prerequisites for the transformation of the container
         // elements.
 
-        TransformationFactory factory =
-            TransformationResources.getTransformationFactory();
-        TransformationPath transformationPath =
-            someParameters.getTransformationPath();
-        Document document =
-            (Document)someParameters.getPrerequisite(XML_DOCUMENT);
-        Object2XmlCache cache =
-            (Object2XmlCache)someParameters.getPrerequisite(OBJECT_CACHE);
-        Element rootElement =
-            (Element)someParameters.getPrerequisite(ROOT_ELEMENT);
-        Class declaredKeyType =
-            (Class)someParameters.getPrerequisite(DECLARED_KEY_TYPE);
-        Class declaredValueType =
-            (Class)someParameters.getPrerequisite(DECLARED_VALUE_TYPE);
+        TransformationFactory factory = TransformationResources.getTransformationFactory();
+        TransformationPath transformationPath = someParameters.getTransformationPath();
+        Document document = (Document) someParameters.getPrerequisite(XML_DOCUMENT);
+        Object2XmlCache cache = (Object2XmlCache) someParameters.getPrerequisite(OBJECT_CACHE);
+        Element rootElement = (Element) someParameters.getPrerequisite(ROOT_ELEMENT);
+        Class declaredKeyType = (Class) someParameters.getPrerequisite(DECLARED_KEY_TYPE);
+        Class declaredValueType = (Class) someParameters.getPrerequisite(DECLARED_VALUE_TYPE);
 
 
         // Step 3
@@ -126,9 +127,7 @@ public class MapHandler implements TransformationCommons, ContainerHandler {
             // Build the parameters to process (transform) the key.
 
             TransformationParameters keyParameters =
-                TransformationHelper.newTransformationParameters(transformationPath,
-                                                                 key,
-                                                                 declaredKeyType);
+                TransformationHelper.newTransformationParameters(transformationPath, key, declaredKeyType);
             keyParameters.addPrerequisite(OBJECT_CACHE, cache);
             keyParameters.addPrerequisite(XML_DOCUMENT, document);
             keyParameters.addPrerequisite(ROOT_ELEMENT, rootElement);
@@ -136,15 +135,13 @@ public class MapHandler implements TransformationCommons, ContainerHandler {
 
             // Call the transformation factory to process the key.
 
-            ID keyID = (ID)factory.transform(keyParameters);
+            ID keyID = (ID) factory.transform(keyParameters);
 
 
             // Build the parameters to process (transform) the key.
 
             TransformationParameters valueParameters =
-                TransformationHelper.newTransformationParameters(transformationPath,
-                                                                 value,
-                                                                 declaredValueType);
+                TransformationHelper.newTransformationParameters(transformationPath, value, declaredValueType);
             valueParameters.addPrerequisite(OBJECT_CACHE, cache);
             valueParameters.addPrerequisite(XML_DOCUMENT, document);
             valueParameters.addPrerequisite(ROOT_ELEMENT, rootElement);
@@ -152,18 +149,15 @@ public class MapHandler implements TransformationCommons, ContainerHandler {
 
             // Call the transformation factory to process the key.
 
-            ID valueID = (ID)factory.transform(valueParameters);
+            ID valueID = (ID) factory.transform(valueParameters);
 
 
             // This composite element requires references to its fields. The
             // document (i.e. this element) needs to be updated.
 
-            Element collectionElementElement =
-                XmlHelper.createXmlElement(document, ENTRY_ELEMENT_TAGNAME);
-            collectionElementElement.setAttribute(REFERENCED_KEY_ATTRIBUTE_TAGNAME,
-                                                  keyID.toString());
-            collectionElementElement.setAttribute(REFERENCED_VALUE_ATTRIBUTE_TAGNAME,
-                                                  valueID.toString());
+            Element collectionElementElement = XmlHelper.createXmlElement(document, ENTRY_ELEMENT);
+            collectionElementElement.setAttribute(REFERENCED_KEY_ATTRIBUTE.getTagname(), keyID.toString());
+            collectionElementElement.setAttribute(REFERENCED_VALUE_ATTRIBUTE.getTagname(), valueID.toString());
             aParentElement.appendChild(collectionElementElement);
         }
     }

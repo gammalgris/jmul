@@ -28,16 +28,17 @@ package jmul.reflection;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
-import jmul.ErrorStatus;
 import jmul.classes.AccessorHelper;
 import jmul.classes.ClassDefinition;
 import jmul.classes.ClassHelper;
+
 import jmul.methods.AlternativeFunctionInvocation;
 import jmul.methods.AlternativeMethodInvocation;
 import jmul.methods.InvocationResult;
 import jmul.methods.OperationInvoker;
 import jmul.methods.StandardFunctionInvocation;
 import jmul.methods.StandardMethodInvocation;
+
 import jmul.string.StringConcatenator;
 
 
@@ -55,26 +56,22 @@ public final class ReflectionHelper {
     /**
      * The class member can be used to invoke a method.
      */
-    private static OperationInvoker standardMethodInvoker =
-        new StandardMethodInvocation();
+    private static OperationInvoker standardMethodInvoker = new StandardMethodInvocation();
 
     /**
      * The class member can be used to invoke a method.
      */
-    private static OperationInvoker alternativeMethodInvoker =
-        new AlternativeMethodInvocation();
+    private static OperationInvoker alternativeMethodInvoker = new AlternativeMethodInvocation();
 
     /**
      * The class member can be used to invoke a function.
      */
-    private static OperationInvoker standardFunctionInvoker =
-        new StandardFunctionInvocation();
+    private static OperationInvoker standardFunctionInvoker = new StandardFunctionInvocation();
 
     /**
      * The class member can be used to invoke a function.
      */
-    private static OperationInvoker alternativeFunctionInvoker =
-        new AlternativeFunctionInvocation();
+    private static OperationInvoker alternativeFunctionInvoker = new AlternativeFunctionInvocation();
 
     /**
      * The default constructor.
@@ -92,10 +89,9 @@ public final class ReflectionHelper {
      * @param fieldValue
      *        the new value of the field
      */
-    public static void invokeSetter(Object target, String fieldName,
-                                    Object fieldValue) throws NoSuchMethodException,
-                                                              IllegalAccessException,
-                                                              InvocationTargetException {
+    public static void invokeSetter(Object target, String fieldName, Object fieldValue) throws NoSuchMethodException,
+                                                                                               IllegalAccessException,
+                                                                                               InvocationTargetException {
 
         // Prepare the method invocation.
 
@@ -117,8 +113,7 @@ public final class ReflectionHelper {
         } catch (ClassNotFoundException f) {
 
             StringConcatenator message =
-                new StringConcatenator("The target's class couldn't be determined (",
-                                       probedClass.getName(), ")!");
+                new StringConcatenator("The target's class couldn't be determined (", probedClass.getName(), ")!");
             throw new IllegalArgumentException(message.toString(), f);
         }
 
@@ -128,8 +123,7 @@ public final class ReflectionHelper {
 
         try {
 
-            String methodname = AccessorHelper.determineAccesorName(AccessorHelper.SETTER_PREFIX,
-                                                    fieldName);
+            String methodname = AccessorHelper.determineAccesorName(AccessorHelper.SETTER_PREFIX, fieldName);
             setter = probedClass.getMethod(methodname, parameterSignature);
             result = standardMethodInvoker.invoke(target, setter, parameters);
 
@@ -156,9 +150,7 @@ public final class ReflectionHelper {
 
         try {
 
-            setter =
-                    probedClassDefinition.getAccessor(AccessorHelper.SETTER_PREFIX,
-                                                      fieldName, true);
+            setter = probedClassDefinition.getAccessor(AccessorHelper.SETTER_PREFIX, fieldName, true);
             result = standardMethodInvoker.invoke(target, setter, parameters);
 
             if (result.hasFailed()) {
@@ -188,8 +180,7 @@ public final class ReflectionHelper {
 
         if (setter != null) {
 
-            result =
-                    alternativeMethodInvoker.invoke(target, setter, parameters);
+            result = alternativeMethodInvoker.invoke(target, setter, parameters);
 
             if (result.hasFailed()) {
 
@@ -211,17 +202,17 @@ public final class ReflectionHelper {
 
         if (cause instanceof NoSuchMethodException) {
 
-            NoSuchMethodException e = (NoSuchMethodException)cause;
+            NoSuchMethodException e = (NoSuchMethodException) cause;
             throw e;
 
         } else if (cause instanceof IllegalAccessException) {
 
-            IllegalAccessException e = (IllegalAccessException)cause;
+            IllegalAccessException e = (IllegalAccessException) cause;
             throw e;
 
         } else if (cause instanceof InvocationTargetException) {
 
-            InvocationTargetException e = (InvocationTargetException)cause;
+            InvocationTargetException e = (InvocationTargetException) cause;
             throw e;
         }
     }
@@ -236,10 +227,9 @@ public final class ReflectionHelper {
      *
      * @return the field value
      */
-    public static Object invokeGetter(Object target,
-                                      String fieldName) throws NoSuchMethodException,
-                                                               IllegalAccessException,
-                                                               InvocationTargetException {
+    public static Object invokeGetter(Object target, String fieldName) throws NoSuchMethodException,
+                                                                              IllegalAccessException,
+                                                                              InvocationTargetException {
 
 
         // Prepare the method invocation.
@@ -262,8 +252,7 @@ public final class ReflectionHelper {
         } catch (ClassNotFoundException f) {
 
             StringConcatenator message =
-                new StringConcatenator("The target's class couldn't be determined (",
-                                       probedClass.getName(), ")!");
+                new StringConcatenator("The target's class couldn't be determined (", probedClass.getName(), ")!");
             throw new IllegalArgumentException(message.toString(), f);
         }
 
@@ -273,11 +262,9 @@ public final class ReflectionHelper {
 
         try {
 
-            String methodname = AccessorHelper.determineAccesorName(AccessorHelper.GETTER_PREFIX,
-                                                    fieldName);
+            String methodname = AccessorHelper.determineAccesorName(AccessorHelper.GETTER_PREFIX, fieldName);
             getter = probedClass.getMethod(methodname, parameterSignature);
-            result =
-                    standardFunctionInvoker.invoke(target, getter, parameters);
+            result = standardFunctionInvoker.invoke(target, getter, parameters);
 
             if (result.hasFailed()) {
 
@@ -302,11 +289,8 @@ public final class ReflectionHelper {
 
         try {
 
-            getter =
-                    probedClassDefinition.getAccessor(AccessorHelper.GETTER_PREFIX,
-                                                      fieldName, true);
-            result =
-                    standardFunctionInvoker.invoke(target, getter, parameters);
+            getter = probedClassDefinition.getAccessor(AccessorHelper.GETTER_PREFIX, fieldName, true);
+            result = standardFunctionInvoker.invoke(target, getter, parameters);
 
             if (result.hasFailed()) {
 
@@ -335,8 +319,7 @@ public final class ReflectionHelper {
 
         if (getter != null) {
 
-            result =
-                    alternativeFunctionInvoker.invoke(target, getter, parameters);
+            result = alternativeFunctionInvoker.invoke(target, getter, parameters);
 
             if (result.hasFailed()) {
 
@@ -358,23 +341,23 @@ public final class ReflectionHelper {
 
         if (cause instanceof NoSuchMethodException) {
 
-            NoSuchMethodException e = (NoSuchMethodException)cause;
+            NoSuchMethodException e = (NoSuchMethodException) cause;
             throw e;
 
         } else if (cause instanceof IllegalAccessException) {
 
-            IllegalAccessException e = (IllegalAccessException)cause;
+            IllegalAccessException e = (IllegalAccessException) cause;
             throw e;
 
         } else if (cause instanceof InvocationTargetException) {
 
-            InvocationTargetException e = (InvocationTargetException)cause;
+            InvocationTargetException e = (InvocationTargetException) cause;
             throw e;
         }
 
 
         String message = "The getter method didn't return anything!";
-        throw new RuntimeException(message);
+        throw new InvalidGetterException(message);
     }
 
 }

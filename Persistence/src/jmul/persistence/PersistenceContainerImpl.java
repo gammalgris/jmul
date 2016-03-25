@@ -39,12 +39,12 @@ import jmul.persistence.xml.XmlSerializerImpl;
 
 import jmul.cache.persistence.ObjectCache;
 import jmul.cache.persistence.ObjectCacheImpl;
-import jmul.file.FileManager;
-import jmul.file.FileManagerImpl;
-import jmul.id.ID;
-import jmul.id.IDGenerator;
-import jmul.id.StringID;
-import jmul.id.StringIDGenerator;
+import jmul.persistence.file.FileManager;
+import jmul.persistence.file.FileManagerImpl;
+import jmul.persistence.id.ID;
+import jmul.persistence.id.IDGenerator;
+import jmul.persistence.id.StringID;
+import jmul.persistence.id.StringIDGenerator;
 import jmul.io.FileHelper;
 import jmul.string.StringConcatenator;
 import jmul.xpath.XPathQuery;

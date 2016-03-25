@@ -27,23 +27,33 @@ package jmul.persistence.transformation.rules.object2xml;
 
 import java.util.Collection;
 
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
+import jmul.cache.transformation.Object2XmlCache;
+
+import jmul.persistence.id.ID;
 
 import jmul.persistence.annotations.AnnotationHelper;
 import jmul.persistence.annotations.ContainerInformations;
-import jmul.persistence.transformation.rules.TransformationCommons;
+import static jmul.persistence.transformation.rules.PersistenceMarkups.DECLARED_ELEMENT_TYPE_ATTRIBUTE;
+import static jmul.persistence.transformation.rules.PersistenceMarkups.ID_ATTRIBUTE;
+import static jmul.persistence.transformation.rules.PersistenceMarkups.OBJECT_ELEMENT;
+import static jmul.persistence.transformation.rules.PersistenceMarkups.TYPE_ATTRIBUTE;
+import static jmul.persistence.transformation.rules.TransformationConstants.DECLARED_ELEMENT_TYPE;
+import static jmul.persistence.transformation.rules.TransformationConstants.OBJECT_CACHE;
+import static jmul.persistence.transformation.rules.TransformationConstants.ROOT_ELEMENT;
+import static jmul.persistence.transformation.rules.TransformationConstants.XML_DOCUMENT;
 import jmul.persistence.transformation.rules.object2xml.strategies.containers.CollectionHandler;
 import jmul.persistence.transformation.rules.object2xml.strategies.containers.ContainerHandler;
+
+import jmul.string.StringConcatenator;
 
 import jmul.transformation.TransformationException;
 import jmul.transformation.TransformationParameters;
 import jmul.transformation.TransformationRuleBase;
 
-import jmul.cache.transformation.Object2XmlCache;
-import jmul.id.ID;
-import jmul.string.StringConcatenator;
 import jmul.xml.XmlHelper;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
 
 /**
@@ -51,7 +61,7 @@ import jmul.xml.XmlHelper;
  *
  * @author Kristian Kutin
  */
-public class Collection2XmlRule extends TransformationRuleBase implements TransformationCommons {
+public class Collection2XmlRule extends TransformationRuleBase {
 
     /**
      * A container handler.
@@ -76,8 +86,7 @@ public class Collection2XmlRule extends TransformationRuleBase implements Transf
      * @param aPriority
      *        a rule priority
      */
-    public Collection2XmlRule(String anOrigin, String aDestination,
-                              int aPriority) {
+    public Collection2XmlRule(String anOrigin, String aDestination, int aPriority) {
 
         super(anOrigin, aDestination, aPriority);
     }
@@ -113,8 +122,7 @@ public class Collection2XmlRule extends TransformationRuleBase implements Transf
 
         // Check parameters.
 
-        if (!(someParameters.containsPrerequisite(OBJECT_CACHE) &&
-              someParameters.containsPrerequisite(ROOT_ELEMENT))) {
+        if (!(someParameters.containsPrerequisite(OBJECT_CACHE) && someParameters.containsPrerequisite(ROOT_ELEMENT))) {
 
             String message = "No root node could be identified!";
             throw new TransformationException(message);
@@ -131,12 +139,9 @@ public class Collection2XmlRule extends TransformationRuleBase implements Transf
 
         // Retrieve other prerequisites for the transformation.
 
-        Document document =
-            (Document)someParameters.getPrerequisite(XML_DOCUMENT);
-        Object2XmlCache cache =
-            (Object2XmlCache)someParameters.getPrerequisite(OBJECT_CACHE);
-        Element rootElement =
-            (Element)someParameters.getPrerequisite(ROOT_ELEMENT);
+        Document document = (Document) someParameters.getPrerequisite(XML_DOCUMENT);
+        Object2XmlCache cache = (Object2XmlCache) someParameters.getPrerequisite(OBJECT_CACHE);
+        Element rootElement = (Element) someParameters.getPrerequisite(ROOT_ELEMENT);
 
 
         Class declaredElementType = null;
@@ -145,8 +150,7 @@ public class Collection2XmlRule extends TransformationRuleBase implements Transf
             // A field declaration was marked with an annotation where the
             // element type for this collection was specified.
 
-            declaredElementType =
-                    (Class)someParameters.getPrerequisite(DECLARED_ELEMENT_TYPE);
+            declaredElementType = (Class) someParameters.getPrerequisite(DECLARED_ELEMENT_TYPE);
 
         } else {
 
@@ -155,22 +159,19 @@ public class Collection2XmlRule extends TransformationRuleBase implements Transf
             // definition must be checked for the annotation.
 
             ContainerInformations annotation =
-                (ContainerInformations)AnnotationHelper.getAnnotation(someParameters.getRealType(),
-                                                                      ContainerInformations.class,
-                                                                      true);
+                (ContainerInformations) AnnotationHelper.getAnnotation(someParameters.getRealType(),
+                                                                       ContainerInformations.class, true);
 
             if (annotation == null) {
 
                 StringConcatenator message =
                     new StringConcatenator("Cannot determine the element type for this collection (",
-                                           someParameters.getRealType().getName(),
-                                           "<?>)!");
+                                           someParameters.getRealType().getName(), "<?>)!");
                 throw new TransformationException(message.toString());
             }
 
             declaredElementType = annotation.declaredElementType();
-            someParameters.addPrerequisite(DECLARED_ELEMENT_TYPE,
-                                           declaredElementType);
+            someParameters.addPrerequisite(DECLARED_ELEMENT_TYPE, declaredElementType);
         }
 
 
@@ -194,21 +195,18 @@ public class Collection2XmlRule extends TransformationRuleBase implements Transf
 
         ID id = cache.addObject(object, declaredType);
 
-        Element element =
-            XmlHelper.createXmlElement(document, OBJECT_ELEMENT_TAGNAME);
+        Element element = XmlHelper.createXmlElement(document, OBJECT_ELEMENT);
 
-        element.setAttribute(ID_ATTRIBUTE_TAGNAME, id.toString());
-        element.setAttribute(TYPE_ATTRIBUTE_TAGNAME, realType.getName());
-        element.setAttribute(DECLARED_ELEMENT_TYPE_ATTRIBUTE_TAGNAME,
-                             declaredElementType.getName());
+        element.setAttribute(ID_ATTRIBUTE.getTagname(), id.toString());
+        element.setAttribute(TYPE_ATTRIBUTE.getTagname(), realType.getName());
+        element.setAttribute(DECLARED_ELEMENT_TYPE_ATTRIBUTE.getTagname(), declaredElementType.getName());
 
 
         // Step 3
         //
         // In the next step all elements of this container need to be processed.
 
-        HANDLER_SINGLETON.processContainerContent(someParameters, element,
-                                                  object);
+        HANDLER_SINGLETON.processContainerContent(someParameters, element, object);
 
 
         // Step 4

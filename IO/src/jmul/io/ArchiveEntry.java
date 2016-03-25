@@ -25,17 +25,14 @@
 package jmul.io;
 
 
-import java.io.BufferedInputStream;
-import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Enumeration;
-import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
-import java.util.zip.ZipInputStream;
 
 
 /**
@@ -43,7 +40,7 @@ import java.util.zip.ZipInputStream;
  * <br>
  * Source: http://www.javaworld.com/javaworld/javatips/jw-javatip49.html
  */
-public class ArchiveEntry {
+public final class ArchiveEntry {
 
     /**
      * The slash character.
@@ -54,13 +51,7 @@ public class ArchiveEntry {
      * The file separator which is used under the current operating system (e.g.
      * "/" under Unix, "\" under Windows).
      */
-    private static final String FILE_SEPARATOR =
-        System.getProperty("file.separator");
-
-    /**
-     * Represents the end of an entry (similar to end of file).
-     */
-    private static final int END_OF_ENTRY = -1;
+    private static final String FILE_SEPARATOR = System.getProperty("file.separator");
 
     /**
      * The archive name.
@@ -157,7 +148,7 @@ public class ArchiveEntry {
             // A backslash in strings is interpreted as escape character. To
             // avoid nasty side effects we simply replace it with a slash.
             if (!FILE_SEPARATOR.equals(SLASH)) {
-                name.replace(FILE_SEPARATOR, SLASH);
+                name = name.replace(FILE_SEPARATOR, SLASH);
             }
 
             String[] substrings = name.split(SLASH);
@@ -206,118 +197,30 @@ public class ArchiveEntry {
      *
      * @return the raw content of this entry as byte array
      */
-    private static byte[] loadResource(String anArchiveFilename,
-                                       String aResourceName) {
+    private static byte[] loadResource(String anArchiveFilename, String aResourceName) {
+
+        ArchiveReader reader = null;
+        byte[] rawData = null;
 
         try {
 
-            FileInputStream fis = new FileInputStream(anArchiveFilename);
-            BufferedInputStream bis = new BufferedInputStream(fis);
-            ZipInputStream zis = new ZipInputStream(bis);
+            reader = new ArchiveReaderImpl(anArchiveFilename);
+            rawData = reader.loadEntry(aResourceName);
 
-            ZipEntry zipEntry = null;
-            boolean loop = true;
+        } catch (FileNotFoundException e) {
 
+            String message = "The specified archive \"" + anArchiveFilename + "\" doesn't exist!";
+            throw new ArchiveException(message, e);
 
-            while (loop) {
+        } finally {
 
-                zipEntry = zis.getNextEntry();
-                loop = (zipEntry != null);
+            if (reader != null) {
 
-                // Check if the last entry was reached.
-                if (!loop) {
-
-                    break;
-                }
-
-                // Skip directories.
-                boolean isDirectory = zipEntry.isDirectory();
-                if (isDirectory) {
-
-                    continue;
-                }
-
-
-                String foundName = zipEntry.getName();
-                long size = zipEntry.getSize();
-
-                boolean foundResource = (aResourceName.equals(foundName));
-                boolean hasUnknownSize = (size == -1);
-
-
-                // Only consider entries with the specified name.
-                if (!foundResource) {
-
-                    continue;
-                }
-
-
-                if (hasUnknownSize) {
-
-                    // The archive entry is of unknown size. Use a list type
-                    // to store the raw content.
-
-                    List<Byte> buffer = new ArrayList<Byte>();
-
-                    boolean doRead = true;
-                    while (doRead) {
-
-                        int readByte = zis.read();
-
-                        if (readByte == END_OF_ENTRY) {
-
-                            doRead = false;
-                            break;
-                        }
-
-                        buffer.add((byte)readByte);
-                    }
-
-
-                    // Create a byte array
-
-                    int bufferSize = buffer.size();
-                    byte[] byteArray = new byte[bufferSize];
-
-                    for (int a = 0; a < bufferSize; a++) {
-
-                        byte b = buffer.get(a);
-                        byteArray[a] = b;
-                    }
-
-                    return byteArray;
-
-                } else {
-
-                    // The isze of the archive entry could be determined. Create
-                    // a byte array which contains the raw content.
-
-                    byte[] b = new byte[(int)size];
-                    int rb = 0;
-                    int chunk = 0;
-
-                    while (((int)size - rb) > 0) {
-                        chunk = zis.read(b, rb, (int)size - rb);
-                        if (chunk == -1) {
-                            break;
-                        }
-                        rb += chunk;
-                    }
-
-                    return b;
-                }
+                reader.closeArchive();
             }
-
-        } catch (IOException e) {
-
-            String message = "Unable to load resource: " + aResourceName + "!";
-            throw new IllegalArgumentException(message, e);
         }
 
-
-        // The specified resource couldn't be found within this archive.
-        String message = "Unknown resource: " + aResourceName + "!";
-        throw new IllegalArgumentException(message);
+        return rawData;
     }
 
     /**
@@ -332,14 +235,13 @@ public class ArchiveEntry {
 
         try {
 
-            Collection<ArchiveEntry> archiveEntries =
-                new ArrayList<ArchiveEntry>();
+            Collection<ArchiveEntry> archiveEntries = new ArrayList<ArchiveEntry>();
             ZipFile zipFile = new ZipFile(anArchiveName);
             Enumeration e = zipFile.entries();
 
             while (e.hasMoreElements()) {
 
-                ZipEntry zipEntry = (ZipEntry)e.nextElement();
+                ZipEntry zipEntry = (ZipEntry) e.nextElement();
                 archiveEntries.add(new ArchiveEntry(anArchiveName, zipEntry));
             }
 

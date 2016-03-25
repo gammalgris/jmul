@@ -82,8 +82,7 @@ public class ResourceScanner {
 
         for (File directory : classpaths) {
 
-            Collection<File> foundFiles = FileHelper.getFiles(directory, resourceType.getFileSuffix(),
-                                    true);
+            Collection<File> foundFiles = FileHelper.getFiles(directory, resourceType.getFileSuffix(), true);
 
             for (File file : foundFiles) {
 
@@ -119,7 +118,7 @@ public class ResourceScanner {
             } catch (IOException e) {
 
                 // Ignore potential exceptions
-                ;
+                continue;
             }
 
         }

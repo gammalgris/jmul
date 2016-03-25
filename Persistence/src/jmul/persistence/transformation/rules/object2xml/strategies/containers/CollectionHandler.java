@@ -27,20 +27,27 @@ package jmul.persistence.transformation.rules.object2xml.strategies.containers;
 
 import java.util.Collection;
 
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
+import jmul.cache.transformation.Object2XmlCache;
+
+import jmul.persistence.id.ID;
 
 import jmul.persistence.transformation.TransformationHelper;
-import jmul.persistence.transformation.rules.TransformationCommons;
+import static jmul.persistence.transformation.rules.PersistenceMarkups.ELEMENT_ELEMENT;
+import static jmul.persistence.transformation.rules.PersistenceMarkups.REFERENCED_ELEMENT_ATTRIBUTE;
+import static jmul.persistence.transformation.rules.TransformationConstants.DECLARED_ELEMENT_TYPE;
+import static jmul.persistence.transformation.rules.TransformationConstants.OBJECT_CACHE;
+import static jmul.persistence.transformation.rules.TransformationConstants.ROOT_ELEMENT;
+import static jmul.persistence.transformation.rules.TransformationConstants.XML_DOCUMENT;
 
 import jmul.transformation.TransformationFactory;
 import jmul.transformation.TransformationParameters;
 import jmul.transformation.TransformationPath;
 import jmul.transformation.TransformationResources;
 
-import jmul.cache.transformation.Object2XmlCache;
-import jmul.id.ID;
 import jmul.xml.XmlHelper;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
 
 /**
@@ -48,8 +55,7 @@ import jmul.xml.XmlHelper;
  *
  * @author Kristian Kutin
  */
-public class CollectionHandler implements TransformationCommons,
-                                          ContainerHandler {
+public class CollectionHandler implements ContainerHandler {
 
     /**
      * The default constructor.
@@ -69,8 +75,7 @@ public class CollectionHandler implements TransformationCommons,
      * @param aContainer
      *        a container
      */
-    public void processContainerContent(TransformationParameters someParameters,
-                                        Element aParentElement,
+    public void processContainerContent(TransformationParameters someParameters, Element aParentElement,
                                         Object aContainer) {
 
         // Step 1
@@ -84,7 +89,7 @@ public class CollectionHandler implements TransformationCommons,
             throw new IllegalArgumentException(message);
         }
 
-        Collection collection = (Collection)aContainer;
+        Collection collection = (Collection) aContainer;
 
 
         // Step 2
@@ -92,18 +97,12 @@ public class CollectionHandler implements TransformationCommons,
         // Retrieve other prerequisites for the transformation of the container
         // elements.
 
-        TransformationFactory factory =
-            TransformationResources.getTransformationFactory();
-        TransformationPath transformationPath =
-            someParameters.getTransformationPath();
-        Document document =
-            (Document)someParameters.getPrerequisite(XML_DOCUMENT);
-        Object2XmlCache cache =
-            (Object2XmlCache)someParameters.getPrerequisite(OBJECT_CACHE);
-        Element rootElement =
-            (Element)someParameters.getPrerequisite(ROOT_ELEMENT);
-        Class declaredElementType =
-            (Class)someParameters.getPrerequisite(DECLARED_ELEMENT_TYPE);
+        TransformationFactory factory = TransformationResources.getTransformationFactory();
+        TransformationPath transformationPath = someParameters.getTransformationPath();
+        Document document = (Document) someParameters.getPrerequisite(XML_DOCUMENT);
+        Object2XmlCache cache = (Object2XmlCache) someParameters.getPrerequisite(OBJECT_CACHE);
+        Element rootElement = (Element) someParameters.getPrerequisite(ROOT_ELEMENT);
+        Class declaredElementType = (Class) someParameters.getPrerequisite(DECLARED_ELEMENT_TYPE);
 
 
         // Step 3
@@ -121,27 +120,23 @@ public class CollectionHandler implements TransformationCommons,
             // Build the parameters to process (transform) the collection element.
 
             TransformationParameters containerElementParameters =
-                TransformationHelper.newTransformationParameters(transformationPath,
-                                                                 collectionElement,
+                TransformationHelper.newTransformationParameters(transformationPath, collectionElement,
                                                                  declaredElementType);
             containerElementParameters.addPrerequisite(OBJECT_CACHE, cache);
             containerElementParameters.addPrerequisite(XML_DOCUMENT, document);
-            containerElementParameters.addPrerequisite(ROOT_ELEMENT,
-                                                       rootElement);
+            containerElementParameters.addPrerequisite(ROOT_ELEMENT, rootElement);
 
 
             // Call the transformation factory to process the container element.
 
-            ID containerElementID =
-                (ID)factory.transform(containerElementParameters);
+            ID containerElementID = (ID) factory.transform(containerElementParameters);
 
 
             // This composite element requires references to its fields. The
             // document (i.e. this element) needs to be updated.
 
-            Element collectionElementElement =
-                XmlHelper.createXmlElement(document, ELEMENT_ELEMENT_TAGNAME);
-            collectionElementElement.setAttribute(REFERENCED_ELEMENT_ATTRIBUTE_TAGNAME,
+            Element collectionElementElement = XmlHelper.createXmlElement(document, ELEMENT_ELEMENT);
+            collectionElementElement.setAttribute(REFERENCED_ELEMENT_ATTRIBUTE.getTagname(),
                                                   containerElementID.toString());
             aParentElement.appendChild(collectionElementElement);
         }

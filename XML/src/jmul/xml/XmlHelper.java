@@ -26,10 +26,14 @@ package jmul.xml;
 
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+
+import jmul.exceptions.InstantiationException;
 
 import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
@@ -37,6 +41,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+import org.w3c.dom.ProcessingInstruction;
 
 
 /**
@@ -47,54 +52,24 @@ import org.w3c.dom.NodeList;
 public final class XmlHelper {
 
     /**
+     * A string constant.
+     */
+    private static final String TARGET_STYLESHEET = "xml-stylesheet";
+
+    /**
+     * A string constant.
+     */
+    private static final String LOCATION_PLACEHOLDER = "{stylesheet.location}";
+
+    /**
+     * A string constant.
+     */
+    private static final String DATA_STYLESHEET = "type=\"text/xsl\" href=\"" + LOCATION_PLACEHOLDER + "\"";
+
+    /**
      * The default constructor.
      */
     private XmlHelper() {
-    }
-
-    /**
-     * Extracts all child nodes of the specified type from the specified parent node.
-     *
-     * @param parentNode
-     * @param expectedChildType
-     *
-     * @return all child nodes which match the specified criteria
-     */
-    private static List<Node> extractChildNodes(Node parentNode, short expectedChildType) {
-
-        List<Node> children = new ArrayList<Node>();
-        NodeList allChildren = parentNode.getChildNodes();
-
-        for (int a = 0; a < allChildren.getLength(); a++) {
-
-            Node child = allChildren.item(a);
-            short childType = child.getNodeType();
-
-            if (childType == expectedChildType) {
-
-                children.add(child);
-            }
-        }
-
-        return children;
-    }
-
-    /**
-     * Extracts all child elements of the specified XML element.
-     *
-     * @param parentNode
-     *
-     * @return all child elements
-     */
-    public static List<Node> extractChildElements(Node parentNode) {
-
-        if (parentNode.getNodeType() != Node.ELEMENT_NODE) {
-
-            String message = "The specified node is no XML element (" + parentNode.getNodeType() + ")!";
-            throw new ParsingException(message);
-        }
-
-        return extractChildNodes(parentNode, Node.ELEMENT_NODE);
     }
 
     /**
@@ -109,12 +84,35 @@ public final class XmlHelper {
      *
      * @return an xml attribute
      */
-    public static Attr createXmlAttribute(Document aDocument, String anAttributeName, String anAttributeValue) {
+    private static Attr createXmlAttribute(Document aDocument, String anAttributeName, String anAttributeValue) {
 
         Attr attribute = aDocument.createAttribute(anAttributeName);
         attribute.setNodeValue(anAttributeValue);
 
         return attribute;
+    }
+
+    /**
+     * Creates an xml attributes.
+     *
+     * @param aDocument
+     *        a reference to an existing xml document
+     * @param anAttribute
+     *        the name of the xml attribute
+     * @param anAttributeValue
+     *        the value of the xml attribute
+     *
+     * @return an xml attribute
+     */
+    public static Attr createXmlAttribute(Document aDocument, XmlMarkup anAttribute, String anAttributeValue) {
+
+        if (anAttribute.isXmlElement()) {
+
+            String message = "An XML element was specified, but an XML attribute is expected!";
+            throw new IllegalArgumentException(message);
+        }
+
+        return createXmlAttribute(aDocument, anAttribute.getTagname(), anAttributeValue);
     }
 
     /**
@@ -127,11 +125,32 @@ public final class XmlHelper {
      *
      * @return an xml element
      */
-    public static Element createXmlElement(Document aDocument, String anElementName) {
+    private static Element createXmlElement(Document aDocument, String anElementName) {
 
         Element objectElement = aDocument.createElement(anElementName);
 
         return objectElement;
+    }
+
+    /**
+     * Creates an xml element.
+     *
+     * @param aDocument
+     *        a reference to an existing xml document
+     * @param anElement
+     *        a xml element
+     *
+     * @return a xml element
+     */
+    public static Element createXmlElement(Document aDocument, XmlMarkup anElement) {
+
+        if (anElement.isXmlAttribute()) {
+
+            String message = "An XML attribute was specified, but an XML element is expected!";
+            throw new IllegalArgumentException(message);
+        }
+
+        return createXmlElement(aDocument, anElement.getTagname());
     }
 
     /**
@@ -151,7 +170,7 @@ public final class XmlHelper {
         } catch (Exception e) {
 
             String message = "Coulnd't create a new XML document!";
-            throw new RuntimeException(message, e);
+            throw new InstantiationException(message, e);
         }
     }
 
@@ -164,7 +183,7 @@ public final class XmlHelper {
      *
      * @return a clone
      */
-    public static Node cloneXmlElemenet(Document newDocument, Node theOriginalElement) {
+    public static Node cloneXmlElement(Document newDocument, Node theOriginalElement) {
 
         String nodeName = theOriginalElement.getNodeName();
         String textContent = theOriginalElement.getTextContent();
@@ -199,6 +218,109 @@ public final class XmlHelper {
         Node newAttribute = createXmlAttribute(newDocument, attributeName, attributeValue);
 
         return newAttribute;
+    }
+
+    /**
+     * Adds stylesheet informations to an xml document. See
+     * <a href='http://stackoverflow.com/questions/2651647/add-xml-stylesheet-and-get-standalone-yes'>Stack Overflow</a>.
+     *
+     * @param aDocument
+     * @param aFilename
+     */
+    public static void addStylesheet(Document aDocument, String aFilename) {
+
+        aDocument.setXmlStandalone(true);
+
+        Element root = aDocument.getDocumentElement();
+
+        String data = DATA_STYLESHEET.replace(LOCATION_PLACEHOLDER, aFilename);
+        ProcessingInstruction processingInstruction = aDocument.createProcessingInstruction(TARGET_STYLESHEET, data);
+
+        aDocument.insertBefore(processingInstruction, root);
+    }
+
+    /**
+     * Copies a document's content to another document (i.e. the root node is
+     * adopted by the new document and inserted there). The new document should
+     * be empty.
+     *
+     * @param oldDocument
+     * @param newDocument
+     *
+     * @return the new containing document
+     */
+    public static Document copyDocument(Document oldDocument, Document newDocument) {
+
+        Node root = oldDocument.getDocumentElement();
+
+        Node adoptedRoot = newDocument.adoptNode(root);
+
+        newDocument.appendChild(adoptedRoot);
+
+        return newDocument;
+    }
+
+    /**
+     * The method extractChildElementNodes extracts all child elements of a
+     * node.
+     *
+     * @param aParentNode
+     *        a parent node
+     *
+     * @return a list of child elements
+     */
+    static List<Node> extractChildElementNodes(Node aParentNode) {
+
+        return extractChildNodes(aParentNode, Node.ELEMENT_NODE);
+    }
+
+    /**
+     * The method extractChildNodes extracts child nodes of a specified type.
+     *
+     * @param aParentNode
+     *        a parent node
+     * @param aRequiredType
+     *        a required node type
+     *
+     * @return a list of child nodes
+     */
+    static List<Node> extractChildNodes(Node aParentNode, short aRequiredType) {
+
+        List<Node> elementNodes = new ArrayList<Node>();
+
+        NodeList childNodeList = aParentNode.getChildNodes();
+        for (int a = 0; a < childNodeList.getLength(); a++) {
+            Node node = childNodeList.item(a);
+            short nodeType = node.getNodeType();
+            if (nodeType == aRequiredType) {
+                elementNodes.add(node);
+            }
+        }
+
+        return elementNodes;
+    }
+
+    /**
+     * The method nodeList2Map transforms a list into a node. The method only
+     * works properly if there are no duplicate nodes (nodes with the same
+     * tagname).
+     *
+     * @param someNodes
+     *        a list of nodes
+     *
+     * @return a map containing all nodes
+     */
+    static Map<String, Node> nodeList2Map(List<Node> someNodes) {
+
+        Map<String, Node> map = new HashMap<String, Node>();
+
+        for (Node node : someNodes) {
+
+            String tagname = node.getNodeName();
+            map.put(tagname, node);
+        }
+
+        return map;
     }
 
 }

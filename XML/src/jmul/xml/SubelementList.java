@@ -24,6 +24,8 @@
 
 package jmul.xml;
 
+
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
@@ -59,7 +61,7 @@ public class SubelementList implements Iterable<Node> {
 
         parentName = node.getNodeName();
 
-        List<Node> tmpList = XmlHelper.extractChildElements(node);
+        List<Node> tmpList = XmlHelper.extractChildElementNodes(node);
         subelements = Collections.unmodifiableList(tmpList);
     }
 
@@ -91,6 +93,30 @@ public class SubelementList implements Iterable<Node> {
     public String getParentName() {
 
         return parentName;
+    }
+
+    /**
+     * Returns all subelements of the specified markup type.
+     *
+     * @param markup
+     *
+     * @return all subelements of the specified markup type
+     */
+    public List<Node> getSubelements(XmlMarkup markup) {
+
+        XmlParserHelper.assertDescribesXmlElement(markup);
+
+        List<Node> sublist = new ArrayList<Node>();
+
+        for (Node node : this) {
+
+            if (XmlParserHelper.matchesXmlElement(node, markup)) {
+
+                sublist.add(node);
+            }
+        }
+
+        return sublist;
     }
 
 }

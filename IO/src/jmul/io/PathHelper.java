@@ -51,15 +51,18 @@ public final class PathHelper {
     /**
      * A system property key.
      */
-    public static final String FILE_SEPARATOR =
-        System.getProperty("file.separator");
+    public static final String FILE_SEPARATOR = System.getProperty("file.separator");
 
     /**
      * A system property key.
      */
-    public static final String PATH_SEPARATOR =
-        System.getProperty("path.separator");
+    public static final String PATH_SEPARATOR = System.getProperty("path.separator");
 
+    /**
+     * The default constructor.
+     */
+    private PathHelper() {
+    }
 
     /**
      * Returns the current java classpath.
@@ -124,8 +127,7 @@ public final class PathHelper {
 
             String path = directory.getAbsolutePath();
 
-            archives.addAll(FileHelper.getFiles(path, JAR_ARCHIVE_EXTENSION,
-                                                true));
+            archives.addAll(FileHelper.getFiles(path, JAR_ARCHIVE_EXTENSION, true));
         }
 
         return archives;

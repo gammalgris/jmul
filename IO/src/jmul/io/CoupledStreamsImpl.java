@@ -1,0 +1,209 @@
+/*
+ * (J)ava (M)iscellaneous (U)tility (L)ibraries
+ *
+ * JMUL is a central repository for utilities which are used in my
+ * other public and private repositories.
+ *
+ * Copyright (C) 2016  Kristian Kutin
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * e-mail: kristian.kutin@arcor.de
+ */
+
+package jmul.io;
+
+
+import java.io.Closeable;
+import java.io.IOException;
+
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
+
+import static jmul.string.Constants.NEW_LINE;
+
+
+/**
+ * An implementation of coupled streams.
+ *
+ * @author Kristian Kutin
+ */
+public class CoupledStreamsImpl implements CoupledStreams {
+
+    /**
+     * Contains all related streams.
+     */
+    private final Map<String, Closeable> coupledStreams;
+
+    /**
+     * Creates a new instance according to the specified parameters.
+     *
+     * @param someEntries
+     */
+    public CoupledStreamsImpl(StreamEntry... someEntries) {
+
+        Map<String, Closeable> tmp = new HashMap<String, Closeable>();
+
+        for (StreamEntry entry : someEntries) {
+
+            tmp.put(entry.getName(), entry.getStream());
+        }
+
+        coupledStreams = Collections.unmodifiableMap(tmp);
+    }
+
+    /**
+     * Returns the stream which is associated with the specified name.
+     *
+     * @param aName
+     *
+     * @return a stream
+     */
+    public Closeable getStream(String aName) {
+
+        return coupledStreams.get(aName);
+    }
+
+    /**
+     * Returns the sum of all coupled streams.
+     *
+     * @return a sum
+     */
+    public int getCoupledStreamCount() {
+
+        return coupledStreams.size();
+    }
+
+    /**
+     * Close all coupled streams regularly.
+     *
+     * @throws IOException
+     */
+    @Override
+    public void close() throws IOException {
+
+        Map<String, Throwable> coupledExceptions = new HashMap<String, Throwable>();
+        int exceptionCount = 0;
+
+        for (String name : coupledStreams.keySet()) {
+
+            Closeable stream = getStream(name);
+
+            try {
+
+                stream.close();
+                coupledExceptions.put(name, null);
+
+            } catch (Throwable t) {
+
+                coupledExceptions.put(name, t);
+                exceptionCount++;
+            }
+        }
+
+        if (exceptionCount > 0) {
+
+            throw createException(coupledExceptions);
+        }
+    }
+
+    /**
+     * Closes the streams after an error occurred on the specified stream.
+     *
+     * @param aName
+     *        the name of the stream where an error occurred
+     *
+     * @throws IOException
+     *         if an I/O error occurs
+     */
+    public void closeOnError(String aName) throws IOException {
+
+        Map<String, Throwable> coupledExceptions = new HashMap<String, Throwable>();
+        int exceptionCount = 0;
+
+        for (String name : coupledStreams.keySet()) {
+
+            if (name.equals(aName)) {
+
+                continue;
+            }
+
+            Closeable stream = getStream(name);
+
+            try {
+
+                stream.close();
+                coupledExceptions.put(name, null);
+
+            } catch (Throwable t) {
+
+                coupledExceptions.put(name, t);
+                exceptionCount++;
+            }
+        }
+
+        if (exceptionCount > 0) {
+
+            throw createException(coupledExceptions);
+        }
+    }
+
+    /**
+     * Creates an exception according to the specified exceptions.
+     *
+     * @param someNestedExceptions
+     *
+     * @return an exception
+     */
+    private CoupledStreamsException createException(Map<String, Throwable> someCoupledExceptions) {
+
+        return new CoupledStreamsException(createExceptionMessage(someCoupledExceptions));
+    }
+
+    /**
+     * Creates an exception message according to the specified exceptions.
+     *
+     * @param someCoupledExceptions
+     *
+     * @return an error message
+     */
+    private String createExceptionMessage(Map<String, Throwable> someCoupledExceptions) {
+
+        StringBuffer buffer = new StringBuffer();
+
+        for (String name : someCoupledExceptions.keySet()) {
+
+            Closeable stream = getStream(name);
+            Throwable exception = someCoupledExceptions.get(name);
+
+            buffer.append(stream.getClass().getName());
+            if (exception == null) {
+
+                buffer.append(" was closed regularly.");
+
+            } else {
+
+                buffer.append(" ");
+                buffer.append(exception.getClass().getName());
+                buffer.append(" ");
+                buffer.append(exception.getMessage());
+            }
+            buffer.append(NEW_LINE);
+        }
+
+        return String.valueOf(buffer);
+    }
+
+}

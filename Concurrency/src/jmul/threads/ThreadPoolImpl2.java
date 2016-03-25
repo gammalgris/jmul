@@ -34,7 +34,7 @@ import java.util.Queue;
 import java.util.ResourceBundle;
 import java.util.concurrent.ConcurrentLinkedQueue;
 
-import jmul.MathHelper;
+import jmul.math.MathHelper;
 
 
 /**

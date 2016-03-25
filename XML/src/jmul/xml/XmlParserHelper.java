@@ -25,6 +25,8 @@
 package jmul.xml;
 
 
+import java.util.List;
+
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 
@@ -44,26 +46,41 @@ public final class XmlParserHelper {
 
     /**
      * Checks if the specified xml element matches the specified markup details.
+     *
+     * @param node
+     * @param markup
+     *
+     * @return <code>true</code> if the specified parameters match, else <code>false</code>
+     */
+    public static boolean matchesXmlElement(Node node, XmlMarkup markup) {
+
+        assertDescribesXmlElement(markup);
+
+        String name = node.getNodeName();
+        boolean match = markup.equalsXmlMarkup(name);
+
+        return match;
+    }
+
+    /**
+     * Checks if the specified xml element matches the specified markup details.
      * An exception is thrown if the specified informations do not match.
      *
      * @param node
      * @param markup
      */
-    public static void assertMatchingXmlElement(Node node, XmlMarkup markup) {
+    public static void assertMatchesXmlElement(Node node, XmlMarkup markup) {
 
         assertDescribesXmlElement(markup);
 
-        String name = node.getNodeName();
-        boolean differentNames = !markup.equalsXmlMarkup(name);
-
-        if (differentNames) {
+        if (!matchesXmlElement(node, markup)) {
 
             StringBuffer message = new StringBuffer();
 
             message.append("Unexpected xml element found (expected name= \"");
             message.append(markup);
             message.append("\" / found name=\"");
-            message.append(name);
+            message.append(node.getNodeName());
             message.append("\"!");
 
             throw new ParsingException(message);
@@ -87,6 +104,26 @@ public final class XmlParserHelper {
 
             throw new ParsingException(message);
         }
+    }
+
+    /**
+     * Checks if the specified xml element possesses an attribute with the
+     * specified markup details.
+     *
+     * @param node
+     * @param markup
+     *
+     * @return <code>true</code> if such an attribute exists, else
+     *         <code>false</code>
+     */
+    public static boolean existsXmlAttribute(Node node, XmlMarkup markup) {
+
+        assertDescribesXmlAttribute(markup);
+
+        NamedNodeMap attributes = node.getAttributes();
+        Node attribute = attributes.getNamedItem(markup.getTagname());
+
+        return (attribute != null);
     }
 
     /**
@@ -136,6 +173,22 @@ public final class XmlParserHelper {
     }
 
     /**
+     * Returns the value of the speicifed  xml attribute which matches the specified
+     * markup details.
+     *
+     * @param node
+     * @param markup
+     *
+     * @return an attribute value
+     */
+    public static String getXmlAttributeValue(Node node, XmlMarkup markup) {
+
+        Node attribute = getXmlAttribute(node, markup);
+
+        return attribute.getTextContent();
+    }
+
+    /**
      * Checks if the specified markup details describe an xml attribute.
      *
      * @param markup
@@ -155,15 +208,26 @@ public final class XmlParserHelper {
     }
 
     /**
+     * Checks if the specified container contains subelements.
+     *
+     * @param subelements
+     *
+     * @return <code>true</code> if the specified container contains
+     *         subelements, else <code>false</code>
+     */
+    public static boolean hasXmlSubelements(SubelementMap subelements) {
+
+        return (subelements.size() > 0);
+    }
+
+    /**
      * Checks if specified container contains subelements.
      *
      * @param subelements
      */
     public static void assertHasXmlSubelements(SubelementMap subelements) {
 
-        boolean hasNoSubelements = (subelements.size() == 0);
-
-        if (hasNoSubelements) {
+        if (!hasXmlSubelements(subelements)) {
 
             StringBuffer message = new StringBuffer();
 
@@ -176,21 +240,71 @@ public final class XmlParserHelper {
     }
 
     /**
+     * Checks if the specified container contains subelements.
+     *
+     * @param subelements
+     *
+     * @return <code>true</code> if the specified container contains
+     *         subelements, else <code>false</code>
+     */
+    public static boolean hasXmlSubelements(SubelementList subelements) {
+
+        return (subelements.size() > 0);
+    }
+
+    /**
      * Checks if specified container contains subelements.
      *
      * @param subelements
      */
     public static void assertHasXmlSubelements(SubelementList subelements) {
 
-        boolean hasNoSubelements = (subelements.size() == 0);
-
-        if (hasNoSubelements) {
+        if (!hasXmlSubelements(subelements)) {
 
             StringBuffer message = new StringBuffer();
 
             message.append("The element \"");
             message.append(subelements.getParentName());
             message.append("\" has no subelements!");
+
+            throw new ParsingException(message);
+        }
+    }
+
+    /**
+     * Checks if the specified container contains subelements of the specified
+     * type.
+     *
+     * @param subelements
+     * @param markup
+     *
+     * @return <code>true</code> if the specified container contains
+     *         subelements, else <code>false</code>
+     */
+    public static boolean hasXmlSubelements(SubelementList subelements, XmlMarkup markup) {
+
+        List<Node> sublist = subelements.getSubelements(markup);
+
+        return (sublist.size() > 0);
+    }
+
+    /**
+     * Checks if specified container contains subelements of the specified type.
+     *
+     * @param subelements
+     * @param markup
+     */
+    public static void assertHasXmlSubelements(SubelementList subelements, XmlMarkup markup) {
+
+        if (!hasXmlSubelements(subelements, markup)) {
+
+            StringBuffer message = new StringBuffer();
+
+            message.append("The element \"");
+            message.append(subelements.getParentName());
+            message.append("\" has no subelements of the type \"");
+            message.append(markup);
+            message.append("\"!");
 
             throw new ParsingException(message);
         }

@@ -27,23 +27,38 @@ package jmul.persistence.transformation.rules.xml2object;
 
 import java.util.Map;
 
-import org.w3c.dom.Document;
-import org.w3c.dom.Node;
+import jmul.cache.transformation.Xml2ObjectCache;
 
-import jmul.persistence.transformation.rules.TransformationCommons;
+import jmul.classes.ClassDefinition;
+import jmul.classes.ClassHelper;
+
+import jmul.persistence.id.ID;
+import jmul.persistence.id.IntegerID;
+
+import static jmul.persistence.transformation.rules.PersistenceMarkups.DECLARED_KEY_TYPE_ATTRIBUTE;
+import static jmul.persistence.transformation.rules.PersistenceMarkups.DECLARED_VALUE_TYPE_ATTRIBUTE;
+import static jmul.persistence.transformation.rules.PersistenceMarkups.ENTRY_ELEMENT;
+import static jmul.persistence.transformation.rules.PersistenceMarkups.FIELD_ELEMENT;
+import static jmul.persistence.transformation.rules.PersistenceMarkups.ID_ATTRIBUTE;
+import static jmul.persistence.transformation.rules.PersistenceMarkups.OBJECT_ELEMENT;
+import static jmul.persistence.transformation.rules.PersistenceMarkups.REFERENCED_KEY_ATTRIBUTE;
+import static jmul.persistence.transformation.rules.PersistenceMarkups.REFERENCED_VALUE_ATTRIBUTE;
+import static jmul.persistence.transformation.rules.PersistenceMarkups.TYPE_ATTRIBUTE;
+import static jmul.persistence.transformation.rules.TransformationConstants.OBJECT_CACHE;
+
+import jmul.reflection.Initializer;
+
+import jmul.string.StringConcatenator;
 
 import jmul.transformation.TransformationException;
 import jmul.transformation.TransformationParameters;
 import jmul.transformation.TransformationRuleBase;
 
-import jmul.cache.transformation.Xml2ObjectCache;
-import jmul.classes.ClassDefinition;
-import jmul.classes.ClassHelper;
-import jmul.id.ID;
-import jmul.id.IntegerID;
-import jmul.reflection.Initializer;
-import jmul.string.StringConcatenator;
-import jmul.xml.ElementWrapper;
+import jmul.xml.SubelementList;
+import jmul.xml.XmlParserHelper;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.Node;
 
 
 /**
@@ -51,7 +66,7 @@ import jmul.xml.ElementWrapper;
  *
  * @author Kristian Kutin
  */
-public class Xml2MapRule extends TransformationRuleBase implements TransformationCommons {
+public class Xml2MapRule extends TransformationRuleBase {
 
     /**
      * Constructs a transformation rule.
@@ -83,14 +98,15 @@ public class Xml2MapRule extends TransformationRuleBase implements Transformatio
 
         Object target = someParameters.getObject();
 
-        if (!Document.class.isInstance(target) &&
-            Node.class.isInstance(target)) {
+        if (!Document.class.isInstance(target) && Node.class.isInstance(target)) {
 
-            ElementWrapper element = new ElementWrapper((Node)target);
+            Node objectElement = (Node) target;
+            SubelementList objectSubelements = new SubelementList(objectElement);
 
-            return (!element.existsSubelement(FIELD_ELEMENT_TAGNAME) &&
-                    element.existsAttribute(DECLARED_KEY_TYPE_ATTRIBUTE_TAGNAME) &&
-                    element.existsAttribute(DECLARED_VALUE_TYPE_ATTRIBUTE_TAGNAME));
+            return XmlParserHelper.matchesXmlElement(objectElement, OBJECT_ELEMENT) &&
+                   !XmlParserHelper.hasXmlSubelements(objectSubelements, FIELD_ELEMENT) &&
+                   XmlParserHelper.existsXmlAttribute(objectElement, DECLARED_KEY_TYPE_ATTRIBUTE) &&
+                   XmlParserHelper.existsXmlAttribute(objectElement, DECLARED_VALUE_TYPE_ATTRIBUTE);
         }
 
         return false;
@@ -112,74 +128,29 @@ public class Xml2MapRule extends TransformationRuleBase implements Transformatio
         if (!someParameters.containsPrerequisite(OBJECT_CACHE)) {
 
             StringConcatenator message =
-                new StringConcatenator("Prerequisites for the transformation are missing (",
-                                       OBJECT_CACHE, ")!");
+                new StringConcatenator("Prerequisites for the transformation are missing (", OBJECT_CACHE, ")!");
             throw new TransformationException(message.toString());
         }
 
 
         Object target = someParameters.getObject();
-        ElementWrapper element = new ElementWrapper((Node)target);
+        Node objectElement = (Node) target;
 
-        if (!element.equalsName(OBJECT_ELEMENT_TAGNAME)) {
-
-            StringConcatenator message =
-                new StringConcatenator("Invalid element (", element.getName(),
-                                       ")!");
-            throw new TransformationException(message.toString());
-        }
-
-
-        if (!element.existsAttribute(ID_ATTRIBUTE_TAGNAME)) {
-
-            StringConcatenator message =
-                new StringConcatenator("The element \"", element.getName(),
-                                       "\" is missing the attribute \"",
-                                       ID_ATTRIBUTE_TAGNAME, "\"!");
-            throw new TransformationException(message.toString());
-        }
-
-
-        if (!element.existsAttribute(TYPE_ATTRIBUTE_TAGNAME)) {
-
-            StringConcatenator message =
-                new StringConcatenator("The element \"", element.getName(),
-                                       "\" is missing the attribute \"",
-                                       TYPE_ATTRIBUTE_TAGNAME, "\"!");
-            throw new TransformationException(message.toString());
-        }
-
-        if (!element.existsAttribute(DECLARED_KEY_TYPE_ATTRIBUTE_TAGNAME)) {
-
-            StringConcatenator message =
-                new StringConcatenator("The element \"", element.getName(),
-                                       "\" is missing the attribute \"",
-                                       DECLARED_KEY_TYPE_ATTRIBUTE_TAGNAME,
-                                       "\"!");
-            throw new TransformationException(message.toString());
-        }
-
-
-        if (!element.existsAttribute(DECLARED_VALUE_TYPE_ATTRIBUTE_TAGNAME)) {
-
-            StringConcatenator message =
-                new StringConcatenator("The element \"", element.getName(),
-                                       "\" is missing the attribute \"",
-                                       DECLARED_VALUE_TYPE_ATTRIBUTE_TAGNAME,
-                                       "\"!");
-            throw new TransformationException(message.toString());
-        }
+        XmlParserHelper.assertMatchesXmlElement(objectElement, OBJECT_ELEMENT);
+        XmlParserHelper.assertExistsXmlAttribute(objectElement, ID_ATTRIBUTE);
+        XmlParserHelper.assertExistsXmlAttribute(objectElement, TYPE_ATTRIBUTE);
+        XmlParserHelper.assertExistsXmlAttribute(objectElement, DECLARED_KEY_TYPE_ATTRIBUTE);
+        XmlParserHelper.assertExistsXmlAttribute(objectElement, DECLARED_VALUE_TYPE_ATTRIBUTE);
 
 
         // Get the required informations.
 
-        Xml2ObjectCache objectCache =
-            (Xml2ObjectCache)someParameters.getPrerequisite(OBJECT_CACHE);
+        Xml2ObjectCache objectCache = (Xml2ObjectCache) someParameters.getPrerequisite(OBJECT_CACHE);
 
-        String idString = element.getAttribute(ID_ATTRIBUTE_TAGNAME);
-        String typeString = element.getAttribute(TYPE_ATTRIBUTE_TAGNAME);
-        // String declaredKeyTypeString = element.getAttribute(DECLARED_KEY_TYPE_ATTRIBUTE_TAGNAME);
-        // String declaredValueTypeString = element.getAttribute(DECLARED_VALUE_TYPE_ATTRIBUTE_TAGNAME);
+        String idString = XmlParserHelper.getXmlAttributeValue(objectElement, ID_ATTRIBUTE);
+        String typeString = XmlParserHelper.getXmlAttributeValue(objectElement, TYPE_ATTRIBUTE);
+        //String declaredKeyTypeString = XmlParserHelper.getXmlAttributeValue(objectElement, DECLARED_KEY_TYPE_ATTRIBUTE);
+        //String declaredValueTypeString = XmlParserHelper.getXmlAttributeValue(objectElement, DECLARED_VALUE_TYPE_ATTRIBUTE);
 
         ID id = new IntegerID(idString);
         ClassDefinition type = null;
@@ -190,64 +161,38 @@ public class Xml2MapRule extends TransformationRuleBase implements Transformatio
 
         } catch (ClassNotFoundException e) {
 
-            StringConcatenator message =
-                new StringConcatenator("An unknown class was specified (",
-                                       typeString, ")!");
-            throw new TransformationException(message.toString());
+            StringConcatenator message = new StringConcatenator("An unknown class was specified (", typeString, ")!");
+            throw new TransformationException(message.toString(), e);
         }
 
 
         // Instantiate and initialize the specified object
 
         Initializer initializer = new Initializer(type);
-        Map map = (Map)initializer.newInitializedInstance();
+        Map map = (Map) initializer.newInitializedInstance();
 
-        if (element.existsSubelement(ENTRY_ELEMENT_TAGNAME)) {
+        SubelementList objectSublements = new SubelementList(objectElement);
 
-            for (Node subelement :
-                 element.getSubelement(ENTRY_ELEMENT_TAGNAME)) {
+        for (Node entryElement : objectSublements.getSubelements(ENTRY_ELEMENT)) {
 
-                // Check some plausibilites first.
+            // Check some plausibilites first.
 
-                ElementWrapper entry = new ElementWrapper(subelement);
-
-                if (!entry.existsAttribute(REFERENCED_KEY_ATTRIBUTE_TAGNAME)) {
-
-                    StringConcatenator message =
-                        new StringConcatenator("The element \"",
-                                               entry.getName(),
-                                               "\" is missing the attribute \"",
-                                               REFERENCED_KEY_ATTRIBUTE_TAGNAME,
-                                               "\"!");
-                    throw new TransformationException(message.toString());
-                }
-
-                if (!entry.existsAttribute(REFERENCED_VALUE_ATTRIBUTE_TAGNAME)) {
-
-                    StringConcatenator message =
-                        new StringConcatenator("The element \"",
-                                               entry.getName(),
-                                               "\" is missing the attribute \"",
-                                               REFERENCED_VALUE_ATTRIBUTE_TAGNAME,
-                                               "\"!");
-                    throw new TransformationException(message.toString());
-                }
+            XmlParserHelper.assertExistsXmlAttribute(entryElement, REFERENCED_KEY_ATTRIBUTE);
+            XmlParserHelper.assertExistsXmlAttribute(entryElement, REFERENCED_VALUE_ATTRIBUTE);
 
 
-                // Get the required field informations.
+            // Get the required field informations.
 
-                String referencedKeyString =
-                    entry.getAttribute(REFERENCED_KEY_ATTRIBUTE_TAGNAME);
-                String referencedValueString =
-                    entry.getAttribute(REFERENCED_VALUE_ATTRIBUTE_TAGNAME);
+            String referencedKeyString = XmlParserHelper.getXmlAttributeValue(entryElement, REFERENCED_KEY_ATTRIBUTE);
+            String referencedValueString =
+                XmlParserHelper.getXmlAttributeValue(entryElement, REFERENCED_VALUE_ATTRIBUTE);
 
-                ID keyID = new IntegerID(referencedKeyString);
-                ID valueID = new IntegerID(referencedValueString);
-                Object keyValue = objectCache.getObject(keyID);
-                Object valueValue = objectCache.getObject(valueID);
+            ID keyID = new IntegerID(referencedKeyString);
+            ID valueID = new IntegerID(referencedValueString);
+            Object keyValue = objectCache.getObject(keyID);
+            Object valueValue = objectCache.getObject(valueID);
 
-                map.put(keyValue, valueValue);
-            }
+            map.put(keyValue, valueValue);
         }
 
 

@@ -27,27 +27,40 @@ package jmul.persistence.transformation.rules.object2xml;
 
 import java.util.Map;
 
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
+import jmul.cache.transformation.Object2XmlCache;
+
+import jmul.persistence.id.ID;
 
 import jmul.persistence.annotations.AnnotationHelper;
 import jmul.persistence.annotations.MapInformations;
 import jmul.persistence.transformation.TransformationHelper;
-import jmul.persistence.transformation.rules.TransformationCommons;
+import static jmul.persistence.transformation.rules.PersistenceMarkups.DECLARED_KEY_TYPE_ATTRIBUTE;
+import static jmul.persistence.transformation.rules.PersistenceMarkups.DECLARED_VALUE_TYPE_ATTRIBUTE;
+import static jmul.persistence.transformation.rules.PersistenceMarkups.ID_ATTRIBUTE;
+import static jmul.persistence.transformation.rules.PersistenceMarkups.OBJECT_ELEMENT;
+import static jmul.persistence.transformation.rules.PersistenceMarkups.TYPE_ATTRIBUTE;
+import static jmul.persistence.transformation.rules.TransformationConstants.DECLARED_KEY_TYPE;
+import static jmul.persistence.transformation.rules.TransformationConstants.DECLARED_VALUE_TYPE;
+import static jmul.persistence.transformation.rules.TransformationConstants.OBJECT_CACHE;
+import static jmul.persistence.transformation.rules.TransformationConstants.ROOT_ELEMENT;
+import static jmul.persistence.transformation.rules.TransformationConstants.XML_DOCUMENT;
 import jmul.persistence.transformation.rules.object2xml.strategies.containers.ContainerHandler;
 import jmul.persistence.transformation.rules.object2xml.strategies.containers.MapHandler;
 import jmul.persistence.transformation.rules.object2xml.strategies.fields.FieldsHandler;
 import jmul.persistence.transformation.rules.object2xml.strategies.fields.GenericObjectHandler;
 
+import jmul.reflection.ContainerHelper;
+
+import jmul.string.StringConcatenator;
+
 import jmul.transformation.TransformationException;
 import jmul.transformation.TransformationParameters;
 import jmul.transformation.TransformationRuleBase;
 
-import jmul.ContainerHelper;
-import jmul.cache.transformation.Object2XmlCache;
-import jmul.id.ID;
-import jmul.string.StringConcatenator;
 import jmul.xml.XmlHelper;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
 
 /**
@@ -56,7 +69,7 @@ import jmul.xml.XmlHelper;
  *
  * @author Kristian Kutin
  */
-public class CompositeMap2XmlRule extends TransformationRuleBase implements TransformationCommons {
+public class CompositeMap2XmlRule extends TransformationRuleBase {
 
     /**
      * A container handler.
@@ -87,8 +100,7 @@ public class CompositeMap2XmlRule extends TransformationRuleBase implements Tran
      * @param aPriority
      *        a rule priority
      */
-    public CompositeMap2XmlRule(String anOrigin, String aDestination,
-                                int aPriority) {
+    public CompositeMap2XmlRule(String anOrigin, String aDestination, int aPriority) {
 
         super(anOrigin, aDestination, aPriority);
     }
@@ -130,12 +142,10 @@ public class CompositeMap2XmlRule extends TransformationRuleBase implements Tran
             // 2) It is necessary to identify which map implementation class is
             //    present (i.e. the inheritance structure must be considered).
 
-            Class mapImplementation =
-                ContainerHelper.getConcreteMapImplementation(object);
+            Class mapImplementation = ContainerHelper.getConcreteMapImplementation(object);
 
             boolean result =
-                (mapImplementation != null) && TransformationHelper.isComposite(realType,
-                                                                                mapImplementation);
+                (mapImplementation != null) && TransformationHelper.isComposite(realType, mapImplementation);
             return result;
         }
 
@@ -155,8 +165,7 @@ public class CompositeMap2XmlRule extends TransformationRuleBase implements Tran
 
         // Check parameters.
 
-        if (!(someParameters.containsPrerequisite(OBJECT_CACHE) &&
-              someParameters.containsPrerequisite(ROOT_ELEMENT))) {
+        if (!(someParameters.containsPrerequisite(OBJECT_CACHE) && someParameters.containsPrerequisite(ROOT_ELEMENT))) {
 
             String message = "No root node could be identified!";
             throw new TransformationException(message);
@@ -173,12 +182,9 @@ public class CompositeMap2XmlRule extends TransformationRuleBase implements Tran
 
         // Retrieve other prerequisites for the transformation.
 
-        Document document =
-            (Document)someParameters.getPrerequisite(XML_DOCUMENT);
-        Object2XmlCache cache =
-            (Object2XmlCache)someParameters.getPrerequisite(OBJECT_CACHE);
-        Element rootElement =
-            (Element)someParameters.getPrerequisite(ROOT_ELEMENT);
+        Document document = (Document) someParameters.getPrerequisite(XML_DOCUMENT);
+        Object2XmlCache cache = (Object2XmlCache) someParameters.getPrerequisite(OBJECT_CACHE);
+        Element rootElement = (Element) someParameters.getPrerequisite(ROOT_ELEMENT);
 
         Class declaredKeyType = null;
         Class declaredValueType = null;
@@ -189,10 +195,8 @@ public class CompositeMap2XmlRule extends TransformationRuleBase implements Tran
             // A field declaration was marked with an annotation where the
             // key and value types for this map were specified.
 
-            declaredKeyType =
-                    (Class)someParameters.getPrerequisite(DECLARED_KEY_TYPE);
-            declaredValueType =
-                    (Class)someParameters.getPrerequisite(DECLARED_VALUE_TYPE);
+            declaredKeyType = (Class) someParameters.getPrerequisite(DECLARED_KEY_TYPE);
+            declaredValueType = (Class) someParameters.getPrerequisite(DECLARED_VALUE_TYPE);
 
         } else {
 
@@ -201,24 +205,21 @@ public class CompositeMap2XmlRule extends TransformationRuleBase implements Tran
             // definition must be checked for the annotation.
 
             MapInformations annotation =
-                (MapInformations)AnnotationHelper.getAnnotation(someParameters.getRealType(),
-                                                                MapInformations.class,
-                                                                true);
+                (MapInformations) AnnotationHelper.getAnnotation(someParameters.getRealType(), MapInformations.class,
+                                                                 true);
 
             if (annotation == null) {
 
                 StringConcatenator message =
                     new StringConcatenator("Cannot determine the key and value types for this map (",
-                                           someParameters.getRealType().getName(),
-                                           "<?,?>)!");
+                                           someParameters.getRealType().getName(), "<?,?>)!");
                 throw new TransformationException(message.toString());
             }
 
             declaredKeyType = annotation.declaredKeyType();
             declaredValueType = annotation.declaredValueType();
             someParameters.addPrerequisite(DECLARED_KEY_TYPE, declaredKeyType);
-            someParameters.addPrerequisite(DECLARED_VALUE_TYPE,
-                                           declaredValueType);
+            someParameters.addPrerequisite(DECLARED_VALUE_TYPE, declaredValueType);
         }
 
 
@@ -242,15 +243,12 @@ public class CompositeMap2XmlRule extends TransformationRuleBase implements Tran
 
         ID id = cache.addObject(object, declaredType);
 
-        Element element =
-            XmlHelper.createXmlElement(document, OBJECT_ELEMENT_TAGNAME);
+        Element element = XmlHelper.createXmlElement(document, OBJECT_ELEMENT);
 
-        element.setAttribute(ID_ATTRIBUTE_TAGNAME, id.toString());
-        element.setAttribute(TYPE_ATTRIBUTE_TAGNAME, realType.getName());
-        element.setAttribute(DECLARED_KEY_TYPE_ATTRIBUTE_TAGNAME,
-                             declaredKeyType.getName());
-        element.setAttribute(DECLARED_VALUE_TYPE_ATTRIBUTE_TAGNAME,
-                             declaredValueType.getName());
+        element.setAttribute(ID_ATTRIBUTE.getTagname(), id.toString());
+        element.setAttribute(TYPE_ATTRIBUTE.getTagname(), realType.getName());
+        element.setAttribute(DECLARED_KEY_TYPE_ATTRIBUTE.getTagname(), declaredKeyType.getName());
+        element.setAttribute(DECLARED_VALUE_TYPE_ATTRIBUTE.getTagname(), declaredValueType.getName());
 
 
         // Step 3
@@ -258,18 +256,15 @@ public class CompositeMap2XmlRule extends TransformationRuleBase implements Tran
         // In the next step all class members which have to be persisted need
         // to be processed.
 
-        Class exemptedSuperclass =
-            ContainerHelper.getConcreteMapImplementation(object);
-        FIELDS_HANDLER_SINGLETON.processFields(someParameters, element, object,
-                                               exemptedSuperclass);
+        Class exemptedSuperclass = ContainerHelper.getConcreteMapImplementation(object);
+        FIELDS_HANDLER_SINGLETON.processFields(someParameters, element, object, exemptedSuperclass);
 
 
         // Step 4
         //
         // In the next step all elements of this container need to be processed.
 
-        MAP_HANDLER_SINGLETON.processContainerContent(someParameters, element,
-                                                      object);
+        MAP_HANDLER_SINGLETON.processContainerContent(someParameters, element, object);
 
 
         // Step 5

@@ -27,21 +27,25 @@ package jmul.persistence.transformation.rules.object2xml;
 
 import javax.xml.parsers.ParserConfigurationException;
 
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
+import jmul.cache.transformation.Object2XmlCache;
+import jmul.cache.transformation.Object2XmlCacheImpl;
 
 import jmul.persistence.annotations.AnnotationHelper;
 import jmul.persistence.annotations.RootNode;
 import jmul.persistence.transformation.TransformationHelper;
-import jmul.persistence.transformation.rules.TransformationCommons;
+import static jmul.persistence.transformation.rules.PersistenceMarkups.OBJECTS_ELEMENT;
+import static jmul.persistence.transformation.rules.TransformationConstants.OBJECT_CACHE;
+import static jmul.persistence.transformation.rules.TransformationConstants.ROOT_ELEMENT;
+import static jmul.persistence.transformation.rules.TransformationConstants.XML_DOCUMENT;
 
 import jmul.transformation.TransformationException;
 import jmul.transformation.TransformationParameters;
 
-import jmul.cache.transformation.Object2XmlCache;
-import jmul.cache.transformation.Object2XmlCacheImpl;
 import jmul.xml.XmlHelper;
 import jmul.xml.XmlResources;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
 
 /**
@@ -53,7 +57,7 @@ import jmul.xml.XmlResources;
  *
  * @author Kristian Kutin
  */
-public class RootNode2XmlRule extends Composite2XmlRule implements TransformationCommons {
+public class RootNode2XmlRule extends Composite2XmlRule {
 
     /**
      * Constructs a transformation rule.
@@ -65,8 +69,7 @@ public class RootNode2XmlRule extends Composite2XmlRule implements Transformatio
      * @param aPriority
      *        a rule priority
      */
-    public RootNode2XmlRule(String anOrigin, String aDestination,
-                            int aPriority) {
+    public RootNode2XmlRule(String anOrigin, String aDestination, int aPriority) {
 
         super(anOrigin, aDestination, aPriority);
     }
@@ -87,9 +90,7 @@ public class RootNode2XmlRule extends Composite2XmlRule implements Transformatio
         Class realType = someParameters.getObject().getClass();
 
         boolean result =
-            AnnotationHelper.isAnnotationPresent(realType, RootNode.class,
-                                                 true) &&
-            super.isApplicable(someParameters);
+            AnnotationHelper.isAnnotationPresent(realType, RootNode.class, true) && super.isApplicable(someParameters);
 
         return result;
     }
@@ -109,11 +110,9 @@ public class RootNode2XmlRule extends Composite2XmlRule implements Transformatio
      */
     public Object transform(TransformationParameters someParameters) {
 
-        if (someParameters.containsPrerequisite(OBJECT_CACHE) ||
-            someParameters.containsPrerequisite(XML_DOCUMENT)) {
+        if (someParameters.containsPrerequisite(OBJECT_CACHE) || someParameters.containsPrerequisite(XML_DOCUMENT)) {
 
-            String message =
-                "More than one root node was detected within the object tree!";
+            String message = "More than one root node was detected within the object tree!";
             throw new TransformationException(message);
         }
 
@@ -129,7 +128,7 @@ public class RootNode2XmlRule extends Composite2XmlRule implements Transformatio
         } catch (ParserConfigurationException e) {
 
             String message = "Couldn't create a new xml document!";
-            throw new TransformationException(message);
+            throw new TransformationException(message, e);
         }
 
 
@@ -140,8 +139,7 @@ public class RootNode2XmlRule extends Composite2XmlRule implements Transformatio
 
         // Initialize the document's root node.
 
-        Element rootElement =
-            XmlHelper.createXmlElement(document, OBJECTS_ELEMENT_TAGNAME);
+        Element rootElement = XmlHelper.createXmlElement(document, OBJECTS_ELEMENT);
         document.appendChild(rootElement);
 
 
@@ -151,9 +149,7 @@ public class RootNode2XmlRule extends Composite2XmlRule implements Transformatio
         Class realType = someParameters.getObject().getClass();
         Class declaredType = null;
 
-        RootNode annotation =
-            (RootNode)AnnotationHelper.getAnnotation(realType, RootNode.class,
-                                                     true);
+        RootNode annotation = (RootNode) AnnotationHelper.getAnnotation(realType, RootNode.class, true);
         if (annotation != null) {
 
             declaredType = annotation.declaredType();
@@ -168,15 +164,11 @@ public class RootNode2XmlRule extends Composite2XmlRule implements Transformatio
         if (declaredType != null) {
 
             newParameters =
-                    TransformationHelper.newTransformationParameters(getTransformationPath(),
-                                                                     object,
-                                                                     declaredType);
+                TransformationHelper.newTransformationParameters(getTransformationPath(), object, declaredType);
 
         } else {
 
-            newParameters =
-                    TransformationHelper.newTransformationParameters(getTransformationPath(),
-                                                                     object);
+            newParameters = TransformationHelper.newTransformationParameters(getTransformationPath(), object);
         }
 
         newParameters.addPrerequisite(XML_DOCUMENT, document);

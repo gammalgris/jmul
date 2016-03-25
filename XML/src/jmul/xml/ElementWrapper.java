@@ -39,6 +39,7 @@ import org.w3c.dom.Node;
  *
  * @author Kristian Kutin
  */
+@Deprecated
 public class ElementWrapper {
 
     /**
@@ -76,7 +77,7 @@ public class ElementWrapper {
 
         sortedSubelements = new HashMap<String, Collection<Node>>();
 
-        for (Node node : XmlHelper.extractChildElements(anXmlElement)) {
+        for (Node node : XmlHelper.extractChildElementNodes(anXmlElement)) {
 
             String tagname = node.getNodeName();
             Collection<Node> subset = sortedSubelements.get(tagname);

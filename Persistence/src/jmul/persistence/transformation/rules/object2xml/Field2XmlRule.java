@@ -27,18 +27,26 @@ package jmul.persistence.transformation.rules.object2xml;
 
 import java.lang.reflect.Field;
 
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
+import jmul.cache.transformation.Object2XmlCache;
 
-import jmul.persistence.transformation.rules.TransformationCommons;
+import jmul.persistence.id.ID;
+
+import static jmul.persistence.transformation.rules.PersistenceMarkups.ID_ATTRIBUTE;
+import static jmul.persistence.transformation.rules.PersistenceMarkups.OBJECT_ELEMENT;
+import static jmul.persistence.transformation.rules.PersistenceMarkups.TYPE_ATTRIBUTE;
+import static jmul.persistence.transformation.rules.PersistenceMarkups.VALUE_ATTRIBUTE;
+import static jmul.persistence.transformation.rules.TransformationConstants.OBJECT_CACHE;
+import static jmul.persistence.transformation.rules.TransformationConstants.ROOT_ELEMENT;
+import static jmul.persistence.transformation.rules.TransformationConstants.XML_DOCUMENT;
 
 import jmul.transformation.TransformationException;
 import jmul.transformation.TransformationParameters;
 import jmul.transformation.TransformationRuleBase;
 
-import jmul.cache.transformation.Object2XmlCache;
-import jmul.id.ID;
 import jmul.xml.XmlHelper;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
 
 /**
@@ -46,7 +54,7 @@ import jmul.xml.XmlHelper;
  *
  * @author Kristian Kutin
  */
-public class Field2XmlRule extends TransformationRuleBase implements TransformationCommons {
+public class Field2XmlRule extends TransformationRuleBase {
 
     /**
      * Constructs a transformation rule.
@@ -92,8 +100,7 @@ public class Field2XmlRule extends TransformationRuleBase implements Transformat
 
         // Check parameters.
 
-        if (!(someParameters.containsPrerequisite(OBJECT_CACHE) &&
-              someParameters.containsPrerequisite(ROOT_ELEMENT))) {
+        if (!(someParameters.containsPrerequisite(OBJECT_CACHE) && someParameters.containsPrerequisite(ROOT_ELEMENT))) {
 
             String message = "No root node could be identified!";
             throw new TransformationException(message);
@@ -104,18 +111,15 @@ public class Field2XmlRule extends TransformationRuleBase implements Transformat
         // transformed.
 
         Object object = someParameters.getObject();
-        Field field = (Field)object;
+        Field field = (Field) object;
         Class realType = someParameters.getRealType();
         Class declaredType = someParameters.getDeclaredType();
 
         // Retrieve other prerequisites for the transformation.
 
-        Document document =
-            (Document)someParameters.getPrerequisite(XML_DOCUMENT);
-        Object2XmlCache cache =
-            (Object2XmlCache)someParameters.getPrerequisite(OBJECT_CACHE);
-        Element rootElement =
-            (Element)someParameters.getPrerequisite(ROOT_ELEMENT);
+        Document document = (Document) someParameters.getPrerequisite(XML_DOCUMENT);
+        Object2XmlCache cache = (Object2XmlCache) someParameters.getPrerequisite(OBJECT_CACHE);
+        Element rootElement = (Element) someParameters.getPrerequisite(ROOT_ELEMENT);
 
 
         // Step 1
@@ -138,14 +142,11 @@ public class Field2XmlRule extends TransformationRuleBase implements Transformat
 
         ID id = cache.addObject(object, declaredType);
 
-        Element element =
-            XmlHelper.createXmlElement(document, OBJECT_ELEMENT_TAGNAME);
+        Element element = XmlHelper.createXmlElement(document, OBJECT_ELEMENT);
 
-        element.setAttribute(ID_ATTRIBUTE_TAGNAME, id.toString());
-        element.setAttribute(TYPE_ATTRIBUTE_TAGNAME, realType.getName());
-        element.setAttribute(VALUE_ATTRIBUTE_TAGNAME,
-                             field.getDeclaringClass().getName() + "#" +
-                             field.getName());
+        element.setAttribute(ID_ATTRIBUTE.getTagname(), id.toString());
+        element.setAttribute(TYPE_ATTRIBUTE.getTagname(), realType.getName());
+        element.setAttribute(VALUE_ATTRIBUTE.getTagname(), field.getDeclaringClass().getName() + "#" + field.getName());
 
         rootElement.appendChild(element);
 

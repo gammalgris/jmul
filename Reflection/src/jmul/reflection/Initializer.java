@@ -25,6 +25,8 @@
 package jmul.reflection;
 
 
+import java.lang.reflect.InvocationTargetException;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -93,19 +95,6 @@ public class Initializer {
     }
 
     /**
-     * The method associates a field with a value.
-     *
-     * @param aField
-     *        details about a field
-     * @param aFieldValue
-     *        a field value
-     */
-    public void setField(FieldDetails aField, Object aFieldValue) {
-
-        setField(aField.getFieldName(), aFieldValue);
-    }
-
-    /**
      *The method removes a field and its associated value. The field will not
      * be considered when initializing a new object.
      *
@@ -119,28 +108,20 @@ public class Initializer {
     }
 
     /**
-     *The method removes a field and its associated value. The field will not
-     * be considered when initializing a new object.
-     *
-     * @param aField
-     *        details about a field name
-     */
-    public void removeField(FieldDetails aField) {
-
-        removeField(aField.getFieldName());
-    }
-
-    /**
      * The method instantiates a new instance of the class and initializes it
      * according to the informations about its fields.
      *
      * @return an initialized new instance of the class
      *
-     * @throws jmul.reflection.InitializerException
-     * This exception is thrown if the initialization couldn't be
-     * finished
+     * @throws InitializerException
+     *         This exception is thrown if the initialization couldn't be
+     *         finished
      */
     public Object newInitializedInstance() throws InitializerException {
+
+        StringConcatenator errorMessage =
+            new StringConcatenator("Unable to create a new instance of the class ", classDefinition,
+                                   " and to initialize the object!");
 
         try {
 
@@ -156,17 +137,19 @@ public class Initializer {
 
         } catch (InstantiationException e) {
 
-            StringConcatenator message =
-                new StringConcatenator("Unable to create a new instance of the class ", classDefinition,
-                                       " (no parameterless constructor exists)!");
-            throw new InitializerException(e, message.toString());
+            throw new InitializerException(String.valueOf(errorMessage), e);
 
-        } catch (Exception e) {
+        } catch (NoSuchMethodException e) {
 
-            StringConcatenator message =
-                new StringConcatenator("Unable to create a new instance of the class ", classDefinition,
-                                       " and to initialize the object!");
-            throw new InitializerException(e, message.toString());
+            throw new InitializerException(String.valueOf(errorMessage), e);
+
+        } catch (IllegalAccessException e) {
+
+            throw new InitializerException(String.valueOf(errorMessage), e);
+
+        } catch (InvocationTargetException e) {
+
+            throw new InitializerException(String.valueOf(errorMessage), e);
         }
     }
 

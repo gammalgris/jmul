@@ -27,28 +27,39 @@ package jmul.persistence.transformation.rules.object2xml;
 
 import java.util.Collection;
 
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
+import jmul.cache.transformation.Object2XmlCache;
+
+import jmul.persistence.id.ID;
 
 import jmul.persistence.annotations.AnnotationHelper;
 import jmul.persistence.annotations.ContainerInformations;
 import jmul.persistence.annotations.RootNode;
 import jmul.persistence.transformation.TransformationHelper;
-import jmul.persistence.transformation.rules.TransformationCommons;
+import static jmul.persistence.transformation.rules.PersistenceMarkups.DECLARED_TYPE_ATTRIBUTE;
+import static jmul.persistence.transformation.rules.PersistenceMarkups.ID_ATTRIBUTE;
+import static jmul.persistence.transformation.rules.PersistenceMarkups.OBJECT_ELEMENT;
+import static jmul.persistence.transformation.rules.PersistenceMarkups.TYPE_ATTRIBUTE;
+import static jmul.persistence.transformation.rules.TransformationConstants.DECLARED_ELEMENT_TYPE;
+import static jmul.persistence.transformation.rules.TransformationConstants.OBJECT_CACHE;
+import static jmul.persistence.transformation.rules.TransformationConstants.ROOT_ELEMENT;
+import static jmul.persistence.transformation.rules.TransformationConstants.XML_DOCUMENT;
 import jmul.persistence.transformation.rules.object2xml.strategies.containers.CollectionHandler;
 import jmul.persistence.transformation.rules.object2xml.strategies.containers.ContainerHandler;
 import jmul.persistence.transformation.rules.object2xml.strategies.fields.FieldsHandler;
 import jmul.persistence.transformation.rules.object2xml.strategies.fields.GenericObjectHandler;
 
+import jmul.reflection.ContainerHelper;
+
+import jmul.string.StringConcatenator;
+
 import jmul.transformation.TransformationException;
 import jmul.transformation.TransformationParameters;
 import jmul.transformation.TransformationRuleBase;
 
-import jmul.ContainerHelper;
-import jmul.cache.transformation.Object2XmlCache;
-import jmul.id.ID;
-import jmul.string.StringConcatenator;
 import jmul.xml.XmlHelper;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
 
 /**
@@ -57,7 +68,7 @@ import jmul.xml.XmlHelper;
  *
  * @author Kristian Kutin
  */
-public class CompositeCollection2XmlRule extends TransformationRuleBase implements TransformationCommons {
+public class CompositeCollection2XmlRule extends TransformationRuleBase {
 
     /**
      * A container handler.
@@ -88,8 +99,7 @@ public class CompositeCollection2XmlRule extends TransformationRuleBase implemen
      * @param aPriority
      *        a rule priority
      */
-    public CompositeCollection2XmlRule(String anOrigin, String aDestination,
-                                       int aPriority) {
+    public CompositeCollection2XmlRule(String anOrigin, String aDestination, int aPriority) {
 
         super(anOrigin, aDestination, aPriority);
     }
@@ -132,12 +142,11 @@ public class CompositeCollection2XmlRule extends TransformationRuleBase implemen
             //    class is present (i.e. the inheritance structure must be
             //    considered).
 
-            Class collectionImplementation =
-                ContainerHelper.getConcreteCollectionImplementation(object);
+            Class collectionImplementation = ContainerHelper.getConcreteCollectionImplementation(object);
 
             boolean result =
-                (collectionImplementation != null) && TransformationHelper.isComposite(realType,
-                                                                                       collectionImplementation);
+                (collectionImplementation != null) &&
+                TransformationHelper.isComposite(realType, collectionImplementation);
             return result;
         }
 
@@ -157,8 +166,7 @@ public class CompositeCollection2XmlRule extends TransformationRuleBase implemen
 
         // Check parameters.
 
-        if (!(someParameters.containsPrerequisite(OBJECT_CACHE) &&
-              someParameters.containsPrerequisite(ROOT_ELEMENT))) {
+        if (!(someParameters.containsPrerequisite(OBJECT_CACHE) && someParameters.containsPrerequisite(ROOT_ELEMENT))) {
 
             String message = "No root node could be identified!";
             throw new TransformationException(message);
@@ -175,12 +183,9 @@ public class CompositeCollection2XmlRule extends TransformationRuleBase implemen
 
         // Retrieve other prerequisites for the transformation.
 
-        Document document =
-            (Document)someParameters.getPrerequisite(XML_DOCUMENT);
-        Object2XmlCache cache =
-            (Object2XmlCache)someParameters.getPrerequisite(OBJECT_CACHE);
-        Element rootElement =
-            (Element)someParameters.getPrerequisite(ROOT_ELEMENT);
+        Document document = (Document) someParameters.getPrerequisite(XML_DOCUMENT);
+        Object2XmlCache cache = (Object2XmlCache) someParameters.getPrerequisite(OBJECT_CACHE);
+        Element rootElement = (Element) someParameters.getPrerequisite(ROOT_ELEMENT);
 
 
         Class declaredElementType = null;
@@ -189,8 +194,7 @@ public class CompositeCollection2XmlRule extends TransformationRuleBase implemen
             // A field declaration was marked with an annotation where the
             // element type for this collection was specified.
 
-            declaredElementType =
-                    (Class)someParameters.getPrerequisite(DECLARED_ELEMENT_TYPE);
+            declaredElementType = (Class) someParameters.getPrerequisite(DECLARED_ELEMENT_TYPE);
 
         } else {
 
@@ -199,22 +203,19 @@ public class CompositeCollection2XmlRule extends TransformationRuleBase implemen
             // definition must be checked for the annotation.
 
             ContainerInformations annotation =
-                (ContainerInformations)AnnotationHelper.getAnnotation(someParameters.getRealType(),
-                                                                      ContainerInformations.class,
-                                                                      true);
+                (ContainerInformations) AnnotationHelper.getAnnotation(someParameters.getRealType(),
+                                                                       ContainerInformations.class, true);
 
             if (annotation == null) {
 
                 StringConcatenator message =
                     new StringConcatenator("Cannot determine the element type for this collection (",
-                                           someParameters.getRealType().getName(),
-                                           "<?>)!");
+                                           someParameters.getRealType().getName(), "<?>)!");
                 throw new TransformationException(message.toString());
             }
 
             declaredElementType = annotation.declaredElementType();
-            someParameters.addPrerequisite(DECLARED_ELEMENT_TYPE,
-                                           declaredElementType);
+            someParameters.addPrerequisite(DECLARED_ELEMENT_TYPE, declaredElementType);
         }
 
 
@@ -238,21 +239,18 @@ public class CompositeCollection2XmlRule extends TransformationRuleBase implemen
 
         ID id = cache.addObject(object, declaredType);
 
-        Element element =
-            XmlHelper.createXmlElement(document, OBJECT_ELEMENT_TAGNAME);
+        Element element = XmlHelper.createXmlElement(document, OBJECT_ELEMENT);
 
-        if (AnnotationHelper.isAnnotationPresent(realType, RootNode.class,
-                                                 true)) {
+        if (AnnotationHelper.isAnnotationPresent(realType, RootNode.class, true)) {
 
-            element.setAttribute(DECLARED_TYPE_ATTRIBUTE_TAGNAME,
-                                 declaredType.getName());
+            element.setAttribute(DECLARED_TYPE_ATTRIBUTE.getTagname(), declaredType.getName());
 
         } else {
 
-            element.setAttribute(ID_ATTRIBUTE_TAGNAME, id.toString());
+            element.setAttribute(ID_ATTRIBUTE.getTagname(), id.toString());
         }
 
-        element.setAttribute(TYPE_ATTRIBUTE_TAGNAME, realType.getName());
+        element.setAttribute(TYPE_ATTRIBUTE.getTagname(), realType.getName());
 
 
         // Step 3
@@ -260,18 +258,15 @@ public class CompositeCollection2XmlRule extends TransformationRuleBase implemen
         // In the next step all class members which have to be persisted need
         // to be processed.
 
-        Class exemptedSuperclass =
-            ContainerHelper.getConcreteCollectionImplementation(object);
-        FIELDS_HANDLER_SINGLETON.processFields(someParameters, element, object,
-                                               exemptedSuperclass);
+        Class exemptedSuperclass = ContainerHelper.getConcreteCollectionImplementation(object);
+        FIELDS_HANDLER_SINGLETON.processFields(someParameters, element, object, exemptedSuperclass);
 
 
         // Step 4
         //
         // In the next step all elements of this container need to be processed.
 
-        COLLECTION_HANDLER_SINGLETON.processContainerContent(someParameters,
-                                                             element, object);
+        COLLECTION_HANDLER_SINGLETON.processContainerContent(someParameters, element, object);
 
         // Step 5
         //
