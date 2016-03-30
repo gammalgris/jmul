@@ -59,11 +59,30 @@ public final class StringConcatenator implements CharSequence {
      */
     public StringConcatenator(Object... elements) {
 
+        checkParameter(elements);
+
         string = new StringBuilder();
 
         for (Object element : elements) {
 
             string.append(String.valueOf(element));
+        }
+    }
+
+    /**
+     * Checks the specified Parameter.
+     *
+     * @param aParameter
+     *
+     * @throws IllegalArgumentException
+     *         is thrown if the parameter has an invalid value
+     */
+    private static void checkParameter(Object[] aParameter) {
+
+        if (aParameter == null) {
+
+            String message = "No argument (null) has been specified!";
+            throw new IllegalArgumentException(message);
         }
     }
 

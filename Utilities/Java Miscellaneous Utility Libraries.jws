@@ -27,9 +27,12 @@
       <hash><url n="URL" path="IO/IO.jpr"/></hash>
       <hash><url n="URL" path="Math/Math.jpr"/></hash>
       <hash><url n="URL" path="Misc/Misc.jpr"/></hash>
+      <hash><url n="URL" path="Network/Network.jpr"/></hash>
       <hash><url n="URL" path="Persistence/Persistence.jpr"/></hash>
       <hash><url n="URL" path="Reflection/Reflection.jpr"/></hash>
       <hash><url n="URL" path="Strings/Strings.jpr"/></hash>
+      <hash><url n="URL" path="Strings-Tests/Strings-Tests.jpr"/></hash>
+      <hash><url n="URL" path="Test/Test.jpr"/></hash>
       <hash><url n="URL" path="Transformation/Transformation.jpr"/></hash>
       <hash><url n="URL" path="XML/XML.jpr"/></hash>
    </list>

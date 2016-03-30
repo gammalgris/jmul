@@ -68,6 +68,9 @@ public class Message implements ConfigurableMessage {
      */
     public Message(String aMessage) {
 
+        checkParameter(aMessage);
+
+
         unresolvedMessage = aMessage;
 
 
@@ -77,6 +80,23 @@ public class Message implements ConfigurableMessage {
         for (int a = 0; a < foundPlaceholders.length; a++) {
 
             placeholders.put(foundPlaceholders[a], null);
+        }
+    }
+
+    /**
+     * Checks the specified parameter.
+     *
+     * @param aMessage
+     *
+     * @thows IllegalArgumentException
+     *        is thrown if the specified parameter is invalid
+     */
+    private static void checkParameter(String aMessage) {
+
+        if (aMessage == null) {
+
+            String message = "No parameter has been specified!";
+            throw new IllegalArgumentException(message);
         }
     }
 
@@ -120,8 +140,7 @@ public class Message implements ConfigurableMessage {
             if (!validPlaceholder) {
 
                 StringConcatenator exceptionMessage =
-                    new StringConcatenator("The specified placeholder (\"",
-                                           key,
+                    new StringConcatenator("The specified placeholder (\"", key,
                                            "\") is not expected within this message (");
 
                 boolean first = true;
@@ -193,8 +212,8 @@ public class Message implements ConfigurableMessage {
         if (existUnresolvedPlaceholders()) {
 
             StringConcatenator exceptionMessage =
-                new StringConcatenator("The message still contains unresolved placeholders(\"",
-                                       resolvedMessage, "\")!");
+                new StringConcatenator("The message still contains unresolved placeholders(\"", resolvedMessage,
+                                       "\")!");
             throw new UnresolvedPlaceholderException(exceptionMessage.toString());
         }
 
