@@ -1,0 +1,88 @@
+/*
+ * (J)ava (M)iscellaneous (U)tility (L)ibraries
+ *
+ * JMUL is a central repository for utilities which are used in my
+ * other public and private repositories.
+ *
+ * Copyright (C) 2013  Kristian Kutin
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * e-mail: kristian.kutin@arcor.de
+ */
+
+package jmul.transformation.creation.creators;
+
+
+import jmul.string.StringConcatenator;
+
+
+/**
+ * An implementation of a creation rule.
+ *
+ * @author Kristian Kutin
+ */
+public class CharacterCreator implements ObjectCreator {
+
+    /**
+     * The default constructor.
+     */
+    public CharacterCreator() {
+    }
+
+    /**
+     * Instantiates and initializes a <code>char</code>.
+     *
+     * @param anInitialValue
+     *        a string which contains an initial value
+     * @param aPattern
+     *        a pattern which tells how to parse the string which contains the
+     *        inital value
+     *
+     * @return a new object
+     */
+    public Object createObject(String anInitialValue, String aPattern) {
+
+        // Check the specified parameters.
+
+        if (anInitialValue == null) {
+
+            String message = "No initial value has been specified!";
+            throw new IllegalArgumentException(message);
+        }
+
+        if (anInitialValue.length() != 1) {
+
+            StringConcatenator message =
+                new StringConcatenator("An invalid initial value has been specified \"",
+                                       anInitialValue, "\"!");
+            throw new IllegalArgumentException(message.toString());
+        }
+
+        if (aPattern != null) {
+
+            String message =
+                "A pattern was specified but no pattern is required!";
+            throw new IllegalArgumentException(message);
+        }
+
+
+        // Create a new instance.
+
+        char[] characters = anInitialValue.toCharArray();
+        char result = characters[0];
+        return result;
+    }
+
+}

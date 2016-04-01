@@ -78,7 +78,7 @@
          <hash>
             <hash n="dependable">
                <url n="sourceOwnerURL" path="../Java Miscellaneous Utility Libraries.jws"/>
-               <url n="sourceURL" path="../Strings/Strings.jpr"/>
+               <url n="sourceURL" path="../String/String.jpr"/>
             </hash>
             <value n="recognizerId" v="oracle.jdeveloper.library"/>
          </hash>

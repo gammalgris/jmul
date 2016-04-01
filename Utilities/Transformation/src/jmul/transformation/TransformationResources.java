@@ -28,8 +28,8 @@ package jmul.transformation;
 import jmul.transformation.configuration.ConfigurationReader;
 import jmul.transformation.configuration.ConfigurationReaderImpl;
 
-import jmul.creation.ObjectFactory;
-import jmul.creation.ObjectFactoryImpl;
+import jmul.transformation.creation.ObjectFactory;
+import jmul.transformation.creation.ObjectFactoryImpl;
 import jmul.xml.reader.XmlDocumentReader;
 import jmul.xml.reader.XmlDocumentReaderImpl;
 

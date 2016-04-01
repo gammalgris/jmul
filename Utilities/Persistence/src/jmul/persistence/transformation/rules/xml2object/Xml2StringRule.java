@@ -30,7 +30,7 @@ import jmul.cache.transformation.Xml2ObjectCache;
 import jmul.classes.ClassDefinition;
 import jmul.classes.ClassHelper;
 
-import jmul.creation.ObjectFactory;
+import jmul.transformation.creation.ObjectFactory;
 
 import jmul.persistence.id.ID;
 import jmul.persistence.id.IntegerID;

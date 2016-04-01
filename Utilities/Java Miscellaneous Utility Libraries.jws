@@ -30,8 +30,8 @@
       <hash><url n="URL" path="Network/Network.jpr"/></hash>
       <hash><url n="URL" path="Persistence/Persistence.jpr"/></hash>
       <hash><url n="URL" path="Reflection/Reflection.jpr"/></hash>
-      <hash><url n="URL" path="Strings/Strings.jpr"/></hash>
-      <hash><url n="URL" path="Strings-Tests/Strings-Tests.jpr"/></hash>
+      <hash><url n="URL" path="String/String.jpr"/></hash>
+      <hash><url n="URL" path="String-Tests/String-Tests.jpr"/></hash>
       <hash><url n="URL" path="Test/Test.jpr"/></hash>
       <hash><url n="URL" path="Transformation/Transformation.jpr"/></hash>
       <hash><url n="URL" path="XML/XML.jpr"/></hash>
