@@ -22,50 +22,39 @@
  * e-mail: kristian.kutin@arcor.de
  */
 
-package jmul.persistence.file;
-
-
-import java.io.File;
-
-import jmul.concurrent.threads.ObservableThread;
-import jmul.concurrent.threads.ThreadEventBase;
+package jmul.misc.exceptions;
 
 
 /**
- * An implementation of a thread event.
+ * This exception is thrown if the initialization of a component couldn't be
+ * finished.
  *
  * @author Kristian Kutin
  */
-public class FileFoundNotification extends ThreadEventBase {
+public class InitializationException extends RuntimeException {
 
     /**
-     * A result object.
-     */
-    private final File file;
-
-    /**
-     * Constructs a thread event.
+     * Constructs an exception.
      *
+     * @param aMessage
+     *        a message which provides details about the exception
      * @param aCause
-     *        the event that is the cause for this event
-     * @param aFile
-     *        the result of a thread
+     *        the cause of this exception
      */
-    public FileFoundNotification(ObservableThread aCause, File aFile) {
+    public InitializationException(String aMessage, Throwable aCause) {
 
-        super(aCause);
-
-        file = aFile;
+        super(aMessage, aCause);
     }
 
     /**
-     * Returns the thread result.
+     * Constructs an exception
      *
-     * @return a result.
+     * @param aMessage
+     *        a message which provides details about the exception
      */
-    public File getFile() {
+    public InitializationException(String aMessage) {
 
-        return file;
+        super(aMessage);
     }
 
 }

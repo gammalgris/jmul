@@ -22,50 +22,38 @@
  * e-mail: kristian.kutin@arcor.de
  */
 
-package jmul.persistence.file;
-
-
-import java.io.File;
-
-import jmul.concurrent.threads.ObservableThread;
-import jmul.concurrent.threads.ThreadEventBase;
+package jmul.misc.container;
 
 
 /**
- * An implementation of a thread event.
+ * This interface describes a simple data container. This entity is similar to a
+ * map but provides only a small fraction of the functionality.<br />
+ * <br />
+ * <i>Note:<br />
+ * There are several cases where a struct is required, but only for a short and
+ * limited use. Instead of creating a class each time which contains either
+ * public members or getter- and setter-methods this entity can be used.</i>
  *
  * @author Kristian Kutin
  */
-public class FileFoundNotification extends ThreadEventBase {
+public interface DataContainer<K, V> {
 
     /**
-     * A result object.
-     */
-    private final File file;
-
-    /**
-     * Constructs a thread event.
+     * Retrieves the value which is associated with the specified key. If the
+     * key is unknown then an exception is thrown.
      *
-     * @param aCause
-     *        the event that is the cause for this event
-     * @param aFile
-     *        the result of a thread
+     * @param key
+     *
+     * @return the value which is associated with the specified key
      */
-    public FileFoundNotification(ObservableThread aCause, File aFile) {
-
-        super(aCause);
-
-        file = aFile;
-    }
+    V getValue(K key);
 
     /**
-     * Returns the thread result.
+     * Adds a new key-value pair or updates an existing key-value par.
      *
-     * @return a result.
+     * @param key
+     * @param value
      */
-    public File getFile() {
-
-        return file;
-    }
+    void setValue(K key, V value);
 
 }

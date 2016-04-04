@@ -4,7 +4,7 @@
  * JMUL is a central repository for utilities which are used in my
  * other public and private repositories.
  *
- * Copyright (C) 2013  Kristian Kutin
+ * Copyright (C) 2015  Kristian Kutin
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -22,50 +22,53 @@
  * e-mail: kristian.kutin@arcor.de
  */
 
-package jmul.persistence.file;
-
-
-import java.io.File;
-
-import jmul.concurrent.threads.ObservableThread;
-import jmul.concurrent.threads.ThreadEventBase;
+package jmul.misc.state;
 
 
 /**
- * An implementation of a thread event.
+ * A custom exception class if a state lookup doesn't return a result.
  *
  * @author Kristian Kutin
  */
-public class FileFoundNotification extends ThreadEventBase {
+public class UnknownStateException extends IllegalArgumentException {
 
     /**
-     * A result object.
+     * The default constructor.
      */
-    private final File file;
+    public UnknownStateException() {
 
-    /**
-     * Constructs a thread event.
-     *
-     * @param aCause
-     *        the event that is the cause for this event
-     * @param aFile
-     *        the result of a thread
-     */
-    public FileFoundNotification(ObservableThread aCause, File aFile) {
-
-        super(aCause);
-
-        file = aFile;
+        super();
     }
 
     /**
-     * Returns the thread result.
+     * Creates a new exception according to the specified parameters.
      *
-     * @return a result.
+     * @param aMessage
      */
-    public File getFile() {
+    public UnknownStateException(String aMessage) {
 
-        return file;
+        super(aMessage);
+    }
+
+    /**
+     * Creates a new exception according to the specified parameters.
+     *
+     * @param aCause
+     */
+    public UnknownStateException(Throwable aCause) {
+
+        super(aCause);
+    }
+
+    /**
+     * Creates a new exception according to the specified parameters.
+     *
+     * @param aMessage
+     * @param aCause
+     */
+    public UnknownStateException(String aMessage, Throwable aCause) {
+
+        super(aMessage, aCause);
     }
 
 }

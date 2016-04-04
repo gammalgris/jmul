@@ -26,8 +26,8 @@ package jmul.persistence.file;
 
 import java.io.File;
 
-import jmul.threads.ObservableThread;
-import jmul.threads.ThreadEventBase;
+import jmul.concurrent.threads.ObservableThread;
+import jmul.concurrent.threads.ThreadEventBase;
 
 
 /**

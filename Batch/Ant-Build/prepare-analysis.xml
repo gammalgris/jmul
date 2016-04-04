@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project xmlns="antlib:org.apache.tools.ant" default="init">
+
+
+    <property name="project.dir" location="${basedir}\..\.." />
+
+
+    <property name="packages.base.dir" location="${project.dir}\Utilities" />
+
+    <property name="package.concurrent.dir" location="${packages.base.dir}\Concurrent" />
+    <property name="package.concurrent.src.dir" location="${package.concurrent.dir}\src" />
+
+    <property name="package.io.dir" location="${packages.base.dir}\IO" />
+    <property name="package.io.src.dir" location="${package.io.dir}\src" />
+
+    <property name="package.math.dir" location="${packages.base.dir}\Math" />
+    <property name="package.math.src.dir" location="${package.math.dir}\src" />
+
+    <property name="package.misc.dir" location="${packages.base.dir}\Misc" />
+    <property name="package.misc.src.dir" location="${package.misc.dir}\src" />
+
+    <property name="package.network.dir" location="${packages.base.dir}\Network" />
+    <property name="package.network.src.dir" location="${package.network.dir}\src" />
+
+    <property name="package.persistence.dir" location="${packages.base.dir}\Persistence" />
+    <property name="package.persistence.src.dir" location="${package.persistence.dir}\src" />
+
+    <property name="package.reflection.dir" location="${packages.base.dir}\Reflection" />
+    <property name="package.reflection.src.dir" location="${package.reflection.dir}\src" />
+
+    <property name="package.string.dir" location="${packages.base.dir}\String" />
+    <property name="package.string.src.dir" location="${package.string.dir}\src" />
+
+    <property name="package.test.dir" location="${packages.base.dir}\Test" />
+    <property name="package.test.src.dir" location="${package.test.dir}\src" />
+
+    <property name="package.transition.dir" location="${packages.base.dir}\Transformation" />
+    <property name="package.transformation.src.dir" location="${package.transition.dir}\src" />
+
+    <property name="package.xml.dir" location="${packages.base.dir}\XML" />
+    <property name="package.xml.src.dir" location="${package.xml.dir}\src" />
+
+
+    <target name="info">
+
+        <echo />
+        <echo message="  project dir ............... ${project.dir}" />
+        <echo />
+        <echo />
+        <echo message="  packages base dir ......... ${packages.base.dir}" />
+        <echo />
+        <echo message="  packages base dir ......... ${packages.base.dir}" />
+        <echo />
+
+    </target>
+
+    <target name="init">
+        <tstamp/>
+    </target>
+</project>

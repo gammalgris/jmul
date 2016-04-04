@@ -4,7 +4,7 @@
  * JMUL is a central repository for utilities which are used in my
  * other public and private repositories.
  *
- * Copyright (C) 2013  Kristian Kutin
+ * Copyright (C) 2014  Kristian Kutin
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -22,50 +22,21 @@
  * e-mail: kristian.kutin@arcor.de
  */
 
-package jmul.persistence.file;
-
-
-import java.io.File;
-
-import jmul.concurrent.threads.ObservableThread;
-import jmul.concurrent.threads.ThreadEventBase;
+package jmul.misc.management;
 
 
 /**
- * An implementation of a thread event.
+ * This interface describes an entity which initializes resources.
  *
  * @author Kristian Kutin
  */
-public class FileFoundNotification extends ThreadEventBase {
+public interface ResourceInitializer {
 
     /**
-     * A result object.
-     */
-    private final File file;
-
-    /**
-     * Constructs a thread event.
+     * Returns an initialized resource container.
      *
-     * @param aCause
-     *        the event that is the cause for this event
-     * @param aFile
-     *        the result of a thread
+     * @return a resource container
      */
-    public FileFoundNotification(ObservableThread aCause, File aFile) {
-
-        super(aCause);
-
-        file = aFile;
-    }
-
-    /**
-     * Returns the thread result.
-     *
-     * @return a result.
-     */
-    public File getFile() {
-
-        return file;
-    }
+    ResourceContainer initializeResources();
 
 }

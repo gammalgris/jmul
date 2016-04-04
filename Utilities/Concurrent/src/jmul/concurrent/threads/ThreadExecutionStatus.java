@@ -22,50 +22,41 @@
  * e-mail: kristian.kutin@arcor.de
  */
 
-package jmul.persistence.file;
-
-
-import java.io.File;
-
-import jmul.concurrent.threads.ObservableThread;
-import jmul.concurrent.threads.ThreadEventBase;
+package jmul.concurrent.threads;
 
 
 /**
- * An implementation of a thread event.
+ * This object contains information about thread execution status.
  *
  * @author Kristian Kutin
  */
-public class FileFoundNotification extends ThreadEventBase {
+public class ThreadExecutionStatus {
 
-    /**
-     * A result object.
-     */
-    private final File file;
+    private boolean obsoleteExecution;
 
-    /**
-     * Constructs a thread event.
-     *
-     * @param aCause
-     *        the event that is the cause for this event
-     * @param aFile
-     *        the result of a thread
-     */
-    public FileFoundNotification(ObservableThread aCause, File aFile) {
+    public ThreadExecutionStatus() {
 
-        super(aCause);
-
-        file = aFile;
+        obsoleteExecution = false;
     }
 
-    /**
-     * Returns the thread result.
-     *
-     * @return a result.
-     */
-    public File getFile() {
+    public boolean isObsoleteExecution() {
 
-        return file;
+        boolean result = false;
+
+        synchronized (this) {
+
+            result = obsoleteExecution;
+        }
+
+        return result;
+    }
+
+    public void setObsoleteExecution(boolean obsolete) {
+
+        synchronized (this) {
+
+            obsoleteExecution = obsolete;
+        }
     }
 
 }

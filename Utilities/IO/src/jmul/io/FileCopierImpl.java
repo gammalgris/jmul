@@ -33,7 +33,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-import jmul.exceptions.MultipleCausesException;
+import jmul.misc.exceptions.MultipleCausesException;
 
 
 /**

@@ -28,8 +28,8 @@ package jmul.persistence.file;
 import java.io.File;
 import java.io.FileFilter;
 
-import jmul.threads.ObservableThreadBase;
-import jmul.threads.ThreadExecutionStatus;
+import jmul.concurrent.threads.ObservableThreadBase;
+import jmul.concurrent.threads.ThreadExecutionStatus;
 
 
 /**

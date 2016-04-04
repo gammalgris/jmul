@@ -4,7 +4,7 @@
  * JMUL is a central repository for utilities which are used in my
  * other public and private repositories.
  *
- * Copyright (C) 2013  Kristian Kutin
+ * Copyright (C) 2016  Kristian Kutin
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -22,50 +22,38 @@
  * e-mail: kristian.kutin@arcor.de
  */
 
-package jmul.persistence.file;
-
-
-import java.io.File;
-
-import jmul.concurrent.threads.ObservableThread;
-import jmul.concurrent.threads.ThreadEventBase;
+package jmul.misc.exceptions;
 
 
 /**
- * An implementation of a thread event.
+ * This exception is thrown if the instantiation of an object fails.
  *
  * @author Kristian Kutin
  */
-public class FileFoundNotification extends ThreadEventBase {
+public class InstantiationException extends RuntimeException {
 
     /**
-     * A result object.
-     */
-    private final File file;
-
-    /**
-     * Constructs a thread event.
+     * Constructs an exception.
      *
+     * @param aMessage
+     *        a message which provides details about the exception
      * @param aCause
-     *        the event that is the cause for this event
-     * @param aFile
-     *        the result of a thread
+     *        the cause of this exception
      */
-    public FileFoundNotification(ObservableThread aCause, File aFile) {
+    public InstantiationException(String aMessage, Throwable aCause) {
 
-        super(aCause);
-
-        file = aFile;
+        super(aMessage, aCause);
     }
 
     /**
-     * Returns the thread result.
+     * Constructs an exception
      *
-     * @return a result.
+     * @param aMessage
+     *        a message which provides details about the exception
      */
-    public File getFile() {
+    public InstantiationException(String aMessage) {
 
-        return file;
+        super(aMessage);
     }
 
 }

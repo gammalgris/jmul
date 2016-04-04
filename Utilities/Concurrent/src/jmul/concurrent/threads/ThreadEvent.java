@@ -22,50 +22,22 @@
  * e-mail: kristian.kutin@arcor.de
  */
 
-package jmul.persistence.file;
-
-
-import java.io.File;
-
-import jmul.concurrent.threads.ObservableThread;
-import jmul.concurrent.threads.ThreadEventBase;
+package jmul.concurrent.threads;
 
 
 /**
- * An implementation of a thread event.
+ * This interface describes a general event that may be invoked by a thread. An
+ * implmenetation class might provide more informations.
  *
  * @author Kristian Kutin
  */
-public class FileFoundNotification extends ThreadEventBase {
+public interface ThreadEvent {
 
     /**
-     * A result object.
-     */
-    private final File file;
-
-    /**
-     * Constructs a thread event.
+     * Returns a reference to the thread that is cause of the event.
      *
-     * @param aCause
-     *        the event that is the cause for this event
-     * @param aFile
-     *        the result of a thread
+     * @return a thread
      */
-    public FileFoundNotification(ObservableThread aCause, File aFile) {
-
-        super(aCause);
-
-        file = aFile;
-    }
-
-    /**
-     * Returns the thread result.
-     *
-     * @return a result.
-     */
-    public File getFile() {
-
-        return file;
-    }
+    ObservableThread getObservableThread();
 
 }

@@ -4,7 +4,7 @@
  * JMUL is a central repository for utilities which are used in my
  * other public and private repositories.
  *
- * Copyright (C) 2013  Kristian Kutin
+ * Copyright (C) 2015  Kristian Kutin
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -22,50 +22,51 @@
  * e-mail: kristian.kutin@arcor.de
  */
 
-package jmul.persistence.file;
+package jmul.misc.state;
 
 
-import java.io.File;
-
-import jmul.concurrent.threads.ObservableThread;
-import jmul.concurrent.threads.ThreadEventBase;
+import java.util.Set;
 
 
 /**
- * An implementation of a thread event.
- *
- * @author Kristian Kutin
+ * This interface describes a state.
  */
-public class FileFoundNotification extends ThreadEventBase {
+public interface State {
 
     /**
-     * A result object.
-     */
-    private final File file;
-
-    /**
-     * Constructs a thread event.
+     * Returns the name of this state.
      *
-     * @param aCause
-     *        the event that is the cause for this event
-     * @param aFile
-     *        the result of a thread
+     * @return a state name
      */
-    public FileFoundNotification(ObservableThread aCause, File aFile) {
-
-        super(aCause);
-
-        file = aFile;
-    }
+    String getStateName();
 
     /**
-     * Returns the thread result.
+     * Returns all allowed transition destinations.
      *
-     * @return a result.
+     * @return all allowed transition destinations
      */
-    public File getFile() {
+    Set<State> getAllowedTransitions();
 
-        return file;
-    }
+    /**
+     * Checks if a transition to the specified state is allowed.
+     *
+     * @param newState
+     *        the target of a state transition
+     *
+     * @return <code>true</code> if a transition is possible, else
+     *         <code>false</code>
+     */
+    boolean isAllowedTransition(State newState);
+
+    /**
+     * Performs a state transitions and returns the new state.
+     *
+     * @param newState
+     *
+     * @throws jmul.misc.state.IllegalStateTransitionException
+     *
+     * @return the new state
+     */
+    State transitionTo(State newState);
 
 }

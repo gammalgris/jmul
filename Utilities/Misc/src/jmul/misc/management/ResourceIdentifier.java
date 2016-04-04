@@ -22,50 +22,21 @@
  * e-mail: kristian.kutin@arcor.de
  */
 
-package jmul.persistence.file;
-
-
-import java.io.File;
-
-import jmul.concurrent.threads.ObservableThread;
-import jmul.concurrent.threads.ThreadEventBase;
+package jmul.misc.management;
 
 
 /**
- * An implementation of a thread event.
- *
+ * This interface describes a resource identifier.
+ * 
  * @author Kristian Kutin
  */
-public class FileFoundNotification extends ThreadEventBase {
+public interface ResourceIdentifier {
 
     /**
-     * A result object.
+     * Return the name of a resource.
+     * 
+     * @return a resource name
      */
-    private final File file;
-
-    /**
-     * Constructs a thread event.
-     *
-     * @param aCause
-     *        the event that is the cause for this event
-     * @param aFile
-     *        the result of a thread
-     */
-    public FileFoundNotification(ObservableThread aCause, File aFile) {
-
-        super(aCause);
-
-        file = aFile;
-    }
-
-    /**
-     * Returns the thread result.
-     *
-     * @return a result.
-     */
-    public File getFile() {
-
-        return file;
-    }
-
+    String getResourceName();
+    
 }

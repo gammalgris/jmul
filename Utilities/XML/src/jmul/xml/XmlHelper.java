@@ -33,7 +33,7 @@ import java.util.Map;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
-import jmul.exceptions.InstantiationException;
+import jmul.misc.exceptions.InstantiationException;
 
 import org.w3c.dom.Attr;
 import org.w3c.dom.Document;

@@ -22,50 +22,37 @@
  * e-mail: kristian.kutin@arcor.de
  */
 
-package jmul.persistence.file;
-
-
-import java.io.File;
-
-import jmul.concurrent.threads.ObservableThread;
-import jmul.concurrent.threads.ThreadEventBase;
+package jmul.concurrent.threads;
 
 
 /**
- * An implementation of a thread event.
+ * A base implementation of a thread event.
  *
  * @author Kristian Kutin
  */
-public class FileFoundNotification extends ThreadEventBase {
+public class ThreadEventBase implements ThreadEvent {
 
     /**
-     * A result object.
+     * The thread that is the cause of this event.
      */
-    private final File file;
+    private ObservableThread thread;
 
     /**
-     * Constructs a thread event.
-     *
-     * @param aCause
-     *        the event that is the cause for this event
-     * @param aFile
-     *        the result of a thread
+     * The default constructor.
      */
-    public FileFoundNotification(ObservableThread aCause, File aFile) {
+    public ThreadEventBase(ObservableThread aCause) {
 
-        super(aCause);
-
-        file = aFile;
+        thread = aCause;
     }
 
     /**
-     * Returns the thread result.
+     * Returns a reference to the thread that is cause of the event.
      *
-     * @return a result.
+     * @return a thread
      */
-    public File getFile() {
+    public ObservableThread getObservableThread() {
 
-        return file;
+        return thread;
     }
 
 }
