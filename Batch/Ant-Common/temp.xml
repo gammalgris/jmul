@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project xmlns="antlib:org.apache.tools.ant" name="temp">
+
+
+    <include file="${basedir}\..\Ant-Common\common.xml" />
+
+
+    <target name="initTmp">
+
+        <delete dir="${project.tmp.dir}" />
+        <mkdir dir="${project.tmp.dir}" />
+        <mkdir dir="${project.tmp.src.dir}" />
+        <mkdir dir="${project.tmp.cfg.dir}" />
+        <mkdir dir="${project.tmp.build.dir}" />
+        <mkdir dir="${project.tmp.tests-src.dir}" />
+        <mkdir dir="${project.tmp.tests-cfg.dir}" />
+        <mkdir dir="${project.tmp.tests-build.dir}" />
+        <mkdir dir="${project.tmp.tests-results.dir}" />
+        <mkdir dir="${project.tmp.tests-report.dir}" />
+
+    </target>
+
+
+    <target name="disposeTmp">
+
+        <delete dir="${project.tmp.dir}" />
+
+    </target>
+
+</project>

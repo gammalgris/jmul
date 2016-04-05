@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<project xmlns="antlib:org.apache.tools.ant" default="info">
+<project xmlns="antlib:org.apache.tools.ant" name="project">
+
+
+    <include file="${basedir}\..\Ant-Common\common.xml" />
 
 
     <property name="project.dir" location="${basedir}\..\.." />
@@ -16,11 +19,21 @@
 
     <property name="sonar.projectKey" value="jmul" />
     <property name="sonar.projectName" value="JMUL" />
-    <property name="sonar.projectVersion" value="1.0" />
+    <property name="sonar.sourceEncoding" value="UTF-8" />
     <property name="sonar.sources" value="${project.tmp.src.dir}" />
     <property name="sonar.java.binaries" value="${project.tmp.build.dir}" />
     <property name="sonar.projectBaseDir" value="${project.tmp.dir}" />
-    <!-- property name="sonar.java.libraries" value="lib/*.jar" / -->
+    <property name="sonar.junit.reportsPath" value="${project.tmp.tests-results.dir}" />
+    <property name="sonar.tests" value="${project.tmp.tests-src.dir}" />
+
+
+    <input message="Enter the project's version:" addproperty="sonar.projectVersion" />
+
+    <condition property="do.abort">
+        <equals arg1="" arg2="${version}"/>
+    </condition>
+
+    <fail if="do.abort">Build aborted by user.</fail>
 
 
     <target name="info">
@@ -42,22 +55,9 @@
         <echo message="  sonar sources ..................... ${sonar.sources}" />
         <echo message="  sonar java binaries ............... ${sonar.java.binaries}" />
         <echo message="  sonar project base dir ............ ${sonar.projectBaseDir}" />
+        <echo message="  sonar junit reports dir ........... ${sonar.junit.reportsPath}" />
         <echo />
 
-    </target>
-
-
-    <taskdef name="sonar" classname="org.sonarsource.scanner.ant.SonarQubeTask" classpath="${sonar.ant.task.lib}" />
-
-    <target name="sonar" depends="info">
-        <!-- taskdef uri="antlib:org.sonar.ant" resource="org/sonar/ant/antlib.xml">
-            < ! - -  Update the following line, or put the "sonarqube-ant-task-*.jar" file in your "$HOME/.ant/lib" folder - - >
-            <classpath path="${sonar.ant.task.lib}" />
-        </taskdef -->
-     
-        <!-- Execute the SonarQube analysis -->
-        <sonar>
-        </sonar>
     </target>
 
 </project>

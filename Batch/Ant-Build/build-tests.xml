@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project xmlns="antlib:org.apache.tools.ant" name="build-tests" default="build">
+
+
+    <include file="${basedir}\..\Ant-Common\common.xml" />
+    <include file="${basedir}\..\Ant-Common\temp.xml" />
+    <include file="${basedir}\..\Ant-Common\classpath.xml" />
+    <include file="${basedir}\..\Ant-Build\build.xml" />
+
+
+    <target name="copySources">
+
+        <copy todir="${project.tmp.tests-src.dir}" overwrite="true">
+            <fileset dir="${package.math-tests.src.dir}">
+                <include name="**/*.java" />
+            </fileset>
+            <fileset dir="${package.misc-tests.src.dir}">
+                <include name="**/*.java" />
+            </fileset>
+            <fileset dir="${package.string-tests.src.dir}">
+                <include name="**/*.java" />
+            </fileset>
+        </copy>
+
+    </target>
+
+
+    <target name="copyResources">
+
+        <!-- copy todir="${project.tmp.cfg.dir}">
+        </copy -->
+
+    </target>
+
+
+    <target name="build" depends="build.build, copySources, copyResources">
+
+        <javac srcdir="${project.tmp.tests-src.dir}" destdir="${project.tmp.tests-build.dir}" verbose="true" classpathref="jmul-tests.build.classpath" />
+
+    </target>
+
+
+</project>

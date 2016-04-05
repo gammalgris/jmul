@@ -4,7 +4,7 @@
  * JMUL is a central repository for utilities which are used in my
  * other public and private repositories.
  *
- * Copyright (C) 2013  Kristian Kutin
+ * Copyright (C) 2016  Kristian Kutin
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -22,38 +22,27 @@
  * e-mail: kristian.kutin@arcor.de
  */
 
-package jmul.misc.container;
+package jmul.misc.exceptions;
 
 
 /**
- * This interface describes a simple data container. This entity is similar to a
- * map but provides only a small fraction of the functionality.<br />
- * <br />
- * <i>Note:<br />
- * There are several cases where a struct is required, but only for a short and
- * limited use. Instead of creating a class each time which contains either
- * public members or getter- and setter-methods this entity can be used.</i>
+ * An exception which is derived from {@link java.lang.IllegalArgumentException}.
  *
  * @author Kristian Kutin
  */
-public interface DataContainer<K, V> {
+public class NullParameterException extends IllegalArgumentException {
 
     /**
-     * Retrieves the value which is associated with the specified key. If the
-     * key is unknown then an exception is thrown.
-     *
-     * @param key
-     *
-     * @return the value which is associated with the specified key
+     * The default message for this kind of exception.
      */
-    V getValue(K key);
+    private static final String DEFAULT_MESSAGE = "No parameter (null) has been specified!";
 
     /**
-     * Adds a new key-value pair or updates an existing key-value par.
-     *
-     * @param key
-     * @param value
+     * The default constructor.
      */
-    void putValue(K key, V value);
+    public NullParameterException() {
+
+        super(DEFAULT_MESSAGE);
+    }
 
 }

@@ -25,9 +25,12 @@
 package jmul.math.markow;
 
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
+
+import static jmul.string.Constants.NEW_LINE;
+import jmul.string.StringConcatenator;
 
 
 /**
@@ -46,12 +49,6 @@ import java.util.Collections;
 public class Algorithm {
 
     /**
-     * The class member contains the line separator for this operating system.
-     */
-    private static String LINE_SEPARATOR =
-        System.getProperty("line.separator");
-
-    /**
      * The class member contains all rules which define this specific markov
      * algorithm. The order of the rules is important.
      */
@@ -65,14 +62,7 @@ public class Algorithm {
      */
     public Algorithm(Rule... someRules) {
 
-        Collection<Rule> tmp = new ArrayList<Rule>();
-
-        for (Rule rule : someRules) {
-
-            tmp.add(rule);
-        }
-
-        rules = Collections.unmodifiableCollection(tmp);
+        rules = Collections.unmodifiableList(Arrays.asList(someRules));
     }
 
     /**
@@ -108,7 +98,7 @@ public class Algorithm {
     @Override
     public String toString() {
 
-        StringBuffer buffer = new StringBuffer();
+        StringConcatenator buffer = new StringConcatenator();
 
         boolean first = true;
         for (Rule rule : rules) {
@@ -119,13 +109,13 @@ public class Algorithm {
 
             } else {
 
-                buffer.append(LINE_SEPARATOR);
+                buffer.append(NEW_LINE);
             }
 
-            buffer.append(rule.toString());
+            buffer.append(rule);
         }
 
-        return buffer.toString();
+        return String.valueOf(buffer);
     }
 
 }

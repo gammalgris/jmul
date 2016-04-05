@@ -25,6 +25,9 @@
 package jmul.math.markow;
 
 
+import jmul.misc.exceptions.EmptyStringParameterException;
+import jmul.misc.exceptions.NullParameterException;
+
 import jmul.string.StringConcatenator;
 
 
@@ -55,8 +58,49 @@ public class Rule {
      */
     public Rule(String aLeftSide, String aRightSide) {
 
+        checkLeftSide(aLeftSide);
+        checkRightSide(aRightSide);
+
         leftSide = aLeftSide;
         rightSide = aRightSide;
+    }
+
+    /**
+     * Checks the specified parameter.
+     *
+     * @param aParameter
+     *
+     * @throws IllegalArgumentException
+     *         if the specified parameter is invalid
+     */
+    private static void checkLeftSide(String aParameter) {
+
+        if (aParameter == null) {
+
+            throw new NullParameterException();
+        }
+
+        if (aParameter.length() == 0) {
+
+            throw new EmptyStringParameterException();
+        }
+
+    }
+
+    /**
+     * Checks the specified parameter.
+     *
+     * @param aParameter
+     *
+     * @throws IllegalArgumentException
+     *         if the specified parameter is invalid
+     */
+    private static void checkRightSide(String aParameter) {
+
+        if (aParameter == null) {
+
+            throw new NullParameterException();
+        }
     }
 
     /**
@@ -69,7 +113,25 @@ public class Rule {
      */
     public String applyRule(String aString) {
 
-        return aString.replace(leftSide, rightSide);
+        checkParameter(aString);
+
+        return aString.replaceFirst(leftSide, rightSide);
+    }
+
+    /**
+     * Checks the specified parameter.
+     *
+     * @param aString
+     *
+     * @throws IllegalArgumentException
+     *         if the specified parameter is invalid
+     */
+    private static void checkParameter(String aString) {
+
+        if (aString == null) {
+
+            throw new NullParameterException();
+        }
     }
 
     /**
@@ -80,8 +142,7 @@ public class Rule {
     @Override
     public String toString() {
 
-        StringConcatenator representation =
-            new StringConcatenator(leftSide, " -> ", rightSide);
+        StringConcatenator representation = new StringConcatenator("\"", leftSide, "\" -> \"", rightSide, "\"");
         return representation.toString();
     }
 

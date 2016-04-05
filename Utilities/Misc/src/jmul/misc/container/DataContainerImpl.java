@@ -62,8 +62,7 @@ public class DataContainerImpl<K, V> implements DataContainer<K, V> {
 
         if (unknownKey) {
 
-            String message =
-                "No entry exists for the specified key \"" + key + "\"!";
+            String message = "No entry exists for the specified key \"" + key + "\"!";
             throw new IllegalArgumentException(message);
         }
 
@@ -76,7 +75,7 @@ public class DataContainerImpl<K, V> implements DataContainer<K, V> {
      * @param key
      * @param value
      */
-    public void setValue(K key, V value) {
+    public void putValue(K key, V value) {
 
         container.put(key, value);
     }

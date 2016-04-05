@@ -15,9 +15,13 @@
 
     <property name="package.math.dir" location="${packages.base.dir}\Math" />
     <property name="package.math.src.dir" location="${package.math.dir}\src" />
+    <property name="package.math-tests.dir" location="${packages.base.dir}\Math-Tests" />
+    <property name="package.math-tests.src.dir" location="${package.math-tests.dir}\src" />
 
     <property name="package.misc.dir" location="${packages.base.dir}\Misc" />
     <property name="package.misc.src.dir" location="${package.misc.dir}\src" />
+    <property name="package.misc-tests.dir" location="${packages.base.dir}\Misc-Tests" />
+    <property name="package.misc-tests.src.dir" location="${package.misc-tests.dir}\src" />
 
     <property name="package.network.dir" location="${packages.base.dir}\Network" />
     <property name="package.network.src.dir" location="${package.network.dir}\src" />
@@ -34,7 +38,7 @@
     <property name="package.string.dir" location="${packages.base.dir}\String" />
     <property name="package.string.src.dir" location="${package.string.dir}\src" />
     <property name="package.string-tests.dir" location="${packages.base.dir}\String-Tests" />
-    <property name="package.string-tests.src.dir" location="${packages.string-tests.dir}\src" />
+    <property name="package.string-tests.src.dir" location="${package.string-tests.dir}\src" />
 
     <property name="package.test.dir" location="${packages.base.dir}\Test" />
     <property name="package.test.src.dir" location="${package.test.dir}\src" />
@@ -49,6 +53,74 @@
 
     <property name="project.tmp.dir" location="${project.dir}\tmp" />
     <property name="project.tmp.src.dir" location="${project.tmp.dir}\src" />
+    <property name="project.tmp.cfg.dir" location="${project.tmp.dir}\properties" />
     <property name="project.tmp.build.dir" location="${project.tmp.dir}\build" />
+
+    <property name="project.tmp.tests-src.dir" location="${project.tmp.dir}\tests-src" />
+    <property name="project.tmp.tests-cfg.dir" location="${project.tmp.dir}\tests-properties" />
+    <property name="project.tmp.tests-build.dir" location="${project.tmp.dir}\tests-build" />
+
+    <property name="project.tmp.tests-results.dir" location="${project.tmp.dir}\tests-results" />
+    <property name="project.tmp.tests-report.dir" location="${project.tmp.dir}\tests-report" />
+
+
+    <target name="info">
+
+        <echo />
+        <echo message="  project dir ....................... ${project.dir}" />
+        <echo />
+        <echo />
+        <echo message="  packages base dir ................. ${packages.base.dir}" />
+        <echo />
+        <echo message="  package concurrent dir ............ ${package.concurrent.dir}" />
+        <echo message="  package concurrent src dir ........ ${package.concurrent.src.dir}" />
+        <echo message="  package io dir .................... ${package.io.dir}" />
+        <echo message="  package io src dir ................ ${package.io.src.dir}" />
+        <echo message="  package math dir .................. ${package.math.dir}" />
+        <echo message="  package math src dir .............. ${package.math.src.dir}" />
+        <echo message="  package misc dir .................. ${package.network.dir}" />
+        <echo message="  package misc src dir .............. ${package.network.src.dir}" />
+        <echo message="  package network dir ............... ${package.network.dir}" />
+        <echo message="  package network src dir ........... ${package.network.src.dir}" />
+        <echo message="  package network cfg dir ........... ${package.network.cfg.dir}" />
+        <echo message="  package persistence dir ........... ${package.persistence.dir}" />
+        <echo message="  package persistence src dir ....... ${package.persistence.src.dir}" />
+        <echo message="  package persistence cfg dir ....... ${package.persistence.cfg.dir}" />
+        <echo message="  package reflection dir ............ ${package.reflection.dir}" />
+        <echo message="  package reflection src dir ........ ${package.reflection.src.dir}" />
+        <echo message="  package reflection cfg dir ........ ${package.reflection.cfg.dir}" />
+        <echo message="  package string dir ................ ${package.string.dir}" />
+        <echo message="  package string src dir ............ ${package.string.src.dir}" />
+        <echo message="  package test dir .................. ${package.test.dir}" />
+        <echo message="  package test src dir .............. ${package.test.src.dir}" />
+        <echo message="  package transformation dir ........ ${package.transformation.dir}" />
+        <echo message="  package transformation src dir .... ${package.transformation.src.dir}" />
+        <echo message="  package transformation cfg dir .... ${package.transformation.cfg.dir}" />
+        <echo message="  package xml dir ................... ${package.xml.dir}" />
+        <echo message="  package xml src dir ............... ${package.xml.src.dir}" />
+        <echo />
+        <echo message="  package string tests dir .......... ${package.string-tests.dir}" />
+        <echo message="  package string tests src dir ...... ${package.string-tests.src.dir}" />
+        <echo message="  package misc tests dir ............ ${package.misc-tests.dir}" />
+        <echo message="  package misc tests src dir ........ ${package.misc-tests.src.dir}" />
+        <echo message="  package math tests dir ............ ${package.math-tests.dir}" />
+        <echo message="  package math tests src dir ........ ${package.math-tests.src.dir}" />
+        <echo />
+        <echo />
+        <echo message="  project tmp dir ................... ${project.tmp.dir}" />
+        <echo />
+        <echo message="  project tmp src dir ............... ${project.tmp.src.dir}" />
+        <echo message="  project tmp cfg dir ............... ${project.tmp.cfg.dir}" />
+        <echo message="  project tmp build dir ............. ${project.tmp.build.dir}" />
+        <echo />
+        <echo message="  project tmp tests-src dir ......... ${project.tmp.tests-src.dir}" />
+        <echo message="  project tmp tests-cfg dir ......... ${project.tmp.tests-cfg.dir}" />
+        <echo message="  project tmp tests-build dir ....... ${project.tmp.tests-build.dir}" />
+        <echo />
+        <echo message="  project tmp tests-results dir ..... ${project.tmp.tests-results.dir}" />
+        <echo message="  project tmp tests-report dir ...... ${project.tmp.tests-report.dir}" />
+        <echo />
+
+    </target>
 
 </project>
