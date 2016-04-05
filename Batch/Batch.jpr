@@ -78,7 +78,31 @@
                   <string v="+**"/>
                </list>
                <list n="url-path">
-                  <url path="Dos-Execute/"/>
+                  <url path="Ant-Build/"/>
+               </list>
+            </hash>
+            <hash>
+               <list n="pattern-filters">
+                  <string v="+**"/>
+               </list>
+               <list n="url-path">
+                  <url path="Ant-Common/"/>
+               </list>
+            </hash>
+            <hash>
+               <list n="pattern-filters">
+                  <string v="+**"/>
+               </list>
+               <list n="url-path">
+                  <url path="Ant-Execute/"/>
+               </list>
+            </hash>
+            <hash>
+               <list n="pattern-filters">
+                  <string v="+**"/>
+               </list>
+               <list n="url-path">
+                  <url path="Ant-Sonar/"/>
                </list>
             </hash>
             <hash>
@@ -94,7 +118,7 @@
                   <string v="+**"/>
                </list>
                <list n="url-path">
-                  <url path="Ant-Build/"/>
+                  <url path="Dos-Execute/"/>
                </list>
             </hash>
             <hash>
@@ -102,7 +126,7 @@
                   <string v="+**"/>
                </list>
                <list n="url-path">
-                  <url path="Ant-Execute/"/>
+                  <url path="Dos-Sonar/"/>
                </list>
             </hash>
          </list>

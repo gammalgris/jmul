@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<project xmlns="antlib:org.apache.tools.ant" default="init">
+<project xmlns="antlib:org.apache.tools.ant" name="common">
 
 
     <property name="project.dir" location="${basedir}\..\.." />
@@ -21,40 +21,34 @@
 
     <property name="package.network.dir" location="${packages.base.dir}\Network" />
     <property name="package.network.src.dir" location="${package.network.dir}\src" />
+    <property name="package.network.cfg.dir" location="${package.network.dir}\properties" />
 
     <property name="package.persistence.dir" location="${packages.base.dir}\Persistence" />
     <property name="package.persistence.src.dir" location="${package.persistence.dir}\src" />
+    <property name="package.persistence.cfg.dir" location="${package.persistence.dir}\properties" />
 
     <property name="package.reflection.dir" location="${packages.base.dir}\Reflection" />
     <property name="package.reflection.src.dir" location="${package.reflection.dir}\src" />
+    <property name="package.reflection.cfg.dir" location="${package.reflection.dir}\properties" />
 
     <property name="package.string.dir" location="${packages.base.dir}\String" />
     <property name="package.string.src.dir" location="${package.string.dir}\src" />
+    <property name="package.string-tests.dir" location="${packages.base.dir}\String-Tests" />
+    <property name="package.string-tests.src.dir" location="${packages.string-tests.dir}\src" />
 
     <property name="package.test.dir" location="${packages.base.dir}\Test" />
     <property name="package.test.src.dir" location="${package.test.dir}\src" />
 
-    <property name="package.transition.dir" location="${packages.base.dir}\Transformation" />
-    <property name="package.transformation.src.dir" location="${package.transition.dir}\src" />
+    <property name="package.transformation.dir" location="${packages.base.dir}\Transformation" />
+    <property name="package.transformation.src.dir" location="${package.transformation.dir}\src" />
+    <property name="package.transformation.cfg.dir" location="${package.transformation.dir}\properties" />
 
     <property name="package.xml.dir" location="${packages.base.dir}\XML" />
     <property name="package.xml.src.dir" location="${package.xml.dir}\src" />
 
 
-    <target name="info">
+    <property name="project.tmp.dir" location="${project.dir}\tmp" />
+    <property name="project.tmp.src.dir" location="${project.tmp.dir}\src" />
+    <property name="project.tmp.build.dir" location="${project.tmp.dir}\build" />
 
-        <echo />
-        <echo message="  project dir ............... ${project.dir}" />
-        <echo />
-        <echo />
-        <echo message="  packages base dir ......... ${packages.base.dir}" />
-        <echo />
-        <echo message="  packages base dir ......... ${packages.base.dir}" />
-        <echo />
-
-    </target>
-
-    <target name="init">
-        <tstamp/>
-    </target>
 </project>

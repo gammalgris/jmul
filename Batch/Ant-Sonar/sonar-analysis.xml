@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project xmlns="antlib:org.apache.tools.ant" default="info">
+
+
+    <property name="project.dir" location="${basedir}\..\.." />
+
+    <property name="project.lib.dir" location="${project.dir}\Libraries" />
+    <property name="sonar.ant.task.lib" location="${project.lib.dir}\SonarAntTask\sonarqube-ant-task-2.4.jar" />
+
+    <property name="project.tmp.dir" location="${project.dir}\tmp" />
+    <property name="project.tmp.src.dir" location="${project.tmp.dir}\src" />
+    <property name="project.tmp.build.dir" location="${project.tmp.dir}\build" />
+
+
+    <property name="sonar.host.url" value="http://localhost:9000" />
+
+    <property name="sonar.projectKey" value="jmul" />
+    <property name="sonar.projectName" value="JMUL" />
+    <property name="sonar.projectVersion" value="1.0" />
+    <property name="sonar.sources" value="${project.tmp.src.dir}" />
+    <property name="sonar.java.binaries" value="${project.tmp.build.dir}" />
+    <property name="sonar.projectBaseDir" value="${project.tmp.dir}" />
+    <!-- property name="sonar.java.libraries" value="lib/*.jar" / -->
+
+
+    <target name="info">
+
+        <echo />
+        <echo message="  project dir ....................... ${project.dir}" />
+        <echo />
+        <echo />
+        <echo message="  project tmp dir ................... ${project.tmp.dir}" />
+        <echo />
+        <echo message="  project tmp src dir ............... ${project.tmp.src.dir}" />
+        <echo message="  project tmp build dir ............. ${project.tmp.build.dir}" />
+        <echo />
+        <echo />
+        <echo message="  sonar host url .................... ${sonar.host.url}" />
+        <echo message="  sonar project key ................. ${sonar.projectKey}" />
+        <echo message="  sonar project name ................ ${sonar.projectName}" />
+        <echo message="  sonar project version ............. ${sonar.projectVersion}" />
+        <echo message="  sonar sources ..................... ${sonar.sources}" />
+        <echo message="  sonar java binaries ............... ${sonar.java.binaries}" />
+        <echo message="  sonar project base dir ............ ${sonar.projectBaseDir}" />
+        <echo />
+
+    </target>
+
+
+    <taskdef name="sonar" classname="org.sonarsource.scanner.ant.SonarQubeTask" classpath="${sonar.ant.task.lib}" />
+
+    <target name="sonar" depends="info">
+        <!-- taskdef uri="antlib:org.sonar.ant" resource="org/sonar/ant/antlib.xml">
+            < ! - -  Update the following line, or put the "sonarqube-ant-task-*.jar" file in your "$HOME/.ant/lib" folder - - >
+            <classpath path="${sonar.ant.task.lib}" />
+        </taskdef -->
+     
+        <!-- Execute the SonarQube analysis -->
+        <sonar>
+        </sonar>
+    </target>
+
+</project>

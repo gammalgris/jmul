@@ -7,3 +7,4 @@
 # Ignore all directories that contain compilation output
 #
 /**/classes/*
+/**/tmp/*
