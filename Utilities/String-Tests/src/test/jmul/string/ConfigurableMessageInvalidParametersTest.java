@@ -106,8 +106,14 @@ public class ConfigurableMessageInvalidParametersTest {
 
         Collection<Object[]> parameters = new ArrayList<Object[]>();
 
+        parameters.add(new Object[] { "Hello <place>!", new String[] { } });
+        parameters.add(new Object[] { "Hello <place>!", null });
         parameters.add(new Object[] { null, new String[] { "<place>", "World" } });
         parameters.add(new Object[] { "Hello <place>!", new String[] { "<place>" } });
+        parameters.add(new Object[] { "Hello <place>!", new String[] { "<place", "World" } });
+        parameters.add(new Object[] { "Hello <place>!", new String[] { null, "World" } });
+        parameters.add(new Object[] { "Hello World!", new String[] { "<place>", "World" } });
+        parameters.add(new Object[] { "", new String[] { "<place>", "World" } });
 
         return parameters;
     }

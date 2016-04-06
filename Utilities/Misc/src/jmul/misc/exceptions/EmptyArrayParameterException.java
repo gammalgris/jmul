@@ -4,7 +4,7 @@
  * JMUL is a central repository for utilities which are used in my
  * other public and private repositories.
  *
- * Copyright (C) 2013  Kristian Kutin
+ * Copyright (C) 2016  Kristian Kutin
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -22,25 +22,27 @@
  * e-mail: kristian.kutin@arcor.de
  */
 
-package jmul.string;
+package jmul.misc.exceptions;
 
 
 /**
- * This interface describes a message entity which is configurable (i.e.
- * placeholders have to be provided).
+ * An exception which is derived from {@link java.lang.IllegalArgumentException}.
  *
  * @author Kristian Kutin
  */
-public interface ConfigurableMessage {
+public class EmptyArrayParameterException extends IllegalArgumentException {
 
     /**
-     * The method resolves the specified placeholders within this message.
-     *
-     * @param someItems
-     *        key-value pairs of placeholders and their replacements
-     *
-     * @return a resolved message
+     * The default message for this kind of exception.
      */
-    String resolvePlaceholder(String... someItems);
+    private static final String DEFAULT_MESSAGE = "No parameter (array with 0 elements) has been specified!";
+
+    /**
+     * The default constructor.
+     */
+    public EmptyArrayParameterException() {
+
+        super(DEFAULT_MESSAGE);
+    }
 
 }

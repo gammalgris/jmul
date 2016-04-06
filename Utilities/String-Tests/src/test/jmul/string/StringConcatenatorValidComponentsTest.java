@@ -86,13 +86,24 @@ public class StringConcatenatorValidComponentsTest {
     }
 
     /**
-     * The actual test concatenates all string components and compares the result
-     * to the expected string.
+     * The test tries to initialize a string concatenator with the specified valid components.
      */
     @Test
-    public void testStringConcatenator() {
+    public void testInitialization() {
 
         StringConcatenator s = new StringConcatenator(stringComponents);
+        assertEquals(expectedString, String.valueOf(s));
+    }
+
+    /**
+     * The test tries to append valid components to a string concatenator.
+     */
+    @Test
+    public void testAppend() {
+
+        StringConcatenator s = new StringConcatenator();
+        assertEquals("", String.valueOf(s));
+        s.append(stringComponents);
         assertEquals(expectedString, String.valueOf(s));
     }
 

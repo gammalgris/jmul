@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project xmlns="antlib:org.apache.tools.ant" name="run-instrumented-tests">
+
+
+    <include file="${basedir}\..\Ant-Common\common.xml" />
+    <include file="${basedir}\..\Ant-Common\temp.xml" />
+    <include file="${basedir}\..\Ant-Common\classpath.xml" />
+    <include file="${basedir}\..\Ant-Build\build.xml" />
+    <include file="${basedir}\..\Ant-Build\build-tests.xml" />
+    <include file="${basedir}\..\Ant-Build\build-instrumented.xml" />
+
+
+    <target name="runTests" depends="build-tests.build, build-instrumented.instrument">
+
+        <junit printsummary="yes" showoutput="true" fork="yes" dir="${project.tmp.dir}">
+
+            <sysproperty key="net.sourceforge.cobertura.datafile" file="${project.tmp.coverage.file}" />
+
+            <classpath location="${project.tmp.instrumented.dir}" />
+            <classpath refid="jmul-tests.execution.classpath" />
+            <classpath refid="cobertura.execution.classpath" />
+
+            <batchtest todir="${project.tmp.tests-results.dir}">
+                <fileset dir="${project.tmp.tests-src.dir}">
+                  <include name="**/*Test.java" />
+                </fileset>
+            </batchtest>
+
+            <formatter type="xml" usefile="yes" />
+
+        </junit>
+
+
+        <junitreport todir="${project.tmp.tests-report.dir}">
+            <fileset dir="${project.tmp.tests-results.dir}">
+                <include name="TEST-*.xml"/>
+            </fileset>
+            <report format="frames" todir="${project.tmp.tests-report.dir}\html" />
+        </junitreport>
+
+    </target>
+
+
+    <!-- target name="coverage-check">
+
+        <cobertura-check branchrate="34" totallinerate="100" datafile="${project.tmp.coverage.file}" />
+
+    </target -->
+
+
+    <target name="coverage-report">
+
+        <cobertura-report srcdir="${project.tmp.src.dir}" destdir="${project.tmp.coverage-report.dir}" format="xml" datafile="${project.tmp.coverage.file}" />
+
+    </target>
+
+
+    <target name="summary-coverage-report">
+
+        <cobertura-report srcdir="${project.tmp.src.dir}" destdir="${project.tmp.coverage-summary-report.dir}" format="summaryXml" datafile="${project.tmp.coverage.file}" />
+
+    </target>
+
+
+    <target name="alternate-coverage-report">
+
+        <cobertura-report destdir="${project.tmp.coverage-alternate-report.dir}" datafile="${project.tmp.coverage.file}">
+            <fileset dir="${project.tmp.src.dir}">
+                <include name="**/*.java"/>
+            </fileset>
+        </cobertura-report>
+
+    </target>
+
+
+    <!-- target name="coverage" depends="runTests, coverage-check, coverage-report, summary-coverage-report, alternate-coverage-report" / -->
+    <target name="coverage" depends="runTests, coverage-report, summary-coverage-report, alternate-coverage-report" />
+
+</project>

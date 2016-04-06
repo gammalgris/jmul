@@ -30,12 +30,11 @@ import jmul.misc.exceptions.NullParameterException;
 
 
 /**
- * This exception is thrown if at least one unresolved placeholder remains in
- * a message entity.
+ * This exception is thrown if an unknown placeholder is being processed.
  *
  * @author Kristian Kutin
  */
-public class UnresolvedPlaceholderException extends IllegalArgumentException {
+public class UnknownPlaceholderException extends IllegalArgumentException {
 
     /**
      * The default constructor.
@@ -43,7 +42,7 @@ public class UnresolvedPlaceholderException extends IllegalArgumentException {
      * @param aMessage
      *        a message containing a concrete description of the exception
      */
-    public UnresolvedPlaceholderException(String aMessage) {
+    public UnknownPlaceholderException(String aMessage) {
 
         super(checkParameter(aMessage));
     }

@@ -102,8 +102,8 @@ public class ConfigurableMessageValidParametersTest {
     public void testStringConcatenator() {
 
         ConfigurableMessage m = new Message(messageSkeleton);
-        m.resolvePlaceholder(placeholders);
-        assertEquals(expectedMessage, String.valueOf(m));
+        String actualMessage = m.resolvePlaceholder(placeholders);
+        assertEquals(expectedMessage, actualMessage);
     }
 
     /**

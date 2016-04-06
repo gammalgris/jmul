@@ -94,6 +94,8 @@ public final class StringConcatenator implements CharSequence {
      */
     public void append(Object... elements) {
 
+        checkParameter(elements);
+
         for (Object element : elements) {
 
             string.append(String.valueOf(element));

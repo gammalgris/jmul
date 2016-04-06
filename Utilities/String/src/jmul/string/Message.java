@@ -25,12 +25,14 @@
 package jmul.string;
 
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import jmul.misc.exceptions.EmptyArrayParameterException;
+import jmul.misc.exceptions.EmptyStringParameterException;
+import jmul.misc.exceptions.NullArrayParameterException;
+import jmul.misc.exceptions.NullParameterException;
+
+import static jmul.string.Constants.EMPTY_STRING;
 
 
 /**
@@ -56,12 +58,6 @@ public class Message implements ConfigurableMessage {
     private final String unresolvedMessage;
 
     /**
-     * This class member contains the placeholders which have already been
-     * resolved.
-     */
-    private Map<String, String> placeholders;
-
-    /**
      * The default constructor.
      *
      * @param aMessage
@@ -70,17 +66,7 @@ public class Message implements ConfigurableMessage {
 
         checkParameter(aMessage);
 
-
         unresolvedMessage = aMessage;
-
-
-        placeholders = new HashMap<String, String>();
-        String[] foundPlaceholders = identifyMatches(aMessage);
-
-        for (int a = 0; a < foundPlaceholders.length; a++) {
-
-            placeholders.put(foundPlaceholders[a], null);
-        }
     }
 
     /**
@@ -95,126 +81,63 @@ public class Message implements ConfigurableMessage {
 
         if (aMessage == null) {
 
-            String message = "No parameter has been specified!";
-            throw new IllegalArgumentException(message);
+            throw new NullParameterException();
+        }
+
+        if (aMessage.trim().isEmpty()) {
+
+            throw new EmptyStringParameterException();
+        }
+
+        if (!containsPlaceholders(aMessage)) {
+
+            StringConcatenator message =
+                new StringConcatenator("A message withouth placeholder (", aMessage, ") has been specified!");
+            throw new IllegalArgumentException(String.valueOf(message));
         }
     }
 
     /**
-     * The method resolves the specified placeholders.
+     * The method resolves the specified placeholders within this message.
      *
      * @param someItems
      *        key-value pairs of placeholders and their replacements
+     *
+     * @return a message
      */
-    public void resolvePlaceholder(String... someItems) {
+    public String resolvePlaceholder(String... someItems) {
 
-        int length = someItems.length;
+        checkParameter(someItems);
 
-        if (length == 0) {
+        String resolvedMessage = unresolvedMessage;
 
-            String exceptionMessage = "No parameters were provided!";
-            throw new IllegalArgumentException(exceptionMessage);
-        }
-
-
-        int pairs = length / 2;
-        int remainder = length % 2;
-        if (remainder != 0) {
-
-            String exceptionMessage =
-                "An odd number of parameters has been specified where an even number (i.e. key-value pairs) was expected!";
-            throw new IllegalArgumentException(exceptionMessage);
-        }
-
+        int pairs = someItems.length / 2;
 
         for (int a = 1; a <= pairs; a++) {
 
             int index = (a - 1) * 2;
-            String key = someItems[index];
+            String placeholder = someItems[index];
+            checkPlaceholder(placeholder);
+
             String value = someItems[index + 1];
 
+            if (!unresolvedMessage.contains(placeholder)) {
 
-            // Check if the provided key is one of the expected placeholders.
-
-            boolean validPlaceholder = placeholders.containsKey(key);
-            if (!validPlaceholder) {
-
-                StringConcatenator exceptionMessage =
-                    new StringConcatenator("The specified placeholder (\"", key,
-                                           "\") is not expected within this message (");
-
-                boolean first = true;
-                for (String expectedPlaceholder : placeholders.keySet()) {
-
-                    if (first) {
-
-                        first = false;
-
-                    } else {
-
-                        exceptionMessage.append(",");
-                    }
-
-                    exceptionMessage.append("\"", expectedPlaceholder, "\"");
-                }
-
-                exceptionMessage.append(")!");
-
-                throw new IllegalArgumentException(exceptionMessage.toString());
+                StringConcatenator message =
+                    new StringConcatenator("An unknown placeholder (", placeholder, ") is being processed (",
+                                           unresolvedMessage, ")!");
+                throw new UnknownPlaceholderException(String.valueOf(message));
             }
 
-            placeholders.put(key, value);
-        }
-    }
-
-    /**
-     * The method determines if there are still some unresolved palceholders.
-     *
-     * @return <code>true</code> if there are some unresolved placeholders,
-     *         else <code>false</code>
-     */
-    public boolean existUnresolvedPlaceholders() {
-
-        for (String placeholder : placeholders.keySet()) {
-
-            String value = placeholders.get(placeholder);
-
-            if (value == null) {
-
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    /**
-     * The method returns a string representation of this entity.
-     *
-     * @return a string representation
-     */
-    @Override
-    public String toString() {
-
-        String resolvedMessage = unresolvedMessage;
-
-        for (String placeholder : placeholders.keySet()) {
-
-            String value = placeholders.get(placeholder);
-
-            if (value != null) {
-
-                resolvedMessage = resolvedMessage.replace(placeholder, value);
-            }
+            resolvedMessage = resolvedMessage.replace(placeholder, value);
         }
 
 
-        if (existUnresolvedPlaceholders()) {
+        if (containsPlaceholders(resolvedMessage)) {
 
-            StringConcatenator exceptionMessage =
-                new StringConcatenator("The message still contains unresolved placeholders(\"", resolvedMessage,
-                                       "\")!");
-            throw new UnresolvedPlaceholderException(exceptionMessage.toString());
+            StringConcatenator message =
+                new StringConcatenator("There still exist some placeholders (", resolvedMessage, ")!");
+            throw new UnresolvedPlaceholderException(String.valueOf(message));
         }
 
 
@@ -222,29 +145,80 @@ public class Message implements ConfigurableMessage {
     }
 
     /**
-     * The method returns the placeholders which have been identified in the
-     * specified target string.
+     * Checks if the specified message contains placeholders.
      *
-     * @param aTarget
-     *        a target string
+     * @param aMessage
      *
-     * @return all identified placeholders
+     * @return <code>true</code> if the specified message contains placeholders,
+     *         else <code>false</code>
      */
-    private static String[] identifyMatches(String aTarget) {
+    private static boolean containsPlaceholders(String aMessage) {
 
-        Collection<String> matches = new ArrayList<String>();
-        Matcher matcher = Pattern.compile(PLACEHOLDER_REGEX).matcher(aTarget);
+        String removedPlaceholders = aMessage.replaceAll(PLACEHOLDER_REGEX, EMPTY_STRING);
+        return !aMessage.equals(removedPlaceholders);
+    }
 
-        while (matcher.find()) {
+    /**
+     * Checks the specified parameter.
+     *
+     * @param someParameters
+     *
+     * @thows IllegalArgumentException
+     *        is thrown if the specified parameter is invalid
+     */
+    private static void checkParameter(String... someParameters) {
 
-            String match = matcher.group();
-            matches.add(match);
+        if (someParameters == null) {
+
+            throw new NullArrayParameterException();
         }
 
-        String[] result = new String[matches.size()];
-        result = matches.toArray(result);
+        if (someParameters.length == 0) {
 
-        return result;
+            throw new EmptyArrayParameterException();
+        }
+
+        if ((someParameters.length % 2) == 1) {
+
+            String message =
+                "An odd number of parameters has been specified where an even number (i.e. key-value pairs) was expected!";
+            throw new IllegalArgumentException(message);
+        }
+    }
+
+    /**
+     * Checks the specified parameter.
+     *
+     * @param aPlaceholder
+     *
+     * @thows IllegalArgumentException
+     *        is thrown if the specified parameter is invalid
+     */
+    private static void checkPlaceholder(String aPlaceholder) {
+
+        if (aPlaceholder == null) {
+
+            throw new NullParameterException();
+        }
+
+        if (!Pattern.matches(PLACEHOLDER_REGEX, aPlaceholder)) {
+
+            StringConcatenator message =
+                new StringConcatenator("The speicifed palceholder \"", aPlaceholder,
+                                       "\" doesn't match the epxected pattern \"", PLACEHOLDER_REGEX, "\"!");
+            throw new IllegalArgumentException(String.valueOf(message));
+        }
+    }
+
+    /**
+     * The method returns the actual (unresolved) message.
+     *
+     * @return a string representation
+     */
+    @Override
+    public String toString() {
+
+        return unresolvedMessage;
     }
 
 }

@@ -43,9 +43,16 @@ public final class Constants {
     public static final String NEW_LINE = System.getProperty("line.separator");
 
     /**
+     * An empty string.
+     */
+    public static final String EMPTY_STRING = "";
+
+    /**
      * The default constructor.
      */
     private Constants() {
+
+        throw new UnsupportedOperationException();
     }
 
 }

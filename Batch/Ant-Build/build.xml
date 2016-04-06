@@ -74,7 +74,7 @@
 
     <target name="build" depends="common.info, classpath.info, temp.initTmp, copySources, copyResources">
 
-        <javac srcdir="${project.tmp.src.dir}" destdir="${project.tmp.build.dir}" verbose="true" classpathref="jmul.build.classpath" />
+        <javac srcdir="${project.tmp.src.dir}" destdir="${project.tmp.build.dir}" verbose="true" classpathref="jmul.build.classpath" debug="on" />
 
     </target>
 

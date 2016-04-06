@@ -102,6 +102,14 @@
                   <string v="+**"/>
                </list>
                <list n="url-path">
+                  <url path="Ant-Misc/"/>
+               </list>
+            </hash>
+            <hash>
+               <list n="pattern-filters">
+                  <string v="+**"/>
+               </list>
+               <list n="url-path">
                   <url path="Ant-Sonar/"/>
                </list>
             </hash>

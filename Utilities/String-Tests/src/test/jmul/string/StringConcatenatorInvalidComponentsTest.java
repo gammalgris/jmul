@@ -78,13 +78,22 @@ public class StringConcatenatorInvalidComponentsTest {
     }
 
     /**
-     * The actual test concatenates all string components and compares the result
-     * to the expected string.
+     * The test tries to initialize a string concatenator with the specified invalid components.
      */
     @Test(expected = IllegalArgumentException.class)
-    public void testStringConcatenator() {
+    public void testInitialization() {
 
         new StringConcatenator(stringComponents);
+    }
+
+    /**
+     * The test tries to append invalid components to a string concatenator.
+     */
+    @Test(expected = IllegalArgumentException.class)
+    public void testAppend() {
+
+        StringConcatenator s = new StringConcatenator();
+        s.append(stringComponents);
     }
 
     /**

@@ -27,12 +27,14 @@ package test.jmul.string;
 
 import jmul.string.ConfigurableMessage;
 import jmul.string.Message;
+import jmul.string.UnknownPlaceholderException;
+import jmul.string.UnresolvedPlaceholderException;
+
+import static org.junit.Assert.assertEquals;
 
 import jmul.test.classification.UnitTest;
 
 import org.junit.After;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -60,25 +62,34 @@ public class ConfigurableMessageMiscTest {
     }
 
     /**
-     * Tests if the resolved method works correctly.
+     * Tests if the resolvePlaceholder method works correctly.
      */
-    @Test
-    public void testUnresolved() {
+    @Test(expected = UnresolvedPlaceholderException.class)
+    public void resolvePlaceholder() {
 
         ConfigurableMessage m = new Message("<greeting> <place>!");
-        m.resolvePlaceholder("<greeting>", "Hello");
-        assertTrue(m.existUnresolvedPlaceholders());
+        m.resolvePlaceholder(new String[] { "<place>", "World" });
     }
 
     /**
-     * Tests if the resolved method works correctly.
+     * Tests if the resolvePlaceholder method works correctly.
+     */
+    @Test(expected = UnknownPlaceholderException.class)
+    public void resolvePlaceholder2() {
+
+        ConfigurableMessage m = new Message("<greeting> <place>!");
+        m.resolvePlaceholder(new String[] { "<time>", "12:10:10", "<place>", "World" });
+    }
+
+    /**
+     * Tests if the toString method works correctly.
      */
     @Test
-    public void testResolved() {
+    public void testToString() {
 
-        ConfigurableMessage m = new Message("<greeting> World!");
-        m.resolvePlaceholder("<greeting>", "Hello");
-        assertFalse(m.existUnresolvedPlaceholders());
+        String unresolvedMessage = "<Greeting>";
+        ConfigurableMessage m = new Message(unresolvedMessage);
+        assertEquals(unresolvedMessage, m.toString());
     }
 
 }

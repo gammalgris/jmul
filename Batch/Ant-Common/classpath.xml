@@ -14,6 +14,10 @@
     <property name="project.lib.sonar-ant-task.dir" location="${project.lib.dir}\SonarAntTask" />
     <property name="project.lib.sonar-ant-task.file" location="${project.lib.sonar-ant-task.dir}\sonarqube-ant-task-2.4.jar" />
 
+    <property name="project.lib.cobertura.dir" location="${project.lib.dir}\Cobertura" />
+    <property name="project.lib.cobertura.file" location="${project.lib.cobertura.dir}\cobertura-2.1.1.jar" />
+    <property name="project.lib.cobertura-libs.dir" location="${project.lib.cobertura.dir}\lib" />
+
 
     <path id="sonar.execution.classpath">
         <pathelement location="${project.lib.sonar-ant-task.file}" />
@@ -55,6 +59,16 @@
     <pathconvert property="jmul-tests.build.classpath.string" refid="jmul-tests.build.classpath" pathsep="${line.separator}" />
 
 
+    <path id="cobertura.execution.classpath">
+        <fileset dir="${project.lib.cobertura.dir}">
+            <include name="cobertura*.jar" />
+            <include name="lib/**/*.jar" />
+        </fileset>
+    </path>
+
+    <pathconvert property="cobertura.execution.classpath.string" refid="cobertura.execution.classpath" pathsep="${line.separator}" />
+
+
     <target name="info">
 
         <echo />
@@ -69,6 +83,10 @@
         <echo />
         <echo message="  sonar ant task dir ................ ${project.lib.sonar-ant-task.dir}" />
         <echo message="  sonar ant task file ............... ${project.lib.sonar-ant-task.file}" />
+        <echo />
+        <echo message="  cobertura dir ..................... ${project.lib.cobertura.dir}" />
+        <echo message="  cobertura file .................... ${project.lib.cobertura.file}" />
+        <echo message="  cobertura libs dir ................ ${project.lib.cobertura-libs.dir}" />
         <echo />
         <echo />
         <echo message="sonar execution classpath:" />
@@ -87,6 +105,10 @@
         <echo />
         <echo message="jmul-tests build classpath:" />
         <echo message="${jmul-tests.build.classpath.string}" />
+        <echo />
+        <echo />
+        <echo message="cobertura classpath:" />
+        <echo message="${cobertura.execution.classpath.string}" />
         <echo />
 
     </target>
