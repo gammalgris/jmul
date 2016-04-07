@@ -51,6 +51,8 @@ public class Constants {
      * The default constructor.
      */
     private Constants() {
+
+        throw new UnsupportedOperationException();
     }
 
 }

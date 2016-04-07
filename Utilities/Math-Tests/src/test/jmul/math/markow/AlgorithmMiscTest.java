@@ -22,13 +22,17 @@
  * e-mail: kristian.kutin@arcor.de
  */
 
-package test.jmul.math;
+package test.jmul.math.markow;
 
 
 import java.util.ArrayList;
 import java.util.Collection;
 
-import jmul.math.MathHelper;
+import jmul.math.markow.Algorithm;
+import jmul.math.markow.Rule;
+
+import static jmul.string.Constants.NEW_LINE;
+import jmul.string.StringConcatenator;
 
 import jmul.test.classification.UnitTest;
 
@@ -41,31 +45,25 @@ import org.junit.runners.Parameterized;
 
 
 /**
- * Tests the {@link jmul.math.MathHelper#max} method.
- *
- * @author Kristian Kutin
+ * Tests the string representation of an algorithm.
  */
 @UnitTest
 @RunWith(Parameterized.class)
-public class MaxTest {
+public class AlgorithmMiscTest {
 
     /**
-     * The expected result.
+     * The rules which belong to the algorithm.
      */
-    private int expectedResult;
+    private Rule[] rules;
 
     /**
-     * Some numbers.
+     * Creates a test according to the specified parameters.
+     *
+     * @param someRules
      */
-    private int[] numbers;
+    public AlgorithmMiscTest(Rule... someRules) {
 
-    /**
-     * Creates a new test according to the specified parameters.
-     */
-    public MaxTest(int anExpectedResult, int... someNumbers) {
-
-        expectedResult = anExpectedResult;
-        numbers = someNumbers;
+        rules = someRules;
     }
 
     /**
@@ -82,14 +80,43 @@ public class MaxTest {
     public void tearDown() {
     }
 
-    /**
-     * Invokes the max method and checks if the result matches the expected result.
-     */
     @Test
-    public void testMax() {
+    public void testToString() {
 
-        int actualResult = MathHelper.max(numbers);
-        assertEquals(expectedResult, actualResult);
+        String expectedResult = buildExpectedRepresentation(rules);
+
+        Algorithm algorithm = new Algorithm(rules);
+
+        assertEquals(expectedResult, algorithm.toString());
+    }
+
+    /**
+     * Builds a string representation according to the specified rules.
+     *
+     * @param someRules
+     *
+     * @return a string representation
+     */
+    private static String buildExpectedRepresentation(Rule... someRules) {
+
+        StringConcatenator expectedRepresentation = new StringConcatenator();
+        boolean first = true;
+
+        for (Rule rule : someRules) {
+
+            if (first) {
+
+                first = false;
+
+            } else {
+
+                expectedRepresentation.append(NEW_LINE);
+            }
+
+            expectedRepresentation.append(rule);
+        }
+
+        return String.valueOf(expectedRepresentation);
     }
 
     /**
@@ -102,9 +129,8 @@ public class MaxTest {
 
         Collection<Object[]> parameters = new ArrayList<Object[]>();
 
-        parameters.add(new Object[] { 1, new int[] { 1 } });
-        parameters.add(new Object[] { -1, new int[] { -1, -2 } });
-        parameters.add(new Object[] { 10, new int[] { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 } });
+        parameters.add(new Object[] { new Rule[] { new Rule("a", "b") } });
+        parameters.add(new Object[] { new Rule[] { new Rule("b", "a"), new Rule("a", "b") } });
 
         return parameters;
     }

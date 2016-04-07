@@ -24,6 +24,9 @@
 
 package jmul.math;
 
+import jmul.misc.exceptions.EmptyArrayParameterException;
+import jmul.misc.exceptions.NullArrayParameterException;
+
 
 /**
  * A utility class which represents an extension of {@link java.lang.Math}.
@@ -36,6 +39,8 @@ public final class MathHelper {
      * The default constructor.
      */
     private MathHelper() {
+
+        throw new UnsupportedOperationException();
     }
 
     /**
@@ -47,15 +52,12 @@ public final class MathHelper {
      */
     public static int max(int... someNumbers) {
 
+        checkArray(someNumbers);
+
+
         int numbers = someNumbers.length;
 
-
-        if (numbers == 0) {
-
-            String message = "No numbers have been specified!";
-            throw new IllegalArgumentException(message);
-
-        } else if (numbers == 1) {
+        if (numbers == 1) {
 
             return someNumbers[0];
 
@@ -70,6 +72,27 @@ public final class MathHelper {
             }
 
             return maxNumber;
+        }
+    }
+
+    /**
+     * Checks the specified parameter.
+     *
+     * @param someNumbers
+     *
+     * @throws IllegalArgumentException
+     *         is thrown if the specified parameter is invalid
+     */
+    private static void checkArray(int[] someNumbers) {
+
+        if (someNumbers == null) {
+
+            throw new NullArrayParameterException();
+        }
+
+        if (someNumbers.length == 0) {
+
+            throw new EmptyArrayParameterException();
         }
     }
 

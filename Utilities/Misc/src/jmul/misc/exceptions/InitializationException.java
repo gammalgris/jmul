@@ -25,6 +25,10 @@
 package jmul.misc.exceptions;
 
 
+import static jmul.misc.checks.ParameterCheckHelper.checkExceptionCause;
+import static jmul.misc.checks.ParameterCheckHelper.checkExceptionMessage;
+
+
 /**
  * This exception is thrown if the initialization of a component couldn't be
  * finished.
@@ -34,7 +38,18 @@ package jmul.misc.exceptions;
 public class InitializationException extends RuntimeException {
 
     /**
-     * Constructs an exception.
+     * Creates a new exception according to the specified parameter.
+     *
+     * @param aMessage
+     *        a message which provides details about the exception
+     */
+    public InitializationException(String aMessage) {
+
+        super(checkExceptionMessage(aMessage));
+    }
+
+    /**
+     * Creates a new exception according to the specified parameters.
      *
      * @param aMessage
      *        a message which provides details about the exception
@@ -43,18 +58,7 @@ public class InitializationException extends RuntimeException {
      */
     public InitializationException(String aMessage, Throwable aCause) {
 
-        super(aMessage, aCause);
-    }
-
-    /**
-     * Constructs an exception
-     *
-     * @param aMessage
-     *        a message which provides details about the exception
-     */
-    public InitializationException(String aMessage) {
-
-        super(aMessage);
+        super(checkExceptionMessage(aMessage), checkExceptionCause(aCause));
     }
 
 }

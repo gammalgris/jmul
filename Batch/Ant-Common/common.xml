@@ -10,6 +10,9 @@
     <property name="package.concurrent.dir" location="${packages.base.dir}\Concurrent" />
     <property name="package.concurrent.src.dir" location="${package.concurrent.dir}\src" />
 
+    <property name="package.helper-tests.dir" location="${packages.base.dir}\Helper-Tests" />
+    <property name="package.helper-tests.src.dir" location="${package.helper-tests.dir}\src" />
+
     <property name="package.io.dir" location="${packages.base.dir}\IO" />
     <property name="package.io.src.dir" location="${package.io.dir}\src" />
 
@@ -105,6 +108,8 @@
         <echo message="  package xml dir ............................. ${package.xml.dir}" />
         <echo message="  package xml src dir ......................... ${package.xml.src.dir}" />
         <echo />
+        <echo message="  package helper tests dir .................... ${package.helper-tests.dir}" />
+        <echo message="  package helper tests src dir ................ ${package.helper-tests.src.dir}" />
         <echo message="  package string tests dir .................... ${package.string-tests.dir}" />
         <echo message="  package string tests src dir ................ ${package.string-tests.src.dir}" />
         <echo message="  package misc tests dir ...................... ${package.misc-tests.dir}" />

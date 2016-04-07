@@ -25,12 +25,27 @@
 package jmul.misc.exceptions;
 
 
+import static jmul.misc.checks.ParameterCheckHelper.checkExceptionCause;
+import static jmul.misc.checks.ParameterCheckHelper.checkExceptionMessage;
+
+
 /**
  * This exception is thrown if the instantiation of an object fails.
  *
  * @author Kristian Kutin
  */
 public class InstantiationException extends RuntimeException {
+
+    /**
+     * Constructs an exception
+     *
+     * @param aMessage
+     *        a message which provides details about the exception
+     */
+    public InstantiationException(String aMessage) {
+
+        super(checkExceptionMessage(aMessage));
+    }
 
     /**
      * Constructs an exception.
@@ -42,18 +57,8 @@ public class InstantiationException extends RuntimeException {
      */
     public InstantiationException(String aMessage, Throwable aCause) {
 
-        super(aMessage, aCause);
+        super(checkExceptionMessage(aMessage), checkExceptionCause(aCause));
     }
 
-    /**
-     * Constructs an exception
-     *
-     * @param aMessage
-     *        a message which provides details about the exception
-     */
-    public InstantiationException(String aMessage) {
-
-        super(aMessage);
-    }
 
 }

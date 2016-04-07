@@ -29,6 +29,9 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 
+import jmul.misc.exceptions.EmptyArrayParameterException;
+import jmul.misc.exceptions.NullArrayParameterException;
+
 import static jmul.string.Constants.NEW_LINE;
 import jmul.string.StringConcatenator;
 
@@ -62,7 +65,30 @@ public class Algorithm {
      */
     public Algorithm(Rule... someRules) {
 
+        checkArray(someRules);
+
         rules = Collections.unmodifiableList(Arrays.asList(someRules));
+    }
+
+    /**
+     * Checks the specified parameter.
+     *
+     * @param someRules
+     *
+     * @throws IllegalArgumentException
+     *         is thrown if the specified parameter is invalid
+     */
+    private static void checkArray(Rule[] someRules) {
+
+        if (someRules == null) {
+
+            throw new NullArrayParameterException();
+        }
+
+        if (someRules.length == 0) {
+
+            throw new EmptyArrayParameterException();
+        }
     }
 
     /**

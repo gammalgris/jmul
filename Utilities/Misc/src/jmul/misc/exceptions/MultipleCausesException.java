@@ -30,6 +30,9 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
+import static jmul.misc.checks.ParameterCheckHelper.checkExceptionCauses;
+import static jmul.misc.checks.ParameterCheckHelper.checkExceptionMessage;
+
 
 /**
  * This exception contains several related exceptions.
@@ -52,7 +55,7 @@ public class MultipleCausesException extends Exception implements Iterable<Throw
 
         super();
 
-        relatedExceptions = Collections.unmodifiableList(Arrays.asList(someRelatedExceptions));
+        relatedExceptions = Collections.unmodifiableList(Arrays.asList(checkExceptionCauses(someRelatedExceptions)));
     }
 
     /**
@@ -63,9 +66,9 @@ public class MultipleCausesException extends Exception implements Iterable<Throw
      */
     public MultipleCausesException(String aMessage, Throwable... someRelatedExceptions) {
 
-        super(aMessage);
+        super(checkExceptionMessage(aMessage));
 
-        relatedExceptions = Collections.unmodifiableList(Arrays.asList(someRelatedExceptions));
+        relatedExceptions = Collections.unmodifiableList(Arrays.asList(checkExceptionCauses(someRelatedExceptions)));
     }
 
     /**

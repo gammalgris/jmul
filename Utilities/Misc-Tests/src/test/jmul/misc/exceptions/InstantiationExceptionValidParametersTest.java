@@ -22,19 +22,18 @@
  * e-mail: kristian.kutin@arcor.de
  */
 
-package test.jmul.math.markow;
+package test.jmul.misc.exceptions;
 
 
 import java.util.ArrayList;
 import java.util.Collection;
 
-import jmul.math.markow.Algorithm;
+import jmul.misc.exceptions.InstantiationException;
 
-import jmul.math.markow.Rule;
-import static org.junit.Assert.assertEquals;
 import jmul.test.classification.UnitTest;
 
 import org.junit.After;
+import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -42,41 +41,32 @@ import org.junit.runners.Parameterized;
 
 
 /**
- * Tests a {@link jmul.math.markow.Algorithm}.
- *
  * @author Kristian Kutin
  */
 @UnitTest
 @RunWith(Parameterized.class)
-public class AlgorithmTest {
+public class InstantiationExceptionValidParametersTest {
 
     /**
-     * The expected result of appliying the algorithm to a string.
+     * The message of an exception.
      */
-    private String expectedResult;
+    private String message;
 
     /**
-     * A string.
+     * The cause of an exception.
      */
-    private String string;
+    private Throwable cause;
 
     /**
-     * An algorithm.
+     * Creates a new test according to the specified parameters.
+     *
+     * @param aMessage
+     * @param aCause
      */
-    private Algorithm algorithm;
+    public InstantiationExceptionValidParametersTest(String aMessage, Throwable aCause) {
 
-    /**
-     * Creates a test according to the specified parameters.
-     * 
-     * @param anExpectedString
-     * @param aString
-     * @param anAlgorithm
-     */
-    public AlgorithmTest(String anExpectedString, String aString, Algorithm anAlgorithm) {
-
-        expectedResult = anExpectedString;
-        string = aString;
-        algorithm = anAlgorithm;
+        message = aMessage;
+        cause = aCause;
     }
 
     /**
@@ -93,11 +83,25 @@ public class AlgorithmTest {
     public void tearDown() {
     }
 
+    /**
+     * Tests the instantiation of an exception with valid parameters.
+     */
     @Test
-    public void testApplication() {
+    public void testInstantiation() {
 
-        String actualResult = algorithm.applyRules(string);
-        assertEquals(expectedResult, actualResult);
+        InstantiationException exception = new InstantiationException(message);
+        assertEquals(message, exception.getMessage());
+    }
+
+    /**
+     * Tests the instantiation of an exception with valid parameters.
+     */
+    @Test
+    public void testInstantiation2() {
+
+        InstantiationException exception = new InstantiationException(message, cause);
+        assertEquals(message, exception.getMessage());
+        assertEquals(cause, exception.getCause());
     }
 
     /**
@@ -110,8 +114,7 @@ public class AlgorithmTest {
 
         Collection<Object[]> parameters = new ArrayList<Object[]>();
 
-        parameters.add(new Object[] { "bb", "ab", new Algorithm(new Rule("a", "b"), new Rule("b", "a")) });
-        parameters.add(new Object[] { "aa", "ab", new Algorithm(new Rule("b", "a"), new Rule("a", "b")) });
+        parameters.add(new Object[] { "Error", new RuntimeException() });
 
         return parameters;
     }

@@ -25,8 +25,7 @@
 package jmul.string;
 
 
-import jmul.misc.exceptions.EmptyStringParameterException;
-import jmul.misc.exceptions.NullParameterException;
+import static jmul.misc.checks.ParameterCheckHelper.checkExceptionMessage;
 
 
 /**
@@ -45,32 +44,7 @@ public class UnresolvedPlaceholderException extends IllegalArgumentException {
      */
     public UnresolvedPlaceholderException(String aMessage) {
 
-        super(checkParameter(aMessage));
-    }
-
-    /**
-     * Checks the specified parameter.
-     *
-     * @param aMessage
-     *
-     * @return the message
-     *
-     * @thorws IllegalArgumentException
-     *         is thrown if the specified parameter is invalid
-     */
-    private static String checkParameter(String aMessage) {
-
-        if (aMessage == null) {
-
-            throw new NullParameterException();
-        }
-
-        if (aMessage.trim().isEmpty()) {
-
-            throw new EmptyStringParameterException();
-        }
-
-        return aMessage;
+        super(checkExceptionMessage(aMessage));
     }
 
 }
