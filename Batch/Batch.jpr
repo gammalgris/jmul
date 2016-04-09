@@ -94,6 +94,14 @@
                   <string v="+**"/>
                </list>
                <list n="url-path">
+                  <url path="Ant-Deploy/"/>
+               </list>
+            </hash>
+            <hash>
+               <list n="pattern-filters">
+                  <string v="+**"/>
+               </list>
+               <list n="url-path">
                   <url path="Ant-Execute/"/>
                </list>
             </hash>

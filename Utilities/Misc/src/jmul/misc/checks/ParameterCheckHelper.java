@@ -52,7 +52,7 @@ public final class ParameterCheckHelper {
      *
      * @return the message
      *
-     * @thorws IllegalArgumentException
+     * @throws IllegalArgumentException
      *         is thrown if the specified parameter is invalid
      */
     public static String checkExceptionMessage(String aMessage) {
@@ -77,7 +77,7 @@ public final class ParameterCheckHelper {
      *
      * @return a throwable
      *
-     * @thorws IllegalArgumentException
+     * @throws IllegalArgumentException
      *         is thrown if the specified parameter is invalid
      */
     public static Throwable checkExceptionCause(Throwable aCause) {
@@ -97,7 +97,7 @@ public final class ParameterCheckHelper {
      *
      * @return some throwables
      *
-     * @thorws IllegalArgumentException
+     * @throws IllegalArgumentException
      *         is thrown if the specified parameter is invalid
      */
     public static Throwable[] checkExceptionCauses(Throwable[] someCauses) {

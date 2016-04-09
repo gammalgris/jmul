@@ -39,7 +39,7 @@ public class StringCreator implements ObjectCreator {
     }
 
     /**
-     * Instantiates and initializes a {@link String#}.
+     * Instantiates and initializes a {@link java.lang.String}.
      *
      * @param anInitialValue
      *        a string which contains an initial value

@@ -47,7 +47,7 @@ public class DateCreator implements ObjectCreator {
     }
 
     /**
-     * Instantiates and initializes a {@link Date#}.
+     * Instantiates and initializes a {@link java.util.Date}.
      *
      * @param anInitialValue
      *        a string which contains an initial value

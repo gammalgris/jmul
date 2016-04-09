@@ -2,6 +2,14 @@
 <project xmlns="antlib:org.apache.tools.ant" name="common">
 
 
+    <tstamp>
+        <format property="project.build.timestamp" pattern="yyyy-MM-dd  HH:mm:ss" />
+    </tstamp>
+
+
+    <property name="project.name" value="(J)ava (M)iscellaneous (U)tility (L)ibraries" />
+
+
     <property name="project.dir" location="${basedir}\..\.." />
 
 
@@ -50,6 +58,9 @@
     <property name="package.transformation.src.dir" location="${package.transformation.dir}\src" />
     <property name="package.transformation.cfg.dir" location="${package.transformation.dir}\properties" />
 
+    <property name="package.version.dir" location="${packages.base.dir}\Version" />
+    <property name="package.version.cfg.dir" location="${package.version.dir}\properties" />
+
     <property name="package.xml.dir" location="${packages.base.dir}\XML" />
     <property name="package.xml.src.dir" location="${package.xml.dir}\src" />
 
@@ -58,7 +69,9 @@
     <property name="project.tmp.src.dir" location="${project.tmp.dir}\src" />
     <property name="project.tmp.cfg.dir" location="${project.tmp.dir}\properties" />
     <property name="project.tmp.build.dir" location="${project.tmp.dir}\build" />
+    <property name="project.tmp.deploy.dir" location="${project.tmp.dir}\deploy" />
     <property name="project.tmp.instrumented.dir" location="${project.tmp.dir}\instrumented" />
+    <property name="project.tmp.javadoc.dir" location="${project.tmp.dir}\javadoc" />
 
     <property name="project.tmp.tests-src.dir" location="${project.tmp.dir}\tests-src" />
     <property name="project.tmp.tests-cfg.dir" location="${project.tmp.dir}\tests-properties" />
@@ -73,8 +86,25 @@
     <property name="project.tmp.coverage-alternate-report.dir" location="${project.tmp.dir}\coverage-alternate-report" />
 
 
+    <loadproperties srcfile="${package.version.cfg.dir}\version.properties" />
+
+    <condition property="version.rcs" value="n/a">
+        <not>
+            <isset property="version.rcs" />
+        </not>
+    </condition>
+
+
     <target name="info">
 
+        <echo />
+        <echo message="  ${project.name}" />
+        <echo />
+        <echo message="  build timestamp: ${project.build.timestamp}" />
+        <echo />
+        <echo message="  version library: ${version.library}" />
+        <echo message="      version rcs: ${version.rcs}" />
+        <echo />
         <echo />
         <echo message="  project dir ................................. ${project.dir}" />
         <echo />
@@ -105,6 +135,8 @@
         <echo message="  package transformation dir .................. ${package.transformation.dir}" />
         <echo message="  package transformation src dir .............. ${package.transformation.src.dir}" />
         <echo message="  package transformation cfg dir .............. ${package.transformation.cfg.dir}" />
+        <echo message="  package version dir ......................... ${package.version.dir}" />
+        <echo message="  package version cfg dir ..................... ${package.version.cfg.dir}" />
         <echo message="  package xml dir ............................. ${package.xml.dir}" />
         <echo message="  package xml src dir ......................... ${package.xml.src.dir}" />
         <echo />
@@ -123,7 +155,9 @@
         <echo message="  project tmp src dir ......................... ${project.tmp.src.dir}" />
         <echo message="  project tmp cfg dir ......................... ${project.tmp.cfg.dir}" />
         <echo message="  project tmp build dir ....................... ${project.tmp.build.dir}" />
+        <echo message="  project tmp deploy dir ...................... ${project.tmp.deploy.dir}" />
         <echo message="  project tmp instrumented dir ................ ${project.tmp.instrumented.dir}" />
+        <echo message="  project tmp javadoc dir ..................... ${project.tmp.javadoc.dir}" />
         <echo />
         <echo message="  project tmp tests-src dir ................... ${project.tmp.tests-src.dir}" />
         <echo message="  project tmp tests-cfg dir ................... ${project.tmp.tests-cfg.dir}" />

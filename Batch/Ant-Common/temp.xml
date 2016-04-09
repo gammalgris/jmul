@@ -13,7 +13,9 @@
         <mkdir dir="${project.tmp.src.dir}" />
         <mkdir dir="${project.tmp.cfg.dir}" />
         <mkdir dir="${project.tmp.build.dir}" />
+        <mkdir dir="${project.tmp.deploy.dir}" />
         <mkdir dir="${project.tmp.instrumented.dir}" />
+        <mkdir dir="${project.tmp.javadoc.dir}" />
 
         <mkdir dir="${project.tmp.tests-src.dir}" />
         <mkdir dir="${project.tmp.tests-cfg.dir}" />

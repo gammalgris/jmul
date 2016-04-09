@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project xmlns="antlib:org.apache.tools.ant" name="build-javadoc" default="build">
+
+
+    <include file="${basedir}\..\Ant-Common\common.xml" />
+    <include file="${basedir}\..\Ant-Common\temp.xml" />
+    <include file="${basedir}\..\Ant-Common\classpath.xml" />
+    <include file="${basedir}\..\Ant-Build\build.xml" />
+
+
+    <property name="status.line" value="version: ${version.library} (${version.rcs})&lt;br /&gt;build timestamp: ${project.build.timestamp}" />
+
+
+    <target name="build">
+
+        <javadoc sourcepath="${project.tmp.src.dir}" destdir="${project.tmp.javadoc.dir}" access="public">
+            <doctitle>${project.name}</doctitle>
+            <header>${status.line}</header>
+            <footer>${status.line}</footer>
+        </javadoc>
+
+    </target>
+
+
+</project>

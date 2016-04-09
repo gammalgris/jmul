@@ -39,7 +39,7 @@ public class StringBufferCreator implements ObjectCreator {
     }
 
     /**
-     * Instantiates and initializes a {@link StringBuffer#}.
+     * Instantiates and initializes a {@link java.lang.StringBuffer}.
      *
      * @param anInitialValue
      *        a string which contains an initial value

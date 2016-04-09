@@ -42,7 +42,7 @@ import jmul.math.MathHelper;
  * <br>
  * <i>Implementation details:<br>
  * The thread will instantiate several worker threads (see
- * {@link WorkerThread#}) which regularly check the queue of pending tasks, take
+ * {@link jmul.concurrent.threads.WorkerThread}) which regularly check the queue of pending tasks, take
  * tasks and execute tasks on their own.</i>
  *
  * @author Kristian Kutin

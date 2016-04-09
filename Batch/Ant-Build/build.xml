@@ -50,7 +50,7 @@
 
     <target name="copyResources">
 
-        <copy todir="${project.tmp.cfg.dir}">
+        <copy todir="${project.tmp.cfg.dir}" overwrite="true">
             <fileset dir="${package.network.cfg.dir}">
                 <include name="**/*.properties" />
                 <include name="**/*.configuration" />
@@ -64,6 +64,10 @@
                 <include name="**/*.configuration" />
             </fileset>
             <fileset dir="${package.transformation.cfg.dir}">
+                <include name="**/*.properties" />
+                <include name="**/*.configuration" />
+            </fileset>
+            <fileset dir="${package.version.cfg.dir}">
                 <include name="**/*.properties" />
                 <include name="**/*.configuration" />
             </fileset>

@@ -44,7 +44,7 @@ public class ClassCreator implements ObjectCreator {
     }
 
     /**
-     * Instantiates and initializes a {@link Class#}.
+     * Instantiates and initializes a {@link java.lang.Class}.
      *
      * @param anInitialValue
      *        a string which contains an initial value
