@@ -1,5 +1,8 @@
 /*
- * This software module is part of the REMABS project.
+ * (J)ava (M)iscellaneous (U)tility (L)ibraries
+ *
+ * JMUL is a central repository for utilities which are used in my
+ * other public and private repositories.
  *
  * Copyright (C) 2013  Kristian Kutin
  *
