@@ -22,7 +22,7 @@
  * e-mail: kristian.kutin@arcor.de
  */
 
-package jmul.math.markow;
+package jmul.math.markov;
 
 
 import java.util.Arrays;

@@ -22,14 +22,17 @@
  * e-mail: kristian.kutin@arcor.de
  */
 
-package test.jmul.math.markow;
+package test.jmul.math.markov;
 
 
 import java.util.ArrayList;
 import java.util.Collection;
 
-import jmul.math.markow.Algorithm;
-import jmul.math.markow.Rule;
+import jmul.math.markov.Algorithm;
+import jmul.math.markov.Rule;
+
+import static jmul.string.Constants.NEW_LINE;
+import jmul.string.StringConcatenator;
 
 import jmul.test.classification.UnitTest;
 
@@ -42,23 +45,11 @@ import org.junit.runners.Parameterized;
 
 
 /**
- * Tests a {@link jmul.math.markow.Algorithm}.
- *
- * @author Kristian Kutin
+ * Tests the string representation of an algorithm.
  */
 @UnitTest
 @RunWith(Parameterized.class)
-public class AlgorithmValidParametersTest {
-
-    /**
-     * The expected result of appliying the algorithm to a string.
-     */
-    private String expectedResult;
-
-    /**
-     * A string.
-     */
-    private String string;
+public class AlgorithmMiscTest {
 
     /**
      * The rules which belong to the algorithm.
@@ -68,14 +59,10 @@ public class AlgorithmValidParametersTest {
     /**
      * Creates a test according to the specified parameters.
      *
-     * @param anExpectedString
-     * @param aString
      * @param someRules
      */
-    public AlgorithmValidParametersTest(String anExpectedString, String aString, Rule... someRules) {
+    public AlgorithmMiscTest(Rule... someRules) {
 
-        expectedResult = anExpectedString;
-        string = aString;
         rules = someRules;
     }
 
@@ -94,12 +81,42 @@ public class AlgorithmValidParametersTest {
     }
 
     @Test
-    public void testApplication() {
+    public void testToString() {
+
+        String expectedResult = buildExpectedRepresentation(rules);
 
         Algorithm algorithm = new Algorithm(rules);
 
-        String actualResult = algorithm.applyRules(string);
-        assertEquals(expectedResult, actualResult);
+        assertEquals(expectedResult, algorithm.toString());
+    }
+
+    /**
+     * Builds a string representation according to the specified rules.
+     *
+     * @param someRules
+     *
+     * @return a string representation
+     */
+    private static String buildExpectedRepresentation(Rule... someRules) {
+
+        StringConcatenator expectedRepresentation = new StringConcatenator();
+        boolean first = true;
+
+        for (Rule rule : someRules) {
+
+            if (first) {
+
+                first = false;
+
+            } else {
+
+                expectedRepresentation.append(NEW_LINE);
+            }
+
+            expectedRepresentation.append(rule);
+        }
+
+        return String.valueOf(expectedRepresentation);
     }
 
     /**
@@ -112,10 +129,8 @@ public class AlgorithmValidParametersTest {
 
         Collection<Object[]> parameters = new ArrayList<Object[]>();
 
-        parameters.add(new Object[] { "bb", "ab", new Rule[] { new Rule("a", "b") } });
-        parameters.add(new Object[] { "bb", "ab", new Rule[] { new Rule("a", "b"), new Rule("b", "a") } });
-        parameters.add(new Object[] { "aa", "ab", new Rule[] { new Rule("b", "a"), new Rule("a", "b") } });
-        parameters.add(new Object[] { "aa", "ab", new Rule[] { new Rule("c", "d"), new Rule("b", "a") } });
+        parameters.add(new Object[] { new Rule[] { new Rule("a", "b") } });
+        parameters.add(new Object[] { new Rule[] { new Rule("b", "a"), new Rule("a", "b") } });
 
         return parameters;
     }

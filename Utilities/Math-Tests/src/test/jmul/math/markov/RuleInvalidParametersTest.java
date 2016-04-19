@@ -22,13 +22,13 @@
  * e-mail: kristian.kutin@arcor.de
  */
 
-package test.jmul.math.markow;
+package test.jmul.math.markov;
 
 
 import java.util.ArrayList;
 import java.util.Collection;
 
-import jmul.math.markow.Rule;
+import jmul.math.markov.Rule;
 
 import jmul.test.classification.UnitTest;
 
@@ -40,34 +40,34 @@ import org.junit.runners.Parameterized;
 
 
 /**
- * Tests a {@link jmul.math.markow.Rule}.
+ * Tests a {@link jmul.math.markov.Rule}.
  *
  * @author Kristian Kutin
  */
 @UnitTest
 @RunWith(Parameterized.class)
-public class RuleInvalidApplicationTest {
+public class RuleInvalidParametersTest {
 
     /**
-     * The string on which the rule is applied.
+     * The left side of a rule.
      */
-    private String string;
+    private String leftSide;
 
     /**
-     * A rule.
+     * The right side of a rule.
      */
-    private Rule rule;
+    private String rightSide;
 
     /**
      * Creates a test according to the specified parameters.
      *
-     * @param aString
-     * @param aRule
+     * @param aLeftSide
+     * @param aRightSide
      */
-    public RuleInvalidApplicationTest(String aString, Rule aRule) {
+    public RuleInvalidParametersTest(String aLeftSide, String aRightSide) {
 
-        string = aString;
-        rule = aRule;
+        leftSide = aLeftSide;
+        rightSide = aRightSide;
     }
 
     /**
@@ -85,12 +85,12 @@ public class RuleInvalidApplicationTest {
     }
 
     /**
-     * Tests the application of a rule.
+     * Tests the instantiation of a rule.
      */
     @Test(expected = IllegalArgumentException.class)
-    public void testApplication() {
+    public void testInstantiation() {
 
-        rule.applyRule(string);
+        new Rule(leftSide, rightSide);
     }
 
     /**
@@ -103,7 +103,9 @@ public class RuleInvalidApplicationTest {
 
         Collection<Object[]> parameters = new ArrayList<Object[]>();
 
-        parameters.add(new Object[] { null, new Rule("a", "b") });
+        parameters.add(new Object[] { "", "b" });
+        parameters.add(new Object[] { "a", null });
+        parameters.add(new Object[] { null, "b" });
 
         return parameters;
     }

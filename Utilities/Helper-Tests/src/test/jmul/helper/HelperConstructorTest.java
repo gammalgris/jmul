@@ -27,15 +27,17 @@ package test.jmul.helper;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Modifier;
 
 import java.util.ArrayList;
 import java.util.Collection;
 
-import jmul.string.Constants;
-
-import jmul.test.classification.UnitTest;
+import jmul.test.classification.CodingStyleCheck;
 
 import org.junit.After;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -47,7 +49,7 @@ import org.junit.runners.Parameterized;
  *
  * @author Kristian Kutin
  */
-@UnitTest
+@CodingStyleCheck
 @RunWith(Parameterized.class)
 public class HelperConstructorTest {
 
@@ -81,24 +83,62 @@ public class HelperConstructorTest {
     }
 
     /**
-     * Checks if instantiating the utility class fails.
+     * Checks if the helper class is final.
      */
-    @Test(expected = IllegalAccessException.class)
-    public void testConstructorAccess() throws InstantiationException, IllegalAccessException {
+    @Test
+    public void testClassModifiers() {
 
-        helperClass.newInstance();
+        assertTrue(Modifier.isFinal(helperClass.getModifiers()));
+    }
+
+    /**
+     * Checks if only the default constructor has been declared.
+     */
+    @Test
+    public void testConstructors() {
+
+        Constructor[] constructors = helperClass.getDeclaredConstructors();
+        assertEquals(1, constructors.length);
+
+        Constructor constructor = constructors[0];
+        assertEquals(0, constructor.getParameterTypes().length);
     }
 
     /**
      * Checks if instantiating the utility class fails.
      */
-    @Test(expected = InvocationTargetException.class)
-    public void testInstantiation2() throws NoSuchMethodException, InstantiationException, IllegalAccessException,
-                                            InvocationTargetException {
+    @Test(expected = IllegalAccessException.class)
+    public void testConstructorAccess() throws InstantiationException, IllegalAccessException, NoSuchMethodException,
+                                               InvocationTargetException {
 
-        Constructor<Constants> c = Constants.class.getDeclaredConstructor();
-        c.setAccessible(true);
+        Constructor c = helperClass.getDeclaredConstructor();
+        assertTrue(Modifier.isPrivate(c.getModifiers()));
+
         c.newInstance();
+    }
+
+    /**
+     * Checks if instantiating the utility class fails.
+     */
+    @Test(expected = UnsupportedOperationException.class)
+    public void testInstantiation() throws Throwable {
+
+        Constructor c = helperClass.getDeclaredConstructor();
+
+        try {
+
+            c.setAccessible(true);
+            c.newInstance();
+            fail();
+
+        } catch (InvocationTargetException e) {
+
+            throw e.getCause();
+
+        } finally {
+
+            c.setAccessible(false);
+        }
     }
 
     /**
@@ -115,6 +155,9 @@ public class HelperConstructorTest {
         parameters.add(new Object[] { jmul.math.MathHelper.class });
         parameters.add(new Object[] { jmul.string.Constants.class });
         parameters.add(new Object[] { jmul.misc.checks.ParameterCheckHelper.class });
+        parameters.add(new Object[] { jmul.network.http.CheckURL.class });
+        parameters.add(new Object[] { jmul.network.ip.CheckIP.class });
+        parameters.add(new Object[] { jmul.network.ftp.CheckFTP.class });
 
         return parameters;
     }

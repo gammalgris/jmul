@@ -22,13 +22,15 @@
  * e-mail: kristian.kutin@arcor.de
  */
 
-package test.jmul.math.markow;
+package test.jmul.math.markov;
 
 
 import java.util.ArrayList;
 import java.util.Collection;
 
-import jmul.math.markow.Rule;
+import static org.junit.Assert.assertEquals;
+
+import jmul.math.markov.Rule;
 
 import jmul.test.classification.UnitTest;
 
@@ -40,34 +42,41 @@ import org.junit.runners.Parameterized;
 
 
 /**
- * Tests a {@link jmul.math.markow.Rule}.
+ * Tests a {@link jmul.math.markov.Rule}.
  *
  * @author Kristian Kutin
  */
 @UnitTest
 @RunWith(Parameterized.class)
-public class RuleInvalidParametersTest {
+public class RuleValidApplicationTest {
 
     /**
-     * The left side of a rule.
+     * The expected result of a rule application.
      */
-    private String leftSide;
+    private String expectedResult;
 
     /**
-     * The right side of a rule.
+     * The string on which the rule is applied.
      */
-    private String rightSide;
+    private String string;
+
+    /**
+     * A rule.
+     */
+    private Rule rule;
 
     /**
      * Creates a test according to the specified parameters.
      *
-     * @param aLeftSide
-     * @param aRightSide
+     * @param anExpectedResult
+     * @param aString
+     * @param aRule
      */
-    public RuleInvalidParametersTest(String aLeftSide, String aRightSide) {
+    public RuleValidApplicationTest(String anExpectedResult, String aString, Rule aRule) {
 
-        leftSide = aLeftSide;
-        rightSide = aRightSide;
+        expectedResult = anExpectedResult;
+        string = aString;
+        rule = aRule;
     }
 
     /**
@@ -85,12 +94,13 @@ public class RuleInvalidParametersTest {
     }
 
     /**
-     * Tests the instantiation of a rule.
+     * Tests the application of a rule.
      */
-    @Test(expected = IllegalArgumentException.class)
-    public void testInstantiation() {
+    @Test
+    public void testApplication() {
 
-        new Rule(leftSide, rightSide);
+        String actualResult = rule.applyRule(string);
+        assertEquals(expectedResult, actualResult);
     }
 
     /**
@@ -103,9 +113,8 @@ public class RuleInvalidParametersTest {
 
         Collection<Object[]> parameters = new ArrayList<Object[]>();
 
-        parameters.add(new Object[] { "", "b" });
-        parameters.add(new Object[] { "a", null });
-        parameters.add(new Object[] { null, "b" });
+        parameters.add(new Object[] { "bb", "ab", new Rule("a", "b") });
+        parameters.add(new Object[] { "bba", "aba", new Rule("a", "b") });
 
         return parameters;
     }

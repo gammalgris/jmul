@@ -37,6 +37,8 @@
     <property name="package.network.dir" location="${packages.base.dir}\Network" />
     <property name="package.network.src.dir" location="${package.network.dir}\src" />
     <property name="package.network.cfg.dir" location="${package.network.dir}\properties" />
+    <property name="package.network-tests.dir" location="${packages.base.dir}\Network-Tests" />
+    <property name="package.network-tests.src.dir" location="${package.network-tests.dir}\src" />
 
     <property name="package.persistence.dir" location="${packages.base.dir}\Persistence" />
     <property name="package.persistence.src.dir" location="${package.persistence.dir}\src" />
@@ -142,6 +144,8 @@
         <echo />
         <echo message="  package helper tests dir .................... ${package.helper-tests.dir}" />
         <echo message="  package helper tests src dir ................ ${package.helper-tests.src.dir}" />
+        <echo message="  package network tests dir ................... ${package.network-tests.dir}" />
+        <echo message="  package network tests src dir ............... ${package.network-tests.src.dir}" />
         <echo message="  package string tests dir .................... ${package.string-tests.dir}" />
         <echo message="  package string tests src dir ................ ${package.string-tests.src.dir}" />
         <echo message="  package misc tests dir ...................... ${package.misc-tests.dir}" />

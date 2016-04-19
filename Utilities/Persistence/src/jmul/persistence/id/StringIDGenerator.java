@@ -32,8 +32,8 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
-import jmul.math.markow.Algorithm;
-import jmul.math.markow.Rule;
+import jmul.math.markov.Algorithm;
+import jmul.math.markov.Rule;
 
 
 /**

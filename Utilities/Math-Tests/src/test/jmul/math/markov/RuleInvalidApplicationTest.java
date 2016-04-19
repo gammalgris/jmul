@@ -22,22 +22,17 @@
  * e-mail: kristian.kutin@arcor.de
  */
 
-package test.jmul.math.markow;
+package test.jmul.math.markov;
 
 
 import java.util.ArrayList;
 import java.util.Collection;
 
-import jmul.math.markow.Algorithm;
-import jmul.math.markow.Rule;
-
-import static jmul.string.Constants.NEW_LINE;
-import jmul.string.StringConcatenator;
+import jmul.math.markov.Rule;
 
 import jmul.test.classification.UnitTest;
 
 import org.junit.After;
-import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -45,25 +40,34 @@ import org.junit.runners.Parameterized;
 
 
 /**
- * Tests the string representation of an algorithm.
+ * Tests a {@link jmul.math.markov.Rule}.
+ *
+ * @author Kristian Kutin
  */
 @UnitTest
 @RunWith(Parameterized.class)
-public class AlgorithmMiscTest {
+public class RuleInvalidApplicationTest {
 
     /**
-     * The rules which belong to the algorithm.
+     * The string on which the rule is applied.
      */
-    private Rule[] rules;
+    private String string;
+
+    /**
+     * A rule.
+     */
+    private Rule rule;
 
     /**
      * Creates a test according to the specified parameters.
      *
-     * @param someRules
+     * @param aString
+     * @param aRule
      */
-    public AlgorithmMiscTest(Rule... someRules) {
+    public RuleInvalidApplicationTest(String aString, Rule aRule) {
 
-        rules = someRules;
+        string = aString;
+        rule = aRule;
     }
 
     /**
@@ -80,43 +84,13 @@ public class AlgorithmMiscTest {
     public void tearDown() {
     }
 
-    @Test
-    public void testToString() {
-
-        String expectedResult = buildExpectedRepresentation(rules);
-
-        Algorithm algorithm = new Algorithm(rules);
-
-        assertEquals(expectedResult, algorithm.toString());
-    }
-
     /**
-     * Builds a string representation according to the specified rules.
-     *
-     * @param someRules
-     *
-     * @return a string representation
+     * Tests the application of a rule.
      */
-    private static String buildExpectedRepresentation(Rule... someRules) {
+    @Test(expected = IllegalArgumentException.class)
+    public void testApplication() {
 
-        StringConcatenator expectedRepresentation = new StringConcatenator();
-        boolean first = true;
-
-        for (Rule rule : someRules) {
-
-            if (first) {
-
-                first = false;
-
-            } else {
-
-                expectedRepresentation.append(NEW_LINE);
-            }
-
-            expectedRepresentation.append(rule);
-        }
-
-        return String.valueOf(expectedRepresentation);
+        rule.applyRule(string);
     }
 
     /**
@@ -129,8 +103,7 @@ public class AlgorithmMiscTest {
 
         Collection<Object[]> parameters = new ArrayList<Object[]>();
 
-        parameters.add(new Object[] { new Rule[] { new Rule("a", "b") } });
-        parameters.add(new Object[] { new Rule[] { new Rule("b", "a"), new Rule("a", "b") } });
+        parameters.add(new Object[] { null, new Rule("a", "b") });
 
         return parameters;
     }

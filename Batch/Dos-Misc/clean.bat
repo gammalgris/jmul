@@ -44,7 +44,8 @@ exit /b 0
 
 	set projectDir=%~dp0..\..\Utilities\
 
-	set directory.length=15
+	set directory.length=18
+
 	set directory[1]=%projectDir%.data\
 	set directory[2]=%projectDir%Concurrent\classes\
 	set directory[3]=%projectDir%IO\classes\
@@ -53,13 +54,17 @@ exit /b 0
 	set directory[6]=%projectDir%Misc\classes\
 	set directory[7]=%projectDir%Misc-Tests\classes\
 	set directory[8]=%projectDir%Network\classes\
-	set directory[9]=%projectDir%Persistence\classes\
-	set directory[10]=%projectDir%Reflection\classes\
-	set directory[11]=%projectDir%String\classes\
-	set directory[12]=%projectDir%String-Tests\classes\
-	set directory[13]=%projectDir%Test\classes\
-	set directory[14]=%projectDir%Transformation\classes\
-	set directory[15]=%projectDir%XML\classes\
+	set directory[9]=%projectDir%Network-Tests\classes\
+	set directory[10]=%projectDir%Persistence\classes\
+	set directory[11]=%projectDir%Reflection\classes\
+	set directory[12]=%projectDir%String\classes\
+	set directory[13]=%projectDir%String-Tests\classes\
+	set directory[14]=%projectDir%Test\classes\
+	set directory[15]=%projectDir%Transformation\classes\
+	set directory[16]=%projectDir%XML\classes\
+
+	set directory[17]=%projectDir%..\Batch\classes\
+	set directory[18]=%projectDir%..\tmp\
 
 exit /b 0
 

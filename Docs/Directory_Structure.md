@@ -18,7 +18,11 @@ Overview
    ├──── Docs
    │
    ├───┬ Libraries
-   │   └─── JUnit
+   │   ├─── Cobertura
+   │   ├─── JUnit
+   │   └─── SonarAntTask
+   │
+   ├──── Links
    │
    ├──── UML
    │

@@ -52,6 +52,8 @@ public final class CheckIP {
      * The default constructor.
      */
     private CheckIP() {
+
+        throw new UnsupportedOperationException();
     }
 
     /**

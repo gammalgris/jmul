@@ -48,6 +48,8 @@ public final class CheckURL {
      * The default constructor.
      */
     private CheckURL() {
+
+        throw new UnsupportedOperationException();
     }
 
     /**

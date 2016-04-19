@@ -22,13 +22,13 @@
  * e-mail: kristian.kutin@arcor.de
  */
 
-package test.jmul.math.markow;
+package test.jmul.math.markov;
 
 
 import java.util.ArrayList;
 import java.util.Collection;
 
-import jmul.math.markow.Rule;
+import jmul.math.markov.Rule;
 
 import jmul.string.StringConcatenator;
 
@@ -44,7 +44,7 @@ import org.junit.runners.Parameterized;
 
 
 /**
- * Tests a {@link jmul.math.markow.Rule}.
+ * Tests a {@link jmul.math.markov.Rule}.
  *
  * @author Kristian Kutin
  */

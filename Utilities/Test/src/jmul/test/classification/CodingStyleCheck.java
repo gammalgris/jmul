@@ -22,23 +22,23 @@
  * e-mail: kristian.kutin@arcor.de
  */
 
-package jmul.network.ftp;
+package jmul.test.classification;
+
+
+import java.lang.annotation.Documented;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
 
 /**
- * A utility class which provides methods to perform checks on an FTP server.
- * 
- * TODO
- * Missing functionality!
+ * This annotation represents a classification for test cases.
  *
  * @author Kristian Kutin
  */
-public final class CheckFTP {
-
-    /**
-     * The default constructor.
-     */
-    private CheckFTP() {
-    }
-
+@Documented
+@Target(ElementType.TYPE)
+@Retention(RetentionPolicy.RUNTIME)
+public @interface CodingStyleCheck {
 }

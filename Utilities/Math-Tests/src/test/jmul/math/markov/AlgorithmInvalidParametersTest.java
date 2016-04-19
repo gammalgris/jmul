@@ -22,15 +22,14 @@
  * e-mail: kristian.kutin@arcor.de
  */
 
-package test.jmul.math.markow;
+package test.jmul.math.markov;
 
 
 import java.util.ArrayList;
 import java.util.Collection;
 
-import static org.junit.Assert.assertEquals;
-
-import jmul.math.markow.Rule;
+import jmul.math.markov.Algorithm;
+import jmul.math.markov.Rule;
 
 import jmul.test.classification.UnitTest;
 
@@ -42,41 +41,27 @@ import org.junit.runners.Parameterized;
 
 
 /**
- * Tests a {@link jmul.math.markow.Rule}.
+ * Tests a {@link jmul.math.markov.Algorithm}.
  *
  * @author Kristian Kutin
  */
 @UnitTest
 @RunWith(Parameterized.class)
-public class RuleValidApplicationTest {
+public class AlgorithmInvalidParametersTest {
 
     /**
-     * The expected result of a rule application.
+     * The rules which belong to the algorithm.
      */
-    private String expectedResult;
-
-    /**
-     * The string on which the rule is applied.
-     */
-    private String string;
-
-    /**
-     * A rule.
-     */
-    private Rule rule;
+    private Rule[] rules;
 
     /**
      * Creates a test according to the specified parameters.
      *
-     * @param anExpectedResult
-     * @param aString
-     * @param aRule
+     * @param someRules
      */
-    public RuleValidApplicationTest(String anExpectedResult, String aString, Rule aRule) {
+    public AlgorithmInvalidParametersTest(Rule... someRules) {
 
-        expectedResult = anExpectedResult;
-        string = aString;
-        rule = aRule;
+        rules = someRules;
     }
 
     /**
@@ -93,14 +78,10 @@ public class RuleValidApplicationTest {
     public void tearDown() {
     }
 
-    /**
-     * Tests the application of a rule.
-     */
-    @Test
-    public void testApplication() {
+    @Test(expected = IllegalArgumentException.class)
+    public void testInstantiation() {
 
-        String actualResult = rule.applyRule(string);
-        assertEquals(expectedResult, actualResult);
+        new Algorithm(rules);
     }
 
     /**
@@ -113,8 +94,8 @@ public class RuleValidApplicationTest {
 
         Collection<Object[]> parameters = new ArrayList<Object[]>();
 
-        parameters.add(new Object[] { "bb", "ab", new Rule("a", "b") });
-        parameters.add(new Object[] { "bba", "aba", new Rule("a", "b") });
+        parameters.add(new Object[] { null });
+        parameters.add(new Object[] { new Rule[] { } });
 
         return parameters;
     }

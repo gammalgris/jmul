@@ -22,18 +22,19 @@
  * e-mail: kristian.kutin@arcor.de
  */
 
-package test.jmul.math.markow;
+package test.jmul.math.markov;
 
 
 import java.util.ArrayList;
 import java.util.Collection;
 
-import jmul.math.markow.Algorithm;
-import jmul.math.markow.Rule;
+import jmul.math.markov.Algorithm;
+import jmul.math.markov.Rule;
 
 import jmul.test.classification.UnitTest;
 
 import org.junit.After;
+import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -41,13 +42,23 @@ import org.junit.runners.Parameterized;
 
 
 /**
- * Tests a {@link jmul.math.markow.Algorithm}.
+ * Tests a {@link jmul.math.markov.Algorithm}.
  *
  * @author Kristian Kutin
  */
 @UnitTest
 @RunWith(Parameterized.class)
-public class AlgorithmInvalidParametersTest {
+public class AlgorithmValidParametersTest {
+
+    /**
+     * The expected result of appliying the algorithm to a string.
+     */
+    private String expectedResult;
+
+    /**
+     * A string.
+     */
+    private String string;
 
     /**
      * The rules which belong to the algorithm.
@@ -57,10 +68,14 @@ public class AlgorithmInvalidParametersTest {
     /**
      * Creates a test according to the specified parameters.
      *
+     * @param anExpectedString
+     * @param aString
      * @param someRules
      */
-    public AlgorithmInvalidParametersTest(Rule... someRules) {
+    public AlgorithmValidParametersTest(String anExpectedString, String aString, Rule... someRules) {
 
+        expectedResult = anExpectedString;
+        string = aString;
         rules = someRules;
     }
 
@@ -78,10 +93,13 @@ public class AlgorithmInvalidParametersTest {
     public void tearDown() {
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void testInstantiation() {
+    @Test
+    public void testApplication() {
 
-        new Algorithm(rules);
+        Algorithm algorithm = new Algorithm(rules);
+
+        String actualResult = algorithm.applyRules(string);
+        assertEquals(expectedResult, actualResult);
     }
 
     /**
@@ -94,8 +112,10 @@ public class AlgorithmInvalidParametersTest {
 
         Collection<Object[]> parameters = new ArrayList<Object[]>();
 
-        parameters.add(new Object[] { null });
-        parameters.add(new Object[] { new Rule[] { } });
+        parameters.add(new Object[] { "bb", "ab", new Rule[] { new Rule("a", "b") } });
+        parameters.add(new Object[] { "bb", "ab", new Rule[] { new Rule("a", "b"), new Rule("b", "a") } });
+        parameters.add(new Object[] { "aa", "ab", new Rule[] { new Rule("b", "a"), new Rule("a", "b") } });
+        parameters.add(new Object[] { "aa", "ab", new Rule[] { new Rule("c", "d"), new Rule("b", "a") } });
 
         return parameters;
     }
