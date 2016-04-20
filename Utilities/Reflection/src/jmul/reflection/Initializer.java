@@ -32,7 +32,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-import jmul.classes.ClassDefinition;
+import jmul.reflection.classes.ClassDefinition;
 import jmul.string.StringConcatenator;
 
 

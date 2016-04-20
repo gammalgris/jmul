@@ -38,9 +38,9 @@ import jmul.transformation.TransformationParameters;
 import jmul.transformation.TransformationParametersImpl;
 import jmul.transformation.TransformationPath;
 
-import jmul.classes.AccessorHelper;
-import jmul.classes.ClassDefinition;
-import jmul.classes.ClassHelper;
+import jmul.reflection.classes.AccessorHelper;
+import jmul.reflection.classes.ClassDefinition;
+import jmul.reflection.classes.ClassHelper;
 
 import jmul.string.StringConcatenator;
 

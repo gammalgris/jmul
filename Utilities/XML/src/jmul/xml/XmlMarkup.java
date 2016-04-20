@@ -38,7 +38,7 @@ public interface XmlMarkup {
      *
      * @return a tagname
      */
-    String getTagname();
+    String getTagName();
 
     /**
      * Checks if this entity represents an xml element.
@@ -64,6 +64,16 @@ public interface XmlMarkup {
      * @return <code>true</code> if the specified name matches the name of this
      *         markup, else <code>false</code>
      */
-    boolean equalsXmlMarkup(String aName);
+    boolean equalsTagName(String aName);
+
+    /**
+     * Checks if the specified xml markup this markup.
+     *
+     * @param aName
+     *
+     * @return <code>true</code> if the specified xml markup matches this
+     *         markup, else <code>false</code>
+     */
+    boolean equalsXmlMarkup(XmlMarkup anXmlMarkup);
 
 }

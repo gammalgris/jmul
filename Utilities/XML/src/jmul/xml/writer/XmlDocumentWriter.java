@@ -52,8 +52,7 @@ public interface XmlDocumentWriter {
      * @throws IOException
      *         This exception can be thrown if IO operations fail
      */
-    void writeDocument(String aFilename,
-                       Document aDocument) throws IOException;
+    void writeDocument(String aFilename, Document aDocument) throws IOException;
 
     /**
      * The method writes an xml document.

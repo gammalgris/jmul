@@ -55,6 +55,7 @@ public abstract class ObservableThreadBase implements ObservableThread {
      * @param aListener
      *        a thread listener
      */
+    @Override
     public void addListener(ThreadListener aListener) {
 
         if (!listeners.contains(aListener)) {
@@ -90,6 +91,7 @@ public abstract class ObservableThreadBase implements ObservableThread {
      * A thread implementation contains some thread specific actions. After the
      * thread specific actions are done all listeners have to be informed.
      */
+    @Override
     public void run() {
 
         performAction();

@@ -33,12 +33,11 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Map;
 
-import jmul.cache.transformation.Object2XmlCache;
-
-import jmul.persistence.id.ID;
+import jmul.persistence.transformation.cache.Object2XmlCache;
 
 import jmul.persistence.annotations.ContainerInformations;
 import jmul.persistence.annotations.MapInformations;
+import jmul.persistence.id.ID;
 import jmul.persistence.transformation.TransformationHelper;
 import static jmul.persistence.transformation.rules.PersistenceMarkups.DECLARED_TYPE_ATTRIBUTE;
 import static jmul.persistence.transformation.rules.PersistenceMarkups.FIELD_ELEMENT;
@@ -92,6 +91,7 @@ public class GenericObjectHandler implements FieldsHandler {
      * @param anObject
      *        the object whose fields are to be processed
      */
+    @Override
     public void processFields(TransformationParameters someParameters, Element aParentElement, Object anObject) {
 
         processFields(someParameters, aParentElement, anObject, null);
@@ -113,6 +113,7 @@ public class GenericObjectHandler implements FieldsHandler {
      *        the specified class is examined only up to the specified
      *        superclass (excluding the superclass)
      */
+    @Override
     public void processFields(TransformationParameters someParameters, Element aParentElement, Object anObject,
                               Class anExemptedSuperclass) {
 
@@ -287,9 +288,9 @@ public class GenericObjectHandler implements FieldsHandler {
             // document (i.e. this element) needs to be updated.
 
             Element fieldElement = XmlHelper.createXmlElement(document, FIELD_ELEMENT);
-            fieldElement.setAttribute(NAME_ATTRIBUTE.getTagname(), fieldName);
-            fieldElement.setAttribute(DECLARED_TYPE_ATTRIBUTE.getTagname(), declaredFieldType.getName());
-            fieldElement.setAttribute(REFERENCED_OBJECT_ATTRIBUTE.getTagname(), fieldID.toString());
+            fieldElement.setAttribute(NAME_ATTRIBUTE.getTagName(), fieldName);
+            fieldElement.setAttribute(DECLARED_TYPE_ATTRIBUTE.getTagName(), declaredFieldType.getName());
+            fieldElement.setAttribute(REFERENCED_OBJECT_ATTRIBUTE.getTagName(), fieldID.toString());
             aParentElement.appendChild(fieldElement);
 
 

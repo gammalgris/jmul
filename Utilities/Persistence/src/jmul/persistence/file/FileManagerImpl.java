@@ -36,8 +36,10 @@ import java.util.Map;
 import java.util.ResourceBundle;
 
 import jmul.io.FileHelper;
+
 import jmul.string.StringConcatenator;
-import jmul.xpath.XPathQuery;
+
+import jmul.xml.query.XPathQuery;
 
 
 /**
@@ -60,14 +62,12 @@ public class FileManagerImpl implements FileManager {
     /**
      * The file separator for this operating system.
      */
-    private static final String FILE_SEPARATOR =
-        System.getProperty("file.separator");
+    private static final String FILE_SEPARATOR = System.getProperty("file.separator");
 
     /**
      * A property key.
      */
-    private static final String TEMPLATE_PLACEHOLDER_KEY =
-        "template.placeholder";
+    private static final String TEMPLATE_PLACEHOLDER_KEY = "template.placeholder";
 
     /**
      * A property key.
@@ -77,8 +77,7 @@ public class FileManagerImpl implements FileManager {
     /**
      * A property key.
      */
-    private static final String TEMPLATE_FILE_SUFFIX_KEY =
-        "template.file.suffix";
+    private static final String TEMPLATE_FILE_SUFFIX_KEY = "template.file.suffix";
 
     /**
      * A property key.
@@ -169,8 +168,7 @@ public class FileManagerImpl implements FileManager {
 
         if (!baseDirectory.isDirectory()) {
 
-            StringConcatenator message =
-                new StringConcatenator(aDirectoryName, " is no directory!");
+            StringConcatenator message = new StringConcatenator(aDirectoryName, " is no directory!");
             throw new IllegalArgumentException(message.toString());
         }
 
@@ -201,8 +199,7 @@ public class FileManagerImpl implements FileManager {
 
         subfolderVacancies.clear();
 
-        File[] foundDirectories =
-            baseDirectory.listFiles(FileHelper.getDirectoryFilter());
+        File[] foundDirectories = baseDirectory.listFiles(FileHelper.getDirectoryFilter());
         subfolders = new ArrayList<File>(Arrays.asList(foundDirectories));
 
 
@@ -210,8 +207,7 @@ public class FileManagerImpl implements FileManager {
 
         for (File subfolder : subfolders) {
 
-            File[] files =
-                subfolder.listFiles(FileHelper.getFileFilter(templateFileSuffix));
+            File[] files = subfolder.listFiles(FileHelper.getFileFilter(templateFileSuffix));
 
             int population = files.length;
             int vacancies = maxFiles - population;
@@ -221,8 +217,7 @@ public class FileManagerImpl implements FileManager {
                 subfolderVacancies.put(subfolder, vacancies);
             }
 
-            maxFolderIndex =
-                    Math.max(maxFolderIndex, indexExtractor.extractIndex(subfolder.getName()));
+            maxFolderIndex = Math.max(maxFolderIndex, indexExtractor.extractIndex(subfolder.getName()));
         }
 
 
@@ -239,8 +234,7 @@ public class FileManagerImpl implements FileManager {
         maxFolderIndex++;
 
         String subfolderName = templateSubfolder;
-        subfolderName =
-                subfolderName.replace(templatePlaceholder, String.valueOf(maxFolderIndex));
+        subfolderName = subfolderName.replace(templatePlaceholder, String.valueOf(maxFolderIndex));
 
         return subfolderName;
     }
@@ -270,8 +264,7 @@ public class FileManagerImpl implements FileManager {
      */
     private String newFileName(String aUniqueIdentifier) {
 
-        StringConcatenator filename =
-            new StringConcatenator(aUniqueIdentifier, ".", templateFileSuffix);
+        StringConcatenator filename = new StringConcatenator(aUniqueIdentifier, ".", templateFileSuffix);
         return filename.toString();
     }
 
@@ -285,6 +278,7 @@ public class FileManagerImpl implements FileManager {
      * @return <code>true</code> if a file exists which is associated with the
      *         specified unique identifierelse <code>false</code>
      */
+    @Override
     public boolean existsFile(String aUniqueIdentifier) {
 
         FileLookup lookup = new FileLookup();
@@ -300,15 +294,14 @@ public class FileManagerImpl implements FileManager {
      *
      * @return a file
      */
+    @Override
     public File newFile(String aUniqueIdentifier) {
 
         File firstSubfolder = subfolderVacancies.keySet().iterator().next();
         int vacancies = subfolderVacancies.get(firstSubfolder);
 
         StringConcatenator filename =
-            new StringConcatenator(firstSubfolder.getAbsolutePath(),
-                                   FILE_SEPARATOR,
-                                   newFileName(aUniqueIdentifier));
+            new StringConcatenator(firstSubfolder.getAbsolutePath(), FILE_SEPARATOR, newFileName(aUniqueIdentifier));
 
         vacancies--;
 
@@ -334,6 +327,7 @@ public class FileManagerImpl implements FileManager {
      *
      * @return a file
      */
+    @Override
     public File getFile(String aUniqueIdentifier) {
 
         FileLookup lookup = new FileLookup();
@@ -350,6 +344,7 @@ public class FileManagerImpl implements FileManager {
      * @return a unique identifier which is associated with a file or
      *         <code>null</code> if no such association exists
      */
+    @Override
     public String getUniqueIdentifier(File aFile) {
 
         // Following checks are required to determine an association (the order
@@ -388,10 +383,8 @@ public class FileManagerImpl implements FileManager {
 
                         String filename = aFile.getName();
 
-                        StringConcatenator suffix =
-                            new StringConcatenator(".", templateFileSuffix);
-                        String uniqueIdentifier =
-                            filename.replace(suffix.toString(), "");
+                        StringConcatenator suffix = new StringConcatenator(".", templateFileSuffix);
+                        String uniqueIdentifier = filename.replace(suffix.toString(), "");
 
                         return uniqueIdentifier;
                     }
@@ -410,6 +403,7 @@ public class FileManagerImpl implements FileManager {
      *
      * @return a list of folders which contain all managed files
      */
+    @Override
     public Collection<File> getFolders() {
 
         return subfolders;
@@ -419,6 +413,7 @@ public class FileManagerImpl implements FileManager {
      * Prepares the file manager for shutdown (i.e. running threads will be
      * stopped).
      */
+    @Override
     public void shutdown() {
 
         instanceCounter.unregisterInstance(this);
@@ -436,6 +431,7 @@ public class FileManagerImpl implements FileManager {
      *
      * @return a list of files which meet the specified criteria
      */
+    @Override
     public Collection<File> findFiles(XPathQuery... someQueries) {
 
         FileLookup lookup = new FileLookup();
@@ -463,10 +459,8 @@ public class FileManagerImpl implements FileManager {
          */
         IndexExtractor() {
 
-            int indexEndPrefix =
-                templateSubfolder.indexOf(templatePlaceholder);
-            int indexStartSuffix =
-                indexEndPrefix + templatePlaceholder.length();
+            int indexEndPrefix = templateSubfolder.indexOf(templatePlaceholder);
+            int indexStartSuffix = indexEndPrefix + templatePlaceholder.length();
             subfolderPrefix = templateSubfolder.substring(0, indexEndPrefix);
             subfolderSuffix = templateSubfolder.substring(indexStartSuffix);
         }

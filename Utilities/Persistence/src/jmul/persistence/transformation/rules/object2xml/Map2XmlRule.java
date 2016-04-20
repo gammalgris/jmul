@@ -27,11 +27,11 @@ package jmul.persistence.transformation.rules.object2xml;
 
 import java.util.Map;
 
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
+import jmul.persistence.transformation.cache.Object2XmlCache;
 
 import jmul.persistence.annotations.AnnotationHelper;
 import jmul.persistence.annotations.MapInformations;
+import jmul.persistence.id.ID;
 import static jmul.persistence.transformation.rules.PersistenceMarkups.DECLARED_KEY_TYPE_ATTRIBUTE;
 import static jmul.persistence.transformation.rules.PersistenceMarkups.DECLARED_VALUE_TYPE_ATTRIBUTE;
 import static jmul.persistence.transformation.rules.PersistenceMarkups.ID_ATTRIBUTE;
@@ -45,17 +45,16 @@ import static jmul.persistence.transformation.rules.TransformationConstants.XML_
 import jmul.persistence.transformation.rules.object2xml.strategies.containers.ContainerHandler;
 import jmul.persistence.transformation.rules.object2xml.strategies.containers.MapHandler;
 
+import jmul.string.StringConcatenator;
+
 import jmul.transformation.TransformationException;
 import jmul.transformation.TransformationParameters;
 import jmul.transformation.TransformationRuleBase;
 
-import jmul.cache.transformation.Object2XmlCache;
-
-import jmul.persistence.id.ID;
-
-import jmul.string.StringConcatenator;
-
 import jmul.xml.XmlHelper;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
 
 /**
@@ -104,6 +103,7 @@ public class Map2XmlRule extends TransformationRuleBase {
      * @return <code>true</code> if the rule is applicable, else
      *         <code>false</code>
      */
+    @Override
     public boolean isApplicable(TransformationParameters someParameters) {
 
         Class expectedType = Map.class;
@@ -120,6 +120,7 @@ public class Map2XmlRule extends TransformationRuleBase {
      *
      * @return the ID of the transformed object
      */
+    @Override
     public Object transform(TransformationParameters someParameters) {
 
         // Check parameters.
@@ -204,10 +205,10 @@ public class Map2XmlRule extends TransformationRuleBase {
 
         Element element = XmlHelper.createXmlElement(document, OBJECT_ELEMENT);
 
-        element.setAttribute(ID_ATTRIBUTE.getTagname(), id.toString());
-        element.setAttribute(TYPE_ATTRIBUTE.getTagname(), realType.getName());
-        element.setAttribute(DECLARED_KEY_TYPE_ATTRIBUTE.getTagname(), declaredKeyType.getName());
-        element.setAttribute(DECLARED_VALUE_TYPE_ATTRIBUTE.getTagname(), declaredValueType.getName());
+        element.setAttribute(ID_ATTRIBUTE.getTagName(), id.toString());
+        element.setAttribute(TYPE_ATTRIBUTE.getTagName(), realType.getName());
+        element.setAttribute(DECLARED_KEY_TYPE_ATTRIBUTE.getTagName(), declaredKeyType.getName());
+        element.setAttribute(DECLARED_VALUE_TYPE_ATTRIBUTE.getTagName(), declaredValueType.getName());
 
 
         // Step 3

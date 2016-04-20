@@ -27,10 +27,9 @@ package jmul.persistence.transformation.rules.object2xml.strategies.containers;
 
 import java.util.Collection;
 
-import jmul.cache.transformation.Object2XmlCache;
+import jmul.persistence.transformation.cache.Object2XmlCache;
 
 import jmul.persistence.id.ID;
-
 import jmul.persistence.transformation.TransformationHelper;
 import static jmul.persistence.transformation.rules.PersistenceMarkups.ELEMENT_ELEMENT;
 import static jmul.persistence.transformation.rules.PersistenceMarkups.REFERENCED_ELEMENT_ATTRIBUTE;
@@ -75,6 +74,7 @@ public class CollectionHandler implements ContainerHandler {
      * @param aContainer
      *        a container
      */
+    @Override
     public void processContainerContent(TransformationParameters someParameters, Element aParentElement,
                                         Object aContainer) {
 
@@ -136,7 +136,7 @@ public class CollectionHandler implements ContainerHandler {
             // document (i.e. this element) needs to be updated.
 
             Element collectionElementElement = XmlHelper.createXmlElement(document, ELEMENT_ELEMENT);
-            collectionElementElement.setAttribute(REFERENCED_ELEMENT_ATTRIBUTE.getTagname(),
+            collectionElementElement.setAttribute(REFERENCED_ELEMENT_ATTRIBUTE.getTagName(),
                                                   containerElementID.toString());
             aParentElement.appendChild(collectionElementElement);
         }

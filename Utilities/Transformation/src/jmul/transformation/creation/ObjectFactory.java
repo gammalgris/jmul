@@ -25,7 +25,7 @@
 package jmul.transformation.creation;
 
 
-import jmul.classes.ClassDefinition;
+import jmul.reflection.classes.ClassDefinition;
 
 
 /**

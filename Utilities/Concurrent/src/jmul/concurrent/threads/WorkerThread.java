@@ -104,6 +104,7 @@ public class WorkerThread implements Runnable {
     /**
      * The actual worker algorithm.
      */
+    @Override
     public void run() {
 
         while (isNotStopped()) {

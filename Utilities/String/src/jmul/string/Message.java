@@ -105,6 +105,7 @@ public class Message implements ConfigurableMessage {
      *
      * @return a message
      */
+    @Override
     public String resolvePlaceholder(String... someItems) {
 
         checkParameter(someItems);

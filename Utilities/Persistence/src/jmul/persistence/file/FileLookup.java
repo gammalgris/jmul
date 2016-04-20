@@ -34,17 +34,20 @@ import java.util.ResourceBundle;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
-import jmul.classes.ClassDefinition;
-import jmul.classes.ClassHelper;
-import jmul.reflection.Initializer;
-import jmul.string.StringConcatenator;
 import jmul.concurrent.threads.ThreadEvent;
 import jmul.concurrent.threads.ThreadExecutionStatus;
 import jmul.concurrent.threads.ThreadFinishedEvent;
 import jmul.concurrent.threads.ThreadHelper;
 import jmul.concurrent.threads.ThreadListener;
 import jmul.concurrent.threads.ThreadPool;
-import jmul.xpath.XPathQuery;
+
+import jmul.reflection.Initializer;
+import jmul.reflection.classes.ClassDefinition;
+import jmul.reflection.classes.ClassHelper;
+
+import jmul.string.StringConcatenator;
+
+import jmul.xml.query.XPathQuery;
 
 
 /**
@@ -313,6 +316,7 @@ public class FileLookup implements ThreadListener {
      * @param anEvent
      *        a thread event
      */
+    @Override
     public void informOnEvent(ThreadEvent anEvent) {
 
         if (anEvent instanceof FileFoundNotification) {

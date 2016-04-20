@@ -51,6 +51,7 @@ public class IntegerIDGenerator implements IDGenerator {
      *
      * @return an object containing an id
      */
+    @Override
     public ID generateID() {
 
         ID id = new IntegerID(nextID);

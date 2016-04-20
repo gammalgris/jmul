@@ -76,6 +76,7 @@ public class NestedStreamsImpl implements NestedStreams {
      *
      * @return a stream
      */
+    @Override
     public Closeable getStream(int anIndex) {
 
         return nestedStreams.get(anIndex);
@@ -86,6 +87,7 @@ public class NestedStreamsImpl implements NestedStreams {
      *
      * @return a stream
      */
+    @Override
     public Closeable getOuterStream() {
 
         return getStream(OUTER_STREAM_INDEX);
@@ -123,7 +125,7 @@ public class NestedStreamsImpl implements NestedStreams {
                     innerStream.close();
                     nestedExceptions.add(null);
 
-                } catch (Throwable t) {
+                } catch (IOException t) {
 
                     nestedExceptions.add(t);
                     exceptionCount++;
@@ -190,6 +192,7 @@ public class NestedStreamsImpl implements NestedStreams {
      *
      * @return a sum
      */
+    @Override
     public int getNestedStreamCount() {
 
         return nestedStreams.size();

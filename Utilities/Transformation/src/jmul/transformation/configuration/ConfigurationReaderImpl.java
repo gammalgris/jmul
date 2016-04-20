@@ -29,8 +29,8 @@ import java.io.IOException;
 
 import java.lang.reflect.Constructor;
 
-import jmul.classes.ClassDefinition;
-import jmul.classes.ClassHelper;
+import jmul.reflection.classes.ClassDefinition;
+import jmul.reflection.classes.ClassHelper;
 
 import jmul.string.StringConcatenator;
 
@@ -85,6 +85,7 @@ public class ConfigurationReaderImpl implements ConfigurationReader {
      *         This exception is thrown when the configuration file couldn't be
      *         read
      */
+    @Override
     public TransformationRule parseConfiguration(String aFilename) throws SAXException, IOException {
 
         ConfigurationData data = new ConfigurationData(aFilename);
@@ -107,6 +108,7 @@ public class ConfigurationReaderImpl implements ConfigurationReader {
      *         This exception is thrown when the configuration file couldn't be
      *         read
      */
+    @Override
     public TransformationRule parseConfiguration(Document aDocument) throws SAXException, IOException {
 
         ConfigurationData data = new ConfigurationData(aDocument);

@@ -121,6 +121,7 @@ public class ThreadPoolImpl1 implements ThreadPool, ThreadListener {
      * @param aThread
      *        an observable thread
      */
+    @Override
     public void addThread(ObservableThread aThread) {
 
         boolean loop = true;
@@ -154,6 +155,7 @@ public class ThreadPoolImpl1 implements ThreadPool, ThreadListener {
      *
      * @return the number of active threads
      */
+    @Override
     public int threadCount() {
 
         return threadCount;
@@ -164,6 +166,7 @@ public class ThreadPoolImpl1 implements ThreadPool, ThreadListener {
      *
      * @return maximum threads
      */
+    @Override
     public int getMaximumThreads() {
 
         return maxActiveThreads;
@@ -176,6 +179,7 @@ public class ThreadPoolImpl1 implements ThreadPool, ThreadListener {
      * @param aMaximum
      *        maximum threads
      */
+    @Override
     public void setMaximumThreads(int aMaximum) {
 
         maxActiveThreads = aMaximum;
@@ -187,6 +191,7 @@ public class ThreadPoolImpl1 implements ThreadPool, ThreadListener {
      * @param anEvent
      *        a thread event
      */
+    @Override
     public void informOnEvent(ThreadEvent anEvent) {
 
         if (anEvent instanceof ThreadFinishedEvent) {
@@ -235,6 +240,7 @@ public class ThreadPoolImpl1 implements ThreadPool, ThreadListener {
      *
      * @return the current maximum queue size
      */
+    @Override
     public int getMaximumQueueSize() {
 
         return maxQueueSize;
@@ -246,6 +252,7 @@ public class ThreadPoolImpl1 implements ThreadPool, ThreadListener {
      * @param aMaximum
      *        the current maximum queue size
      */
+    @Override
     public void setMaximumQueueSize(int aMaximum) {
 
         maxQueueSize = aMaximum;
@@ -255,6 +262,7 @@ public class ThreadPoolImpl1 implements ThreadPool, ThreadListener {
      * Stops the thread pool (i.e. no new threads are accepted by the add method
      * and what remains in the pipeline will be executed).
      */
+    @Override
     public void stop() {
 
         pendingStop = true;
@@ -282,6 +290,7 @@ public class ThreadPoolImpl1 implements ThreadPool, ThreadListener {
         /**
          * Invoke threads.
          */
+        @Override
         public void run() {
 
             while (active) {

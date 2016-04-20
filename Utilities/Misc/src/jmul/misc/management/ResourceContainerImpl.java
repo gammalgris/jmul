@@ -57,6 +57,7 @@ public class ResourceContainerImpl implements ResourceContainer {
      * @param aResourceIdentifier
      * @param aResource
      */
+    @Override
     public void putResource(ResourceIdentifier aResourceIdentifier, Object aResource) {
 
         if (resources.containsKey(aResourceIdentifier)) {
@@ -75,6 +76,7 @@ public class ResourceContainerImpl implements ResourceContainer {
      *
      * @return a resource
      */
+    @Override
     public Object getResource(ResourceIdentifier aResourceIdentifier) {
 
         return resources.get(aResourceIdentifier);

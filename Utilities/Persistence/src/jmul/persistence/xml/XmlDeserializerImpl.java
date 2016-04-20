@@ -81,6 +81,7 @@ public class XmlDeserializerImpl implements XmlDeserializer {
      *         the exception is thrown if an error occurs while reading from the
      *         file
      */
+    @Override
     public Object deserialize(String aFilename) throws IOException {
 
         return deserialize(new File(aFilename));
@@ -96,6 +97,7 @@ public class XmlDeserializerImpl implements XmlDeserializer {
      *         the exception is thrown if an error occurs while reading from the
      *         file
      */
+    @Override
     public Object deserialize(File aFile) throws IOException {
 
         XmlDocumentReader documentReader = TransformationResources.getXmlDocumentReader();

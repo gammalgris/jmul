@@ -50,6 +50,7 @@ public class ThreadEventBase implements ThreadEvent {
      *
      * @return a thread
      */
+    @Override
     public ObservableThread getObservableThread() {
 
         return thread;

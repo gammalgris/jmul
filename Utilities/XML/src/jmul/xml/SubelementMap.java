@@ -77,7 +77,7 @@ public class SubelementMap {
 
         XmlParserHelper.assertDescribesXmlElement(markup);
 
-        String subelementName = markup.getTagname();
+        String subelementName = markup.getTagName();
         Node subelement = subelements.get(subelementName);
 
         boolean notExistsSubelement = (subelement == null);
@@ -127,7 +127,7 @@ public class SubelementMap {
     public boolean hasSubelement(XmlMarkup markup) {
 
         XmlParserHelper.assertDescribesXmlElement(markup);
-        String subelementName = markup.getTagname();
+        String subelementName = markup.getTagName();
 
         return subelements.containsKey(subelementName);
     }

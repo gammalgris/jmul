@@ -112,7 +112,7 @@ public final class XmlHelper {
             throw new IllegalArgumentException(message);
         }
 
-        return createXmlAttribute(aDocument, anAttribute.getTagname(), anAttributeValue);
+        return createXmlAttribute(aDocument, anAttribute.getTagName(), anAttributeValue);
     }
 
     /**
@@ -150,7 +150,7 @@ public final class XmlHelper {
             throw new IllegalArgumentException(message);
         }
 
-        return createXmlElement(aDocument, anElement.getTagname());
+        return createXmlElement(aDocument, anElement.getTagName());
     }
 
     /**

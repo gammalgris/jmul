@@ -40,7 +40,7 @@ import org.w3c.dom.Document;
  *
  * //TODO
  * Check if the specified file names are indeed file names and no directories.
- * 
+ *
  * @author Kristian Kutin
  */
 public class XmlDocumentWriterImpl implements XmlDocumentWriter {
@@ -62,8 +62,8 @@ public class XmlDocumentWriterImpl implements XmlDocumentWriter {
      * @throws IOException
      *         This exception can be thrown if IO operations fail
      */
-    public void writeDocument(String aFilename,
-                              Document aDocument) throws IOException {
+    @Override
+    public void writeDocument(String aFilename, Document aDocument) throws IOException {
 
         writeDocument(new File(aFilename), aDocument);
     }
@@ -79,8 +79,8 @@ public class XmlDocumentWriterImpl implements XmlDocumentWriter {
      * @throws IOException
      *         This exception can be thrown if IO operations fail
      */
-    public void writeDocument(File aFile,
-                              Document aDocument) throws IOException {
+    @Override
+    public void writeDocument(File aFile, Document aDocument) throws IOException {
 
         OutputFormat format = new OutputFormat(aDocument);
         format.setIndenting(true);

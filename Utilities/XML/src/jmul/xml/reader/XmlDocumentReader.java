@@ -92,8 +92,6 @@ public interface XmlDocumentReader {
      * @throws IOException
      *         This exception can be thrown if IO operations fail
      */
-    Document parseArchivedDocument(String archiveName,
-                                   String filename) throws SAXException,
-                                                           IOException;
+    Document parseArchivedDocument(String archiveName, String filename) throws SAXException, IOException;
 
 }

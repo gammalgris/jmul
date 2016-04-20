@@ -31,23 +31,26 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import jmul.persistence.annotations.RootNode;
-import jmul.persistence.xml.XmlDeserializer;
-import jmul.persistence.xml.XmlDeserializerImpl;
-import jmul.persistence.xml.XmlSerializer;
-import jmul.persistence.xml.XmlSerializerImpl;
+import jmul.persistence.cache.ObjectCache;
+import jmul.persistence.cache.ObjectCacheImpl;
 
-import jmul.cache.persistence.ObjectCache;
-import jmul.cache.persistence.ObjectCacheImpl;
+import jmul.io.FileHelper;
+
+import jmul.persistence.annotations.RootNode;
 import jmul.persistence.file.FileManager;
 import jmul.persistence.file.FileManagerImpl;
 import jmul.persistence.id.ID;
 import jmul.persistence.id.IDGenerator;
 import jmul.persistence.id.StringID;
 import jmul.persistence.id.StringIDGenerator;
-import jmul.io.FileHelper;
+import jmul.persistence.xml.XmlDeserializer;
+import jmul.persistence.xml.XmlDeserializerImpl;
+import jmul.persistence.xml.XmlSerializer;
+import jmul.persistence.xml.XmlSerializerImpl;
+
 import jmul.string.StringConcatenator;
-import jmul.xpath.XPathQuery;
+
+import jmul.xml.query.XPathQuery;
 
 
 /**
@@ -80,8 +83,7 @@ public class PersistenceContainerImpl<T> implements PersistenceContainer<T> {
     /**
      * The file separator for this operating system.
      */
-    private static final String FILE_SEPARATOR =
-        System.getProperty("file.separator");
+    private static final String FILE_SEPARATOR = System.getProperty("file.separator");
 
     /**
      * The expected type.
@@ -116,15 +118,13 @@ public class PersistenceContainerImpl<T> implements PersistenceContainer<T> {
 
         expectedType = aType;
 
-        String baseDirectory =
-            aBaseDirectory + FILE_SEPARATOR + expectedType.getName();
+        String baseDirectory = aBaseDirectory + FILE_SEPARATOR + expectedType.getName();
 
         // Prepare the directory if it doesn't exist yet.
         File directory = new File(baseDirectory);
         directory.mkdirs();
 
-        String idFile =
-            baseDirectory + FILE_SEPARATOR + expectedType.getName();
+        String idFile = baseDirectory + FILE_SEPARATOR + expectedType.getName();
         idGenerator = StringIDGenerator.getAlternativeGenerator(idFile);
 
         cache = new ObjectCacheImpl<T>();
@@ -147,8 +147,8 @@ public class PersistenceContainerImpl<T> implements PersistenceContainer<T> {
      * @throws PersistenceException
      *         the exception is thrown if storing the object was not possible
      */
-    public ID store(T anObject) throws InvalidRootNodeException,
-                                       PersistenceException {
+    @Override
+    public ID store(T anObject) throws InvalidRootNodeException, PersistenceException {
 
         // Check some plausibilities first.
 
@@ -163,23 +163,19 @@ public class PersistenceContainerImpl<T> implements PersistenceContainer<T> {
         if (!expectedType.isInstance(anObject)) {
 
             StringConcatenator message =
-                new StringConcatenator("Invalid object (expected:" +
-                                       expectedType + " / found:" + foundType +
-                                       ")!");
+                new StringConcatenator("Invalid object (expected:" + expectedType + " / found:" + foundType + ")!");
             throw new PersistenceException(message.toString());
         }
 
         if (!foundType.isAnnotationPresent(RootNode.class)) {
 
-            String message =
-                "The specified object is not marked as root node!";
+            String message = "The specified object is not marked as root node!";
             throw new InvalidRootNodeException(message);
         }
 
         if (cache.existsObject(anObject)) {
 
-            String message =
-                "The object was already stored. Use commit to store the object's current state!";
+            String message = "The object was already stored. Use commit to store the object's current state!";
             throw new PersistenceException(message);
         }
 
@@ -229,8 +225,7 @@ public class PersistenceContainerImpl<T> implements PersistenceContainer<T> {
         } catch (IOException e) {
 
             StringConcatenator message =
-                new StringConcatenator("Serialization of an object (",
-                                       anObject, " -> ", file.getName(),
+                new StringConcatenator("Serialization of an object (", anObject, " -> ", file.getName(),
                                        ") was not successful!");
             throw new PersistenceException(message.toString());
         }
@@ -256,8 +251,8 @@ public class PersistenceContainerImpl<T> implements PersistenceContainer<T> {
      * @throws PersistenceException
      *         the exception is thrown if storing the object was not possible
      */
-    public ID commit(T anObject) throws InvalidRootNodeException,
-                                        PersistenceException {
+    @Override
+    public ID commit(T anObject) throws InvalidRootNodeException, PersistenceException {
 
         // Check some plausibilities first.
 
@@ -272,23 +267,19 @@ public class PersistenceContainerImpl<T> implements PersistenceContainer<T> {
         if (!expectedType.isInstance(anObject)) {
 
             StringConcatenator message =
-                new StringConcatenator("Invalid object (expected:" +
-                                       expectedType + " / found:" + foundType +
-                                       ")!");
+                new StringConcatenator("Invalid object (expected:" + expectedType + " / found:" + foundType + ")!");
             throw new PersistenceException(message.toString());
         }
 
         if (!foundType.isAnnotationPresent(RootNode.class)) {
 
-            String message =
-                "The specified object is not marked as root node!";
+            String message = "The specified object is not marked as root node!";
             throw new InvalidRootNodeException(message);
         }
 
         if (!cache.existsObject(anObject)) {
 
-            String message =
-                "The specified object must be retrieved first before it can be committed!!";
+            String message = "The specified object must be retrieved first before it can be committed!!";
             throw new PersistenceException(message);
         }
 
@@ -310,8 +301,7 @@ public class PersistenceContainerImpl<T> implements PersistenceContainer<T> {
         } catch (IOException e) {
 
             StringConcatenator message =
-                new StringConcatenator("Serialization of an object (",
-                                       anObject, " -> ", file.getName(),
+                new StringConcatenator("Serialization of an object (", anObject, " -> ", file.getName(),
                                        ") was not successful!");
             throw new PersistenceException(message.toString());
         }
@@ -349,8 +339,8 @@ public class PersistenceContainerImpl<T> implements PersistenceContainer<T> {
      * @throws PersistenceException
      *         the exception is thrown if storing the object was not possible
      */
-    public ID commit(ID anID, T anObject) throws InvalidRootNodeException,
-                                                 PersistenceException {
+    @Override
+    public ID commit(ID anID, T anObject) throws InvalidRootNodeException, PersistenceException {
 
         // Check some plausibilities first.
 
@@ -365,16 +355,13 @@ public class PersistenceContainerImpl<T> implements PersistenceContainer<T> {
         if (!expectedType.isInstance(anObject)) {
 
             StringConcatenator message =
-                new StringConcatenator("Invalid object (expected:" +
-                                       expectedType + " / found:" + foundType +
-                                       ")!");
+                new StringConcatenator("Invalid object (expected:" + expectedType + " / found:" + foundType + ")!");
             throw new PersistenceException(message.toString());
         }
 
         if (!foundType.isAnnotationPresent(RootNode.class)) {
 
-            String message =
-                "The specified object is not marked as root node!";
+            String message = "The specified object is not marked as root node!";
             throw new InvalidRootNodeException(message);
         }
 
@@ -391,8 +378,7 @@ public class PersistenceContainerImpl<T> implements PersistenceContainer<T> {
         } catch (IOException e) {
 
             StringConcatenator message =
-                new StringConcatenator("Serialization of an object (",
-                                       anObject, " -> ", file.getName(),
+                new StringConcatenator("Serialization of an object (", anObject, " -> ", file.getName(),
                                        ") was not successful!");
             throw new PersistenceException(message.toString());
         }
@@ -414,8 +400,8 @@ public class PersistenceContainerImpl<T> implements PersistenceContainer<T> {
      *         the exception is thrown if an error occurs while deleting
      *         persisted informations
      */
-    public void delete(ID anID) throws InvalidIDException,
-                                       PersistenceException {
+    @Override
+    public void delete(ID anID) throws InvalidIDException, PersistenceException {
 
         // Check some plausibilities first.
 
@@ -459,6 +445,7 @@ public class PersistenceContainerImpl<T> implements PersistenceContainer<T> {
      *         the exception is thrown if an error occurs while retrieving the
      *         persisted object
      */
+    @Override
     public T get(ID anID) throws PersistenceException {
 
         // Check some plausibilities first.
@@ -483,8 +470,7 @@ public class PersistenceContainerImpl<T> implements PersistenceContainer<T> {
 
         if (!fileManager.existsFile(anID.toString())) {
 
-            String message =
-                "There is not object associated with the specified ID!";
+            String message = "There is not object associated with the specified ID!";
             throw new PersistenceException(message);
         }
 
@@ -497,14 +483,12 @@ public class PersistenceContainerImpl<T> implements PersistenceContainer<T> {
 
         try {
 
-            restoredObject = (T)deserializer.deserialize(file);
+            restoredObject = (T) deserializer.deserialize(file);
 
         } catch (IOException e) {
 
             StringConcatenator message =
-                new StringConcatenator("Deserialization of an object (",
-                                       file.getName(),
-                                       " -> X) was not successful!");
+                new StringConcatenator("Deserialization of an object (", file.getName(), " -> X) was not successful!");
             throw new PersistenceException(message.toString());
         }
 
@@ -525,6 +509,7 @@ public class PersistenceContainerImpl<T> implements PersistenceContainer<T> {
      * Prepares the persistence manager for shutdown (i.e. running threads will
      * be stopped).
      */
+    @Override
     public void shutdown() {
 
         fileManager.shutdown();
@@ -541,6 +526,7 @@ public class PersistenceContainerImpl<T> implements PersistenceContainer<T> {
      *
      * @return a list of IDs of objects which match the specified criteria
      */
+    @Override
     public Collection<ID> findByXpathExpression(XPathQuery... someQueries) {
 
         if (someQueries.length == 0) {

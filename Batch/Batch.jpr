@@ -126,15 +126,7 @@
                   <string v="+**"/>
                </list>
                <list n="url-path">
-                  <url path="Dos-Build/"/>
-               </list>
-            </hash>
-            <hash>
-               <list n="pattern-filters">
-                  <string v="+**"/>
-               </list>
-               <list n="url-path">
-                  <url path="Dos-Execute/"/>
+                  <url path="Dos-Misc/"/>
                </list>
             </hash>
             <hash>

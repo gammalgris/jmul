@@ -37,16 +37,15 @@ import jmul.persistence.annotations.AnnotationHelper;
 import jmul.persistence.annotations.RootNode;
 import jmul.persistence.transformation.TransformationHelper;
 
+import jmul.reflection.ReflectionHelper;
+import jmul.reflection.classes.ClassDefinition;
+import jmul.reflection.classes.ClassHelper;
+
+import jmul.string.StringConcatenator;
+
 import jmul.transformation.TransformationException;
 import jmul.transformation.TransformationParameters;
 import jmul.transformation.TransformationRuleBase;
-
-import jmul.classes.ClassDefinition;
-import jmul.classes.ClassHelper;
-
-import jmul.reflection.ReflectionHelper;
-
-import jmul.string.StringConcatenator;
 
 
 /**
@@ -91,6 +90,7 @@ public class RootNode2TocRule extends TransformationRuleBase {
      * @return <code>true</code> if the rule is applicable, else
      *         <code>false</code>
      */
+    @Override
     public boolean isApplicable(TransformationParameters someParameters) {
 
         Class realType = someParameters.getObject().getClass();
@@ -112,6 +112,7 @@ public class RootNode2TocRule extends TransformationRuleBase {
      *
      * @return an object cointaining the TOC
      */
+    @Override
     public Object transform(TransformationParameters someParameters) {
 
         Map<String, String> toc = new HashMap<String, String>();

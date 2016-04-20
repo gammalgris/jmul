@@ -30,10 +30,9 @@ import java.text.SimpleDateFormat;
 
 import java.util.Date;
 
-import jmul.cache.transformation.Object2XmlCache;
+import jmul.persistence.transformation.cache.Object2XmlCache;
 
 import jmul.persistence.id.ID;
-
 import static jmul.persistence.transformation.rules.PersistenceMarkups.FORMAT_ATTRIBUTE;
 import static jmul.persistence.transformation.rules.PersistenceMarkups.ID_ATTRIBUTE;
 import static jmul.persistence.transformation.rules.PersistenceMarkups.OBJECT_ELEMENT;
@@ -87,6 +86,7 @@ public class Date2XmlRule extends TransformationRuleBase {
      * @return <code>true</code> if the rule is applicable, else
      *         <code>false</code>
      */
+    @Override
     public boolean isApplicable(TransformationParameters someParameters) {
 
         Class expectedType = Date.class;
@@ -103,6 +103,7 @@ public class Date2XmlRule extends TransformationRuleBase {
      *
      * @return the ID of the transformed object
      */
+    @Override
     public Object transform(TransformationParameters someParameters) {
 
         // Check parameters.
@@ -150,15 +151,15 @@ public class Date2XmlRule extends TransformationRuleBase {
 
         Element element = XmlHelper.createXmlElement(document, OBJECT_ELEMENT);
 
-        element.setAttribute(ID_ATTRIBUTE.getTagname(), id.toString());
-        element.setAttribute(TYPE_ATTRIBUTE.getTagname(), realType.getName());
+        element.setAttribute(ID_ATTRIBUTE.getTagName(), id.toString());
+        element.setAttribute(TYPE_ATTRIBUTE.getTagName(), realType.getName());
 
         Date date = (Date) object;
         DateFormat dateFormat = new SimpleDateFormat(DEFAULT_DATE_FORMAT);
         String normalizedDate = dateFormat.format(date);
 
-        element.setAttribute(VALUE_ATTRIBUTE.getTagname(), normalizedDate);
-        element.setAttribute(FORMAT_ATTRIBUTE.getTagname(), DEFAULT_DATE_FORMAT);
+        element.setAttribute(VALUE_ATTRIBUTE.getTagName(), normalizedDate);
+        element.setAttribute(FORMAT_ATTRIBUTE.getTagName(), DEFAULT_DATE_FORMAT);
 
         rootElement.appendChild(element);
 

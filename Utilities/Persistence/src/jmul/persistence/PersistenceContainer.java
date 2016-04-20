@@ -28,7 +28,8 @@ package jmul.persistence;
 import java.util.Collection;
 
 import jmul.persistence.id.ID;
-import jmul.xpath.XPathQuery;
+
+import jmul.xml.query.XPathQuery;
 
 
 /**
@@ -73,8 +74,7 @@ public interface PersistenceContainer<T> {
      * @throws PersistenceException
      *         the exception is thrown if storing the object was not possible
      */
-    ID commit(T anObject) throws InvalidRootNodeException,
-                                 PersistenceException;
+    ID commit(T anObject) throws InvalidRootNodeException, PersistenceException;
 
     /**
      * The method stores the specified object and all changes which have been
@@ -105,8 +105,7 @@ public interface PersistenceContainer<T> {
      * @throws PersistenceException
      *         the exception is thrown if storing the object was not possible
      */
-    ID commit(ID anID, T anObject) throws InvalidRootNodeException,
-                                          PersistenceException;
+    ID commit(ID anID, T anObject) throws InvalidRootNodeException, PersistenceException;
 
     /**
      * The method deletes a persisted object. The specified object may still

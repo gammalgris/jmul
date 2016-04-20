@@ -29,7 +29,7 @@ import java.io.File;
 
 import java.util.Collection;
 
-import jmul.xpath.XPathQuery;
+import jmul.xml.query.XPathQuery;
 
 
 /**

@@ -1,28 +1,34 @@
 Tools
 =====
 
-IDE
----
+Oracle JDeveloper
+-----------------
 
-JDeveloper is used as IDE.
+Version: 12.1.3.0.0
+Purpose: IDE
+Link: http://www.oracle.com/technetwork/developer-tools/jdev/overview/index.html
 
-See http://www.oracle.com/technetwork/developer-tools/jdev/overview/index.html
 
-
-UML Editor
+MagicDraw
 ----------
 
-MagicDraw is used as UML modelling tool.
-
-See http://www.nomagic.com/products/magicdraw.html
-
-
-Text Editor
------------
+Version:
+Purpose: UML Editor
+Link: http://www.nomagic.com/products/magicdraw.html
 
 Notepad++
+-----------
 
-See https://notepad-plus-plus.org/
+Version:
+Purpose: Text Editor
+Link: https://notepad-plus-plus.org/
+
+SonarQube
+---------
+
+Version: 5.3
+Purpose: Static Code Analysis
+Link: http://www.sonarqube.org/
 
 
 Java
@@ -31,26 +37,40 @@ Java
 Java Development Kit
 --------------------
 
-JDK 1.7 & JDK 1.8
-
-See http://www.oracle.com/technetwork/java/javase/downloads/index.html
+Version: 1.7 & 1.8
+Purpose: Programming Language
+Link: http://www.oracle.com/technetwork/java/javase/downloads/index.html
 
 
 Java Libraries
 ==============
 
-The listed libraries are provided by the IDE.
+A list of required Java libraries / 3rd party tools:
 
 JUnit
 -----
 
-JUnit 4.11
-
-See http://junit.org/
+Version: 4.11
+Purpose: Test framework
+Link: http://junit.org/
 
 Ant
 ---
 
-Ant 1.9.2
+Version: 1.9.2
+Purpose: Build Tool
+Link: http://ant.apache.org/
 
-See http://ant.apache.org/
+Cobertura
+---------
+
+Version: 2.1.1
+Purpose: Code Coverage Measurement
+Link: http://cobertura.github.io/cobertura/
+
+Sonar Ant Task
+--------------
+
+Version: 2.4
+Purpose: Analysing code with SonarQube
+Link: http://docs.sonarqube.org/display/SCAN/Analyzing+with+SonarQube+Scanner+for+Ant

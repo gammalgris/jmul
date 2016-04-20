@@ -52,6 +52,7 @@ public class CharacterCreator implements ObjectCreator {
      *
      * @return a new object
      */
+    @Override
     public Object createObject(String anInitialValue, String aPattern) {
 
         // Check the specified parameters.
@@ -65,15 +66,13 @@ public class CharacterCreator implements ObjectCreator {
         if (anInitialValue.length() != 1) {
 
             StringConcatenator message =
-                new StringConcatenator("An invalid initial value has been specified \"",
-                                       anInitialValue, "\"!");
+                new StringConcatenator("An invalid initial value has been specified \"", anInitialValue, "\"!");
             throw new IllegalArgumentException(message.toString());
         }
 
         if (aPattern != null) {
 
-            String message =
-                "A pattern was specified but no pattern is required!";
+            String message = "A pattern was specified but no pattern is required!";
             throw new IllegalArgumentException(message);
         }
 

@@ -29,7 +29,8 @@ import java.io.FileFilter;
 
 import jmul.concurrent.threads.ObservableThreadBase;
 import jmul.concurrent.threads.ThreadExecutionStatus;
-import jmul.xpath.XPathQuery;
+
+import jmul.xml.query.XPathQuery;
 
 
 /**
@@ -61,8 +62,7 @@ public class XPathEvaluatorThread extends ObservableThreadBase {
      *        the directory which is to be scanned
      * @param someQueries
      */
-    public XPathEvaluatorThread(ThreadExecutionStatus anExecutionStatus,
-                                File aDirectory, XPathQuery... someQueries) {
+    public XPathEvaluatorThread(ThreadExecutionStatus anExecutionStatus, File aDirectory, XPathQuery... someQueries) {
 
         executionStatus = anExecutionStatus;
         directory = aDirectory;
@@ -72,6 +72,7 @@ public class XPathEvaluatorThread extends ObservableThreadBase {
     /**
      * The actual XPath evaluation is defined in this method.
      */
+    @Override
     protected void performAction() {
 
         if (!executionStatus.isObsoleteExecution()) {
@@ -81,8 +82,7 @@ public class XPathEvaluatorThread extends ObservableThreadBase {
 
             if ((result != null) && (result.length > 0)) {
 
-                XPathResultNotification event =
-                    new XPathResultNotification(this, result);
+                XPathResultNotification event = new XPathResultNotification(this, result);
                 informListeners(event);
             }
         }

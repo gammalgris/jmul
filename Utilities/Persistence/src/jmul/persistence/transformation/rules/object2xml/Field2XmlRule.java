@@ -27,10 +27,9 @@ package jmul.persistence.transformation.rules.object2xml;
 
 import java.lang.reflect.Field;
 
-import jmul.cache.transformation.Object2XmlCache;
+import jmul.persistence.transformation.cache.Object2XmlCache;
 
 import jmul.persistence.id.ID;
-
 import static jmul.persistence.transformation.rules.PersistenceMarkups.ID_ATTRIBUTE;
 import static jmul.persistence.transformation.rules.PersistenceMarkups.OBJECT_ELEMENT;
 import static jmul.persistence.transformation.rules.PersistenceMarkups.TYPE_ATTRIBUTE;
@@ -82,6 +81,7 @@ public class Field2XmlRule extends TransformationRuleBase {
      * @return <code>true</code> if the rule is applicable, else
      *         <code>false</code>
      */
+    @Override
     public boolean isApplicable(TransformationParameters someParameters) {
 
         return Field.class.isInstance(someParameters.getObject());
@@ -96,6 +96,7 @@ public class Field2XmlRule extends TransformationRuleBase {
      *
      * @return the ID of the transformed object
      */
+    @Override
     public Object transform(TransformationParameters someParameters) {
 
         // Check parameters.
@@ -144,9 +145,9 @@ public class Field2XmlRule extends TransformationRuleBase {
 
         Element element = XmlHelper.createXmlElement(document, OBJECT_ELEMENT);
 
-        element.setAttribute(ID_ATTRIBUTE.getTagname(), id.toString());
-        element.setAttribute(TYPE_ATTRIBUTE.getTagname(), realType.getName());
-        element.setAttribute(VALUE_ATTRIBUTE.getTagname(), field.getDeclaringClass().getName() + "#" + field.getName());
+        element.setAttribute(ID_ATTRIBUTE.getTagName(), id.toString());
+        element.setAttribute(TYPE_ATTRIBUTE.getTagName(), realType.getName());
+        element.setAttribute(VALUE_ATTRIBUTE.getTagName(), field.getDeclaringClass().getName() + "#" + field.getName());
 
         rootElement.appendChild(element);
 

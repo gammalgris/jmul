@@ -27,8 +27,8 @@ package jmul.persistence.transformation.rules.object2xml;
 
 import javax.xml.parsers.ParserConfigurationException;
 
-import jmul.cache.transformation.Object2XmlCache;
-import jmul.cache.transformation.Object2XmlCacheImpl;
+import jmul.persistence.transformation.cache.Object2XmlCache;
+import jmul.persistence.transformation.cache.Object2XmlCacheImpl;
 
 import jmul.persistence.annotations.AnnotationHelper;
 import jmul.persistence.annotations.RootNode;
@@ -85,6 +85,7 @@ public class RootNode2XmlRule extends Composite2XmlRule {
      * @return <code>true</code> if the rule is applicable, else
      *         <code>false</code>
      */
+    @Override
     public boolean isApplicable(TransformationParameters someParameters) {
 
         Class realType = someParameters.getObject().getClass();
@@ -108,6 +109,7 @@ public class RootNode2XmlRule extends Composite2XmlRule {
      *
      * @return the xml document which contains the transformed object
      */
+    @Override
     public Object transform(TransformationParameters someParameters) {
 
         if (someParameters.containsPrerequisite(OBJECT_CACHE) || someParameters.containsPrerequisite(XML_DOCUMENT)) {

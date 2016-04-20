@@ -27,18 +27,14 @@ package jmul.io;
 
 import java.io.File;
 import java.io.FileFilter;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
-
-import java.io.InputStream;
-
-import java.io.OutputStream;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+
+import jmul.io.filters.DirectoryFilter;
+import jmul.io.filters.FileExtensionFilter;
 
 import jmul.string.StringConcatenator;
 
@@ -47,6 +43,11 @@ import jmul.string.StringConcatenator;
  * A utility class for file operations.
  */
 public final class FileHelper {
+
+    /**
+     * A singleton which takes care of copying files.
+     */
+    private static FileCopier fileCopierSingleton = new FileCopierImpl();
 
     /**
      * The default constructor.
@@ -189,58 +190,32 @@ public final class FileHelper {
         }
     }
 
-    public static void copyFile(String aSourceFileName, String aDestinationFileName) {
-        
+    /**
+     * Copies the specified source file to the specified destiantion file.
+     *
+     * @param aSourceFileName
+     * @param aDestinationFileName
+     *
+     * @throws CopyFileException
+     *         is thrown when an exception occurs during copying
+     */
+    public static void copyFile(String aSourceFileName, String aDestinationFileName) throws CopyFileException {
+
+        fileCopierSingleton.copyFile(aSourceFileName, aDestinationFileName);
     }
 
     /**
-     * Copies the specified source file to the specified destiantion file.<br />
-     * <br />
-     * See <a href="http://examples.javacodegeeks.com/core-java/io/file/move-files-in-java-example/">Move files in Java</a>
-     * 
+     * Copies the specified source file to the specified destiantion file.
+     *
      * @param aSourceFile
      * @param aDestinationFile
-     * 
+     *
      * @throws CopyFileException
+     *         is thrown when an exception occurs during copying
      */
     public static void copyFile(File aSourceFile, File aDestinationFile) throws CopyFileException {
 
-        InputStream in = null;
-
-        try {
-
-            in = new FileInputStream(aSourceFile);
-
-        } catch (FileNotFoundException e) {
-
-            String message = "The specified source file " + aSourceFile + " doesn't exist!";
-            throw new CopyFileException(message, e);
-        }
-
-
-        OutputStream out = null;
-
-        try {
-
-            out = new FileOutputStream(aDestinationFile);
-
-        } catch (FileNotFoundException e) {
-
-            String message = "Unable to open the destination file " + aDestinationFile + "!";
-            throw new CopyFileException(message, e);
-
-        } finally {
-
-            try {
-
-                in.close();
-
-            } catch (IOException e) {
-
-                
-            }
-        }
-
+        fileCopierSingleton.copyFile(aSourceFile, aDestinationFile);
     }
 
 }

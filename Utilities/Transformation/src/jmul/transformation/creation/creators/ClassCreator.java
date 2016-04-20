@@ -25,8 +25,9 @@
 package jmul.transformation.creation.creators;
 
 
-import jmul.classes.ClassDefinition;
-import jmul.classes.ClassHelper;
+import jmul.reflection.classes.ClassDefinition;
+import jmul.reflection.classes.ClassHelper;
+
 import jmul.string.StringConcatenator;
 
 
@@ -54,6 +55,7 @@ public class ClassCreator implements ObjectCreator {
      *
      * @return a new object
      */
+    @Override
     public Object createObject(String anInitialValue, String aPattern) {
 
         // Check the specified parameters.
@@ -66,8 +68,7 @@ public class ClassCreator implements ObjectCreator {
 
         if (aPattern != null) {
 
-            String message =
-                "A pattern was specified but no pattern is required!";
+            String message = "A pattern was specified but no pattern is required!";
             throw new IllegalArgumentException(message);
         }
 
@@ -83,9 +84,7 @@ public class ClassCreator implements ObjectCreator {
 
         } catch (ClassNotFoundException e) {
 
-            StringConcatenator message =
-                new StringConcatenator("Unknown class (", anInitialValue,
-                                       ")!");
+            StringConcatenator message = new StringConcatenator("Unknown class (", anInitialValue, ")!");
             throw new IllegalArgumentException(message.toString());
         }
 

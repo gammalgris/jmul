@@ -88,6 +88,7 @@ public class ArchiveReaderImpl implements ArchiveReader {
      *         The exception is thrown if an error occurs while reading from the
      *         specified archive.
      */
+    @Override
     public byte[] loadEntry(String anEntryName) throws ArchiveException {
 
         ZipInputStream zis = (ZipInputStream) nestedStreams.getOuterStream();
@@ -242,6 +243,7 @@ public class ArchiveReaderImpl implements ArchiveReader {
      *         The exception is thrown if an error occurs while closing the
      *         specified archive.
      */
+    @Override
     public void closeArchive() throws ArchiveException {
 
         try {

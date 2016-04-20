@@ -28,15 +28,11 @@ package jmul.persistence.transformation.rules.object2xml;
 import java.util.Collection;
 import java.util.Map;
 
-import jmul.cache.transformation.Object2XmlCache;
-
-import jmul.classes.ClassDefinition;
-import jmul.classes.ClassHelper;
-
-import jmul.persistence.id.ID;
+import jmul.persistence.transformation.cache.Object2XmlCache;
 
 import jmul.persistence.annotations.AnnotationHelper;
 import jmul.persistence.annotations.RootNode;
+import jmul.persistence.id.ID;
 import static jmul.persistence.transformation.rules.PersistenceMarkups.DECLARED_TYPE_ATTRIBUTE;
 import static jmul.persistence.transformation.rules.PersistenceMarkups.ID_ATTRIBUTE;
 import static jmul.persistence.transformation.rules.PersistenceMarkups.OBJECT_ELEMENT;
@@ -46,6 +42,9 @@ import static jmul.persistence.transformation.rules.TransformationConstants.ROOT
 import static jmul.persistence.transformation.rules.TransformationConstants.XML_DOCUMENT;
 import jmul.persistence.transformation.rules.object2xml.strategies.fields.FieldsHandler;
 import jmul.persistence.transformation.rules.object2xml.strategies.fields.GenericObjectHandler;
+
+import jmul.reflection.classes.ClassDefinition;
+import jmul.reflection.classes.ClassHelper;
 
 import jmul.string.StringConcatenator;
 
@@ -105,6 +104,7 @@ public class Composite2XmlRule extends TransformationRuleBase {
      * @return <code>true</code> if the rule is applicable, else
      *         <code>false</code>
      */
+    @Override
     public boolean isApplicable(TransformationParameters someParameters) {
 
         boolean result = false;
@@ -137,6 +137,7 @@ public class Composite2XmlRule extends TransformationRuleBase {
      *
      * @return the ID of the transformed object
      */
+    @Override
     public Object transform(TransformationParameters someParameters) {
 
         // Check parameters.
@@ -186,14 +187,14 @@ public class Composite2XmlRule extends TransformationRuleBase {
 
         if (AnnotationHelper.isAnnotationPresent(realType, RootNode.class, true)) {
 
-            element.setAttribute(DECLARED_TYPE_ATTRIBUTE.getTagname(), declaredType.getName());
+            element.setAttribute(DECLARED_TYPE_ATTRIBUTE.getTagName(), declaredType.getName());
 
         } else {
 
-            element.setAttribute(ID_ATTRIBUTE.getTagname(), id.toString());
+            element.setAttribute(ID_ATTRIBUTE.getTagName(), id.toString());
         }
 
-        element.setAttribute(TYPE_ATTRIBUTE.getTagname(), realType.getName());
+        element.setAttribute(TYPE_ATTRIBUTE.getTagName(), realType.getName());
 
 
         // Step 3

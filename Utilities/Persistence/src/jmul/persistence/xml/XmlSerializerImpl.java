@@ -79,6 +79,7 @@ public class XmlSerializerImpl implements XmlSerializer {
      *         the exception is thrown if an error occurs while writing to the
      *         file
      */
+    @Override
     public void serialize(String aFilename, Object anObject) throws IOException {
 
         serialize(new File(aFilename), anObject);
@@ -96,6 +97,7 @@ public class XmlSerializerImpl implements XmlSerializer {
      *         the exception is thrown if an error occurs while writing to the
      *         file
      */
+    @Override
     public void serialize(File aFile, Object anObject) throws IOException {
 
         TransformationParameters parameters =

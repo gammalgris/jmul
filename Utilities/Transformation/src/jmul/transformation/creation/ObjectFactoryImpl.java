@@ -30,11 +30,13 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
 
-import jmul.classes.ClassDefinition;
-import jmul.classes.ClassHelper;
-import jmul.transformation.creation.creators.ObjectCreator;
 import jmul.reflection.Initializer;
+import jmul.reflection.classes.ClassDefinition;
+import jmul.reflection.classes.ClassHelper;
+
 import jmul.string.StringConcatenator;
+
+import jmul.transformation.creation.creators.ObjectCreator;
 
 
 /**
@@ -64,8 +66,7 @@ public class ObjectFactoryImpl implements ObjectFactory {
      */
     private void initFactory() {
 
-        ResourceBundle resource =
-            ResourceBundle.getBundle(ObjectFactory.class.getName());
+        ResourceBundle resource = ResourceBundle.getBundle(ObjectFactory.class.getName());
 
         Enumeration<String> entries = resource.getKeys();
         while (entries.hasMoreElements()) {
@@ -80,15 +81,13 @@ public class ObjectFactoryImpl implements ObjectFactory {
 
             } catch (ClassNotFoundException e) {
 
-                StringConcatenator message =
-                    new StringConcatenator("Unknown class (", value, ")!");
+                StringConcatenator message = new StringConcatenator("Unknown class (", value, ")!");
                 throw new IllegalArgumentException(message.toString());
             }
 
 
             Initializer initializer = new Initializer(creatorClass);
-            ObjectCreator creator =
-                (ObjectCreator)initializer.newInitializedInstance();
+            ObjectCreator creator = (ObjectCreator) initializer.newInitializedInstance();
 
 
             objectMap.put(key, creator);
@@ -106,6 +105,7 @@ public class ObjectFactoryImpl implements ObjectFactory {
      *
      * @return a new object
      */
+    @Override
     public Object newInstance(ClassDefinition someClassInformations) {
 
         Object result = null;
@@ -121,7 +121,6 @@ public class ObjectFactoryImpl implements ObjectFactory {
 
             ObjectCreator creator = objectMap.get(className);
             return creator.createObject(null, null);
-
         }
 
 
@@ -134,15 +133,12 @@ public class ObjectFactoryImpl implements ObjectFactory {
         } catch (IllegalAccessException e) {
 
             StringConcatenator message =
-                new StringConcatenator("The class ", className,
-                                       " doesn't have a public default constructor!");
+                new StringConcatenator("The class ", className, " doesn't have a public default constructor!");
             throw new IllegalArgumentException(message.toString());
 
         } catch (InstantiationException e) {
 
-            StringConcatenator message =
-                new StringConcatenator("Couldn't create a new instance of ",
-                                       className, "!");
+            StringConcatenator message = new StringConcatenator("Couldn't create a new instance of ", className, "!");
             throw new IllegalArgumentException(message.toString());
         }
 
@@ -159,8 +155,8 @@ public class ObjectFactoryImpl implements ObjectFactory {
      *
      * @return a new object
      */
-    public Object newInstance(ClassDefinition someClassInformations,
-                              String anInitialValue) {
+    @Override
+    public Object newInstance(ClassDefinition someClassInformations, String anInitialValue) {
 
         Class clazz = someClassInformations.getType();
         String className = clazz.getName();
@@ -173,16 +169,14 @@ public class ObjectFactoryImpl implements ObjectFactory {
 
             ObjectCreator creator = objectMap.get(className);
             return creator.createObject(anInitialValue, null);
-
         }
 
 
         // If not then throw an exception.
 
         StringConcatenator message =
-            new StringConcatenator("No rule exists to create a new instance of ",
-                                   className, " with the initial value \"",
-                                   anInitialValue, "\"!");
+            new StringConcatenator("No rule exists to create a new instance of ", className,
+                                   " with the initial value \"", anInitialValue, "\"!");
         throw new IllegalArgumentException(message.toString());
     }
 
@@ -199,8 +193,8 @@ public class ObjectFactoryImpl implements ObjectFactory {
      *
      * @return a new object
      */
-    public Object newInstance(ClassDefinition someClassInformations,
-                              String anInitialValue, String aPattern) {
+    @Override
+    public Object newInstance(ClassDefinition someClassInformations, String anInitialValue, String aPattern) {
 
 
         Class clazz = someClassInformations.getType();
@@ -214,17 +208,15 @@ public class ObjectFactoryImpl implements ObjectFactory {
 
             ObjectCreator creator = objectMap.get(className);
             return creator.createObject(anInitialValue, aPattern);
-
         }
 
 
         // If not then throw an exception.
 
         StringConcatenator message =
-            new StringConcatenator("No rule exists to create a new instance of ",
-                                   className, " with the initial value \"",
-                                   anInitialValue, "\" and the pattern \"",
-                                   aPattern, "\"!");
+            new StringConcatenator("No rule exists to create a new instance of ", className,
+                                   " with the initial value \"", anInitialValue, "\" and the pattern \"", aPattern,
+                                   "\"!");
         throw new IllegalArgumentException(message.toString());
     }
 

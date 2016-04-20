@@ -74,6 +74,7 @@ public class FileCopierImpl implements FileCopier {
      *         The exception is thrown if an error occurs during the process
      *         of copying the file
      */
+    @Override
     public void copyFile(String aSourceFileName, String aDestinationFileName) throws CopyFileException {
 
         copyFile(new File(aSourceFileName), new File(aDestinationFileName));
@@ -89,6 +90,7 @@ public class FileCopierImpl implements FileCopier {
      *         The exception is thrown if an error occurs during the process
      *         of copying the file
      */
+    @Override
     public void copyFile(File aSourceFile, File aDestinationFile) throws CopyFileException {
 
         CoupledStreams coupledStreams = createStreams(aSourceFile, aDestinationFile);

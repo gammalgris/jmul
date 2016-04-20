@@ -25,19 +25,18 @@
 package jmul.persistence.transformation.rules.xml2object;
 
 
-import jmul.cache.transformation.Xml2ObjectCache;
-
-import jmul.classes.ClassDefinition;
-import jmul.classes.ClassHelper;
+import jmul.persistence.transformation.cache.Xml2ObjectCache;
 
 import jmul.persistence.id.ID;
 import jmul.persistence.id.IntegerID;
-
 import static jmul.persistence.transformation.rules.PersistenceMarkups.ID_ATTRIBUTE;
 import static jmul.persistence.transformation.rules.PersistenceMarkups.OBJECT_ELEMENT;
 import static jmul.persistence.transformation.rules.PersistenceMarkups.TYPE_ATTRIBUTE;
 import static jmul.persistence.transformation.rules.PersistenceMarkups.VALUE_ATTRIBUTE;
 import static jmul.persistence.transformation.rules.TransformationConstants.OBJECT_CACHE;
+
+import jmul.reflection.classes.ClassDefinition;
+import jmul.reflection.classes.ClassHelper;
 
 import jmul.string.StringConcatenator;
 
@@ -84,6 +83,7 @@ public class Xml2ClassRule extends TransformationRuleBase {
      * @return <code>true</code> if the rule is applicable, else
      *         <code>false</code>
      */
+    @Override
     public boolean isApplicable(TransformationParameters someParameters) {
 
         Object target = someParameters.getObject();
@@ -112,6 +112,7 @@ public class Xml2ClassRule extends TransformationRuleBase {
      *
      * @return the transformed object
      */
+    @Override
     public Object transform(TransformationParameters someParameters) {
 
         // Check some plausibilites first.

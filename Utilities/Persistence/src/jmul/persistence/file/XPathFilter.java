@@ -34,7 +34,7 @@ import org.xml.sax.SAXException;
 
 import jmul.xml.reader.XmlDocumentReader;
 import jmul.xml.reader.XmlDocumentReaderImpl;
-import jmul.xpath.XPathQuery;
+import jmul.xml.query.XPathQuery;
 
 
 /**
@@ -74,6 +74,7 @@ public class XPathFilter implements FileFilter {
      * @return <code>true</code> if the specified file matches the expected
      *         filename, else false
      */
+    @Override
     public boolean accept(File pathname) {
 
         if (pathname.isFile()) {

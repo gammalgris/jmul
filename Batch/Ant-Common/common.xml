@@ -23,6 +23,9 @@
 
     <property name="package.io.dir" location="${packages.base.dir}\IO" />
     <property name="package.io.src.dir" location="${package.io.dir}\src" />
+    <property name="package.io-tests.dir" location="${packages.base.dir}\IO-Tests" />
+    <property name="package.io-tests.src.dir" location="${package.io-tests.dir}\src" />
+    <property name="package.io-tests.testdata.creator" location="${package.io-tests.dir}\create-testdata-io.bat" />
 
     <property name="package.math.dir" location="${packages.base.dir}\Math" />
     <property name="package.math.src.dir" location="${package.math.dir}\src" />
@@ -74,6 +77,8 @@
     <property name="project.tmp.deploy.dir" location="${project.tmp.dir}\deploy" />
     <property name="project.tmp.instrumented.dir" location="${project.tmp.dir}\instrumented" />
     <property name="project.tmp.javadoc.dir" location="${project.tmp.dir}\javadoc" />
+
+    <property name="project.tmp.io-tests.testdata.creator" location="${project.tmp.dir}\create-testdata-io.bat" />
 
     <property name="project.tmp.tests-src.dir" location="${project.tmp.dir}\tests-src" />
     <property name="project.tmp.tests-cfg.dir" location="${project.tmp.dir}\tests-properties" />
@@ -144,6 +149,9 @@
         <echo />
         <echo message="  package helper tests dir .................... ${package.helper-tests.dir}" />
         <echo message="  package helper tests src dir ................ ${package.helper-tests.src.dir}" />
+        <echo message="  package io tests dir ........................ ${package.io-tests.dir}" />
+        <echo message="  package io tests src dir .................... ${package.io-tests.src.dir}" />
+        <echo message="  package io tests testdata creator ........... ${package.io-tests.testdata.creator}" />
         <echo message="  package network tests dir ................... ${package.network-tests.dir}" />
         <echo message="  package network tests src dir ............... ${package.network-tests.src.dir}" />
         <echo message="  package string tests dir .................... ${package.string-tests.dir}" />
@@ -162,6 +170,8 @@
         <echo message="  project tmp deploy dir ...................... ${project.tmp.deploy.dir}" />
         <echo message="  project tmp instrumented dir ................ ${project.tmp.instrumented.dir}" />
         <echo message="  project tmp javadoc dir ..................... ${project.tmp.javadoc.dir}" />
+        <echo />
+        <echo message="  project tmp io tests ........................ ${project.tmp.io-tests.testdata.creator}" />
         <echo />
         <echo message="  project tmp tests-src dir ................... ${project.tmp.tests-src.dir}" />
         <echo message="  project tmp tests-cfg dir ................... ${project.tmp.tests-cfg.dir}" />

@@ -57,7 +57,7 @@ public final class XmlParserHelper {
         assertDescribesXmlElement(markup);
 
         String name = node.getNodeName();
-        boolean match = markup.equalsXmlMarkup(name);
+        boolean match = markup.equalsTagName(name);
 
         return match;
     }
@@ -121,7 +121,7 @@ public final class XmlParserHelper {
         assertDescribesXmlAttribute(markup);
 
         NamedNodeMap attributes = node.getAttributes();
-        Node attribute = attributes.getNamedItem(markup.getTagname());
+        Node attribute = attributes.getNamedItem(markup.getTagName());
 
         return (attribute != null);
     }
@@ -154,7 +154,7 @@ public final class XmlParserHelper {
 
         String name = node.getNodeName();
         NamedNodeMap attributes = node.getAttributes();
-        Node attribute = attributes.getNamedItem(markup.getTagname());
+        Node attribute = attributes.getNamedItem(markup.getTagName());
 
         if (attribute == null) {
 

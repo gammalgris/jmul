@@ -195,6 +195,7 @@ public class ThreadPoolImpl2 implements ThreadPool {
      * @param aThread
      *        an observable thread
      */
+    @Override
     public void addThread(ObservableThread aThread) {
 
         boolean loop = true;
@@ -227,6 +228,7 @@ public class ThreadPoolImpl2 implements ThreadPool {
      *
      * @return the number of active threads
      */
+    @Override
     public int threadCount() {
 
         throw new UnsupportedOperationException();
@@ -237,6 +239,7 @@ public class ThreadPoolImpl2 implements ThreadPool {
      *
      * @return maximum threads
      */
+    @Override
     public int getMaximumThreads() {
 
         return maxActiveThreads;
@@ -249,6 +252,7 @@ public class ThreadPoolImpl2 implements ThreadPool {
      * @param aMaximum
      *        maximum threads
      */
+    @Override
     public void setMaximumThreads(int aMaximum) {
 
         maxActiveThreads = aMaximum;
@@ -260,6 +264,7 @@ public class ThreadPoolImpl2 implements ThreadPool {
      *
      * @return the current maximum queue size
      */
+    @Override
     public int getMaximumQueueSize() {
 
         return maxQueueSize;
@@ -271,6 +276,7 @@ public class ThreadPoolImpl2 implements ThreadPool {
      * @param aMaximum
      *        the current maximum queue size
      */
+    @Override
     public void setMaximumQueueSize(int aMaximum) {
 
         maxQueueSize = aMaximum;
@@ -280,6 +286,7 @@ public class ThreadPoolImpl2 implements ThreadPool {
      * Stops the thread pool (i.e. no new threads are accepted by the add method
      * and what remains in the pipeline will be executed).
      */
+    @Override
     public void stop() {
 
         active = false;

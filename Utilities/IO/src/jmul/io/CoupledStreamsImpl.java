@@ -71,6 +71,7 @@ public class CoupledStreamsImpl implements CoupledStreams {
      *
      * @return a stream
      */
+    @Override
     public Closeable getStream(String aName) {
 
         return coupledStreams.get(aName);
@@ -81,6 +82,7 @@ public class CoupledStreamsImpl implements CoupledStreams {
      *
      * @return a sum
      */
+    @Override
     public int getCoupledStreamCount() {
 
         return coupledStreams.size();
@@ -106,9 +108,9 @@ public class CoupledStreamsImpl implements CoupledStreams {
                 stream.close();
                 coupledExceptions.put(name, null);
 
-            } catch (Throwable t) {
+            } catch (IOException e) {
 
-                coupledExceptions.put(name, t);
+                coupledExceptions.put(name, e);
                 exceptionCount++;
             }
         }
@@ -128,6 +130,7 @@ public class CoupledStreamsImpl implements CoupledStreams {
      * @throws IOException
      *         if an I/O error occurs
      */
+    @Override
     public void closeOnError(String aName) throws IOException {
 
         Map<String, Throwable> coupledExceptions = new HashMap<String, Throwable>();
@@ -147,9 +150,9 @@ public class CoupledStreamsImpl implements CoupledStreams {
                 stream.close();
                 coupledExceptions.put(name, null);
 
-            } catch (Throwable t) {
+            } catch (IOException e) {
 
-                coupledExceptions.put(name, t);
+                coupledExceptions.put(name, e);
                 exceptionCount++;
             }
         }

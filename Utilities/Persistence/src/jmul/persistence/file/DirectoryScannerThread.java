@@ -31,6 +31,8 @@ import java.io.FileFilter;
 import jmul.concurrent.threads.ObservableThreadBase;
 import jmul.concurrent.threads.ThreadExecutionStatus;
 
+import jmul.io.filters.FilenameFilter;
+
 
 /**
  * This thread scans a directory (i.e. looks for a specific file).
@@ -62,8 +64,7 @@ public class DirectoryScannerThread extends ObservableThreadBase {
      * @param aFilename
      *        the file which is looked for
      */
-    public DirectoryScannerThread(ThreadExecutionStatus anExecutionStatus,
-                                  File aDirectory, String aFilename) {
+    public DirectoryScannerThread(ThreadExecutionStatus anExecutionStatus, File aDirectory, String aFilename) {
 
         directory = aDirectory;
         filename = aFilename;
@@ -73,6 +74,7 @@ public class DirectoryScannerThread extends ObservableThreadBase {
     /**
      * The actual lookup is defined in this method.
      */
+    @Override
     protected void performAction() {
 
         if (!executionStatus.isObsoleteExecution()) {
@@ -83,8 +85,7 @@ public class DirectoryScannerThread extends ObservableThreadBase {
             // Either no file is found or one file was found.
             if ((result != null) && (result.length == 1)) {
 
-                FileFoundNotification event =
-                    new FileFoundNotification(this, result[0]);
+                FileFoundNotification event = new FileFoundNotification(this, result[0]);
                 informListeners(event);
             }
         }

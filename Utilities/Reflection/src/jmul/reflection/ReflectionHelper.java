@@ -28,16 +28,16 @@ package jmul.reflection;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
-import jmul.classes.AccessorHelper;
-import jmul.classes.ClassDefinition;
-import jmul.classes.ClassHelper;
+import jmul.reflection.classes.AccessorHelper;
+import jmul.reflection.classes.ClassDefinition;
+import jmul.reflection.classes.ClassHelper;
 
-import jmul.methods.AlternativeFunctionInvocation;
-import jmul.methods.AlternativeMethodInvocation;
-import jmul.methods.InvocationResult;
-import jmul.methods.OperationInvoker;
-import jmul.methods.StandardFunctionInvocation;
-import jmul.methods.StandardMethodInvocation;
+import jmul.reflection.methods.AlternativeFunctionInvocation;
+import jmul.reflection.methods.AlternativeMethodInvocation;
+import jmul.reflection.methods.InvocationResult;
+import jmul.reflection.methods.OperationInvoker;
+import jmul.reflection.methods.StandardFunctionInvocation;
+import jmul.reflection.methods.StandardMethodInvocation;
 
 import jmul.string.StringConcatenator;
 

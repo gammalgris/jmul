@@ -25,13 +25,9 @@
 package jmul.persistence.transformation.rules.object2xml;
 
 
-import jmul.cache.transformation.Object2XmlCache;
-
-import jmul.classes.ClassDefinition;
-import jmul.classes.ClassHelper;
+import jmul.persistence.transformation.cache.Object2XmlCache;
 
 import jmul.persistence.id.ID;
-
 import static jmul.persistence.transformation.rules.PersistenceMarkups.ID_ATTRIBUTE;
 import static jmul.persistence.transformation.rules.PersistenceMarkups.OBJECT_ELEMENT;
 import static jmul.persistence.transformation.rules.PersistenceMarkups.TYPE_ATTRIBUTE;
@@ -39,6 +35,9 @@ import static jmul.persistence.transformation.rules.PersistenceMarkups.VALUE_ATT
 import static jmul.persistence.transformation.rules.TransformationConstants.OBJECT_CACHE;
 import static jmul.persistence.transformation.rules.TransformationConstants.ROOT_ELEMENT;
 import static jmul.persistence.transformation.rules.TransformationConstants.XML_DOCUMENT;
+
+import jmul.reflection.classes.ClassDefinition;
+import jmul.reflection.classes.ClassHelper;
 
 import jmul.string.StringConcatenator;
 
@@ -85,6 +84,7 @@ public class Primitive2XmlRule extends TransformationRuleBase {
      * @return <code>true</code> if the rule is applicable, else
      *         <code>false</code>
      */
+    @Override
     public boolean isApplicable(TransformationParameters someParameters) {
 
         boolean result = false;
@@ -113,6 +113,7 @@ public class Primitive2XmlRule extends TransformationRuleBase {
      *
      * @return the ID of the transformed object
      */
+    @Override
     public Object transform(TransformationParameters someParameters) {
 
         // Check parameters.
@@ -160,9 +161,9 @@ public class Primitive2XmlRule extends TransformationRuleBase {
 
         Element element = XmlHelper.createXmlElement(document, OBJECT_ELEMENT);
 
-        element.setAttribute(ID_ATTRIBUTE.getTagname(), id.toString());
-        element.setAttribute(TYPE_ATTRIBUTE.getTagname(), realType.getName());
-        element.setAttribute(VALUE_ATTRIBUTE.getTagname(), String.valueOf(object));
+        element.setAttribute(ID_ATTRIBUTE.getTagName(), id.toString());
+        element.setAttribute(TYPE_ATTRIBUTE.getTagName(), realType.getName());
+        element.setAttribute(VALUE_ATTRIBUTE.getTagName(), String.valueOf(object));
 
         rootElement.appendChild(element);
 

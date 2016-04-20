@@ -90,7 +90,8 @@ public enum PersistenceMarkups implements XmlMarkup {
      *
      * @return a name
      */
-    public String getTagname() {
+    @Override
+    public String getTagName() {
 
         return name;
     }
@@ -101,6 +102,7 @@ public enum PersistenceMarkups implements XmlMarkup {
      * @return <code>true</code> if this entity represents an xml element, else
      *         <code>false</code>
      */
+    @Override
     public boolean isXmlElement() {
 
         return XmlMarkupType.XmlElement.equals(type);
@@ -112,6 +114,7 @@ public enum PersistenceMarkups implements XmlMarkup {
      * @return <code>true</code> if this entity represents an xml attribute,
      *         else <code>false</code>
      */
+    @Override
     public boolean isXmlAttribute() {
 
         return XmlMarkupType.XmlAttribute.equals(type);
@@ -125,9 +128,27 @@ public enum PersistenceMarkups implements XmlMarkup {
      * @return <code>true</code> if the specified name matches the name of this
      *         markup, else <code>false</code>
      */
-    public boolean equalsXmlMarkup(String aName) {
+    @Override
+    public boolean equalsTagName(String aName) {
 
-        boolean result = getTagname().equals(aName);
+        boolean result = getTagName().equals(aName);
+        return result;
+    }
+
+    /**
+     * Checks if the specified xml markup this markup.
+     *
+     * @param aName
+     *
+     * @return <code>true</code> if the specified xml markup matches this
+     *         markup, else <code>false</code>
+     */
+    @Override
+    public boolean equalsXmlMarkup(XmlMarkup anXmlMarkup) {
+
+        boolean result =
+            (this.isXmlAttribute() && anXmlMarkup.isXmlAttribute() && equalsTagName(anXmlMarkup.getTagName())) ||
+            (this.isXmlElement() && anXmlMarkup.isXmlElement() && equalsTagName(anXmlMarkup.getTagName()));
         return result;
     }
 
@@ -139,7 +160,7 @@ public enum PersistenceMarkups implements XmlMarkup {
     @Override
     public String toString() {
 
-        return getTagname();
+        return getTagName();
     }
 
 }

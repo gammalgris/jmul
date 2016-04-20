@@ -38,6 +38,7 @@ import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 
 import jmul.io.JarResources;
+
 import jmul.string.StringConcatenator;
 
 
@@ -106,6 +107,7 @@ public class XmlDocumentReaderImpl implements XmlDocumentReader {
      * @throws IOException
      *         This exception can be thrown if IO operations fail
      */
+    @Override
     public Document parseDocument(String aFilename) throws SAXException, IOException {
 
         File file = new File(aFilename);
@@ -130,6 +132,7 @@ public class XmlDocumentReaderImpl implements XmlDocumentReader {
      * @throws jmul.xml.reader.EmptyFileException
      * This  exception is thrown if the specified file is empty
      */
+    @Override
     public Document parseDocument(File aFile) throws SAXException, IOException {
 
         boolean empty = !aFile.exists() || (aFile.length() == 0);
@@ -161,6 +164,7 @@ public class XmlDocumentReaderImpl implements XmlDocumentReader {
      * @throws IOException
      *         This exception can be thrown if IO operations fail
      */
+    @Override
     public Document parseArchivedDocument(String archiveName, String filename) throws SAXException, IOException {
 
         Document xmlDocument = null;

@@ -52,8 +52,7 @@ public abstract class TransformationRuleBase implements TransformationRule {
      * @param aPriority
      *        a rule priority
      */
-    public TransformationRuleBase(String anOrigin, String aDestination,
-                                  int aPriority) {
+    public TransformationRuleBase(String anOrigin, String aDestination, int aPriority) {
 
         transformationPath = new TransformationPath(anOrigin, aDestination);
         priority = aPriority;
@@ -65,6 +64,7 @@ public abstract class TransformationRuleBase implements TransformationRule {
      *
      * @return a transformation path
      */
+    @Override
     public TransformationPath getTransformationPath() {
 
         return transformationPath;
@@ -79,6 +79,7 @@ public abstract class TransformationRuleBase implements TransformationRule {
      *
      * @return a rule priority
      */
+    @Override
     public int getPriority() {
 
         return priority;

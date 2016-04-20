@@ -196,6 +196,7 @@ public final class StringIDGenerator implements IDGenerator {
      *
      * @return an object containing an id
      */
+    @Override
     public ID generateID() {
 
         ID id = nextID;

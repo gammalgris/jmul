@@ -14,6 +14,9 @@
             <fileset dir="${package.helper-tests.src.dir}">
                 <include name="**/*.java" />
             </fileset>
+            <fileset dir="${package.io-tests.src.dir}">
+                <include name="**/*.java" />
+            </fileset>
             <fileset dir="${package.math-tests.src.dir}">
                 <include name="**/*.java" />
             </fileset>
@@ -31,6 +34,25 @@
     </target>
 
 
+    <target name="copyCreators">
+
+        <copy todir="${project.tmp.dir}" overwrite="true">
+            <file file="${package.io-tests.testdata.creator}" />
+        </copy>
+
+    </target>
+
+
+    <target name="buildTestData">
+
+        <exec executable="cmd" dir="${project.tmp.dir}">
+            <arg value="/C" />
+            <arg value="${project.tmp.io-tests.testdata.creator}" />
+        </exec>
+
+    </target>
+
+
     <target name="copyResources">
 
         <!-- copy todir="${project.tmp.cfg.dir}">
@@ -39,7 +61,7 @@
     </target>
 
 
-    <target name="build" depends="build.build, copySources, copyResources">
+    <target name="build" depends="build.build, copySources, copyCreators, buildTestData, copyResources">
 
         <javac srcdir="${project.tmp.tests-src.dir}" destdir="${project.tmp.tests-build.dir}" verbose="true" classpathref="jmul-tests.build.classpath" debug="on" />
 

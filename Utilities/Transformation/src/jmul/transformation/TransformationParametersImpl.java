@@ -72,14 +72,12 @@ public class TransformationParametersImpl implements TransformationParameters {
      * @param anObject
      *        the object which is to be transformed
      */
-    public TransformationParametersImpl(TransformationPath aTransformationPath,
-                                        Object anObject) {
+    public TransformationParametersImpl(TransformationPath aTransformationPath, Object anObject) {
 
         // To avoid a possible null pointer exception the 3rd parameter is
         // replaced by an expression.
 
-        this(aTransformationPath, anObject,
-             ((anObject != null) ? anObject.getClass() : null));
+        this(aTransformationPath, anObject, ((anObject != null) ? anObject.getClass() : null));
     }
 
     /**
@@ -92,8 +90,7 @@ public class TransformationParametersImpl implements TransformationParameters {
      * @param aDeclaredType
      *        the delcared type of the object which is to be transformed
      */
-    public TransformationParametersImpl(TransformationPath aTransformationPath,
-                                        Object anObject, Class aDeclaredType) {
+    public TransformationParametersImpl(TransformationPath aTransformationPath, Object anObject, Class aDeclaredType) {
 
         if (anObject == null) {
 
@@ -109,8 +106,7 @@ public class TransformationParametersImpl implements TransformationParameters {
             // would require all those additional informations mentioned above
             // to be provided with the transformation parameters.
 
-            String message =
-                "The object which is to be transformed is not supposed to be null!";
+            String message = "The object which is to be transformed is not supposed to be null!";
             throw new IllegalArgumentException(message);
         }
 
@@ -128,6 +124,7 @@ public class TransformationParametersImpl implements TransformationParameters {
      *
      * @return informations about the transformation path
      */
+    @Override
     public TransformationPath getTransformationPath() {
 
         return transformationPath;
@@ -138,6 +135,7 @@ public class TransformationParametersImpl implements TransformationParameters {
      *
      * @return the object which is to be transformed
      */
+    @Override
     public Object getObject() {
 
         return object;
@@ -148,6 +146,7 @@ public class TransformationParametersImpl implements TransformationParameters {
      *
      * @return the real type of the object which is to be transformed
      */
+    @Override
     public Class getRealType() {
 
         return realType;
@@ -162,6 +161,7 @@ public class TransformationParametersImpl implements TransformationParameters {
      *
      * @return the declared type of the object which is to be transformed
      */
+    @Override
     public Class getDeclaredType() {
 
         return declaredType;
@@ -178,6 +178,7 @@ public class TransformationParametersImpl implements TransformationParameters {
      * @return <code>true</code> if the specified prerequisite is available,
      *         else <code>false</code>
      */
+    @Override
     public boolean containsPrerequisite(CharSequence aName) {
 
         return prerequisites.containsKey(aName);
@@ -193,13 +194,12 @@ public class TransformationParametersImpl implements TransformationParameters {
      *
      * @return a prerequisite for the transformation
      */
+    @Override
     public Object getPrerequisite(CharSequence aName) {
 
         if (!containsPrerequisite(aName)) {
 
-            StringConcatenator message =
-                new StringConcatenator("No entry with the name \"", aName,
-                                       "\" exists!");
+            StringConcatenator message = new StringConcatenator("No entry with the name \"", aName, "\" exists!");
             throw new IllegalArgumentException(message.toString());
         }
 
@@ -215,13 +215,13 @@ public class TransformationParametersImpl implements TransformationParameters {
      * @param aPrerequisite
      *        a prerequisite
      */
+    @Override
     public void addPrerequisite(CharSequence aName, Object aPrerequisite) {
 
         if (containsPrerequisite(aName)) {
 
             StringConcatenator message =
-                new StringConcatenator("An entry with the name \"", aName,
-                                       "\" exists already!");
+                new StringConcatenator("An entry with the name \"", aName, "\" exists already!");
             throw new IllegalArgumentException(message.toString());
         }
 

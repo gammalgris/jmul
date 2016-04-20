@@ -27,12 +27,11 @@ package jmul.persistence.transformation.rules.object2xml;
 
 import java.util.Collection;
 
-import jmul.cache.transformation.Object2XmlCache;
-
-import jmul.persistence.id.ID;
+import jmul.persistence.transformation.cache.Object2XmlCache;
 
 import jmul.persistence.annotations.AnnotationHelper;
 import jmul.persistence.annotations.ContainerInformations;
+import jmul.persistence.id.ID;
 import static jmul.persistence.transformation.rules.PersistenceMarkups.DECLARED_ELEMENT_TYPE_ATTRIBUTE;
 import static jmul.persistence.transformation.rules.PersistenceMarkups.ID_ATTRIBUTE;
 import static jmul.persistence.transformation.rules.PersistenceMarkups.OBJECT_ELEMENT;
@@ -102,6 +101,7 @@ public class Collection2XmlRule extends TransformationRuleBase {
      * @return <code>true</code> if the rule is applicable, else
      *         <code>false</code>
      */
+    @Override
     public boolean isApplicable(TransformationParameters someParameters) {
 
         Class expectedType = Collection.class;
@@ -118,6 +118,7 @@ public class Collection2XmlRule extends TransformationRuleBase {
      *
      * @return the ID of the transformed object
      */
+    @Override
     public Object transform(TransformationParameters someParameters) {
 
         // Check parameters.
@@ -197,9 +198,9 @@ public class Collection2XmlRule extends TransformationRuleBase {
 
         Element element = XmlHelper.createXmlElement(document, OBJECT_ELEMENT);
 
-        element.setAttribute(ID_ATTRIBUTE.getTagname(), id.toString());
-        element.setAttribute(TYPE_ATTRIBUTE.getTagname(), realType.getName());
-        element.setAttribute(DECLARED_ELEMENT_TYPE_ATTRIBUTE.getTagname(), declaredElementType.getName());
+        element.setAttribute(ID_ATTRIBUTE.getTagName(), id.toString());
+        element.setAttribute(TYPE_ATTRIBUTE.getTagName(), realType.getName());
+        element.setAttribute(DECLARED_ELEMENT_TYPE_ATTRIBUTE.getTagName(), declaredElementType.getName());
 
 
         // Step 3

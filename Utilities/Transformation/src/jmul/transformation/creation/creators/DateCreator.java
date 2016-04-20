@@ -57,6 +57,7 @@ public class DateCreator implements ObjectCreator {
      *
      * @return a new object
      */
+    @Override
     public Object createObject(String anInitialValue, String aPattern) {
 
 
@@ -70,8 +71,7 @@ public class DateCreator implements ObjectCreator {
 
         if (aPattern == null) {
 
-            String message =
-                "No pattern was specified but a pattern is required!";
+            String message = "No pattern was specified but a pattern is required!";
             throw new IllegalArgumentException(message);
         }
 
@@ -87,8 +87,7 @@ public class DateCreator implements ObjectCreator {
         } catch (IllegalArgumentException e) {
 
             StringConcatenator message =
-                new StringConcatenator("An invalid pattern has been specified (",
-                                       aPattern, ")!");
+                new StringConcatenator("An invalid pattern has been specified (", aPattern, ")!");
             throw new IllegalArgumentException(message.toString());
         }
 
@@ -101,10 +100,8 @@ public class DateCreator implements ObjectCreator {
         } catch (ParseException e) {
 
             StringConcatenator message =
-                new StringConcatenator("The specified initial value \"",
-                                       anInitialValue,
-                                       "\" doesn't match the specified pattern \"",
-                                       aPattern, "\"!");
+                new StringConcatenator("The specified initial value \"", anInitialValue,
+                                       "\" doesn't match the specified pattern \"", aPattern, "\"!");
             throw new IllegalArgumentException(message.toString());
         }
 

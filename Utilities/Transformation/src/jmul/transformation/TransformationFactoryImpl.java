@@ -46,7 +46,9 @@ import jmul.transformation.configuration.ConfigurationReader;
 import jmul.io.JarResources;
 import jmul.io.ResourceScanner;
 import jmul.io.ResourceType;
+
 import jmul.string.StringConcatenator;
+
 import jmul.xml.reader.XmlDocumentReader;
 
 
@@ -77,13 +79,11 @@ public class TransformationFactoryImpl implements TransformationFactory {
      */
     public TransformationFactoryImpl() {
 
-        ResourceBundle resourceBundle =
-            ResourceBundle.getBundle(TransformationFactory.class.getName());
+        ResourceBundle resourceBundle = ResourceBundle.getBundle(TransformationFactory.class.getName());
 
         defaultFileExtension = resourceBundle.getString(FILE_EXTENSION);
 
-        transformationRules =
-                new HashMap<TransformationPath, Collection<TransformationRule>>();
+        transformationRules = new HashMap<TransformationPath, Collection<TransformationRule>>();
 
         init();
     }
@@ -95,18 +95,14 @@ public class TransformationFactoryImpl implements TransformationFactory {
 
         ResourceType resourceType = new ResourceType(defaultFileExtension);
 
-        ConfigurationReader configurationReader =
-            TransformationResources.getConfigurationReader();
-        XmlDocumentReader documentReader =
-            TransformationResources.getXmlDocumentReader();
+        ConfigurationReader configurationReader = TransformationResources.getConfigurationReader();
+        XmlDocumentReader documentReader = TransformationResources.getXmlDocumentReader();
 
 
         ResourceScanner resourceScanner = new ResourceScanner(resourceType);
 
-        Map<String, Collection<File>> foundResources =
-            resourceScanner.getFoundResources();
-        Map<String, JarResources> foundArchives =
-            resourceScanner.getFoundArchives();
+        Map<String, Collection<File>> foundResources = resourceScanner.getFoundResources();
+        Map<String, JarResources> foundArchives = resourceScanner.getFoundArchives();
 
         boolean existResourceFiles = (foundResources.size() > 0);
         boolean existArchiveFiles = (foundArchives.size() > 0);
@@ -117,13 +113,11 @@ public class TransformationFactoryImpl implements TransformationFactory {
 
             for (String key : foundResources.keySet()) {
 
-                String filename =
-                    foundResources.get(key).iterator().next().getAbsolutePath();
+                String filename = foundResources.get(key).iterator().next().getAbsolutePath();
 
                 try {
 
-                    TransformationRule rule =
-                        configurationReader.parseConfiguration(filename);
+                    TransformationRule rule = configurationReader.parseConfiguration(filename);
                     addTransformationRule(rule);
                     processedResources++;
 
@@ -145,8 +139,7 @@ public class TransformationFactoryImpl implements TransformationFactory {
 
             if (processedResources == 0) {
 
-                String message =
-                    "No configuration files were successfully processed!";
+                String message = "No configuration files were successfully processed!";
                 throw new TransformationException(message);
             }
 
@@ -158,19 +151,15 @@ public class TransformationFactoryImpl implements TransformationFactory {
 
                 JarResources jar = foundArchives.get(archiveName);
 
-                Collection<String> embeddedResources =
-                    jar.getResourceNamesWithSuffix(defaultFileExtension);
+                Collection<String> embeddedResources = jar.getResourceNamesWithSuffix(defaultFileExtension);
 
                 for (String embeddedResource : embeddedResources) {
 
                     try {
 
                         jar.getResource(embeddedResource);
-                        Document document =
-                            documentReader.parseArchivedDocument(archiveName,
-                                                                 embeddedResource);
-                        TransformationRule rule =
-                            configurationReader.parseConfiguration(document);
+                        Document document = documentReader.parseArchivedDocument(archiveName, embeddedResource);
+                        TransformationRule rule = configurationReader.parseConfiguration(document);
                         addTransformationRule(rule);
                         processedEmbeddedResources++;
 
@@ -191,8 +180,7 @@ public class TransformationFactoryImpl implements TransformationFactory {
 
             if (processedEmbeddedResources == 0) {
 
-                String message =
-                    "No configuration files were successfully processed!";
+                String message = "No configuration files were successfully processed!";
                 throw new TransformationException(message);
             }
 
@@ -209,6 +197,7 @@ public class TransformationFactoryImpl implements TransformationFactory {
      * @param aRule
      *        a new transformation rule
      */
+    @Override
     public void addTransformationRule(TransformationRule aRule) {
 
         TransformationPath path = aRule.getTransformationPath();
@@ -216,14 +205,12 @@ public class TransformationFactoryImpl implements TransformationFactory {
         boolean existsPath = transformationRules.containsKey(path);
         if (existsPath) {
 
-            Collection<TransformationRule> ruleset =
-                transformationRules.get(path);
+            Collection<TransformationRule> ruleset = transformationRules.get(path);
             ruleset.add(aRule);
 
         } else {
 
-            Collection<TransformationRule> ruleset =
-                new ArrayList<TransformationRule>();
+            Collection<TransformationRule> ruleset = new ArrayList<TransformationRule>();
             transformationRules.put(path, ruleset);
             ruleset.add(aRule);
         }
@@ -239,6 +226,7 @@ public class TransformationFactoryImpl implements TransformationFactory {
      *
      * @return the result of the transformation
      */
+    @Override
     public Object transform(TransformationParameters someParameters) {
 
         TransformationPath path = someParameters.getTransformationPath();
@@ -246,8 +234,7 @@ public class TransformationFactoryImpl implements TransformationFactory {
         boolean existsPath = transformationRules.containsKey(path);
         if (!existsPath) {
 
-            StringConcatenator message =
-                new StringConcatenator("Unknown transformation path: ", path);
+            StringConcatenator message = new StringConcatenator("Unknown transformation path: ", path);
             throw new IllegalArgumentException(message.toString());
         }
 
@@ -266,13 +253,11 @@ public class TransformationFactoryImpl implements TransformationFactory {
                 Integer priority = rule.getPriority();
                 boolean existsPriority = sortedRules.containsKey(priority);
                 if (!existsPriority) {
-                    Collection<TransformationRule> subset =
-                        new ArrayList<TransformationRule>();
+                    Collection<TransformationRule> subset = new ArrayList<TransformationRule>();
                     sortedRules.put(priority, subset);
                 }
 
-                Collection<TransformationRule> subset =
-                    sortedRules.get(priority);
+                Collection<TransformationRule> subset = sortedRules.get(priority);
                 subset.add(rule);
             }
         }
@@ -288,15 +273,12 @@ public class TransformationFactoryImpl implements TransformationFactory {
         } catch (NoSuchElementException e) {
 
             StringConcatenator message =
-                new StringConcatenator("The transformation path ", path,
-                                       " doesn't know a rule for objects of type ",
-                                       someParameters.getObject().getClass().getName(),
-                                       "!");
+                new StringConcatenator("The transformation path ", path, " doesn't know a rule for objects of type ",
+                                       someParameters.getObject().getClass().getName(), "!");
             throw new IllegalArgumentException(message.toString());
         }
 
-        Collection<TransformationRule> applicableRules =
-            sortedRules.get(highestPriority);
+        Collection<TransformationRule> applicableRules = sortedRules.get(highestPriority);
 
         boolean existsAmbiguity = (applicableRules.size() > 1);
         if (existsAmbiguity) {
@@ -304,8 +286,7 @@ public class TransformationFactoryImpl implements TransformationFactory {
             StringConcatenator message =
                 new StringConcatenator("The transformation path ", path,
                                        " knows several rules with the same priority for objects of type ",
-                                       someParameters.getObject().getClass().getName(),
-                                       "!");
+                                       someParameters.getObject().getClass().getName(), "!");
             throw new IllegalArgumentException(message.toString());
         }
 

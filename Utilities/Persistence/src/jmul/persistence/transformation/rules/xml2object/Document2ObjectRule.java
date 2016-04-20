@@ -25,8 +25,8 @@
 package jmul.persistence.transformation.rules.xml2object;
 
 
-import jmul.cache.transformation.Xml2ObjectCache;
-import jmul.cache.transformation.Xml2ObjectCacheImpl;
+import jmul.persistence.transformation.cache.Xml2ObjectCache;
+import jmul.persistence.transformation.cache.Xml2ObjectCacheImpl;
 
 import jmul.persistence.transformation.TransformationHelper;
 import static jmul.persistence.transformation.rules.PersistenceMarkups.OBJECTS_ELEMENT;
@@ -80,6 +80,7 @@ public class Document2ObjectRule extends TransformationRuleBase {
      * @return <code>true</code> if the rule is applicable, else
      *         <code>false</code>
      */
+    @Override
     public boolean isApplicable(TransformationParameters someParameters) {
 
         return Document.class.isInstance(someParameters.getObject());
@@ -94,6 +95,7 @@ public class Document2ObjectRule extends TransformationRuleBase {
      *
      * @return the transformed object
      */
+    @Override
     public Object transform(TransformationParameters someParameters) {
 
         // Get all required informations and objects.
@@ -111,7 +113,7 @@ public class Document2ObjectRule extends TransformationRuleBase {
         // Check some plausibilities.
 
         String rootElementName = rootElement.getNodeName();
-        if (!rootElementName.equals(OBJECTS_ELEMENT.getTagname())) {
+        if (!rootElementName.equals(OBJECTS_ELEMENT.getTagName())) {
 
             StringConcatenator message = new StringConcatenator("Invalid root element (", rootElementName, ")!");
             throw new TransformationException(message.toString());

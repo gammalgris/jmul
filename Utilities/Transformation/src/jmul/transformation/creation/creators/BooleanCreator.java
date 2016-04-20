@@ -49,6 +49,7 @@ public class BooleanCreator implements ObjectCreator {
      *
      * @return a new object
      */
+    @Override
     public Object createObject(String anInitialValue, String aPattern) {
 
         // Check the specified parameters.
@@ -61,8 +62,7 @@ public class BooleanCreator implements ObjectCreator {
 
         if (aPattern != null) {
 
-            String message =
-                "A pattern was specified but no pattern is required!";
+            String message = "A pattern was specified but no pattern is required!";
             throw new IllegalArgumentException(message);
         }
 
