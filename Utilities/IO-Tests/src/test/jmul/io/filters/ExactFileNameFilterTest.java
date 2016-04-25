@@ -28,7 +28,7 @@ package test.jmul.io.filters;
 import java.io.File;
 import java.io.FileFilter;
 
-import jmul.io.filters.FilenameFilter;
+import jmul.io.filters.ExactFileNameFilter;
 
 import org.junit.After;
 import static org.junit.Assert.assertEquals;
@@ -43,7 +43,7 @@ import org.junit.Test;
  *
  * @author Kristian Kutin
  */
-public class FilenameFilterTest extends FileFilterTestBase {
+public class ExactFileNameFilterTest extends FileFilterTestBase {
 
     /**
      * Steps which have to be performed before a test.
@@ -51,7 +51,7 @@ public class FilenameFilterTest extends FileFilterTestBase {
     @Before
     public void setUp() {
 
-        setFileFilter(new FilenameFilter("file1.txt"));
+        setFileFilter(new ExactFileNameFilter("file1.txt"));
     }
 
     /**

@@ -62,6 +62,8 @@ public final class PathHelper {
      * The default constructor.
      */
     private PathHelper() {
+
+        throw new UnsupportedOperationException();
     }
 
     /**

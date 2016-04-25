@@ -30,7 +30,7 @@ package jmul.math;
  *
  * @author Kristian Kutin
  */
-public class Constants {
+public final class Constants {
 
     /**
      * A second in milliseconds.

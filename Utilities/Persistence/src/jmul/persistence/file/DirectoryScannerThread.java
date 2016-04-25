@@ -31,7 +31,7 @@ import java.io.FileFilter;
 import jmul.concurrent.threads.ObservableThreadBase;
 import jmul.concurrent.threads.ThreadExecutionStatus;
 
-import jmul.io.filters.FilenameFilter;
+import jmul.io.filters.ExactFileNameFilter;
 
 
 /**
@@ -79,7 +79,7 @@ public class DirectoryScannerThread extends ObservableThreadBase {
 
         if (!executionStatus.isObsoleteExecution()) {
 
-            FileFilter filter = new FilenameFilter(filename);
+            FileFilter filter = new ExactFileNameFilter(filename);
             File[] result = directory.listFiles(filter);
 
             // Either no file is found or one file was found.

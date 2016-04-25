@@ -21,7 +21,7 @@ Link: http://www.nomagic.com/products/magicdraw.html
 
 
 Notepad++
------------
+---------
 
 Version:
 
@@ -38,6 +38,16 @@ Version: 5.3
 Purpose: Static Code Analysis
 
 Link: http://www.sonarqube.org/
+
+
+7-Zip
+----
+
+Version: 9.2
+
+Purpose: Archive Tool
+
+Link: http://www.7-zip.de/
 
 
 Java

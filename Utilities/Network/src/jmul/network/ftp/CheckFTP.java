@@ -27,7 +27,7 @@ package jmul.network.ftp;
 
 /**
  * A utility class which provides methods to perform checks on an FTP server.
- * 
+ *
  * TODO
  * Missing functionality!
  *
@@ -39,6 +39,8 @@ public final class CheckFTP {
      * The default constructor.
      */
     private CheckFTP() {
+
+        throw new UnsupportedOperationException();
     }
 
 }

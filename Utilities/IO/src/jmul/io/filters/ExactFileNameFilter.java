@@ -36,7 +36,7 @@ import jmul.string.StringConcatenator;
  *
  * @author Kristian Kutin
  */
-public class FilenameFilter implements FileFilter {
+public class ExactFileNameFilter implements FileFilter {
 
     /**
      * The name of the file which is searched.
@@ -49,7 +49,7 @@ public class FilenameFilter implements FileFilter {
      * @param aFilename
      *        the name of the file which is searched
      */
-    public FilenameFilter(String aFilename) {
+    public ExactFileNameFilter(String aFilename) {
 
         checkParameter(aFilename);
 

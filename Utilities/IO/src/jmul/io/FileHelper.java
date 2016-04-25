@@ -53,6 +53,8 @@ public final class FileHelper {
      * The default constructor.
      */
     private FileHelper() {
+
+        throw new UnsupportedOperationException();
     }
 
     /**

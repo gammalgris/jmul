@@ -158,6 +158,9 @@ public class HelperConstructorTest {
         parameters.add(new Object[] { jmul.network.http.CheckURL.class });
         parameters.add(new Object[] { jmul.network.ip.CheckIP.class });
         parameters.add(new Object[] { jmul.network.ftp.CheckFTP.class });
+        parameters.add(new Object[] { jmul.io.FileHelper.class });
+        parameters.add(new Object[] { jmul.io.FileDeletionHelper.class });
+        parameters.add(new Object[] { jmul.io.PathHelper.class });
 
         return parameters;
     }

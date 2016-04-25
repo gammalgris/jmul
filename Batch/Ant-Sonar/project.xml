@@ -5,8 +5,6 @@
     <include file="${basedir}\..\Ant-Common\common.xml" />
 
 
-    <property name="project.dir" location="${basedir}\..\.." />
-
     <property name="project.lib.dir" location="${project.dir}\Libraries" />
     <property name="sonar.ant.task.lib" location="${project.lib.dir}\SonarAntTask\sonarqube-ant-task-2.4.jar" />
 
@@ -20,6 +18,7 @@
     <property name="sonar.projectKey" value="jmul" />
     <property name="sonar.projectName" value="JMUL" />
     <property name="sonar.sourceEncoding" value="UTF-8" />
+    <!-- property name="sonar.language" value="java" / -->
     <property name="sonar.sources" value="${project.tmp.src.dir}" />
     <property name="sonar.java.binaries" value="${project.tmp.build.dir}" />
     <property name="sonar.projectBaseDir" value="${project.tmp.dir}" />
@@ -27,13 +26,22 @@
     <property name="sonar.tests" value="${project.tmp.tests-src.dir}" />
 
 
+    <!-- TODO - replace this section with the following comment section -->
     <input message="Enter the project's version:" addproperty="sonar.projectVersion" />
 
     <condition property="do.abort">
+        <equals arg1="" arg2="${sonar.projectVersion}"/>
+    </condition>
+
+    <fail if="do.abort">No version was specified!</fail>
+
+    <!-- condition property="do.abort">
         <equals arg1="" arg2="${version}"/>
     </condition>
 
-    <fail if="do.abort">Build aborted by user.</fail>
+    <fail if="do.abort">No version was specified!</fail>
+
+    <property name="sonar.projectVersion" value="${version}" / -->
 
 
     <target name="info">

@@ -38,6 +38,12 @@ public final class Constants {
     public static final String COMMA = ",";
 
     /**
+     * The file separator which is used under the current operating system (e.g.
+     * "/" under Unix, "\" under Windows).
+     */
+    public static final String FILE_SEPARATOR = System.getProperty("file.separator");
+
+    /**
      * A new line character.
      */
     public static final String NEW_LINE = System.getProperty("line.separator");
@@ -46,6 +52,11 @@ public final class Constants {
      * An empty string.
      */
     public static final String EMPTY_STRING = "";
+
+    /**
+     * A slash character.
+     */
+    public static final String SLASH = "/";
 
     /**
      * The default constructor.

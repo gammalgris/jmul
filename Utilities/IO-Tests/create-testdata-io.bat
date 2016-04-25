@@ -13,11 +13,19 @@
 call:defineMacros
 call:defineConstants
 
+call:initZipTool
+%ifError% (
 
-set functionCalls.length=2
+	echo Unable to initialize zip tool. >&2
+	%return%
+)
+
+
+set functionCalls.length=3
 
 set functionCalls[1]=createRootDirectory
 set functionCalls[2]=createFileFilterTestData
+set functionCalls[3]=createArchiveScanTestData
 
 
 for /L %%i in (1, 1, %functionCalls.length%) do (
@@ -67,7 +75,7 @@ set functionCalls.length=
 	
 	set "return=exit /b"
 
-%return%
+%return% 0
 
 
 @rem --------------------------------------------------------------------------------
@@ -81,6 +89,52 @@ set functionCalls.length=
 
 	set TRUE=1
 	set FALSE=0
+
+%return% 0
+
+
+@rem --------------------------------------------------------------------------------
+@rem ---
+@rem ---   void initZipTool()
+@rem ---
+@rem ---   The subroutine initializes the zip tool.
+@rem ---
+
+:initZipTool
+
+	set ZIP_DIR=C:\Progra~1\7-Zip\
+	set ZIP_EXE=%ZIP_DIR%7z.exe
+
+	if not exist "%ZIP_EXE%" (
+
+		echo The required zip tool doesn't exist at the expected location ^(%ZIP_DIR%^)^! >&2
+		%return% 2
+	)
+
+%return%
+
+
+@rem --------------------------------------------------------------------------------
+@rem ---
+@rem ---   void createArchive(String _archivePath, String... _somePaths)
+@rem ---
+@rem ---   The subroutine creates an archive according to the specified parameters.
+@rem ---
+@rem ---
+@rem ---   @param _archivePath
+@rem ---           the path of the archive which is to be created
+@rem ---   @param _somePaths
+@rem ---           All files and directories which have to be put into the archive
+@rem ---
+
+:createArchive
+
+	start /B %ZIP_EXE% a %* >nul 2>&1
+	%ifError% (
+
+		echo An error occurred while creating the archive %1^! >&2
+		%return% 2
+	)
 
 %return%
 
@@ -232,5 +286,29 @@ set functionCalls.length=
 	call:createFile testdata-io\file1.txt "Hello World"
 	call:createFile testdata-io\file2.txt "Hello World"
 	call:createFile testdata-io\file3.bat "@Echo Hello World"
+
+%return%
+
+
+@rem --------------------------------------------------------------------------------
+@rem ---
+@rem ---   void createArchiveScanTestData()
+@rem ---
+@rem ---   The subroutine creates the test data required for scanning archives.
+@rem ---
+
+:createArchiveScanTestData
+
+	echo create test data ^(archive scan tests^)...
+
+	call:createFile testdata-io\config1.properties "key1^=hello"
+	call:createFile testdata-io\config2.properties "key2^=world"
+	call:createDirectory testdata-io\folder2 %TRUE%
+	call:createDirectory testdata-io\folder3 %TRUE%
+	call:createFile testdata-io\folder2\config3.properties "key3^=!"
+	call:createArchive testdata-io\archive1.zip testdata-io\config1.properties testdata-io\config2.properties testdata-io\folder2
+	call:createArchive testdata-io\archive2.zip testdata-io\config1.properties
+	call:createArchive testdata-io\archive3.zip testdata-io\config2.properties
+	call:createArchive testdata-io\archive4.zip testdata-io\folder3
 
 %return%

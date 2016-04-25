@@ -34,24 +34,17 @@ import java.util.Enumeration;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
+import static jmul.string.Constants.FILE_SEPARATOR;
+import static jmul.string.Constants.SLASH;
+import jmul.string.StringConcatenator;
+
 
 /**
  * This class represents an entry from within a jar archive.<br>
  * <br>
- * Source: http://www.javaworld.com/javaworld/javatips/jw-javatip49.html
+ * See <a href="http://www.javaworld.com/javaworld/javatips/jw-javatip49.html">original code example</a>
  */
 public final class ArchiveEntry {
-
-    /**
-     * The slash character.
-     */
-    private static final String SLASH = "/";
-
-    /**
-     * The file separator which is used under the current operating system (e.g.
-     * "/" under Unix, "\" under Windows).
-     */
-    private static final String FILE_SEPARATOR = System.getProperty("file.separator");
 
     /**
      * The archive name.
@@ -148,6 +141,7 @@ public final class ArchiveEntry {
             // A backslash in strings is interpreted as escape character. To
             // avoid nasty side effects we simply replace it with a slash.
             if (!FILE_SEPARATOR.equals(SLASH)) {
+
                 name = name.replace(FILE_SEPARATOR, SLASH);
             }
 
@@ -229,9 +223,11 @@ public final class ArchiveEntry {
      * @param anArchiveName
      *        the filename of an archive
      *
-     * @return a directory containing all archive entries
+     * @return a directory of all archive entries
      */
     public static Collection<ArchiveEntry> scanArchive(String anArchiveName) {
+
+        checkParameter(anArchiveName);
 
         try {
 
@@ -253,6 +249,36 @@ public final class ArchiveEntry {
 
             String message = "Invalid zip file: " + anArchiveName + "!";
             throw new IllegalArgumentException(message, e);
+        }
+    }
+
+    /**
+     * Checks the specified parameter.
+     *
+     * @param aFilename
+     *
+     * @throws IllegalArgumentException
+     *         if the specified parameter is invalid
+     */
+    private static void checkParameter(String aFilename) {
+
+        if (aFilename == null) {
+
+            String message = "No file name (null) has been specified!";
+            throw new IllegalArgumentException(message);
+        }
+
+        if (aFilename.trim().isEmpty()) {
+
+            String message = "No file name (empty string) has been specified!";
+            throw new IllegalArgumentException(message);
+        }
+
+        if (!aFilename.equals(aFilename.trim())) {
+
+            StringConcatenator message =
+                new StringConcatenator("The file name (\"", aFilename, "\") contains leading or trailing spaces!");
+            throw new IllegalArgumentException(String.valueOf(message));
         }
     }
 

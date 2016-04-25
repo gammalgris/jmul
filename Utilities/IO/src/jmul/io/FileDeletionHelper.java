@@ -40,6 +40,8 @@ public final class FileDeletionHelper {
      * The default constructor.
      */
     private FileDeletionHelper() {
+
+        throw new UnsupportedOperationException();
     }
 
     /**
