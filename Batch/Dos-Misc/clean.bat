@@ -44,7 +44,7 @@ exit /b 0
 
 	set projectDir=%~dp0..\..\Utilities\
 
-	set directory.length=19
+	set directory.length=21
 
 	set directory[1]=%projectDir%.data\
 	set directory[2]=%projectDir%Concurrent\classes\
@@ -65,9 +65,10 @@ exit /b 0
 	set directory[17]=%projectDir%XML\classes\
 
 	set directory[18]=%projectDir%..\Batch\classes\
-	set directory[19]=%projectDir%..\tmp\
+	set directory[19]=%projectDir%..\Batch\Ant-Sonar\.sonar\
+	set directory[20]=%projectDir%..\tmp\
 
-	set directory[19]=%projectDir%IO-Tests\testdata-io\
+	set directory[21]=%projectDir%IO-Tests\testdata-io\
 
 exit /b 0
 

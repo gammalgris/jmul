@@ -240,7 +240,7 @@ set functionCalls.length=
 	set "_content=%_content:"=%"
 
 
-	%cprintln% %_content% > "%_path%" 2>nul
+	%cprintln% %_content%> "%_path%" 2>nul
 	%ifError% (
 
 		%cprintln% Error: Unable to create the file "%_path%"! >&2

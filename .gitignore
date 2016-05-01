@@ -1,10 +1,38 @@
 #
-# Ignore all .data directories
+# This file has to be updated regularly when the project structure is
+# changed or expanded. The specified filtering rules make it easier to
+# check in the relevant project files and source code.
+#
+
+#
+# Ignore all .data directories and which are created by JDeveloper
 #
 /**/.data/*
+
+
+#
+# Ignore (empty) directories which are created by JDeveloper.
+#
+/Batch/classes/*
+
 
 #
 # Ignore all directories that contain compilation output
 #
-/**/classes/*
-/**/tmp/*
+/**/classes/jmul/*
+/**/classes/test/jmul/*
+
+
+#
+# Ignore all temporary data which is created by the various build
+# scripts.
+#
+/tmp/*
+/**/testdata-*/*
+
+
+#
+# Ignore files which are not relevant for the repository and thus
+# shouldn't be checked in.
+#
+/change.log

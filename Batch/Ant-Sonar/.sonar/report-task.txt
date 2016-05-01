@@ -1,5 +1,0 @@
-projectKey=jmul
-serverUrl=http://localhost:9000
-dashboardUrl=http://localhost:9000/dashboard/index/jmul
-ceTaskId=AVPhPm9oO-ekl0Y98GFs
-ceTaskUrl=http://localhost:9000/api/ce/task?id=AVPhPm9oO-ekl0Y98GFs

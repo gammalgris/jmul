@@ -25,6 +25,8 @@
 package test.jmul.io;
 
 
+import java.io.IOException;
+
 import java.util.Collection;
 
 import jmul.io.ArchiveEntry;
@@ -66,13 +68,15 @@ public class ArchiveEntryTest {
     @Test
     public void testScan() {
 
-        Collection<ArchiveEntry> results = ArchiveEntry.scanArchive("testdata-io\\archive2.zip");
+        String archiveName = "testdata-io\\archive2.zip";
+        Collection<ArchiveEntry> results = ArchiveEntry.scanArchive(archiveName);
         assertEquals(1, results.size());
 
         ArchiveEntry entry = results.iterator().next();
         assertTrue(entry.isFile());
         assertEquals("testdata-io/config1.properties", entry.getName());
         assertEquals("config1.properties", entry.getShortName());
+        assertEquals(12, entry.getSize());
     }
 
     /**
@@ -81,13 +85,38 @@ public class ArchiveEntryTest {
     @Test
     public void testScan2() {
 
-        Collection<ArchiveEntry> results = ArchiveEntry.scanArchive("testdata-io\\archive4.zip");
+        String archiveName = "testdata-io\\archive4.zip";
+        Collection<ArchiveEntry> results = ArchiveEntry.scanArchive(archiveName);
         assertEquals(1, results.size());
 
         ArchiveEntry entry = results.iterator().next();
         assertTrue(entry.isDirectory());
         assertEquals("testdata-io/folder3/", entry.getName());
         assertEquals("folder3", entry.getShortName());
+        assertEquals(0, entry.getSize());
+    }
+
+    /**
+     * Tests reading the content of a specific archive entry.
+     *
+     * @throws IOException
+     *         since no IO access is performed, no such exception is thrown
+     */
+    @Test
+    public void testLoadData() throws IOException {
+
+        String archiveName = "testdata-io\\archive2.zip";
+        Collection<ArchiveEntry> results = ArchiveEntry.scanArchive(archiveName);
+        assertEquals(1, results.size());
+
+        ArchiveEntry entry = results.iterator().next();
+        assertTrue(entry.isFile());
+
+        byte[] data = entry.getData();
+
+        String expectedLine = "key1=hello\r\n";
+        String actualLine = new String(data, "UTF-8");
+        assertEquals(expectedLine, actualLine);
     }
 
 }

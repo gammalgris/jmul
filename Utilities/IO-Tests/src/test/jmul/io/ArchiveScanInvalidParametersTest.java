@@ -102,6 +102,8 @@ public class ArchiveScanInvalidParametersTest {
         parameters.add(new Object[] { " testdata-io\\archive1.zip" });
         parameters.add(new Object[] { "testdata-io\\archive1.zip " });
         parameters.add(new Object[] { "testdata-io\\archive0.zip" });
+        parameters.add(new Object[] { "testdata-io\\folder1" });
+        parameters.add(new Object[] { "testdata-io\\file1.txt" });
 
         return parameters;
     }
