@@ -22,57 +22,37 @@
  * e-mail: kristian.kutin@arcor.de
  */
 
-package jmul.io;
-
-
-import static jmul.misc.checks.ParameterCheckHelper.checkExceptionCause;
-import static jmul.misc.checks.ParameterCheckHelper.checkExceptionMessage;
+package test.jmul.exception;
 
 
 /**
- * This exception is thrown if an errors occurs while working with archives.
+ * This class contains signatures for various constructors.
  *
  * @author Kristian Kutin
  */
-public class ArchiveException extends RuntimeException {
+public final class ConstructorSignatures {
+
+    /**
+     * A signature of a constructor.
+     */
+    public static final Class[] EXCEPTION_CONSTRUCTOR1 = new Class[] { String.class };
+
+    /**
+     * A signature of a constructor.
+     */
+    public static final Class[] EXCEPTION_CONSTRUCTOR2 = new Class[] { Throwable.class };
+
+    /**
+     * A signature of a constructor.
+     */
+    public static final Class[] EXCEPTION_CONSTRUCTOR3 = new Class[] { String.class, Throwable.class };
 
     /**
      * The default constructor.
      */
-    public ArchiveException() {
+    private ConstructorSignatures() {
 
-        super();
-    }
-
-    /**
-     * Creates a new exception.
-     *
-     * @param aMessage
-     */
-    public ArchiveException(String aMessage) {
-
-        super(checkExceptionMessage(aMessage));
-    }
-
-    /**
-     * Creates a new exception.
-     *
-     * @param aCause
-     */
-    public ArchiveException(Throwable aCause) {
-
-        super(checkExceptionCause(aCause));
-    }
-
-    /**
-     * Creates a new exception.
-     *
-     * @param aMessage
-     * @param aCause
-     */
-    public ArchiveException(String aMessage, Throwable aCause) {
-
-        super(checkExceptionMessage(aMessage), checkExceptionCause(aCause));
+        throw new UnsupportedOperationException();
     }
 
 }
