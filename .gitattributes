@@ -6,22 +6,22 @@
 
 # Java source files and properties
 
-*.java text
-*.properties text
+*.java cr
+*.properties cr
 
 
-# XML files
+# XML cr
 
-*.xml text
-*.configuration text
+*.xml cr
+*.configuration cr
 
 
 # JDeveloper project files
 
-*.jpr text
-*.jws text
+*.jpr cr
+*.jws cr
 
 
 # Documentation files
 
-*.md text
+*.md cr
