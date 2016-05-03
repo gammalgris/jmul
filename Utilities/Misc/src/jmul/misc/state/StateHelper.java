@@ -39,6 +39,8 @@ public final class StateHelper {
      * The default constructor.
      */
     private StateHelper() {
+
+        throw new UnsupportedOperationException();
     }
 
     /**
@@ -129,7 +131,7 @@ public final class StateHelper {
             buffer.append(" (-> ");
 
         } else {
-            
+
             return buffer.toString();
         }
 

@@ -24,7 +24,11 @@
 
 package jmul.io;
 
+
 import java.io.File;
+
+import static jmul.misc.checks.ParameterCheckHelper.checkExceptionMessage;
+import static jmul.misc.checks.ParameterCheckHelper.checkFileParameter;
 
 
 /**
@@ -35,49 +39,6 @@ import java.io.File;
 public class FileDeletionException extends RuntimeException {
 
     /**
-     * Constructs an exception.
-     *
-     * @param aCause
-     *        the cause for this exception
-     */
-    public FileDeletionException(Throwable aCause) {
-
-        super(aCause);
-    }
-
-    /**
-     * Constructs an exception.
-     *
-     * @param aMessage
-     *        an exception message
-     * @param aCause
-     *        the cause for this exception
-     */
-    public FileDeletionException(String aMessage, Throwable aCause) {
-
-        super(aMessage, aCause);
-    }
-
-    /**
-     * Constructs an exception.
-     *
-     * @param aMessage
-     *        an exception message
-     */
-    public FileDeletionException(String aMessage) {
-
-        super(aMessage);
-    }
-
-    /**
-     * The default constructor.
-     */
-    public FileDeletionException() {
-
-        super();
-    }
-
-    /**
      * Creates an exception.
      *
      * @param message
@@ -85,7 +46,23 @@ public class FileDeletionException extends RuntimeException {
      */
     public FileDeletionException(String message, File file) {
 
-        super(message + " : " + file.getAbsolutePath());
+        super(createMessage(message, file));
+    }
+
+    /**
+     * Creates an exception message according to the specified paremeters.
+     *
+     * @param message
+     * @param file
+     *
+     * @return an exception message
+     */
+    private static String createMessage(String message, File file) {
+
+        checkExceptionMessage(message);
+        checkFileParameter(file);
+
+        return message + " : " + file.getAbsolutePath();
     }
 
 }

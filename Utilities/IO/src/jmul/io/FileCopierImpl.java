@@ -33,6 +33,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
+import static jmul.misc.checks.ParameterCheckHelper.checkFileNameParameter;
+import static jmul.misc.checks.ParameterCheckHelper.checkFileParameter;
 import jmul.misc.exceptions.MultipleCausesException;
 
 
@@ -77,6 +79,9 @@ public class FileCopierImpl implements FileCopier {
     @Override
     public void copyFile(String aSourceFileName, String aDestinationFileName) throws CopyFileException {
 
+        checkFileNameParameter(aSourceFileName);
+        checkFileNameParameter(aDestinationFileName);
+
         copyFile(new File(aSourceFileName), new File(aDestinationFileName));
     }
 
@@ -92,6 +97,9 @@ public class FileCopierImpl implements FileCopier {
      */
     @Override
     public void copyFile(File aSourceFile, File aDestinationFile) throws CopyFileException {
+
+        checkFileParameter(aSourceFile);
+        checkFileParameter(aDestinationFile);
 
         CoupledStreams coupledStreams = createStreams(aSourceFile, aDestinationFile);
 
@@ -120,11 +128,16 @@ public class FileCopierImpl implements FileCopier {
                 break;
             }
 
-            endOfFile = (bytesRead == 0);
+            endOfFile = (bytesRead == -1);
+            if (endOfFile) {
+
+                break;
+            }
 
             try {
 
                 out.write(buffer, 0, bytesRead);
+                out.flush();
 
             } catch (IOException e) {
 
@@ -178,6 +191,7 @@ public class FileCopierImpl implements FileCopier {
 
         InputStream in = null;
 
+
         try {
 
             in = new FileInputStream(aSourceFile);
@@ -190,7 +204,7 @@ public class FileCopierImpl implements FileCopier {
 
 
         OutputStream out = null;
-        Throwable cause = null;
+        Throwable failure = null;
 
         try {
 
@@ -199,10 +213,11 @@ public class FileCopierImpl implements FileCopier {
         } catch (FileNotFoundException e) {
 
             String message = "Unable to create the destination file " + aDestinationFile + "!";
-            cause = e;
-            throw new CopyFileException(message, e);
+            failure = new CopyFileException(message, e);
+        }
 
-        } finally {
+
+        if (failure != null) {
 
             try {
 
@@ -212,16 +227,15 @@ public class FileCopierImpl implements FileCopier {
 
                 String message = "Unable to close streams after an error!";
 
-                if (cause == null) {
+                if (failure == null) {
 
                     throw new CopyFileException(message, e);
 
                 } else {
 
-                    throw new CopyFileException(message, new MultipleCausesException(cause, e));
+                    throw new CopyFileException(message, new MultipleCausesException(failure, e));
                 }
             }
-
         }
 
 

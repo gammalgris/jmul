@@ -27,6 +27,9 @@ package jmul.io;
 
 import java.io.IOException;
 
+import static jmul.misc.checks.ParameterCheckHelper.checkExceptionCause;
+import static jmul.misc.checks.ParameterCheckHelper.checkExceptionMessage;
+
 
 /**
  * This exception is thrown if an error occurs when working with coupled streams.
@@ -50,7 +53,7 @@ public class CoupledStreamsException extends IOException {
      */
     public CoupledStreamsException(String aMessage) {
 
-        super(aMessage);
+        super(checkExceptionMessage(aMessage));
     }
 
     /**
@@ -60,7 +63,7 @@ public class CoupledStreamsException extends IOException {
      */
     public CoupledStreamsException(Throwable aCause) {
 
-        super(aCause);
+        super(checkExceptionCause(aCause));
     }
 
     /**
@@ -71,7 +74,7 @@ public class CoupledStreamsException extends IOException {
      */
     public CoupledStreamsException(String aMessage, Throwable aCause) {
 
-        super(aMessage, aCause);
+        super(checkExceptionMessage(aMessage), checkExceptionCause(aCause));
     }
 
 }

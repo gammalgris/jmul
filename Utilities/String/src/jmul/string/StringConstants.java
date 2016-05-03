@@ -30,12 +30,17 @@ package jmul.string;
  *
  * @author Kristian Kutin
  */
-public final class Constants {
+public final class StringConstants {
 
     /**
      * A separator character.
      */
     public static final String COMMA = ",";
+
+    /**
+     * An empty string.
+     */
+    public static final String EMPTY_STRING = "";
 
     /**
      * The file separator which is used under the current operating system (e.g.
@@ -49,9 +54,19 @@ public final class Constants {
     public static final String NEW_LINE = System.getProperty("line.separator");
 
     /**
-     * An empty string.
+     * A new line character.
      */
-    public static final String EMPTY_STRING = "";
+    public static final String NEW_LINE_UNIX = "\n";
+
+    /**
+     * A new line character.
+     */
+    public static final String NEW_LINE_WINDOWS = "\r\n";
+
+    /**
+     * A separator character.
+     */
+    public static final String POINT = ".";
 
     /**
      * A slash character.
@@ -61,7 +76,7 @@ public final class Constants {
     /**
      * The default constructor.
      */
-    private Constants() {
+    private StringConstants() {
 
         throw new UnsupportedOperationException();
     }

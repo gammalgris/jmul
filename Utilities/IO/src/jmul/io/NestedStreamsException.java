@@ -27,6 +27,9 @@ package jmul.io;
 
 import java.io.IOException;
 
+import static jmul.misc.checks.ParameterCheckHelper.checkExceptionCause;
+import static jmul.misc.checks.ParameterCheckHelper.checkExceptionMessage;
+
 
 /**
  * This exception is thrown if closing nested streams was not successful.
@@ -50,7 +53,7 @@ public class NestedStreamsException extends IOException {
      */
     public NestedStreamsException(String aMessage) {
 
-        super(aMessage);
+        super(checkExceptionMessage(aMessage));
     }
 
     /**
@@ -60,7 +63,7 @@ public class NestedStreamsException extends IOException {
      */
     public NestedStreamsException(Throwable aCause) {
 
-        super(aCause);
+        super(checkExceptionCause(aCause));
     }
 
     /**
@@ -71,7 +74,7 @@ public class NestedStreamsException extends IOException {
      */
     public NestedStreamsException(String aMessage, Throwable aCause) {
 
-        super(aMessage, aCause);
+        super(checkExceptionMessage(aMessage), checkExceptionCause(aCause));
     }
 
 }

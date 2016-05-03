@@ -1,1 +1,27 @@
+
+# Batch scripts
+
 *.bat eol=crlf
+
+
+# Java source files and properties
+
+*.java text
+*.properties text
+
+
+# XML files
+
+*.xml text
+*.configuration text
+
+
+# JDeveloper project files
+
+*.jpr text
+*.jws text
+
+
+# Documentation files
+
+*.md text

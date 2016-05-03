@@ -187,8 +187,7 @@ public final class FileHelper {
 
         if (!aFile.delete()) {
 
-            StringConcatenator message = new StringConcatenator("Failed to delete file ", aFile, "!");
-            throw new FileDeletionException(message.toString());
+            throw new FileDeletionException("Failed to delete file!", aFile);
         }
     }
 

@@ -22,49 +22,27 @@
  * e-mail: kristian.kutin@arcor.de
  */
 
-package test.jmul.exception;
-
-import java.io.File;
+package jmul.misc.exceptions;
 
 
 /**
- * This class contains signatures for various constructors.
+ * An exception which is derived from {@link java.lang.IllegalArgumentException}.
  *
  * @author Kristian Kutin
  */
-public final class ConstructorSignatures {
+public class NullFileParameterException extends IllegalArgumentException {
 
     /**
-     * A signature of a constructor.
+     * The default message for this kind of exception.
      */
-    public static final Class[] DEFAULT_CONSTRUCTOR = new Class[] { };
-
-    /**
-     * A signature of a constructor.
-     */
-    public static final Class[] MESSAGE_CONSTRUCTOR = new Class[] { String.class };
-
-    /**
-     * A signature of a constructor.
-     */
-    public static final Class[] CAUSE_CONSTRUCTOR = new Class[] { Throwable.class };
-
-    /**
-     * A signature of a constructor.
-     */
-    public static final Class[] MESSAGE_CAUSE_CONSTRUCTOR = new Class[] { String.class, Throwable.class };
-
-    /**
-     * A signature of a constructor.
-     */
-    public static final Class[] MESSAGE_FILE_CONSTRUCTOR = new Class[] { String.class, File.class };
+    private static final String DEFAULT_MESSAGE = "No parameter (null) has been specified!";
 
     /**
      * The default constructor.
      */
-    private ConstructorSignatures() {
+    public NullFileParameterException() {
 
-        throw new UnsupportedOperationException();
+        super(DEFAULT_MESSAGE);
     }
 
 }

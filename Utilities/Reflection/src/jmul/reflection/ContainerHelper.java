@@ -29,7 +29,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.ResourceBundle;
-import static jmul.string.Constants.COMMA;
+import static jmul.string.StringConstants.COMMA;
 import jmul.reflection.classes.ClassDefinition;
 import jmul.reflection.classes.ClassHelper;
 import jmul.string.StringConcatenator;

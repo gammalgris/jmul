@@ -24,9 +24,13 @@
 
 package jmul.misc.checks;
 
+
+import java.io.File;
+
 import jmul.misc.exceptions.EmptyArrayParameterException;
 import jmul.misc.exceptions.EmptyStringParameterException;
 import jmul.misc.exceptions.NullArrayParameterException;
+import jmul.misc.exceptions.NullFileParameterException;
 import jmul.misc.exceptions.NullParameterException;
 
 
@@ -50,7 +54,7 @@ public final class ParameterCheckHelper {
      *
      * @param aMessage
      *
-     * @return the message
+     * @return the specified message
      *
      * @throws IllegalArgumentException
      *         is thrown if the specified parameter is invalid
@@ -75,7 +79,7 @@ public final class ParameterCheckHelper {
      *
      * @param aCause
      *
-     * @return a throwable
+     * @return the specified cause
      *
      * @throws IllegalArgumentException
      *         is thrown if the specified parameter is invalid
@@ -95,7 +99,7 @@ public final class ParameterCheckHelper {
      *
      * @param someCauses
      *
-     * @return some throwables
+     * @return the specified causes
      *
      * @throws IllegalArgumentException
      *         is thrown if the specified parameter is invalid
@@ -113,6 +117,55 @@ public final class ParameterCheckHelper {
         }
 
         return someCauses;
+    }
+
+    /**
+     * Checks the specified parameter.
+     *
+     * @param aFile
+     *
+     * @return the specified file
+     *
+     * @throws IllegalArgumentException
+     *         is thrown if the specified parameter is invalid
+     */
+    public static File checkFileParameter(File aFile) {
+
+        if (aFile == null) {
+
+            throw new NullFileParameterException();
+        }
+
+        return aFile;
+    }
+
+    /**
+     * Checks the specified parameter.
+     *
+     * @param aFileName
+     *
+     * @throws IllegalArgumentException
+     *         if the specified parameter is invalid
+     */
+    public static void checkFileNameParameter(String aFileName) {
+
+        if (aFileName == null) {
+
+            String message = "No file name (null) has been specified!";
+            throw new IllegalArgumentException(message);
+        }
+
+        if (aFileName.trim().isEmpty()) {
+
+            String message = "No file name (empty string) has been specified!";
+            throw new IllegalArgumentException(message);
+        }
+
+        if (!aFileName.equals(aFileName.trim())) {
+
+            String message = "The file name (\"" + aFileName + "\") contains leading or trailing spaces!";
+            throw new IllegalArgumentException(message);
+        }
     }
 
 }

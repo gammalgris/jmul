@@ -34,9 +34,10 @@ import java.util.Enumeration;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
-import static jmul.string.Constants.FILE_SEPARATOR;
-import static jmul.string.Constants.SLASH;
-import jmul.string.StringConcatenator;
+import static jmul.misc.checks.ParameterCheckHelper.checkFileNameParameter;
+
+import static jmul.string.StringConstants.FILE_SEPARATOR;
+import static jmul.string.StringConstants.SLASH;
 
 
 /**
@@ -227,7 +228,7 @@ public final class ArchiveEntry {
      */
     public static Collection<ArchiveEntry> scanArchive(String anArchiveName) {
 
-        checkParameter(anArchiveName);
+        checkFileNameParameter(anArchiveName);
 
         try {
 
@@ -249,36 +250,6 @@ public final class ArchiveEntry {
 
             String message = "Invalid zip file: " + anArchiveName + "!";
             throw new IllegalArgumentException(message, e);
-        }
-    }
-
-    /**
-     * Checks the specified parameter.
-     *
-     * @param aFilename
-     *
-     * @throws IllegalArgumentException
-     *         if the specified parameter is invalid
-     */
-    private static void checkParameter(String aFilename) {
-
-        if (aFilename == null) {
-
-            String message = "No file name (null) has been specified!";
-            throw new IllegalArgumentException(message);
-        }
-
-        if (aFilename.trim().isEmpty()) {
-
-            String message = "No file name (empty string) has been specified!";
-            throw new IllegalArgumentException(message);
-        }
-
-        if (!aFilename.equals(aFilename.trim())) {
-
-            StringConcatenator message =
-                new StringConcatenator("The file name (\"", aFilename, "\") contains leading or trailing spaces!");
-            throw new IllegalArgumentException(String.valueOf(message));
         }
     }
 

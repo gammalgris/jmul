@@ -32,7 +32,7 @@ import jmul.misc.exceptions.EmptyStringParameterException;
 import jmul.misc.exceptions.NullArrayParameterException;
 import jmul.misc.exceptions.NullParameterException;
 
-import static jmul.string.Constants.EMPTY_STRING;
+import static jmul.string.StringConstants.EMPTY_STRING;
 
 
 /**

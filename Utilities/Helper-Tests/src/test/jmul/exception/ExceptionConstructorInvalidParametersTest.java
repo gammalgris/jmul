@@ -25,12 +25,20 @@
 package test.jmul.exception;
 
 
+import java.io.File;
+
 import java.lang.reflect.InvocationTargetException;
 
 import java.util.ArrayList;
 import java.util.Collection;
 
 import jmul.io.ArchiveException;
+import jmul.io.CopyFileException;
+import jmul.io.CoupledStreamsException;
+import jmul.io.FileDeletionException;
+import jmul.io.NestedStreamsException;
+
+import jmul.misc.exceptions.InitializationException;
 
 import jmul.string.UnknownPlaceholderException;
 import jmul.string.UnresolvedPlaceholderException;
@@ -130,82 +138,152 @@ public class ExceptionConstructorInvalidParametersTest {
         Collection<Object[]> parameters = new ArrayList<Object[]>();
 
 
-        parameters.add(new Object[] {
-                       new ConstructorInvoker(ArchiveException.class, ConstructorSignatures.EXCEPTION_CONSTRUCTOR1),
-                       new Object[] { null }
-        });
+        // Exceptions from package String
 
-        parameters.add(new Object[] {
-                       new ConstructorInvoker(ArchiveException.class, ConstructorSignatures.EXCEPTION_CONSTRUCTOR1),
-                       new Object[] { "" }
-        });
-
-        parameters.add(new Object[] {
-                       new ConstructorInvoker(ArchiveException.class, ConstructorSignatures.EXCEPTION_CONSTRUCTOR1),
-                       new Object[] { " " }
-        });
+        addMessageOnlyTestCases(parameters, UnresolvedPlaceholderException.class);
+        addMessageOnlyTestCases(parameters, UnknownPlaceholderException.class);
 
 
-        parameters.add(new Object[] {
-                       new ConstructorInvoker(ArchiveException.class, ConstructorSignatures.EXCEPTION_CONSTRUCTOR2),
-                       new Object[] { null }
-        });
+        // Exceptions from package Misc
+
+        addDefaultTestCases2(parameters, InitializationException.class);
+        addDefaultTestCases2(parameters, jmul.misc.exceptions.InstantiationException.class);
 
 
-        parameters.add(new Object[] {
-                       new ConstructorInvoker(ArchiveException.class, ConstructorSignatures.EXCEPTION_CONSTRUCTOR3),
-                       new Object[] { null, new RuntimeException() }
-        });
+        // Exceptions from package IO
 
-        parameters.add(new Object[] {
-                       new ConstructorInvoker(ArchiveException.class, ConstructorSignatures.EXCEPTION_CONSTRUCTOR3),
-                       new Object[] { "", new RuntimeException() }
-        });
-
-        parameters.add(new Object[] {
-                       new ConstructorInvoker(ArchiveException.class, ConstructorSignatures.EXCEPTION_CONSTRUCTOR3),
-                       new Object[] { " ", new RuntimeException() }
-        });
-
-        parameters.add(new Object[] {
-                       new ConstructorInvoker(ArchiveException.class, ConstructorSignatures.EXCEPTION_CONSTRUCTOR3),
-                       new Object[] { "Hello", null }
-        });
-
-
-        parameters.add(new Object[] {
-                       new ConstructorInvoker(UnresolvedPlaceholderException.class,
-                                              ConstructorSignatures.EXCEPTION_CONSTRUCTOR1), new Object[] { null }
-        });
-
-        parameters.add(new Object[] {
-                       new ConstructorInvoker(UnresolvedPlaceholderException.class,
-                                              ConstructorSignatures.EXCEPTION_CONSTRUCTOR1), new Object[] { "" }
-        });
-
-        parameters.add(new Object[] {
-                       new ConstructorInvoker(UnresolvedPlaceholderException.class,
-                                              ConstructorSignatures.EXCEPTION_CONSTRUCTOR1), new Object[] { " " }
-        });
-
-
-        parameters.add(new Object[] {
-                       new ConstructorInvoker(UnknownPlaceholderException.class,
-                                              ConstructorSignatures.EXCEPTION_CONSTRUCTOR1), new Object[] { null }
-        });
-
-        parameters.add(new Object[] {
-                       new ConstructorInvoker(UnknownPlaceholderException.class,
-                                              ConstructorSignatures.EXCEPTION_CONSTRUCTOR1), new Object[] { "" }
-        });
-
-        parameters.add(new Object[] {
-                       new ConstructorInvoker(UnknownPlaceholderException.class,
-                                              ConstructorSignatures.EXCEPTION_CONSTRUCTOR1), new Object[] { " " }
-        });
+        addDefaultTestCases(parameters, ArchiveException.class);
+        addDefaultTestCases(parameters, CopyFileException.class);
+        addDefaultTestCases(parameters, CoupledStreamsException.class);
+        addFileDeletionExceptionTestCases(parameters);
+        addDefaultTestCases(parameters, NestedStreamsException.class);
 
 
         return parameters;
+    }
+
+    /**
+     * Adds test cases according for the specified exception class.
+     *
+     * @param someParameters
+     * @param anExceptionClass
+     */
+    private static void addDefaultTestCases(Collection<Object[]> someParameters, Class anExceptionClass) {
+
+        addMessageOnlyTestCases(someParameters, anExceptionClass);
+        addCauseOnlyTestCases(someParameters, anExceptionClass);
+        addMessageCauseCombinationsTestCases(someParameters, anExceptionClass);
+    }
+
+    /**
+     * Adds test cases according for the specified exception class.
+     *
+     * @param someParameters
+     * @param anExceptionClass
+     */
+    private static void addDefaultTestCases2(Collection<Object[]> someParameters, Class anExceptionClass) {
+
+        addMessageOnlyTestCases(someParameters, anExceptionClass);
+        addMessageCauseCombinationsTestCases(someParameters, anExceptionClass);
+    }
+
+    /**
+     * Adds test cases according for the specified exception class.
+     *
+     * @param someParameters
+     * @param anExceptionClass
+     */
+    private static void addMessageOnlyTestCases(Collection<Object[]> someParameters, Class anExceptionClass) {
+
+        someParameters.add(new Object[] {
+                           new ConstructorInvoker(anExceptionClass, ConstructorSignatures.MESSAGE_CONSTRUCTOR),
+                           new Object[] { null }
+        });
+
+        someParameters.add(new Object[] {
+                           new ConstructorInvoker(anExceptionClass, ConstructorSignatures.MESSAGE_CONSTRUCTOR),
+                           new Object[] { "" }
+        });
+
+        someParameters.add(new Object[] {
+                           new ConstructorInvoker(anExceptionClass, ConstructorSignatures.MESSAGE_CONSTRUCTOR),
+                           new Object[] { " " }
+        });
+    }
+
+    /**
+     * Adds test cases according for the specified exception class.
+     *
+     * @param someParameters
+     * @param anExceptionClass
+     */
+    private static void addCauseOnlyTestCases(Collection<Object[]> someParameters, Class anExceptionClass) {
+
+        someParameters.add(new Object[] {
+                           new ConstructorInvoker(anExceptionClass, ConstructorSignatures.CAUSE_CONSTRUCTOR),
+                           new Object[] { null }
+        });
+    }
+
+    /**
+     * Adds test cases according for the specified exception class.
+     *
+     * @param someParameters
+     * @param anExceptionClass
+     */
+    private static void addMessageCauseCombinationsTestCases(Collection<Object[]> someParameters,
+                                                             Class anExceptionClass) {
+
+        someParameters.add(new Object[] {
+                           new ConstructorInvoker(anExceptionClass, ConstructorSignatures.MESSAGE_CAUSE_CONSTRUCTOR),
+                           new Object[] { null, new RuntimeException() }
+        });
+
+        someParameters.add(new Object[] {
+                           new ConstructorInvoker(anExceptionClass, ConstructorSignatures.MESSAGE_CAUSE_CONSTRUCTOR),
+                           new Object[] { "", new RuntimeException() }
+        });
+
+        someParameters.add(new Object[] {
+                           new ConstructorInvoker(anExceptionClass, ConstructorSignatures.MESSAGE_CAUSE_CONSTRUCTOR),
+                           new Object[] { " ", new RuntimeException() }
+        });
+
+        someParameters.add(new Object[] {
+                           new ConstructorInvoker(anExceptionClass, ConstructorSignatures.MESSAGE_CAUSE_CONSTRUCTOR),
+                           new Object[] { "Hello", null }
+        });
+    }
+
+    /**
+     * Adds test cases for a specific exception.
+     *
+     * @param someParameters
+     */
+    private static void addFileDeletionExceptionTestCases(Collection<Object[]> someParameters) {
+
+        Class exceptionClass = FileDeletionException.class;
+
+        someParameters.add(new Object[] {
+                           new ConstructorInvoker(exceptionClass, ConstructorSignatures.MESSAGE_FILE_CONSTRUCTOR),
+                           new Object[] { null, new File("test.txt") }
+        });
+
+        someParameters.add(new Object[] {
+                           new ConstructorInvoker(exceptionClass, ConstructorSignatures.MESSAGE_FILE_CONSTRUCTOR),
+                           new Object[] { "", new File("test.txt") }
+        });
+
+        someParameters.add(new Object[] {
+                           new ConstructorInvoker(exceptionClass, ConstructorSignatures.MESSAGE_FILE_CONSTRUCTOR),
+                           new Object[] { " ", new File("test.txt") }
+        });
+
+        someParameters.add(new Object[] {
+                           new ConstructorInvoker(exceptionClass, ConstructorSignatures.MESSAGE_FILE_CONSTRUCTOR),
+                           new Object[] { "Hello", null }
+        });
+
     }
 
 }

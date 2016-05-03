@@ -32,7 +32,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static jmul.string.Constants.NEW_LINE;
+import static jmul.string.StringConstants.NEW_LINE;
 
 
 /**

@@ -32,7 +32,7 @@ import java.util.Collections;
 import jmul.misc.exceptions.EmptyArrayParameterException;
 import jmul.misc.exceptions.NullArrayParameterException;
 
-import static jmul.string.Constants.NEW_LINE;
+import static jmul.string.StringConstants.NEW_LINE;
 import jmul.string.StringConcatenator;
 
 

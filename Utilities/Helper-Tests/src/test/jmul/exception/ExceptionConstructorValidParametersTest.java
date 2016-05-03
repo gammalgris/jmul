@@ -25,12 +25,27 @@
 package test.jmul.exception;
 
 
+import java.io.File;
+
 import java.lang.reflect.InvocationTargetException;
 
 import java.util.ArrayList;
 import java.util.Collection;
 
 import jmul.io.ArchiveException;
+import jmul.io.CopyFileException;
+import jmul.io.CoupledStreamsException;
+import jmul.io.FileDeletionException;
+import jmul.io.NestedStreamsException;
+
+import jmul.misc.exceptions.EmptyArrayParameterException;
+import jmul.misc.exceptions.EmptyStringParameterException;
+import jmul.misc.exceptions.InitializationException;
+import jmul.misc.exceptions.NullArrayParameterException;
+import jmul.misc.exceptions.NullFileParameterException;
+import jmul.misc.exceptions.NullParameterException;
+import jmul.misc.state.IllegalStateTransitionException;
+import jmul.misc.state.UnknownStateException;
 
 import jmul.string.UnknownPlaceholderException;
 import jmul.string.UnresolvedPlaceholderException;
@@ -145,11 +160,7 @@ public class ExceptionConstructorValidParametersTest {
 
             String expectedMessage = getMessage();
 
-            if (expectedMessage == null) {
-
-                assertEquals("check exception message", String.valueOf(getCause()), e.getMessage());
-
-            } else {
+            if (expectedMessage != null) {
 
                 assertEquals("check exception message", getMessage(), e.getMessage());
             }
@@ -185,35 +196,135 @@ public class ExceptionConstructorValidParametersTest {
         Collection<Object[]> parameters = new ArrayList<Object[]>();
 
 
-        parameters.add(new Object[] {
-                       new ConstructorInvoker(ArchiveException.class, ConstructorSignatures.EXCEPTION_CONSTRUCTOR1),
-                       new Object[] { "Hello" }
-        });
+        // Exceptions from package String
 
-        parameters.add(new Object[] {
-                       new ConstructorInvoker(ArchiveException.class, ConstructorSignatures.EXCEPTION_CONSTRUCTOR2),
-                       new Object[] { new RuntimeException() }
-        });
-
-        parameters.add(new Object[] {
-                       new ConstructorInvoker(ArchiveException.class, ConstructorSignatures.EXCEPTION_CONSTRUCTOR3),
-                       new Object[] { "Hello", new RuntimeException() }
-        });
+        addMessageOnlyTestCases(parameters, UnresolvedPlaceholderException.class);
+        addMessageOnlyTestCases(parameters, UnknownPlaceholderException.class);
 
 
-        parameters.add(new Object[] {
-                       new ConstructorInvoker(UnresolvedPlaceholderException.class,
-                                              ConstructorSignatures.EXCEPTION_CONSTRUCTOR1), new Object[] { "Hello" }
-        });
+        // Exceptions from package Misc
+
+        addDefaultConstructorTestCase(parameters, EmptyArrayParameterException.class);
+        addDefaultConstructorTestCase(parameters, EmptyStringParameterException.class);
+        addDefaultTestCases2(parameters, InitializationException.class);
+        addDefaultTestCases2(parameters, jmul.misc.exceptions.InstantiationException.class);
+        //MultipleCausesException is not handled here
+        addDefaultConstructorTestCase(parameters, NullArrayParameterException.class);
+        addDefaultConstructorTestCase(parameters, NullFileParameterException.class);
+        addDefaultConstructorTestCase(parameters, NullParameterException.class);
+        addDefaultTestCases(parameters, IllegalStateTransitionException.class);
+        addDefaultTestCases(parameters, UnknownStateException.class);
 
 
-        parameters.add(new Object[] {
-                       new ConstructorInvoker(UnknownPlaceholderException.class,
-                                              ConstructorSignatures.EXCEPTION_CONSTRUCTOR1), new Object[] { "Hello" }
-        });
+        // Exception from Package IO
+
+        addDefaultTestCases(parameters, ArchiveException.class);
+        addDefaultTestCases(parameters, CopyFileException.class);
+        addDefaultTestCases(parameters, CoupledStreamsException.class);
+        addFileDeletionExceptionTestCases(parameters);
+        addDefaultTestCases(parameters, NestedStreamsException.class);
 
 
         return parameters;
+    }
+
+    /**
+     * Adds testcases according for the specified exception class.
+     *
+     * @param someParameters
+     * @param anExceptionClass
+     */
+    private static void addDefaultTestCases(Collection<Object[]> someParameters, Class anExceptionClass) {
+
+        addDefaultConstructorTestCase(someParameters, anExceptionClass);
+        addMessageOnlyTestCases(someParameters, anExceptionClass);
+        addCauseOnlyTestCases(someParameters, anExceptionClass);
+        addMessageCauseCombinationsTestCases(someParameters, anExceptionClass);
+    }
+
+    /**
+     * Adds test cases according for the specified exception class.
+     *
+     * @param someParameters
+     * @param anExceptionClass
+     */
+    private static void addDefaultTestCases2(Collection<Object[]> someParameters, Class anExceptionClass) {
+
+        addMessageOnlyTestCases(someParameters, anExceptionClass);
+        addMessageCauseCombinationsTestCases(someParameters, anExceptionClass);
+    }
+
+    /**
+     * Adds test cases according for the specified exception class.
+     *
+     * @param someParameters
+     * @param anExceptionClass
+     */
+    private static void addDefaultConstructorTestCase(Collection<Object[]> someParameters, Class anExceptionClass) {
+
+        someParameters.add(new Object[] {
+                           new ConstructorInvoker(anExceptionClass, ConstructorSignatures.DEFAULT_CONSTRUCTOR),
+                           new Object[] { }
+        });
+    }
+
+    /**
+     * Adds test cases according for the specified exception class.
+     *
+     * @param someParameters
+     * @param anExceptionClass
+     */
+    private static void addMessageOnlyTestCases(Collection<Object[]> someParameters, Class anExceptionClass) {
+
+        someParameters.add(new Object[] {
+                           new ConstructorInvoker(anExceptionClass, ConstructorSignatures.MESSAGE_CONSTRUCTOR),
+                           new Object[] { "Hello" }
+        });
+    }
+
+    /**
+     * Adds test cases according for the specified exception class.
+     *
+     * @param someParameters
+     * @param anExceptionClass
+     */
+    private static void addCauseOnlyTestCases(Collection<Object[]> someParameters, Class anExceptionClass) {
+
+        someParameters.add(new Object[] {
+                           new ConstructorInvoker(anExceptionClass, ConstructorSignatures.CAUSE_CONSTRUCTOR),
+                           new Object[] { new RuntimeException() }
+        });
+    }
+
+    /**
+     * Adds test cases according for the specified exception class.
+     *
+     * @param someParameters
+     * @param anExceptionClass
+     */
+    private static void addMessageCauseCombinationsTestCases(Collection<Object[]> someParameters,
+                                                             Class anExceptionClass) {
+
+        someParameters.add(new Object[] {
+                           new ConstructorInvoker(anExceptionClass, ConstructorSignatures.MESSAGE_CAUSE_CONSTRUCTOR),
+                           new Object[] { "Hello", new RuntimeException() }
+        });
+    }
+
+    /**
+     * Adds test cases for a specific exception.
+     *
+     * @param someParameters
+     */
+    private static void addFileDeletionExceptionTestCases(Collection<Object[]> someParameters) {
+
+        Class exceptionClass = FileDeletionException.class;
+
+        someParameters.add(new Object[] {
+                           new ConstructorInvoker(exceptionClass, ConstructorSignatures.MESSAGE_FILE_CONSTRUCTOR),
+                           new Object[] { "Hello", new File("test.txt") }
+        });
+
     }
 
 }

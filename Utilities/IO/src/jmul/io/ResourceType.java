@@ -25,17 +25,15 @@
 package jmul.io;
 
 
+import static jmul.string.StringConstants.POINT;
+
+
 /**
  * A utility class which contains informations about a certain resource type.
  *
  * @author Kristian kutin
  */
 public class ResourceType {
-
-    /**
-     * A separator character.
-     */
-    private static final String SEPARATOR = ".";
 
     /**
      * The file suffix which is associated with this resource type.
@@ -71,7 +69,7 @@ public class ResourceType {
      */
     public String getFileSuffixWithSeparator() {
 
-        return SEPARATOR + getFileSuffix();
+        return POINT + getFileSuffix();
     }
 
     /**
