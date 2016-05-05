@@ -22,59 +22,47 @@
  * e-mail: kristian.kutin@arcor.de
  */
 
-package jmul.io;
+package test.jmul.helper;
 
 
-import java.io.IOException;
+import static jmul.misc.checks.ParameterCheckHelper.checkClass;
 
-import static jmul.misc.checks.ParameterCheckHelper.checkExceptionCause;
-import static jmul.misc.checks.ParameterCheckHelper.checkExceptionMessage;
+import static org.junit.Assert.fail;
 
 
 /**
- * This exception is thrown if an errors occurs while working with archives.
+ * A utility class for test failures.
  *
  * @author Kristian Kutin
  */
-public class ArchiveException extends IOException {
+public final class TestFailureHelper {
 
     /**
      * The default constructor.
      */
-    public ArchiveException() {
+    private TestFailureHelper() {
 
-        super();
+        throw new UnsupportedOperationException();
     }
 
     /**
-     * Creates a new exception.
+     * Fails the test with an apropriate message.
      *
-     * @param aMessage
+     * @param anException
      */
-    public ArchiveException(String aMessage) {
+    public static void failTest(Class anExpectedExceptionClass, Throwable theActualException) {
 
-        super(checkExceptionMessage(aMessage));
-    }
+        checkClass(anExpectedExceptionClass);
 
-    /**
-     * Creates a new exception.
-     *
-     * @param aCause
-     */
-    public ArchiveException(Throwable aCause) {
+        if (theActualException == null) {
 
-        super(checkExceptionCause(aCause));
-    }
+            fail("An exception was expected but none was thrown!");
 
-    /**
-     * Creates a new exception.
-     *
-     * @param aMessage
-     * @param aCause
-     */
-    public ArchiveException(String aMessage, Throwable aCause) {
+        } else {
 
-        super(checkExceptionMessage(aMessage), checkExceptionCause(aCause));
+            fail("expected exception: " + anExpectedExceptionClass.getClass() + "; actual exception: " +
+                 theActualException.getClass());
+        }
     }
 
 }

@@ -47,6 +47,11 @@ public final class ConstructorSignatures {
     /**
      * A signature of a constructor.
      */
+    public static final Class[] FILE_NAME_CONSTRUCTOR = MESSAGE_CONSTRUCTOR;
+
+    /**
+     * A signature of a constructor.
+     */
     public static final Class[] CAUSE_CONSTRUCTOR = new Class[] { Throwable.class };
 
     /**

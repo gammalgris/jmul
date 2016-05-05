@@ -186,10 +186,10 @@ public class CoupledStreamsImpl implements CoupledStreams {
 
         StringBuffer buffer = new StringBuffer();
 
-        for (String name : someCoupledExceptions.keySet()) {
+        for (Map.Entry<String, Throwable> entry : someCoupledExceptions.entrySet()) {
 
-            Closeable stream = getStream(name);
-            Throwable exception = someCoupledExceptions.get(name);
+            Closeable stream = getStream(entry.getKey());
+            Throwable exception = entry.getValue();
 
             buffer.append(stream.getClass().getName());
             if (exception == null) {

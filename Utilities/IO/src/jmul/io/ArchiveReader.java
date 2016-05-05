@@ -25,12 +25,16 @@
 package jmul.io;
 
 
+import java.io.Closeable;
+import java.io.IOException;
+
+
 /**
  * This interface describes a reader for archives (e.g. .zip files, .jar files).
  *
  * @author Kristian Kutin
  */
-public interface ArchiveReader {
+public interface ArchiveReader extends Closeable {
 
     /**
      * Loads the specified entry from the archive.
@@ -44,15 +48,6 @@ public interface ArchiveReader {
      *         The exception is thrown if an error occurs while reading from the
      *         specified archive.
      */
-    byte[] loadEntry(String anEntryName) throws ArchiveException;
-
-    /**
-     * Closes the specified archive.
-     *
-     * @throws ArchiveException
-     *         The exception is thrown if an error occurs while closing the
-     *         specified archive.
-     */
-    void closeArchive() throws ArchiveException;
+    byte[] loadEntry(String anEntryName) throws IOException;
 
 }

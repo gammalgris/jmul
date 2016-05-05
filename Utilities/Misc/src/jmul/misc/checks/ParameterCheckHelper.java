@@ -52,6 +52,26 @@ public final class ParameterCheckHelper {
     /**
      * Checks the specified parameter.
      *
+     * @param aClass
+     *
+     * @return the specified class
+     *
+     * @throws IllegalArgumentException
+     *         is thrown if the specified parameter is invalid
+     */
+    public static Class checkClass(Class aClass) {
+
+        if (aClass == null) {
+
+            throw new NullParameterException();
+        }
+
+        return aClass;
+    }
+
+    /**
+     * Checks the specified parameter.
+     *
      * @param aMessage
      *
      * @return the specified message

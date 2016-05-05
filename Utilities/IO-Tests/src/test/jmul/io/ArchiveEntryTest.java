@@ -27,6 +27,8 @@ package test.jmul.io;
 
 import java.io.IOException;
 
+import java.nio.charset.StandardCharsets;
+
 import java.util.Collection;
 
 import jmul.io.ArchiveEntry;
@@ -115,7 +117,7 @@ public class ArchiveEntryTest {
         byte[] data = entry.getData();
 
         String expectedLine = "key1=hello\r\n";
-        String actualLine = new String(data, "UTF-8");
+        String actualLine = new String(data, StandardCharsets.UTF_8);
         assertEquals(expectedLine, actualLine);
     }
 

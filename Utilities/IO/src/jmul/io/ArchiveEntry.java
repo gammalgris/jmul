@@ -175,7 +175,14 @@ public final class ArchiveEntry {
         boolean wasLoaded = (data != null);
         if (!wasLoaded) {
 
-            data = loadResource(getArchiveName(), getName());
+            try {
+
+                data = loadResource(getArchiveName(), getName());
+
+            } catch (IOException e) {
+
+                throw new RuntimeException(e);
+            }
         }
 
         return data;
@@ -191,8 +198,11 @@ public final class ArchiveEntry {
      *        the filename of the archive entry
      *
      * @return the raw content of this entry as byte array
+     *
+     * @throws IOException
+     *         is thrown if an error occurs when reading the archive.
      */
-    private static byte[] loadResource(String anArchiveFilename, String aResourceName) {
+    private static byte[] loadResource(String anArchiveFilename, String aResourceName) throws IOException {
 
         ArchiveReader reader = null;
         byte[] rawData = null;
@@ -211,7 +221,7 @@ public final class ArchiveEntry {
 
             if (reader != null) {
 
-                reader.closeArchive();
+                reader.close();
             }
         }
 

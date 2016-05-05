@@ -35,6 +35,8 @@ import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
+import static jmul.misc.checks.ParameterCheckHelper.checkFileNameParameter;
+
 
 /**
  * An implementation of an archive reader.
@@ -68,6 +70,8 @@ public class ArchiveReaderImpl implements ArchiveReader {
      */
     public ArchiveReaderImpl(String anArchiveName) throws FileNotFoundException {
 
+        checkFileNameParameter(anArchiveName);
+
         FileInputStream fis = new FileInputStream(anArchiveName);
         BufferedInputStream bis = new BufferedInputStream(fis);
         ZipInputStream zis = new ZipInputStream(bis);
@@ -90,6 +94,8 @@ public class ArchiveReaderImpl implements ArchiveReader {
      */
     @Override
     public byte[] loadEntry(String anEntryName) throws ArchiveException {
+
+        checkFileNameParameter(anEntryName);
 
         ZipInputStream zis = (ZipInputStream) nestedStreams.getOuterStream();
 
@@ -237,14 +243,14 @@ public class ArchiveReaderImpl implements ArchiveReader {
     }
 
     /**
-     * Closes the specified archive.
+     * Closes this archive.
      *
      * @throws ArchiveException
      *         The exception is thrown if an error occurs while closing the
      *         specified archive.
      */
     @Override
-    public void closeArchive() throws ArchiveException {
+    public void close() throws IOException {
 
         try {
 
