@@ -43,6 +43,8 @@ import java.util.ResourceBundle;
 public enum ResponseCodes {
 
 
+    NO_HTTP("NO_HTTP"),
+
     RC100("RC100"),
     RC101("RC101"),
     RC102("RC102"),
@@ -94,6 +96,7 @@ public enum ResponseCodes {
     RC428("RC428"),
     RC429("RC429"),
     RC431("RC431"),
+    RC451("RC451"),
 
     RC500("RC500"),
     RC501("RC501"),
