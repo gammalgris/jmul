@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+  <head>
+
+    <title>persisted_data_ structures_02</title>
+
+      <script src=".//google-code-prettify//run_prettify.js?autoload=true&amp;skin=sons-of-obsidian&amp;lang=css" defer="defer"></script>
+
+  </head>
+
+  <body bgcolor="Black">
+
+  <?prettify linenums=1?>
+    <pre class="prettyprint" id="quine">
+
+      public interface Person {
+
+        String getFirstName();
+
+        String getLastName();
+
+      }
+
+
+      public abstract class PersonBase implements Person {
+
+        ...
+
+      }
+
+
+      @RootNode(declaredType=Person.class)
+      public class PersonImpl extends PersonBase {
+
+        ...
+
+      }
+    </pre>
+
+  </body>
+
+</html>
