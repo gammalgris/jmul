@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project xmlns="antlib:org.apache.tools.ant" name="create-html">
+
+
+    <property name="project.dir" location="${basedir}\..\.." />
+
+    <property name="project.docs.dir" location="${project.dir}\Docs" />
+    <property name="project.html.dir" location="${project.dir}\HTML" />
+
+
+    <property name="project.lib.dir" location="${project.dir}\Libraries" />
+
+    <property name="project.lib.markdownj.dir" location="${project.lib.dir}\MarkdownJ" />
+    <property name="project.lib.markdownj.file" location="${project.lib.markdownj.dir}\markdownj.jar" />
+
+
+    <path id="markdownj.execution.classpath">
+        <pathelement location="${project.lib.markdownj.file}" />
+    </path>
+
+
+    <target name="clean">
+
+        <delete dir="${project.html.dir}" />
+        <mkdir dir="${project.html.dir}" />
+
+    </target>
+
+
+    <target name="build" depends="clean">
+        <java classname="org.markdownj.MarkdownProcessor" classpathref="markdownj.execution.classpath"
+            input="${project.docs.dir}\Character_Encoding.md"
+            output="${project.html.dir}\\Character_Encoding.html">
+        </java>
+        <java classname="org.markdownj.MarkdownProcessor" classpathref="markdownj.execution.classpath"
+            input="${project.docs.dir}\Directory_Structure.md"
+            output="${project.html.dir}\\Directory_Structure.html">
+        </java>
+        <java classname="org.markdownj.MarkdownProcessor" classpathref="markdownj.execution.classpath"
+            input="${project.docs.dir}\Infrastructure.md"
+            output="${project.html.dir}\\Infrastructure.html">
+        </java>
+        <java classname="org.markdownj.MarkdownProcessor" classpathref="markdownj.execution.classpath"
+            input="${project.docs.dir}\ReadMe.md"
+            output="${project.html.dir}\\ReadMe.html">
+        </java>
+        <java classname="org.markdownj.MarkdownProcessor" classpathref="markdownj.execution.classpath"
+            input="${project.docs.dir}\Scripts.md"
+            output="${project.html.dir}\\Scripts.html">
+        </java>
+        <java classname="org.markdownj.MarkdownProcessor" classpathref="markdownj.execution.classpath"
+            input="${project.docs.dir}\Tests.md"
+            output="${project.html.dir}\\Tests.html">
+        </java>
+        <java classname="org.markdownj.MarkdownProcessor" classpathref="markdownj.execution.classpath"
+            input="${project.docs.dir}\ToDo.md"
+            output="${project.html.dir}\\ToDo.html">
+        </java>
+        <java classname="org.markdownj.MarkdownProcessor" classpathref="markdownj.execution.classpath"
+            input="${project.docs.dir}\Tools.md"
+            output="${project.html.dir}\\Tools.html">
+        </java>
+        <java classname="org.markdownj.MarkdownProcessor" classpathref="markdownj.execution.classpath"
+            input="${project.docs.dir}\Versioning.md"
+            output="${project.html.dir}\\Versioning.html">
+        </java>
+    </target>
+
+</project>
