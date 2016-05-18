@@ -6,22 +6,32 @@
 
 # Java source files and properties
 
-*.java cr
-*.properties cr
+*.java eol=lf
+*.properties eol=lf
 
 
-# XML cr
+# XML
 
-*.xml cr
-*.configuration cr
+*.xml eol=lf
+*.configuration eol=lf
+*.units eol=lf
+
+
+# HTML and JavaScript
+
+*.html eol=lf
+*.htm eol=lf
+*.js eol=lf
+*.svg eol=lf
+*.css eol=lf
 
 
 # JDeveloper project files
 
-*.jpr cr
-*.jws cr
+*.jpr eol=lf
+*.jws eol=lf
 
 
 # Documentation files
 
-*.md cr
+*.md eol=lf
