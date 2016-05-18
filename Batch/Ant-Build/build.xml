@@ -19,6 +19,9 @@
             <fileset dir="${package.math.src.dir}">
                 <include name="**/*.java" />
             </fileset>
+            <fileset dir="${package.measures.src.dir}">
+                <include name="**/*.java" />
+            </fileset>
             <fileset dir="${package.misc.src.dir}">
                 <include name="**/*.java" />
             </fileset>
@@ -51,9 +54,12 @@
     <target name="copyResources">
 
         <copy todir="${project.tmp.cfg.dir}" overwrite="true">
+            <fileset dir="${package.measures.cfg.dir}">
+                <include name="**/*.properties" />
+                <include name="**/*.units" />
+            </fileset>
             <fileset dir="${package.network.cfg.dir}">
                 <include name="**/*.properties" />
-                <include name="**/*.configuration" />
             </fileset>
             <fileset dir="${package.persistence.cfg.dir}">
                 <include name="**/*.properties" />
@@ -61,7 +67,6 @@
             </fileset>
             <fileset dir="${package.reflection.cfg.dir}">
                 <include name="**/*.properties" />
-                <include name="**/*.configuration" />
             </fileset>
             <fileset dir="${package.transformation.cfg.dir}">
                 <include name="**/*.properties" />
@@ -69,7 +74,6 @@
             </fileset>
             <fileset dir="${package.version.cfg.dir}">
                 <include name="**/*.properties" />
-                <include name="**/*.configuration" />
             </fileset>
         </copy>
 

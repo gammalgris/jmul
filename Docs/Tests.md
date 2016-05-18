@@ -31,3 +31,16 @@ a functional view.
 
 By writing a custom test runner it's possible to filter the relevant tests for a specific
 view.
+
+Coding Conventions
+------------------
+
+Following coding conventions exist so far:
+
+1) The names of test classes should match '*Test.java'
+2) Test packages are always preceded by 'test.'
+
+The drawback with (2) is that classes with default or protected modifier cannot be seen.
+If it's important to test such a class then ignore (2). The rationale for this rule was
+to have the code and the corresponding tests separated even when provided within the
+same source directory.

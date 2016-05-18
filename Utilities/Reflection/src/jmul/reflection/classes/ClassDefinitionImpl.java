@@ -787,6 +787,7 @@ class ClassDefinitionImpl implements ClassDefinition {
      *
      * @return true, if this class equals the specified class, else false
      */
+    @Override
     public boolean equalsClass(ClassDefinition aClass) {
 
         // Check some plausibilities.

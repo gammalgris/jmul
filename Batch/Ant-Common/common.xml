@@ -32,6 +32,12 @@
     <property name="package.math-tests.dir" location="${packages.base.dir}\Math-Tests" />
     <property name="package.math-tests.src.dir" location="${package.math-tests.dir}\src" />
 
+    <property name="package.measures.dir" location="${packages.base.dir}\Measures" />
+    <property name="package.measures.src.dir" location="${package.measures.dir}\src" />
+    <property name="package.measures.cfg.dir" location="${package.measures.dir}\properties" />
+    <property name="package.measures-tests.dir" location="${packages.base.dir}\Measures-Tests" />
+    <property name="package.measures-tests.src.dir" location="${package.measures-tests.dir}\src" />
+
     <property name="package.misc.dir" location="${packages.base.dir}\Misc" />
     <property name="package.misc.src.dir" location="${package.misc.dir}\src" />
     <property name="package.misc-tests.dir" location="${packages.base.dir}\Misc-Tests" />
@@ -124,6 +130,9 @@
         <echo message="  package io src dir .......................... ${package.io.src.dir}" />
         <echo message="  package math dir ............................ ${package.math.dir}" />
         <echo message="  package math src dir ........................ ${package.math.src.dir}" />
+        <echo message="  package measures dir ........................ ${package.measures.dir}" />
+        <echo message="  package measures src dir .................... ${package.measures.src.dir}" />
+        <echo message="  package measures cfg dir .................... ${package.measures.cfg.dir}" />
         <echo message="  package misc dir ............................ ${package.network.dir}" />
         <echo message="  package misc src dir ........................ ${package.network.src.dir}" />
         <echo message="  package network dir ......................... ${package.network.dir}" />
@@ -152,6 +161,8 @@
         <echo message="  package io tests dir ........................ ${package.io-tests.dir}" />
         <echo message="  package io tests src dir .................... ${package.io-tests.src.dir}" />
         <echo message="  package io tests testdata creator ........... ${package.io-tests.testdata.creator}" />
+        <echo message="  package measures tests dir .................. ${package.measures-tests.dir}" />
+        <echo message="  package measures tests src dir .............. ${package.measures-tests.src.dir}" />
         <echo message="  package network tests dir ................... ${package.network-tests.dir}" />
         <echo message="  package network tests src dir ............... ${package.network-tests.src.dir}" />
         <echo message="  package string tests dir .................... ${package.string-tests.dir}" />

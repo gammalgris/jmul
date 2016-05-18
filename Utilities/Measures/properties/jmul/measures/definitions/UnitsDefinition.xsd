@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<xsd:schema
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xmlns="http://www.measures.org"
+    targetNamespace="http://www.measures.org"
+    elementFormDefault="qualified">
+
+    <xsd:simpleType name="NormalizedValueAttribute">
+        <xsd:restriction base="xsd:integer"/>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="CategoryAttribute">
+        <xsd:restriction base="xsd:string"/>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="NameAttribute">
+        <xsd:restriction base="xsd:string"/>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="AbbreviationAttribute">
+        <xsd:restriction base="xsd:string"/>
+    </xsd:simpleType>
+
+
+    <xsd:complexType name="DefinitionElement">
+        <xsd:sequence>
+            <xsd:element name="unit" type="UnitElement" minOccurs="1" maxOccurs="unbounded"/>
+        </xsd:sequence>
+        <xsd:attribute name="category" type="CategoryAttribute" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="UnitElement">
+        <xsd:attribute name="name" type="NameAttribute" use="required"/>
+        <xsd:attribute name="abbreviation" type="AbbreviationAttribute" use="required"/>
+        <xsd:attribute name="normalized-value" type="NormalizedValueAttribute" use="required"/>
+    </xsd:complexType>
+
+
+    <xsd:element name="definition" type="DefinitionElement"/>
+
+</xsd:schema>

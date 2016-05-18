@@ -58,7 +58,7 @@
       <string v="oracle.bm.commonIde.data.project.ModelerProjectSettings/modelersContentSet"/>
       <string v="oracle.toplink.workbench.addin/toplinkContentSet"/>
    </list>
-   <value n="defaultPackage" v="iotests"/>
+   <value n="defaultPackage" v="test.jmul.io"/>
    <hash n="oracle.ide.model.DependencyConfiguration">
       <list n="dependencyList">
          <hash>

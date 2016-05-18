@@ -58,7 +58,7 @@
       <string v="oracle.bm.commonIde.data.project.ModelerProjectSettings/modelersContentSet"/>
       <string v="oracle.toplink.workbench.addin/toplinkContentSet"/>
    </list>
-   <value n="defaultPackage" v="network"/>
+   <value n="defaultPackage" v="jmul.network"/>
    <hash n="oracle.ide.model.TechnologyScopeConfiguration">
       <list n="technologyScope">
          <string v="Java"/>
