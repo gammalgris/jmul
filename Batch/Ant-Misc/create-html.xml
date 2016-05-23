@@ -5,7 +5,10 @@
     <property name="project.dir" location="${basedir}\..\.." />
 
     <property name="project.docs.dir" location="${project.dir}\Docs" />
+
     <property name="project.html.dir" location="${project.dir}\HTML" />
+    <property name="project.manual.tmp.file" location="${project.html.dir}\manual.tmp.md" />
+    <property name="project.manual.final.file" location="${project.html.dir}\manual.html" />
 
 
     <property name="project.lib.dir" location="${project.dir}\Libraries" />
@@ -28,41 +31,16 @@
 
 
     <target name="build" depends="clean">
+
+        <concat destfile="${project.manual.tmp.file}" append="true">
+            <sort>
+                <fileset dir="${project.docs.dir}" includes="*.md" />
+            </sort>
+        </concat>
+
         <java classname="org.markdownj.MarkdownProcessor" classpathref="markdownj.execution.classpath"
-            input="${project.docs.dir}\Character_Encoding.md"
-            output="${project.html.dir}\\Character_Encoding.html">
-        </java>
-        <java classname="org.markdownj.MarkdownProcessor" classpathref="markdownj.execution.classpath"
-            input="${project.docs.dir}\Directory_Structure.md"
-            output="${project.html.dir}\\Directory_Structure.html">
-        </java>
-        <java classname="org.markdownj.MarkdownProcessor" classpathref="markdownj.execution.classpath"
-            input="${project.docs.dir}\Infrastructure.md"
-            output="${project.html.dir}\\Infrastructure.html">
-        </java>
-        <java classname="org.markdownj.MarkdownProcessor" classpathref="markdownj.execution.classpath"
-            input="${project.docs.dir}\ReadMe.md"
-            output="${project.html.dir}\\ReadMe.html">
-        </java>
-        <java classname="org.markdownj.MarkdownProcessor" classpathref="markdownj.execution.classpath"
-            input="${project.docs.dir}\Scripts.md"
-            output="${project.html.dir}\\Scripts.html">
-        </java>
-        <java classname="org.markdownj.MarkdownProcessor" classpathref="markdownj.execution.classpath"
-            input="${project.docs.dir}\Tests.md"
-            output="${project.html.dir}\\Tests.html">
-        </java>
-        <java classname="org.markdownj.MarkdownProcessor" classpathref="markdownj.execution.classpath"
-            input="${project.docs.dir}\ToDo.md"
-            output="${project.html.dir}\\ToDo.html">
-        </java>
-        <java classname="org.markdownj.MarkdownProcessor" classpathref="markdownj.execution.classpath"
-            input="${project.docs.dir}\Tools.md"
-            output="${project.html.dir}\\Tools.html">
-        </java>
-        <java classname="org.markdownj.MarkdownProcessor" classpathref="markdownj.execution.classpath"
-            input="${project.docs.dir}\Versioning.md"
-            output="${project.html.dir}\\Versioning.html">
+            input="${project.manual.tmp.file}"
+            output="${project.manual.final.file}">
         </java>
     </target>
 

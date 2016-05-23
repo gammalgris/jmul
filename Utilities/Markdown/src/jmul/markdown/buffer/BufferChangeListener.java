@@ -22,47 +22,22 @@
  * e-mail: kristian.kutin@arcor.de
  */
 
-package jmul.io;
-
-
-import java.io.Closeable;
-import java.io.IOException;
+package jmul.markdown.buffer;
 
 
 /**
- * This interface describes a utility entity for working with coupled streams (e.g. an input
- * and output stream) and handles various aspects (e.g. closing all streams in case of an
- * error to one stream).
+ * This interface describes a listener that is informed if a buffer has changed.
  *
  * @author Kristian Kutin
  */
-public interface CoupledStreams extends Closeable {
+public interface BufferChangeListener {
 
     /**
-     * Returns the stream which is associated with the specified name.
+     * The listener is informed if a buffer is changed.
      *
-     * @param aName
-     *
-     * @return a stream
+     * @param aBuffer
+     *        the buffer's actual content (including the change)
      */
-    Closeable getStream(String aName);
-
-    /**
-     * Returns the sum of all coupled streams.
-     *
-     * @return a sum
-     */
-    int getCoupledStreamCount();
-
-    /**
-     * Closes the streams after an error occurred on the specified stream.
-     *
-     * @param aName
-     *        the name of the stream where an error occurred
-     *
-     * @throws IOException
-     *         if an I/O error occurs
-     */
-    void closeOnError(String aName) throws IOException;
+    void informOnChange(String aBuffer);
 
 }

@@ -22,47 +22,35 @@
  * e-mail: kristian.kutin@arcor.de
  */
 
-package jmul.io;
+package jmul.markdown.converter;
 
 
-import java.io.Closeable;
-import java.io.IOException;
+import java.io.File;
 
 
 /**
- * This interface describes a utility entity for working with coupled streams (e.g. an input
- * and output stream) and handles various aspects (e.g. closing all streams in case of an
- * error to one stream).
+ * This interface describes an entity which converts the content of a text file.
  *
  * @author Kristian Kutin
  */
-public interface CoupledStreams extends Closeable {
+public interface TextConverter {
 
     /**
-     * Returns the stream which is associated with the specified name.
+     * The text content of the specified source file is converted and written
+     * to the specified output file.
      *
-     * @param aName
-     *
-     * @return a stream
+     * @param aSourceFileName
+     * @param anOutputFileName
      */
-    Closeable getStream(String aName);
+    void convert(String aSourceFileName, String anOutputFileName);
 
     /**
-     * Returns the sum of all coupled streams.
+     * The text content of the specified source file is converted and written
+     * to the specified output file.
      *
-     * @return a sum
+     * @param aSourceFile
+     * @param anOutputFile
      */
-    int getCoupledStreamCount();
-
-    /**
-     * Closes the streams after an error occurred on the specified stream.
-     *
-     * @param aName
-     *        the name of the stream where an error occurred
-     *
-     * @throws IOException
-     *         if an I/O error occurs
-     */
-    void closeOnError(String aName) throws IOException;
+    void convert(File aSourceFile, File anOutputFile);
 
 }

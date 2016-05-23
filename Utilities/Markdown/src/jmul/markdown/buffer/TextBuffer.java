@@ -22,47 +22,42 @@
  * e-mail: kristian.kutin@arcor.de
  */
 
-package jmul.io;
-
-
-import java.io.Closeable;
-import java.io.IOException;
+package jmul.markdown.buffer;
 
 
 /**
- * This interface describes a utility entity for working with coupled streams (e.g. an input
- * and output stream) and handles various aspects (e.g. closing all streams in case of an
- * error to one stream).
+ * This interface describes an entity that buffers text.
  *
  * @author Kristian Kutin
  */
-public interface CoupledStreams extends Closeable {
+public interface TextBuffer {
 
     /**
-     * Returns the stream which is associated with the specified name.
+     * Checks if the end of the input stream (e.g. a file) has been
+     * reached.
      *
-     * @param aName
-     *
-     * @return a stream
+     * @return <code>true</code> if the end of the input stream has benn
+     *         reached, else <code>false</code>
      */
-    Closeable getStream(String aName);
+    boolean hasReachedEOS();
 
     /**
-     * Returns the sum of all coupled streams.
-     *
-     * @return a sum
+     * Reads the next line from the input stream.
      */
-    int getCoupledStreamCount();
+    void readNextLine();
 
     /**
-     * Closes the streams after an error occurred on the specified stream.
+     * Adds the specified listener.
      *
-     * @param aName
-     *        the name of the stream where an error occurred
-     *
-     * @throws IOException
-     *         if an I/O error occurs
+     * @param aListener
      */
-    void closeOnError(String aName) throws IOException;
+    void addBufferChangeListener(BufferChangeListener aListener);
+
+    /**
+     * Removes the specified listener.
+     *
+     * @param aListener
+     */
+    void removeBufferChangeListener(BufferChangeListener aListener);
 
 }

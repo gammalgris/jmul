@@ -22,47 +22,23 @@
  * e-mail: kristian.kutin@arcor.de
  */
 
-package jmul.io;
-
-
-import java.io.Closeable;
-import java.io.IOException;
+package jmul.markdown.pattern;
 
 
 /**
- * This interface describes a utility entity for working with coupled streams (e.g. an input
- * and output stream) and handles various aspects (e.g. closing all streams in case of an
- * error to one stream).
+ * This interface describes an listener that is informed if a matching
+ * pattern has been identified.
  *
  * @author Kristian Kutin
  */
-public interface CoupledStreams extends Closeable {
+public interface PatternMatchListener {
 
     /**
-     * Returns the stream which is associated with the specified name.
+     * Informs this listener if a matching pattern was encountered.
      *
-     * @param aName
-     *
-     * @return a stream
+     * @param aRegex
+     * @param aMatch
      */
-    Closeable getStream(String aName);
-
-    /**
-     * Returns the sum of all coupled streams.
-     *
-     * @return a sum
-     */
-    int getCoupledStreamCount();
-
-    /**
-     * Closes the streams after an error occurred on the specified stream.
-     *
-     * @param aName
-     *        the name of the stream where an error occurred
-     *
-     * @throws IOException
-     *         if an I/O error occurs
-     */
-    void closeOnError(String aName) throws IOException;
+    void informOnMatch(String aRegex, String aMatch);
 
 }

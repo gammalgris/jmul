@@ -20,3 +20,4 @@ location | target | description
 ./Ant-Misc/clean.xml | clean | Cleans all temporary folders.
 ./Dos-Misc/clean.bat |  | Cleans the project directory. It's recommended to use this script prior to checking in changes.
 ./Dos-Sonar/startSonar.bat |  | Starts a local instance of SonarQube.
+

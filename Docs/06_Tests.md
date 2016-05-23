@@ -44,3 +44,4 @@ The drawback with (2) is that classes with default or protected modifier cannot 
 If it's important to test such a class then ignore (2). The rationale for this rule was
 to have the code and the corresponding tests separated even when provided within the
 same source directory.
+

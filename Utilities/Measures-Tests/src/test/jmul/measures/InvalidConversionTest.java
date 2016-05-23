@@ -34,6 +34,8 @@ import jmul.measures.MeasurementUnit;
 
 import jmul.string.StringConcatenator;
 
+import jmul.test.classification.UnitTest;
+
 import org.junit.After;
 import static org.junit.Assert.assertEquals;
 import org.junit.Before;
@@ -47,6 +49,7 @@ import org.junit.runners.Parameterized;
  *
  * @author Kristian Kutin
  */
+@UnitTest
 @RunWith(Parameterized.class)
 public class InvalidConversionTest {
 

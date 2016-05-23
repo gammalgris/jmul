@@ -22,47 +22,57 @@
  * e-mail: kristian.kutin@arcor.de
  */
 
-package jmul.io;
+package jmul.markdown.converter;
 
 
-import java.io.Closeable;
-import java.io.IOException;
+import static jmul.misc.checks.ParameterCheckHelper.checkExceptionCause;
+import static jmul.misc.checks.ParameterCheckHelper.checkExceptionMessage;
 
 
 /**
- * This interface describes a utility entity for working with coupled streams (e.g. an input
- * and output stream) and handles various aspects (e.g. closing all streams in case of an
- * error to one stream).
+ * The exception is thrown if errors occur during the conversion of texts.
  *
  * @author Kristian Kutin
  */
-public interface CoupledStreams extends Closeable {
+public class TextConverterException extends RuntimeException {
 
     /**
-     * Returns the stream which is associated with the specified name.
-     *
-     * @param aName
-     *
-     * @return a stream
+     * The default constructor.
      */
-    Closeable getStream(String aName);
+    public TextConverterException() {
+
+        super();
+    }
 
     /**
-     * Returns the sum of all coupled streams.
+     * Creates a new exception.
      *
-     * @return a sum
+     * @param aMessage
      */
-    int getCoupledStreamCount();
+    public TextConverterException(String aMessage) {
+
+        super(checkExceptionMessage(aMessage));
+    }
 
     /**
-     * Closes the streams after an error occurred on the specified stream.
+     * Creates a new exception.
      *
-     * @param aName
-     *        the name of the stream where an error occurred
-     *
-     * @throws IOException
-     *         if an I/O error occurs
+     * @param aCause
      */
-    void closeOnError(String aName) throws IOException;
+    public TextConverterException(Throwable aCause) {
+
+        super(checkExceptionCause(aCause));
+    }
+
+    /**
+     * Creates a new exception.
+     *
+     * @param aMessage
+     * @param aCause
+     */
+    public TextConverterException(String aMessage, Throwable aCause) {
+
+        super(checkExceptionMessage(aMessage), checkExceptionCause(aCause));
+    }
 
 }

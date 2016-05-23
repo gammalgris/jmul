@@ -36,7 +36,7 @@ import static jmul.string.StringConstants.NEW_LINE;
 
 
 /**
- * An implementation of coupled streams.
+ * An implementation of {@link jmul.io.CoupledStreams}.
  *
  * @author Kristian Kutin
  */

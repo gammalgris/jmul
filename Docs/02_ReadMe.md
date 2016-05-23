@@ -1,3 +1,4 @@
+
 Read Me
 =======
 
@@ -23,3 +24,4 @@ structure requires changing the scripts.
 
 The file .\Links\Links.html contains various useful links (e.g. local SonarQube instance, reports,
 etc.).
+

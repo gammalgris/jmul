@@ -44,33 +44,35 @@ exit /b 0
 
 	set projectDir=%~dp0..\..\Utilities\
 
-	set directory.length=23
+	set directory.length=25
 
 	set directory[1]=%projectDir%.data\
 	set directory[2]=%projectDir%Concurrent\classes\
 	set directory[3]=%projectDir%IO\classes\
 	set directory[4]=%projectDir%IO-Tests\classes\
-	set directory[5]=%projectDir%Math\classes\
-	set directory[6]=%projectDir%Math-Tests\classes\
-	set directory[7]=%projectDir%Measures\classes\
-	set directory[8]=%projectDir%Measures-Tests\classes\
-	set directory[9]=%projectDir%Misc\classes\
-	set directory[10]=%projectDir%Misc-Tests\classes\
-	set directory[11]=%projectDir%Network\classes\
-	set directory[12]=%projectDir%Network-Tests\classes\
-	set directory[13]=%projectDir%Persistence\classes\
-	set directory[14]=%projectDir%Reflection\classes\
-	set directory[15]=%projectDir%String\classes\
-	set directory[16]=%projectDir%String-Tests\classes\
-	set directory[17]=%projectDir%Test\classes\
-	set directory[18]=%projectDir%Transformation\classes\
-	set directory[19]=%projectDir%XML\classes\
+	set directory[5]=%projectDir%Markdown\classes\
+	set directory[6]=%projectDir%Markdown-Tests\classes\
+	set directory[7]=%projectDir%Math\classes\
+	set directory[8]=%projectDir%Math-Tests\classes\
+	set directory[9]=%projectDir%Measures\classes\
+	set directory[10]=%projectDir%Measures-Tests\classes\
+	set directory[11]=%projectDir%Misc\classes\
+	set directory[12]=%projectDir%Misc-Tests\classes\
+	set directory[13]=%projectDir%Network\classes\
+	set directory[14]=%projectDir%Network-Tests\classes\
+	set directory[15]=%projectDir%Persistence\classes\
+	set directory[16]=%projectDir%Reflection\classes\
+	set directory[17]=%projectDir%String\classes\
+	set directory[18]=%projectDir%String-Tests\classes\
+	set directory[19]=%projectDir%Test\classes\
+	set directory[20]=%projectDir%Transformation\classes\
+	set directory[21]=%projectDir%XML\classes\
 
-	set directory[20]=%projectDir%..\Batch\classes\
-	set directory[21]=%projectDir%..\Batch\Ant-Sonar\.sonar\
-	set directory[22]=%projectDir%..\tmp\
+	set directory[22]=%projectDir%..\Batch\classes\
+	set directory[23]=%projectDir%..\Batch\Ant-Sonar\.sonar\
+	set directory[24]=%projectDir%..\tmp\
 
-	set directory[23]=%projectDir%IO-Tests\testdata-io\
+	set directory[25]=%projectDir%IO-Tests\testdata-io\
 
 exit /b 0
 
