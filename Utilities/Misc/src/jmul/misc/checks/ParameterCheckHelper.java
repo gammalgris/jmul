@@ -30,7 +30,10 @@ import java.io.File;
 import jmul.misc.exceptions.EmptyArrayParameterException;
 import jmul.misc.exceptions.EmptyStringParameterException;
 import jmul.misc.exceptions.NullArrayParameterException;
+import jmul.misc.exceptions.NullClassParameterException;
+import jmul.misc.exceptions.NullFileNameParameterException;
 import jmul.misc.exceptions.NullFileParameterException;
+import jmul.misc.exceptions.NullListenerParameterException;
 import jmul.misc.exceptions.NullParameterException;
 
 
@@ -92,6 +95,31 @@ public final class ParameterCheckHelper {
         }
 
         return aMessage;
+    }
+
+    /**
+     * Checks the specified parameter.
+     *
+     * @param aString
+     *
+     * @return the specified string
+     *
+     * @throws IllegalArgumentException
+     *         is thrown if the specified parameter is invalid
+     */
+    public static String checkStringParameter(String aString) {
+
+        if (aString == null) {
+
+            throw new NullParameterException();
+        }
+
+        if (aString.trim().isEmpty()) {
+
+            throw new EmptyStringParameterException();
+        }
+
+        return aString;
     }
 
     /**
@@ -164,15 +192,16 @@ public final class ParameterCheckHelper {
      *
      * @param aFileName
      *
+     * @return the specified parameter
+     *
      * @throws IllegalArgumentException
      *         if the specified parameter is invalid
      */
-    public static void checkFileNameParameter(String aFileName) {
+    public static String checkFileNameParameter(String aFileName) {
 
         if (aFileName == null) {
 
-            String message = "No file name (null) has been specified!";
-            throw new IllegalArgumentException(message);
+            throw new NullFileNameParameterException();
         }
 
         if (aFileName.trim().isEmpty()) {
@@ -186,6 +215,63 @@ public final class ParameterCheckHelper {
             String message = "The file name (\"" + aFileName + "\") contains leading or trailing spaces!";
             throw new IllegalArgumentException(message);
         }
+
+        return aFileName;
+    }
+
+    /**
+     * Checks the specified listener.
+     *
+     * @param aListener
+     *
+     * @return the specified parameter
+     *
+     * @throws IllegalArgumentException
+     *         if the specified listener is invalid
+     */
+    public static Object checkListenerParameter(Object aListener) {
+
+        if (aListener == null) {
+
+            throw new NullListenerParameterException();
+        }
+
+        return aListener;
+    }
+
+    /**
+     * Checks the specified listener.
+     *
+     * @param aListenerClass
+     * @param aListener
+     *
+     * @return the specified parameter
+     *
+     * @throws IllegalArgumentException
+     *         if the specified listener is invalid
+     */
+    public static Object checkListenerParameter(Class aListenerClass, Object aListener) {
+
+        if (aListenerClass == null) {
+
+            throw new NullClassParameterException();
+        }
+
+        if (aListener == null) {
+
+            throw new NullListenerParameterException();
+        }
+
+        Class actualClass = aListener.getClass();
+        if (!aListenerClass.isAssignableFrom(actualClass)) {
+
+            String message =
+                "The specified listener (actual type: " + actualClass.getCanonicalName() +
+                ") is of an invalid type (expected type: " + aListenerClass.getCanonicalName() + ")!";
+            throw new IllegalArgumentException(message);
+        }
+
+        return aListener;
     }
 
 }

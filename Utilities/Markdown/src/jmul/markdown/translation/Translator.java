@@ -22,27 +22,17 @@
  * e-mail: kristian.kutin@arcor.de
  */
 
-package jmul.misc.exceptions;
+package jmul.markdown.translation;
 
 
 /**
- * An exception which is derived from {@link java.lang.IllegalArgumentException}.
+ * This interface describes an entity which translates text.
+ *
+ * TODO
+ * Missing operations
  *
  * @author Kristian Kutin
  */
-public class NullFileParameterException extends IllegalArgumentException {
-
-    /**
-     * The default message for this kind of exception.
-     */
-    private static final String DEFAULT_MESSAGE = "No file (null) has been specified!";
-
-    /**
-     * The default constructor.
-     */
-    public NullFileParameterException() {
-
-        super(DEFAULT_MESSAGE);
-    }
+public interface Translator {
 
 }

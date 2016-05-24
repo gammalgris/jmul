@@ -36,9 +36,9 @@ public interface PatternMatchListener {
     /**
      * Informs this listener if a matching pattern was encountered.
      *
-     * @param aRegex
+     * @param aMatcher
      * @param aMatch
      */
-    void informOnMatch(String aRegex, String aMatch);
+    void informOnMatch(PatternMatcher aMatcher, String aMatch);
 
 }

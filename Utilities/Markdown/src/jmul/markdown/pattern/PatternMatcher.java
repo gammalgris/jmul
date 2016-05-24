@@ -37,6 +37,13 @@ import jmul.markdown.buffer.BufferChangeListener;
 public interface PatternMatcher extends BufferChangeListener {
 
     /**
+     * Returns the actual pattern.
+     *
+     * @return a pattern
+     */
+    String getPattern();
+
+    /**
      * Adds the specified listener.
      *
      * @param aListener

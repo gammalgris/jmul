@@ -29,9 +29,16 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+
 import jmul.io.CoupledStreams;
 
 import jmul.markdown.StreamsHelper;
+import jmul.markdown.pattern.PatternMatcher;
+import jmul.markdown.pattern.RegexPatternMatchers;
+import jmul.markdown.processor.MarkdownFileProcessor;
 import jmul.markdown.processor.StreamProcessor;
 
 import static jmul.misc.checks.ParameterCheckHelper.checkFileNameParameter;
@@ -49,9 +56,16 @@ import jmul.string.StringConcatenator;
 public class Markdown2HtmlConverter implements TextConverter {
 
     /**
+     * All pattern matchers.
+     */
+    private final Collection<PatternMatcher> patternMatchers;
+
+    /**
      * The default constructor.
      */
     public Markdown2HtmlConverter() {
+
+        patternMatchers = Collections.unmodifiableCollection(newPatternMatchers());
     }
 
     /**
@@ -107,8 +121,20 @@ public class Markdown2HtmlConverter implements TextConverter {
         }
 
 
-        StreamProcessor processor = null;
-        processor.processFile(coupledStreams);
+        StreamProcessor processor = new MarkdownFileProcessor(patternMatchers);
+
+        processor.processFile(coupledStreams); //TODO error handling for closing streams
+    }
+
+    /**
+     * Creates all required pattern matchers.
+     *
+     * @return pattern matchers
+     */
+    private static Collection<? extends PatternMatcher> newPatternMatchers() {
+
+        Collection<? extends PatternMatcher> matchers = Arrays.asList(RegexPatternMatchers.values());
+        return matchers;
     }
 
 }

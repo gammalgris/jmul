@@ -30,17 +30,17 @@ package jmul.misc.exceptions;
  *
  * @author Kristian Kutin
  */
-public class NullFileParameterException extends IllegalArgumentException {
+public class NullFileNameParameterException extends IllegalArgumentException {
 
     /**
      * The default message for this kind of exception.
      */
-    private static final String DEFAULT_MESSAGE = "No file (null) has been specified!";
+    private static final String DEFAULT_MESSAGE = "No file name (null) has been specified!";
 
     /**
      * The default constructor.
      */
-    public NullFileParameterException() {
+    public NullFileNameParameterException() {
 
         super(DEFAULT_MESSAGE);
     }

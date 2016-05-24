@@ -28,10 +28,15 @@ package jmul.markdown.processor;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 
+import java.util.Collection;
+
 import jmul.io.CoupledStreams;
 
 import static jmul.markdown.StreamsHelper.INPUT_STREAM;
 import static jmul.markdown.StreamsHelper.OUTPUT_STREAM;
+import jmul.markdown.buffer.TextBuffer;
+import jmul.markdown.buffer.TextBufferImpl;
+import jmul.markdown.pattern.PatternMatcher;
 
 
 /**
@@ -43,9 +48,18 @@ import static jmul.markdown.StreamsHelper.OUTPUT_STREAM;
 public class MarkdownFileProcessor implements StreamProcessor {
 
     /**
+     * All pattern matchers.
+     */
+    private final Collection<PatternMatcher> patternMatchers;
+
+    /**
      * The default constructor.
      */
-    public MarkdownFileProcessor() {
+    public MarkdownFileProcessor(Collection<PatternMatcher> somePatternMatchers) {
+
+        patternMatchers = somePatternMatchers;
+
+        //TODO
     }
 
     /**
@@ -60,21 +74,43 @@ public class MarkdownFileProcessor implements StreamProcessor {
         BufferedReader reader = (BufferedReader) someCoupledStream.getStream(INPUT_STREAM);
         BufferedWriter writer = (BufferedWriter) someCoupledStream.getStream(OUTPUT_STREAM);
 
-        StringBuffer buffer = new StringBuffer();
 
-        //TODO
+        TextBuffer buffer = new TextBufferImpl(reader);
+
+
+        for (PatternMatcher patternMatcher : patternMatchers) {
+
+            buffer.addBufferChangeListener(patternMatcher);
+        }
+
+
+        for (PatternMatcher patternMatcher : patternMatchers) {
+
+            patternMatcher.addPatternMatchListener(this);
+        }
+
+
+        //TODO missing loop to iterate through file
+        //TODO error handling for deregistering listeners
+
+
+        for (PatternMatcher patternMatcher : patternMatchers) {
+
+            patternMatcher.removePatternMatchListener(this);
+        }
     }
 
     /**
      * Informs this listener if a matching pattern was encountered.
      *
-     * @param aRegex
+     * @param aMatcher
      * @param aMatch
      */
     @Override
-    public void informOnMatch(String aRegex, String aMatch) {
+    public void informOnMatch(PatternMatcher aMatcher, String aMatch) {
 
-        //TODO
+        //TODO missing translation of text sections
+        //TODO missing writing to output file
     }
 
 }

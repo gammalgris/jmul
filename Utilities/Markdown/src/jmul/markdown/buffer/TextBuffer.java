@@ -25,8 +25,14 @@
 package jmul.markdown.buffer;
 
 
+import java.io.IOException;
+
+
 /**
  * This interface describes an entity that buffers text.
+ * 
+ * TODO
+ * Missing operations to remove processed text sections.
  *
  * @author Kristian Kutin
  */
@@ -43,11 +49,18 @@ public interface TextBuffer {
 
     /**
      * Reads the next line from the input stream.
+     *
+     * @throws IOException
+     *         is thrown if an error occurs while trying to read from a stream
      */
-    void readNextLine();
+    void readNextLine() throws IOException;
 
     /**
-     * Adds the specified listener.
+     * Adds the specified listener.<br />
+     * <br />
+     * <i>Note:<br />
+     * The order in which listeners are added is significant to how the
+     * text is processed.</i>
      *
      * @param aListener
      */
