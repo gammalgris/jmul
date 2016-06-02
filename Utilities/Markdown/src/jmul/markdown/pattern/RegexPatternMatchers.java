@@ -24,25 +24,49 @@
 
 package jmul.markdown.pattern;
 
+
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import static jmul.misc.checks.ParameterCheckHelper.checkListenerParameter;
+import static jmul.misc.checks.ParameterCheckHelper.checkRegexParameter;
+import static jmul.misc.checks.ParameterCheckHelper.checkStringParameter;
 
 
 /**
- * An implementation of {@link jmul.markdown.pattern.PatternMatcher}.
+ * An implementation of {@link jmul.markdown.pattern.PatternMatcher}. The
+ * order of the enumeration items represents their priority (first =
+ * higher priority).
  *
  * @author Kristian Kutin
  */
 public enum RegexPatternMatchers implements PatternMatcher {
 
 
-    //TODO enumeration elements are missing
-    A("");
+    HEADING("heading"),
+
+    IMAGE("image"),
+    LINK("link"),
+
+    MULTILINE("multiline"),
+
+    PARAGRAPH_END("paragraph.end"),
+    PARAGRAPH_START("paragraph.start"),
+
+    QUOTE("quote"),
+
+    TABLE_END("table.end"),
+    TABLE_START("table.start"),
+
+    UNORDERED_LIST_START("unordered-list.start"),
+    UNORDERED_LIST_ITEM("unordered-list.item"),
+    UNORDERED_LIST_END("unordered-list.end"),
+    ;
 
 
     /**
@@ -51,7 +75,7 @@ public enum RegexPatternMatchers implements PatternMatcher {
     private final String regex;
 
     /**
-     * The compiled pattern.
+     * A pattern.
      */
     private final Pattern pattern;
 
@@ -67,7 +91,7 @@ public enum RegexPatternMatchers implements PatternMatcher {
      */
     private RegexPatternMatchers(String aMatcherName) {
 
-        regex = ConfigurationReader.readRegex(aMatcherName);
+        regex = checkRegexParameter(ConfigurationReader.readRegex(aMatcherName));
         pattern = Pattern.compile(regex);
 
         listeners = new ArrayList<PatternMatchListener>();
@@ -108,10 +132,11 @@ public enum RegexPatternMatchers implements PatternMatcher {
     @Override
     public void informOnChange(String aBuffer) {
 
+        checkStringParameter(aBuffer);
+
         if (containsPattern(aBuffer)) {
 
-            String match = getMatch(aBuffer);
-            informListeners(match);
+            informListeners(getGroups(aBuffer));
         }
     }
 
@@ -136,24 +161,58 @@ public enum RegexPatternMatchers implements PatternMatcher {
      */
     protected boolean containsPattern(String aBuffer) {
 
+        checkStringParameter(aBuffer);
+
         Matcher m = pattern.matcher(aBuffer);
-        return m.matches();
+        return m.find();
     }
 
     /**
-     * Returns the actual match.
+     * Returns the actual match and splits the match into all identified
+     * capturing groups. Group 0 contaisn the whole match, though.
      *
      * @param aBuffer
      *
-     * @return the actual match or <code>null</code> if no such match
-     *         exists
+     * @return the actual match (split down into all identified capturing groups)
+     *         or an empty list if no such match exists
      */
-    protected String getMatch(String aBuffer) {
+    protected List<String> getGroups(String aBuffer) {
+
+        checkStringParameter(aBuffer);
+
+        List<String> groups = new ArrayList<String>();
 
         Matcher m = pattern.matcher(aBuffer);
+        if (m.find()) {
 
-        String match = aBuffer.substring(m.start(), m.end());
-        return match;
+            int index = 0;
+            while (true) {
+
+                String group = null;
+
+                try {
+
+                    group = m.group(index);
+
+                } catch (IndexOutOfBoundsException e) {
+
+                    break;
+                }
+
+                groups.add(group);
+                index++;
+            }
+
+        }
+
+        if (groups.isEmpty()) {
+
+            throw new IllegalArgumentException("No match exists!");
+
+        } else {
+
+            return Collections.unmodifiableList(groups);
+        }
     }
 
     /**
@@ -161,7 +220,7 @@ public enum RegexPatternMatchers implements PatternMatcher {
      *
      * @param aMatch
      */
-    private void informListeners(String aMatch) {
+    private void informListeners(List<String> aMatch) {
 
         for (PatternMatchListener listener : listeners) {
 
@@ -185,6 +244,16 @@ class ConfigurationReader {
     private static final String REGEX_SUFFIX = ".regex";
 
     /**
+     * Returns a resource bundle.
+     *
+     * @return a resource bundle
+     */
+    private static ResourceBundle getBundle() {
+
+        return ResourceBundle.getBundle(RegexPatternMatchers.class.getName());
+    }
+
+    /**
      * Reads a regex which has been associated with the specified name.
      *
      * @param aMatcherName
@@ -193,10 +262,11 @@ class ConfigurationReader {
      */
     public static String readRegex(String aMatcherName) {
 
-        ResourceBundle bundle = ResourceBundle.getBundle(RegexPatternMatchers.class.getName());
+        ResourceBundle bundle = getBundle();
 
         String key = aMatcherName + REGEX_SUFFIX;
         String regex = bundle.getString(key);
+
         return regex;
     }
 

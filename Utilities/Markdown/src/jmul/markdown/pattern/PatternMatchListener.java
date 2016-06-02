@@ -25,6 +25,9 @@
 package jmul.markdown.pattern;
 
 
+import java.util.List;
+
+
 /**
  * This interface describes an listener that is informed if a matching
  * pattern has been identified.
@@ -37,8 +40,8 @@ public interface PatternMatchListener {
      * Informs this listener if a matching pattern was encountered.
      *
      * @param aMatcher
-     * @param aMatch
+     * @param someActualMatches
      */
-    void informOnMatch(PatternMatcher aMatcher, String aMatch);
+    void informOnMatch(PatternMatcher aMatcher, List<String> someActualMatches);
 
 }

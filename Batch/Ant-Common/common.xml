@@ -27,6 +27,12 @@
     <property name="package.io-tests.src.dir" location="${package.io-tests.dir}\src" />
     <property name="package.io-tests.testdata.creator" location="${package.io-tests.dir}\create-testdata-io.bat" />
 
+    <property name="package.markdown.dir" location="${packages.base.dir}\Markdown" />
+    <property name="package.markdown.src.dir" location="${package.markdown.dir}\src" />
+    <property name="package.markdown.cfg.dir" location="${package.markdown.dir}\properties" />
+    <property name="package.markdown-tests.dir" location="${packages.base.dir}\Markdown-Tests" />
+    <property name="package.markdown-tests.src.dir" location="${package.markdown-tests.dir}\src" />
+
     <property name="package.math.dir" location="${packages.base.dir}\Math" />
     <property name="package.math.src.dir" location="${package.math.dir}\src" />
     <property name="package.math-tests.dir" location="${packages.base.dir}\Math-Tests" />
@@ -128,6 +134,9 @@
         <echo message="  package concurrent src dir .................. ${package.concurrent.src.dir}" />
         <echo message="  package io dir .............................. ${package.io.dir}" />
         <echo message="  package io src dir .......................... ${package.io.src.dir}" />
+        <echo message="  package markdwn dir ......................... ${package.markdown.dir}" />
+        <echo message="  package markdwn src dir ..................... ${package.markdown.src.dir}" />
+        <echo message="  package markdwn cfg dir ..................... ${package.markdown.cfg.dir}" />
         <echo message="  package math dir ............................ ${package.math.dir}" />
         <echo message="  package math src dir ........................ ${package.math.src.dir}" />
         <echo message="  package measures dir ........................ ${package.measures.dir}" />
@@ -161,6 +170,10 @@
         <echo message="  package io tests dir ........................ ${package.io-tests.dir}" />
         <echo message="  package io tests src dir .................... ${package.io-tests.src.dir}" />
         <echo message="  package io tests testdata creator ........... ${package.io-tests.testdata.creator}" />
+        <echo message="  package markdown tests dir .................. ${package.markdown-tests.dir}" />
+        <echo message="  package markdown tests src dir .............. ${package.markdown-tests.src.dir}" />
+        <echo message="  package math tests dir ...................... ${package.math-tests.dir}" />
+        <echo message="  package math tests src dir .................. ${package.math-tests.src.dir}" />
         <echo message="  package measures tests dir .................. ${package.measures-tests.dir}" />
         <echo message="  package measures tests src dir .............. ${package.measures-tests.src.dir}" />
         <echo message="  package network tests dir ................... ${package.network-tests.dir}" />

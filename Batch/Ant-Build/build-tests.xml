@@ -17,6 +17,9 @@
             <fileset dir="${package.io-tests.src.dir}">
                 <include name="**/*.java" />
             </fileset>
+            <fileset dir="${package.markdown-tests.src.dir}">
+                <include name="**/*.java" />
+            </fileset>
             <fileset dir="${package.math-tests.src.dir}">
                 <include name="**/*.java" />
             </fileset>

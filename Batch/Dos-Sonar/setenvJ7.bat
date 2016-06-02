@@ -14,18 +14,50 @@
 @rem ===
 
 call:defineMacros
+call:defineVariables
 
-call:setJava
-call:setAnt
 
-call:printInfo
+set subroutineCalls.length=5
+set subroutineCalls[1]=setJava
+set subroutineCalls[2]=setAnt
+set subroutineCalls[3]=printInfo
+set subroutineCalls[4]=checkEnvironment
+set subroutineCalls[5]=setPath
 
-call:checkEnvironment
 
-call:setPath
+setlocal EnableDelayedExpansion
 
-set JAVA_VERSION=7
-call:changeConsoleTitle
+	set tmpSuccess=
+
+	for /L %%i in (1,1,!subroutineCalls.length!) do (
+
+		set subroutine=!subroutineCalls[%%i]!
+
+		%cprintln% execute !subroutine! ...
+
+		call:!subroutine!
+		%ifError% (
+
+			%cprintln%.
+			%cprintln% ERROR^(!subroutine!^): An error occured! >&2
+			%return% 2
+		)
+	)
+
+endlocal
+
+
+call:changeConsoleTitle "Java 7"
+
+
+for /L %%i in (1,1,!subroutineCalls.length!) do (
+
+	set subroutineCalls[%%i]=
+)
+set subroutineCalls.length=
+
+
+call:cleanVariables
 
 %return%
 
@@ -56,6 +88,116 @@ call:changeConsoleTitle
 
 @rem --------------------------------------------------------------------------------
 @rem ---
+@rem ---   void defineVariables()
+@rem ---
+@rem ---   The subroutine defines required variables.
+@rem ---
+
+:defineVariables
+
+	set applications=0
+
+%return%
+
+
+@rem --------------------------------------------------------------------------------
+@rem ---
+@rem ---   void cleanVariables()
+@rem ---
+@rem ---   The subroutine cleans up required variables.
+@rem ---
+
+:cleanVariables
+
+	for /L %%i in (1,1,%applications%) do (
+
+		set applicationNames[%%i]=
+		set applicationHomeReferences[%%i]=
+		set applicationExecutableReferences[%%i]=
+		set applicationExpectedVersions[%%i]=
+	)
+
+	set applications=
+
+%return%
+
+
+@rem --------------------------------------------------------------------------------
+@rem ---
+@rem ---   void addApplication(String aName, String aHomeReference,
+@rem ---                       String anExecutableReference, String anExpectedVersion)
+@rem ---
+@rem ---   The subroutine adds an application according to the specified parameters.
+@rem ---
+@rem ---
+@rem ---   @param aName
+@rem ---          the name of the application
+@rem ---   @param aHomeReference
+@rem ---          the name of the variable which contains the application's home
+@rem ---          directory
+@rem ---   @param anExecutableReference
+@rem ---          the name of the variable which contains the application's
+@rem ---          executable file
+@rem ---   @param anExpectedVersion
+@rem ---          the application's expected version
+@rem ---
+
+:addApplication
+
+	set "_name=%1"
+	if '%_name%'=='' (
+
+		%cprintln% Error^(%0^): No application name has been specified! >&2
+		%return% 2
+	)
+	set "_name=%_name:"=%"
+
+	set "_homeReference=%2"
+	if '%_homeReference%'=='' (
+
+		%cprintln% Error^(%0^): No home reference has been specified! >&2
+		%return% 2
+	)
+	set "_homeReference=%_homeReference:"=%"
+
+	set "_executableReference=%3"
+	if '%_executableReference%'=='' (
+
+		%cprintln% Error^(%0^): No executable reference has been specified! >&2
+		%return% 2
+	)
+	set "_executableReference=%_executableReference:"=%"
+
+	set "_expectedVersion=%4"
+	if '%_expectedVersion%'=='' (
+
+		%cprintln% Error^(%0^): No expected version has been specified! >&2
+		%return% 2
+	)
+	set "_expectedVersion=%_expectedVersion:"=%"
+
+
+	set /a applications=%applications%+1
+	set _currentIndex=%applications%
+	
+
+	set "applicationNames[%_currentIndex%]=%_name%"
+	set "applicationHomeReferences[%_currentIndex%]=%_homeReference%"
+	set "applicationExecutableReferences[%_currentIndex%]=%_executableReference%"
+	set "applicationExpectedVersions[%_currentIndex%]=%_expectedVersion%"
+
+
+	set _currentIndex=
+	set _name=
+	set _homeReference=
+	set _executableReference=
+	set _expectedVersion=
+
+%return%
+
+
+@rem --------------------------------------------------------------------------------
+@rem ---
 @rem ---   void setJava()
 @rem ---
 @rem ---   The subroutine defines several environment variables for java.
@@ -66,6 +208,8 @@ call:changeConsoleTitle
 	set JAVA_HOME=D:\Programme\jdk1.7.0_80\
 	set JAVA_BIN=%JAVA_HOME%bin\
 	set JAVA_EXE=%JAVA_BIN%java.exe
+
+	call:addApplication JAVA JAVA_HOME JAVA_EXE 1.7.0
 
 %return%
 
@@ -82,6 +226,8 @@ call:changeConsoleTitle
 	set ANT_HOME=D:\Programme\apache-ant-1.8.0\
 	set ANT_BIN=%ANT_HOME%bin\
 	set ANT_EXE=%ANT_BIN%ant.bat
+
+	call:addApplication ANT ANT_HOME ANT_EXE 1.8.0
 
 %return%
 
@@ -114,14 +260,7 @@ call:changeConsoleTitle
 
 :checkEnvironment
 
-	set array.length=2
-
-	set executable[1]=%JAVA_EXE%
-	set executable[2]=%ANT_EXE%
-
-	set version[1]=1.7.0
-	set version[2]=1.8.0
-
+	%cprintln%.
 
 	set success=
 
@@ -129,11 +268,11 @@ call:changeConsoleTitle
 
 		set tmpSuccess=
 	
-		for /L %%i in (1,1,!array.length!) do (
+		for /L %%i in (1,1,!applications!) do (
 
-			if not exist "!executable[%%i]!" (
+			call:existsExecutable !applicationExecutableReferences[%%i]!
+			%ifError% (
 
-				%cprintln% !executable[%%i]! doesn't exist!
 				set tmpSuccess=!tmpSuccess!1
 			)
 		)
@@ -152,15 +291,15 @@ call:changeConsoleTitle
 
 		set tmpSuccess=
 
-		for /L %%i in (1,1,!array.length!) do (
+		for /L %%i in (1,1,!applications!) do (
 
-			call:checkVersion "!executable[%%i]!" !version[%%i]!
+			call:checkVersion !applicationExecutableReferences[%%i]! !applicationExpectedVersions[%%i]!
 			if !ERRORLEVEL!==0 (
-			
+
 				rem OK
-				
+
 			) else (
-			
+
 				set tmpSuccess=!tmpSuccess!!ERRORLEVEL!
 			)
 		)
@@ -170,18 +309,13 @@ call:changeConsoleTitle
 
 	if defined success (
 	
+		%cprintln%.
 		%cprintln% The environment is not set up! >&2
 		%return% 2
 	)
-
-
 	set success=
 
-	for /L %%i in (1,1,%array.length%) do (
-
-		set executable[%%i]=
-		set version[%%i]=
-	)
+	%cprintln%.
 
 %return%
 
@@ -196,9 +330,111 @@ call:changeConsoleTitle
 :printInfo
 
 	%cprintln%.
-	%cprintln% ANT_HOME ....... %ANT_HOME%
-	%cprintln% JAVA_HOME ...... %JAVA_HOME%
+
+	setlocal EnableDelayedExpansion
+
+		set tmpSuccess=
+	
+		for /L %%i in (1,1,!applications!) do (
+
+			call:printApplicationInfo !applicationNames[%%i]! !applicationHomeReferences[%%i]!
+		)
+		
+	endlocal
+
 	%cprintln%.
+
+%return%
+
+
+@rem --------------------------------------------------------------------------------
+@rem ---
+@rem ---   void printApplicationInfo(String aName, String aHomeReference)
+@rem ---
+@rem ---   The subroutine prints some environment details to the console.
+@rem ---
+@rem ---
+@rem ---   @param aName
+@rem ---          the name of the application
+@rem ---   @param aHomeReference
+@rem ---          the name of the variable which contains the application's home
+@rem ---          directory
+@rem ---
+
+:printApplicationInfo
+
+	set "_name=%1"
+	if '%_name%'=='' (
+
+		%cprintln% Error^(%0^): No application name has been specified! >&2
+		%return% 2
+	)
+	set "_name=%_name:"=%"
+
+	set "_homeReference=%2"
+	if '%_homeReference%'=='' (
+
+		%cprintln% Error^(%0^): No home reference has been specified! >&2
+		%return% 2
+	)
+	set "_homeReference=%_homeReference:"=%"
+
+
+	setlocal EnableDelayedExpansion
+
+		set "_tmp=!%_homeReference%!"
+
+	endlocal & set "_home=%_tmp%"
+
+	%cprintln% %_name% ... %_home%
+
+
+	set _home=
+	set _name=
+	set _homeReference=
+
+%return%
+
+
+@rem --------------------------------------------------------------------------------
+@rem ---
+@rem ---   void existsExecutable(String anExecutableReference)
+@rem ---   
+@rem ---   Checks if the specified executable exists.
+@rem ---
+@rem ---
+@rem ---   @param anExecutableReference
+@rem ---          the name of the variable which contains the application's
+@rem ---          executable
+@rem ---
+
+:existsExecutable
+
+	set "_executableReference=%1"
+	if '%_executableReference%'=='' (
+
+		%cprintln% Error^(%0^): No executable reference has been specified! >&2
+		%return% 2
+	)
+	set "_executableReference=%_executableReference:"=%"
+
+
+	setlocal EnableDelayedExpansion
+
+		set "_tmp=!%_executableReference%!"
+
+	endlocal & set "_executable=%_tmp%"
+
+
+	if not exist "%_executable%" (
+
+		%cprintln% %_executable% doesn't exist!
+		%return% 1
+	)
+
+
+	set _executable=
+	set _executableReference=
 
 %return%
 
@@ -210,48 +446,83 @@ call:changeConsoleTitle
 @rem ---   Checks the version of the specified command.
 @rem ---
 @rem ---
-@rem ---   @param aCommand
-@rem ---          a command
+@rem ---   @param anExecutableReference
+@rem ---          the name of the variable which contains the application's
+@rem ---          executable
 @rem ---   @param anExpectedVersion
 @rem ---          the expected version
 @rem ---
 
 :checkVersion
 
-	call %1 -version 2>&1 | findstr "%2" > NUL
+	set "_executableReference=%1"
+	if '%_executableReference%'=='' (
+
+		%cprintln% Error^(%0^): No executable reference has been specified! >&2
+		%return% 2
+	)
+	set "_executableReference=%_executableReference:"=%"
+
+	set "_expectedVersion=%2"
+	if '%_expectedVersion%'=='' (
+
+		%cprintln% Error^(%0^): No expected version has been specified! >&2
+		%return% 2
+	)
+	set "_expectedVersion=%_expectedVersion:"=%"
+
+
+	setlocal EnableDelayedExpansion
+
+		set "_tmp=!%_executableReference%!"
+
+	endlocal & set "_executable=%_tmp%"
+
+
+	call "%_executable%" -version 2>&1 | findstr "%_expectedVersion%" > NUL
 	%ifError% (
-		
-		%cprintln% %1 ... %2 ... failed >&2
+
+		%cprintln% %_executable% ... %_expectedVersion% ... failed >&2
 		%return% 1
 		
 	) else (
-	
-		%cprintln% %1 ... %2 ... OK
+
+		%cprintln% %_executable% ... %_expectedVersion% ... OK
 	)
+
+
+	set _executable=
+	set _executableReference=
+	set _expectedVersion=
 
 %return%
 
 
 @rem --------------------------------------------------------------------------------
 @rem ---
-@rem ---   void changeConsoleTitle()
+@rem ---   void changeConsoleTitle(String aTitle)
 @rem ---
 @rem ---   The subroutine changes the title of the console window.
+@rem ---
+@rem ---
+@rem ---   @param aTitle
+@rem ---          the new title of the console window
 @rem ---
 
 :changeConsoleTitle
 
-	if '%JAVA_VERSION%'=='' (
+	set "_title=%1"
+	if '%_title%'=='' (
 
-		set "newTitle=Console ^(Java unknown Version^)"
-
-	) else (
-
-		set "newTitle=Console ^(Java %JAVA_VERSION%^)"
+		%cprintln% Error^(%0^): No title has been specified! >&2
+		%return% 2
 	)
+	set "_title=%_title:"=%"
 
-	title %newTitle%
 
-	set newTitle=
+	title %_title%
+
+
+	set _title=
 
 %return%

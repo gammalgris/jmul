@@ -16,6 +16,9 @@
             <fileset dir="${package.io.src.dir}">
                 <include name="**/*.java" />
             </fileset>
+            <fileset dir="${package.markdown.src.dir}">
+                <include name="**/*.java" />
+            </fileset>
             <fileset dir="${package.math.src.dir}">
                 <include name="**/*.java" />
             </fileset>
@@ -54,6 +57,9 @@
     <target name="copyResources">
 
         <copy todir="${project.tmp.cfg.dir}" overwrite="true">
+            <fileset dir="${package.markdown.cfg.dir}">
+                <include name="**/*.properties" />
+            </fileset>
             <fileset dir="${package.measures.cfg.dir}">
                 <include name="**/*.properties" />
                 <include name="**/*.units" />

@@ -29,6 +29,7 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 
 import java.util.Collection;
+import java.util.List;
 
 import jmul.io.CoupledStreams;
 
@@ -107,7 +108,7 @@ public class MarkdownFileProcessor implements StreamProcessor {
      * @param aMatch
      */
     @Override
-    public void informOnMatch(PatternMatcher aMatcher, String aMatch) {
+    public void informOnMatch(PatternMatcher aMatcher, List<String> aMatch) {
 
         //TODO missing translation of text sections
         //TODO missing writing to output file

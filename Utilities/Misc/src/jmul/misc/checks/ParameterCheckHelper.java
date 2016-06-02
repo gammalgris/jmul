@@ -27,8 +27,12 @@ package jmul.misc.checks;
 
 import java.io.File;
 
+import java.util.regex.Pattern;
+import java.util.regex.PatternSyntaxException;
+
 import jmul.misc.exceptions.EmptyArrayParameterException;
 import jmul.misc.exceptions.EmptyStringParameterException;
+import jmul.misc.exceptions.InvalidRegularExpressionParameterException;
 import jmul.misc.exceptions.NullArrayParameterException;
 import jmul.misc.exceptions.NullClassParameterException;
 import jmul.misc.exceptions.NullFileNameParameterException;
@@ -272,6 +276,40 @@ public final class ParameterCheckHelper {
         }
 
         return aListener;
+    }
+
+    /**
+     * Checks the specified parameter.
+     *
+     * @param aString
+     *
+     * @return the specified string
+     *
+     * @throws IllegalArgumentException
+     *         is thrown if the specified parameter is invalid
+     */
+    public static String checkRegexParameter(String aRegex) {
+
+        if (aRegex == null) {
+
+            throw new InvalidRegularExpressionParameterException();
+        }
+
+        if (aRegex.trim().isEmpty()) {
+
+            throw new InvalidRegularExpressionParameterException(aRegex);
+        }
+
+        try {
+
+            Pattern.compile(aRegex);
+
+        } catch (PatternSyntaxException e) {
+
+            throw new InvalidRegularExpressionParameterException(aRegex, e);
+        }
+
+        return aRegex;
     }
 
 }
