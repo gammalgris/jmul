@@ -25,29 +25,17 @@ set subroutineCalls[4]=checkEnvironment
 set subroutineCalls[5]=setPath
 
 
-setlocal EnableDelayedExpansion
+for /L %%i in (1,1,%subroutineCalls.length%) do (
 
-	set tmpSuccess=
+	call:invokeSubroutine %%i
+	%ifError% (
 
-	for /L %%i in (1,1,!subroutineCalls.length!) do (
-
-		set subroutine=!subroutineCalls[%%i]!
-
-		%cprintln% execute !subroutine! ...
-
-		call:!subroutine!
-		%ifError% (
-
-			%cprintln%.
-			%cprintln% ERROR^(!subroutine!^): An error occured! >&2
-			%return% 2
-		)
+		%return%
 	)
+)
 
-endlocal
 
-
-call:changeConsoleTitle "Java 7"
+call:changeConsoleTitle "Java 8"
 
 
 for /L %%i in (1,1,!subroutineCalls.length!) do (
@@ -205,11 +193,11 @@ call:cleanVariables
 
 :setJava
 
-	set JAVA_HOME=D:\Programme\jdk1.7.0_80\
+	set JAVA_HOME=C:\Progra~1\Java\jdk1.8.0_65\
 	set JAVA_BIN=%JAVA_HOME%bin\
 	set JAVA_EXE=%JAVA_BIN%java.exe
 
-	call:addApplication JAVA JAVA_HOME JAVA_EXE 1.7.0
+	call:addApplication JAVA JAVA_HOME JAVA_EXE 1.8.0
 
 %return%
 
@@ -223,11 +211,11 @@ call:cleanVariables
 
 :setAnt
 
-	set ANT_HOME=D:\Programme\apache-ant-1.8.0\
+	set ANT_HOME=D:\Programs\apache-ant-1.9.6\
 	set ANT_BIN=%ANT_HOME%bin\
 	set ANT_EXE=%ANT_BIN%ant.bat
 
-	call:addApplication ANT ANT_HOME ANT_EXE 1.8.0
+	call:addApplication ANT ANT_HOME ANT_EXE 1.9.6
 
 %return%
 
@@ -238,15 +226,47 @@ call:cleanVariables
 @rem ---
 @rem ---   The path environment variable is modified.
 @rem ---
+@rem ---   The environment variable OLD_PATH is defined which can be used to verify
+@rem ---   that the changes have not been reverted.
+@rem ---
 
 :setPath
 
-	set PATH=C:\WINDOWS\system32
-	set PATH=C:\WINDOWS;%PATH%
+	set NEW_PATH=C:\WINDOWS\system32
+	set NEW_PATH=C:\WINDOWS;%NEW_PATH%
 
-	set PATH=%ANT_HOME%bin;%PATH%
-	set PATH=%JAVA_HOME%bin;%PATH%
-	set PATH=.;%PATH%
+	set NEW_PATH=%ANT_HOME%bin;%NEW_PATH%
+	set NEW_PATH=%JAVA_HOME%bin;%NEW_PATH%
+	set NEW_PATH=.;%NEW_PATH%
+
+
+	set "_normalizedOldPath=%PATH%"
+	set "_normalizedOldPath=%_normalizedOldPath:"=%"
+
+	set "_normalizedNewPath=%NEW_PATH%"
+	set "_normalizedNewPath=%_normalizedNewPath:"=%"
+
+
+	if "%_normalizedNewPath%"=="%_normalizedOldPath%" (
+
+		rem OK, no changes required
+
+	) else (
+
+		set "OLD_PATH=%PATH%"
+		set "PATH=%NEW_PATH%"
+	)
+
+
+	%cprintln%.
+	%cprintln% PATH:
+	%cprintln% %PATH%
+	%cprintln%.
+
+
+	set _normalizedOldPath=
+	set _normalizedNewPath=
+	set NEW_PATH=
 
 %return%
 
@@ -524,5 +544,52 @@ call:cleanVariables
 
 
 	set _title=
+
+%return%
+
+
+@rem --------------------------------------------------------------------------------
+@rem ---
+@rem ---   void invokeSubroutine(int anIndex)
+@rem ---
+@rem ---   The subroutine invokes a subroutine which is specified in an array.
+@rem ---
+@rem ---
+@rem ---   @param anIndex
+@rem ---          the index of the subroutine
+@rem ---
+
+:invokeSubroutine
+
+	set "_index=%1"
+	if '%_index%'=='' (
+
+		%cprintln% Error^(%0^): No index has been specified! >&2
+		%return% 2
+	)
+	set "_index=%_index:"=%"
+
+
+	setlocal EnableDelayedExpansion
+
+		set _tmpName=!subroutineCalls[%_index%]!
+
+	endlocal & set _subroutineName=%_tmpName%
+
+
+	%cprintln% execute %_subroutineName% ...
+
+
+	call:%_subroutineName%
+	%ifError% (
+
+		%cprintln%.
+		%cprintln% ERROR^(%_subroutineName%^): An error occurred! >&2
+		%return% 2
+	)
+
+
+	set _subroutineName=
+	set _index=
 
 %return%

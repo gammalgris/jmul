@@ -9,10 +9,12 @@
 @rem ===
 
 set "initializerPath=%~dp0"
-set initializerRunner=setenvJ7.bat
+set initializerRunner=setEnv.bat
+set environmentCheck=checkEnv.bat
+
 
 set sonarVersion=5.3
-set "sonarPath=D:\Programme\sonarqube-5.3\bin\windows-x86-64"
+set "sonarPath=D:\Programs\sonarqube-5.3\bin\windows-x86-64"
 set sonarRunner=StartSonar.bat
 
 set "windowTitle=SonarQube %sonarVersion%"
@@ -24,6 +26,19 @@ title %windowTitle%
 cd /D "%initializerPath%"
 
 call %initializerRunner% 2>nul
+if %ERRORLEVEL%==0 (
+
+	rem OK
+
+) else (
+
+	echo ERROR %ERRORLEVEL%: The environment couldn't be set up! >&2
+	pause
+	exit /b %ERRORLEVEL%
+)
+
+
+call %environmentCheck% 2>nul
 if %ERRORLEVEL%==0 (
 
 	rem OK
