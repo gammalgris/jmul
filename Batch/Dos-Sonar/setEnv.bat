@@ -38,7 +38,7 @@ for /L %%i in (1,1,%subroutineCalls.length%) do (
 call:changeConsoleTitle "Java 8"
 
 
-for /L %%i in (1,1,!subroutineCalls.length!) do (
+for /L %%i in (1,1,%subroutineCalls.length%) do (
 
 	set subroutineCalls[%%i]=
 )
