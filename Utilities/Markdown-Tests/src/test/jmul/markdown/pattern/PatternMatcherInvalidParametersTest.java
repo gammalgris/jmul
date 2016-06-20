@@ -33,12 +33,14 @@ import java.util.List;
 import jmul.markdown.pattern.PatternMatcher;
 import static jmul.markdown.pattern.RegexPatternMatchers.HEADING;
 import static jmul.markdown.pattern.RegexPatternMatchers.IMAGE;
+import static jmul.markdown.pattern.RegexPatternMatchers.LINE;
 import static jmul.markdown.pattern.RegexPatternMatchers.LINK;
+import static jmul.markdown.pattern.RegexPatternMatchers.ORDERED_LIST;
+import static jmul.markdown.pattern.RegexPatternMatchers.QUOTE;
+import static jmul.markdown.pattern.RegexPatternMatchers.UNORDERED_LIST;
 
 import jmul.misc.exceptions.EmptyStringParameterException;
 import jmul.misc.exceptions.NullParameterException;
-
-import static jmul.string.StringConstants.NEW_LINE;
 
 import jmul.test.classification.UnitTest;
 
@@ -240,12 +242,10 @@ public class PatternMatcherInvalidParametersTest {
         parameters.add(newTest(HEADING, "", EmptyStringParameterException.class));
         parameters.add(newTest(HEADING, " ", EmptyStringParameterException.class));
         parameters.add(newTest(HEADING, "[a", null));
-        parameters.add(newTest(HEADING, NEW_LINE + "# Header1", null));
-        parameters.add(newTest(HEADING, NEW_LINE + "# Header1" + NEW_LINE, null));
 
-        parameters.add(newTest(HEADING, "# Header1", null));
-
-        parameters.add(newTest(HEADING, "## Header2", null));
+        parameters.add(newTest(LINK, null, IllegalArgumentException.class));
+        parameters.add(newTest(LINK, "", IllegalArgumentException.class));
+        parameters.add(newTest(LINK, " ", IllegalArgumentException.class));
 
         parameters.add(newTest(LINK, "see this [Link](http://www.heise.de/ today", IllegalArgumentException.class));
         parameters.add(newTest(LINK, "see this [Link]http://www.heise.de/) today", IllegalArgumentException.class));
@@ -256,6 +256,22 @@ public class PatternMatcherInvalidParametersTest {
         parameters.add(newTest(IMAGE, "see this ![Image]./image.jpg) today", IllegalArgumentException.class));
         parameters.add(newTest(IMAGE, "see this ![Image(./image.jpg) today", IllegalArgumentException.class));
         parameters.add(newTest(IMAGE, "see this !Image](./image.jpg) today", IllegalArgumentException.class));
+
+        parameters.add(newTest(UNORDERED_LIST, null, IllegalArgumentException.class));
+        parameters.add(newTest(UNORDERED_LIST, "", IllegalArgumentException.class));
+        parameters.add(newTest(UNORDERED_LIST, " ", IllegalArgumentException.class));
+
+        parameters.add(newTest(ORDERED_LIST, null, IllegalArgumentException.class));
+        parameters.add(newTest(ORDERED_LIST, "", IllegalArgumentException.class));
+        parameters.add(newTest(ORDERED_LIST, " ", IllegalArgumentException.class));
+
+        parameters.add(newTest(LINE, null, IllegalArgumentException.class));
+        parameters.add(newTest(LINE, "", IllegalArgumentException.class));
+        parameters.add(newTest(LINE, " ", IllegalArgumentException.class));
+
+        parameters.add(newTest(QUOTE, null, IllegalArgumentException.class));
+        parameters.add(newTest(QUOTE, "", IllegalArgumentException.class));
+        parameters.add(newTest(QUOTE, " ", IllegalArgumentException.class));
 
         return parameters;
     }

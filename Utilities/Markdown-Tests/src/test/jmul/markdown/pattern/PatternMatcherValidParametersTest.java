@@ -33,14 +33,13 @@ import java.util.List;
 import jmul.markdown.pattern.PatternMatcher;
 import static jmul.markdown.pattern.RegexPatternMatchers.HEADING;
 import static jmul.markdown.pattern.RegexPatternMatchers.IMAGE;
+import static jmul.markdown.pattern.RegexPatternMatchers.LINE;
 import static jmul.markdown.pattern.RegexPatternMatchers.LINK;
+import static jmul.markdown.pattern.RegexPatternMatchers.ORDERED_LIST;
 import static jmul.markdown.pattern.RegexPatternMatchers.QUOTE;
-import static jmul.markdown.pattern.RegexPatternMatchers.UNORDERED_LIST_END;
-import static jmul.markdown.pattern.RegexPatternMatchers.UNORDERED_LIST_ITEM;
-import static jmul.markdown.pattern.RegexPatternMatchers.UNORDERED_LIST_START;
+import static jmul.markdown.pattern.RegexPatternMatchers.UNORDERED_LIST;
 
 import static jmul.string.StringConstants.NEW_LINE;
-import static jmul.string.StringConstants.NEW_LINE_UNIX;
 
 import jmul.test.classification.UnitTest;
 
@@ -158,52 +157,29 @@ public class PatternMatcherValidParametersTest {
                                "./image.jpg"));
 
 
-        parameters.add(newTest(QUOTE, "```" + NEW_LINE + "Hello World" + NEW_LINE + "```",
-                               "```" + NEW_LINE + "Hello World" + NEW_LINE + "```", "Hello World"));
-        parameters.add(newTest(QUOTE, "```" + NEW_LINE_UNIX + "Hello World" + NEW_LINE_UNIX + "```",
-                               "```" + NEW_LINE_UNIX + "Hello World" + NEW_LINE_UNIX + "```", "Hello World"));
+        parameters.add(newTest(QUOTE, "```", "```"));
 
 
-        parameters.add(newTest(UNORDERED_LIST_START, NEW_LINE + "* Hello World", NEW_LINE + "* Hello World", "", "*",
-                               "Hello World"));
-        parameters.add(newTest(UNORDERED_LIST_START, NEW_LINE + "+ Hello World", NEW_LINE + "+ Hello World", "", "+",
-                               "Hello World"));
-        parameters.add(newTest(UNORDERED_LIST_START, NEW_LINE + "- Hello World", NEW_LINE + "- Hello World", "", "-",
-                               "Hello World"));
-        parameters.add(newTest(UNORDERED_LIST_START, NEW_LINE + "  * Hello World", NEW_LINE + "  * Hello World", "  ",
-                               "*", "Hello World"));
-        parameters.add(newTest(UNORDERED_LIST_START, NEW_LINE + "*  Hello World", NEW_LINE + "*  Hello World", "", "*",
-                               "Hello World"));
-
-        parameters.add(newTest(UNORDERED_LIST_START, NEW_LINE_UNIX + "* Hello World", NEW_LINE_UNIX + "* Hello World",
-                               "", "*", "Hello World"));
-
-        parameters.add(newTest(UNORDERED_LIST_START, NEW_LINE + "  * Hello World", NEW_LINE + "  * Hello World", "  ",
-                               "*", "Hello World"));
-        parameters.add(newTest(UNORDERED_LIST_START, NEW_LINE_UNIX + "  * Hello World",
-                               NEW_LINE_UNIX + "  * Hello World", "  ", "*", "Hello World"));
-
-        parameters.add(newTest(UNORDERED_LIST_START,
-                               NEW_LINE + "* Hello World #1" + NEW_LINE + "* Hello World #1" + NEW_LINE,
-                               NEW_LINE + "* Hello World #1" + NEW_LINE + "* Hello World #1", "", "*",
-                               "Hello World #1" + NEW_LINE + "* Hello World #1"));
+        parameters.add(newTest(UNORDERED_LIST, "* Hello World", "* Hello World", "", "*", "Hello World"));
+        parameters.add(newTest(UNORDERED_LIST, " * Hello World", " * Hello World", " ", "*", "Hello World"));
+        parameters.add(newTest(UNORDERED_LIST, "  * Hello World", "  * Hello World", "  ", "*", "Hello World"));
+        parameters.add(newTest(UNORDERED_LIST, "*  Hello World", "*  Hello World", "", "*", "Hello World"));
+        parameters.add(newTest(UNORDERED_LIST, "*   Hello World", "*   Hello World", "", "*", "Hello World"));
 
 
-        parameters.add(newTest(UNORDERED_LIST_ITEM, "* Hello World", "* Hello World", "", "*", "Hello World"));
-        parameters.add(newTest(UNORDERED_LIST_ITEM, "* Hello World" + NEW_LINE + "Hello World",
-                               "* Hello World" + NEW_LINE + "Hello World", "", "*",
-                               "Hello World" + NEW_LINE + "Hello World"));
+        parameters.add(newTest(ORDERED_LIST, "1. Hello World", "1. Hello World", "", "1.", "Hello World"));
+        parameters.add(newTest(ORDERED_LIST, " 1. Hello World", " 1. Hello World", " ", "1.", "Hello World"));
+        parameters.add(newTest(ORDERED_LIST, "  1. Hello World", "  1. Hello World", "  ", "1.", "Hello World"));
+        parameters.add(newTest(ORDERED_LIST, "1.  Hello World", "1.  Hello World", "", "1.", "Hello World"));
+        parameters.add(newTest(ORDERED_LIST, "1.   Hello World", "1.   Hello World", "", "1.", "Hello World"));
+        parameters.add(newTest(ORDERED_LIST, "42. Hello World", "42. Hello World", "", "42.", "Hello World"));
 
-        parameters.add(newTest(UNORDERED_LIST_END, "* Hello World" + NEW_LINE + "No list",
-                               "* Hello World" + NEW_LINE + "No list", "", "*", "Hello World"));
 
-        /*parameters.add(newTest(MULTILINE, "Hello World", "Hello World"));
-        parameters.add(newTest(MULTILINE, "Hello World #1" + NEW_LINE + "Hello World #2",
-                               "Hello World #1" + NEW_LINE + "Hello World #2",
-                               "Hello World #1" + NEW_LINE + "Hello World #2"));
-        parameters.add(newTest(MULTILINE, "Hello World #1" + NEW_LINE + "Hello World #2" + NEW_LINE + "Hello World #3",
-                               "Hello World #1" + NEW_LINE + "Hello World #2" + NEW_LINE + "Hello World #3",
-                               "Hello World #1" + NEW_LINE + "Hello World #2" + NEW_LINE + "Hello World #3"));*/
+        parameters.add(newTest(LINE, "# Header1", "# Header1", "", "# Header1"));
+        parameters.add(newTest(LINE, "```", "```", "", "```"));
+        parameters.add(newTest(LINE, "* Hello World", "* Hello World", "", "* Hello World"));
+        parameters.add(newTest(LINE, "1. Hello World", "1. Hello World", "", "1. Hello World"));
+
 
         return parameters;
     }

@@ -41,7 +41,9 @@ import static jmul.misc.checks.ParameterCheckHelper.checkStringParameter;
 /**
  * An implementation of {@link jmul.markdown.pattern.PatternMatcher}. The
  * order of the enumeration items represents their priority (first =
- * higher priority).
+ * higher priority).<br />
+ * For the sake of an easier handling the patterns don't span multiple
+ * lines.
  *
  * @author Kristian Kutin
  */
@@ -49,23 +51,13 @@ public enum RegexPatternMatchers implements PatternMatcher {
 
 
     HEADING("heading"),
+    UNORDERED_LIST("unordered-list"),
+    ORDERED_LIST("ordered-list"),
+    QUOTE("quote"),
+    LINE("line"),
 
     IMAGE("image"),
     LINK("link"),
-
-    MULTILINE("multiline"),
-
-    PARAGRAPH_END("paragraph.end"),
-    PARAGRAPH_START("paragraph.start"),
-
-    QUOTE("quote"),
-
-    TABLE_END("table.end"),
-    TABLE_START("table.start"),
-
-    UNORDERED_LIST_START("unordered-list.start"),
-    UNORDERED_LIST_ITEM("unordered-list.item"),
-    UNORDERED_LIST_END("unordered-list.end"),
     ;
 
 

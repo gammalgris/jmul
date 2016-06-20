@@ -35,7 +35,7 @@ for /L %%i in (1,1,%subroutineCalls.length%) do (
 )
 
 
-call:changeConsoleTitle "Java 8"
+call:changeConsoleTitle "Java 7"
 
 
 for /L %%i in (1,1,%subroutineCalls.length%) do (
@@ -193,11 +193,11 @@ call:cleanVariables
 
 :setJava
 
-	set JAVA_HOME=C:\Progra~1\Java\jdk1.8.0_65\
+	set JAVA_HOME=D:\Programme\jdk1.7.0_80\
 	set JAVA_BIN=%JAVA_HOME%bin\
 	set JAVA_EXE=%JAVA_BIN%java.exe
 
-	call:addApplication JAVA JAVA_HOME JAVA_EXE 1.8.0
+	call:addApplication JAVA JAVA_HOME JAVA_EXE 1.7.0
 
 %return%
 
@@ -211,11 +211,11 @@ call:cleanVariables
 
 :setAnt
 
-	set ANT_HOME=D:\Programs\apache-ant-1.9.6\
+	set ANT_HOME=D:\Programme\apache-ant-1.8.0\
 	set ANT_BIN=%ANT_HOME%bin\
 	set ANT_EXE=%ANT_BIN%ant.bat
 
-	call:addApplication ANT ANT_HOME ANT_EXE 1.9.6
+	call:addApplication ANT ANT_HOME ANT_EXE 1.8.0
 
 %return%
 
@@ -226,8 +226,8 @@ call:cleanVariables
 @rem ---
 @rem ---   The path environment variable is modified.
 @rem ---
-@rem ---   The environment variable OLD_PATH is defined which can be used to verify
-@rem ---   that the changes have not been reverted.
+@rem ---   The environment variable NEW_PATH is defined which can be used to verify
+@rem ---   that the changes have not be reverted.
 @rem ---
 
 :setPath
@@ -264,8 +264,8 @@ call:cleanVariables
 	%cprintln%.
 
 
-	set _normalizedOldPath=
 	set _normalizedNewPath=
+	set _normalizedOldPath=
 	set NEW_PATH=
 
 %return%
@@ -584,7 +584,7 @@ call:cleanVariables
 	%ifError% (
 
 		%cprintln%.
-		%cprintln% ERROR^(%_subroutineName%^): An error occurred! >&2
+		%cprintln% ERROR^(%_subroutineName%^): An error occured! >&2
 		%return% 2
 	)
 

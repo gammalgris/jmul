@@ -14,7 +14,7 @@ set environmentCheck=checkEnv.bat
 
 
 set sonarVersion=5.3
-set "sonarPath=D:\Programs\sonarqube-5.3\bin\windows-x86-64"
+set "sonarPath=D:\Programme\sonarqube-5.3\bin\windows-x86-64"
 set sonarRunner=StartSonar.bat
 
 set "windowTitle=SonarQube %sonarVersion%"
