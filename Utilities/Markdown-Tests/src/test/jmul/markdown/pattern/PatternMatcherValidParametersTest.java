@@ -31,6 +31,7 @@ import java.util.Collection;
 import java.util.List;
 
 import jmul.markdown.pattern.PatternMatcher;
+import static jmul.markdown.pattern.RegexPatternMatchers.EMPTY_LINE;
 import static jmul.markdown.pattern.RegexPatternMatchers.HEADING;
 import static jmul.markdown.pattern.RegexPatternMatchers.IMAGE;
 import static jmul.markdown.pattern.RegexPatternMatchers.LINE;
@@ -179,6 +180,12 @@ public class PatternMatcherValidParametersTest {
         parameters.add(newTest(LINE, "```", "```", "", "```"));
         parameters.add(newTest(LINE, "* Hello World", "* Hello World", "", "* Hello World"));
         parameters.add(newTest(LINE, "1. Hello World", "1. Hello World", "", "1. Hello World"));
+        parameters.add(newTest(LINE, " Hello World", " Hello World", " ", "Hello World"));
+
+
+        parameters.add(newTest(EMPTY_LINE, "", "", ""));
+        parameters.add(newTest(EMPTY_LINE, " ", " ", " "));
+        parameters.add(newTest(EMPTY_LINE, "  ", "  ", "  "));
 
 
         return parameters;

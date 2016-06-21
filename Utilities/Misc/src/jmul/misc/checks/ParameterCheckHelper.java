@@ -129,6 +129,26 @@ public final class ParameterCheckHelper {
     /**
      * Checks the specified parameter.
      *
+     * @param aString
+     *
+     * @return the specified string
+     *
+     * @throws IllegalArgumentException
+     *         is thrown if the specified parameter is invalid
+     */
+    public static String checkBufferParameter(String aString) {
+
+        if (aString == null) {
+
+            throw new NullParameterException();
+        }
+
+        return aString;
+    }
+
+    /**
+     * Checks the specified parameter.
+     *
      * @param aCause
      *
      * @return the specified cause

@@ -33,9 +33,9 @@ import java.util.ResourceBundle;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import static jmul.misc.checks.ParameterCheckHelper.checkBufferParameter;
 import static jmul.misc.checks.ParameterCheckHelper.checkListenerParameter;
 import static jmul.misc.checks.ParameterCheckHelper.checkRegexParameter;
-import static jmul.misc.checks.ParameterCheckHelper.checkStringParameter;
 
 
 /**
@@ -55,10 +55,10 @@ public enum RegexPatternMatchers implements PatternMatcher {
     ORDERED_LIST("ordered-list"),
     QUOTE("quote"),
     LINE("line"),
+    EMPTY_LINE("empty-line"),
 
     IMAGE("image"),
-    LINK("link"),
-    ;
+    LINK("link"), ;
 
 
     /**
@@ -124,7 +124,7 @@ public enum RegexPatternMatchers implements PatternMatcher {
     @Override
     public void informOnChange(String aBuffer) {
 
-        checkStringParameter(aBuffer);
+        checkBufferParameter(aBuffer);
 
         if (containsPattern(aBuffer)) {
 
@@ -153,7 +153,7 @@ public enum RegexPatternMatchers implements PatternMatcher {
      */
     protected boolean containsPattern(String aBuffer) {
 
-        checkStringParameter(aBuffer);
+        checkBufferParameter(aBuffer);
 
         Matcher m = pattern.matcher(aBuffer);
         return m.find();
@@ -170,7 +170,7 @@ public enum RegexPatternMatchers implements PatternMatcher {
      */
     protected List<String> getGroups(String aBuffer) {
 
-        checkStringParameter(aBuffer);
+        checkBufferParameter(aBuffer);
 
         List<String> groups = new ArrayList<String>();
 

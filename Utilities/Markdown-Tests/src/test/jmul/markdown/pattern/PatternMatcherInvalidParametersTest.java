@@ -31,6 +31,7 @@ import java.util.Collection;
 import java.util.List;
 
 import jmul.markdown.pattern.PatternMatcher;
+import static jmul.markdown.pattern.RegexPatternMatchers.EMPTY_LINE;
 import static jmul.markdown.pattern.RegexPatternMatchers.HEADING;
 import static jmul.markdown.pattern.RegexPatternMatchers.IMAGE;
 import static jmul.markdown.pattern.RegexPatternMatchers.LINE;
@@ -272,6 +273,9 @@ public class PatternMatcherInvalidParametersTest {
         parameters.add(newTest(QUOTE, null, IllegalArgumentException.class));
         parameters.add(newTest(QUOTE, "", IllegalArgumentException.class));
         parameters.add(newTest(QUOTE, " ", IllegalArgumentException.class));
+
+        parameters.add(newTest(EMPTY_LINE, null, IllegalArgumentException.class));
+        parameters.add(newTest(EMPTY_LINE, "a", IllegalArgumentException.class));
 
         return parameters;
     }
