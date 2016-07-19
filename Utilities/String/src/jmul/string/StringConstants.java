@@ -74,6 +74,11 @@ public final class StringConstants {
     public static final String SLASH = "/";
 
     /**
+     * A tabulator character.
+     */
+    public static final String TABULATOR = "\t";
+
+    /**
      * The default constructor.
      */
     private StringConstants() {

@@ -4,7 +4,7 @@
  * JMUL is a central repository for utilities which are used in my
  * other public and private repositories.
  *
- * Copyright (C) 2013  Kristian Kutin
+ * Copyright (C) 2015  Kristian Kutin
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -26,40 +26,44 @@ package jmul.misc.logging;
 
 
 /**
- * The interface ApplicationLogger describes the behaviour of an entity which
- * handles the logging of messages the application will publish.
+ * This interface describes a logger.
  *
  * @author Kristian Kutin
  */
-public interface ApplicationLogger {
+public interface Logger {
 
     /**
-     * The method logError logs an error message. Exceptions that cannot
-     * be handled or have a dire effect on the application should be logged
-     * as error.
+     * Log a debug message.
      *
      * @param aMessage
-     *        the message is a String containing the error message
      */
-    void logError(String aMessage);
+    void logDebug(String aMessage);
 
     /**
-     * The method logWarning logs a warning. Exceptions that can be handled
-     * and have no further effect on the application should be logged as
-     * warning.
+     * Log a warning message.
      *
      * @param aMessage
-     *        the message is a String containing the warning
      */
     void logWarning(String aMessage);
 
     /**
-     * The method logInfo logs a message which is no warning and no error
-     * (e.g. comments during the initializing phase to indicate the
-     * configuration).
+     * Log an error message.
      *
      * @param aMessage
-     *        the message is a String containing the information
+     */
+    void logError(String aMessage);
+
+    /**
+     * Log an exception.
+     *
+     * @param anException
+     */
+    void logError(Throwable anException);
+
+    /**
+     * Log an info message.
+     *
+     * @param aMessage
      */
     void logInfo(String aMessage);
 
