@@ -31,6 +31,7 @@ import java.io.File;
 import java.io.IOException;
 
 import java.net.InetSocketAddress;
+import java.net.UnknownHostException;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -47,6 +48,7 @@ import jmul.misc.state.State;
 
 import static jmul.string.StringConstants.COMMA;
 import static jmul.string.StringConstants.NEW_LINE;
+import static jmul.string.StringConstants.TABULATOR;
 
 
 /**
@@ -137,7 +139,12 @@ public class WebServerImpl implements WebServer {
         List<File> allResults = new ArrayList<File>();
 
         File baseDir = configurationReader.getBaseDirectory();
-        for (String contentType : configurationReader.getContentyTypes()) {
+        String[] contentTypes = configurationReader.getContentyTypes();
+
+        logContentTypes();
+
+
+        for (String contentType : contentTypes) {
 
             Collection<File> results = FileHelper.getFiles(baseDir, contentType, true);
             allResults.addAll(results);
@@ -198,6 +205,7 @@ public class WebServerImpl implements WebServer {
     private void logCurrentConfiguration() {
 
         HttpServer server = (HttpServer) resourceContainer.getResource(WebServerResourcesKeys.SERVER);
+        InetSocketAddress address = server.getAddress();
 
 
         StringBuilder message = new StringBuilder();
@@ -205,15 +213,46 @@ public class WebServerImpl implements WebServer {
         message.append(NEW_LINE);
         message.append(NEW_LINE);
 
-        message.append("ip address: ");
-        message.append(server.getAddress());
+
+        message.append(TABULATOR);
+        message.append("host");
         message.append(NEW_LINE);
 
-        message.append("socket port: ");
+        try {
+
+            message.append(TABULATOR);
+            message.append(TABULATOR);
+            message.append("name: ");
+            message.append(address.getAddress().getLocalHost());
+            message.append(NEW_LINE);
+
+        } catch (UnknownHostException e) {
+
+            ;
+        }
+
+        message.append(TABULATOR);
+        message.append(TABULATOR);
+        message.append("ip address: ");
+        message.append(address.getAddress().getHostAddress());
+        message.append(NEW_LINE);
+
+        message.append(NEW_LINE);
+
+
+        message.append(TABULATOR);
+        message.append("socket");
+        message.append(NEW_LINE);
+
+        message.append(TABULATOR);
+        message.append(TABULATOR);
+        message.append("port: ");
         message.append(configurationReader.getPort());
         message.append(NEW_LINE);
 
-        message.append("socket backlog size: ");
+        message.append(TABULATOR);
+        message.append(TABULATOR);
+        message.append("backlog size: ");
         int backlogSize = configurationReader.getBacklogSize();
         if (backlogSize <= 0) {
 
@@ -225,10 +264,43 @@ public class WebServerImpl implements WebServer {
         }
         message.append(NEW_LINE);
 
-        message.append("socket shutdown delay: ");
+        message.append(TABULATOR);
+        message.append(TABULATOR);
+        message.append("shutdown delay: ");
         message.append(configurationReader.getShutdownTime());
         message.append(" (sec)");
         message.append(NEW_LINE);
+
+
+        getLogger().logInfo(message.toString());
+    }
+
+    /**
+     * Logs the allowed content types for manual validation.
+     */
+    private void logContentTypes() {
+
+        String[] contentTypes = configurationReader.getContentyTypes();
+
+
+        StringBuilder message = new StringBuilder();
+
+        message.append(NEW_LINE);
+        message.append(NEW_LINE);
+
+
+        message.append(TABULATOR);
+        message.append("allowed content types");
+        message.append(NEW_LINE);
+
+
+        for (String contentType : contentTypes) {
+
+            message.append(TABULATOR);
+            message.append(TABULATOR);
+            message.append(contentType);
+            message.append(NEW_LINE);
+        }
 
 
         getLogger().logInfo(message.toString());
@@ -296,18 +368,6 @@ public class WebServerImpl implements WebServer {
 
         serverState = serverState.transitionTo(WebServerState.STOPPED);
         logCurrentServerState();
-    }
-
-    /**
-     * Starts the web server. The specified command line arguments are not processed.
-     *
-     * @param args
-     *        some command line arguments
-     */
-    public static void main(String[] args) {
-
-        WebServer webServer = new WebServerImpl(WebServer.class.getName());
-        webServer.startServer();
     }
 
     /**
@@ -476,6 +536,7 @@ class ConfigurationReader {
     public String[] getContentyTypes() {
 
         String s = getString(CONTENT_CONTENT_TYPES_KEY);
+        s = s.trim();
 
         String[] contentTypes = s.split(COMMA);
         return contentTypes;

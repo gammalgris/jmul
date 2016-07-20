@@ -4,7 +4,7 @@
  * JMUL is a central repository for utilities which are used in my
  * other public and private repositories.
  *
- * Copyright (C) 2015  Kristian Kutin
+ * Copyright (C) 2016  Kristian Kutin
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -22,30 +22,32 @@
  * e-mail: kristian.kutin@arcor.de
  */
 
-package jmul.test.classification;
+package test.jmul.web;
 
+import jmul.test.classification.ManualTest;
 
-import java.lang.annotation.Documented;
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+import jmul.web.WebServer;
+import jmul.web.WebServerImpl;
 
 
 /**
- * This annotation represents a classification for a test suite (i.e. class).<br />
- * <br />
- * <i>Note:<br />
- * See this article about
- * <a href="https://en.wikipedia.org/wiki/Software_testing">software testing</a>,
- * specifically the subsection regarding
- * <a href="https://en.wikipedia.org/wiki/Software_testing#Testing_levels">testing levels</a>.
- * </i>
+ * This class contains tests regarding running a web server instance.
  *
  * @author Kristian Kutin
  */
-@Documented
-@Target(ElementType.TYPE)
-@Retention(RetentionPolicy.RUNTIME)
-public @interface IntegrationTest {
+@ManualTest
+public class WebServerTest {
+
+    /**
+     * Starts the web server. The specified command line arguments are not processed.
+     *
+     * @param args
+     *        some command line arguments
+     */
+    public static void main(String[] args) {
+
+        WebServer webServer = new WebServerImpl(WebServer.class.getName());
+        webServer.startServer();
+    }
+
 }

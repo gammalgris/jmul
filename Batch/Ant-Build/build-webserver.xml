@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<project xmlns="antlib:org.apache.tools.ant" name="build" default="build">
+<project xmlns="antlib:org.apache.tools.ant" name="build-webserver" default="build">
 
 
     <include file="${basedir}\..\Ant-Common\common.xml" />
@@ -10,19 +10,7 @@
     <target name="copySources">
 
         <copy todir="${project.tmp.src.dir}" overwrite="true">
-            <fileset dir="${package.concurrent.src.dir}">
-                <include name="**/*.java" />
-            </fileset>
             <fileset dir="${package.io.src.dir}">
-                <include name="**/*.java" />
-            </fileset>
-            <fileset dir="${package.markdown.src.dir}">
-                <include name="**/*.java" />
-            </fileset>
-            <fileset dir="${package.math.src.dir}">
-                <include name="**/*.java" />
-            </fileset>
-            <fileset dir="${package.measures.src.dir}">
                 <include name="**/*.java" />
             </fileset>
             <fileset dir="${package.misc.src.dir}">
@@ -31,25 +19,13 @@
             <fileset dir="${package.network.src.dir}">
                 <include name="**/*.java" />
             </fileset>
-            <fileset dir="${package.persistence.src.dir}">
-                <include name="**/*.java" />
-            </fileset>
             <fileset dir="${package.reflection.src.dir}">
                 <include name="**/*.java" />
             </fileset>
             <fileset dir="${package.string.src.dir}">
                 <include name="**/*.java" />
             </fileset>
-            <fileset dir="${package.test.src.dir}">
-                <include name="**/*.java" />
-            </fileset>
-            <fileset dir="${package.transformation.src.dir}">
-                <include name="**/*.java" />
-            </fileset>
             <fileset dir="${package.web.src.dir}">
-                <include name="**/*.java" />
-            </fileset>
-            <fileset dir="${package.xml.src.dir}">
                 <include name="**/*.java" />
             </fileset>
         </copy>
@@ -60,28 +36,22 @@
     <target name="copyResources">
 
         <copy todir="${project.tmp.cfg.dir}" overwrite="true">
-            <fileset dir="${package.markdown.cfg.dir}">
-                <include name="**/*.properties" />
-            </fileset>
-            <fileset dir="${package.measures.cfg.dir}">
-                <include name="**/*.properties" />
-                <include name="**/*.units" />
-            </fileset>
             <fileset dir="${package.network.cfg.dir}">
                 <include name="**/*.properties" />
-            </fileset>
-            <fileset dir="${package.persistence.cfg.dir}">
-                <include name="**/*.properties" />
-                <include name="**/*.configuration" />
             </fileset>
             <fileset dir="${package.reflection.cfg.dir}">
                 <include name="**/*.properties" />
             </fileset>
-            <fileset dir="${package.transformation.cfg.dir}">
+            <fileset dir="${package.web.cfg.dir}">
                 <include name="**/*.properties" />
-                <include name="**/*.configuration" />
             </fileset>
-            <fileset dir="${package.version.cfg.dir}">
+        </copy>
+
+        <copy todir="${project.tmp.build.dir}" overwrite="true">
+            <fileset dir="${package.network.cfg.dir}">
+                <include name="**/*.properties" />
+            </fileset>
+            <fileset dir="${package.reflection.cfg.dir}">
                 <include name="**/*.properties" />
             </fileset>
             <fileset dir="${package.web.cfg.dir}">

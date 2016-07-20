@@ -33,7 +33,7 @@ import java.lang.annotation.Target;
 
 
 /**
- * This annotation represents a classification for a test case.<br />
+ * This annotation represents a classification for a test suite (i.e. class).<br />
  * <br />
  * <i>Note:<br />
  * See this article about

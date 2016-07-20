@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project xmlns="antlib:org.apache.tools.ant" name="deploy-webserver" default="deploy">
+
+
+    <include file="${basedir}\..\Ant-Common\common.xml" />
+    <include file="${basedir}\..\Ant-Common\temp.xml" />
+    <include file="${basedir}\..\Ant-Common\classpath.xml" />
+    <include file="${basedir}\..\Ant-Build\build-webserver.xml" />
+    <include file="${basedir}\..\Ant-Build\build-javadoc.xml" />
+
+
+    <property name="jar.classes.file" location="${project.tmp.deploy.dir}\jmul-webserver-${version.library}.jar" />
+    <property name="jar.sources.file" location="${project.tmp.deploy.dir}\jmul-webserver-${version.library}-sources.jar" />
+    <property name="jar.javadoc.file" location="${project.tmp.deploy.dir}\jmul-webserver-${version.library}-javadoc.jar" />
+
+
+    <target name="info">
+
+        <echo />
+        <echo message="  project tmp deploy dir ...................... ${project.tmp.deploy.dir}" />
+        <echo />
+        <echo message="  project tmp build dir ....................... ${project.tmp.build.dir}" />
+        <echo message="  project tmp src dir ......................... ${project.tmp.src.dir}" />
+        <echo message="  project tmp javadoc dir ..................... ${project.tmp.javadoc.dir}" />
+        <echo />
+        <echo message="  jar classes file ............................ ${jar.classes.file}" />
+        <echo message="  jar sources file ............................ ${jar.sources.file}" />
+        <echo message="  jar javadoc file ............................ ${jar.javadoc.file}" />
+        <echo />
+
+    </target>
+
+
+    <target name="jarClasses">
+
+        <jar destfile="${jar.classes.file}" compress="true">
+            <fileset dir="${project.tmp.build.dir}" />
+        </jar>
+
+    </target>
+
+
+    <target name="jarSources">
+
+        <jar destfile="${jar.sources.file}" compress="true">
+            <fileset dir="${project.tmp.src.dir}" />
+        </jar>
+
+    </target>
+
+
+    <target name="jarJavadoc">
+
+        <jar destfile="${jar.javadoc.file}" compress="true">
+            <fileset dir="${project.tmp.javadoc.dir}" />
+        </jar>
+
+    </target>
+
+
+    <target name="copyBatchFiles">
+
+        <copy todir="${project.tmp.deploy.dir}" overwrite="true">
+            <fileset dir="${project.dir}\Batch\Dos-WebServer">
+                <include name="**/*.bat" />
+            </fileset>
+        </copy>
+
+    </target>
+
+
+    <target name="deploy" depends="build-webserver.build, build-javadoc.build, info, jarClasses, jarSources, jarJavadoc, copyBatchFiles" />
+
+
+</project>

@@ -4,7 +4,7 @@
  * JMUL is a central repository for utilities which are used in my
  * other public and private repositories.
  *
- * Copyright (C) 2015  Kristian Kutin
+ * Copyright (C) 2016  Kristian Kutin
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -33,19 +33,12 @@ import java.lang.annotation.Target;
 
 
 /**
- * This annotation represents a classification for a test suite (i.e. class).<br />
- * <br />
- * <i>Note:<br />
- * See this article about
- * <a href="https://en.wikipedia.org/wiki/Software_testing">software testing</a>,
- * specifically the subsection regarding
- * <a href="https://en.wikipedia.org/wiki/Software_testing#Testing_levels">testing levels</a>.
- * </i>
+ * This annotation represents a classification for a test suite (i.e. class).
  *
  * @author Kristian Kutin
  */
 @Documented
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface IntegrationTest {
+public @interface ManualTest {
 }

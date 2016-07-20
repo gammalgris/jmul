@@ -78,6 +78,12 @@
     <property name="package.version.dir" location="${packages.base.dir}\Version" />
     <property name="package.version.cfg.dir" location="${package.version.dir}\properties" />
 
+    <property name="package.web.dir" location="${packages.base.dir}\Web" />
+    <property name="package.web.src.dir" location="${package.web.dir}\src" />
+    <property name="package.web.cfg.dir" location="${package.web.dir}\properties" />
+    <property name="package.web-tests.dir" location="${packages.base.dir}\Web-Tests" />
+    <property name="package.web-tests.src.dir" location="${package.web-tests.dir}\src" />
+
     <property name="package.xml.dir" location="${packages.base.dir}\XML" />
     <property name="package.xml.src.dir" location="${package.xml.dir}\src" />
 
@@ -162,6 +168,9 @@
         <echo message="  package transformation cfg dir .............. ${package.transformation.cfg.dir}" />
         <echo message="  package version dir ......................... ${package.version.dir}" />
         <echo message="  package version cfg dir ..................... ${package.version.cfg.dir}" />
+        <echo message="  package web dir ............................. ${package.web.dir}" />
+        <echo message="  package web src dir ......................... ${package.web.src.dir}" />
+        <echo message="  package web cfg dir ......................... ${package.web.cfg.dir}" />
         <echo message="  package xml dir ............................. ${package.xml.dir}" />
         <echo message="  package xml src dir ......................... ${package.xml.src.dir}" />
         <echo />
@@ -184,6 +193,8 @@
         <echo message="  package misc tests src dir .................. ${package.misc-tests.src.dir}" />
         <echo message="  package math tests dir ...................... ${package.math-tests.dir}" />
         <echo message="  package math tests src dir .................. ${package.math-tests.src.dir}" />
+        <echo message="  package web tests dir ....................... ${package.web-tests.dir}" />
+        <echo message="  package web tests src dir ................... ${package.web-tests.src.dir}" />
         <echo />
         <echo />
         <echo message="  project tmp dir ............................. ${project.tmp.dir}" />

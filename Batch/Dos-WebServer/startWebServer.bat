@@ -13,12 +13,13 @@ set initializerRunner=setEnv.bat
 set environmentCheck=checkEnv.bat
 
 
-set sonarVersion=5.3
-set "sonarPath=D:\Programme\sonarqube-5.3\bin\windows-x86-64"
-set sonarRunner=StartSonar.bat
+set "webServerLibrary=jmul-webserver-1.0.0.jar"
+set "webServerLibraryPath=%initializerPath%\%webServerLibrary%"
+set "webServerRunner=jmul.web.WebServerRunner"
+set "webServerParameters=jmul.web.WebServerImpl jmul.web.WebServer"
 
 
-set "windowTitle=SonarQube %sonarVersion%"
+set "windowTitle=%webServerLibrary%"
 title %windowTitle%
 
 
@@ -50,14 +51,13 @@ if %ERRORLEVEL%==0 (
 )
 
 
-cd /D "%sonarPath%" 2>nul
-if %ERRORLEVEL%==0 (
+if exist %webServerLibraryPath% (
 
 	rem OK
 
 ) else (
 
-	echo ERROR %ERRORLEVEL%: The path to sonar ^(%sonarPath%^) is invalid! >&2
+	echo ERROR %ERRORLEVEL%: The web server library doesn't exist ^(%webServerLibraryPath%^)! >&2
 	pause
 	exit /b %ERRORLEVEL%
 )
@@ -66,7 +66,8 @@ if %ERRORLEVEL%==0 (
 echo.
 echo.
 
-call %sonarRunner%
+echo java.exe -cp %webServerLibraryPath% %webServerRunner% %webServerParameters%
+start /B java.exe -cp %webServerLibraryPath% %webServerRunner% %webServerParameters%
 if %ERRORLEVEL%==0 (
 
 	rem OK
@@ -91,7 +92,8 @@ pause
 
 set initializerPath=
 set initializerRunner=
-set sonarVersion=
-set sonarPath=
-set sonarRunner=
+set webServerLibrary=
+set webServerLibraryPath=
+set webServerRunner=
+set webServerParameters=
 set windowTitle=

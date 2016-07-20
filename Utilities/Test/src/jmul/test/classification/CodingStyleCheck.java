@@ -33,7 +33,7 @@ import java.lang.annotation.Target;
 
 
 /**
- * This annotation represents a classification for test cases.
+ * This annotation represents a classification for a test suite (i.e. class).
  *
  * @author Kristian Kutin
  */

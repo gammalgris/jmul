@@ -97,16 +97,19 @@ public class PageHandler implements HttpHandler {
     @Override
     public void handle(HttpExchange httpExchange) throws IOException {
 
-        if (page == null) {
+        synchronized (this) {
 
-            try {
+            if (page == null) {
 
-                page = loader.loadContent();
+                try {
 
-            } catch (Exception e) {
+                    page = loader.loadContent();
 
-                logger.logError(e);
-                throw new RuntimeException(e);
+                } catch (Exception e) {
+
+                    logger.logError(e);
+                    throw new RuntimeException(e);
+                }
             }
         }
 
