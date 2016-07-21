@@ -5675,7 +5675,7 @@ Error message and password prompt
 <div created="20150606171842764" creator="K" modified="20150606171842937" modifier="K" title="$:/status/UserName">
 <pre>KK</pre>
 </div>
-<div list="[[Table of Contents]]" title="$:/StoryList">
+<div list="[[Table of Contents]] [[Persisted Data Structures]]" title="$:/StoryList">
 <pre></pre>
 </div>
 <div modified="20150606212211544" modifier="KK" title="$:/temp/advancedsearch">
@@ -5870,7 +5870,7 @@ A programmer has to decide how all these features fit into an application. Aspec
 &lt;img src='misc/images/project/module dependencies.jpg' /&gt;
 </pre>
 </div>
-<div created="20150606235334546" creator="KK" modified="20150612150118900" modifier="KK" tags="implementation tutorial persistence" title="Persisted Data Structures">
+<div created="20150606235334546" creator="KK" modified="20160721203739943" modifier="KK" tags="implementation tutorial persistence" title="Persisted Data Structures">
 <pre>Data structures which should be persisted must be modified in order for the currently implemented transformation rules to serialize and deserialize objects. In the Java environment that means that the class definitions require certain annotations.
 
 !Example #1
@@ -5883,7 +5883,7 @@ A marker annotation to identify fields which should not be presisted. Here are a
 
 Marking only exemptions is more practical than marking all fields which should be persisted.
 
-&lt;html&gt;&lt;iframe src=&quot;misc/java-code-examples/persisted_data_ structures_01.html&quot; seamless width=&quot;90%&quot; height=&quot;250&quot; /&gt;&lt;/html&gt;
+&lt;html&gt;&lt;iframe src=&quot;misc/java-code-examples/persisted_data_structures_01.html&quot; seamless width=&quot;90%&quot; height=&quot;250&quot; /&gt;&lt;/html&gt;
 
 !Example #2
 
@@ -5891,7 +5891,7 @@ An annotation which identifies the root node of a graph. A root node will be ass
 
 All root nodes will be grouped by their delcared types. Queries will only search within the subset defined by the declared type. In some cases the declared type cannot be determined (e.g. if the class implements several interfaces or extends another class as well as implements an interface). Then the declared type has to be specified in the class definition.
 
-&lt;html&gt;&lt;iframe src=&quot;misc/java-code-examples/persisted_data_ structures_02.html&quot; seamless width=&quot;90%&quot; height=&quot;420&quot; /&gt;&lt;/html&gt;
+&lt;html&gt;&lt;iframe src=&quot;misc/java-code-examples/persisted_data_structures_02.html&quot; seamless width=&quot;90%&quot; height=&quot;420&quot; /&gt;&lt;/html&gt;
 
 !Example #3
 
@@ -5899,7 +5899,7 @@ An annotation which specifies the element type of a collection.
 
 This additional information is only useful on deserialisation and helps to resolve ambiguities due to type erasure.
 
-&lt;html&gt;&lt;iframe src=&quot;misc/java-code-examples/persisted_data_ structures_03.html&quot; seamless width=&quot;90%&quot; height=&quot;270&quot; /&gt;&lt;/html&gt;
+&lt;html&gt;&lt;iframe src=&quot;misc/java-code-examples/persisted_data_structures_03.html&quot; seamless width=&quot;90%&quot; height=&quot;270&quot; /&gt;&lt;/html&gt;
 
 !Example #4
 
@@ -5907,7 +5907,7 @@ An annotation which specifies the element type of a collection.
 
 This example is similar to example #3 except that the container informations are provided with the declaration of a custom collection implementation.
 
-&lt;html&gt;&lt;iframe src=&quot;misc/java-code-examples/persisted_data_ structures_04.html&quot; seamless width=&quot;90%&quot; height=&quot;420&quot; /&gt;&lt;/html&gt;
+&lt;html&gt;&lt;iframe src=&quot;misc/java-code-examples/persisted_data_structures_04.html&quot; seamless width=&quot;90%&quot; height=&quot;420&quot; /&gt;&lt;/html&gt;
 
 !Example #5
 
@@ -5915,7 +5915,7 @@ An annotation which specifies the key and value type of a map.
 
 This additional information is only useful on deserialisation and helps to resolve ambiguities due to type erasure.
 
-&lt;html&gt;&lt;iframe src=&quot;misc/java-code-examples/persisted_data_ structures_05.html&quot; seamless width=&quot;90%&quot; height=&quot;320&quot; /&gt;&lt;/html&gt;
+&lt;html&gt;&lt;iframe src=&quot;misc/java-code-examples/persisted_data_structures_05.html&quot; seamless width=&quot;90%&quot; height=&quot;320&quot; /&gt;&lt;/html&gt;
 
 !Example #6
 
@@ -5923,7 +5923,7 @@ An annotation which specifies the element type of a collection.
 
 This example is similar to example #5 except that the map informations are provided with the declaration of a custom map implementation.
 
-&lt;html&gt;&lt;iframe src=&quot;misc/java-code-examples/persisted_data_ structures_06.html&quot; seamless width=&quot;90%&quot; height=&quot;430&quot; /&gt;&lt;/html&gt;
+&lt;html&gt;&lt;iframe src=&quot;misc/java-code-examples/persisted_data_structures_06.html&quot; seamless width=&quot;90%&quot; height=&quot;430&quot; /&gt;&lt;/html&gt;
 </pre>
 </div>
 <div created="20160517133754080" creator="KK" modified="20160517133801515" modifier="KK" title="Table of Contents">
