@@ -55,6 +55,8 @@ public final class WebServerRunner {
         Class clazz = extractClass(args);
         String configuration = extractConfiguration(args);
 
+        Thread.currentThread().setName(clazz.getSimpleName());
+
         WebServer webServer = instantiateWebServer(clazz, configuration);
         webServer.startServer();
     }

@@ -380,7 +380,7 @@ public class WebServerImpl implements WebServer {
          */
         public SigintHandler() {
 
-            setName("WebServer.SigintHandler");
+            setName(this.getClass().getSimpleName());
         }
 
         /**
