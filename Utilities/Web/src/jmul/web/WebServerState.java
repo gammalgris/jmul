@@ -51,7 +51,7 @@ public enum WebServerState implements State {
     INITIALIZATION("initialization", "initialized", "error"),
 
     /**
-     * The initialization of the web server instacne is finished.
+     * The initialization of the web server instance is finished.
      */
     INITIALIZED("initialized", "starting"),
 
@@ -66,7 +66,7 @@ public enum WebServerState implements State {
     RUNNING("running", "stopping", "error"),
 
     /**
-     * The web server insatnce is being shut down.
+     * The web server instance is being shut down.
      */
     STOPPING("stopping", "stopped", "error"),
 

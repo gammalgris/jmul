@@ -16,7 +16,7 @@ set environmentCheck=checkEnv.bat
 set "webServerLibrary=jmul-webserver-1.0.0.jar"
 set "webServerLibraryPath=%initializerPath%%webServerLibrary%"
 set "webServerRunner=jmul.web.WebServerRunner"
-set "webServerParameters=jmul.web.WebServerImpl jmul.web.WebServer"
+set "webServerParameters=jmul.web.WebServerImpl CustomWebServer"
 
 
 set "windowTitle=%webServerLibrary%"
@@ -66,10 +66,10 @@ if exist %webServerLibraryPath% (
 echo.
 echo.
 
-echo java.exe -cp %webServerLibraryPath% %webServerRunner% %webServerParameters%
+echo java.exe -cp %webServerLibraryPath%;%initializerPath% %webServerRunner% %webServerParameters%
 echo.
 
-java.exe -cp %webServerLibraryPath% %webServerRunner% %webServerParameters%
+java.exe -cp %webServerLibraryPath%;%initializerPath% %webServerRunner% %webServerParameters%
 if %ERRORLEVEL%==0 (
 
 	rem OK
