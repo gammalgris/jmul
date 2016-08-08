@@ -83,7 +83,7 @@ if %ERRORLEVEL%==0 (
 
 	) else (
 
-		echo ERROR %ERRORLEVEL%: An error occurred while invoking the web server! >&2
+		echo ERROR %ERRORLEVEL%: An error occurred while invoking the sonar runner! >&2
 		pause
 		exit /b %ERRORLEVEL%
 	)

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+  <head>
+
+    <title>conversion_usage_01</title>
+
+      <script src="google-code-prettify/run_prettify.js?autoload=true&amp;skin=sons-of-obsidian&amp;lang=css" defer="defer"></script>
+
+  </head>
+
+  <body bgcolor="Black">
+
+  <?prettify linenums=1?>
+    <pre class="prettyprint" id="quine">
+      ...
+
+      MeasurementSystem measurementSystem = new MeasurementSystemImpl();
+
+      MeasurementUnit mu = measurementSystem.getUnit("m");
+      double value = 1d;
+
+      double result = mu.convert(value, "cm").doubleValue();
+
+      ...
+    </pre>
+
+  </body>
+
+</html>
