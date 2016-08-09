@@ -9,106 +9,12 @@
 
     <property name="project.name" value="(J)ava (M)iscellaneous (U)tility (L)ibraries" />
 
-
     <property name="project.dir" location="${basedir}\..\.." />
-
-
     <property name="packages.base.dir" location="${project.dir}\Utilities" />
 
-    <property name="package.concurrent.dir" location="${packages.base.dir}\Concurrent" />
-    <property name="package.concurrent.src.dir" location="${package.concurrent.dir}\src" />
 
-    <property name="package.helper-tests.dir" location="${packages.base.dir}\Helper-Tests" />
-    <property name="package.helper-tests.src.dir" location="${package.helper-tests.dir}\src" />
-
-    <property name="package.io.dir" location="${packages.base.dir}\IO" />
-    <property name="package.io.src.dir" location="${package.io.dir}\src" />
-    <property name="package.io-tests.dir" location="${packages.base.dir}\IO-Tests" />
-    <property name="package.io-tests.src.dir" location="${package.io-tests.dir}\src" />
-    <property name="package.io-tests.testdata.creator" location="${package.io-tests.dir}\create-testdata-io.bat" />
-
-    <property name="package.markdown.dir" location="${packages.base.dir}\Markdown" />
-    <property name="package.markdown.src.dir" location="${package.markdown.dir}\src" />
-    <property name="package.markdown.cfg.dir" location="${package.markdown.dir}\properties" />
-    <property name="package.markdown-tests.dir" location="${packages.base.dir}\Markdown-Tests" />
-    <property name="package.markdown-tests.src.dir" location="${package.markdown-tests.dir}\src" />
-
-    <property name="package.math.dir" location="${packages.base.dir}\Math" />
-    <property name="package.math.src.dir" location="${package.math.dir}\src" />
-    <property name="package.math-tests.dir" location="${packages.base.dir}\Math-Tests" />
-    <property name="package.math-tests.src.dir" location="${package.math-tests.dir}\src" />
-
-    <property name="package.measures.dir" location="${packages.base.dir}\Measures" />
-    <property name="package.measures.src.dir" location="${package.measures.dir}\src" />
-    <property name="package.measures.cfg.dir" location="${package.measures.dir}\properties" />
-    <property name="package.measures-tests.dir" location="${packages.base.dir}\Measures-Tests" />
-    <property name="package.measures-tests.src.dir" location="${package.measures-tests.dir}\src" />
-
-    <property name="package.misc.dir" location="${packages.base.dir}\Misc" />
-    <property name="package.misc.src.dir" location="${package.misc.dir}\src" />
-    <property name="package.misc-tests.dir" location="${packages.base.dir}\Misc-Tests" />
-    <property name="package.misc-tests.src.dir" location="${package.misc-tests.dir}\src" />
-
-    <property name="package.network.dir" location="${packages.base.dir}\Network" />
-    <property name="package.network.src.dir" location="${package.network.dir}\src" />
-    <property name="package.network.cfg.dir" location="${package.network.dir}\properties" />
-    <property name="package.network-tests.dir" location="${packages.base.dir}\Network-Tests" />
-    <property name="package.network-tests.src.dir" location="${package.network-tests.dir}\src" />
-
-    <property name="package.persistence.dir" location="${packages.base.dir}\Persistence" />
-    <property name="package.persistence.src.dir" location="${package.persistence.dir}\src" />
-    <property name="package.persistence.cfg.dir" location="${package.persistence.dir}\properties" />
-
-    <property name="package.reflection.dir" location="${packages.base.dir}\Reflection" />
-    <property name="package.reflection.src.dir" location="${package.reflection.dir}\src" />
-    <property name="package.reflection.cfg.dir" location="${package.reflection.dir}\properties" />
-
-    <property name="package.string.dir" location="${packages.base.dir}\String" />
-    <property name="package.string.src.dir" location="${package.string.dir}\src" />
-    <property name="package.string-tests.dir" location="${packages.base.dir}\String-Tests" />
-    <property name="package.string-tests.src.dir" location="${package.string-tests.dir}\src" />
-
-    <property name="package.test.dir" location="${packages.base.dir}\Test" />
-    <property name="package.test.src.dir" location="${package.test.dir}\src" />
-
-    <property name="package.transformation.dir" location="${packages.base.dir}\Transformation" />
-    <property name="package.transformation.src.dir" location="${package.transformation.dir}\src" />
-    <property name="package.transformation.cfg.dir" location="${package.transformation.dir}\properties" />
-
-    <property name="package.version.dir" location="${packages.base.dir}\Version" />
-    <property name="package.version.cfg.dir" location="${package.version.dir}\properties" />
-
-    <property name="package.web.dir" location="${packages.base.dir}\Web" />
-    <property name="package.web.src.dir" location="${package.web.dir}\src" />
-    <property name="package.web.cfg.dir" location="${package.web.dir}\properties" />
-    <property name="package.web-tests.dir" location="${packages.base.dir}\Web-Tests" />
-    <property name="package.web-tests.src.dir" location="${package.web-tests.dir}\src" />
-
-    <property name="package.xml.dir" location="${packages.base.dir}\XML" />
-    <property name="package.xml.src.dir" location="${package.xml.dir}\src" />
-
-
-    <property name="project.tmp.dir" location="${project.dir}\tmp" />
-    <property name="project.tmp.src.dir" location="${project.tmp.dir}\src" />
-    <property name="project.tmp.cfg.dir" location="${project.tmp.dir}\properties" />
-    <property name="project.tmp.build.dir" location="${project.tmp.dir}\build" />
-    <property name="project.tmp.deploy.dir" location="${project.tmp.dir}\deploy" />
-    <property name="project.tmp.instrumented.dir" location="${project.tmp.dir}\instrumented" />
-    <property name="project.tmp.javadoc.dir" location="${project.tmp.dir}\javadoc" />
-
-    <property name="project.tmp.io-tests.testdata.creator" location="${project.tmp.dir}\create-testdata-io.bat" />
-
-    <property name="project.tmp.tests-src.dir" location="${project.tmp.dir}\tests-src" />
-    <property name="project.tmp.tests-cfg.dir" location="${project.tmp.dir}\tests-properties" />
-    <property name="project.tmp.tests-build.dir" location="${project.tmp.dir}\tests-build" />
-
-    <property name="project.tmp.tests-results.dir" location="${project.tmp.dir}\tests-results" />
-    <property name="project.tmp.tests-report.dir" location="${project.tmp.dir}\tests-report" />
-
-    <property name="project.tmp.coverage-report.dir" location="${project.tmp.dir}\coverage-report" />
-    <property name="project.tmp.coverage.file" value="${project.tmp.dir}\cobertura.ser" />
-    <property name="project.tmp.coverage-summary-report.dir" location="${project.tmp.dir}\coverage-summary-report" />
-    <property name="project.tmp.coverage-alternate-report.dir" location="${project.tmp.dir}\coverage-alternate-report" />
+    <property file="directories.properties" />
+    <property file="tmp.properties" />
 
 
     <loadproperties srcfile="${package.version.cfg.dir}\version.properties" />
