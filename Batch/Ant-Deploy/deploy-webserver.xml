@@ -69,7 +69,19 @@
     </target>
 
 
-    <target name="deploy" depends="build-webserver.build, build-javadoc.build, info, jarClasses, jarSources, jarJavadoc, copyBatchFiles" />
+    <target name="copyMiscFiles">
+
+        <copy todir="${project.tmp.deploy.dir}" overwrite="true">
+            <fileset dir="${project.dir}\Batch\Dos-WebServer">
+                <include name="**/*.properties" />
+                <include name="**/*.html" />
+            </fileset>
+        </copy>
+
+    </target>
+
+
+    <target name="deploy" depends="build-webserver.build, build-javadoc.build, info, jarClasses, jarSources, jarJavadoc, copyBatchFiles, copyMiscFiles" />
 
 
 </project>

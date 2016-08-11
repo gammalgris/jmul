@@ -8,15 +8,17 @@
 @rem ===   This script sets up the environment for SonarQube and starts SonarQube.
 @rem ===
 
+call:defineMacros
+
 set "initializerPath=%~dp0"
-set initializerRunner=setEnv.bat
-set environmentCheck=checkEnv.bat
 
+call:loadProperties %initializerPath%startWebServer.properties
+%ifError% (
 
-set "webServerLibrary=jmul-webserver-1.0.0.jar"
-set "webServerLibraryPath=%initializerPath%%webServerLibrary%"
-set "webServerRunner=jmul.web.WebServerRunner"
-set "webServerParameters=jmul.web.WebServerImpl jmul.web.WebServer"
+	echo ERROR %ERRORLEVEL%: The properties couldn't be loaded! >&2
+	pause
+	%return% %ERRORLEVEL%
+)
 
 
 set "windowTitle=%webServerLibrary%"
@@ -34,7 +36,7 @@ if %ERRORLEVEL%==0 (
 
 	echo ERROR %ERRORLEVEL%: The environment couldn't be set up! >&2
 	pause
-	exit /b %ERRORLEVEL%
+	%return% %ERRORLEVEL%
 )
 
 
@@ -66,10 +68,10 @@ if exist %webServerLibraryPath% (
 echo.
 echo.
 
-echo java.exe -cp %webServerLibraryPath% %webServerRunner% %webServerParameters%
+echo java.exe -cp %webServerClasspath% %webServerRunner% %webServerParameters%
 echo.
 
-java.exe -cp %webServerLibraryPath% %webServerRunner% %webServerParameters%
+java.exe -cp %webServerClasspath% %webServerRunner% %webServerParameters%
 if %ERRORLEVEL%==0 (
 
 	rem OK
@@ -83,7 +85,7 @@ if %ERRORLEVEL%==0 (
 
 	) else (
 
-		echo ERROR %ERRORLEVEL%: An error occurred while invoking the sonar runner! >&2
+		echo ERROR %ERRORLEVEL%: An error occurred while invoking the web server! >&2
 		pause
 		exit /b %ERRORLEVEL%
 	)
@@ -96,6 +98,113 @@ set initializerPath=
 set initializerRunner=
 set webServerLibrary=
 set webServerLibraryPath=
+set webServerClasspath=
 set webServerRunner=
 set webServerParameters=
 set windowTitle=
+
+%return%
+
+
+@rem ================================================================================
+@rem ===
+@rem ===   Internal Subroutines
+@rem ===
+
+@rem --------------------------------------------------------------------------------
+@rem ---
+@rem ---   void defineMacros()
+@rem ---
+@rem ---   The subroutine defines required macros.
+@rem ---
+
+:defineMacros
+
+	set "ifError=set foundErr=1&(if errorlevel 0 if not errorlevel 1 set foundErr=)&if defined foundErr"
+	
+	set "cprintln=echo"
+	set "cprint=echo|set /p="
+	
+	set "return=exit /b"
+
+%return%
+
+
+@rem --------------------------------------------------------------------------------
+@rem ---
+@rem ---   void loadProperties(String filename)
+@rem ---
+@rem ---   The subroutine loads properties from the specified file (i.e. the file
+@rem ---   is processed and for each entry a environment variable is set).
+@rem ---
+@rem ---
+@rem ---   @param filename
+@rem ---          the relative of absolute path of a property file
+@rem ---
+
+:loadProperties
+
+	set "_fileName=%1"
+	if '%_fileName%'=='' (
+
+		echo ERROR ^(%0^): No file name has been specified! >&2
+		%return% 2
+	)
+	set "_fileName=%_fileName:"=%"
+
+
+	if not exist %_fileName% (
+
+		echo ERROR ^(%0^): The specified file '%_fileName%' doesn't exist! >&2
+		%return% 3
+	)
+
+	for /F "tokens=*" %%a in (%_fileName%) do (
+
+		call:setProperty "%%a"
+		%ifError% (
+
+			%return%
+		)
+	)
+
+
+	set _fileName=
+
+%return%
+
+
+@rem --------------------------------------------------------------------------------
+@rem ---
+@rem ---   void setProperty(String declaration)
+@rem ---
+@rem ---   The subroutine sets an environment variable according to the specified
+@rem ---   declaration. Referenced variables will be resolved.
+@rem ---
+@rem ---
+@rem ---   @param declaration
+@rem ---          the declaration of a property (e.g. propertyName=someValue)
+@rem ---
+
+:setProperty
+
+	set "_declaration=%1"
+	if '%_declaration%'=='' (
+
+		echo ERROR ^(%0^): No declaration has been specified! >&2
+		%return% 2
+	)
+	set "_declaration=%_declaration:"=%"
+	if "%_declaration%"=="" (
+
+		echo ERROR ^(%0^): No declaration has been specified! >&2
+		%return% 2
+	)
+
+
+	set "%_declaration%"
+
+
+	set _declaration=
+
+%return%
