@@ -43,6 +43,7 @@
       <hash><url n="URL" path="String/String.jpr"/></hash>
       <hash><url n="URL" path="String-Tests/String-Tests.jpr"/></hash>
       <hash><url n="URL" path="Test/Test.jpr"/></hash>
+      <hash><url n="URL" path="Time/Time.jpr"/></hash>
       <hash><url n="URL" path="Transformation/Transformation.jpr"/></hash>
       <hash><url n="URL" path="Web/Web.jpr"/></hash>
       <hash><url n="URL" path="Web-Tests/Web-Tests.jpr"/></hash>

@@ -269,7 +269,7 @@ public final class XmlHelper {
      *
      * @return a list of child elements
      */
-    static List<Node> extractChildElementNodes(Node aParentNode) {
+    public static List<Node> extractChildElementNodes(Node aParentNode) {
 
         return extractChildNodes(aParentNode, Node.ELEMENT_NODE);
     }

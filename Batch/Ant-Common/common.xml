@@ -44,6 +44,7 @@
         <echo />
         <echo message="  package concurrent dir ...................... ${package.concurrent.dir}" />
         <echo message="  package concurrent src dir .................. ${package.concurrent.src.dir}" />
+        <echo message="  package concurrent cfg dir .................. ${package.concurrent.cfg.dir}" />
         <echo message="  package io dir .............................. ${package.io.dir}" />
         <echo message="  package io src dir .......................... ${package.io.src.dir}" />
         <echo message="  package markdwn dir ......................... ${package.markdown.dir}" />
@@ -69,6 +70,8 @@
         <echo message="  package string src dir ...................... ${package.string.src.dir}" />
         <echo message="  package test dir ............................ ${package.test.dir}" />
         <echo message="  package test src dir ........................ ${package.test.src.dir}" />
+        <echo message="  package time dir ............................ ${package.time.dir}" />
+        <echo message="  package time src dir ........................ ${package.time.src.dir}" />
         <echo message="  package transformation dir .................. ${package.transformation.dir}" />
         <echo message="  package transformation src dir .............. ${package.transformation.src.dir}" />
         <echo message="  package transformation cfg dir .............. ${package.transformation.cfg.dir}" />

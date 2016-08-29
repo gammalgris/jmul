@@ -43,6 +43,9 @@
             <fileset dir="${package.test.src.dir}">
                 <include name="**/*.java" />
             </fileset>
+            <fileset dir="${package.time.src.dir}">
+                <include name="**/*.java" />
+            </fileset>
             <fileset dir="${package.transformation.src.dir}">
                 <include name="**/*.java" />
             </fileset>
@@ -60,6 +63,9 @@
     <target name="copyResources">
 
         <copy todir="${project.tmp.cfg.dir}" overwrite="true">
+            <fileset dir="${package.concurrent.cfg.dir}">
+                <include name="**/*.properties" />
+            </fileset>
             <fileset dir="${package.markdown.cfg.dir}">
                 <include name="**/*.properties" />
             </fileset>
@@ -94,7 +100,7 @@
 
     <target name="build" depends="common.info, classpath.info, temp.info, temp.initTmp, copySources, copyResources">
 
-        <javac srcdir="${project.tmp.src.dir}" destdir="${project.tmp.build.dir}" verbose="true" classpathref="jmul.build.classpath" debug="on" />
+        <javac target="1.6" srcdir="${project.tmp.src.dir}" destdir="${project.tmp.build.dir}" verbose="true" classpathref="jmul.build.classpath" debug="on" />
 
     </target>
 
