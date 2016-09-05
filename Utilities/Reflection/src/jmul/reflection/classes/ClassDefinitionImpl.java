@@ -1106,4 +1106,41 @@ class ClassDefinitionImpl implements ClassDefinition {
         return result;
     }
 
+    /**
+     * The method determines all methods of this class.
+     *
+     * @param recurse
+     *        a flag indicating to recurse through the inheritence structure
+     *
+     * @return a list of all methods
+     */
+    public Method[] getMethods(boolean recurse) {
+
+        Collection<Method> methods = new ArrayList<Method>();
+        Class probedClass = getType();
+
+
+        while (recurse && (probedClass != null)) {
+
+            for (Method method : probedClass.getDeclaredMethods()) {
+
+                if (Modifier.isStatic(method.getModifiers())) {
+
+                    continue;
+
+                }
+
+                methods.add(method);
+            }
+
+            probedClass = probedClass.getSuperclass();
+        }
+
+
+        Method[] result = { };
+        result = methods.toArray(result);
+
+        return result;
+    }
+
 }

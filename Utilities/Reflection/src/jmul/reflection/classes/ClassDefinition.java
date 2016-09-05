@@ -285,4 +285,14 @@ public interface ClassDefinition extends ClassIdentifier {
      */
     Field[] getFields(boolean recurse);
 
+    /**
+     * The method determines all methods of this class.
+     *
+     * @param recurse
+     *        a flag indicating to recurse through the inheritence structure
+     *
+     * @return a list of all methods
+     */
+    Method[] getMethods(boolean recurse);
+
 }

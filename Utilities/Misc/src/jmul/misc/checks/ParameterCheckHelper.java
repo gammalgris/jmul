@@ -35,6 +35,7 @@ import jmul.misc.exceptions.EmptyStringParameterException;
 import jmul.misc.exceptions.InvalidRegularExpressionParameterException;
 import jmul.misc.exceptions.NullArrayParameterException;
 import jmul.misc.exceptions.NullClassParameterException;
+import jmul.misc.exceptions.NullDirectoryParameterException;
 import jmul.misc.exceptions.NullFileNameParameterException;
 import jmul.misc.exceptions.NullFileParameterException;
 import jmul.misc.exceptions.NullListenerParameterException;
@@ -241,6 +242,58 @@ public final class ParameterCheckHelper {
         }
 
         return aFileName;
+    }
+
+    /**
+     * Checks the specified parameter.
+     *
+     * @param aDirectory
+     *
+     * @return the specified directory
+     *
+     * @throws IllegalArgumentException
+     *         is thrown if the specified parameter is invalid
+     */
+    public static File checkDirectoryParameter(File aDirectory) {
+
+        if (aDirectory == null) {
+
+            throw new NullDirectoryParameterException();
+        }
+
+        return aDirectory;
+    }
+
+    /**
+     * Checks the specified parameter.
+     *
+     * @param aDirectoryName
+     *
+     * @return the specified parameter
+     *
+     * @throws IllegalArgumentException
+     *         if the specified parameter is invalid
+     */
+    public static String checkDirectoryNameParameter(String aDirectoryName) {
+
+        if (aDirectoryName == null) {
+
+            throw new NullFileNameParameterException();
+        }
+
+        if (aDirectoryName.trim().isEmpty()) {
+
+            String message = "No directory name (empty string) has been specified!";
+            throw new IllegalArgumentException(message);
+        }
+
+        if (!aDirectoryName.equals(aDirectoryName.trim())) {
+
+            String message = "The directory name (\"" + aDirectoryName + "\") contains leading or trailing spaces!";
+            throw new IllegalArgumentException(message);
+        }
+
+        return aDirectoryName;
     }
 
     /**
