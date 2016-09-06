@@ -22,54 +22,24 @@
  * e-mail: kristian.kutin@arcor.de
  */
 
-package jmul.test.exceptions;
+package jmul.misc.markers;
+
+
+import java.lang.annotation.Documented;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
 
 /**
- * This exception is thrown if the setup fails and thus a test
- * cannot be executed.
+ * This annotation represents a classification for a method. A method marked
+ * in this way should be analysed and improved.
  *
  * @author Kristian Kutin
  */
-public class SetUpException extends RuntimeException {
-
-    /**
-     * The default constructor.
-     */
-    public SetUpException() {
-
-        super();
-    }
-
-    /**
-     * Creates a new exception according to the specified parameters.
-     *
-     * @param aMessage
-     */
-    public SetUpException(String aMessage) {
-
-        super(aMessage);
-    }
-
-    /**
-     * Creates a new exception according to the specified parameters.
-     *
-     * @param aCause
-     */
-    public SetUpException(Throwable aCause) {
-
-        super(aCause);
-    }
-
-    /**
-     * Creates a new exception according to the specified parameters.
-     *
-     * @param aMessage
-     * @param aCause
-     */
-    public SetUpException(String aMessage, Throwable aCause) {
-
-        super(aMessage, aCause);
-    }
-
+@Documented
+@Target(ElementType.METHOD)
+@Retention(RetentionPolicy.RUNTIME)
+public @interface Inefficient {
 }

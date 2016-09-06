@@ -211,7 +211,7 @@ public class WebServiceProxy {
 
             Class[] parameterSignature = method.getParameterTypes();
             int parameters = parameterSignature.length;
-            boolean noParameters = (parameters == 0);
+            boolean noParameters = parameters == 0;
 
             if (isPublicMethod && isPortGetter && noParameters) {
 
@@ -224,14 +224,14 @@ public class WebServiceProxy {
         }
 
 
-        boolean foundOneGetPortMethod = (getPortMethods.size() == 1);
+        boolean foundOneGetPortMethod = getPortMethods.size() == 1;
         if (foundOneGetPortMethod) {
 
             Method method = getPortMethods.iterator().next();
             return method;
         }
 
-        boolean foundMoreThanOneGetPortMethod = (getPortMethods.size() > 1);
+        boolean foundMoreThanOneGetPortMethod = getPortMethods.size() > 1;
         if (foundMoreThanOneGetPortMethod) {
 
             String message =
@@ -252,14 +252,14 @@ public class WebServiceProxy {
             }
         }
 
-        boolean foundOneRelevantGetterMethod = (validGetterMethods.size() == 1);
+        boolean foundOneRelevantGetterMethod = validGetterMethods.size() == 1;
         if (foundOneRelevantGetterMethod) {
 
             Method method = validGetterMethods.iterator().next();
             return method;
         }
 
-        boolean foundMoreThanOneRelevantGetterMethod = (validGetterMethods.size() > 1);
+        boolean foundMoreThanOneRelevantGetterMethod = validGetterMethods.size() > 1;
         if (foundMoreThanOneRelevantGetterMethod) {
 
             String message =

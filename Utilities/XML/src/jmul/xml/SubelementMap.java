@@ -80,7 +80,7 @@ public class SubelementMap {
         String subelementName = markup.getTagName();
         Node subelement = subelements.get(subelementName);
 
-        boolean notExistsSubelement = (subelement == null);
+        boolean notExistsSubelement = subelement == null;
         if (notExistsSubelement) {
 
             StringBuffer message = new StringBuffer();

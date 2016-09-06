@@ -321,7 +321,7 @@ class DefinitionsLoader {
 
         Map<String, Collection<File>> foundResources = resourceScanner.getFoundResources();
 
-        boolean noResourceFiles = (foundResources.size() == 0);
+        boolean noResourceFiles = foundResources.size() == 0;
 
         if (noResourceFiles) {
 

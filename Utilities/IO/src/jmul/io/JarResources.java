@@ -118,14 +118,13 @@ public final class JarResources {
         } else if (isKnownShortcut) {
 
             Collection<String> references = shortcuts.get(aResourceName);
-            boolean moreThanOneReference = (references.size() > 1);
+            boolean moreThanOneReference = references.size() > 1;
 
             if (moreThanOneReference) {
 
                 StringConcatenator message =
                     new StringConcatenator("The archive \"", archiveName,
-                                           "\" contains several entries with the name \"",
-                                           aResourceName, "\"!");
+                                           "\" contains several entries with the name \"", aResourceName, "\"!");
                 throw new IllegalArgumentException(message.toString());
             }
 
@@ -136,8 +135,7 @@ public final class JarResources {
         } else {
 
             StringConcatenator message =
-                new StringConcatenator("The archive ", archiveName,
-                                       " doesn't have an entry with the name \"",
+                new StringConcatenator("The archive ", archiveName, " doesn't have an entry with the name \"",
                                        aResourceName, "\"!");
             throw new IllegalArgumentException(message.toString());
         }
@@ -158,8 +156,7 @@ public final class JarResources {
 
         for (String entry : archiveDirectory.keySet()) {
 
-            boolean matchingSuffix =
-                entry.toLowerCase().endsWith(aSuffix.toLowerCase());
+            boolean matchingSuffix = entry.toLowerCase().endsWith(aSuffix.toLowerCase());
             if (matchingSuffix) {
                 foundEntries.add(entry);
             }

@@ -123,7 +123,7 @@ public final class XmlParserHelper {
         NamedNodeMap attributes = node.getAttributes();
         Node attribute = attributes.getNamedItem(markup.getTagName());
 
-        return (attribute != null);
+        return attribute != null;
     }
 
     /**
@@ -217,7 +217,7 @@ public final class XmlParserHelper {
      */
     public static boolean hasXmlSubelements(SubelementMap subelements) {
 
-        return (subelements.size() > 0);
+        return subelements.size() > 0;
     }
 
     /**
@@ -249,7 +249,7 @@ public final class XmlParserHelper {
      */
     public static boolean hasXmlSubelements(SubelementList subelements) {
 
-        return (subelements.size() > 0);
+        return subelements.size() > 0;
     }
 
     /**
@@ -285,7 +285,7 @@ public final class XmlParserHelper {
 
         List<Node> sublist = subelements.getSubelements(markup);
 
-        return (sublist.size() > 0);
+        return sublist.size() > 0;
     }
 
     /**

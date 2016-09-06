@@ -209,7 +209,7 @@ public class ThreadPoolImpl2 implements ThreadPool {
                 stackSize = queue.size();
             }
 
-            loop = (stackSize > maxQueueSize);
+            loop = stackSize > maxQueueSize;
 
             if (loop) {
 

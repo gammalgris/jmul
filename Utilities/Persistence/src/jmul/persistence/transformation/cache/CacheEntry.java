@@ -100,7 +100,7 @@ public class CacheEntry {
 
         if (o instanceof CacheEntry) {
 
-            CacheEntry other = (CacheEntry)o;
+            CacheEntry other = (CacheEntry) o;
 
             // This method will compare two cache entries by comparing the
             // type and content of the cached object.
@@ -128,7 +128,7 @@ public class CacheEntry {
                     // properly serialized which will only be noticed after
                     // deserialization.
 
-                    return (this.getObject() == other.getObject());
+                    return this.getObject() == other.getObject();
                 }
 
                 return this.getObject().equals(other.getObject());

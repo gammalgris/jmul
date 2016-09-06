@@ -33,6 +33,7 @@ import java.net.URL;
 
 import javax.net.ssl.HttpsURLConnection;
 
+import jmul.network.NetworkException;
 import static jmul.network.http.Protocols.HTTP;
 import static jmul.network.http.Protocols.HTTPS;
 
@@ -68,7 +69,7 @@ public final class CheckURL {
 
         } catch (MalformedURLException e) {
 
-            throw new RuntimeException(e);
+            throw new NetworkException(e);
         }
     }
 
@@ -90,7 +91,7 @@ public final class CheckURL {
 
         } catch (IOException e) {
 
-            throw new RuntimeException(e);
+            throw new NetworkException(e);
         }
 
         if (!actualResponseCode.equals(expectedResponseCode)) {
@@ -99,7 +100,7 @@ public final class CheckURL {
                 "URL: " + aURL + " // response code: actual=" + actualResponseCode.getDescription() + "[" +
                 actualResponseCode.getValue() + "] expected=" + expectedResponseCode.getDescription() + "[" +
                 expectedResponseCode.getValue() + "]";
-            throw new RuntimeException(message);
+            throw new NetworkException(message);
         }
     }
 
@@ -142,7 +143,7 @@ public final class CheckURL {
         }
 
         String message = "Unknown protocol: \"" + actualProtocol + "\"";
-        throw new RuntimeException(message);
+        throw new NetworkException(message);
     }
 
     /**

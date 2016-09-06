@@ -62,6 +62,8 @@ public class MapHandler implements ContainerHandler {
      * The default constructor.
      */
     public MapHandler() {
+
+        super();
     }
 
     /**

@@ -64,7 +64,7 @@ class MethodInvocationResult implements InvocationResult {
     @Override
     public boolean hasFailed() {
 
-        return (failureCause != null);
+        return failureCause != null;
     }
 
     /**

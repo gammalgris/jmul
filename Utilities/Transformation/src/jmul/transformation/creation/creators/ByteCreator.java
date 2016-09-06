@@ -36,6 +36,8 @@ public class ByteCreator implements ObjectCreator {
      * The default constructor.
      */
     public ByteCreator() {
+
+        super();
     }
 
     /**

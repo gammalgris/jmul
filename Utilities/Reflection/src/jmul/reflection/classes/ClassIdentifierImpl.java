@@ -85,7 +85,7 @@ class ClassIdentifierImpl implements ClassIdentifier {
     @Override
     public boolean isLocatedOnDefaultClasspath() {
 
-        return (alternateClasspath == null);
+        return alternateClasspath == null;
     }
 
     /**
@@ -140,7 +140,7 @@ class ClassIdentifierImpl implements ClassIdentifier {
                 this.isLocatedOnAlternateClasspath() && other.isLocatedOnAlternateClasspath() &&
                 this.getAlternateClasspath().equals(other.getAlternateClasspath());
 
-            return (sameNames && (defaultClasspath || sameAlternateClasspath));
+            return sameNames && (defaultClasspath || sameAlternateClasspath);
         }
 
         return false;
@@ -159,7 +159,15 @@ class ClassIdentifierImpl implements ClassIdentifier {
 
         hash = 23 * hash + getClassname().hashCode();
 
-        tmp = (getAlternateClasspath() != null ? getAlternateClasspath().hashCode() : 0);
+        if (getAlternateClasspath() != null) {
+
+            tmp = getAlternateClasspath().hashCode();
+
+        } else {
+
+            tmp = 0;
+        }
+
         hash = 23 * hash + tmp;
 
         return hash;

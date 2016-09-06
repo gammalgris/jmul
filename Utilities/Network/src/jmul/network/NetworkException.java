@@ -4,7 +4,7 @@
  * JMUL is a central repository for utilities which are used in my
  * other public and private repositories.
  *
- * Copyright (C) 2013  Kristian Kutin
+ * Copyright (C) 2016  Kristian Kutin
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -22,59 +22,56 @@
  * e-mail: kristian.kutin@arcor.de
  */
 
-package jmul.reflection;
+package jmul.network;
+
+
+import jmul.misc.checks.ParameterCheckHelper;
 
 
 /**
- * This class implements an error status. This is a utility class for cases
- * when an exception is thrown, but the exception cannot be handled immediately.
+ * This exception is thrown if a network operation encoutners an error.
  *
  * @author Kristian Kutin
  */
-public final class ErrorStatus {
-
-    /**
-     * The class member contains the cause for the error.
-     */
-    private Exception cause;
+public class NetworkException extends RuntimeException {
 
     /**
      * The default constructor.
      */
-    public ErrorStatus() {
+    public NetworkException() {
 
-        cause = null;
+        super();
     }
 
     /**
-     * The method determines if an error has occurred.
+     * Creates a new exception according to thespecified parameters.
      *
-     * @return true, if an error has occurred, else false
+     * @param aMessage
      */
-    public boolean hasOccurredError() {
+    public NetworkException(String aMessage) {
 
-        return (cause != null);
+        super(ParameterCheckHelper.checkExceptionMessage(aMessage));
     }
 
     /**
-     * The method returns the cause for the error.
-     *
-     * @return the cause for an error or <code>null</code>
-     */
-    public Exception getCause() {
-
-        return cause;
-    }
-
-    /**
-     * The method changes the error status.
+     * Creates a new exception according to thespecified parameters.
      *
      * @param aCause
-     * a cause for an error
      */
-    public void changeErrorStatus(Exception aCause) {
+    public NetworkException(Throwable aCause) {
 
-        cause = aCause;
+        super(ParameterCheckHelper.checkExceptionCause(aCause));
+    }
+
+    /**
+     * Creates a new exception according to thespecified parameters.
+     *
+     * @param aMessage
+     * @param aCause
+     */
+    public NetworkException(String aMessage, Throwable aCause) {
+
+        super(ParameterCheckHelper.checkExceptionMessage(aMessage), ParameterCheckHelper.checkExceptionCause(aCause));
     }
 
 }

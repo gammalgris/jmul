@@ -110,7 +110,7 @@ public enum WebServerResourcesKeys implements ResourceIdentifier {
         }
 
 
-        boolean isParent = (classDefinition.getType().isAssignableFrom(implementationDefinition.getType()));
+        boolean isParent = classDefinition.getType().isAssignableFrom(implementationDefinition.getType());
 
         if (!isParent) {
 
@@ -127,6 +127,7 @@ public enum WebServerResourcesKeys implements ResourceIdentifier {
      *
      * @return a resource name
      */
+    @Override
     public String getResourceName() {
 
         return resourceName;

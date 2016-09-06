@@ -36,6 +36,8 @@ public class IntegerCreator implements ObjectCreator {
      * The default constructor.
      */
     public IntegerCreator() {
+
+        super();
     }
 
     /**

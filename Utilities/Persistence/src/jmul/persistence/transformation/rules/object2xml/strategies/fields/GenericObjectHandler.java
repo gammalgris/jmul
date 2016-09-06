@@ -77,6 +77,8 @@ public class GenericObjectHandler implements FieldsHandler {
      * The default constructor.
      */
     public GenericObjectHandler() {
+
+        super();
     }
 
     /**

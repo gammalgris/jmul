@@ -31,12 +31,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import jmul.persistence.cache.ObjectCache;
-import jmul.persistence.cache.ObjectCacheImpl;
-
 import jmul.io.FileHelper;
 
 import jmul.persistence.annotations.RootNode;
+import jmul.persistence.cache.ObjectCache;
+import jmul.persistence.cache.ObjectCacheImpl;
 import jmul.persistence.file.FileManager;
 import jmul.persistence.file.FileManagerImpl;
 import jmul.persistence.id.ID;
@@ -227,7 +226,7 @@ public class PersistenceContainerImpl<T> implements PersistenceContainer<T> {
             StringConcatenator message =
                 new StringConcatenator("Serialization of an object (", anObject, " -> ", file.getName(),
                                        ") was not successful!");
-            throw new PersistenceException(message.toString());
+            throw new PersistenceException(message.toString(), e);
         }
 
 
@@ -303,7 +302,7 @@ public class PersistenceContainerImpl<T> implements PersistenceContainer<T> {
             StringConcatenator message =
                 new StringConcatenator("Serialization of an object (", anObject, " -> ", file.getName(),
                                        ") was not successful!");
-            throw new PersistenceException(message.toString());
+            throw new PersistenceException(message.toString(), e);
         }
 
 
@@ -380,7 +379,7 @@ public class PersistenceContainerImpl<T> implements PersistenceContainer<T> {
             StringConcatenator message =
                 new StringConcatenator("Serialization of an object (", anObject, " -> ", file.getName(),
                                        ") was not successful!");
-            throw new PersistenceException(message.toString());
+            throw new PersistenceException(message.toString(), e);
         }
 
 
@@ -489,7 +488,7 @@ public class PersistenceContainerImpl<T> implements PersistenceContainer<T> {
 
             StringConcatenator message =
                 new StringConcatenator("Deserialization of an object (", file.getName(), " -> X) was not successful!");
-            throw new PersistenceException(message.toString());
+            throw new PersistenceException(message.toString(), e);
         }
 
 

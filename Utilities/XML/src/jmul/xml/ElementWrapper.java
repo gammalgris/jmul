@@ -128,7 +128,7 @@ public class ElementWrapper {
     public boolean existsAttribute(String anAttributeName) {
 
         Node attribute = attributes.getNamedItem(anAttributeName);
-        return (attribute != null);
+        return attribute != null;
     }
 
     /**

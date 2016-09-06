@@ -28,10 +28,12 @@ package jmul.reflection;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
+import jmul.misc.error.ErrorStatus;
+import jmul.misc.error.SingleErrorStatus;
+
 import jmul.reflection.classes.AccessorHelper;
 import jmul.reflection.classes.ClassDefinition;
 import jmul.reflection.classes.ClassHelper;
-
 import jmul.reflection.methods.AlternativeFunctionInvocation;
 import jmul.reflection.methods.AlternativeMethodInvocation;
 import jmul.reflection.methods.InvocationResult;
@@ -95,7 +97,7 @@ public final class ReflectionHelper {
 
         // Prepare the method invocation.
 
-        ErrorStatus status = new ErrorStatus();
+        ErrorStatus status = new SingleErrorStatus();
         InvocationResult result = null;
 
         Method setter = null;
@@ -129,12 +131,12 @@ public final class ReflectionHelper {
 
             if (result.hasFailed()) {
 
-                status.changeErrorStatus(result.getCauseOfFailure());
+                status.reportError(result.getCauseOfFailure());
             }
 
         } catch (NoSuchMethodException e) {
 
-            status.changeErrorStatus(e);
+            status.reportError(e);
         }
 
 
@@ -155,12 +157,12 @@ public final class ReflectionHelper {
 
             if (result.hasFailed()) {
 
-                status.changeErrorStatus(result.getCauseOfFailure());
+                status.reportError(result.getCauseOfFailure());
             }
 
         } catch (NoSuchMethodException e) {
 
-            status.changeErrorStatus(e);
+            status.reportError(e);
         }
 
 
@@ -184,7 +186,7 @@ public final class ReflectionHelper {
 
             if (result.hasFailed()) {
 
-                status.changeErrorStatus(result.getCauseOfFailure());
+                status.reportError(result.getCauseOfFailure());
             }
         }
 
@@ -198,7 +200,7 @@ public final class ReflectionHelper {
 
         // Now throw the exception!
 
-        Exception cause = status.getCause();
+        Throwable cause = status.getError();
 
         if (cause instanceof NoSuchMethodException) {
 
@@ -234,7 +236,7 @@ public final class ReflectionHelper {
 
         // Prepare the method invocation.
 
-        ErrorStatus status = new ErrorStatus();
+        ErrorStatus status = new SingleErrorStatus();
         InvocationResult result = null;
 
         Method getter = null;
@@ -268,12 +270,12 @@ public final class ReflectionHelper {
 
             if (result.hasFailed()) {
 
-                status.changeErrorStatus(result.getCauseOfFailure());
+                status.reportError(result.getCauseOfFailure());
             }
 
         } catch (NoSuchMethodException e) {
 
-            status.changeErrorStatus(e);
+            status.reportError(e);
         }
 
 
@@ -294,12 +296,12 @@ public final class ReflectionHelper {
 
             if (result.hasFailed()) {
 
-                status.changeErrorStatus(result.getCauseOfFailure());
+                status.reportError(result.getCauseOfFailure());
             }
 
         } catch (NoSuchMethodException e) {
 
-            status.changeErrorStatus(e);
+            status.reportError(e);
         }
 
 
@@ -323,7 +325,7 @@ public final class ReflectionHelper {
 
             if (result.hasFailed()) {
 
-                status.changeErrorStatus(result.getCauseOfFailure());
+                status.reportError(result.getCauseOfFailure());
             }
         }
 
@@ -337,7 +339,7 @@ public final class ReflectionHelper {
 
         // Now throw the exception!
 
-        Exception cause = status.getCause();
+        Throwable cause = status.getError();
 
         if (cause instanceof NoSuchMethodException) {
 

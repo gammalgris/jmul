@@ -46,6 +46,11 @@ import static jmul.misc.checks.ParameterCheckHelper.checkFileNameParameter;
 public class ArchiveReaderImpl implements ArchiveReader {
 
     /**
+     * Represents an unknown size.
+     */
+    private static final int UNKNOWN_SIZE = -1;
+
+    /**
      * Represents the end of an entry (similar to end of file).
      */
     private static final int END_OF_ENTRY = -1;
@@ -120,7 +125,7 @@ public class ArchiveReaderImpl implements ArchiveReader {
                 break;
             }
 
-            endOfArchive = (zipEntry == null);
+            endOfArchive = zipEntry == null;
 
             if (endOfArchive) {
 
@@ -136,8 +141,8 @@ public class ArchiveReaderImpl implements ArchiveReader {
             String foundName = zipEntry.getName();
             long size = zipEntry.getSize();
 
-            foundResource = (anEntryName.equals(foundName));
-            boolean hasUnknownSize = (size == -1);
+            foundResource = anEntryName.equals(foundName);
+            boolean hasUnknownSize = size == UNKNOWN_SIZE;
 
 
             if (!foundResource) {

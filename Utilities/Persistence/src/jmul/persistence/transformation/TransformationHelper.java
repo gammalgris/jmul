@@ -56,6 +56,8 @@ public final class TransformationHelper {
      * The default constructor.
      */
     private TransformationHelper() {
+
+        throw new UnsupportedOperationException();
     }
 
     /**

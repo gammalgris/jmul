@@ -36,6 +36,8 @@ public class StringCreator implements ObjectCreator {
      * The default constructor.
      */
     public StringCreator() {
+
+        super();
     }
 
     /**

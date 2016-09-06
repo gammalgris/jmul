@@ -25,6 +25,9 @@
 package jmul.time;
 
 
+import jmul.misc.checks.ParameterCheckHelper;
+
+
 /**
  * This exception is thrown if the corresponding stopwatch encounters an error.
  *
@@ -47,7 +50,7 @@ public class StopwatchException extends RuntimeException {
      */
     public StopwatchException(String aMessage) {
 
-        super(aMessage);
+        super(ParameterCheckHelper.checkExceptionMessage(aMessage));
     }
 
     /**
@@ -57,7 +60,7 @@ public class StopwatchException extends RuntimeException {
      */
     public StopwatchException(Throwable aCause) {
 
-        super(aCause);
+        super(ParameterCheckHelper.checkExceptionCause(aCause));
     }
 
     /**
@@ -68,7 +71,7 @@ public class StopwatchException extends RuntimeException {
      */
     public StopwatchException(String aMessage, Throwable aCause) {
 
-        super(aMessage, aCause);
+        super(ParameterCheckHelper.checkExceptionMessage(aMessage), ParameterCheckHelper.checkExceptionCause(aCause));
     }
 
 }

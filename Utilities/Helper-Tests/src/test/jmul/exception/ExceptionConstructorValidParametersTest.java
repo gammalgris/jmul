@@ -42,18 +42,31 @@ import jmul.misc.exceptions.EmptyArrayParameterException;
 import jmul.misc.exceptions.EmptyStringParameterException;
 import jmul.misc.exceptions.InitializationException;
 import jmul.misc.exceptions.NullArrayParameterException;
+import jmul.misc.exceptions.NullDirectoryParameterException;
 import jmul.misc.exceptions.NullFileParameterException;
 import jmul.misc.exceptions.NullParameterException;
 import jmul.misc.state.IllegalStateTransitionException;
 import jmul.misc.state.UnknownStateException;
 
+import jmul.network.NetworkException;
+
 import jmul.string.UnknownPlaceholderException;
 import jmul.string.UnresolvedPlaceholderException;
 
 import jmul.test.classification.UnitTest;
+import jmul.test.exceptions.FailedTestException;
+import jmul.test.exceptions.SetUpException;
+import jmul.test.exceptions.TearDownException;
+
+import jmul.time.StopwatchException;
+
+import jmul.webservice.CodeGeneratorException;
+import jmul.webservice.TooManyClassesException;
+import jmul.webservice.WebServiceProxyException;
 
 import org.junit.After;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 import org.junit.Before;
 import org.junit.Test;
@@ -154,6 +167,8 @@ public class ExceptionConstructorValidParametersTest {
     @Test()
     public void testInstantiation() {
 
+        String messagePrefix = constructorInvoker.getAssociatedClass().getName() + "@testInstantiation";
+
         try {
 
             Exception e = (Exception) constructorInvoker.invoke(parameters);
@@ -162,26 +177,33 @@ public class ExceptionConstructorValidParametersTest {
 
             if (expectedMessage != null) {
 
-                assertEquals("check exception message", getMessage(), e.getMessage());
+                if (FileDeletionException.class.equals(constructorInvoker.getAssociatedClass())) {
+
+                    assertTrue(messagePrefix + "  check exception message", e.getMessage().startsWith(getMessage()));
+
+                } else {
+
+                    assertEquals(messagePrefix + "  check exception message", getMessage(), e.getMessage());
+                }
             }
 
-            assertEquals("check exception cause", getCause(), e.getCause());
+            assertEquals(messagePrefix + "  check exception cause", getCause(), e.getCause());
 
         } catch (InvocationTargetException e) {
 
-            fail();
+            fail(messagePrefix);
 
         } catch (IllegalAccessException e) {
 
-            fail();
+            fail(messagePrefix);
 
         } catch (InstantiationException e) {
 
-            fail();
+            fail(messagePrefix);
 
         } catch (NoSuchMethodException e) {
 
-            fail();
+            fail(messagePrefix);
         }
     }
 
@@ -214,15 +236,40 @@ public class ExceptionConstructorValidParametersTest {
         addDefaultConstructorTestCase(parameters, NullParameterException.class);
         addDefaultTestCases(parameters, IllegalStateTransitionException.class);
         addDefaultTestCases(parameters, UnknownStateException.class);
+        addDefaultConstructorTestCase(parameters, NullDirectoryParameterException.class);
 
 
-        // Exception from Package IO
+        // Exceptions from package Network
+
+        addDefaultTestCases(parameters, NetworkException.class);
+
+
+        // Exception from package IO
 
         addDefaultTestCases(parameters, ArchiveException.class);
         addDefaultTestCases(parameters, CopyFileException.class);
         addDefaultTestCases(parameters, CoupledStreamsException.class);
         addFileDeletionExceptionTestCases(parameters);
         addDefaultTestCases(parameters, NestedStreamsException.class);
+
+
+        // Exception from package Test
+
+        addDefaultTestCases(parameters, FailedTestException.class);
+        addDefaultTestCases(parameters, SetUpException.class);
+        addDefaultTestCases(parameters, TearDownException.class);
+
+
+        // Exception from package Time
+
+        addDefaultTestCases(parameters, StopwatchException.class);
+
+
+        // Exceptions from package Web
+
+        addDefaultTestCases(parameters, CodeGeneratorException.class);
+        addDefaultTestCases3(parameters, TooManyClassesException.class);
+        addDefaultTestCases(parameters, WebServiceProxyException.class);
 
 
         return parameters;
@@ -250,6 +297,19 @@ public class ExceptionConstructorValidParametersTest {
      */
     private static void addDefaultTestCases2(Collection<Object[]> someParameters, Class anExceptionClass) {
 
+        addMessageOnlyTestCases(someParameters, anExceptionClass);
+        addMessageCauseCombinationsTestCases(someParameters, anExceptionClass);
+    }
+
+    /**
+     * Adds testcases according for the specified exception class.
+     *
+     * @param someParameters
+     * @param anExceptionClass
+     */
+    private static void addDefaultTestCases3(Collection<Object[]> someParameters, Class anExceptionClass) {
+
+        addDefaultConstructorTestCase(someParameters, anExceptionClass);
         addMessageOnlyTestCases(someParameters, anExceptionClass);
         addMessageCauseCombinationsTestCases(someParameters, anExceptionClass);
     }

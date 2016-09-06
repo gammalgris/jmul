@@ -36,6 +36,8 @@ public class FloatCreator implements ObjectCreator {
      * The default constructor.
      */
     public FloatCreator() {
+
+        super();
     }
 
     /**

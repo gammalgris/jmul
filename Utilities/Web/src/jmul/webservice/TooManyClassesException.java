@@ -25,6 +25,9 @@
 package jmul.webservice;
 
 
+import jmul.misc.checks.ParameterCheckHelper;
+
+
 /**
  * This execption is thrown if too many classes are identified by using
  * reflection mechanisms.
@@ -48,7 +51,7 @@ public class TooManyClassesException extends ClassNotFoundException {
      */
     public TooManyClassesException(String aMessage) {
 
-        super(aMessage);
+        super(ParameterCheckHelper.checkExceptionMessage(aMessage));
     }
 
     /**
@@ -59,7 +62,7 @@ public class TooManyClassesException extends ClassNotFoundException {
      */
     public TooManyClassesException(String aMessage, Throwable aCause) {
 
-        super(aMessage, aCause);
+        super(ParameterCheckHelper.checkExceptionMessage(aMessage), ParameterCheckHelper.checkExceptionCause(aCause));
     }
 
 }

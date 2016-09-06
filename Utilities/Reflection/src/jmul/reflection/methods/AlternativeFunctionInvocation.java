@@ -43,6 +43,8 @@ public class AlternativeFunctionInvocation implements OperationInvoker {
      * The default constructor.
      */
     public AlternativeFunctionInvocation() {
+
+        super();
     }
 
     /**

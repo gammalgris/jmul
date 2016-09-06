@@ -25,10 +25,9 @@
 package jmul.persistence.transformation.rules.xml2object;
 
 
-import jmul.persistence.transformation.cache.Xml2ObjectCache;
-
 import jmul.persistence.id.ID;
 import jmul.persistence.id.IntegerID;
+import jmul.persistence.transformation.cache.Xml2ObjectCache;
 import static jmul.persistence.transformation.rules.PersistenceMarkups.ID_ATTRIBUTE;
 import static jmul.persistence.transformation.rules.PersistenceMarkups.OBJECT_ELEMENT;
 import static jmul.persistence.transformation.rules.PersistenceMarkups.TYPE_ATTRIBUTE;
@@ -110,7 +109,7 @@ public class Xml2UninitializedRule extends TransformationRuleBase {
                 throw new TransformationException(message.toString(), e);
             }
 
-            return (!type.isPrimitiveType() && !type.isPrimitiveWrapper());
+            return !type.isPrimitiveType() && !type.isPrimitiveWrapper();
         }
 
         return false;

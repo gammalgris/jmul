@@ -65,6 +65,8 @@ public class XmlSerializerImpl implements XmlSerializer {
      * The default constructor.
      */
     public XmlSerializerImpl() {
+
+        super();
     }
 
     /**

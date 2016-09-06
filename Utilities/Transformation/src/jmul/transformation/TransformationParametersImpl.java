@@ -77,7 +77,7 @@ public class TransformationParametersImpl implements TransformationParameters {
         // To avoid a possible null pointer exception the 3rd parameter is
         // replaced by an expression.
 
-        this(aTransformationPath, anObject, ((anObject != null) ? anObject.getClass() : null));
+        this(aTransformationPath, anObject, (anObject != null) ? anObject.getClass() : null);
     }
 
     /**

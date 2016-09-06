@@ -82,7 +82,7 @@ public class ObjectFactoryImpl implements ObjectFactory {
             } catch (ClassNotFoundException e) {
 
                 StringConcatenator message = new StringConcatenator("Unknown class (", value, ")!");
-                throw new IllegalArgumentException(message.toString());
+                throw new IllegalArgumentException(message.toString(), e);
             }
 
 
@@ -134,12 +134,12 @@ public class ObjectFactoryImpl implements ObjectFactory {
 
             StringConcatenator message =
                 new StringConcatenator("The class ", className, " doesn't have a public default constructor!");
-            throw new IllegalArgumentException(message.toString());
+            throw new IllegalArgumentException(message.toString(), e);
 
         } catch (InstantiationException e) {
 
             StringConcatenator message = new StringConcatenator("Couldn't create a new instance of ", className, "!");
-            throw new IllegalArgumentException(message.toString());
+            throw new IllegalArgumentException(message.toString(), e);
         }
 
         return result;

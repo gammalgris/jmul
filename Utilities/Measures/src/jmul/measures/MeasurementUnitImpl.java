@@ -163,11 +163,22 @@ public class MeasurementUnitImpl implements MeasurementUnit {
         return convert(aQuantity, unit);
     }
 
+    /**
+     * The method performs a conversion of units.
+     *
+     * @param aQuantity
+     *        a quantity of this unit of measurement
+     * @param aTargetUnit
+     *        a target unit of measurement
+     *
+     * @return a converted quantity
+     */
+    @Override
     public Number convert(Number aQuantity, MeasurementUnit aTargetUnit) {
 
         ConversionRule rule = conversionRules.get(aTargetUnit);
 
-        boolean notExistsRule = (rule == null);
+        boolean notExistsRule = rule == null;
         if (notExistsRule) {
 
             StringConcatenator message =

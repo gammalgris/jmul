@@ -118,7 +118,7 @@ public class ExpirationMonitorImpl implements ExpirationMonitor {
 
         synchronized (this) {
 
-            result = (System.currentTimeMillis() > expirationTime);
+            result = System.currentTimeMillis() > expirationTime;
         }
 
         return result;

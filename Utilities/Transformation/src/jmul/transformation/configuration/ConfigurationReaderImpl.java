@@ -69,6 +69,8 @@ public class ConfigurationReaderImpl implements ConfigurationReader {
      * The default constructor.
      */
     public ConfigurationReaderImpl() {
+
+        super();
     }
 
     /**
@@ -355,7 +357,7 @@ public class ConfigurationReaderImpl implements ConfigurationReader {
          */
         public boolean existsClasspath() {
 
-            return (classpath != null);
+            return classpath != null;
         }
 
         /**

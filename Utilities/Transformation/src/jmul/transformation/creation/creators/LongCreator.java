@@ -36,6 +36,8 @@ public class LongCreator implements ObjectCreator {
      * The default constructor.
      */
     public LongCreator() {
+
+        super();
     }
 
     /**

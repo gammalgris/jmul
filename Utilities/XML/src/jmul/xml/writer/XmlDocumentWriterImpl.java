@@ -49,6 +49,8 @@ public class XmlDocumentWriterImpl implements XmlDocumentWriter {
      * The default constructor.
      */
     public XmlDocumentWriterImpl() {
+
+        super();
     }
 
     /**

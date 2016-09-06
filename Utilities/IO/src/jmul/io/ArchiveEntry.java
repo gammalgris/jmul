@@ -172,7 +172,7 @@ public final class ArchiveEntry {
      */
     public byte[] getData() {
 
-        boolean wasLoaded = (data != null);
+        boolean wasLoaded = data != null;
         if (!wasLoaded) {
 
             try {

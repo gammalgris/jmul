@@ -39,6 +39,8 @@ public class CharacterCreator implements ObjectCreator {
      * The default constructor.
      */
     public CharacterCreator() {
+
+        super();
     }
 
     /**

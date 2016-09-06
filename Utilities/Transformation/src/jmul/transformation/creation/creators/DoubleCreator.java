@@ -36,6 +36,8 @@ public class DoubleCreator implements ObjectCreator {
      * The default constructor.
      */
     public DoubleCreator() {
+
+        super();
     }
 
     /**

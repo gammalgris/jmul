@@ -36,6 +36,8 @@ public class StringBufferCreator implements ObjectCreator {
      * The default constructor.
      */
     public StringBufferCreator() {
+
+        super();
     }
 
     /**

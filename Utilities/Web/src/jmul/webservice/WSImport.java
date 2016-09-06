@@ -65,6 +65,8 @@ public class WSImport implements CodeGenerator {
      * The default constructor.
      */
     public WSImport() {
+
+        super();
     }
 
     /**
@@ -75,6 +77,7 @@ public class WSImport implements CodeGenerator {
      *
      * @return details of the build target
      */
+    @Override
     public String generateCode(String aSource) {
 
         return generateCode(aSource, getDefaultTarget());
@@ -89,6 +92,7 @@ public class WSImport implements CodeGenerator {
      *
      * @return details of the build target
      */
+    @Override
     public String generateCode(String aSource, String aTarget) {
 
         ParameterCheckHelper.checkStringParameter(aSource);
@@ -115,6 +119,7 @@ public class WSImport implements CodeGenerator {
      *
      * @return the default target
      */
+    @Override
     public String getDefaultTarget() {
 
         return ConfigurationReader.getGeneratorTarget();
@@ -330,6 +335,7 @@ public class WSImport implements CodeGenerator {
          * Die Methode liest den Eingabestrom vollständig aus und schreibt die
          * Daten in einen StringBuffer.
          */
+        @Override
         public void run() {
 
             try {
@@ -338,7 +344,7 @@ public class WSImport implements CodeGenerator {
 
                     String line = reader.readLine();
 
-                    endOfStream = (line == null);
+                    endOfStream = line == null;
                     if (!endOfStream) {
 
                         streamContent.append(line);

@@ -36,6 +36,8 @@ public class FailedTestException extends RuntimeException {
      * The default constructor.
      */
     public FailedTestException() {
+
+        super();
     }
 
     /**

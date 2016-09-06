@@ -114,7 +114,7 @@ public class FileLookup implements ThreadListener {
 
                     StringConcatenator message =
                         new StringConcatenator("The specified thread pool (", threadPoolType, ") is invalid!");
-                    throw new RuntimeException(message.toString());
+                    throw new RuntimeException(message.toString(), e);
                 }
 
 
@@ -154,7 +154,7 @@ public class FileLookup implements ThreadListener {
 
         synchronized (threadPoolLock) {
 
-            result = (threadPoolSingleton != null);
+            result = threadPoolSingleton != null;
         }
 
         return result;

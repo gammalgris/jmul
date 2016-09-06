@@ -36,6 +36,8 @@ public class ShortCreator implements ObjectCreator {
      * The default constructor.
      */
     public ShortCreator() {
+
+        super();
     }
 
     /**

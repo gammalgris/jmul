@@ -36,6 +36,8 @@ public class TearDownException extends RuntimeException {
      * The default constructor.
      */
     public TearDownException() {
+
+        super();
     }
 
     /**

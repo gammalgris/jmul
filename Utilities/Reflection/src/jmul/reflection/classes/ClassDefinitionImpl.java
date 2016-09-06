@@ -33,6 +33,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import jmul.misc.error.ErrorStatus;
+import jmul.misc.error.MultipleErrorStatus;
+
 import jmul.reflection.classes.filter.MethodFilter;
 import jmul.reflection.classes.filter.MethodNameFilter;
 import jmul.reflection.classes.filter.PublicMethodFilter;
@@ -175,7 +178,7 @@ class ClassDefinitionImpl implements ClassDefinition {
     @Override
     public boolean isPrimitiveWrapper() {
 
-        return (correspondingPrimitiveType != null);
+        return correspondingPrimitiveType != null;
     }
 
     /**
@@ -541,6 +544,7 @@ class ClassDefinitionImpl implements ClassDefinition {
 
         Class probedClass = getType();
         Method identifiedMethod = null;
+        ErrorStatus errorStatus = new MultipleErrorStatus();
 
         try {
 
@@ -548,6 +552,8 @@ class ClassDefinitionImpl implements ClassDefinition {
             identifiedMethod = probedClass.getMethod(aMethodname, nativeSignature);
 
         } catch (NoSuchMethodException e) {
+
+            errorStatus.reportError(e);
 
             // Apparently there doesn't exist a method with the specified name
             // and signature.
@@ -576,6 +582,8 @@ class ClassDefinitionImpl implements ClassDefinition {
 
                 } catch (ClassNotFoundException f) {
 
+                    errorStatus.reportError(f);
+
                     StringConcatenator message = new StringConcatenator("Method signature contains an unknown class:");
 
                     for (Class clazz : requiredNativeSignature) {
@@ -583,7 +591,7 @@ class ClassDefinitionImpl implements ClassDefinition {
                         message.append(" ", clazz.getName());
                     }
 
-                    throw new IllegalArgumentException(message.toString());
+                    throw new IllegalArgumentException(message.toString(), errorStatus.getError());
                 }
 
                 found = matcher.matchingSignatures(requiredSignature, aMethodSignature);
@@ -596,6 +604,7 @@ class ClassDefinitionImpl implements ClassDefinition {
             }
 
             if (!found) {
+
                 StringConcatenator message =
                     new StringConcatenator("The class ", getType().getName(), " doesn't possess a method \"",
                                            aMethodname, " and the signature ", aMethodSignature, "!");
@@ -689,11 +698,6 @@ class ClassDefinitionImpl implements ClassDefinition {
                 // returned object would be better.
 
                 return foundMethods.iterator().next();
-
-                /* String message =
-                    "Too many setter methods with the name " + methodname +
-                    " were found!";
-                throw new NoSuchMethodException(message); */
             }
 
         } else if (AccessorHelper.GETTER_PREFIX.equals(aPrefix)) {
@@ -720,11 +724,6 @@ class ClassDefinitionImpl implements ClassDefinition {
                 // returned object would be better.
 
                 return foundMethods.iterator().next();
-
-                /* String message =
-                    "Too many getter methods with the name " + methodname +
-                    " were found!";
-                throw new NoSuchMethodException(message); */
             }
         }
 
@@ -1114,6 +1113,7 @@ class ClassDefinitionImpl implements ClassDefinition {
      *
      * @return a list of all methods
      */
+    @Override
     public Method[] getMethods(boolean recurse) {
 
         Collection<Method> methods = new ArrayList<Method>();

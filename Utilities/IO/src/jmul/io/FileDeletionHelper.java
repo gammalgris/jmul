@@ -84,7 +84,7 @@ public final class FileDeletionHelper {
 
             String[] files = file.list();
 
-            boolean directoryIsNotEmpty = (files.length > 0);
+            boolean directoryIsNotEmpty = files.length > 0;
             if (directoryIsNotEmpty) {
 
                 throw new FileDeletionException("Directory is not empty", file);

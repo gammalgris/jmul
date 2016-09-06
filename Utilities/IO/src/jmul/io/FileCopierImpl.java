@@ -46,6 +46,11 @@ import jmul.misc.exceptions.MultipleCausesException;
 public class FileCopierImpl implements FileCopier {
 
     /**
+     * Represents the end of a file.
+     */
+    private static final int END_OF_FILE = -1;
+
+    /**
      * A buffer size.
      */
     private static final int DEFAULT_BUFFER_SIZE = 1024;
@@ -64,6 +69,8 @@ public class FileCopierImpl implements FileCopier {
      * Creates a new file copier.
      */
     public FileCopierImpl() {
+
+        super();
     }
 
     /**
@@ -128,7 +135,7 @@ public class FileCopierImpl implements FileCopier {
                 break;
             }
 
-            endOfFile = (bytesRead == -1);
+            endOfFile = bytesRead == END_OF_FILE;
             if (endOfFile) {
 
                 break;

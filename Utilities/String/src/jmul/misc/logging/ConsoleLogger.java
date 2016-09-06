@@ -62,6 +62,7 @@ public class ConsoleLogger extends BaseLogger implements Logger {
      *
      * @param aMessage
      */
+    @Override
     public void logDebug(String aMessage) {
 
         logMessage(LogLevels.DEBUG, aMessage);
@@ -72,6 +73,7 @@ public class ConsoleLogger extends BaseLogger implements Logger {
      *
      * @param aMessage
      */
+    @Override
     public void logWarning(String aMessage) {
 
         logMessage(LogLevels.WARNING, aMessage);
@@ -82,6 +84,7 @@ public class ConsoleLogger extends BaseLogger implements Logger {
      *
      * @param aMessage
      */
+    @Override
     public void logError(String aMessage) {
 
         logMessage(LogLevels.ERROR, aMessage);
@@ -92,6 +95,7 @@ public class ConsoleLogger extends BaseLogger implements Logger {
      *
      * @param anException
      */
+    @Override
     public void logError(Throwable anException) {
 
         StringBuffer buffer = new StringBuffer();
@@ -123,6 +127,7 @@ public class ConsoleLogger extends BaseLogger implements Logger {
      *
      * @param aMessage
      */
+    @Override
     public void logInfo(String aMessage) {
 
         logMessage(LogLevels.INFO, aMessage);

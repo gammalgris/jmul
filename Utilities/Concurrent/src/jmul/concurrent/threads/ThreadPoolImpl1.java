@@ -135,7 +135,7 @@ public class ThreadPoolImpl1 implements ThreadPool, ThreadListener {
                 stackSize = queue.size();
             }
 
-            loop = (stackSize > maxQueueSize);
+            loop = stackSize > maxQueueSize;
 
             if (loop) {
 

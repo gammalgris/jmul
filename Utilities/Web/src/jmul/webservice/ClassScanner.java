@@ -120,7 +120,7 @@ public class ClassScanner {
                     Method[] methods = classDefinition.getMethods(false);
                     int methodCount = methods.length;
 
-                    boolean isMarkerInterface = (methodCount == 0);
+                    boolean isMarkerInterface = methodCount == 0;
                     if (isMarkerInterface) {
 
                         markerInterfaces.add(classDefinition);
@@ -155,9 +155,9 @@ public class ClassScanner {
 
         serviceClassDefinition = null;
 
-        boolean noServiceClass = (serviceClasses.size() == 0);
-        boolean oneServiceClass = (serviceClasses.size() == 1);
-        boolean moreThanOneServiceClass = (serviceClasses.size() > 1);
+        boolean noServiceClass = serviceClasses.size() == 0;
+        boolean oneServiceClass = serviceClasses.size() == 1;
+        boolean moreThanOneServiceClass = serviceClasses.size() > 1;
 
 
         if (noServiceClass) {

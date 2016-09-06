@@ -162,6 +162,8 @@ public class HelperConstructorTest {
         parameters.add(new Object[] { jmul.io.FileHelper.class });
         parameters.add(new Object[] { jmul.io.FileDeletionHelper.class });
         parameters.add(new Object[] { jmul.io.PathHelper.class });
+        parameters.add(new Object[] { jmul.web.WebServerRunner.class });
+        parameters.add(new Object[] { jmul.persistence.transformation.TransformationHelper.class });
 
         return parameters;
     }

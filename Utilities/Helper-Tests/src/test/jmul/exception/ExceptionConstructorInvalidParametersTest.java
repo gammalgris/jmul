@@ -40,10 +40,21 @@ import jmul.io.NestedStreamsException;
 
 import jmul.misc.exceptions.InitializationException;
 
+import jmul.network.NetworkException;
+
 import jmul.string.UnknownPlaceholderException;
 import jmul.string.UnresolvedPlaceholderException;
 
 import jmul.test.classification.UnitTest;
+import jmul.test.exceptions.FailedTestException;
+import jmul.test.exceptions.SetUpException;
+import jmul.test.exceptions.TearDownException;
+
+import jmul.time.StopwatchException;
+
+import jmul.webservice.CodeGeneratorException;
+import jmul.webservice.TooManyClassesException;
+import jmul.webservice.WebServiceProxyException;
 
 import org.junit.After;
 import static org.junit.Assert.fail;
@@ -104,10 +115,12 @@ public class ExceptionConstructorInvalidParametersTest {
     @Test(expected = IllegalArgumentException.class)
     public void testInstantiation() throws Throwable {
 
+        String messagePrefix = constructorInvoker.getAssociatedClass().getName() + "@testInstantiation";
+
         try {
 
             constructorInvoker.invoke(parameters);
-            fail();
+            fail(messagePrefix);
 
         } catch (InvocationTargetException e) {
 
@@ -115,15 +128,15 @@ public class ExceptionConstructorInvalidParametersTest {
 
         } catch (IllegalAccessException e) {
 
-            fail();
+            fail(messagePrefix);
 
         } catch (InstantiationException e) {
 
-            fail();
+            fail(messagePrefix);
 
         } catch (NoSuchMethodException e) {
 
-            fail();
+            fail(messagePrefix);
         }
     }
 
@@ -144,6 +157,11 @@ public class ExceptionConstructorInvalidParametersTest {
         addMessageOnlyTestCases(parameters, UnknownPlaceholderException.class);
 
 
+        // Exceptions from package Network
+
+        addDefaultTestCases(parameters, NetworkException.class);
+
+
         // Exceptions from package Misc
 
         addDefaultTestCases2(parameters, InitializationException.class);
@@ -157,6 +175,25 @@ public class ExceptionConstructorInvalidParametersTest {
         addDefaultTestCases(parameters, CoupledStreamsException.class);
         addFileDeletionExceptionTestCases(parameters);
         addDefaultTestCases(parameters, NestedStreamsException.class);
+
+
+        // Exception from package Test
+
+        addDefaultTestCases(parameters, FailedTestException.class);
+        addDefaultTestCases(parameters, SetUpException.class);
+        addDefaultTestCases(parameters, TearDownException.class);
+
+
+        // Exceptions from package Time
+
+        addDefaultTestCases(parameters, StopwatchException.class);
+
+
+        // Exceptions from package Web
+
+        addDefaultTestCases(parameters, CodeGeneratorException.class);
+        addDefaultTestCases2(parameters, TooManyClassesException.class);
+        addDefaultTestCases(parameters, WebServiceProxyException.class);
 
 
         return parameters;

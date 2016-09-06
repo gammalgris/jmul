@@ -60,6 +60,8 @@ public class CollectionHandler implements ContainerHandler {
      * The default constructor.
      */
     public CollectionHandler() {
+
+        super();
     }
 
     /**

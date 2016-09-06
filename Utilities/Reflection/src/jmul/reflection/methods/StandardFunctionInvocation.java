@@ -40,6 +40,8 @@ public class StandardFunctionInvocation implements OperationInvoker {
      * The default constructor.
      */
     public StandardFunctionInvocation() {
+
+        super();
     }
 
     /**

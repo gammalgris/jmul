@@ -69,6 +69,8 @@ public class XmlDeserializerImpl implements XmlDeserializer {
      * The default constructor.
      */
     public XmlDeserializerImpl() {
+
+        super();
     }
 
     /**

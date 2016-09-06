@@ -36,6 +36,8 @@ public class BooleanCreator implements ObjectCreator {
      * The default constructor.
      */
     public BooleanCreator() {
+
+        super();
     }
 
     /**

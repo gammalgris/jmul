@@ -91,7 +91,7 @@ public final class PathHelper {
             // make a distinction between directories and jar archives
             if (isDirectory) {
 
-                boolean isKnown = (classpath.contains(element));
+                boolean isKnown = classpath.contains(element);
                 if (!isKnown) {
                     classpath.add(element);
                 }
@@ -104,7 +104,7 @@ public final class PathHelper {
 
                 File directory = new File(pathOnly);
 
-                boolean isKnown = (classpath.contains(directory));
+                boolean isKnown = classpath.contains(directory);
                 if (!isKnown) {
                     classpath.add(directory);
                 }

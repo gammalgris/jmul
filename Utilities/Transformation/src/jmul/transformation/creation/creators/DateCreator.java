@@ -44,6 +44,8 @@ public class DateCreator implements ObjectCreator {
      * The default constructor.
      */
     public DateCreator() {
+
+        super();
     }
 
     /**
@@ -88,7 +90,7 @@ public class DateCreator implements ObjectCreator {
 
             StringConcatenator message =
                 new StringConcatenator("An invalid pattern has been specified (", aPattern, ")!");
-            throw new IllegalArgumentException(message.toString());
+            throw new IllegalArgumentException(message.toString(), e);
         }
 
         Date date = null;

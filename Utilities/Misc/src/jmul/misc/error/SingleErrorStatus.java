@@ -66,7 +66,7 @@ public class SingleErrorStatus implements ErrorStatus {
     @Override
     public boolean hasOccurredError() {
 
-        return (error != null);
+        return error != null;
     }
 
     /**
@@ -86,6 +86,7 @@ public class SingleErrorStatus implements ErrorStatus {
      *
      * @return a date or <code>null</code> if no error has occurred
      */
+    @Override
     public Date getDate() {
 
         return date;

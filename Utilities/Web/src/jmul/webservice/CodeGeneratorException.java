@@ -25,6 +25,9 @@
 package jmul.webservice;
 
 
+import jmul.misc.checks.ParameterCheckHelper;
+
+
 /**
  * This exception is thrown if the invocation of a code generator fails.
  *
@@ -47,7 +50,7 @@ public class CodeGeneratorException extends RuntimeException {
      */
     public CodeGeneratorException(String aMessage) {
 
-        super(aMessage);
+        super(ParameterCheckHelper.checkExceptionMessage(aMessage));
     }
 
     /**
@@ -57,7 +60,7 @@ public class CodeGeneratorException extends RuntimeException {
      */
     public CodeGeneratorException(Throwable aCause) {
 
-        super(aCause);
+        super(ParameterCheckHelper.checkExceptionCause(aCause));
     }
 
     /**
@@ -68,7 +71,7 @@ public class CodeGeneratorException extends RuntimeException {
      */
     public CodeGeneratorException(String aMessage, Throwable aCause) {
 
-        super(aMessage, aCause);
+        super(ParameterCheckHelper.checkExceptionMessage(aMessage), ParameterCheckHelper.checkExceptionCause(aCause));
     }
 
 }

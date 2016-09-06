@@ -42,6 +42,8 @@ public class ClassCreator implements ObjectCreator {
      * The default constructor.
      */
     public ClassCreator() {
+
+        super();
     }
 
     /**
@@ -85,7 +87,7 @@ public class ClassCreator implements ObjectCreator {
         } catch (ClassNotFoundException e) {
 
             StringConcatenator message = new StringConcatenator("Unknown class (", anInitialValue, ")!");
-            throw new IllegalArgumentException(message.toString());
+            throw new IllegalArgumentException(message.toString(), e);
         }
 
         return clazz;

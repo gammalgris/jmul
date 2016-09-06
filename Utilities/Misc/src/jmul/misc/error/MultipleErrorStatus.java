@@ -41,7 +41,7 @@ import jmul.misc.exceptions.MultipleCausesException;
  *
  * @author Kristian Kutin
  */
-public class MultipleErrorStatus {
+public class MultipleErrorStatus implements ErrorStatus {
 
     /**
      * The actual errors.
@@ -62,9 +62,10 @@ public class MultipleErrorStatus {
      * @return <code>true</code>, if an error has occurred, else
      *         <code>false</code>
      */
+    @Override
     public boolean hasOccurredError() {
 
-        return (errors.size() > 0);
+        return errors.size() > 0;
     }
 
     /**
@@ -73,9 +74,21 @@ public class MultipleErrorStatus {
      * @return the cause for an error or <code>null</code> if no error
      *         has occurred
      */
+    @Override
     public Throwable getError() {
 
         return new MultipleCausesException(convertMap2Array());
+    }
+
+    /**
+     * The date when the error occurred.
+     *
+     * @return a date or <code>null</code> if no error has occurred
+     */
+    @Override
+    public Date getDate() {
+
+        return errors.keySet().iterator().next();
     }
 
     /**
@@ -93,6 +106,7 @@ public class MultipleErrorStatus {
      *
      * @param anError
      */
+    @Override
     public void reportError(Throwable anError) {
 
         Date date = new Date();

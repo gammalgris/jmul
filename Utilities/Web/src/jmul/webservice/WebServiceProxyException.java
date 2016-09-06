@@ -25,6 +25,9 @@
 package jmul.webservice;
 
 
+import jmul.misc.checks.ParameterCheckHelper;
+
+
 /**
  * This exception is thrown if a web server proxy encounters an error.
  *
@@ -47,7 +50,7 @@ public class WebServiceProxyException extends RuntimeException {
      */
     public WebServiceProxyException(String aMessage) {
 
-        super(aMessage);
+        super(ParameterCheckHelper.checkExceptionMessage(aMessage));
     }
 
     /**
@@ -57,7 +60,7 @@ public class WebServiceProxyException extends RuntimeException {
      */
     public WebServiceProxyException(Throwable aCause) {
 
-        super(aCause);
+        super(ParameterCheckHelper.checkExceptionCause(aCause));
     }
 
     /**
@@ -68,7 +71,7 @@ public class WebServiceProxyException extends RuntimeException {
      */
     public WebServiceProxyException(String aMessage, Throwable aCause) {
 
-        super(aMessage, aCause);
+        super(ParameterCheckHelper.checkExceptionMessage(aMessage), ParameterCheckHelper.checkExceptionCause(aCause));
     }
 
 }

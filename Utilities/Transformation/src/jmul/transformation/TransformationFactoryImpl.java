@@ -104,8 +104,8 @@ public class TransformationFactoryImpl implements TransformationFactory {
         Map<String, Collection<File>> foundResources = resourceScanner.getFoundResources();
         Map<String, JarResources> foundArchives = resourceScanner.getFoundArchives();
 
-        boolean existResourceFiles = (foundResources.size() > 0);
-        boolean existArchiveFiles = (foundArchives.size() > 0);
+        boolean existResourceFiles = foundResources.size() > 0;
+        boolean existArchiveFiles = foundArchives.size() > 0;
 
         if (existResourceFiles) {
 
@@ -275,12 +275,12 @@ public class TransformationFactoryImpl implements TransformationFactory {
             StringConcatenator message =
                 new StringConcatenator("The transformation path ", path, " doesn't know a rule for objects of type ",
                                        someParameters.getObject().getClass().getName(), "!");
-            throw new IllegalArgumentException(message.toString());
+            throw new IllegalArgumentException(message.toString(), e);
         }
 
         Collection<TransformationRule> applicableRules = sortedRules.get(highestPriority);
 
-        boolean existsAmbiguity = (applicableRules.size() > 1);
+        boolean existsAmbiguity = applicableRules.size() > 1;
         if (existsAmbiguity) {
 
             StringConcatenator message =
