@@ -35,6 +35,9 @@
             <fileset dir="${package.string-tests.src.dir}">
                 <include name="**/*.java" />
             </fileset>
+            <fileset dir="${package.test-base.src.dir}">
+                <include name="**/*.java" />
+            </fileset>
         </copy>
 
     </target>

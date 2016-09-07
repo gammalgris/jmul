@@ -40,7 +40,7 @@ import static jmul.markdown.pattern.RegexPatternMatchers.ORDERED_LIST;
 import static jmul.markdown.pattern.RegexPatternMatchers.QUOTE;
 import static jmul.markdown.pattern.RegexPatternMatchers.UNORDERED_LIST;
 
-import static jmul.string.StringConstants.NEW_LINE;
+import static jmul.string.Constants.NEW_LINE;
 
 import jmul.test.classification.UnitTest;
 

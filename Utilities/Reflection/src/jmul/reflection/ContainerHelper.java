@@ -29,9 +29,12 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.ResourceBundle;
-import static jmul.string.StringConstants.COMMA;
+
+import static jmul.string.Constants.COMMA;
+
 import jmul.reflection.classes.ClassDefinition;
 import jmul.reflection.classes.ClassHelper;
+
 import jmul.string.StringConcatenator;
 
 
@@ -45,14 +48,12 @@ public final class ContainerHelper {
     /**
      * A property key.
      */
-    private static final String KNOWN_COLLECTION_IMPLEMENTATIONS_KEY =
-        "knownCollectionImplementations";
+    private static final String KNOWN_COLLECTION_IMPLEMENTATIONS_KEY = "knownCollectionImplementations";
 
     /**
      * A property key.
      */
-    private static final String KNOWN_MAP_IMPLEMENTATIONS_KEY =
-        "knownMapImplementations";
+    private static final String KNOWN_MAP_IMPLEMENTATIONS_KEY = "knownMapImplementations";
 
     /**
      * A list of all known collection implementations.
@@ -66,8 +67,7 @@ public final class ContainerHelper {
 
     static {
 
-        ResourceBundle bundle =
-            ResourceBundle.getBundle(ContainerHelper.class.getName());
+        ResourceBundle bundle = ResourceBundle.getBundle(ContainerHelper.class.getName());
 
         String value = null;
         String[] classnames = null;
@@ -88,16 +88,14 @@ public final class ContainerHelper {
 
             } catch (ClassNotFoundException e) {
 
-                StringConcatenator message =
-                    new StringConcatenator("Unknown class (", classname, ")!");
+                StringConcatenator message = new StringConcatenator("Unknown class (", classname, ")!");
                 throw new IllegalArgumentException(message.toString(), e);
             }
 
             tmp1.add(definition.getType());
         }
 
-        KNOWN_COLLECTION_IMPLEMENTATIONS =
-                Collections.unmodifiableCollection(tmp1);
+        KNOWN_COLLECTION_IMPLEMENTATIONS = Collections.unmodifiableCollection(tmp1);
 
 
         value = bundle.getString(KNOWN_MAP_IMPLEMENTATIONS_KEY);
@@ -115,8 +113,7 @@ public final class ContainerHelper {
 
             } catch (ClassNotFoundException e) {
 
-                StringConcatenator message =
-                    new StringConcatenator("Unknown class (", classname, ")!");
+                StringConcatenator message = new StringConcatenator("Unknown class (", classname, ")!");
                 throw new IllegalArgumentException(message.toString(), e);
             }
 
@@ -191,8 +188,7 @@ public final class ContainerHelper {
 
         if (match == null) {
 
-            match =
-                    getConcreteCollectionImplementation(aClass.getSuperclass());
+            match = getConcreteCollectionImplementation(aClass.getSuperclass());
         }
 
         return match;

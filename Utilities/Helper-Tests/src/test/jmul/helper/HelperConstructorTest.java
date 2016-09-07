@@ -153,7 +153,7 @@ public class HelperConstructorTest {
 
         parameters.add(new Object[] { jmul.math.Constants.class });
         parameters.add(new Object[] { jmul.math.MathHelper.class });
-        parameters.add(new Object[] { jmul.string.StringConstants.class });
+        parameters.add(new Object[] { jmul.string.Constants.class });
         parameters.add(new Object[] { jmul.misc.checks.ParameterCheckHelper.class });
         parameters.add(new Object[] { jmul.misc.state.StateHelper.class });
         parameters.add(new Object[] { jmul.network.http.CheckURL.class });

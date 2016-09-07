@@ -25,7 +25,7 @@
 package jmul.io;
 
 
-import static jmul.string.StringConstants.POINT;
+import static jmul.string.Constants.POINT;
 
 
 /**

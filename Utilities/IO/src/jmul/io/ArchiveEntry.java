@@ -36,8 +36,8 @@ import java.util.zip.ZipFile;
 
 import static jmul.misc.checks.ParameterCheckHelper.checkFileNameParameter;
 
-import static jmul.string.StringConstants.FILE_SEPARATOR;
-import static jmul.string.StringConstants.SLASH;
+import static jmul.string.Constants.FILE_SEPARATOR;
+import static jmul.string.Constants.SLASH;
 
 
 /**

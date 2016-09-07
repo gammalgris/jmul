@@ -22,7 +22,7 @@
  * e-mail: kristian.kutin@arcor.de
  */
 
-package test.jmul.exception;
+package jmul.reflection.constructors;
 
 
 import java.lang.reflect.Constructor;

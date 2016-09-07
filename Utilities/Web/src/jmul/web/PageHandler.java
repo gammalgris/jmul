@@ -32,7 +32,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
 
-import jmul.misc.logging.Logger;
+import jmul.logging.Logger;
 
 import static jmul.network.http.ResponseCodes.RC200;
 

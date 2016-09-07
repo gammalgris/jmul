@@ -22,11 +22,15 @@
  * e-mail: kristian.kutin@arcor.de
  */
 
-package jmul.misc.logging;
+package jmul.logging;
 
 
 /**
- * This interface describes a logger.
+ * This interface describes a logger.<br />
+ * <br />
+ * <i>Note:<br />
+ * This interface and all its implementations represent an intermediary layer
+ * to the actual logging mechanism.</i>
  *
  * @author Kristian Kutin
  */

@@ -22,13 +22,13 @@
  * e-mail: kristian.kutin@arcor.de
  */
 
-package jmul.misc.logging;
+package jmul.logging;
 
 
 import java.io.PrintStream;
 
-import static jmul.string.StringConstants.NEW_LINE;
-import static jmul.string.StringConstants.TABULATOR;
+import static jmul.string.Constants.NEW_LINE;
+import static jmul.string.Constants.TABULATOR;
 
 
 /**

@@ -40,15 +40,16 @@ import java.util.ResourceBundle;
 
 import jmul.io.FileHelper;
 
-import jmul.misc.logging.ConsoleLogger;
-import jmul.misc.logging.Logger;
+import jmul.logging.ConsoleLogger;
+import jmul.logging.Logger;
+
 import jmul.misc.management.ResourceContainer;
 import jmul.misc.management.ResourceContainerImpl;
 import jmul.misc.state.State;
 
-import static jmul.string.StringConstants.COMMA;
-import static jmul.string.StringConstants.NEW_LINE;
-import static jmul.string.StringConstants.TABULATOR;
+import static jmul.string.Constants.COMMA;
+import static jmul.string.Constants.NEW_LINE;
+import static jmul.string.Constants.TABULATOR;
 
 
 /**

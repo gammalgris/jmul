@@ -32,7 +32,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
-import static jmul.string.StringConstants.NEW_LINE;
+import static jmul.string.Constants.NEW_LINE;
 
 
 /**

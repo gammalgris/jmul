@@ -37,7 +37,7 @@ import jmul.io.FileHelper;
 
 import jmul.misc.checks.ParameterCheckHelper;
 
-import static jmul.string.StringConstants.NEW_LINE;
+import static jmul.string.Constants.NEW_LINE;
 
 
 /**

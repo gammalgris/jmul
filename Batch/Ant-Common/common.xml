@@ -45,8 +45,12 @@
         <echo message="  package concurrent dir ...................... ${package.concurrent.dir}" />
         <echo message="  package concurrent src dir .................. ${package.concurrent.src.dir}" />
         <echo message="  package concurrent cfg dir .................. ${package.concurrent.cfg.dir}" />
+        <echo message="  package constants dir ....................... ${package.constants.dir}" />
+        <echo message="  package constants src dir ................... ${package.constants.src.dir}" />
         <echo message="  package io dir .............................. ${package.io.dir}" />
         <echo message="  package io src dir .......................... ${package.io.src.dir}" />
+        <echo message="  package logging dir ......................... ${package.logging.dir}" />
+        <echo message="  package logging src dir ..................... ${package.logging.src.dir}" />
         <echo message="  package markdwn dir ......................... ${package.markdown.dir}" />
         <echo message="  package markdwn src dir ..................... ${package.markdown.src.dir}" />
         <echo message="  package markdwn cfg dir ..................... ${package.markdown.cfg.dir}" />
@@ -94,14 +98,14 @@
         <echo message="  package math tests src dir .................. ${package.math-tests.src.dir}" />
         <echo message="  package measures tests dir .................. ${package.measures-tests.dir}" />
         <echo message="  package measures tests src dir .............. ${package.measures-tests.src.dir}" />
+        <echo message="  package misc tests dir ...................... ${package.misc-tests.dir}" />
+        <echo message="  package misc tests src dir .................. ${package.misc-tests.src.dir}" />
         <echo message="  package network tests dir ................... ${package.network-tests.dir}" />
         <echo message="  package network tests src dir ............... ${package.network-tests.src.dir}" />
         <echo message="  package string tests dir .................... ${package.string-tests.dir}" />
         <echo message="  package string tests src dir ................ ${package.string-tests.src.dir}" />
-        <echo message="  package misc tests dir ...................... ${package.misc-tests.dir}" />
-        <echo message="  package misc tests src dir .................. ${package.misc-tests.src.dir}" />
-        <echo message="  package math tests dir ...................... ${package.math-tests.dir}" />
-        <echo message="  package math tests src dir .................. ${package.math-tests.src.dir}" />
+        <echo message="  package test base dir ....................... ${package.test-base.dir}" />
+        <echo message="  package test base src dir ................... ${package.test-base.src.dir}" />
         <echo message="  package web tests dir ....................... ${package.web-tests.dir}" />
         <echo message="  package web tests src dir ................... ${package.web-tests.src.dir}" />
         <echo />

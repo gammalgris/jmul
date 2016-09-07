@@ -31,7 +31,7 @@ import java.util.Collection;
 import jmul.math.markov.Algorithm;
 import jmul.math.markov.Rule;
 
-import static jmul.string.StringConstants.NEW_LINE;
+import static jmul.string.Constants.NEW_LINE;
 import jmul.string.StringConcatenator;
 
 import jmul.test.classification.UnitTest;

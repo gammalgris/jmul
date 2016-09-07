@@ -27,9 +27,9 @@ package jmul.web;
 
 import java.util.Date;
 
-import jmul.misc.logging.Logger;
+import jmul.logging.Logger;
 
-import static jmul.string.StringConstants.TABULATOR;
+import static jmul.string.Constants.TABULATOR;
 
 
 /**

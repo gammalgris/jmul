@@ -40,7 +40,7 @@ import jmul.io.ResourceType;
 import jmul.reflection.classes.ClassDefinition;
 import jmul.reflection.classes.ClassHelper;
 
-import static jmul.string.StringConstants.FILE_SEPARATOR;
+import static jmul.string.Constants.FILE_SEPARATOR;
 
 
 /**

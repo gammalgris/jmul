@@ -10,7 +10,13 @@
     <target name="copySources">
 
         <copy todir="${project.tmp.src.dir}" overwrite="true">
+            <fileset dir="${package.constants.src.dir}">
+                <include name="**/*.java" />
+            </fileset>
             <fileset dir="${package.io.src.dir}">
+                <include name="**/*.java" />
+            </fileset>
+            <fileset dir="${package.logging.src.dir}">
                 <include name="**/*.java" />
             </fileset>
             <fileset dir="${package.misc.src.dir}">

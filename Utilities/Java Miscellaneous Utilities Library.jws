@@ -25,9 +25,11 @@
    <list n="listOfChildren">
       <hash><url n="URL" path="../Batch/Batch.jpr"/></hash>
       <hash><url n="URL" path="Concurrent/Concurrent.jpr"/></hash>
+      <hash><url n="URL" path="Constants/Constants.jpr"/></hash>
       <hash><url n="URL" path="Helper-Tests/Helper-Tests.jpr"/></hash>
       <hash><url n="URL" path="IO/IO.jpr"/></hash>
       <hash><url n="URL" path="IO-Tests/IO-Tests.jpr"/></hash>
+      <hash><url n="URL" path="Logging/Logging.jpr"/></hash>
       <hash><url n="URL" path="Markdown/Markdown.jpr"/></hash>
       <hash><url n="URL" path="Markdown-Tests/Markdown-Tests.jpr"/></hash>
       <hash><url n="URL" path="Math/Math.jpr"/></hash>
@@ -43,6 +45,7 @@
       <hash><url n="URL" path="String/String.jpr"/></hash>
       <hash><url n="URL" path="String-Tests/String-Tests.jpr"/></hash>
       <hash><url n="URL" path="Test/Test.jpr"/></hash>
+      <hash><url n="URL" path="Test-Base/Test-Base.jpr"/></hash>
       <hash><url n="URL" path="Time/Time.jpr"/></hash>
       <hash><url n="URL" path="Transformation/Transformation.jpr"/></hash>
       <hash><url n="URL" path="Web/Web.jpr"/></hash>

@@ -39,8 +39,8 @@ import jmul.io.NestedStreamsImpl;
 
 import jmul.misc.exceptions.MultipleCausesException;
 
-import static jmul.string.StringConstants.FILE_SEPARATOR;
-import static jmul.string.StringConstants.SLASH;
+import static jmul.string.Constants.FILE_SEPARATOR;
+import static jmul.string.Constants.SLASH;
 
 
 /**

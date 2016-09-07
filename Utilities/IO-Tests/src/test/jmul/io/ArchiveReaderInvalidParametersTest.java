@@ -45,8 +45,9 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 
-import test.jmul.exception.ConstructorInvoker;
-import test.jmul.exception.ConstructorSignatures;
+import jmul.reflection.constructors.ConstructorInvoker;
+import jmul.reflection.constructors.ConstructorSignatures;
+
 import static test.jmul.helper.TestFailureHelper.failTest;
 
 

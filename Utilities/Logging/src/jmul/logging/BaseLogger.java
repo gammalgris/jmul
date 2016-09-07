@@ -22,7 +22,7 @@
  * e-mail: kristian.kutin@arcor.de
  */
 
-package jmul.misc.logging;
+package jmul.logging;
 
 
 import java.io.PrintStream;

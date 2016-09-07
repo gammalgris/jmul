@@ -30,7 +30,7 @@ package jmul.string;
  *
  * @author Kristian Kutin
  */
-public final class StringConstants {
+public final class Constants {
 
     /**
      * A separator character.
@@ -81,7 +81,7 @@ public final class StringConstants {
     /**
      * The default constructor.
      */
-    private StringConstants() {
+    private Constants() {
 
         throw new UnsupportedOperationException();
     }
