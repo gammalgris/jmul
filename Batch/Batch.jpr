@@ -66,6 +66,9 @@
          <string v="XML_SCHEMA"/>
       </list>
    </hash>
+   <hash n="oracle.jdeveloper.ant.AntRunConfiguration">
+      <value n="outputLevel" v="2"/>
+   </hash>
    <hash n="oracle.jdeveloper.compiler.OjcConfiguration">
       <value n="internalEncoding" v="Cp1252"/>
       <value n="webIANAEncoding" v="windows-1252"/>

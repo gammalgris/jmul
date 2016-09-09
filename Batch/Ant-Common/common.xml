@@ -37,6 +37,9 @@
         <echo message="      version rcs: ${version.rcs}" />
         <echo />
         <echo />
+        <echo message="  ant version ................................. ${ant.version}" />
+        <echo />
+        <echo message="  base dir .................................... ${basedir}" />
         <echo message="  project dir ................................. ${project.dir}" />
         <echo />
         <echo />
@@ -47,6 +50,8 @@
         <echo message="  package concurrent cfg dir .................. ${package.concurrent.cfg.dir}" />
         <echo message="  package constants dir ....................... ${package.constants.dir}" />
         <echo message="  package constants src dir ................... ${package.constants.src.dir}" />
+        <echo message="  package documentation dir ................... ${package.documentation.dir}" />
+        <echo message="  package documentation src dir ............... ${package.documentation.src.dir}" />
         <echo message="  package io dir .............................. ${package.io.dir}" />
         <echo message="  package io src dir .......................... ${package.io.src.dir}" />
         <echo message="  package logging dir ......................... ${package.logging.dir}" />

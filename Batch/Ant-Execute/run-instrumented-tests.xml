@@ -7,6 +7,7 @@
     <include file="${basedir}\..\Ant-Common\classpath.xml" />
     <include file="${basedir}\..\Ant-Build\build.xml" />
     <include file="${basedir}\..\Ant-Build\build-tests.xml" />
+    <include file="${basedir}\..\Ant-Build\build-javadoc.xml" />
     <include file="${basedir}\..\Ant-Build\build-instrumented.xml" />
 
 
@@ -73,7 +74,61 @@
     </target>
 
 
-    <!-- target name="coverage" depends="runTests, coverage-check, coverage-report, summary-coverage-report, alternate-coverage-report" / -->
-    <target name="coverage" depends="runTests, coverage-report, summary-coverage-report, alternate-coverage-report" />
+    <target name="copyReportsAndDocumentation" depends="build-javadoc.build">
+
+        <copy todir="${project.tmp.web-content.coverage-report.dir}">
+            <fileset dir="${project.tmp.coverage-alternate-report.dir}">
+                <include name="**/*.*" />
+            </fileset>
+        </copy>
+
+        <copy todir="${project.tmp.web-content.tests-report.dir}">
+            <fileset dir="${project.tmp.tests-report.dir}/html">
+                <include name="**/*.*" />
+            </fileset>
+        </copy>
+
+        <copy todir="${project.tmp.web-content.javadoc.dir}">
+            <fileset dir="${project.tmp.javadoc.dir}">
+                <include name="**/*.*" />
+            </fileset>
+        </copy>
+
+
+        <copy todir="${project.tmp.web-content.measures.doc.dir}">
+            <fileset dir="${package.measures-docs.src.dir}">
+                <include name="**/*.*" />
+            </fileset>
+        </copy>
+
+        <copy todir="${project.tmp.web-content.persistence.doc.dir}">
+            <fileset dir="${package.persistence.doc.dir}">
+                <include name="**/*.*" />
+            </fileset>
+        </copy>
+
+        <copy todir="${project.tmp.web-content.transformation.doc.dir}">
+            <fileset dir="${package.transformation.doc.dir}">
+                <include name="**/*.*" />
+            </fileset>
+        </copy>
+
+        <copy todir="${project.tmp.web-content.web.doc.dir}">
+            <fileset dir="${package.web.doc.dir}">
+                <include name="**/*.*" />
+            </fileset>
+        </copy>
+
+
+        <copy todir="${project.tmp.web-content.dir}">
+            <fileset dir="${package.documentation.src.dir}">
+                <include name="**/*.*" />
+            </fileset>
+        </copy>
+
+    </target>
+
+
+    <target name="coverage" depends="runTests, coverage-report, summary-coverage-report, alternate-coverage-report, copyReportsAndDocumentation" />
 
 </project>

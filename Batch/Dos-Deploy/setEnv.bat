@@ -17,11 +17,12 @@ call:defineMacros
 call:defineVariables
 
 
-set subroutineCalls.length=4
+set subroutineCalls.length=5
 set subroutineCalls[1]=setJava
-set subroutineCalls[2]=printInfo
-set subroutineCalls[3]=checkEnvironment
-set subroutineCalls[4]=setPath
+set subroutineCalls[2]=setAnt
+set subroutineCalls[3]=printInfo
+set subroutineCalls[4]=checkEnvironment
+set subroutineCalls[5]=setPath
 
 
 for /L %%i in (1,1,%subroutineCalls.length%) do (
@@ -197,6 +198,26 @@ call:cleanVariables
 	set JAVA_EXE=%JAVA_BIN%java.exe
 
 	call:addApplication JAVA JAVA_HOME JAVA_EXE 1.7.0
+
+%return%
+
+
+@rem --------------------------------------------------------------------------------
+@rem ---
+@rem ---   void setAnt()
+@rem ---
+@rem ---   The subroutine defines several environment variables for ant.
+@rem ---
+
+:setAnt
+
+	set ANT_HOME=C:\Oracle\Middleware\Oracle_Home\oracle_common\modules\org.apache.ant_1.9.2\
+	rem set ANT_HOME=D:\Programme\apache-ant-1.8.0\
+	set ANT_BIN=%ANT_HOME%bin\
+	set ANT_EXE=%ANT_BIN%ant.bat
+
+	rem call:addApplication ANT ANT_HOME ANT_EXE 1.8.0
+	call:addApplication ANT ANT_HOME ANT_EXE 1.9.2
 
 %return%
 

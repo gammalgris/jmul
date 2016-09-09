@@ -75,13 +75,21 @@
             <fileset dir="${project.dir}\Batch\Dos-WebServer">
                 <include name="**/*.properties" />
                 <include name="**/*.html" />
+                <include name="**/*.txt" />
             </fileset>
         </copy>
 
     </target>
 
 
-    <target name="deploy" depends="build-webserver.build, build-javadoc.build, info, jarClasses, jarSources, jarJavadoc, copyBatchFiles, copyMiscFiles" />
+    <target name="renameDeployDir">
+
+        <move file="${project.tmp.deploy.dir}" tofile="${project.tmp.web-server.dir}" />
+
+    </target>
+
+
+    <target name="deploy" depends="build-webserver.build, build-javadoc.build, info, jarClasses, jarSources, jarJavadoc, copyBatchFiles, copyMiscFiles, renameDeployDir" />
 
 
 </project>

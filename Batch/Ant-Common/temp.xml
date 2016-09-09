@@ -34,6 +34,18 @@
         <echo message="  project tmp coverage-summary-report dir ..... ${project.tmp.coverage-summary-report.dir}" />
         <echo message="  project tmp coverage-alternate-report dir ... ${project.tmp.coverage-alternate-report.dir}" />
         <echo />
+        <echo message="  project tmp web server dir .................. ${project.tmp.web-server.dir}" />
+        <echo message="  project tmp web content dir ................. ${project.tmp.web-content.dir}" />
+        <echo message="  project tmp web coverage reports dir ........ ${project.tmp.web-content.coverage-report.dir}" />
+        <echo message="  project tmp web tests report dir ............ ${project.tmp.web-content.tests-report.dir}" />
+        <echo message="  project tmp web javadoc dir ................. ${project.tmp.web-content.javadoc.dir}" />
+        <echo />
+        <echo message="  project tmp web documentation dir ........... ${project.tmp.web-content.documentation.dir}" />
+        <echo message="  project tmp web measurement units dir ....... ${project.tmp.web-content.measures.doc.dir}" />
+        <echo message="  project tmp web persistence layer dir ....... ${project.tmp.web-content.persistence.doc.dir}" />
+        <echo message="  project tmp web transformation dir .......... ${project.tmp.web-content.transformation.doc.dir}" />
+        <echo message="  project tmp web web dir ..................... ${project.tmp.web-content.web.doc.dir}" />
+        <echo />
 
     </target>
 
@@ -59,6 +71,18 @@
         <mkdir dir="${project.tmp.coverage-report.dir}" />
         <mkdir dir="${project.tmp.coverage-summary-report.dir}" />
         <mkdir dir="${project.tmp.coverage-alternate-report.dir}" />
+
+        <mkdir dir="${project.tmp.web-server.dir}" />
+        <mkdir dir="${project.tmp.web-content.dir}" />
+        <mkdir dir="${project.tmp.web-content.coverage-report.dir}" />
+        <mkdir dir="${project.tmp.web-content.tests-report.dir}" />
+        <mkdir dir="${project.tmp.web-content.javadoc.dir}" />
+
+        <mkdir dir="${project.tmp.web-content.documentation.dir}" />
+        <mkdir dir="${project.tmp.web-content.measures.doc.dir}" />
+        <mkdir dir="${project.tmp.web-content.persistence.doc.dir}" />
+        <mkdir dir="${project.tmp.web-content.transformation.doc.dir}" />
+        <mkdir dir="${project.tmp.web-content.web.doc.dir}" />
 
     </target>
 
