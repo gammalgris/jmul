@@ -264,6 +264,9 @@ call:cleanVariables
 	%cprintln% PATH:
 	%cprintln% %PATH%
 	%cprintln%.
+	%cprintln% current path:
+	%cprintln% %CD%
+	%cprintln%.
 
 
 	set _normalizedNewPath=

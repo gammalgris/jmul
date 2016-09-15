@@ -5,7 +5,8 @@
 @rem ===
 @rem ===   void main()
 @rem ===
-@rem ===   This script sets up the environment for SonarQube and starts SonarQube.
+@rem ===   This script sets up the environment required by the web server and starts
+@rem ===   the web server.
 @rem ===
 
 call:defineMacros
