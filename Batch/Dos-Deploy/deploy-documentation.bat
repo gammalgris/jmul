@@ -25,6 +25,13 @@
 call:defineMacros
 call:defineConstants
 
+call:setUpEnvironment
+%ifError% (
+
+	pause
+	%return%
+)
+
 
 set "target=%1"
 if '%target%'=='' (
@@ -141,6 +148,50 @@ set startBrowserFlag=
 
 	set WEB_SERVER_EXECUTABLE=%WEB_SERVER_SUBFOLDER%startWebServer.bat
 	set WEB_SERVER_CONFIGURATION=%WEB_SERVER_SUBFOLDER%CustomWebServer.properties
+
+%return%
+
+
+@rem --------------------------------------------------------------------------------
+@rem ---
+@rem ---   void setUpEnvironment()
+@rem ---
+@rem ---   The subroutine sets up the required environment.
+@rem ---
+
+:setUpEnvironment
+
+	set "_batchDirectory=%~dp0"
+	set "_currentDirectory=%CD%"
+
+	set _setupScript=setEnv.bat
+	set _checkScript=checkEnv.bat
+
+
+	cd /D "%_batchDirectory%"
+
+	call %_setupScript% 2>nul
+	%ifError% (
+
+		echo ERROR %ERRORLEVEL%: The environment couldn't be set up! >&2
+		%return% 2
+	)
+
+	call %_checkScript% 2>nul
+	%ifError% (
+
+		echo ERROR %ERRORLEVEL%: The environment couldn't be set up! >&2
+		%return% 2
+	)
+
+	cd /D "%_currentDirectory%"
+
+
+	set _batchDirectory=
+	set _currentDirectory=
+
+	set _setupScript=
+	set _checkScript=
 
 %return%
 
