@@ -82,8 +82,8 @@ public final class CheckURL {
      */
     public static void checkURL(URL aURL, int aResponseCodeValue) {
 
-        ResponseCodes expectedResponseCode = ResponseCodes.getResponseCode(aResponseCodeValue);
-        ResponseCodes actualResponseCode = null;
+        ResponseCode expectedResponseCode = ResponseCodes.getResponseCode(aResponseCodeValue);
+        ResponseCode actualResponseCode = null;
 
         try {
 
@@ -114,7 +114,7 @@ public final class CheckURL {
      * @throws MalformedURLException
      * @throws IOException
      */
-    public static ResponseCodes checkURL(String aURLString) throws MalformedURLException, IOException {
+    public static ResponseCode checkURL(String aURLString) throws MalformedURLException, IOException {
 
         URL url = new URL(aURLString);
         return checkURL(url);
@@ -129,7 +129,7 @@ public final class CheckURL {
      *
      * @throws IOException
      */
-    public static ResponseCodes checkURL(URL aURL) throws IOException {
+    public static ResponseCode checkURL(URL aURL) throws IOException {
 
         String actualProtocol = aURL.getProtocol();
 
@@ -155,7 +155,7 @@ public final class CheckURL {
      *
      * @throws IOException
      */
-    private static ResponseCodes checkHttp(URL aURL) throws IOException {
+    private static ResponseCode checkHttp(URL aURL) throws IOException {
 
         HttpMethods httpMethod = HttpMethods.HEAD;
         HttpURLConnection connection = null;
@@ -168,7 +168,7 @@ public final class CheckURL {
             connection.connect();
 
             int value = connection.getResponseCode();
-            ResponseCodes responseCode = ResponseCodes.getResponseCode(value);
+            ResponseCode responseCode = ResponseCodes.getResponseCode(value);
             return responseCode;
 
         } finally {
@@ -189,7 +189,7 @@ public final class CheckURL {
      *
      * @throws IOException
      */
-    private static ResponseCodes checkHttps(URL aURL) throws IOException {
+    private static ResponseCode checkHttps(URL aURL) throws IOException {
 
         HttpMethods httpMethod = HttpMethods.HEAD;
         HttpsURLConnection connection = null;
@@ -202,7 +202,7 @@ public final class CheckURL {
             connection.connect();
 
             int value = connection.getResponseCode();
-            ResponseCodes responseCode = ResponseCodes.getResponseCode(value);
+            ResponseCode responseCode = ResponseCodes.getResponseCode(value);
             return responseCode;
 
         } finally {

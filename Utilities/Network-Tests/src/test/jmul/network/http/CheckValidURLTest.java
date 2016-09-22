@@ -34,6 +34,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import jmul.network.http.CheckURL;
+import jmul.network.http.ResponseCode;
 import jmul.network.http.ResponseCodes;
 
 import jmul.test.classification.UnitTest;
@@ -87,7 +88,7 @@ public class CheckValidURLTest {
     /**
      * The expected response code.
      */
-    private final ResponseCodes expectedResponseCode;
+    private final ResponseCode expectedResponseCode;
 
     /**
      * Creates a new test.
@@ -118,7 +119,7 @@ public class CheckValidURLTest {
 
         try {
 
-            ResponseCodes actualResponseCode = CheckURL.checkURL(url);
+            ResponseCode actualResponseCode = CheckURL.checkURL(url);
             assertEquals(expectedResponseCode, actualResponseCode);
 
         } catch (IOException e) {

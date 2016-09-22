@@ -40,7 +40,7 @@ import java.util.ResourceBundle;
  *
  * @author Kristian Kutin
  */
-public enum ResponseCodes {
+public enum ResponseCodes implements ResponseCode {
 
 
     NO_HTTP("NO_HTTP"),
@@ -188,6 +188,7 @@ public enum ResponseCodes {
      *
      * @return a response code value
      */
+    @Override
     public int getValue() {
 
         return value;
@@ -198,6 +199,7 @@ public enum ResponseCodes {
      *
      * @return a response code description
      */
+    @Override
     public String getDescription() {
 
         return description;
@@ -208,6 +210,7 @@ public enum ResponseCodes {
      *
      * @return a response code reference
      */
+    @Override
     public String getReference() {
 
         return reference;
@@ -241,9 +244,9 @@ public enum ResponseCodes {
      *
      * @return a response code
      */
-    public static ResponseCodes getResponseCode(int aValue) {
+    public static ResponseCode getResponseCode(int aValue) {
 
-        for (ResponseCodes responseCode : ResponseCodes.values()) {
+        for (ResponseCode responseCode : ResponseCodes.values()) {
 
             int actualValue = responseCode.getValue();
 
