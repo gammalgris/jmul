@@ -11,6 +11,9 @@
     <property name="project.lib.junit.file" location="${project.lib.junit.dir}\junit-4.11.jar" />
     <property name="project.lib.hamcrest.file" location="${project.lib.junit.dir}\hamcrest-core-1.3.jar" />
 
+    <property name="project.lib.commons-lang.dir" location="${project.lib.dir}\Commons Lang" />
+    <property name="project.lib.commons-lang.file" location="${project.lib.commons-lang.dir}\commons-lang3-3.2.1.jar" />
+
     <property name="project.lib.sonar-ant-task.dir" location="${project.lib.dir}\SonarAntTask" />
     <property name="project.lib.sonar-ant-task.file" location="${project.lib.sonar-ant-task.dir}\sonarqube-ant-task-2.4.jar" />
 
@@ -34,6 +37,7 @@
     <pathconvert property="jmul.execution.classpath.string" refid="jmul.execution.classpath" pathsep="${line.separator}" />
 
     <path id="jmul.build.classpath">
+      <pathelement location="${project.lib.commons-lang.file}" />
     </path>
 
     <pathconvert property="jmul.build.classpath.string" refid="jmul.build.classpath" pathsep="${line.separator}" />
@@ -46,6 +50,7 @@
       <pathelement location="${project.tmp.build.dir}" />
       <pathelement location="${project.lib.junit.file}" />
       <pathelement location="${project.lib.hamcrest.file}" />
+      <pathelement location="${project.lib.commons-lang.file}" />
     </path>
 
     <pathconvert property="jmul-tests.execution.classpath.string" refid="jmul-tests.execution.classpath" pathsep="${line.separator}" />
@@ -80,6 +85,9 @@
         <echo message="  junit dir ......................... ${project.lib.junit.dir}" />
         <echo message="  junit library ..................... ${project.lib.junit.file}" />
         <echo message="  hamcrest library .................. ${project.lib.hamcrest.file}" />
+        <echo />
+        <echo message="  commons lang dir .................. ${project.lib.commons-lang.dir}" />
+        <echo message="  commons lang library .............. ${project.lib.commons-lang.file}" />
         <echo />
         <echo message="  sonar ant task dir ................ ${project.lib.sonar-ant-task.dir}" />
         <echo message="  sonar ant task file ............... ${project.lib.sonar-ant-task.file}" />

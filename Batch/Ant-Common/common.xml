@@ -52,6 +52,8 @@
         <echo message="  package constants src dir ................... ${package.constants.src.dir}" />
         <echo message="  package documentation dir ................... ${package.documentation.dir}" />
         <echo message="  package documentation src dir ............... ${package.documentation.src.dir}" />
+        <echo message="  package formula dir ......................... ${package.formula.dir}" />
+        <echo message="  package formula src dir ..................... ${package.formula.src.dir}" />
         <echo message="  package io dir .............................. ${package.io.dir}" />
         <echo message="  package io src dir .......................... ${package.io.src.dir}" />
         <echo message="  package logging dir ......................... ${package.logging.dir}" />
@@ -92,6 +94,8 @@
         <echo message="  package xml dir ............................. ${package.xml.dir}" />
         <echo message="  package xml src dir ......................... ${package.xml.src.dir}" />
         <echo />
+        <echo message="  package formula tests dir ................... ${package.formula-tests.dir}" />
+        <echo message="  package formula tests src dir ............... ${package.formula-tests.src.dir}" />
         <echo message="  package helper tests dir .................... ${package.helper-tests.dir}" />
         <echo message="  package helper tests src dir ................ ${package.helper-tests.src.dir}" />
         <echo message="  package io tests dir ........................ ${package.io-tests.dir}" />

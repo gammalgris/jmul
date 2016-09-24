@@ -16,6 +16,9 @@
             <fileset dir="${package.constants.src.dir}">
                 <include name="**/*.java" />
             </fileset>
+            <fileset dir="${package.formula.src.dir}">
+                <include name="**/*.java" />
+            </fileset>
             <fileset dir="${package.io.src.dir}">
                 <include name="**/*.java" />
             </fileset>
