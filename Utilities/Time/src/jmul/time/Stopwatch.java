@@ -136,6 +136,17 @@ public class Stopwatch {
     }
 
     /**
+     * Checks if the stopwatch is currntly being used.
+     *
+     * @return <code>true</code> if a measurement is taking place, else
+     *         <code>false</code>
+     */
+    public boolean isActiveCount() {
+
+        return isMeasuringElapsedTime;
+    }
+
+    /**
      * Returns a string representation of the stopwatch's current state.
      *
      * @return a string representation

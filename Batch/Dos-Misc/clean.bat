@@ -44,43 +44,46 @@ exit /b 0
 
 	set projectDir=%~dp0..\..\Utilities\
 
-	set directory.length=33
+	set directory.length=36
 
 	set directory[1]=%projectDir%.data\
 	set directory[2]=%projectDir%Concurrent\classes\
 	set directory[3]=%projectDir%Constants\classes\
-	set directory[4]=%projectDir%Helper-Tests\classes\
-	set directory[5]=%projectDir%IO\classes\
-	set directory[6]=%projectDir%IO-Tests\classes\
-	set directory[7]=%projectDir%Logging\classes\
-	set directory[8]=%projectDir%Markdown\classes\
-	set directory[9]=%projectDir%Markdown-Tests\classes\
-	set directory[10]=%projectDir%Math\classes\
-	set directory[11]=%projectDir%Math-Tests\classes\
-	set directory[12]=%projectDir%Measures\classes\
-	set directory[13]=%projectDir%Measures-Tests\classes\
-	set directory[14]=%projectDir%Misc\classes\
-	set directory[15]=%projectDir%Misc-Tests\classes\
-	set directory[16]=%projectDir%Network\classes\
-	set directory[17]=%projectDir%Network-Tests\classes\
-	set directory[18]=%projectDir%Persistence\classes\
-	set directory[19]=%projectDir%Reflection\classes\
-	set directory[20]=%projectDir%String\classes\
-	set directory[21]=%projectDir%String-Tests\classes\
-	set directory[22]=%projectDir%Test\classes\
-	set directory[23]=%projectDir%Test-Base\classes\
-	set directory[24]=%projectDir%Time\classes\
-	set directory[25]=%projectDir%Transformation\classes\
-	set directory[26]=%projectDir%Version\classes\
-	set directory[27]=%projectDir%Web\classes\
-	set directory[29]=%projectDir%Web-Tests\classes\
-	set directory[29]=%projectDir%XML\classes\
+	set directory[4]=%projectDir%Formula\classes\
+	set directory[5]=%projectDir%Formula-Tests\classes\
+	set directory[6]=%projectDir%Helper-Tests\classes\
+	set directory[7]=%projectDir%IO\classes\
+	set directory[8]=%projectDir%IO-Tests\classes\
+	set directory[9]=%projectDir%Logging\classes\
+	set directory[10]=%projectDir%Markdown\classes\
+	set directory[11]=%projectDir%Markdown-Tests\classes\
+	set directory[12]=%projectDir%Math\classes\
+	set directory[13]=%projectDir%Math-Tests\classes\
+	set directory[14]=%projectDir%Measures\classes\
+	set directory[15]=%projectDir%Measures-Tests\classes\
+	set directory[16]=%projectDir%Misc\classes\
+	set directory[17]=%projectDir%Misc-Tests\classes\
+	set directory[18]=%projectDir%Network\classes\
+	set directory[19]=%projectDir%Network-Tests\classes\
+	set directory[20]=%projectDir%Persistence\classes\
+	set directory[21]=%projectDir%Persistence-Tests\classes\
+	set directory[22]=%projectDir%Reflection\classes\
+	set directory[23]=%projectDir%String\classes\
+	set directory[24]=%projectDir%String-Tests\classes\
+	set directory[25]=%projectDir%Test\classes\
+	set directory[26]=%projectDir%Test-Base\classes\
+	set directory[27]=%projectDir%Time\classes\
+	set directory[28]=%projectDir%Transformation\classes\
+	set directory[29]=%projectDir%Version\classes\
+	set directory[30]=%projectDir%Web\classes\
+	set directory[31]=%projectDir%Web-Tests\classes\
+	set directory[32]=%projectDir%XML\classes\
 
-	set directory[30]=%projectDir%..\Batch\classes\
-	set directory[31]=%projectDir%..\Batch\Ant-Sonar\.sonar\
-	set directory[32]=%projectDir%..\tmp\
+	set directory[33]=%projectDir%..\Batch\classes\
+	set directory[34]=%projectDir%..\Batch\Ant-Sonar\.sonar\
+	set directory[35]=%projectDir%..\tmp\
 
-	set directory[33]=%projectDir%IO-Tests\testdata-io\
+	set directory[36]=%projectDir%IO-Tests\testdata-io\
 
 exit /b 0
 

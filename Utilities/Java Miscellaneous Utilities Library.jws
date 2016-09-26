@@ -43,6 +43,7 @@
       <hash><url n="URL" path="Network/Network.jpr"/></hash>
       <hash><url n="URL" path="Network-Tests/Network-Tests.jpr"/></hash>
       <hash><url n="URL" path="Persistence/Persistence.jpr"/></hash>
+      <hash><url n="URL" path="Persistence-Tests/Persistence-Tests.jpr"/></hash>
       <hash><url n="URL" path="Reflection/Reflection.jpr"/></hash>
       <hash><url n="URL" path="String/String.jpr"/></hash>
       <hash><url n="URL" path="String-Tests/String-Tests.jpr"/></hash>
