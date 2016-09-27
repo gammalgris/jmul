@@ -111,6 +111,8 @@
         <echo message="  package misc tests src dir .................. ${package.misc-tests.src.dir}" />
         <echo message="  package network tests dir ................... ${package.network-tests.dir}" />
         <echo message="  package network tests src dir ............... ${package.network-tests.src.dir}" />
+        <echo message="  package persistence tests dir ............... ${package.persistence-tests.dir}" />
+        <echo message="  package persistence tests src dir ........... ${package.persistence-tests.src.dir}" />
         <echo message="  package string tests dir .................... ${package.string-tests.dir}" />
         <echo message="  package string tests src dir ................ ${package.string-tests.src.dir}" />
         <echo message="  package test base dir ....................... ${package.test-base.dir}" />

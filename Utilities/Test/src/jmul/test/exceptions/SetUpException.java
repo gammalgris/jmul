@@ -25,6 +25,10 @@
 package jmul.test.exceptions;
 
 
+import static jmul.misc.checks.ParameterCheckHelper.checkExceptionCause;
+import static jmul.misc.checks.ParameterCheckHelper.checkExceptionMessage;
+
+
 /**
  * This exception is thrown if the setup fails and thus a test
  * cannot be executed.
@@ -48,7 +52,7 @@ public class SetUpException extends RuntimeException {
      */
     public SetUpException(String aMessage) {
 
-        super(aMessage);
+        super(checkExceptionMessage(aMessage));
     }
 
     /**
@@ -58,7 +62,7 @@ public class SetUpException extends RuntimeException {
      */
     public SetUpException(Throwable aCause) {
 
-        super(aCause);
+        super(checkExceptionCause(aCause));
     }
 
     /**
@@ -69,7 +73,7 @@ public class SetUpException extends RuntimeException {
      */
     public SetUpException(String aMessage, Throwable aCause) {
 
-        super(aMessage, aCause);
+        super(checkExceptionMessage(aMessage), checkExceptionCause(aCause));
     }
 
 }

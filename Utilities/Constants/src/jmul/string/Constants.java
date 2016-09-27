@@ -43,10 +43,25 @@ public final class Constants {
     public static final String EMPTY_STRING = "";
 
     /**
+     * The prefix to escape a special character in a regular expression.
+     */
+    public static final String REGEX_ESCAPE = "\\";
+
+    /**
      * The file separator which is used under the current operating system (e.g.
      * "/" under Unix, "\" under Windows).
      */
     public static final String FILE_SEPARATOR = System.getProperty("file.separator");
+
+    /**
+     * The file separator which is used under windows.
+     */
+    public static final String FILE_SEPARATOR_WINDOWS = "\\";
+
+    /**
+     * The file separator which is used under unix.
+     */
+    public static final String FILE_SEPARATOR_UNIX = "/";
 
     /**
      * A new line character.
@@ -84,6 +99,23 @@ public final class Constants {
     private Constants() {
 
         throw new UnsupportedOperationException();
+    }
+
+    /**
+     * Returns a regular expression which describes a file separator.
+     *
+     * @return a regular expression
+     */
+    public static String fileSeparator2Regex() {
+
+        if (FILE_SEPARATOR.equals(FILE_SEPARATOR_WINDOWS)) {
+
+            return REGEX_ESCAPE + FILE_SEPARATOR;
+
+        } else {
+
+            return FILE_SEPARATOR;
+        }
     }
 
 }

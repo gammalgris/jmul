@@ -166,6 +166,8 @@ public class HelperConstructorTest {
         parameters.add(new Object[] { jmul.persistence.transformation.TransformationHelper.class });
         parameters.add(new Object[] { jmul.math.random.DiceFactory.class });
         parameters.add(new Object[] { jmul.math.rules.RuleFactory.class });
+        parameters.add(new Object[] { jmul.persistence.transformation.rules.TransformationConstants.class });
+        parameters.add(new Object[] { jmul.persistence.annotations.AnnotationHelper.class });
 
         return parameters;
     }

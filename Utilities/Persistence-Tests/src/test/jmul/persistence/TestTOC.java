@@ -29,9 +29,9 @@ import java.util.Map;
 
 import jmul.persistence.transformation.TransformationHelper;
 
-import test.jmul.persistence.company.CompanyDetails;
-import test.jmul.persistence.company.CompanyDetailsImpl4;
-import test.jmul.persistence.employee.EmployeeImpl6;
+import test.jmul.datatypes.company.CompanyDetails;
+import test.jmul.datatypes.company.CompanyDetailsImpl4;
+import test.jmul.datatypes.employee.EmployeeImpl6;
 
 import jmul.transformation.TransformationFactory;
 import jmul.transformation.TransformationParameters;

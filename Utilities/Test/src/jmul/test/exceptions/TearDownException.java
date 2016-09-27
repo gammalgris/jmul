@@ -25,6 +25,10 @@
 package jmul.test.exceptions;
 
 
+import static jmul.misc.checks.ParameterCheckHelper.checkExceptionCause;
+import static jmul.misc.checks.ParameterCheckHelper.checkExceptionMessage;
+
+
 /**
  * This exception is throw if cleaning up after a test fails.
  *
@@ -47,7 +51,7 @@ public class TearDownException extends RuntimeException {
      */
     public TearDownException(String aMessage) {
 
-        super(aMessage);
+        super(checkExceptionMessage(aMessage));
     }
 
     /**
@@ -57,7 +61,7 @@ public class TearDownException extends RuntimeException {
      */
     public TearDownException(Throwable aCause) {
 
-        super(aCause);
+        super(checkExceptionCause(aCause));
     }
 
     /**
@@ -68,7 +72,7 @@ public class TearDownException extends RuntimeException {
      */
     public TearDownException(String aMessage, Throwable aCause) {
 
-        super(aMessage, aCause);
+        super(checkExceptionMessage(aMessage), checkExceptionCause(aCause));
     }
 
 }

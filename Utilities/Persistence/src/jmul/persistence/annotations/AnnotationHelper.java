@@ -39,6 +39,8 @@ public final class AnnotationHelper {
      * The default constructor.
      */
     private AnnotationHelper() {
+
+        throw new UnsupportedOperationException();
     }
 
     /**
@@ -53,11 +55,9 @@ public final class AnnotationHelper {
      * @return <code>true</code> if the annotation exists, else
      *         <code>false</code>
      */
-    public static boolean isAnnotationPresent(Class theExaminedClass,
-                                              Class theExpectedAnnotation) {
+    public static boolean isAnnotationPresent(Class theExaminedClass, Class theExpectedAnnotation) {
 
-        return isAnnotationPresent(theExaminedClass, theExpectedAnnotation,
-                                   false);
+        return isAnnotationPresent(theExaminedClass, theExpectedAnnotation, false);
     }
 
     /**
@@ -74,9 +74,7 @@ public final class AnnotationHelper {
      * @return <code>true</code> if the annotation exists, else
      *         <code>false</code>
      */
-    public static boolean isAnnotationPresent(Class theExaminedClass,
-                                              Class theExpectedAnnotation,
-                                              boolean recurse) {
+    public static boolean isAnnotationPresent(Class theExaminedClass, Class theExpectedAnnotation, boolean recurse) {
 
         Class probedType = theExaminedClass;
         boolean result = false;
@@ -109,8 +107,7 @@ public final class AnnotationHelper {
      * @return the specified annotation or <code>null</code> if no such
      *         annotation exists
      */
-    public static Annotation getAnnotation(Class theExaminedClass,
-                                           Class theExpectedAnnotation) {
+    public static Annotation getAnnotation(Class theExaminedClass, Class theExpectedAnnotation) {
 
         return getAnnotation(theExaminedClass, theExpectedAnnotation, false);
     }
@@ -129,9 +126,7 @@ public final class AnnotationHelper {
      * @return the specified annotation or <code>null</code> if no such
      *         annotation exists
      */
-    public static Annotation getAnnotation(Class theExaminedClass,
-                                           Class theExpectedAnnotation,
-                                           boolean recurse) {
+    public static Annotation getAnnotation(Class theExaminedClass, Class theExpectedAnnotation, boolean recurse) {
 
         Class probedType = theExaminedClass;
 

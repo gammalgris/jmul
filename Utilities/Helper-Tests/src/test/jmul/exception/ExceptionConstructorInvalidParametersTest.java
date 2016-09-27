@@ -42,6 +42,11 @@ import jmul.misc.exceptions.InitializationException;
 
 import jmul.network.NetworkException;
 
+import jmul.persistence.InvalidIDException;
+import jmul.persistence.InvalidRootNodeException;
+import jmul.persistence.PersistenceException;
+import jmul.persistence.id.GeneratorException;
+
 import jmul.reflection.constructors.ConstructorInvoker;
 import jmul.reflection.constructors.ConstructorSignatures;
 
@@ -180,7 +185,15 @@ public class ExceptionConstructorInvalidParametersTest {
         addDefaultTestCases(parameters, NestedStreamsException.class);
 
 
-        // Exception from package Test
+        // Exceptions from package Persistence
+
+        addDefaultTestCases2(parameters, GeneratorException.class);
+        addDefaultTestCases(parameters, InvalidIDException.class);
+        addDefaultTestCases(parameters, InvalidRootNodeException.class);
+        addDefaultTestCases(parameters, PersistenceException.class);
+
+
+        // Exceptions from package Test
 
         addDefaultTestCases(parameters, FailedTestException.class);
         addDefaultTestCases(parameters, SetUpException.class);

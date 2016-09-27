@@ -27,9 +27,9 @@ package test.jmul.persistence;
 
 import java.io.File;
 
-import test.jmul.persistence.department.DepartmentGenderDetails;
-import test.jmul.persistence.department.DepartmentGenderDetailsImpl2;
-import test.jmul.persistence.employee.EmployeeImpl6;
+import test.jmul.datatypes.department.DepartmentGenderDetails;
+import test.jmul.datatypes.department.DepartmentGenderDetailsImpl2;
+import test.jmul.datatypes.employee.EmployeeImpl6;
 import test.jmul.persistence.file.FilenameCreator;
 import test.jmul.persistence.file.NameCreator;
 import test.jmul.persistence.threads.DefaultSerializationThread;

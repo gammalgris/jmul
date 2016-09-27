@@ -25,10 +25,10 @@
 package test.jmul.persistence.loadtest;
 
 
-import test.jmul.persistence.department.DepartmentGenderDetails;
-import test.jmul.persistence.department.DepartmentGenderDetailsImpl2;
-import test.jmul.persistence.employee.Employee;
-import test.jmul.persistence.employee.EmployeeImpl6;
+import test.jmul.datatypes.department.DepartmentGenderDetails;
+import test.jmul.datatypes.department.DepartmentGenderDetailsImpl2;
+import test.jmul.datatypes.employee.Employee;
+import test.jmul.datatypes.employee.EmployeeImpl6;
 
 import jmul.persistence.id.ID;
 import jmul.persistence.id.StringID;

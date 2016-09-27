@@ -34,7 +34,6 @@
 
 
 #
-# Ignore files which are not relevant for the repository and thus
-# shouldn't be checked in.
+# Ignore generated test data.
 #
-/change.log
+/**/Persistence-Tests/Test/*

@@ -33,9 +33,9 @@ import jmul.persistence.xml.XmlDeserializerImpl;
 import jmul.persistence.xml.XmlSerializer;
 import jmul.persistence.xml.XmlSerializerImpl;
 
-import test.jmul.persistence.department.DepartmentDetails;
-import test.jmul.persistence.department.DepartmentDetailsImpl2;
-import test.jmul.persistence.employee.EmployeeImpl6;
+import test.jmul.datatypes.department.DepartmentDetails;
+import test.jmul.datatypes.department.DepartmentDetailsImpl2;
+import test.jmul.datatypes.employee.EmployeeImpl6;
 
 import static org.junit.Assert.assertEquals;
 import org.junit.Before;

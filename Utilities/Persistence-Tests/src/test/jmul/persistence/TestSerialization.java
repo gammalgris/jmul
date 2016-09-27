@@ -31,16 +31,16 @@ import java.io.IOException;
 import jmul.persistence.xml.XmlSerializer;
 import jmul.persistence.xml.XmlSerializerImpl;
 
-import test.jmul.persistence.company.CompanyDetails;
-import test.jmul.persistence.company.CompanyDetailsImpl;
-import test.jmul.persistence.company.CompanyDetailsImpl3;
-import test.jmul.persistence.contractor.Contractor;
-import test.jmul.persistence.contractor.ContractorImpl;
-import test.jmul.persistence.department.DepartmentDetails;
-import test.jmul.persistence.department.DepartmentDetailsImpl2;
-import test.jmul.persistence.department.DepartmentGenderDetails;
-import test.jmul.persistence.department.DepartmentGenderDetailsImpl2;
-import test.jmul.persistence.employee.EmployeeImpl6;
+import test.jmul.datatypes.company.CompanyDetails;
+import test.jmul.datatypes.company.CompanyDetailsImpl;
+import test.jmul.datatypes.company.CompanyDetailsImpl3;
+import test.jmul.datatypes.contractor.Contractor;
+import test.jmul.datatypes.contractor.ContractorImpl;
+import test.jmul.datatypes.department.DepartmentDetails;
+import test.jmul.datatypes.department.DepartmentDetailsImpl2;
+import test.jmul.datatypes.department.DepartmentGenderDetails;
+import test.jmul.datatypes.department.DepartmentGenderDetailsImpl2;
+import test.jmul.datatypes.employee.EmployeeImpl6;
 
 import jmul.string.StringConcatenator;
 

@@ -50,6 +50,11 @@ import jmul.misc.state.UnknownStateException;
 
 import jmul.network.NetworkException;
 
+import jmul.persistence.InvalidIDException;
+import jmul.persistence.InvalidRootNodeException;
+import jmul.persistence.PersistenceException;
+import jmul.persistence.id.GeneratorException;
+
 import jmul.reflection.constructors.ConstructorInvoker;
 import jmul.reflection.constructors.ConstructorSignatures;
 
@@ -256,11 +261,20 @@ public class ExceptionConstructorValidParametersTest {
         addDefaultTestCases(parameters, NestedStreamsException.class);
 
 
+        // Exception from package Persistence
+
+        addDefaultTestCases2(parameters, GeneratorException.class);
+        addDefaultTestCases(parameters, InvalidIDException.class);
+        addDefaultTestCases(parameters, InvalidRootNodeException.class);
+        addDefaultTestCases(parameters, PersistenceException.class);
+
+
         // Exception from package Test
 
         addDefaultTestCases(parameters, FailedTestException.class);
         addDefaultTestCases(parameters, SetUpException.class);
         addDefaultTestCases(parameters, TearDownException.class);
+        addDefaultTestCases2(parameters, InvalidIDException.class);
 
 
         // Exception from package Time

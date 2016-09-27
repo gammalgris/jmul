@@ -39,6 +39,7 @@ import org.junit.runner.notification.Failure;
  *
  * @author Kristian Kutin
  */
+@Deprecated
 public final class Run {
 
     /**
@@ -57,12 +58,12 @@ public final class Run {
 
         JOptionPane.showMessageDialog(null, "Click button to start test");
 
-        Class<?>[] classes =
-        { TestSerialization.class, TestFailedSerialization.class,
-          TestTOC.class, TestConcurrentSerialization.class,
-          TestDeserialization.class, TestConcurrentDeserialization.class,
-          TestFileManager.class, TestConcurrentFileManager.class,
-          TestPersistence.class, TestConcurrentPersistence.class };
+        Class<?>[] classes = {
+            TestSerialization.class, TestFailedSerialization.class, TestTOC.class, TestConcurrentSerialization.class,
+            TestDeserialization.class, TestConcurrentDeserialization.class,
+            /* TestFileManager.class, */TestConcurrentFileManager.class, TestPersistence.class,
+            TestConcurrentPersistence.class
+        };
 
         Result result = JUnitCore.runClasses(classes);
 

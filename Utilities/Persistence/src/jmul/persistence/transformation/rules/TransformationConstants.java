@@ -72,6 +72,8 @@ public final class TransformationConstants {
      * The default constructor.
      */
     private TransformationConstants() {
+
+        throw new UnsupportedOperationException();
     }
 
 }

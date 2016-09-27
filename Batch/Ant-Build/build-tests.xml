@@ -35,6 +35,9 @@
             <fileset dir="${package.network-tests.src.dir}">
                 <include name="**/*.java" />
             </fileset>
+            <fileset dir="${package.persistence-tests.src.dir}">
+                <include name="**/*.java" />
+            </fileset>
             <fileset dir="${package.string-tests.src.dir}">
                 <include name="**/*.java" />
             </fileset>

@@ -25,6 +25,10 @@
 package jmul.persistence.id;
 
 
+import static jmul.misc.checks.ParameterCheckHelper.checkExceptionCause;
+import static jmul.misc.checks.ParameterCheckHelper.checkExceptionMessage;
+
+
 /**
  * This exception is thrown by a generator when an internal error occurrs.
  *
@@ -42,7 +46,7 @@ public class GeneratorException extends RuntimeException {
      */
     public GeneratorException(String aMessage, Throwable aCause) {
 
-        super(aMessage, aCause);
+        super(checkExceptionMessage(aMessage), checkExceptionCause(aCause));
     }
 
     /**
@@ -53,7 +57,7 @@ public class GeneratorException extends RuntimeException {
      */
     public GeneratorException(String aMessage) {
 
-        super(aMessage);
+        super(checkExceptionMessage(aMessage));
     }
 
 }

@@ -25,6 +25,10 @@
 package jmul.persistence;
 
 
+import static jmul.misc.checks.ParameterCheckHelper.checkExceptionCause;
+import static jmul.misc.checks.ParameterCheckHelper.checkExceptionMessage;
+
+
 /**
  * This is exception is thrown if a persistence mechanism runs into an error
  * which requires some error handling.
@@ -41,7 +45,7 @@ public class InvalidIDException extends Exception {
      */
     public InvalidIDException(Throwable aCause) {
 
-        super(aCause);
+        super(checkExceptionCause(aCause));
     }
 
     /**
@@ -54,7 +58,7 @@ public class InvalidIDException extends Exception {
      */
     public InvalidIDException(String aMessage, Throwable aCause) {
 
-        super(aMessage, aCause);
+        super(checkExceptionMessage(aMessage), checkExceptionCause(aCause));
     }
 
     /**
@@ -65,7 +69,7 @@ public class InvalidIDException extends Exception {
      */
     public InvalidIDException(String aMessage) {
 
-        super(aMessage);
+        super(checkExceptionMessage(aMessage));
     }
 
     /**

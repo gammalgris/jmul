@@ -4,7 +4,7 @@
  * JMUL is a central repository for utilities which are used in my
  * other public and private repositories.
  *
- * Copyright (C) 2016  Kristian Kutin
+ * Copyright (C) 2013  Kristian Kutin
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -25,14 +25,8 @@
 package test.jmul.persistence;
 
 
-import java.io.File;
-
 import java.util.ArrayList;
 import java.util.Collection;
-
-import jmul.concurrent.threads.ThreadHelper;
-
-import jmul.io.FileHelper;
 
 import jmul.persistence.id.ID;
 import jmul.persistence.id.IDGenerator;
@@ -54,7 +48,7 @@ import org.junit.Test;
  * @author Kristian Kutin
  */
 @ModuleTest
-public class IdCollisionTest {
+public class IdCollisionTest extends FileManagerTestBase {
 
     /**
      * A base directory for tests.
@@ -72,16 +66,7 @@ public class IdCollisionTest {
     @Before
     public void setUp() {
 
-        ThreadHelper.sleep(1000L);
-
-        File baseDirectory = new File(BASEDIR);
-
-        if (baseDirectory.exists()) {
-
-            FileHelper.delete(baseDirectory);
-        }
-
-        baseDirectory.mkdirs();
+        initBaseDirectory(BASEDIR);
     }
 
     /**
