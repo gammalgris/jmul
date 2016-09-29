@@ -4,7 +4,7 @@
  * JMUL is a central repository for utilities which are used in my
  * other public and private repositories.
  *
- * Copyright (C) 2013  Kristian Kutin
+ * Copyright (C) 2016  Kristian Kutin
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -28,12 +28,6 @@ package test.jmul.persistence;
 import java.io.File;
 import java.io.IOException;
 
-import jmul.concurrent.threads.ThreadHelper;
-
-import jmul.io.FileHelper;
-
-import static jmul.math.Constants.SECOND;
-
 import jmul.persistence.file.FileManager;
 import jmul.persistence.file.FileManagerImpl;
 import jmul.persistence.id.ID;
@@ -49,26 +43,7 @@ import static org.junit.Assert.fail;
  *
  * @author Kristian Kutin
  */
-abstract class FileManagerTestBase {
-
-    /**
-     * Initializes the specified base directory (i.e. cleans all the content).
-     *
-     * @param aBaseDirectory
-     */
-    protected void initBaseDirectory(String aBaseDirectory) {
-
-        ThreadHelper.sleep(SECOND);
-
-        File baseDirectory = new File(aBaseDirectory);
-
-        if (baseDirectory.exists()) {
-
-            FileHelper.delete(baseDirectory);
-        }
-
-        baseDirectory.mkdirs();
-    }
+abstract class FileManagerTestBase extends TestBase {
 
     /**
      * Initializes a file manager according to the specified parameters.
