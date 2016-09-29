@@ -71,8 +71,7 @@ public class BooleanCreator implements ObjectCreator {
 
         // Create a new instance.
 
-        Boolean result = Boolean.parseBoolean(anInitialValue);
-        return result;
+        return Boolean.parseBoolean(anInitialValue);
     }
 
 }

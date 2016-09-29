@@ -71,8 +71,7 @@ public class StringBufferCreator implements ObjectCreator {
 
         // Create a new instance.
 
-        StringBuffer result = new StringBuffer(anInitialValue);
-        return result;
+        return new StringBuffer(anInitialValue);
     }
 
 }

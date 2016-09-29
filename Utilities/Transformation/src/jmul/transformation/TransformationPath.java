@@ -67,8 +67,8 @@ public final class TransformationPath {
     @Override
     public int hashCode() {
 
-        int hash = origin.hashCode() + destination.hashCode();
-        return hash;
+        //TODO bad hash function
+        return origin.hashCode() + destination.hashCode();
     }
 
     /**
@@ -95,10 +95,9 @@ public final class TransformationPath {
 
         if (o instanceof TransformationPath) {
 
-            TransformationPath other = (TransformationPath)o;
+            TransformationPath other = (TransformationPath) o;
 
-            return this.origin.equals(other.origin) &&
-                this.destination.equals(other.destination);
+            return this.origin.equals(other.origin) && this.destination.equals(other.destination);
         }
 
         return false;
@@ -112,8 +111,7 @@ public final class TransformationPath {
     @Override
     public String toString() {
 
-        StringConcatenator representation =
-            new StringConcatenator(origin, " -> ", destination);
+        StringConcatenator representation = new StringConcatenator(origin, " -> ", destination);
         return representation.toString();
     }
 

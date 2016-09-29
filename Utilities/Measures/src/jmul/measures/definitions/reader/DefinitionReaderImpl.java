@@ -190,8 +190,7 @@ public class DefinitionReaderImpl implements DefinitionReader {
         }
 
 
-        Definition definition = new Definition(category, unitEntries);
-        return definition;
+        return new Definition(category, unitEntries);
     }
 
 }

@@ -128,8 +128,7 @@ public class PageLoader {
         }
 
 
-        PublishedPage publishedPage = new PublishedPage(path, content);
-        return publishedPage;
+        return new PublishedPage(path, content);
     }
 
     /**
@@ -168,10 +167,7 @@ public class PageLoader {
     private static NestedStreams openStreams(File aFile) throws FileNotFoundException {
 
         InputStream reader = new FileInputStream(aFile);
-
-        NestedStreams nestedStreams = new NestedStreamsImpl(reader);
-
-        return nestedStreams;
+        return new NestedStreamsImpl(reader);
     }
 
     /**

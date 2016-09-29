@@ -71,8 +71,7 @@ public class LongCreator implements ObjectCreator {
 
         // Create a new instance.
 
-        Long result = Long.parseLong(anInitialValue);
-        return result;
+        return Long.parseLong(anInitialValue);
     }
 
 }

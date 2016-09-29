@@ -59,14 +59,14 @@ public class DiceOperator extends BinaryOperatorBase implements Operator {
 
         int length = someOperands.length;
         int sum = 0;
-        int result = someOperands[0];
+        int leftOperand = someOperands[0];
 
         for (int a = 1; a < length; a++) {
 
-            int sides = someOperands[a];
-            result = rollDice(result, sides);
+            int rightOperand = someOperands[a];
+            leftOperand = rollDice(leftOperand, rightOperand);
 
-            sum += result;
+            sum += leftOperand;
         }
 
         return sum;
@@ -118,9 +118,7 @@ public class DiceOperator extends BinaryOperatorBase implements Operator {
         }
 
         double randomNumber = Math.random() * ((double) sides);
-        int result = ((int) randomNumber) + 1;
-
-        return result;
+        return ((int) randomNumber) + 1;
     }
 
 }

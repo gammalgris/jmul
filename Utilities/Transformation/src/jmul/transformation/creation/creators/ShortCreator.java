@@ -71,8 +71,7 @@ public class ShortCreator implements ObjectCreator {
 
         // Create a new instance.
 
-        Short result = Short.parseShort(anInitialValue);
-        return result;
+        return Short.parseShort(anInitialValue);
     }
 
 }

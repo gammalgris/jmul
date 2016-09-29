@@ -188,8 +188,7 @@ public class WebServerImpl implements WebServer {
      */
     private Logger getLogger() {
 
-        Logger logger = (Logger) resourceContainer.getResource(WebServerResourcesKeys.LOGGER);
-        return logger;
+        return (Logger) resourceContainer.getResource(WebServerResourcesKeys.LOGGER);
     }
 
     /**
@@ -465,8 +464,7 @@ class ConfigurationReader {
 
         ResourceBundle bundle = getBundle();
 
-        String s = bundle.getString(aKey);
-        return s;
+        return bundle.getString(aKey);
     }
 
     /**
@@ -479,9 +477,7 @@ class ConfigurationReader {
     private int getInteger(String aKey) {
 
         String s = getString(aKey);
-        int i = Integer.parseInt(s);
-
-        return i;
+        return Integer.parseInt(s);
     }
 
     /**
@@ -524,9 +520,7 @@ class ConfigurationReader {
     public File getBaseDirectory() {
 
         String s = getString(CONTENT_BASE_DIRECTORY_KEY);
-        File f = new File(s);
-
-        return f;
+        return new File(s);
     }
 
     /**
@@ -539,8 +533,7 @@ class ConfigurationReader {
         String s = getString(CONTENT_CONTENT_TYPES_KEY);
         s = s.trim();
 
-        String[] contentTypes = s.split(COMMA);
-        return contentTypes;
+        return s.split(COMMA);
     }
 
 }

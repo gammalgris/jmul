@@ -57,9 +57,7 @@ class NegativeSign extends UnaryOperatorBase implements Operator {
 
         checkOperands(someOperands);
 
-        int result = -someOperands[0];
-
-        return result;
+        return -someOperands[0];
     }
 
 }

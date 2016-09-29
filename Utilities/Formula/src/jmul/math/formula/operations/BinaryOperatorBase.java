@@ -44,17 +44,15 @@ abstract class BinaryOperatorBase extends OperatorBase {
      * @param aPosition
      *        the position of the operator
      */
-    protected BinaryOperatorBase(String aSymbol, int aPriority, Arity anArity,
-                                 Position aPosition) {
+    protected BinaryOperatorBase(String aSymbol, int aPriority, Arity anArity, Position aPosition) {
 
         super(aSymbol, aPriority, anArity, aPosition);
 
-        boolean valid =
-            (anArity.equals(Arity.BINARY)) && (aPosition.equals(Position.BETWEEN_OPERANDS));
+        boolean valid = (anArity.equals(Arity.BINARY)) && (aPosition.equals(Position.BETWEEN_OPERANDS));
         if (!valid) {
             String message =
-                "The operator " + getSymbol() + " has an invalid arity (" +
-                getArity() + ") or position (" + getPosition() + ")";
+                "The operator " + getSymbol() + " has an invalid arity (" + getArity() + ") or position (" +
+                getPosition() + ")";
             throw new IllegalArgumentException(message);
         }
     }
@@ -67,16 +65,13 @@ abstract class BinaryOperatorBase extends OperatorBase {
      */
     protected void checkOperands(int[] someOperands) {
 
-        if ((someOperands == null) ||
-            ((someOperands != null) && (someOperands.length == 0))) {
-            String message =
-                "Cannot perform operation on an empty array of operands!";
+        if ((someOperands == null) || ((someOperands != null) && (someOperands.length == 0))) {
+            String message = "Cannot perform operation on an empty array of operands!";
             throw new IllegalArgumentException(message);
         }
 
         if (someOperands.length == 1) {
-            String message =
-                "The " + getArity() + " operator " + getSymbol() + " cannot handle just 1 operand!";
+            String message = "The " + getArity() + " operator " + getSymbol() + " cannot handle just 1 operand!";
             throw new IllegalArgumentException(message);
         }
     }

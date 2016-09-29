@@ -74,9 +74,7 @@ public final class TransformationHelper {
     public static TransformationParameters newTransformationParameters(TransformationPath aTransformationPath,
                                                                        Object anObject) {
 
-        TransformationParameters parameters = new TransformationParametersImpl(aTransformationPath, anObject);
-
-        return parameters;
+        return new TransformationParametersImpl(aTransformationPath, anObject);
     }
 
     /**
@@ -95,10 +93,7 @@ public final class TransformationHelper {
     public static TransformationParameters newTransformationParameters(TransformationPath aTransformationPath,
                                                                        Object anObject, Class aDeclaredType) {
 
-        TransformationParameters parameters =
-            new TransformationParametersImpl(aTransformationPath, anObject, aDeclaredType);
-
-        return parameters;
+        return new TransformationParametersImpl(aTransformationPath, anObject, aDeclaredType);
     }
 
     /**

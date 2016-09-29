@@ -71,8 +71,7 @@ public class IntegerCreator implements ObjectCreator {
 
         // Create a new instance.
 
-        Integer result = Integer.parseInt(anInitialValue);
-        return result;
+        return Integer.parseInt(anInitialValue);
     }
 
 }

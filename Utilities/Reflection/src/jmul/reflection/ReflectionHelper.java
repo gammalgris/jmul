@@ -204,18 +204,15 @@ public final class ReflectionHelper {
 
         if (cause instanceof NoSuchMethodException) {
 
-            NoSuchMethodException e = (NoSuchMethodException) cause;
-            throw e;
+            throw (NoSuchMethodException) cause;
 
         } else if (cause instanceof IllegalAccessException) {
 
-            IllegalAccessException e = (IllegalAccessException) cause;
-            throw e;
+            throw (IllegalAccessException) cause;
 
         } else if (cause instanceof InvocationTargetException) {
 
-            InvocationTargetException e = (InvocationTargetException) cause;
-            throw e;
+            throw (InvocationTargetException) cause;
         }
     }
 
@@ -343,18 +340,15 @@ public final class ReflectionHelper {
 
         if (cause instanceof NoSuchMethodException) {
 
-            NoSuchMethodException e = (NoSuchMethodException) cause;
-            throw e;
+            throw (NoSuchMethodException) cause;
 
         } else if (cause instanceof IllegalAccessException) {
 
-            IllegalAccessException e = (IllegalAccessException) cause;
-            throw e;
+            throw (IllegalAccessException) cause;
 
         } else if (cause instanceof InvocationTargetException) {
 
-            InvocationTargetException e = (InvocationTargetException) cause;
-            throw e;
+            throw (InvocationTargetException) cause;
         }
 
 

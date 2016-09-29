@@ -131,8 +131,7 @@ public enum PersistenceMarkups implements XmlMarkup {
     @Override
     public boolean equalsTagName(String aName) {
 
-        boolean result = getTagName().equals(aName);
-        return result;
+        return getTagName().equals(aName);
     }
 
     /**
@@ -146,10 +145,8 @@ public enum PersistenceMarkups implements XmlMarkup {
     @Override
     public boolean equalsXmlMarkup(XmlMarkup anXmlMarkup) {
 
-        boolean result =
-            (this.isXmlAttribute() && anXmlMarkup.isXmlAttribute() && equalsTagName(anXmlMarkup.getTagName())) ||
-            (this.isXmlElement() && anXmlMarkup.isXmlElement() && equalsTagName(anXmlMarkup.getTagName()));
-        return result;
+        return (this.isXmlAttribute() && anXmlMarkup.isXmlAttribute() && equalsTagName(anXmlMarkup.getTagName())) ||
+               (this.isXmlElement() && anXmlMarkup.isXmlElement() && equalsTagName(anXmlMarkup.getTagName()));
     }
 
     /**

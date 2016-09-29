@@ -71,8 +71,7 @@ public class ByteCreator implements ObjectCreator {
 
         // Create a new instance.
 
-        Byte result = Byte.parseByte(anInitialValue);
-        return result;
+        return Byte.parseByte(anInitialValue);
     }
 
 }

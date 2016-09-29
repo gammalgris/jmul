@@ -38,6 +38,8 @@ import jmul.io.CoupledStreamsException;
 import jmul.io.FileDeletionException;
 import jmul.io.NestedStreamsException;
 
+import jmul.math.formula.parser.FormulaParserException;
+
 import jmul.misc.exceptions.EmptyArrayParameterException;
 import jmul.misc.exceptions.EmptyStringParameterException;
 import jmul.misc.exceptions.InitializationException;
@@ -226,10 +228,9 @@ public class ExceptionConstructorValidParametersTest {
         Collection<Object[]> parameters = new ArrayList<Object[]>();
 
 
-        // Exceptions from package String
+        // Exceptions from package Formula
 
-        addMessageOnlyTestCases(parameters, UnresolvedPlaceholderException.class);
-        addMessageOnlyTestCases(parameters, UnknownPlaceholderException.class);
+        addDefaultConstructorTestCase(parameters, FormulaParserException.class);
 
 
         // Exceptions from package Misc
@@ -267,6 +268,12 @@ public class ExceptionConstructorValidParametersTest {
         addDefaultTestCases(parameters, InvalidIDException.class);
         addDefaultTestCases(parameters, InvalidRootNodeException.class);
         addDefaultTestCases(parameters, PersistenceException.class);
+
+
+        // Exceptions from package String
+
+        addMessageOnlyTestCases(parameters, UnresolvedPlaceholderException.class);
+        addMessageOnlyTestCases(parameters, UnknownPlaceholderException.class);
 
 
         // Exception from package Test

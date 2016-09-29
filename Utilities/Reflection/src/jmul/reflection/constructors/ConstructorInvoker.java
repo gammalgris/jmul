@@ -69,9 +69,7 @@ public class ConstructorInvoker<T> {
      */
     Constructor<T> getConstructor() throws NoSuchMethodException {
 
-        Constructor c = clazz.getConstructor(signature);
-
-        return c;
+        return clazz.getConstructor(signature);
     }
 
     /**
@@ -89,9 +87,7 @@ public class ConstructorInvoker<T> {
     public T invoke(Object... someParameters) throws NoSuchMethodException, InstantiationException,
                                                      IllegalAccessException, InvocationTargetException {
 
-        T t = getConstructor().newInstance(someParameters);
-
-        return t;
+        return getConstructor().newInstance(someParameters);
     }
 
     /**

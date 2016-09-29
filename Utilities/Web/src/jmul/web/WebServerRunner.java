@@ -163,9 +163,7 @@ public final class WebServerRunner {
         }
 
 
-        WebServer webServer = (WebServer) instance;
-
-        return webServer;
+        return (WebServer) instance;
     }
 
     /**

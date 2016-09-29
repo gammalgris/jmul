@@ -146,8 +146,7 @@ public class ElementWrapper {
 
         if (attribute != null) {
 
-            String value = attribute.getTextContent();
-            return value;
+            return attribute.getTextContent();
         }
 
         return null;

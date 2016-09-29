@@ -95,8 +95,7 @@ public class RootNode2TocRule extends TransformationRuleBase {
 
         Class realType = someParameters.getObject().getClass();
 
-        boolean result = AnnotationHelper.isAnnotationPresent(realType, RootNode.class, true);
-        return result;
+        return AnnotationHelper.isAnnotationPresent(realType, RootNode.class, true);
     }
 
     /**

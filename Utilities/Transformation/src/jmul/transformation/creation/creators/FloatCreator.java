@@ -71,8 +71,7 @@ public class FloatCreator implements ObjectCreator {
 
         // Create a new instance.
 
-        Float result = Float.parseFloat(anInitialValue);
-        return result;
+        return Float.parseFloat(anInitialValue);
     }
 
 }

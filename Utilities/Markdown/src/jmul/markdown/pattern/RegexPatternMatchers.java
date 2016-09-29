@@ -257,9 +257,7 @@ class ConfigurationReader {
         ResourceBundle bundle = getBundle();
 
         String key = aMatcherName + REGEX_SUFFIX;
-        String regex = bundle.getString(key);
-
-        return regex;
+        return bundle.getString(key);
     }
 
 }

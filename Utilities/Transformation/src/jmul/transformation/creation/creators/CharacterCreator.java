@@ -82,8 +82,7 @@ public class CharacterCreator implements ObjectCreator {
         // Create a new instance.
 
         char[] characters = anInitialValue.toCharArray();
-        char result = characters[0];
-        return result;
+        return characters[0];
     }
 
 }

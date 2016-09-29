@@ -81,8 +81,7 @@ public class ConversionRuleImpl implements ConversionRule {
     @Override
     public Number convert(Number aQuantity) {
 
-        Double result = new Double(aQuantity.doubleValue() * ratio.doubleValue());
-        return result;
+        return new Double(aQuantity.doubleValue() * ratio.doubleValue());
     }
 
 }

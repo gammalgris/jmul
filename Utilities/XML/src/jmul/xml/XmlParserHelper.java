@@ -57,9 +57,7 @@ public final class XmlParserHelper {
         assertDescribesXmlElement(markup);
 
         String name = node.getNodeName();
-        boolean match = markup.equalsTagName(name);
-
-        return match;
+        return markup.equalsTagName(name);
     }
 
     /**

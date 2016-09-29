@@ -384,9 +384,7 @@ public class FileManagerImpl implements FileManager {
                         String filename = aFile.getName();
 
                         StringConcatenator suffix = new StringConcatenator(".", templateFileSuffix);
-                        String uniqueIdentifier = filename.replace(suffix.toString(), "");
-
-                        return uniqueIdentifier;
+                        return filename.replace(suffix.toString(), "");
                     }
                 }
             }
@@ -478,8 +476,7 @@ public class FileManagerImpl implements FileManager {
             String indexString = aSubfolderName;
             indexString = indexString.replace(subfolderPrefix, "");
             indexString = indexString.replace(subfolderSuffix, "");
-            int index = Integer.parseInt(indexString);
-            return index;
+            return Integer.parseInt(indexString);
         }
     }
 

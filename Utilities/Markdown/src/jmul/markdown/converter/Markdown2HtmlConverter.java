@@ -133,8 +133,7 @@ public class Markdown2HtmlConverter implements TextConverter {
      */
     private static Collection<? extends PatternMatcher> newPatternMatchers() {
 
-        Collection<? extends PatternMatcher> matchers = Arrays.asList(RegexPatternMatchers.values());
-        return matchers;
+        return Arrays.asList(RegexPatternMatchers.values());
     }
 
 }

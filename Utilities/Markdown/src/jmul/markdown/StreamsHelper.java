@@ -86,9 +86,7 @@ public final class StreamsHelper {
         StreamEntry in = new StreamEntry(INPUT_STREAM, r);
         StreamEntry out = new StreamEntry(OUTPUT_STREAM, w);
 
-        CoupledStreams coupledStreams = new CoupledStreamsImpl(in, out);
-
-        return coupledStreams;
+        return new CoupledStreamsImpl(in, out);
     }
 
 }

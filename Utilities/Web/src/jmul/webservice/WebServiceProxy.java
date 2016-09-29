@@ -227,8 +227,7 @@ public class WebServiceProxy {
         boolean foundOneGetPortMethod = getPortMethods.size() == 1;
         if (foundOneGetPortMethod) {
 
-            Method method = getPortMethods.iterator().next();
-            return method;
+            return getPortMethods.iterator().next();
         }
 
         boolean foundMoreThanOneGetPortMethod = getPortMethods.size() > 1;
@@ -255,8 +254,7 @@ public class WebServiceProxy {
         boolean foundOneRelevantGetterMethod = validGetterMethods.size() == 1;
         if (foundOneRelevantGetterMethod) {
 
-            Method method = validGetterMethods.iterator().next();
-            return method;
+            return validGetterMethods.iterator().next();
         }
 
         boolean foundMoreThanOneRelevantGetterMethod = validGetterMethods.size() > 1;

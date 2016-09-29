@@ -27,12 +27,11 @@ package jmul.persistence.transformation.rules.object2xml;
 
 import javax.xml.parsers.ParserConfigurationException;
 
-import jmul.persistence.transformation.cache.Object2XmlCache;
-import jmul.persistence.transformation.cache.Object2XmlCacheImpl;
-
 import jmul.persistence.annotations.AnnotationHelper;
 import jmul.persistence.annotations.RootNode;
 import jmul.persistence.transformation.TransformationHelper;
+import jmul.persistence.transformation.cache.Object2XmlCache;
+import jmul.persistence.transformation.cache.Object2XmlCacheImpl;
 import static jmul.persistence.transformation.rules.PersistenceMarkups.OBJECTS_ELEMENT;
 import static jmul.persistence.transformation.rules.TransformationConstants.OBJECT_CACHE;
 import static jmul.persistence.transformation.rules.TransformationConstants.ROOT_ELEMENT;
@@ -90,10 +89,8 @@ public class RootNode2XmlRule extends Composite2XmlRule {
 
         Class realType = someParameters.getObject().getClass();
 
-        boolean result =
-            AnnotationHelper.isAnnotationPresent(realType, RootNode.class, true) && super.isApplicable(someParameters);
-
-        return result;
+        return AnnotationHelper.isAnnotationPresent(realType, RootNode.class, true) &&
+               super.isApplicable(someParameters);
     }
 
     /**

@@ -293,8 +293,7 @@ public class TransformationFactoryImpl implements TransformationFactory {
 
         // Apply the rule
         TransformationRule rule = applicableRules.iterator().next();
-        Object result = rule.transform(someParameters);
-        return result;
+        return rule.transform(someParameters);
     }
 
 }

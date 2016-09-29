@@ -86,8 +86,7 @@ public class DieImpl implements Die {
     @Override
     public int roll() {
 
-        int result = (int) (Math.random() * getSides() + 1);
-        return result;
+        return (int) (Math.random() * getSides() + 1);
     }
 
     /**

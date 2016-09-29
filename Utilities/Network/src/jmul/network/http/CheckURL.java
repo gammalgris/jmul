@@ -168,8 +168,7 @@ public final class CheckURL {
             connection.connect();
 
             int value = connection.getResponseCode();
-            ResponseCode responseCode = ResponseCodes.getResponseCode(value);
-            return responseCode;
+            return ResponseCodes.getResponseCode(value);
 
         } finally {
 
@@ -202,8 +201,7 @@ public final class CheckURL {
             connection.connect();
 
             int value = connection.getResponseCode();
-            ResponseCode responseCode = ResponseCodes.getResponseCode(value);
-            return responseCode;
+            return ResponseCodes.getResponseCode(value);
 
         } finally {
 

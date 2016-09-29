@@ -111,9 +111,7 @@ public class XmlDocumentReaderImpl implements XmlDocumentReader {
     public Document parseDocument(String aFilename) throws SAXException, IOException {
 
         File file = new File(aFilename);
-        Document document = parseDocument(file);
-
-        return document;
+        return parseDocument(file);
     }
 
     /**

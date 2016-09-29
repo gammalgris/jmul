@@ -235,9 +235,7 @@ public final class StringIDGenerator implements IDGenerator {
                           new Rule("_f", "_g"), new Rule("_e", "_f"), new Rule("_d", "_e"), new Rule("_c", "_d"),
                           new Rule("_b", "_c"), new Rule("_a", "_b"), new Rule("#", "_a"));
 
-        IDGenerator generator = new StringIDGenerator(aFilename, algorithm, initialID);
-
-        return generator;
+        return new StringIDGenerator(aFilename, algorithm, initialID);
     }
 
     /**
@@ -256,23 +254,20 @@ public final class StringIDGenerator implements IDGenerator {
             new Algorithm(new Rule("z%", "z1"), new Rule("1%", "2"), new Rule("2%", "3"), new Rule("3%", "4"),
                           new Rule("4%", "5"), new Rule("5%", "6"), new Rule("6%", "7"), new Rule("7%", "8"),
                           new Rule("8%", "9"), new Rule("9%", "%0"), new Rule("9§_", "%0_"), new Rule("§1", "1§"),
-                          new Rule("§2", "2§"), new Rule("§3", "3§"), new Rule("§4", "4§"),
-                          new Rule("§5", "5§"), new Rule("§6", "6§"), new Rule("§7", "7§"),
-                          new Rule("§8", "8§"), new Rule("§9", "9§"), new Rule("§0", "0§"), new Rule("zz", "z§"),
-                          new Rule("0§", "1"), new Rule("1§", "2"), new Rule("2§", "3"), new Rule("3§", "4"),
-                          new Rule("4§", "5"), new Rule("5§", "6"), new Rule("6§", "7"), new Rule("7§", "8"),
-                          new Rule("8§", "9"), new Rule("9§", "§0"), new Rule("_z", "#z"), new Rule("_y", "_z"),
-                          new Rule("_x", "_y"), new Rule("_w", "_x"), new Rule("_v", "_w"), new Rule("_u", "_v"),
-                          new Rule("_t", "_u"), new Rule("_s", "_t"), new Rule("_r", "_s"), new Rule("_q", "_r"),
-                          new Rule("_p", "_q"), new Rule("_o", "_p"), new Rule("_n", "_o"), new Rule("_m", "_n"),
-                          new Rule("_l", "_m"), new Rule("_k", "_l"), new Rule("_j", "_k"), new Rule("_i", "_j"),
-                          new Rule("_h", "_i"), new Rule("_g", "_h"), new Rule("_f", "_g"), new Rule("_e", "_f"),
-                          new Rule("_d", "_e"), new Rule("_c", "_d"), new Rule("_b", "_c"), new Rule("_a", "_b"),
-                          new Rule("#", "_a"));
+                          new Rule("§2", "2§"), new Rule("§3", "3§"), new Rule("§4", "4§"), new Rule("§5", "5§"),
+                          new Rule("§6", "6§"), new Rule("§7", "7§"), new Rule("§8", "8§"), new Rule("§9", "9§"),
+                          new Rule("§0", "0§"), new Rule("zz", "z§"), new Rule("0§", "1"), new Rule("1§", "2"),
+                          new Rule("2§", "3"), new Rule("3§", "4"), new Rule("4§", "5"), new Rule("5§", "6"),
+                          new Rule("6§", "7"), new Rule("7§", "8"), new Rule("8§", "9"), new Rule("9§", "§0"),
+                          new Rule("_z", "#z"), new Rule("_y", "_z"), new Rule("_x", "_y"), new Rule("_w", "_x"),
+                          new Rule("_v", "_w"), new Rule("_u", "_v"), new Rule("_t", "_u"), new Rule("_s", "_t"),
+                          new Rule("_r", "_s"), new Rule("_q", "_r"), new Rule("_p", "_q"), new Rule("_o", "_p"),
+                          new Rule("_n", "_o"), new Rule("_m", "_n"), new Rule("_l", "_m"), new Rule("_k", "_l"),
+                          new Rule("_j", "_k"), new Rule("_i", "_j"), new Rule("_h", "_i"), new Rule("_g", "_h"),
+                          new Rule("_f", "_g"), new Rule("_e", "_f"), new Rule("_d", "_e"), new Rule("_c", "_d"),
+                          new Rule("_b", "_c"), new Rule("_a", "_b"), new Rule("#", "_a"));
 
-        IDGenerator generator = new StringIDGenerator(aFilename, algorithm, initialID);
-
-        return generator;
+        return new StringIDGenerator(aFilename, algorithm, initialID);
     }
 
 }

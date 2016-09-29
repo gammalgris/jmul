@@ -91,8 +91,7 @@ public enum ComponentType {
     @Override
     public String toString() {
 
-        String message = getDescription() + " consists of " + getNumberOfComponents() + " component(s)";
-        return message;
+        return getDescription() + " consists of " + getNumberOfComponents() + " component(s)";
     }
 
 }

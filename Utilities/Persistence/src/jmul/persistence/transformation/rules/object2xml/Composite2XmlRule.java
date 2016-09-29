@@ -28,11 +28,10 @@ package jmul.persistence.transformation.rules.object2xml;
 import java.util.Collection;
 import java.util.Map;
 
-import jmul.persistence.transformation.cache.Object2XmlCache;
-
 import jmul.persistence.annotations.AnnotationHelper;
 import jmul.persistence.annotations.RootNode;
 import jmul.persistence.id.ID;
+import jmul.persistence.transformation.cache.Object2XmlCache;
 import static jmul.persistence.transformation.rules.PersistenceMarkups.DECLARED_TYPE_ATTRIBUTE;
 import static jmul.persistence.transformation.rules.PersistenceMarkups.ID_ATTRIBUTE;
 import static jmul.persistence.transformation.rules.PersistenceMarkups.OBJECT_ELEMENT;
@@ -171,8 +170,7 @@ public class Composite2XmlRule extends TransformationRuleBase {
 
         if (cache.existsObject(object, declaredType)) {
 
-            ID id = cache.getID(object, declaredType);
-            return id;
+            return cache.getID(object, declaredType);
         }
 
 

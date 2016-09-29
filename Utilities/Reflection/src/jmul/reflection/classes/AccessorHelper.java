@@ -63,9 +63,7 @@ public final class AccessorHelper {
         String firstLetter = aFieldName.substring(0, 1);
         firstLetter = firstLetter.toUpperCase();
         String rest = aFieldName.substring(1);
-        String accessorName = aPrefix + firstLetter + rest;
-
-        return accessorName;
+        return aPrefix + firstLetter + rest;
     }
 
 }

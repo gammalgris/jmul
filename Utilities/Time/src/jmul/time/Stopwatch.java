@@ -131,8 +131,7 @@ public class Stopwatch {
 
         }
 
-        long delta = stopTime - startTime;
-        return delta;
+        return stopTime - startTime;
     }
 
     /**

@@ -25,10 +25,9 @@
 package jmul.persistence.transformation.rules.xml2object;
 
 
-import jmul.persistence.transformation.cache.Xml2ObjectCache;
-
 import jmul.persistence.id.ID;
 import jmul.persistence.id.IntegerID;
+import jmul.persistence.transformation.cache.Xml2ObjectCache;
 import static jmul.persistence.transformation.rules.PersistenceMarkups.DECLARED_TYPE_ATTRIBUTE;
 import static jmul.persistence.transformation.rules.PersistenceMarkups.FIELD_ELEMENT;
 import static jmul.persistence.transformation.rules.PersistenceMarkups.ID_ATTRIBUTE;
@@ -183,9 +182,7 @@ public class Xml2RootNodeRule extends TransformationRuleBase {
 
         // Instantiate and initialize the specified object
 
-        Object object = initializer.newInitializedInstance();
-
-        return object;
+        return initializer.newInitializedInstance();
     }
 
 }

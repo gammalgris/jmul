@@ -71,8 +71,7 @@ public class DoubleCreator implements ObjectCreator {
 
         // Create a new instance.
 
-        Double result = Double.parseDouble(anInitialValue);
-        return result;
+        return Double.parseDouble(anInitialValue);
     }
 
 }

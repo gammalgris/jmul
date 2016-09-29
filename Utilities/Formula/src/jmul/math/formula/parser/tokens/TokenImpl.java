@@ -146,9 +146,7 @@ public class TokenImpl implements Token {
      */
     public boolean isUndefined() {
 
-        boolean undefined =
-            ((matchingPatterns == null) || ((matchingPatterns != null) && (matchingPatterns.size() == 0)));
-        return undefined;
+        return (matchingPatterns == null) || ((matchingPatterns != null) && (matchingPatterns.size() == 0));
     }
 
     /**

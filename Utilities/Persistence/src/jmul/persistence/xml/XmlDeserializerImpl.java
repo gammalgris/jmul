@@ -121,9 +121,7 @@ public class XmlDeserializerImpl implements XmlDeserializer {
             TransformationHelper.newTransformationParameters(DEFAULT_TRANSFORMATION_PATH, document);
 
         TransformationFactory factory = TransformationResources.getTransformationFactory();
-        Object object = factory.transform(parameters);
-
-        return object;
+        return factory.transform(parameters);
     }
 
 }

@@ -27,11 +27,10 @@ package jmul.persistence.transformation.rules.object2xml;
 
 import java.util.Map;
 
-import jmul.persistence.transformation.cache.Object2XmlCache;
-
 import jmul.persistence.annotations.AnnotationHelper;
 import jmul.persistence.annotations.MapInformations;
 import jmul.persistence.id.ID;
+import jmul.persistence.transformation.cache.Object2XmlCache;
 import static jmul.persistence.transformation.rules.PersistenceMarkups.DECLARED_KEY_TYPE_ATTRIBUTE;
 import static jmul.persistence.transformation.rules.PersistenceMarkups.DECLARED_VALUE_TYPE_ATTRIBUTE;
 import static jmul.persistence.transformation.rules.PersistenceMarkups.ID_ATTRIBUTE;
@@ -107,8 +106,7 @@ public class Map2XmlRule extends TransformationRuleBase {
     public boolean isApplicable(TransformationParameters someParameters) {
 
         Class expectedType = Map.class;
-        boolean result = expectedType.isInstance(someParameters.getObject());
-        return result;
+        return expectedType.isInstance(someParameters.getObject());
     }
 
     /**
@@ -191,8 +189,7 @@ public class Map2XmlRule extends TransformationRuleBase {
 
         if (cache.existsObject(object, declaredType)) {
 
-            ID id = cache.getID(object, declaredType);
-            return id;
+            return cache.getID(object, declaredType);
         }
 
 

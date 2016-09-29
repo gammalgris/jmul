@@ -81,9 +81,7 @@ public final class ThreadHelper {
             StackTraceElement element = stackTrace[expectedIndex];
 
             String[] substrings = element.toString().split("\\(");
-            String name = substrings[0];
-
-            return name;
+            return substrings[0];
         }
 
         return "unknown method";

@@ -91,9 +91,7 @@ public class ConfigurationReaderImpl implements ConfigurationReader {
     public TransformationRule parseConfiguration(String aFilename) throws SAXException, IOException {
 
         ConfigurationData data = new ConfigurationData(aFilename);
-        TransformationRule rule = newTransformationRule(data);
-
-        return rule;
+        return newTransformationRule(data);
     }
 
     /**
@@ -114,9 +112,7 @@ public class ConfigurationReaderImpl implements ConfigurationReader {
     public TransformationRule parseConfiguration(Document aDocument) throws SAXException, IOException {
 
         ConfigurationData data = new ConfigurationData(aDocument);
-        TransformationRule rule = newTransformationRule(data);
-
-        return rule;
+        return newTransformationRule(data);
     }
 
     /**

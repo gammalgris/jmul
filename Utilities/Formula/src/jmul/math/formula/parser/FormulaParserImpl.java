@@ -79,14 +79,12 @@ public class FormulaParserImpl implements FormulaParser {
 
         // Add operand pattern (variable) now.
         String regex = "([a-zA-Z][a-zA-Z-0-9_]*)";
-        pattern =
-                PatternFactory.newTokenPattern(regex, TokenType.OPERAND, TokenType.VARIABLE);
+        pattern = PatternFactory.newTokenPattern(regex, TokenType.OPERAND, TokenType.VARIABLE);
         parser.addTokenPattern(pattern);
 
         // Add operand pattern (constant) now.
         regex = "(([1-9][0-9]*)|0)";
-        pattern =
-                PatternFactory.newTokenPattern(regex, TokenType.OPERAND, TokenType.CONSTANT);
+        pattern = PatternFactory.newTokenPattern(regex, TokenType.OPERAND, TokenType.CONSTANT);
         parser.addTokenPattern(pattern);
 
         // Add operand pattern (term) now.
@@ -136,13 +134,11 @@ public class FormulaParserImpl implements FormulaParser {
         // undefined or ambigous tokens.
         if (tokenSequence == null) {
 
-            String message =
-                "The formula \"" + aString + "\" couldn't be parsed!";
+            String message = "The formula \"" + aString + "\" couldn't be parsed!";
             throw new FormulaParserException(message);
         }
 
-        TokenGroupSequence groupSequence =
-            TokenGroupSequence.groupTokens(tokenSequence);
+        TokenGroupSequence groupSequence = TokenGroupSequence.groupTokens(tokenSequence);
 
         // Does the string consist of only one group?
         if (groupSequence.size() == 1) {
@@ -195,23 +191,15 @@ public class FormulaParserImpl implements FormulaParser {
                             // operand) and call this method recursively.
 
                             String withoutParenthesis = token.toString();
-                            withoutParenthesis =
-                                    withoutParenthesis.substring(1,
-                                                                 aString.length() -
-                                                                 1);
-                            Operand operand =
-                                parseString(aFormula, withoutParenthesis);
-
-                            return operand;
+                            withoutParenthesis = withoutParenthesis.substring(1, aString.length() - 1);
+                            return parseString(aFormula, withoutParenthesis);
 
                         } else if (token.isOfType(TokenType.VARIABLE)) {
 
                             // This operand is a variable. Instantiate a
                             // variable and use the token string as label.
 
-                            Variable variable = new Variable(token.toString());
-
-                            return variable;
+                            return new Variable(token.toString());
 
                         } else if (token.isOfType(TokenType.CONSTANT)) {
 
@@ -220,22 +208,17 @@ public class FormulaParserImpl implements FormulaParser {
                             // Instantiate a constant.
 
                             int value = Integer.parseInt(token.toString());
-                            Constant constant = new Constant(value);
-
-                            return constant;
+                            return new Constant(value);
 
                         } else {
 
-                            String message =
-                                "Unknown operand found! Operand=" + token;
+                            String message = "Unknown operand found! Operand=" + token;
                             throw new FormulaParserException(message);
                         }
 
                     } else {
 
-                        String message =
-                            "An operand was expected, but not found! Operand=" +
-                            token;
+                        String message = "An operand was expected, but not found! Operand=" + token;
                         throw new FormulaParserException(message);
                     }
 
@@ -254,9 +237,8 @@ public class FormulaParserImpl implements FormulaParser {
 
                         if (token.isOfType(TokenType.OPERAND)) {
                             operandToken = token;
-                        } else if (token.isOfType(TokenType.OPERATOR) &&
-                                   token.isOfType(TokenType.UNARY)) {
-                            operatorToken = (OperatorToken)token;
+                        } else if (token.isOfType(TokenType.OPERATOR) && token.isOfType(TokenType.UNARY)) {
+                            operatorToken = (OperatorToken) token;
                         }
                     }
 
@@ -276,12 +258,10 @@ public class FormulaParserImpl implements FormulaParser {
                         throw new FormulaParserException(message);
                     }
 
-                    Operator operator =
-                        operatorToken.getMatchingOperators().iterator().next();
+                    Operator operator = operatorToken.getMatchingOperators().iterator().next();
                     Term term = new Term(aFormula, operator);
 
-                    term.addOperand(parseString(aFormula,
-                                                operandToken.toString()));
+                    term.addOperand(parseString(aFormula, operandToken.toString()));
 
                     return term;
 
@@ -290,9 +270,7 @@ public class FormulaParserImpl implements FormulaParser {
                     // This group doesn't have a binary operator and contains
                     // of more than two operands/unary operators.
 
-                    String message =
-                        "Only one operand and one unary operator are expected. Group=" +
-                        group;
+                    String message = "Only one operand and one unary operator are expected. Group=" + group;
                     throw new FormulaParserException(message);
 
                 }
@@ -307,15 +285,12 @@ public class FormulaParserImpl implements FormulaParser {
             // recursively and instantiate a term with both results.
 
 
-            int groupIndex =
-                groupSequence.determineLastGroupWithLowestPriorityOperator();
+            int groupIndex = groupSequence.determineLastGroupWithLowestPriorityOperator();
             TokenGroup group = groupSequence.get(groupIndex);
 
             int operatorIndex = group.getIndexOfLastGroupOperator();
-            OperatorToken operatorToken =
-                (OperatorToken)tokenSequence.get(operatorIndex);
-            Operator operator =
-                operatorToken.getMatchingOperators().iterator().next();
+            OperatorToken operatorToken = (OperatorToken) tokenSequence.get(operatorIndex);
+            Operator operator = operatorToken.getMatchingOperators().iterator().next();
 
             TokenSequence[] parts = tokenSequence.splitSequence(operatorIndex);
 

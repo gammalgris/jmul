@@ -127,9 +127,7 @@ public final class XmlHelper {
      */
     private static Element createXmlElement(Document aDocument, String anElementName) {
 
-        Element objectElement = aDocument.createElement(anElementName);
-
-        return objectElement;
+        return aDocument.createElement(anElementName);
     }
 
     /**
@@ -164,8 +162,7 @@ public final class XmlHelper {
 
             DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
-            Document doc = docBuilder.newDocument();
-            return doc;
+            return docBuilder.newDocument();
 
         } catch (Exception e) {
 
@@ -215,9 +212,7 @@ public final class XmlHelper {
         String attributeName = theOriginalAttribute.getNodeName();
         String attributeValue = theOriginalAttribute.getNodeValue();
 
-        Node newAttribute = createXmlAttribute(newDocument, attributeName, attributeValue);
-
-        return newAttribute;
+        return createXmlAttribute(newDocument, attributeName, attributeValue);
     }
 
     /**

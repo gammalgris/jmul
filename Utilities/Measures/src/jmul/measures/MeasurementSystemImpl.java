@@ -300,9 +300,7 @@ class DefinitionsLoader {
     private static String getDefinitionsFileExtension() {
 
         ResourceBundle resourceBundle = ResourceBundle.getBundle(MeasurementSystem.class.getName());
-        String fileExtension = resourceBundle.getString(DEFINITIONS_FILEEXTENSION);
-
-        return fileExtension;
+        return resourceBundle.getString(DEFINITIONS_FILEEXTENSION);
     }
 
     /**
