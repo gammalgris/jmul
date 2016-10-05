@@ -73,6 +73,7 @@ public class Variable implements Operand {
      *
      * @return a numerical value
      */
+    @Override
     public int getValue() {
 
         if (reference != null) {

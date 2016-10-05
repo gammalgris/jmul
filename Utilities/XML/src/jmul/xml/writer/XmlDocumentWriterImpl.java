@@ -87,11 +87,9 @@ public class XmlDocumentWriterImpl implements XmlDocumentWriter {
         OutputFormat format = new OutputFormat(aDocument);
         format.setIndenting(true);
 
-        XMLSerializer serializer = null;
-
         FileOutputStream fos = new FileOutputStream(aFile);
 
-        serializer = new XMLSerializer(fos, format);
+        XMLSerializer serializer = new XMLSerializer(fos, format);
         serializer.serialize(aDocument);
 
         fos.close();

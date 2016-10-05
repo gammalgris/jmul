@@ -47,8 +47,7 @@ public final class ClassLoaderHelper {
      * The class member contains class laoders that are responsible to load
      * class definitions from alternative class paths.
      */
-    private static ClassLoaderArchive additionalClassLoaders =
-        new ClassLoaderArchive();
+    private static ClassLoaderArchive additionalClassLoaders = new ClassLoaderArchive();
 
     /**
      * The default constructor.
@@ -70,7 +69,7 @@ public final class ClassLoaderHelper {
      */
     public static Class loadClass(String aClassName) throws ClassNotFoundException {
 
-        Class c = null;
+        Class c;
         ClassLoader loader = Thread.currentThread().getContextClassLoader();
 
         if (loader != null) {
@@ -98,8 +97,7 @@ public final class ClassLoaderHelper {
      * @throws ClassNotFoundException
      *         the exception is thrown if the class cannot be found
      */
-    public static Class loadClass(String aClassName,
-                                  String anAlternativeClassPath) throws ClassNotFoundException {
+    public static Class loadClass(String aClassName, String anAlternativeClassPath) throws ClassNotFoundException {
 
         File file = new File(anAlternativeClassPath);
         URL url = null;
@@ -111,9 +109,7 @@ public final class ClassLoaderHelper {
 
         } catch (MalformedURLException e) {
 
-            StringConcatenator message =
-                new StringConcatenator("Invalid URL: ",
-                                       anAlternativeClassPath);
+            StringConcatenator message = new StringConcatenator("Invalid URL: ", anAlternativeClassPath);
             throw new IllegalArgumentException(message.toString(), e);
         }
 
@@ -133,11 +129,10 @@ public final class ClassLoaderHelper {
      * @throws ClassNotFoundException
      *         the exception is thrown if the class cannot be found
      */
-    public static Class loadClass(String aClassName,
-                                  URL aUrl) throws ClassNotFoundException {
+    public static Class loadClass(String aClassName, URL aUrl) throws ClassNotFoundException {
 
         URL[] urlArray = { aUrl };
-        ClassLoader loader = null;
+        ClassLoader loader;
 
         boolean isKnown = additionalClassLoaders.isKnownClassLoader(aUrl);
         if (isKnown) {

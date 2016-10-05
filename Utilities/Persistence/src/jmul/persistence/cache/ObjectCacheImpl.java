@@ -89,7 +89,7 @@ public class ObjectCacheImpl<T> implements ExpirationListener, ObjectCache<T> {
     @Override
     public boolean existsObject(T anObject) {
 
-        boolean result = false;
+        boolean result;
 
         synchronized (this) {
 
@@ -129,7 +129,7 @@ public class ObjectCacheImpl<T> implements ExpirationListener, ObjectCache<T> {
     @Override
     public boolean existsID(ID anID) {
 
-        boolean result = false;
+        boolean result;
 
         synchronized (this) {
 
@@ -237,7 +237,7 @@ public class ObjectCacheImpl<T> implements ExpirationListener, ObjectCache<T> {
     @Override
     public T getObject(ID anID) {
 
-        T result = null;
+        T result;
 
         synchronized (this) {
 
@@ -294,7 +294,7 @@ public class ObjectCacheImpl<T> implements ExpirationListener, ObjectCache<T> {
     @Override
     public ID getID(T anObject) {
 
-        ID result = null;
+        ID result;
 
         synchronized (this) {
 

@@ -91,7 +91,7 @@ public class WorkerThread implements Runnable {
      */
     public boolean isNotStopped() {
 
-        boolean result = false;
+        boolean result;
 
         synchronized (this) {
 

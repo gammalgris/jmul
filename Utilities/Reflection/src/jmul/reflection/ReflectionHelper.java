@@ -98,9 +98,9 @@ public final class ReflectionHelper {
         // Prepare the method invocation.
 
         ErrorStatus status = new SingleErrorStatus();
-        InvocationResult result = null;
 
-        Method setter = null;
+        //InvocationResult result;
+        //Method setter;
 
         Object[] parameters = { fieldValue };
         Class[] parameterSignature = { fieldValue.getClass() };
@@ -126,24 +126,21 @@ public final class ReflectionHelper {
         try {
 
             String methodname = AccessorHelper.determineAccesorName(AccessorHelper.SETTER_PREFIX, fieldName);
-            setter = probedClass.getMethod(methodname, parameterSignature);
-            result = standardMethodInvoker.invoke(target, setter, parameters);
+            Method setter = probedClass.getMethod(methodname, parameterSignature);
+            InvocationResult result = standardMethodInvoker.invoke(target, setter, parameters);
 
             if (result.hasFailed()) {
 
                 status.reportError(result.getCauseOfFailure());
+
+            } else {
+
+                return;
             }
 
         } catch (NoSuchMethodException e) {
 
             status.reportError(e);
-        }
-
-
-        if ((result != null) && !result.hasFailed()) {
-
-            // If no error occurred then we're done.
-            return;
         }
 
 
@@ -152,49 +149,36 @@ public final class ReflectionHelper {
 
         try {
 
-            setter = probedClassDefinition.getAccessor(AccessorHelper.SETTER_PREFIX, fieldName, true);
-            result = standardMethodInvoker.invoke(target, setter, parameters);
+            Method setter = probedClassDefinition.getAccessor(AccessorHelper.SETTER_PREFIX, fieldName, true);
+            InvocationResult result = standardMethodInvoker.invoke(target, setter, parameters);
 
             if (result.hasFailed()) {
 
                 status.reportError(result.getCauseOfFailure());
+
+            } else {
+
+                return;
             }
 
-        } catch (NoSuchMethodException e) {
 
-            status.reportError(e);
-        }
-
-
-        if ((result != null) && !result.hasFailed()) {
-
-            // If no error occurred then we're done.
-            return;
-        }
-
-
-        // Try the same again, but this time invoke the setter in a different
-        // way.
-
-        //TODO
-        // This last attempt is superfluous. Remove it if no better
-        // implementation for the alternative invocation can be found.
-
-        if (setter != null) {
+            // Try the same again, but this time invoke the setter in a different
+            // way.
 
             result = alternativeMethodInvoker.invoke(target, setter, parameters);
 
             if (result.hasFailed()) {
 
                 status.reportError(result.getCauseOfFailure());
+
+            } else {
+
+                return;
             }
-        }
 
+        } catch (NoSuchMethodException e) {
 
-        if ((result != null) && !result.hasFailed()) {
-
-            // If no error occurred then we're done.
-            return;
+            status.reportError(e);
         }
 
 

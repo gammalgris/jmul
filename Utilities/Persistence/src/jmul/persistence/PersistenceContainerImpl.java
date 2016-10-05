@@ -205,7 +205,7 @@ public class PersistenceContainerImpl<T> implements PersistenceContainer<T> {
         // Determine the name of the file which will contain the serialized
         // object.
 
-        File file = null;
+        File file;
 
         synchronized (this) {
 

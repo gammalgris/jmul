@@ -119,6 +119,7 @@ public class Term implements Operand {
      *
      * @return the value of the term
      */
+    @Override
     public int getValue() {
 
         Operand[] operandArray = { };

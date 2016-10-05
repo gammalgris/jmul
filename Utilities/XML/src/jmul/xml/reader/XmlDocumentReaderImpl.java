@@ -139,11 +139,8 @@ public class XmlDocumentReaderImpl implements XmlDocumentReader {
             throw new EmptyFileException(aFile);
         }
 
-        Document document = null;
         DocumentBuilder builder = newDocumentBuilder();
-        document = builder.parse(aFile);
-
-        return document;
+        return builder.parse(aFile);
     }
 
     /**
@@ -165,14 +162,12 @@ public class XmlDocumentReaderImpl implements XmlDocumentReader {
     @Override
     public Document parseArchivedDocument(String archiveName, String filename) throws SAXException, IOException {
 
-        Document xmlDocument = null;
-
         DocumentBuilder builder = newDocumentBuilder();
 
         JarResources resources = new JarResources(archiveName);
 
         ByteArrayInputStream byteStream = new ByteArrayInputStream(resources.getResource(filename));
-        xmlDocument = builder.parse(byteStream);
+        Document xmlDocument = builder.parse(byteStream);
 
         byteStream.close();
 

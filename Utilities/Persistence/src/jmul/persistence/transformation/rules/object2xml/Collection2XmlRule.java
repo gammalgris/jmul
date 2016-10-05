@@ -143,7 +143,7 @@ public class Collection2XmlRule extends TransformationRuleBase {
         Element rootElement = (Element) someParameters.getPrerequisite(ROOT_ELEMENT);
 
 
-        Class declaredElementType = null;
+        Class declaredElementType;
         if (someParameters.containsPrerequisite(DECLARED_ELEMENT_TYPE)) {
 
             // A field declaration was marked with an annotation where the

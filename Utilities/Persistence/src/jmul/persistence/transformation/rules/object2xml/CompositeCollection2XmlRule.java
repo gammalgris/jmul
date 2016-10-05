@@ -186,13 +186,12 @@ public class CompositeCollection2XmlRule extends TransformationRuleBase {
         Element rootElement = (Element) someParameters.getPrerequisite(ROOT_ELEMENT);
 
 
-        Class declaredElementType = null;
         if (someParameters.containsPrerequisite(DECLARED_ELEMENT_TYPE)) {
 
             // A field declaration was marked with an annotation where the
             // element type for this collection was specified.
 
-            declaredElementType = (Class) someParameters.getPrerequisite(DECLARED_ELEMENT_TYPE);
+            Class declaredElementType = (Class) someParameters.getPrerequisite(DECLARED_ELEMENT_TYPE);
 
         } else {
 
@@ -212,7 +211,7 @@ public class CompositeCollection2XmlRule extends TransformationRuleBase {
                 throw new TransformationException(message.toString());
             }
 
-            declaredElementType = annotation.declaredElementType();
+            Class declaredElementType = annotation.declaredElementType();
             someParameters.addPrerequisite(DECLARED_ELEMENT_TYPE, declaredElementType);
         }
 

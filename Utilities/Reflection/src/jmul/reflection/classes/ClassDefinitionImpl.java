@@ -656,11 +656,9 @@ class ClassDefinitionImpl implements ClassDefinition {
 
         // Check first if there exists a field with the specified name.
 
-        Field foundField = null;
-
         try {
 
-            foundField = getField(aFieldname, recurse);
+            getField(aFieldname, recurse);
 
         } catch (NoSuchFieldException e) {
 

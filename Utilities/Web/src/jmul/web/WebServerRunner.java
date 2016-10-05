@@ -140,7 +140,7 @@ public final class WebServerRunner {
      */
     private static WebServer instantiateWebServer(Class aClass, String aConfiguration) {
 
-        Object instance = null;
+        Object instance;
 
 
         if (aConfiguration == null) {

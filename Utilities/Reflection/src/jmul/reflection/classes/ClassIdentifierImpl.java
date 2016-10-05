@@ -155,7 +155,7 @@ class ClassIdentifierImpl implements ClassIdentifier {
     public int hashCode() {
 
         int hash = 7;
-        int tmp = 0;
+        int tmp;
 
         hash = 23 * hash + getClassname().hashCode();
 

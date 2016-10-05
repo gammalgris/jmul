@@ -114,7 +114,7 @@ public class ExpirationMonitorImpl implements ExpirationMonitor {
      */
     private boolean hasExpired() {
 
-        boolean result = false;
+        boolean result;
 
         synchronized (this) {
 

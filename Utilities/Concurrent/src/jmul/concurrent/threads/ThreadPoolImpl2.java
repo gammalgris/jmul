@@ -202,7 +202,7 @@ public class ThreadPoolImpl2 implements ThreadPool {
 
         while (loop) {
 
-            int stackSize = 0;
+            int stackSize;
 
             synchronized (this) {
 

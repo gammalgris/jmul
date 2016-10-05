@@ -65,6 +65,7 @@ public class Constant implements Operand {
      *
      * @return a numerical value
      */
+    @Override
     public int getValue() {
 
         return value;

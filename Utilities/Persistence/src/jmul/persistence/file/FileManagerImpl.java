@@ -512,7 +512,7 @@ class InstanceCounter<T> {
      */
     public int getActiveCount() {
 
-        int count = 0;
+        int count;
 
         synchronized (this) {
 

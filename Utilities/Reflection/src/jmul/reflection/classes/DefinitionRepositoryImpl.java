@@ -281,7 +281,7 @@ class DefinitionRepositoryImpl implements DefinitionRepository {
      */
     private static ClassDefinition createClassWrapper(ClassIdentifier anIdentifier) throws ClassNotFoundException {
 
-        Class type = null;
+        Class type;
 
         String classname = anIdentifier.getClassname();
         if (anIdentifier.isLocatedOnAlternateClasspath()) {
@@ -313,7 +313,7 @@ class DefinitionRepositoryImpl implements DefinitionRepository {
     private static ClassDefinition createClassWrapper(ClassIdentifier anIdentifier,
                                                       ClassDefinition aCorrespondingPrimitiveType) throws ClassNotFoundException {
 
-        Class type = null;
+        Class type;
 
         String classname = anIdentifier.getClassname();
         if (anIdentifier.isLocatedOnAlternateClasspath()) {

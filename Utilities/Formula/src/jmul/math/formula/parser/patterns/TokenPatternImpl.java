@@ -68,6 +68,7 @@ public class TokenPatternImpl implements TokenPattern {
      *
      * @return a pattern
      */
+    @Override
     public String getTokenPattern() {
 
         return pattern;
@@ -78,6 +79,7 @@ public class TokenPatternImpl implements TokenPattern {
      *
      * @return a classification
      */
+    @Override
     public Set<TokenType> getTokenTypes() {
 
         return classification;
@@ -92,6 +94,7 @@ public class TokenPatternImpl implements TokenPattern {
      *
      * @return true, if the token belongs to the specified category, else false
      */
+    @Override
     public boolean isOfType(TokenType aType) {
 
         return classification.contains(aType);
@@ -103,8 +106,10 @@ public class TokenPatternImpl implements TokenPattern {
      * @param aString
      *        a string
      *
-     * @return true, if a string matches this kind of token, else false
+     * @return <code>true</code>, if a string matches this kind of token,
+     *         else <code>false</code>
      */
+    @Override
     public boolean isToken(String aString) {
 
         return Pattern.matches(getTokenPattern(), aString);
@@ -120,8 +125,10 @@ public class TokenPatternImpl implements TokenPattern {
      * @param endIndex
      *        the
      *
-     * @return true, if a string matches this kind of token, else false
+     * @return <code>true</code>, if a string matches this kind of token,
+     *         else <code>false</code>
      */
+    @Override
     public boolean isToken(String aString, int startIndex, int endIndex) {
 
         return isToken(aString.substring(startIndex, endIndex));

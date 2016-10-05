@@ -109,7 +109,7 @@ public class TokenSequence extends ArrayList<Token> implements List<Token> {
             leftSequence.add(token);
         }
 
-        for (int a = (anIndex + 1); a < length; a++) {
+        for (int a = anIndex + 1; a < length; a++) {
 
             Token token = get(a);
             rightSequence.add(token);

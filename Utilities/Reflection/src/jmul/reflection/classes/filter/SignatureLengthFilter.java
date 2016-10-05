@@ -104,9 +104,8 @@ public class SignatureLengthFilter implements MethodFilter {
         for (Method foundMethod : someMethods) {
 
             int foundParameterCount = foundMethod.getParameterTypes().length;
-            boolean matchesSignatureSize = (foundParameterCount == parameterCount);
 
-            if (matchesSignatureSize) {
+            if (foundParameterCount == parameterCount) {
 
                 matchingMethods.add(foundMethod);
             }

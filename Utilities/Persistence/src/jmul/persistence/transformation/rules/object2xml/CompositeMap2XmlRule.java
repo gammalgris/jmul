@@ -184,8 +184,8 @@ public class CompositeMap2XmlRule extends TransformationRuleBase {
         Object2XmlCache cache = (Object2XmlCache) someParameters.getPrerequisite(OBJECT_CACHE);
         Element rootElement = (Element) someParameters.getPrerequisite(ROOT_ELEMENT);
 
-        Class declaredKeyType = null;
-        Class declaredValueType = null;
+        Class declaredKeyType;
+        Class declaredValueType;
 
         if (someParameters.containsPrerequisite(DECLARED_KEY_TYPE) &&
             someParameters.containsPrerequisite(DECLARED_VALUE_TYPE)) {

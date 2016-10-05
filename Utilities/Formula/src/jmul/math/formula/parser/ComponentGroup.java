@@ -113,7 +113,7 @@ public class ComponentGroup {
      */
     public boolean containsOperator() {
 
-        return (operator != null);
+        return operator != null;
     }
 
     /**
@@ -144,7 +144,7 @@ public class ComponentGroup {
      */
     public int getComponentCount() {
 
-        return (getOperatorCount() + getSignCount() + getOperandCount());
+        return getOperatorCount() + getSignCount() + getOperandCount();
     }
 
     /**

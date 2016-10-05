@@ -158,7 +158,7 @@ public class RootNode2XmlRule extends Composite2XmlRule {
         // Create new parameters (clone provided parameters and add additional
         // informations which are required for itnernal processing).
 
-        TransformationParameters newParameters = null;
+        TransformationParameters newParameters;
 
         if (declaredType != null) {
 

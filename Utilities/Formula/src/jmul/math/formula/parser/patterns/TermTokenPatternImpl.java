@@ -64,6 +64,7 @@ public class TermTokenPatternImpl extends TokenPatternImpl implements TokenPatte
      *
      * @return a pattern
      */
+    @Override
     public String getTokenPattern() {
 
         String message = "Terms aren't identified with a regular expresion!";
@@ -78,6 +79,7 @@ public class TermTokenPatternImpl extends TokenPatternImpl implements TokenPatte
      *
      * @return true, if a string matches this kind of token, else false
      */
+    @Override
     public boolean isToken(String aString) {
 
         int open = 0;
@@ -123,6 +125,7 @@ public class TermTokenPatternImpl extends TokenPatternImpl implements TokenPatte
      *
      * @return true, if a string matches this kind of token, else false
      */
+    @Override
     public boolean isToken(String aString, int startIndex, int endIndex) {
 
         return isToken(aString.substring(startIndex, endIndex));

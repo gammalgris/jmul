@@ -32,16 +32,28 @@ package jmul.concurrent.threads;
  */
 public class ThreadExecutionStatus {
 
+    /**
+     * A flag indicating that further execution is no longer necessary.
+     */
     private boolean obsoleteExecution;
 
+    /**
+     * The default constructor.
+     */
     public ThreadExecutionStatus() {
 
         obsoleteExecution = false;
     }
 
+    /**
+     * A getter method.
+     *
+     * @return <code>true</code> if further execution is no longer necessary,
+     *         else <code>false</code>
+     */
     public boolean isObsoleteExecution() {
 
-        boolean result = false;
+        boolean result;
 
         synchronized (this) {
 
@@ -51,6 +63,13 @@ public class ThreadExecutionStatus {
         return result;
     }
 
+    /**
+     * A setter method.
+     *
+     * @param obsolete
+     *        <code>true</code> if further execution is no longer necessary,
+     *         else <code>false</code>
+     */
     public void setObsoleteExecution(boolean obsolete) {
 
         synchronized (this) {

@@ -128,7 +128,7 @@ public class ThreadPoolImpl1 implements ThreadPool, ThreadListener {
 
         while (loop) {
 
-            int stackSize = 0;
+            int stackSize;
 
             synchronized (this) {
 
@@ -225,7 +225,7 @@ public class ThreadPoolImpl1 implements ThreadPool, ThreadListener {
      */
     private boolean availableThreads() {
 
-        boolean result = false;
+        boolean result;
 
         synchronized (this) {
 

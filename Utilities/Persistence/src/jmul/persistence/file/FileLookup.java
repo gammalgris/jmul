@@ -150,7 +150,7 @@ public class FileLookup implements ThreadListener {
      */
     private static boolean isActiveThreadPool() {
 
-        boolean result = false;
+        boolean result;
 
         synchronized (threadPoolLock) {
 
@@ -167,7 +167,7 @@ public class FileLookup implements ThreadListener {
      */
     private static ThreadPool getThreadPool() {
 
-        ThreadPool pool = null;
+        ThreadPool pool;
 
         synchronized (threadPoolLock) {
 
@@ -241,7 +241,7 @@ public class FileLookup implements ThreadListener {
         }
 
 
-        boolean result = false;
+        boolean result;
 
         synchronized (this) {
 
@@ -286,7 +286,7 @@ public class FileLookup implements ThreadListener {
         }
 
 
-        int matches = 0;
+        int matches;
         File result = null;
 
         synchronized (this) {
@@ -400,7 +400,7 @@ public class FileLookup implements ThreadListener {
         }
 
 
-        Collection<File> unmodifuableResults = null;
+        Collection<File> unmodifuableResults;
 
         synchronized (this) {
 

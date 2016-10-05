@@ -67,6 +67,7 @@ public class TokenImpl implements Token {
      *
      * @return a token
      */
+    @Override
     public String getToken() {
 
         return token;
@@ -77,6 +78,7 @@ public class TokenImpl implements Token {
      *
      * @return some patterns
      */
+    @Override
     public Collection<TokenPattern> getMatchingPatterns() {
 
         return matchingPatterns;
@@ -88,6 +90,7 @@ public class TokenImpl implements Token {
      * @param aPattern
      *        a pattern
      */
+    @Override
     public void removePattern(TokenPattern aPattern) {
 
         matchingPatterns.remove(aPattern);
@@ -99,6 +102,7 @@ public class TokenImpl implements Token {
      * @param aPattern
      *        a pattern
      */
+    @Override
     public void retainPattern(TokenPattern aPattern) {
 
         Collection<TokenPattern> retainables = new ArrayList<TokenPattern>();
@@ -115,6 +119,7 @@ public class TokenImpl implements Token {
      *
      * @return true, if the token belongs to the specified category, else false
      */
+    @Override
     public boolean isOfType(TokenType aType) {
 
         boolean matches = true;
@@ -133,9 +138,10 @@ public class TokenImpl implements Token {
      *
      * @return true, if this token is ambigous, else false
      */
+    @Override
     public boolean isAmbigous() {
 
-        return (matchingPatterns.size() > 1);
+        return matchingPatterns.size() > 1;
     }
 
     /**
@@ -144,6 +150,7 @@ public class TokenImpl implements Token {
      *
      * @return true, if the token is undefined, else false
      */
+    @Override
     public boolean isUndefined() {
 
         return (matchingPatterns == null) || ((matchingPatterns != null) && (matchingPatterns.size() == 0));

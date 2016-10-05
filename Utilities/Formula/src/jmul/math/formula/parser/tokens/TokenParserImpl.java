@@ -201,13 +201,12 @@ public class TokenParserImpl implements TokenParser {
      */
     private static boolean containsOperatorTokenPattern(Token aToken) {
 
-        boolean isOperator = false;
-
         for (TokenPattern pattern : aToken.getMatchingPatterns()) {
 
-            isOperator = (pattern instanceof OperatorTokenPattern);
+            boolean isOperator = pattern instanceof OperatorTokenPattern;
 
             if (isOperator) {
+
                 return true;
             }
         }
@@ -276,7 +275,7 @@ public class TokenParserImpl implements TokenParser {
      */
     private boolean hasNext(String aString) {
 
-        return (aString.length() > 0);
+        return aString.length() > 0;
     }
 
     /**
@@ -544,6 +543,8 @@ public class TokenParserImpl implements TokenParser {
 
             // As this is the first token it doesn't meet the
             // criteria.
+
+
 
 
         } else if (anIndex < (aTokenSequence.size() - 1)) {

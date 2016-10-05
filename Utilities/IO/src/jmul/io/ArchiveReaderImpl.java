@@ -104,10 +104,7 @@ public class ArchiveReaderImpl implements ArchiveReader {
 
         ZipInputStream zis = (ZipInputStream) nestedStreams.getOuterStream();
 
-        byte[] rawData = null;
 
-
-        boolean foundResource = false;
         boolean endOfArchive = false;
         Exception exception = null;
 
@@ -141,7 +138,7 @@ public class ArchiveReaderImpl implements ArchiveReader {
             String foundName = zipEntry.getName();
             long size = zipEntry.getSize();
 
-            foundResource = anEntryName.equals(foundName);
+            boolean foundResource = anEntryName.equals(foundName);
             boolean hasUnknownSize = size == UNKNOWN_SIZE;
 
 
@@ -155,11 +152,11 @@ public class ArchiveReaderImpl implements ArchiveReader {
 
                 if (hasUnknownSize) {
 
-                    return rawData = loadResource(zis);
+                    return loadResource(zis);
 
                 } else {
 
-                    return rawData = loadResource(zis, size);
+                    return loadResource(zis, size);
                 }
 
             } catch (IOException e) {
@@ -190,14 +187,12 @@ public class ArchiveReaderImpl implements ArchiveReader {
 
         List<Byte> buffer = new ArrayList<Byte>();
 
-        boolean doRead = true;
-        while (doRead) {
+        while (true) {
 
             int readByte = zis.read();
 
             if (readByte == END_OF_ENTRY) {
 
-                doRead = false;
                 break;
             }
 
@@ -234,10 +229,9 @@ public class ArchiveReaderImpl implements ArchiveReader {
 
         byte[] b = new byte[(int) size];
         int rb = 0;
-        int chunk = 0;
 
         while (((int) size - rb) > 0) {
-            chunk = zis.read(b, rb, (int) size - rb);
+            int chunk = zis.read(b, rb, (int) size - rb);
             if (chunk == -1) {
                 break;
             }

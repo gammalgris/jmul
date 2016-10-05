@@ -71,11 +71,9 @@ public class TokenGroup implements Iterable<Token> {
      */
     public TokenGroup(TokenSequence aSequence, int aStartingIndex) {
 
-        if (aSequence.containsAmbigousToken() ||
-            aSequence.containsUndefinedToken()) {
+        if (aSequence.containsAmbigousToken() || aSequence.containsUndefinedToken()) {
 
-            String message =
-                "The token sequence contains ambigous or undefined tokens!";
+            String message = "The token sequence contains ambigous or undefined tokens!";
             throw new IllegalArgumentException(message);
         }
 
@@ -92,7 +90,7 @@ public class TokenGroup implements Iterable<Token> {
      */
     public boolean containsTokens() {
 
-        return (length > 0);
+        return length > 0;
     }
 
     /**
@@ -103,7 +101,7 @@ public class TokenGroup implements Iterable<Token> {
      */
     public boolean containsOperator() {
 
-        return (operator != null);
+        return operator != null;
     }
 
     /**
@@ -127,13 +125,12 @@ public class TokenGroup implements Iterable<Token> {
 
             // The next token is an operator.
 
-            OperatorToken nextOperatorToken = (OperatorToken)nextToken;
+            OperatorToken nextOperatorToken = (OperatorToken) nextToken;
             if (nextOperatorToken.isOfType(TokenType.BINARY)) {
 
                 // The next token is a binary operator.
 
-                Operator nextOperator =
-                    nextOperatorToken.getMatchingOperators().iterator().next();
+                Operator nextOperator = nextOperatorToken.getMatchingOperators().iterator().next();
 
                 if (operator != null) {
 
@@ -182,12 +179,11 @@ public class TokenGroup implements Iterable<Token> {
 
             if (nextToken.isOfType(TokenType.OPERATOR)) {
 
-                OperatorToken nextOperatorToken = (OperatorToken)nextToken;
+                OperatorToken nextOperatorToken = (OperatorToken) nextToken;
 
                 if (nextOperatorToken.isOfType(TokenType.BINARY)) {
 
-                    Operator nextOperator =
-                        nextOperatorToken.getMatchingOperators().iterator().next();
+                    Operator nextOperator = nextOperatorToken.getMatchingOperators().iterator().next();
                     operator = nextOperator;
                 }
             }
@@ -211,9 +207,8 @@ public class TokenGroup implements Iterable<Token> {
 
             if (nextToken.isOfType(TokenType.OPERATOR)) {
 
-                OperatorToken nextOperatorToken = (OperatorToken)nextToken;
-                Operator nextOperator =
-                    nextOperatorToken.getMatchingOperators().iterator().next();
+                OperatorToken nextOperatorToken = (OperatorToken) nextToken;
+                Operator nextOperator = nextOperatorToken.getMatchingOperators().iterator().next();
 
                 if (operator.equals(nextOperator)) {
                     return a;
@@ -248,8 +243,7 @@ public class TokenGroup implements Iterable<Token> {
                     int left = a - 1;
                     Token leftToken = sequence.get(left);
 
-                    if (leftToken.isOfType(TokenType.OPERATOR) &&
-                        leftToken.isOfType(TokenType.UNARY)) {
+                    if (leftToken.isOfType(TokenType.OPERATOR) && leftToken.isOfType(TokenType.UNARY)) {
                         return left;
                     }
                 }
@@ -279,8 +273,8 @@ public class TokenGroup implements Iterable<Token> {
      */
     public GroupPosition getPosition() {
 
-        boolean isLeft = (startIndex == 0);
-        boolean isRight = ((startIndex + size()) == sequence.size());
+        boolean isLeft = startIndex == 0;
+        boolean isRight = (startIndex + size()) == sequence.size();
 
         if (isLeft && isRight) {
             return GroupPosition.NOT_APPLICABLE;
@@ -349,6 +343,7 @@ public class TokenGroup implements Iterable<Token> {
      *
      * @return an iterator
      */
+    @Override
     public Iterator<Token> iterator() {
 
         return new TokenIterator();
@@ -370,6 +365,7 @@ public class TokenGroup implements Iterable<Token> {
          *
          * @return true, if more tokens exist, else false
          */
+        @Override
         public boolean hasNext() {
 
             if (index < (startIndex + size())) {
@@ -385,6 +381,7 @@ public class TokenGroup implements Iterable<Token> {
          *
          * @return a token
          */
+        @Override
         public Token next() {
 
             Token token = sequence.get(index);
@@ -396,6 +393,7 @@ public class TokenGroup implements Iterable<Token> {
         /**
          * The method isn't supported.
          */
+        @Override
         public void remove() {
 
             throw new UnsupportedOperationException();

@@ -61,10 +61,8 @@ public class InterfaceRelationCheck implements EquivalenceMatcher {
     @Override
     public boolean matchingClasses(ClassDefinition anInterface, ClassDefinition aBaseClass) {
 
-        boolean result = false;
-
         // Check if the specified class implements the specified interface.
-        result =
+        boolean result =
             aBaseClass.isClass() && anInterface.isInterface() && aBaseClass.implementsInterface(anInterface, RECURSE);
 
         if (!result) {

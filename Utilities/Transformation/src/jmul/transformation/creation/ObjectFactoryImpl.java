@@ -108,8 +108,6 @@ public class ObjectFactoryImpl implements ObjectFactory {
     @Override
     public Object newInstance(ClassDefinition someClassInformations) {
 
-        Object result = null;
-
         Class clazz = someClassInformations.getType();
         String className = clazz.getName();
         boolean existsRule = objectMap.containsKey(className);
@@ -128,7 +126,7 @@ public class ObjectFactoryImpl implements ObjectFactory {
 
         try {
 
-            result = clazz.newInstance();
+            return clazz.newInstance();
 
         } catch (IllegalAccessException e) {
 
@@ -141,8 +139,6 @@ public class ObjectFactoryImpl implements ObjectFactory {
             StringConcatenator message = new StringConcatenator("Couldn't create a new instance of ", className, "!");
             throw new IllegalArgumentException(message.toString(), e);
         }
-
-        return result;
     }
 
     /**

@@ -64,6 +64,7 @@ public class OperatorTokenPatternImpl extends TokenPatternImpl implements Operat
      *
      * @return an operator
      */
+    @Override
     public Operator getOperator() {
 
         return operator;

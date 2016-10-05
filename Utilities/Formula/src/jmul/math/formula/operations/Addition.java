@@ -53,6 +53,7 @@ class Addition extends BinaryOperatorBase implements Operator {
      *
      * @return the operation result
      */
+    @Override
     public int performOperation(int[] someOperands) {
 
         checkOperands(someOperands);

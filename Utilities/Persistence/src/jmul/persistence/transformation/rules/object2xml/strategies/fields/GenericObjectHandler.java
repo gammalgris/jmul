@@ -33,12 +33,11 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Map;
 
-import jmul.persistence.transformation.cache.Object2XmlCache;
-
 import jmul.persistence.annotations.ContainerInformations;
 import jmul.persistence.annotations.MapInformations;
 import jmul.persistence.id.ID;
 import jmul.persistence.transformation.TransformationHelper;
+import jmul.persistence.transformation.cache.Object2XmlCache;
 import static jmul.persistence.transformation.rules.PersistenceMarkups.DECLARED_TYPE_ATTRIBUTE;
 import static jmul.persistence.transformation.rules.PersistenceMarkups.FIELD_ELEMENT;
 import static jmul.persistence.transformation.rules.PersistenceMarkups.NAME_ATTRIBUTE;
@@ -166,7 +165,7 @@ public class GenericObjectHandler implements FieldsHandler {
             // Get informations about a field.
 
             String fieldName = field.getName();
-            Object fieldValue = null;
+            Object fieldValue;
             Class declaredFieldType = field.getType();
 
 

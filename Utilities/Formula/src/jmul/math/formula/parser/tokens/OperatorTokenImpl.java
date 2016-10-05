@@ -76,6 +76,7 @@ public class OperatorTokenImpl extends TokenImpl implements OperatorToken {
      *
      * @return some operators
      */
+    @Override
     public Set<Operator> getMatchingOperators() {
 
         return matchingOperatorPatterns.keySet();
@@ -88,6 +89,7 @@ public class OperatorTokenImpl extends TokenImpl implements OperatorToken {
      * @param anOperator
      *        an oeprator
      */
+    @Override
     public void removeOperator(Operator anOperator) {
 
         TokenPattern pattern = matchingOperatorPatterns.get(anOperator);
@@ -102,6 +104,7 @@ public class OperatorTokenImpl extends TokenImpl implements OperatorToken {
      * @param anOperator
      *        an operator
      */
+    @Override
     public void retainOperator(Operator anOperator) {
 
         if (matchingOperatorPatterns.containsKey(anOperator)) {

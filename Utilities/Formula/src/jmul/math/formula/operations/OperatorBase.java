@@ -84,6 +84,7 @@ abstract class OperatorBase implements Operator {
      *
      * @return an operation symbol
      */
+    @Override
     public String getSymbol() {
 
         return symbol;
@@ -97,6 +98,7 @@ abstract class OperatorBase implements Operator {
      *
      * @return the operation result
      */
+    @Override
     public int performOperation(Operand[] someOperands) {
 
         int length = someOperands.length;
@@ -117,6 +119,7 @@ abstract class OperatorBase implements Operator {
      *
      * @return a priority
      */
+    @Override
     public int getPriority() {
 
         return priority;
@@ -127,6 +130,7 @@ abstract class OperatorBase implements Operator {
      *
      * @return the arity of this operator
      */
+    @Override
     public Arity getArity() {
 
         return arity;
@@ -137,6 +141,7 @@ abstract class OperatorBase implements Operator {
      *
      * @return the position of this operator
      */
+    @Override
     public Position getPosition() {
 
         return position;

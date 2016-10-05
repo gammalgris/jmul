@@ -64,8 +64,7 @@ class ClassLoaderArchive {
         boolean exists = classLoaderMap.containsKey(aKey);
         if (exists) {
             StringConcatenator message =
-                new StringConcatenator("A class loader with the identifier \"",
-                                       aKey, "\" already exists!");
+                new StringConcatenator("A class loader with the identifier \"", aKey, "\" already exists!");
             throw new ClassLoaderException(message.toString());
         }
 
@@ -96,13 +95,12 @@ class ClassLoaderArchive {
      */
     public ClassLoader getClassLoader(Object aKey) {
 
-        ClassLoader classLoader = null;
-        classLoader = classLoaderMap.get(aKey);
+        ClassLoader classLoader = classLoaderMap.get(aKey);
 
         if (classLoader == null) {
+
             StringConcatenator message =
-                new StringConcatenator("The class loader archive has no entry for \"",
-                                       aKey, "\"!");
+                new StringConcatenator("The class loader archive has no entry for \"", aKey, "\"!");
             throw new ClassLoaderException(message.toString());
         }
 

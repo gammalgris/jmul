@@ -61,13 +61,8 @@ public class PrimitiveWrapperCheck implements EquivalenceMatcher {
     @Override
     public boolean matchingClasses(ClassDefinition aPrimitiveType, ClassDefinition aBaseClass) {
 
-        boolean result = false;
-
-        result =
-            aBaseClass.isPrimitiveWrapper() && aPrimitiveType.isPrimitiveType() &&
-            MATCHER_SINGLETON.matchingClasses(aBaseClass.getCorrespondingPrimitiveType(), aPrimitiveType);
-
-        return result;
+        return aBaseClass.isPrimitiveWrapper() && aPrimitiveType.isPrimitiveType() &&
+               MATCHER_SINGLETON.matchingClasses(aBaseClass.getCorrespondingPrimitiveType(), aPrimitiveType);
     }
 
 }

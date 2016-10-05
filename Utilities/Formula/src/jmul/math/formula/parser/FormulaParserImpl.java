@@ -68,18 +68,18 @@ public class FormulaParserImpl implements FormulaParser {
     private static TokenParser newMathParser() {
 
         TokenParser parser = TokenFactory.newTokenParser();
-        TokenPattern pattern = null;
 
         // Add operator patterns first.
         for (Operation operation : Operation.values()) {
 
-            pattern = PatternFactory.newTokenPattern(operation.getOperator());
+            TokenPattern pattern = PatternFactory.newTokenPattern(operation.getOperator());
             parser.addTokenPattern(pattern);
         }
 
+
         // Add operand pattern (variable) now.
         String regex = "([a-zA-Z][a-zA-Z-0-9_]*)";
-        pattern = PatternFactory.newTokenPattern(regex, TokenType.OPERAND, TokenType.VARIABLE);
+        TokenPattern pattern = PatternFactory.newTokenPattern(regex, TokenType.OPERAND, TokenType.VARIABLE);
         parser.addTokenPattern(pattern);
 
         // Add operand pattern (constant) now.
@@ -102,6 +102,7 @@ public class FormulaParserImpl implements FormulaParser {
      *
      * @return a formula
      */
+    @Override
     public Formula parseString(String aString) {
 
         Formula formula = new Formula();

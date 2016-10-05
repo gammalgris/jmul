@@ -63,10 +63,7 @@ public class ParentClassRelationCheck implements EquivalenceMatcher {
     @Override
     public boolean matchingClasses(ClassDefinition parentClass, ClassDefinition baseClass) {
 
-        boolean result = false;
-
-        result = baseClass.isClass() && parentClass.isClass() && baseClass.extendsClass(parentClass, RECURSE);
-        return result;
+        return baseClass.isClass() && parentClass.isClass() && baseClass.extendsClass(parentClass, RECURSE);
     }
 
 }

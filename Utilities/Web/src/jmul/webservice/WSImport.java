@@ -177,7 +177,6 @@ public class WSImport implements CodeGenerator {
         Runtime runtime = Runtime.getRuntime();
 
         Process process = null;
-        int exitValue = -1;
 
         try {
 
@@ -200,10 +199,12 @@ public class WSImport implements CodeGenerator {
             // Assuming that the process ended, the exit code and console
             // outputs are stored.
 
-            exitValue = process.exitValue();
+            int exitValue = process.exitValue();
 
             consoleOutput.append(monitor.getOutputMessage());
             errorOutput.append(monitor.getErrorMessage());
+
+            return exitValue;
 
         } catch (IllegalThreadStateException e) {
 
@@ -212,10 +213,12 @@ public class WSImport implements CodeGenerator {
 
             try {
 
-                exitValue = process.waitFor();
+                int exitValue = process.waitFor();
 
                 consoleOutput.append(monitor.getOutputMessage());
                 errorOutput.append(monitor.getErrorMessage());
+
+                return exitValue;
 
             } catch (InterruptedException f) {
 
@@ -223,8 +226,6 @@ public class WSImport implements CodeGenerator {
                 throw new CodeGeneratorException(message, e);
             }
         }
-
-        return exitValue;
     }
 
 

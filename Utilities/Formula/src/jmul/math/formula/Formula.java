@@ -111,6 +111,7 @@ public class Formula {
      *
      * @return a string representation
      */
+    @Override
     public String toString() {
 
         return operand.toString();
