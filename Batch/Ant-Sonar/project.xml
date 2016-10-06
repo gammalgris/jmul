@@ -18,7 +18,7 @@
     <property name="sonar.projectKey" value="jmul" />
     <property name="sonar.projectName" value="JMUL" />
     <property name="sonar.sourceEncoding" value="UTF-8" />
-    <!-- property name="sonar.language" value="java" / -->
+    <property name="sonar.java.source" value="${project.java.version}" />
     <property name="sonar.sources" value="${project.tmp.src.dir}" />
     <property name="sonar.java.binaries" value="${project.tmp.build.dir}" />
     <property name="sonar.projectBaseDir" value="${project.tmp.dir}" />

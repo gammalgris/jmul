@@ -27,6 +27,10 @@ package jmul.reflection.constructors;
 
 import java.io.File;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 
 /**
  * This class contains signatures for various constructors.
@@ -38,32 +42,56 @@ public final class ConstructorSignatures {
     /**
      * A signature of a constructor.
      */
-    public static final Class[] DEFAULT_CONSTRUCTOR = new Class[] { };
+    private static final List<Class> DEFAULT_CONSTRUCTOR;
 
     /**
      * A signature of a constructor.
      */
-    public static final Class[] MESSAGE_CONSTRUCTOR = new Class[] { String.class };
+    public static final List<Class> MESSAGE_CONSTRUCTOR;
 
     /**
      * A signature of a constructor.
      */
-    public static final Class[] FILE_NAME_CONSTRUCTOR = MESSAGE_CONSTRUCTOR;
+    public static final List<Class> CAUSE_CONSTRUCTOR;
 
     /**
      * A signature of a constructor.
      */
-    public static final Class[] CAUSE_CONSTRUCTOR = new Class[] { Throwable.class };
+    public static final List<Class> MESSAGE_CAUSE_CONSTRUCTOR;
 
     /**
      * A signature of a constructor.
      */
-    public static final Class[] MESSAGE_CAUSE_CONSTRUCTOR = new Class[] { String.class, Throwable.class };
+    public static final List<Class> MESSAGE_FILE_CONSTRUCTOR;
 
-    /**
-     * A signature of a constructor.
+    /*
+     * The static initializer.
      */
-    public static final Class[] MESSAGE_FILE_CONSTRUCTOR = new Class[] { String.class, File.class };
+    static {
+
+        List<Class> tmp;
+
+        tmp = new ArrayList<Class>();
+        DEFAULT_CONSTRUCTOR = Collections.unmodifiableList(tmp);
+
+        tmp = new ArrayList<Class>();
+        tmp.add(String.class);
+        MESSAGE_CONSTRUCTOR = Collections.unmodifiableList(tmp);
+
+        tmp = new ArrayList<Class>();
+        tmp.add(Throwable.class);
+        CAUSE_CONSTRUCTOR = Collections.unmodifiableList(tmp);
+
+        tmp = new ArrayList<Class>();
+        tmp.add(String.class);
+        tmp.add(Throwable.class);
+        MESSAGE_CAUSE_CONSTRUCTOR = Collections.unmodifiableList(tmp);
+
+        tmp = new ArrayList<Class>();
+        tmp.add(String.class);
+        tmp.add(File.class);
+        MESSAGE_FILE_CONSTRUCTOR = Collections.unmodifiableList(tmp);
+    }
 
     /**
      * The default constructor.
@@ -71,6 +99,66 @@ public final class ConstructorSignatures {
     private ConstructorSignatures() {
 
         throw new UnsupportedOperationException();
+    }
+
+    /**
+     * Returns a constructor signature.
+     *
+     * @return a constructor signature
+     */
+    public static Class[] getDefaultConstructorSignature() {
+
+        return DEFAULT_CONSTRUCTOR.toArray(new Class[] { });
+    }
+
+    /**
+     * Returns a constructor signature.
+     *
+     * @return a constructor signature
+     */
+    public static Class[] getMessageConstructorSignature() {
+
+        return MESSAGE_CONSTRUCTOR.toArray(new Class[] { });
+    }
+
+    /**
+     * Returns a constructor signature.
+     *
+     * @return a constructor signature
+     */
+    public static Class[] getFileNameConstructorSignature() {
+
+        return getMessageConstructorSignature();
+    }
+
+    /**
+     * Returns a constructor signature.
+     *
+     * @return a constructor signature
+     */
+    public static Class[] getCauseConstructorSignature() {
+
+        return CAUSE_CONSTRUCTOR.toArray(new Class[] { });
+    }
+
+    /**
+     * Returns a constructor signature.
+     *
+     * @return a constructor signature
+     */
+    public static Class[] getMessageCauseConstructorSignature() {
+
+        return MESSAGE_CAUSE_CONSTRUCTOR.toArray(new Class[] { });
+    }
+
+    /**
+     * Returns a constructor signature.
+     *
+     * @return a constructor signature
+     */
+    public static Class[] getMessageFileConstructorSignature() {
+
+        return MESSAGE_FILE_CONSTRUCTOR.toArray(new Class[] { });
     }
 
 }

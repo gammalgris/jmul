@@ -22,7 +22,7 @@
  * e-mail: kristian.kutin@arcor.de
  */
 
-package jmul.webservice;
+package jmul.web.soap;
 
 
 /**

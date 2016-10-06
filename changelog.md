@@ -1,13 +1,26 @@
 # Change Log
-Utility functions and classes have been moved from my other projects to this project.
-The migration to a utilities library is not completed yet.
+Utility functions and classes have been moved from my other projects to this project. The migration to a central utilities library is not completed yet.
 
+- Refactoring the legacy code is necessary (including cleanups and integration into the new package structure).
+- Legacy tests have to be rewritten.
+- Test and code coverage need to be improved.
+
+
+## [1.0.82] - 2016-10-06
+### Added
+- formula parser
+- logging utilities
+- time utilities
+
+### Refactored
+- constants
+- web utilities
 
 ## [1.0.0] - 2016-08-08
 ### Added
 - concurrency utilities
 - IO utilities
-- math utilities (e.g. formula parser)
+- math utilities
 - markdown utilities (e.g. markdown -> html conversion, WORK IN PROGRESS)
 - measures utiltities (e.g. configurable framework for the conversion of measurement units)
 - network utilities

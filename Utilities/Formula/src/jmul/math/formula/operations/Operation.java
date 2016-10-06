@@ -38,13 +38,15 @@ import java.util.Collection;
  */
 public enum Operation {
 
+
     ADDITION(new Addition()),
     SUBTRACTION(new Subtraction()),
     MULTIPLICATION(new Multiplication()),
     DIVISION(new Division()),
     DICE_OPERATOR(new DiceOperator()),
     POSITIVE_SIGN(new PositiveSign()),
-    NEGATIVE_SIGN(new NegativeSign());
+    NEGATIVE_SIGN(new NegativeSign()), ;
+
 
     /**
      * The class member contains an operator.

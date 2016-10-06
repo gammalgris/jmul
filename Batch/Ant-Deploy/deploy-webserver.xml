@@ -79,6 +79,11 @@
             </fileset>
         </copy>
 
+        <replace
+            file="${project.tmp.deploy.dir}\startWebServer.properties"
+            token="jmul-webserver-0.0.0.jar"
+            value="jmul-webserver-${version.library}.jar" />
+
     </target>
 
 

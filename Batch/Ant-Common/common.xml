@@ -14,6 +14,9 @@
     <property name="packages.base.dir" location="${project.dir}\Utilities" />
 
 
+    <property name="project.java.version" value="1.6" />
+
+
     <loadproperties srcfile="${batch.base.dir}\Ant-Common\directories.properties" />
     <loadproperties srcfile="${batch.base.dir}\Ant-Common\tmp.properties" />
     <loadproperties srcfile="${package.version.cfg.dir}\version.properties" />
@@ -31,10 +34,11 @@
         <echo />
         <echo message="  ${project.name}" />
         <echo />
-        <echo message="  build timestamp: ${project.build.timestamp}" />
+        <echo message="  build java version: ${project.java.version}" />
+        <echo message="     build timestamp: ${project.build.timestamp}" />
         <echo />
-        <echo message="  version library: ${version.library}" />
-        <echo message="      version rcs: ${version.rcs}" />
+        <echo message="     version library: ${version.library}" />
+        <echo message="         version rcs: ${version.rcs}" />
         <echo />
         <echo />
         <echo message="  ant version ................................. ${ant.version}" />

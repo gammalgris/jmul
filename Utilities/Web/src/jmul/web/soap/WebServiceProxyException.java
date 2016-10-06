@@ -4,7 +4,7 @@
  * JMUL is a central repository for utilities which are used in my
  * other public and private repositories.
  *
- * Copyright (C) 2013  Kristian Kutin
+ * Copyright (C) 2016  Kristian Kutin
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -22,23 +22,23 @@
  * e-mail: kristian.kutin@arcor.de
  */
 
-package jmul.webservice;
+package jmul.web.soap;
 
 
 import jmul.misc.checks.ParameterCheckHelper;
 
 
 /**
- * This exception is thrown if the invocation of a code generator fails.
+ * This exception is thrown if a web server proxy encounters an error.
  *
  * @author Kristian Kutin
  */
-public class CodeGeneratorException extends RuntimeException {
+public class WebServiceProxyException extends RuntimeException {
 
     /**
      * The default constructor.
      */
-    public CodeGeneratorException() {
+    public WebServiceProxyException() {
 
         super();
     }
@@ -48,7 +48,7 @@ public class CodeGeneratorException extends RuntimeException {
      *
      * @param aMessage
      */
-    public CodeGeneratorException(String aMessage) {
+    public WebServiceProxyException(String aMessage) {
 
         super(ParameterCheckHelper.checkExceptionMessage(aMessage));
     }
@@ -58,7 +58,7 @@ public class CodeGeneratorException extends RuntimeException {
      *
      * @param aCause
      */
-    public CodeGeneratorException(Throwable aCause) {
+    public WebServiceProxyException(Throwable aCause) {
 
         super(ParameterCheckHelper.checkExceptionCause(aCause));
     }
@@ -69,7 +69,7 @@ public class CodeGeneratorException extends RuntimeException {
      * @param aMessage
      * @param aCause
      */
-    public CodeGeneratorException(String aMessage, Throwable aCause) {
+    public WebServiceProxyException(String aMessage, Throwable aCause) {
 
         super(ParameterCheckHelper.checkExceptionMessage(aMessage), ParameterCheckHelper.checkExceptionCause(aCause));
     }

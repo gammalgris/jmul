@@ -51,13 +51,16 @@ import static jmul.string.Constants.COMMA;
 import static jmul.string.Constants.NEW_LINE;
 import static jmul.string.Constants.TABULATOR;
 
+import jmul.web.logging.WebServerLogger;
+import jmul.web.page.PageHandler;
+
 
 /**
- * An implementation of a web server.
+ * An implementation of a web server that makes static content accessible.
  *
  * @author Kristian Kutin
  */
-public class WebServerImpl implements WebServer {
+public class StaticContentWebServer implements WebServer {
 
     /**
      * The web server state.
@@ -79,7 +82,7 @@ public class WebServerImpl implements WebServer {
      *
      * @param aBundleName
      */
-    public WebServerImpl(String aBundleName) {
+    public StaticContentWebServer(String aBundleName) {
 
         serverState = WebServerState.UNINITIALIZED;
 

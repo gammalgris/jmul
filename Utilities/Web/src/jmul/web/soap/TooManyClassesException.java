@@ -22,57 +22,47 @@
  * e-mail: kristian.kutin@arcor.de
  */
 
-package jmul.web;
+package jmul.web.soap;
+
+
+import jmul.misc.checks.ParameterCheckHelper;
 
 
 /**
- * This class represents a data structure that contains the path and content of a
- * published web page.
+ * This execption is thrown if too many classes are identified by using
+ * reflection mechanisms.
  *
  * @author Kristian Kutin
  */
-public class PublishedPage {
+public class TooManyClassesException extends ClassNotFoundException {
 
     /**
-     * The path under which the file is published within the web server.
+     * The default constructor.
      */
-    private final String path;
+    public TooManyClassesException() {
 
-    /**
-     * The actual page content.
-     */
-    private final byte[] content;
-
-    /**
-     * Creates a new instance of a published web page.
-     *
-     * @param aPath
-     * @param someContent
-     */
-    public PublishedPage(String aPath, byte[] someContent) {
-
-        path = aPath;
-        content = someContent;
+        super();
     }
 
     /**
-     * Returns the path of the web page.
+     * Creates a new exception according to the specified parameters.
      *
-     * @return a path
+     * @param aMessage
      */
-    public String getPath() {
+    public TooManyClassesException(String aMessage) {
 
-        return path;
+        super(ParameterCheckHelper.checkExceptionMessage(aMessage));
     }
 
     /**
-     * Returns the content of a web page.
+     * Creates a new exception according to the specified parameters.
      *
-     * @return the page content
+     * @param aMessage
+     * @param aCause
      */
-    public byte[] getContent() {
+    public TooManyClassesException(String aMessage, Throwable aCause) {
 
-        return content;
+        super(ParameterCheckHelper.checkExceptionMessage(aMessage), ParameterCheckHelper.checkExceptionCause(aCause));
     }
 
 }

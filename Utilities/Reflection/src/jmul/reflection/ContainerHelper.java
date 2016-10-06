@@ -30,11 +30,10 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.ResourceBundle;
 
-import static jmul.string.Constants.COMMA;
-
 import jmul.reflection.classes.ClassDefinition;
 import jmul.reflection.classes.ClassHelper;
 
+import static jmul.string.Constants.COMMA;
 import jmul.string.StringConcatenator;
 
 

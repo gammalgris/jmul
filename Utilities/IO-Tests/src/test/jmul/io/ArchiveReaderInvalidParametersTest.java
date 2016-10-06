@@ -117,8 +117,10 @@ public class ArchiveReaderInvalidParametersTest {
     @Test
     public void testLoadResource() {
 
+        Class[] signature = ConstructorSignatures.getFileNameConstructorSignature();
+
         ConstructorInvoker<ArchiveReader> constructorInvoker =
-            new ConstructorInvoker<ArchiveReader>(readerClass, ConstructorSignatures.FILE_NAME_CONSTRUCTOR);
+            new ConstructorInvoker<ArchiveReader>(readerClass, signature);
 
         ArchiveReader reader = null;
         Throwable actualException = null;

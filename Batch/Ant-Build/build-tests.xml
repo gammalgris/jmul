@@ -78,7 +78,7 @@
 
     <target name="build" depends="build.build, copySources, copyCreators, buildTestData, copyResources">
 
-        <javac srcdir="${project.tmp.tests-src.dir}" destdir="${project.tmp.tests-build.dir}" verbose="true" classpathref="jmul-tests.build.classpath" debug="on" />
+        <javac target="${project.java.version}" srcdir="${project.tmp.tests-src.dir}" destdir="${project.tmp.tests-build.dir}" verbose="true" classpathref="jmul-tests.build.classpath" debug="on" />
 
     </target>
 

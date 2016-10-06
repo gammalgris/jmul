@@ -33,6 +33,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import jmul.reflection.classes.ClassDefinition;
+
 import jmul.string.StringConcatenator;
 
 

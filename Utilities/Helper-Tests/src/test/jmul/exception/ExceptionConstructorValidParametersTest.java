@@ -70,9 +70,9 @@ import jmul.test.exceptions.TearDownException;
 
 import jmul.time.StopwatchException;
 
-import jmul.webservice.CodeGeneratorException;
-import jmul.webservice.TooManyClassesException;
-import jmul.webservice.WebServiceProxyException;
+import jmul.web.soap.CodeGeneratorException;
+import jmul.web.soap.TooManyClassesException;
+import jmul.web.soap.WebServiceProxyException;
 
 import org.junit.After;
 import static org.junit.Assert.assertEquals;
@@ -346,10 +346,9 @@ public class ExceptionConstructorValidParametersTest {
      */
     private static void addDefaultConstructorTestCase(Collection<Object[]> someParameters, Class anExceptionClass) {
 
-        someParameters.add(new Object[] {
-                           new ConstructorInvoker(anExceptionClass, ConstructorSignatures.DEFAULT_CONSTRUCTOR),
-                           new Object[] { }
-        });
+        Class[] signature = ConstructorSignatures.getDefaultConstructorSignature();
+
+        someParameters.add(new Object[] { new ConstructorInvoker(anExceptionClass, signature), new Object[] { } });
     }
 
     /**
@@ -360,10 +359,10 @@ public class ExceptionConstructorValidParametersTest {
      */
     private static void addMessageOnlyTestCases(Collection<Object[]> someParameters, Class anExceptionClass) {
 
+        Class[] signature = ConstructorSignatures.getMessageConstructorSignature();
+
         someParameters.add(new Object[] {
-                           new ConstructorInvoker(anExceptionClass, ConstructorSignatures.MESSAGE_CONSTRUCTOR),
-                           new Object[] { "Hello" }
-        });
+                           new ConstructorInvoker(anExceptionClass, signature), new Object[] { "Hello" } });
     }
 
     /**
@@ -374,10 +373,11 @@ public class ExceptionConstructorValidParametersTest {
      */
     private static void addCauseOnlyTestCases(Collection<Object[]> someParameters, Class anExceptionClass) {
 
+        Class[] signature = ConstructorSignatures.getCauseConstructorSignature();
+
         someParameters.add(new Object[] {
-                           new ConstructorInvoker(anExceptionClass, ConstructorSignatures.CAUSE_CONSTRUCTOR),
-                           new Object[] { new RuntimeException() }
-        });
+                           new ConstructorInvoker(anExceptionClass, signature),
+                           new Object[] { new RuntimeException() } });
     }
 
     /**
@@ -389,10 +389,11 @@ public class ExceptionConstructorValidParametersTest {
     private static void addMessageCauseCombinationsTestCases(Collection<Object[]> someParameters,
                                                              Class anExceptionClass) {
 
+        Class[] signature = ConstructorSignatures.getMessageCauseConstructorSignature();
+
         someParameters.add(new Object[] {
-                           new ConstructorInvoker(anExceptionClass, ConstructorSignatures.MESSAGE_CAUSE_CONSTRUCTOR),
-                           new Object[] { "Hello", new RuntimeException() }
-        });
+                           new ConstructorInvoker(anExceptionClass, signature),
+                           new Object[] { "Hello", new RuntimeException() } });
     }
 
     /**
@@ -403,11 +404,11 @@ public class ExceptionConstructorValidParametersTest {
     private static void addFileDeletionExceptionTestCases(Collection<Object[]> someParameters) {
 
         Class exceptionClass = FileDeletionException.class;
+        Class[] signature = ConstructorSignatures.getMessageFileConstructorSignature();
 
         someParameters.add(new Object[] {
-                           new ConstructorInvoker(exceptionClass, ConstructorSignatures.MESSAGE_FILE_CONSTRUCTOR),
-                           new Object[] { "Hello", new File("test.txt") }
-        });
+                           new ConstructorInvoker(exceptionClass, signature),
+                           new Object[] { "Hello", new File("test.txt") } });
 
     }
 

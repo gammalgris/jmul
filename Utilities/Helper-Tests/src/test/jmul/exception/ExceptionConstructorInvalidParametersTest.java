@@ -62,9 +62,9 @@ import jmul.test.exceptions.TearDownException;
 
 import jmul.time.StopwatchException;
 
-import jmul.webservice.CodeGeneratorException;
-import jmul.webservice.TooManyClassesException;
-import jmul.webservice.WebServiceProxyException;
+import jmul.web.soap.CodeGeneratorException;
+import jmul.web.soap.TooManyClassesException;
+import jmul.web.soap.WebServiceProxyException;
 
 import org.junit.After;
 import static org.junit.Assert.fail;
@@ -255,20 +255,13 @@ public class ExceptionConstructorInvalidParametersTest {
      */
     private static void addMessageOnlyTestCases(Collection<Object[]> someParameters, Class anExceptionClass) {
 
-        someParameters.add(new Object[] {
-                           new ConstructorInvoker(anExceptionClass, ConstructorSignatures.MESSAGE_CONSTRUCTOR),
-                           new Object[] { null }
-        });
+        Class[] signature = ConstructorSignatures.getMessageConstructorSignature();
 
-        someParameters.add(new Object[] {
-                           new ConstructorInvoker(anExceptionClass, ConstructorSignatures.MESSAGE_CONSTRUCTOR),
-                           new Object[] { "" }
-        });
+        someParameters.add(new Object[] { new ConstructorInvoker(anExceptionClass, signature), new Object[] { null } });
 
-        someParameters.add(new Object[] {
-                           new ConstructorInvoker(anExceptionClass, ConstructorSignatures.MESSAGE_CONSTRUCTOR),
-                           new Object[] { " " }
-        });
+        someParameters.add(new Object[] { new ConstructorInvoker(anExceptionClass, signature), new Object[] { "" } });
+
+        someParameters.add(new Object[] { new ConstructorInvoker(anExceptionClass, signature), new Object[] { " " } });
     }
 
     /**
@@ -279,10 +272,9 @@ public class ExceptionConstructorInvalidParametersTest {
      */
     private static void addCauseOnlyTestCases(Collection<Object[]> someParameters, Class anExceptionClass) {
 
-        someParameters.add(new Object[] {
-                           new ConstructorInvoker(anExceptionClass, ConstructorSignatures.CAUSE_CONSTRUCTOR),
-                           new Object[] { null }
-        });
+        Class[] signature = ConstructorSignatures.getCauseConstructorSignature();
+
+        someParameters.add(new Object[] { new ConstructorInvoker(anExceptionClass, signature), new Object[] { null } });
     }
 
     /**
@@ -294,25 +286,22 @@ public class ExceptionConstructorInvalidParametersTest {
     private static void addMessageCauseCombinationsTestCases(Collection<Object[]> someParameters,
                                                              Class anExceptionClass) {
 
-        someParameters.add(new Object[] {
-                           new ConstructorInvoker(anExceptionClass, ConstructorSignatures.MESSAGE_CAUSE_CONSTRUCTOR),
-                           new Object[] { null, new RuntimeException() }
-        });
+        Class[] signature = ConstructorSignatures.getMessageCauseConstructorSignature();
 
         someParameters.add(new Object[] {
-                           new ConstructorInvoker(anExceptionClass, ConstructorSignatures.MESSAGE_CAUSE_CONSTRUCTOR),
-                           new Object[] { "", new RuntimeException() }
-        });
+                           new ConstructorInvoker(anExceptionClass, signature),
+                           new Object[] { null, new RuntimeException() } });
 
         someParameters.add(new Object[] {
-                           new ConstructorInvoker(anExceptionClass, ConstructorSignatures.MESSAGE_CAUSE_CONSTRUCTOR),
-                           new Object[] { " ", new RuntimeException() }
-        });
+                           new ConstructorInvoker(anExceptionClass, signature),
+                           new Object[] { "", new RuntimeException() } });
 
         someParameters.add(new Object[] {
-                           new ConstructorInvoker(anExceptionClass, ConstructorSignatures.MESSAGE_CAUSE_CONSTRUCTOR),
-                           new Object[] { "Hello", null }
-        });
+                           new ConstructorInvoker(anExceptionClass, signature),
+                           new Object[] { " ", new RuntimeException() } });
+
+        someParameters.add(new Object[] {
+                           new ConstructorInvoker(anExceptionClass, signature), new Object[] { "Hello", null } });
     }
 
     /**
@@ -323,26 +312,22 @@ public class ExceptionConstructorInvalidParametersTest {
     private static void addFileDeletionExceptionTestCases(Collection<Object[]> someParameters) {
 
         Class exceptionClass = FileDeletionException.class;
+        Class[] signature = ConstructorSignatures.getMessageFileConstructorSignature();
 
         someParameters.add(new Object[] {
-                           new ConstructorInvoker(exceptionClass, ConstructorSignatures.MESSAGE_FILE_CONSTRUCTOR),
-                           new Object[] { null, new File("test.txt") }
-        });
+                           new ConstructorInvoker(exceptionClass, signature),
+                           new Object[] { null, new File("test.txt") } });
 
         someParameters.add(new Object[] {
-                           new ConstructorInvoker(exceptionClass, ConstructorSignatures.MESSAGE_FILE_CONSTRUCTOR),
-                           new Object[] { "", new File("test.txt") }
-        });
+                           new ConstructorInvoker(exceptionClass, signature),
+                           new Object[] { "", new File("test.txt") } });
 
         someParameters.add(new Object[] {
-                           new ConstructorInvoker(exceptionClass, ConstructorSignatures.MESSAGE_FILE_CONSTRUCTOR),
-                           new Object[] { " ", new File("test.txt") }
-        });
+                           new ConstructorInvoker(exceptionClass, signature),
+                           new Object[] { " ", new File("test.txt") } });
 
         someParameters.add(new Object[] {
-                           new ConstructorInvoker(exceptionClass, ConstructorSignatures.MESSAGE_FILE_CONSTRUCTOR),
-                           new Object[] { "Hello", null }
-        });
+                           new ConstructorInvoker(exceptionClass, signature), new Object[] { "Hello", null } });
 
     }
 
