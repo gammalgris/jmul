@@ -31,7 +31,15 @@ import jmul.persistence.annotations.RootNode;
 /**
  * An implementation of company details.<br>
  * <br>
- * <i>This class is used for testing purposes only.</i>
+ * <i>Note:<br />
+ * This class is used for testing purposes only.
+ * <ol>
+ *   <li>has no public default constructor</li>
+ *   <li>all getter methods are public</li>
+ *   <li>all setter methods are public</li>
+ *   <li>can be serialized on its own</li>
+ *   <li>cannot be deserialized because of (1)</li>
+ * </ol></i>
  *
  * @author Kristian Kutin
  */

@@ -39,7 +39,15 @@ import test.jmul.datatypes.payroll.PayrollListImpl;
 /**
  * An implementation of company details.<br>
  * <br>
- * <i>This code is used for testing purposes only.</i>
+ * <i>Note:<br />
+ * This class is used for testing purposes only.
+ * <ol>
+ *   <li>has a public default constructor</li>
+ *   <li>all getter methods are public</li>
+ *   <li>all setter methods are public</li>
+ *   <li>can be serialized on its own</li>
+ *   <li>can be deserialized on its own</li>
+ * </ol></i>
  *
  * @author Kristian Kutin
  */
@@ -122,7 +130,7 @@ public class CompanyDetailsImpl implements CompanyDetails {
      * @param payrollList
      *        the company's new payroll list
      */
-    public void setPayrollList(PayrollListImpl payrollList) {
+    public void setPayrollList(PayrollList payrollList) {
 
         this.payrollList = payrollList;
     }

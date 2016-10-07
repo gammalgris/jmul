@@ -32,7 +32,15 @@ import test.jmul.datatypes.person.PersonImpl;
 /**
  * An implementation of an employee.<br>
  * <br>
- * <i>This class is used for testing purposes only.</i>
+ * <i>Note:<br />
+ * This class is used for testing purposes only.
+ * <ol>
+ *   <li>has a public default constructor</li>
+ *   <li>all getter methods are public</li>
+ *   <li>all setter methods are public</li>
+ *   <li>can be serialized as part of a datastructure</li>
+ *   <li>can be deserialized as part of a datastructure</li>
+ * </ol></i>
  *
  * @author Kristian Kutin
  */
@@ -62,20 +70,14 @@ public class EmployeeImpl6 implements Employee {
     }
 
     /**
-     * Constructs a dummy person.
+     * Creates a new employee according to the specified parameters.
      *
      * @param aFirstName
-     *        the employee's first name
      * @param aLastName
-     *        the employee's last name
      * @param aBirthdate
-     *        the employee's birth date
      * @param aGender
-     *        the employee's gender
      * @param aSalary
-     *        the employee's salary
      * @param aTitle
-     *        the employee's job title
      */
     public EmployeeImpl6(String aFirstName, String aLastName, String aBirthdate, String aGender, float aSalary,
                          String aTitle) {

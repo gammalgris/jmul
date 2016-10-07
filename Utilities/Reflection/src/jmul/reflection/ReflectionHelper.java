@@ -161,11 +161,20 @@ public final class ReflectionHelper {
                 return;
             }
 
+        } catch (NoSuchMethodException e) {
 
-            // Try the same again, but this time invoke the setter in a different
-            // way.
+            status.reportError(e);
 
-            result = alternativeMethodInvoker.invoke(target, setter, parameters);
+        }
+
+
+        // Try the same again, but this time invoke the setter in a different
+        // way.
+
+        try {
+
+            Method setter = probedClassDefinition.getAccessor(AccessorHelper.SETTER_PREFIX, fieldName, true);
+            InvocationResult result = alternativeMethodInvoker.invoke(target, setter, parameters);
 
             if (result.hasFailed()) {
 

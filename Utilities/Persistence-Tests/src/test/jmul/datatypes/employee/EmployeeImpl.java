@@ -25,8 +25,6 @@
 package test.jmul.datatypes.employee;
 
 
-import jmul.persistence.annotations.RootNode;
-
 import test.jmul.datatypes.person.Person;
 import test.jmul.datatypes.person.PersonImpl;
 
@@ -34,11 +32,18 @@ import test.jmul.datatypes.person.PersonImpl;
 /**
  * An implementation of an employee.<br>
  * <br>
- * <i>This code is used for testing purposes only.</i>
+ * <i>Note:<br />
+ * This class is used for testing purposes only.
+ * <ol>
+ *   <li>has a public default constructor</li>
+ *   <li>has public getter methods</li>
+ *   <li>has public setter methods</li>
+ *   <li>can be serialized as part of a data structure</li>
+ *   <li>can be deserialized as part of a data structure</li>
+ * </ol></i>
  *
  * @author Kristian Kutin
  */
-@RootNode(declaredType = Employee.class)
 public class EmployeeImpl implements Employee {
 
     /**
@@ -57,20 +62,25 @@ public class EmployeeImpl implements Employee {
     private String title;
 
     /**
-     * Constructs a dummy person.
+     * The default constructor.
+     */
+    public EmployeeImpl() {
+
+        super();
+
+        person = new PersonImpl();
+        title = null;
+    }
+
+    /**
+     * Creates a new employee according to the specified parameters.
      *
      * @param aFirstName
-     *        the employee's first name
      * @param aLastName
-     *        the employee's last name
      * @param aBirthdate
-     *        the employee's birth date
      * @param aGender
-     *        the employee's gender
      * @param aSalary
-     *        the employee's salary
      * @param aTitle
-     *        the employee's job title
      */
     public EmployeeImpl(String aFirstName, String aLastName, String aBirthdate, String aGender, float aSalary,
                         String aTitle) {

@@ -41,6 +41,14 @@ import test.jmul.datatypes.person.PersonImpl;
 public abstract class ContractorBase extends PersonImpl implements Contractor {
 
     /**
+     * The default constructor.
+     */
+    public ContractorBase() {
+
+        super();
+    }
+
+    /**
      * Constructs a contractor.
      *
      * @param aFirstName

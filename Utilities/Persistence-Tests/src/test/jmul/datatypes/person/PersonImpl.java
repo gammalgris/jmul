@@ -28,7 +28,14 @@ package test.jmul.datatypes.person;
 /**
  * An implementation of a person.<br>
  * <br>
- * <i>This class is used for testing purposes only.</i>
+ * <i>Note:<br />
+ * This class is used for testing purposes only.
+ * <ol>
+ *   <li>has public default constructor</li>
+ *   <li>has public getter methods</li>
+ *   <li>has public setter methods</li>
+ *   <li>can be persisted (serialized and deserialized) as part of a data structure</li>
+ * </ol></i>
  *
  * @author Kristian Kutin
  */

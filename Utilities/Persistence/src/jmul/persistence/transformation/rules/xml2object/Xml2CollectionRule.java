@@ -27,13 +27,11 @@ package jmul.persistence.transformation.rules.xml2object;
 
 import java.util.Collection;
 
-import jmul.persistence.transformation.cache.Xml2ObjectCache;
-
 import jmul.persistence.id.ID;
 import jmul.persistence.id.IntegerID;
+import jmul.persistence.transformation.cache.Xml2ObjectCache;
 import static jmul.persistence.transformation.rules.PersistenceMarkups.DECLARED_ELEMENT_TYPE_ATTRIBUTE;
 import static jmul.persistence.transformation.rules.PersistenceMarkups.ELEMENT_ELEMENT;
-import static jmul.persistence.transformation.rules.PersistenceMarkups.FIELD_ELEMENT;
 import static jmul.persistence.transformation.rules.PersistenceMarkups.ID_ATTRIBUTE;
 import static jmul.persistence.transformation.rules.PersistenceMarkups.OBJECT_ELEMENT;
 import static jmul.persistence.transformation.rules.PersistenceMarkups.REFERENCED_ELEMENT_ATTRIBUTE;
@@ -101,7 +99,7 @@ public class Xml2CollectionRule extends TransformationRuleBase {
             SubelementList objectSubelements = new SubelementList(objectElement);
 
             return XmlParserHelper.matchesXmlElement(objectElement, OBJECT_ELEMENT) &&
-                   XmlParserHelper.hasXmlSubelements(objectSubelements, FIELD_ELEMENT) &&
+                   XmlParserHelper.hasXmlSubelements(objectSubelements, ELEMENT_ELEMENT) &&
                    XmlParserHelper.existsXmlAttribute(objectElement, DECLARED_ELEMENT_TYPE_ATTRIBUTE);
         }
 

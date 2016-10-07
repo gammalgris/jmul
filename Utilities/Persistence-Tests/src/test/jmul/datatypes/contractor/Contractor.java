@@ -41,7 +41,7 @@ public interface Contractor extends Person {
      * Sets the number of curretnly active contracts.
      *
      * @param contracts
-     *        number of curretnly active contracts
+     *        number of currently active contracts
      */
     void setCurrentContracts(int contracts);
 

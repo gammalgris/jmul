@@ -34,13 +34,39 @@ import test.jmul.datatypes.person.PersonImpl;
 /**
  * An implementation of an employee.<br>
  * <br>
- * <i>This code is used for testing purposes only.</i>
+ * <i>Note:<br />
+ * This class is used for testing purposes only.
+ * <ol>
+ *   <li>has a public default constructor</li>
+ *   <li>all getter methods are public</li>
+ *   <li>all setter methods are public</li>
+ *   <li>can be serialized on its own</li>
+ *   <li>can be deserialized on its own</li>
+ * </ol></i>
  *
  * @author Kristian Kutin
  */
 @RootNode(declaredType = Employee.class)
-public class EmployeeImpl7 extends EmployeeImpl {
+public class EmployeeImpl7 extends EmployeeImpl implements Employee {
 
+    /**
+     * The default constructor.
+     */
+    public EmployeeImpl7() {
+
+        super();
+    }
+
+    /**
+     * Creates a new employee according to the specified parameters.
+     *
+     * @param aFirstName
+     * @param aLastName
+     * @param aBirthdate
+     * @param aGender
+     * @param aSalary
+     * @param aTitle
+     */
     public EmployeeImpl7(String aFirstName, String aLastName, String aBirthdate, String aGender, float aSalary,
                          String aTitle) {
         super(aFirstName, aLastName, aBirthdate, aGender, aSalary, aTitle);

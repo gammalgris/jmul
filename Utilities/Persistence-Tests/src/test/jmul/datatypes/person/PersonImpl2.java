@@ -29,7 +29,17 @@ import jmul.persistence.annotations.RootNode;
 
 
 /**
- * This class contains informations about a person.
+ * An implementation of a person.<br>
+ * <br>
+ * <i>Note:<br />
+ * This class is used for testing purposes only.
+ * <ol>
+ *   <li>has no public default constructor</li>
+ *   <li>has public getter methods</li>
+ *   <li>not all setter methods are public</li>
+ *   <li>can be serialized on its own</li>
+ *   <li>cannot be deserialized because of (1 and 3)</li>
+ * </ol></i>
  *
  * @author Kristian Kutin
  */

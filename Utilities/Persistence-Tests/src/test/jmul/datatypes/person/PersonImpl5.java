@@ -29,12 +29,30 @@ import jmul.persistence.annotations.RootNode;
 
 
 /**
- * This class contains informations about a person.
+ * An implementation of a person.<br>
+ * <br>
+ * <i>Note:<br />
+ * This class is used for testing purposes only.
+ * <ol>
+ *   <li>has public default constructor</li>
+ *   <li>has public getter methods</li>
+ *   <li>has public setter methods</li>
+ *   <li>can be serialized on its own</li>
+ *   <li>can be deserialized</li>
+ * </ol></i>
  *
  * @author Kristian Kutin
  */
 @RootNode(declaredType = Person.class)
 public class PersonImpl5 extends PersonImpl implements Person {
+
+    /**
+     * The default constructor.
+     */
+    public PersonImpl5() {
+
+        super();
+    }
 
     /**
      * Constructs a dummy person.

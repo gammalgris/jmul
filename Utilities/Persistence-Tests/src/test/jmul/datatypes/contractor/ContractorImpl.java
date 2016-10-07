@@ -28,7 +28,15 @@ package test.jmul.datatypes.contractor;
 /**
  * An implementation of a contractor.<br>
  * <br>
- * <i>This class is used for testing purposes only.</i>
+ * <i>Note:<br />
+ * This class is used for testing purposes only.
+ * <ol>
+ *   <li>has a public default constructor</li>
+ *   <li>all getter methods are public</li>
+ *   <li>all setter methods are public</li>
+ *   <li>can be serialized on its own</li>
+ *   <li>can be deserialized on its own</li>
+ * </ol></i>
  *
  * @author Kristian Kutin
  */
@@ -38,6 +46,14 @@ public class ContractorImpl extends ContractorBase {
      * The number of currently active contracts.
      */
     private int currentContracts;
+
+    /**
+     * The default constructor.
+     */
+    public ContractorImpl() {
+
+        super();
+    }
 
     /**
      * Constructs a contractor.
@@ -51,8 +67,7 @@ public class ContractorImpl extends ContractorBase {
      * @param aGender
      *        a contractor's gender
      */
-    public ContractorImpl(String aFirstName, String aLastName,
-                          String aBirthdate, String aGender) {
+    public ContractorImpl(String aFirstName, String aLastName, String aBirthdate, String aGender) {
 
         super(aFirstName, aLastName, aBirthdate, aGender);
 
@@ -60,7 +75,7 @@ public class ContractorImpl extends ContractorBase {
     }
 
     /**
-     * Sets the number of curretnly active contracts.
+     * Sets the number of currently active contracts.
      *
      * @param contracts
      *        number of curretnly active contracts

@@ -40,7 +40,15 @@ import test.jmul.datatypes.payroll.PayrollListImpl2;
 /**
  * An implementation of company details.<br>
  * <br>
- * <i>This code is used for testing purposes only.</i>
+ * <i>Note:<br />
+ * This class is used for testing purposes only.
+ * <ol>
+ *   <li>has a public default constructor</li>
+ *   <li>all getter methods are public</li>
+ *   <li>one setter methods is missing</li>
+ *   <li>can be serialized on its own</li>
+ *   <li>can be deserialized because of (3)</li>
+ * </ol></i>
  *
  * @author Kristian Kutin
  */

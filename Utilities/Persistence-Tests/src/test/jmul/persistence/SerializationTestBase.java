@@ -25,6 +25,8 @@
 package test.jmul.persistence;
 
 
+import jmul.persistence.xml.XmlDeserializer;
+import jmul.persistence.xml.XmlDeserializerImpl;
 import jmul.persistence.xml.XmlSerializer;
 import jmul.persistence.xml.XmlSerializerImpl;
 
@@ -49,6 +51,16 @@ abstract class SerializationTestBase extends TestBase {
     protected XmlSerializer initXmlSerializer() {
 
         return new XmlSerializerImpl();
+    }
+
+    /**
+     * Initializes an XML deserializer.
+     *
+     * @return an XML deserializer
+     */
+    protected XmlDeserializer initXmlDeserializer() {
+
+        return new XmlDeserializerImpl();
     }
 
     /**
