@@ -55,5 +55,6 @@
       <hash><url n="URL" path="Web/Web.jpr"/></hash>
       <hash><url n="URL" path="Web-Tests/Web-Tests.jpr"/></hash>
       <hash><url n="URL" path="XML/XML.jpr"/></hash>
+      <hash><url n="URL" path="XML-Tests/XML-Tests.jpr"/></hash>
    </list>
 </jws:workspace>
