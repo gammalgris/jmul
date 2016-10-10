@@ -5666,7 +5666,7 @@ Error message and password prompt
 <div modified="20150606172020989" modifier="KK" title="$:/state/showeditpreview">
 <pre>yes</pre>
 </div>
-<div modified="20160621144423938" modifier="KK" title="$:/state/sidebar">
+<div modified="20161010194722517" modifier="KK" title="$:/state/sidebar">
 <pre>yes</pre>
 </div>
 <div modified="20160517133832787" modifier="KK" title="$:/state/tab/sidebar--1835078512">
@@ -5675,7 +5675,7 @@ Error message and password prompt
 <div created="20150606171842764" creator="K" modified="20150606171842937" modifier="K" title="$:/status/UserName">
 <pre>KK</pre>
 </div>
-<div list="[[Table of Contents]]" title="$:/StoryList">
+<div list="[[Table of Contents]] [[Persisted Data Structures]] [[Implementation Details]] Introduction Usage [[XML Structure]] [[Component View]]" title="$:/StoryList">
 <pre></pre>
 </div>
 <div modified="20150606212211544" modifier="KK" title="$:/temp/advancedsearch">
@@ -5804,7 +5804,7 @@ Error message and password prompt
 [img[misc/images/persistence/Components.svg]]
 </pre>
 </div>
-<div created="20150606232649105" creator="KK" modified="20160621145853396" modifier="KK" tags="implementation persistence" title="Implementation Details">
+<div created="20150606232649105" creator="KK" modified="20161010194116988" modifier="KK" tags="implementation persistence" title="Implementation Details">
 <pre>A short outline of the more important components.
 
 !File Manager
@@ -5817,7 +5817,7 @@ Depending on the hardware &amp; software environement (i.e. storage devices and 
 
 !Transformation Factory
 
-The persistence manager relies on a transformation mechanism for various tasks (e.g. serialization: object -&gt; xml, deserialization: xml -&gt; object, indexing of an object).
+The persistence container relies on a transformation mechanism for various tasks (e.g. serialization: object -&gt; xml, deserialization: xml -&gt; object, indexing of an object).
 
 The backbone is a general purpose rule based transformation mechanism. Additionally this component acts as a repository for all existing transformation rules. The rules are split up into several subsets where each subset represents a certain transformation path. Every transformation rule consists of a configuration file and an implementation file.
 
