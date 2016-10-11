@@ -83,12 +83,13 @@ if %ERRORLEVEL%==0 (
 	if %ERRORLEVEL%==130 (
 
 		echo ^(%ERRORLEVEL%^) Shutdown by Ctrl+C.
+		%return% 0
 
 	) else (
 
 		echo ERROR %ERRORLEVEL%: An error occurred while invoking the web server! >&2
 		pause
-		exit /b %ERRORLEVEL%
+		%return% %ERRORLEVEL%
 	)
 )
 

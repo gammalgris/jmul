@@ -78,16 +78,24 @@ set "initializerPath=%~dp0"
 cd /D "%initializerPath%"
 
 call ant.bat -buildfile ..\Ant-Deploy\deploy-webserver.xml deploy
+%ifError% (
+
+	%return%
+)
 call:copyDirectory ..\..\tmp\web-server\ "%target%%WEB_SERVER_SUBFOLDER%"
 
 
 call ant.bat -buildfile ..\Ant-Execute\run-instrumented-tests.xml coverage
+%ifError% (
+
+	%return%
+)
 call:copyDirectory ..\..\tmp\web-content\ "%target%%WEB_CONTENT_SUBFOLDER%"
 
 
 if %startServerFlag%==%TRUE% (
 
-	call:overrideWebServerConfiguration "%target%" 8000 0 10 "%RELATIVE_ROOT_DIRECTORY%%WEB_CONTENT_SUBFOLDER%" "html,htm,gif,js,css,png,svg"
+	call:overrideWebServerConfiguration "%target%" 8000 0 10 "%RELATIVE_ROOT_DIRECTORY%%WEB_CONTENT_SUBFOLDER%" "html,htm,gif,js,css,png,svg,xsd"
 	start %target%%WEB_SERVER_EXECUTABLE%
 )
 

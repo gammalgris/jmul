@@ -129,6 +129,22 @@
                   <string v="+**"/>
                </list>
                <list n="url-path">
+                  <url path="Dos-DB/"/>
+               </list>
+            </hash>
+            <hash>
+               <list n="pattern-filters">
+                  <string v="+**"/>
+               </list>
+               <list n="url-path">
+                  <url path="Dos-Deploy/"/>
+               </list>
+            </hash>
+            <hash>
+               <list n="pattern-filters">
+                  <string v="+**"/>
+               </list>
+               <list n="url-path">
                   <url path="Dos-Misc/"/>
                </list>
             </hash>
@@ -138,6 +154,14 @@
                </list>
                <list n="url-path">
                   <url path="Dos-Sonar/"/>
+               </list>
+            </hash>
+            <hash>
+               <list n="pattern-filters">
+                  <string v="+**"/>
+               </list>
+               <list n="url-path">
+                  <url path="Dos-WebServer/"/>
                </list>
             </hash>
          </list>

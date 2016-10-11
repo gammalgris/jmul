@@ -1,0 +1,191 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<xsd:schema
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xmlns="http://www.persistence-template.org"
+    targetNamespace="http://www.persistence-template.org"
+    elementFormDefault="qualified">
+
+
+    <xsd:simpleType name="DeclaredElementTypeAttribute">
+        <xsd:restriction base="xsd:string" />
+    </xsd:simpleType>
+
+    <xsd:simpleType name="DeclaredKeyTypeAttribute">
+        <xsd:restriction base="xsd:string" />
+    </xsd:simpleType>
+
+    <xsd:simpleType name="DeclaredTypeAttribute">
+        <xsd:restriction base="xsd:string" />
+    </xsd:simpleType>
+
+    <xsd:simpleType name="DeclaredValueTypeAttribute">
+        <xsd:restriction base="xsd:string" />
+    </xsd:simpleType>
+
+    <xsd:simpleType name="FormatAttribute">
+        <xsd:restriction base="xsd:string" />
+    </xsd:simpleType>
+
+    <xsd:simpleType name="IdAttribute">
+        <xsd:restriction base="xsd:string" />
+    </xsd:simpleType>
+
+    <xsd:simpleType name="NameAttribute">
+        <xsd:restriction base="xsd:string" />
+    </xsd:simpleType>
+
+    <xsd:simpleType name="ReferencedElementAttribute">
+        <xsd:restriction base="xsd:string" />
+    </xsd:simpleType>
+
+    <xsd:simpleType name="ReferencedKeyAttribute">
+        <xsd:restriction base="xsd:string" />
+    </xsd:simpleType>
+
+    <xsd:simpleType name="ReferencedObjectAttribute">
+        <xsd:restriction base="xsd:string" />
+    </xsd:simpleType>
+
+    <xsd:simpleType name="ReferencedValueAttribute">
+        <xsd:restriction base="xsd:string" />
+    </xsd:simpleType>
+
+    <xsd:simpleType name="TypeAttribute">
+        <xsd:restriction base="xsd:string" />
+    </xsd:simpleType>
+
+    <xsd:simpleType name="ValueAttribute">
+        <xsd:restriction base="xsd:string" />
+    </xsd:simpleType>
+
+
+    <xsd:complexType name="ElementElement">
+        <xsd:attribute name="referencedElement" type="ReferencedElementAttribute" use="required" />
+    </xsd:complexType>
+
+    <xsd:complexType name="EntryElement">
+        <xsd:attribute name="referencedKey" type="ReferencedKeyAttribute" use="required" />
+        <xsd:attribute name="referencedValue" type="ReferencedValueAttribute" use="required" />
+    </xsd:complexType>
+
+    <xsd:complexType name="FieldElement">
+        <xsd:attribute name="name" type="NameAttribute" use="required" />
+        <xsd:attribute name="declaredType" type="DeclaredTypeAttribute" use="required" />
+        <xsd:attribute name="referencedObject" type="ReferencedObjectAttribute" use="required" />
+    </xsd:complexType>
+
+    <xsd:complexType name="ObjectElement" abstract="true">
+    </xsd:complexType>
+
+    <xsd:complexType name="PrimitiveObjectElement">
+        <xsd:complexContent>
+            <xsd:extension base="ObjectElement">
+                <xsd:attribute name="ID" type="IdAttribute" use="required" />
+                <xsd:attribute name="type" type="TypeAttribute" use="required" />
+                <xsd:attribute name="value" type="ValueAttribute" use="required" />
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="DateObjectElement">
+        <xsd:complexContent>
+            <xsd:extension base="ObjectElement">
+                <xsd:attribute name="ID" type="IdAttribute" use="required" />
+                <xsd:attribute name="type" type="TypeAttribute" use="required" />
+                <xsd:attribute name="value" type="ValueAttribute" use="required" />
+                <xsd:attribute name="format" type="FormatAttribute" use="required" />
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="CompositeObjectElement">
+        <xsd:complexContent>
+            <xsd:extension base="ObjectElement">
+                <xsd:sequence>
+                    <xsd:element name="field" type="FieldElement" minOccurs="0" maxOccurs="unbounded" />
+                </xsd:sequence>
+                <xsd:attribute name="ID" type="IdAttribute" use="required" />
+                <xsd:attribute name="type" type="TypeAttribute" use="required" />
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="CollectionObjectElement">
+        <xsd:complexContent>
+            <xsd:extension base="ObjectElement">
+                <xsd:sequence>
+                    <xsd:element name="element" type="ElementElement" minOccurs="0" maxOccurs="unbounded" />
+                </xsd:sequence>
+                <xsd:attribute name="ID" type="IdAttribute" use="required" />
+                <xsd:attribute name="type" type="TypeAttribute" use="required" />
+                <xsd:attribute name="declaredElementType" type="DeclaredElementTypeAttribute" use="required" />
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="CompositeCollectionObjectElement">
+        <xsd:complexContent>
+            <xsd:extension base="ObjectElement">
+                <xsd:sequence>
+                    <xsd:element name="element" type="ElementElement" minOccurs="0" maxOccurs="unbounded" />
+                    <xsd:element name="field" type="FieldElement" minOccurs="0" maxOccurs="unbounded" />
+                </xsd:sequence>
+                <xsd:attribute name="ID" type="IdAttribute" use="required" />
+                <xsd:attribute name="type" type="TypeAttribute" use="required" />
+                <xsd:attribute name="declaredElementType" type="DeclaredElementTypeAttribute" use="required" />
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="MapObjectElement">
+        <xsd:complexContent>
+            <xsd:extension base="ObjectElement">
+                <xsd:sequence>
+                    <xsd:element name="entry" type="EntryElement" minOccurs="0" maxOccurs="unbounded" />
+                </xsd:sequence>
+                <xsd:attribute name="ID" type="IdAttribute" use="required" />
+                <xsd:attribute name="type" type="TypeAttribute" use="required" />
+                <xsd:attribute name="declaredKeyType" type="DeclaredKeyTypeAttribute" use="required" />
+                <xsd:attribute name="declaredValueType" type="DeclaredValueTypeAttribute" use="required" />
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="CompositeMapObjectElement">
+        <xsd:complexContent>
+            <xsd:extension base="ObjectElement">
+                <xsd:sequence>
+                    <xsd:element name="entry" type="EntryElement" minOccurs="0" maxOccurs="unbounded" />
+                    <xsd:element name="field" type="FieldElement" minOccurs="0" maxOccurs="unbounded" />
+                </xsd:sequence>
+                <xsd:attribute name="ID" type="IdAttribute" use="required" />
+                <xsd:attribute name="type" type="TypeAttribute" use="required" />
+                <xsd:attribute name="declaredKeyType" type="DeclaredKeyTypeAttribute" use="required" />
+                <xsd:attribute name="declaredValueType" type="DeclaredValueTypeAttribute" use="required" />
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="RootObjectElement">
+        <xsd:sequence>
+            <xsd:element name="field" type="FieldElement" minOccurs="0" maxOccurs="unbounded" />
+        </xsd:sequence>
+        <xsd:attribute name="type" type="TypeAttribute" use="required" />
+        <xsd:attribute name="declaredType" type="DeclaredTypeAttribute" use="required" />
+    </xsd:complexType>
+
+    <xsd:complexType name="ObjectsElement">
+        <xsd:sequence>
+            <xsd:choice>
+                <xsd:element name="object" type="ObjectElement" minOccurs="0" maxOccurs="unbounded" />
+            </xsd:choice>
+            <xsd:element name="object" type="RootObjectElement" minOccurs="1" maxOccurs="1" />
+        </xsd:sequence>
+    </xsd:complexType>
+
+
+    <xsd:element name="objects" type="ObjectsElement">
+    </xsd:element>
+
+</xsd:schema>
