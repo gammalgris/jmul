@@ -32,6 +32,7 @@
       <hash><url n="URL" path="IO/IO.jpr"/></hash>
       <hash><url n="URL" path="IO-Tests/IO-Tests.jpr"/></hash>
       <hash><url n="URL" path="Logging/Logging.jpr"/></hash>
+      <hash><url n="URL" path="Mail/Mail.jpr"/></hash>
       <hash><url n="URL" path="Markdown/Markdown.jpr"/></hash>
       <hash><url n="URL" path="Markdown-Tests/Markdown-Tests.jpr"/></hash>
       <hash><url n="URL" path="Math/Math.jpr"/></hash>
