@@ -83,6 +83,7 @@ if %ERRORLEVEL%==0 (
 	if %ERRORLEVEL%==130 (
 
 		echo ^(%ERRORLEVEL%^) Shutdown by Ctrl+C.
+		pause
 		%return% 0
 
 	) else (
