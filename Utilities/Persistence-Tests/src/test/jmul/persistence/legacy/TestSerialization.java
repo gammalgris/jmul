@@ -31,16 +31,16 @@ import java.io.IOException;
 import jmul.persistence.xml.XmlSerializer;
 import jmul.persistence.xml.XmlSerializerImpl;
 
-import test.jmul.datatypes.company.CompanyDetails;
-import test.jmul.datatypes.company.CompanyDetailsImpl;
-import test.jmul.datatypes.company.CompanyDetailsImpl3;
-import test.jmul.datatypes.contractor.Contractor;
-import test.jmul.datatypes.contractor.ContractorImpl;
-import test.jmul.datatypes.department.DepartmentDetails;
-import test.jmul.datatypes.department.DepartmentDetailsImpl2;
-import test.jmul.datatypes.department.DepartmentGenderDetails;
-import test.jmul.datatypes.department.DepartmentGenderDetailsImpl2;
-import test.jmul.datatypes.employee.EmployeeImpl6;
+import test.jmul.datatypes.legacy.company.CompanyDetails;
+import test.jmul.datatypes.legacy.company.CompanyDetailsImpl;
+import test.jmul.datatypes.legacy.company.CompanyDetailsImpl3;
+import test.jmul.datatypes.legacy.contractor.Contractor;
+import test.jmul.datatypes.legacy.contractor.ContractorImpl;
+import test.jmul.datatypes.legacy.department.DepartmentDetails;
+import test.jmul.datatypes.legacy.department.DepartmentDetailsImpl2;
+import test.jmul.datatypes.legacy.department.DepartmentGenderDetails;
+import test.jmul.datatypes.legacy.department.DepartmentGenderDetailsImpl2;
+import test.jmul.datatypes.legacy.employee.EmployeeImpl6;
 
 import jmul.string.StringConcatenator;
 

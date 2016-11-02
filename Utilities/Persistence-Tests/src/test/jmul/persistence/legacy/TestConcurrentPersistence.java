@@ -35,9 +35,9 @@ import javax.swing.JOptionPane;
 import jmul.persistence.PersistenceContainer;
 import jmul.persistence.PersistenceContainerImpl;
 
-import test.jmul.datatypes.department.DepartmentGenderDetails;
-import test.jmul.datatypes.employee.Employee;
-import test.jmul.datatypes.employee.EmployeeImpl6;
+import test.jmul.datatypes.legacy.department.DepartmentGenderDetails;
+import test.jmul.datatypes.legacy.employee.Employee;
+import test.jmul.datatypes.legacy.employee.EmployeeImpl6;
 import test.jmul.persistence.legacy.threads.GetObjectThread;
 import test.jmul.persistence.legacy.threads.StoreObjectThread;
 
@@ -55,7 +55,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import test.jmul.datatypes.department.DepartmentGenderDetailsImpl2;
+import test.jmul.datatypes.legacy.department.DepartmentGenderDetailsImpl2;
 
 
 /**

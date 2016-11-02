@@ -39,7 +39,7 @@ import jmul.persistence.PersistenceContainerImpl;
 import jmul.persistence.id.IDGenerator;
 import jmul.persistence.id.StringIDGenerator;
 
-import test.jmul.datatypes.department.DepartmentGenderDetails;
+import test.jmul.datatypes.legacy.department.DepartmentGenderDetails;
 import test.jmul.persistence.legacy.loadtest.TestControlFrame;
 
 

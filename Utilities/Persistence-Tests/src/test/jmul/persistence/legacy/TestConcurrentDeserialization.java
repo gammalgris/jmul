@@ -30,9 +30,9 @@ import java.io.File;
 import java.util.Collection;
 import java.util.Iterator;
 
-import test.jmul.datatypes.department.DepartmentGenderDetails;
-import test.jmul.datatypes.department.DepartmentGenderDetailsImpl2;
-import test.jmul.datatypes.employee.EmployeeImpl6;
+import test.jmul.datatypes.legacy.department.DepartmentGenderDetails;
+import test.jmul.datatypes.legacy.department.DepartmentGenderDetailsImpl2;
+import test.jmul.datatypes.legacy.employee.EmployeeImpl6;
 import test.jmul.persistence.legacy.file.FilenameCreator;
 import test.jmul.persistence.legacy.file.NameCreator;
 import test.jmul.persistence.legacy.threads.DefaultDeserializationThread;

@@ -30,10 +30,10 @@ import jmul.persistence.PersistenceException;
 import jmul.persistence.PersistenceContainer;
 import jmul.persistence.PersistenceContainerImpl;
 
-import test.jmul.datatypes.department.DepartmentDetails;
-import test.jmul.datatypes.department.DepartmentDetailsImpl2;
-import test.jmul.datatypes.department.DepartmentGenderDetails;
-import test.jmul.datatypes.employee.EmployeeImpl6;
+import test.jmul.datatypes.legacy.department.DepartmentDetails;
+import test.jmul.datatypes.legacy.department.DepartmentDetailsImpl2;
+import test.jmul.datatypes.legacy.department.DepartmentGenderDetails;
+import test.jmul.datatypes.legacy.employee.EmployeeImpl6;
 
 import jmul.persistence.id.ID;
 import jmul.persistence.id.StringID;

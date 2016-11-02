@@ -34,6 +34,7 @@ import jmul.persistence.id.StringIDGenerator;
 
 import static jmul.string.Constants.FILE_SEPARATOR;
 
+import jmul.test.classification.LongRunning;
 import jmul.test.classification.ModuleTest;
 
 import org.junit.After;
@@ -47,6 +48,7 @@ import org.junit.Test;
  *
  * @author Kristian Kutin
  */
+@LongRunning
 @ModuleTest
 public class IdCollisionTest extends FileManagerTestBase {
 

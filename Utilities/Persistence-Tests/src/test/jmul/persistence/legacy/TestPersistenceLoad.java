@@ -45,10 +45,10 @@ import javax.swing.JProgressBar;
 import javax.swing.JTextField;
 import javax.swing.border.Border;
 
-import test.jmul.datatypes.department.DepartmentGenderDetails;
-import test.jmul.datatypes.department.DepartmentGenderDetailsImpl2;
-import test.jmul.datatypes.employee.Employee;
-import test.jmul.datatypes.employee.EmployeeImpl6;
+import test.jmul.datatypes.legacy.department.DepartmentGenderDetails;
+import test.jmul.datatypes.legacy.department.DepartmentGenderDetailsImpl2;
+import test.jmul.datatypes.legacy.employee.Employee;
+import test.jmul.datatypes.legacy.employee.EmployeeImpl6;
 import test.jmul.persistence.legacy.threads.GetObjectThread;
 import test.jmul.persistence.legacy.threads.StoreObjectThread;
 

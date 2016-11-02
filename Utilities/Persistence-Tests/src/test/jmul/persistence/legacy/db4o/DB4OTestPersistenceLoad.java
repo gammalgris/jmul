@@ -35,7 +35,7 @@ import javax.swing.JOptionPane;
 import jmul.persistence.PersistenceContainer;
 
 import test.jmul.persistence.legacy.SerializationBase;
-import test.jmul.datatypes.department.DepartmentGenderDetails;
+import test.jmul.datatypes.legacy.department.DepartmentGenderDetails;
 import test.jmul.persistence.legacy.loadtest.TestControlFrame;
 
 import jmul.persistence.id.IDGenerator;

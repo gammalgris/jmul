@@ -39,7 +39,7 @@ import javax.swing.SwingUtilities;
 import jmul.persistence.PersistenceContainer;
 import jmul.persistence.id.IDGenerator;
 
-import test.jmul.datatypes.department.DepartmentGenderDetails;
+import test.jmul.datatypes.legacy.department.DepartmentGenderDetails;
 
 
 /**

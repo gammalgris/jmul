@@ -45,20 +45,20 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import test.jmul.datatypes.company.CompanyDetails;
-import test.jmul.datatypes.company.CompanyDetailsImpl;
-import test.jmul.datatypes.contractor.Contractor;
-import test.jmul.datatypes.contractor.ContractorImpl;
-import test.jmul.datatypes.department.DepartmentDetails;
-import test.jmul.datatypes.department.DepartmentDetailsImpl2;
-import test.jmul.datatypes.department.DepartmentGenderDetails;
-import test.jmul.datatypes.department.DepartmentGenderDetailsImpl2;
-import test.jmul.datatypes.employee.Employee;
-import test.jmul.datatypes.employee.EmployeeImpl6;
-import test.jmul.datatypes.employee.EmployeeImpl7;
-import test.jmul.datatypes.organisation.OrganisationDetails;
-import test.jmul.datatypes.person.Person;
-import test.jmul.datatypes.person.PersonImpl5;
+import test.jmul.datatypes.legacy.company.CompanyDetails;
+import test.jmul.datatypes.legacy.company.CompanyDetailsImpl;
+import test.jmul.datatypes.legacy.contractor.Contractor;
+import test.jmul.datatypes.legacy.contractor.ContractorImpl;
+import test.jmul.datatypes.legacy.department.DepartmentDetails;
+import test.jmul.datatypes.legacy.department.DepartmentDetailsImpl2;
+import test.jmul.datatypes.legacy.department.DepartmentGenderDetails;
+import test.jmul.datatypes.legacy.department.DepartmentGenderDetailsImpl2;
+import test.jmul.datatypes.legacy.employee.Employee;
+import test.jmul.datatypes.legacy.employee.EmployeeImpl6;
+import test.jmul.datatypes.legacy.employee.EmployeeImpl7;
+import test.jmul.datatypes.legacy.organisation.OrganisationDetails;
+import test.jmul.datatypes.legacy.person.Person;
+import test.jmul.datatypes.legacy.person.PersonImpl5;
 
 
 /**
