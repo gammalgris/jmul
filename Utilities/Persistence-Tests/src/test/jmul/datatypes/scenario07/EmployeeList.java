@@ -22,42 +22,35 @@
  * e-mail: kristian.kutin@arcor.de
  */
 
-package jmul.math;
+package test.jmul.datatypes.scenario07;
+
+
+import test.jmul.datatypes.interfaces.Employee;
+
+import java.util.ArrayList;
+import java.util.Collection;
+
+import jmul.persistence.annotations.ContainerInformations;
 
 
 /**
- * This utility class is a central place for numeric constants.
+ * This class contains basic information about a person.<br />
+ * <br />
+ * <i>Note:<br />
+ * This class is used for testing purposes only.
+ * </i>
  *
  * @author Kristian Kutin
  */
-public final class Constants {
-
-    /**
-     * A second in milliseconds.
-     */
-    public static final long SECOND = 1000L;
-
-    /**
-     * A minute in milliseconds.
-     */
-    public static final long MINUTE = 60L * SECOND;
-
-    /**
-     * An hour in milliseconds.
-     */
-    public static final long HOUR = 60L * MINUTE;
-
-    /**
-     * An arbitrary small limit.
-     */
-    public static final float EPSILON = 0.001f;
+@ContainerInformations(declaredElementType = Employee.class)
+public class EmployeeList extends ArrayList<Employee> implements Collection<Employee> {
 
     /**
      * The default constructor.
      */
-    private Constants() {
+    public EmployeeList() {
 
-        throw new UnsupportedOperationException();
+        super();
     }
 
 }

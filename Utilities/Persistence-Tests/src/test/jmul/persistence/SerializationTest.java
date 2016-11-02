@@ -33,8 +33,6 @@ import java.util.List;
 import jmul.persistence.xml.XmlDeserializer;
 import jmul.persistence.xml.XmlSerializer;
 
-import static jmul.string.Constants.FILE_SEPARATOR;
-
 import jmul.test.classification.ModuleTest;
 
 import org.junit.After;
@@ -77,7 +75,7 @@ public class SerializationTest extends SerializationTestBase {
     /**
      * The file where the generated IDs are persisted.
      */
-    private static final String OUTPUT_FILE = BASEDIR + FILE_SEPARATOR + "output.xml";
+    private static final String OUTPUT_FILE = "output";
 
     /**
      * An XML serializer.
@@ -133,7 +131,7 @@ public class SerializationTest extends SerializationTestBase {
     @Test
     public void testSerializePerson() {
 
-        String fileName = getOutputFileName(OUTPUT_FILE);
+        String fileName = getOutputFileName(BASEDIR, OUTPUT_FILE);
 
         Person person = new PersonImpl5("John", "Doe", "1.1.2000", "male");
         Person copy = null;
@@ -172,7 +170,7 @@ public class SerializationTest extends SerializationTestBase {
     @Test
     public void testSerializeEmployee() {
 
-        String fileName = getOutputFileName(OUTPUT_FILE);
+        String fileName = getOutputFileName(BASEDIR, OUTPUT_FILE);
 
         Employee employee = new EmployeeImpl7("John", "Doe", "1.1.2000", "male", 1000.0f, "trainee");
         Employee copy = null;
@@ -213,7 +211,7 @@ public class SerializationTest extends SerializationTestBase {
     @Test
     public void testSerializeCompanyDetails() {
 
-        String fileName = getOutputFileName(OUTPUT_FILE);
+        String fileName = getOutputFileName(BASEDIR, OUTPUT_FILE);
 
         CompanyDetails details = new CompanyDetailsImpl();
         details.addEmployee(new EmployeeImpl6("John", "Doe", "1.1.2000", "male", 1000.00f, "Engineer"));
@@ -276,7 +274,7 @@ public class SerializationTest extends SerializationTestBase {
     @Test
     public void testSerializeContractor() {
 
-        String fileName = getOutputFileName(OUTPUT_FILE);
+        String fileName = getOutputFileName(BASEDIR, OUTPUT_FILE);
 
         Contractor contractor = new ContractorImpl("John", "Doe", "1.1.2000", "male");
         Contractor copy = null;
@@ -316,7 +314,7 @@ public class SerializationTest extends SerializationTestBase {
     @Test
     public void testSerializeDepartmentDetails() {
 
-        String fileName = getOutputFileName(OUTPUT_FILE);
+        String fileName = getOutputFileName(BASEDIR, OUTPUT_FILE);
         String jobTitle = "Engineer";
 
         DepartmentDetails details = new DepartmentDetailsImpl2();
@@ -356,7 +354,7 @@ public class SerializationTest extends SerializationTestBase {
     @Test
     public void testSerializeDepartmentGenderDetails() {
 
-        String fileName = getOutputFileName(OUTPUT_FILE);
+        String fileName = getOutputFileName(BASEDIR, OUTPUT_FILE);
         String jobTitle = "Engineer";
         String male = "male";
         String female = "female";

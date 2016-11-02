@@ -4,7 +4,7 @@
  * JMUL is a central repository for utilities which are used in my
  * other public and private repositories.
  *
- * Copyright (C) 2016  Kristian Kutin
+ * Copyright (C) 2013  Kristian Kutin
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -22,42 +22,46 @@
  * e-mail: kristian.kutin@arcor.de
  */
 
-package jmul.math;
+package test.jmul.datatypes.interfaces;
 
 
 /**
- * This utility class is a central place for numeric constants.
+ * This interface describes an employee.<br>
+ * <br>
+ * <i>This code is used for testing purposes only.</i>
  *
  * @author Kristian Kutin
  */
-public final class Constants {
+public interface Employee extends Person {
 
     /**
-     * A second in milliseconds.
+     * Sets the employee's job title.
+     *
+     * @param title
+     *        a job title
      */
-    public static final long SECOND = 1000L;
+    void setJobTitle(String title);
 
     /**
-     * A minute in milliseconds.
+     * Returns the employee's job title.
+     *
+     * @return a jon title
      */
-    public static final long MINUTE = 60L * SECOND;
+    String getJobTitle();
 
     /**
-     * An hour in milliseconds.
+     * Sets the employee's monthly salary.
+     *
+     * @param salary
+     *        a salary
      */
-    public static final long HOUR = 60L * MINUTE;
+    void setSalary(float salary);
 
     /**
-     * An arbitrary small limit.
+     * Returns the employee's monthly salary.
+     *
+     * @return a salary
      */
-    public static final float EPSILON = 0.001f;
-
-    /**
-     * The default constructor.
-     */
-    private Constants() {
-
-        throw new UnsupportedOperationException();
-    }
+    float getSalary();
 
 }

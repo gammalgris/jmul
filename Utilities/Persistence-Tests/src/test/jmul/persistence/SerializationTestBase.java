@@ -30,6 +30,8 @@ import jmul.persistence.xml.XmlDeserializerImpl;
 import jmul.persistence.xml.XmlSerializer;
 import jmul.persistence.xml.XmlSerializerImpl;
 
+import static jmul.string.Constants.FILE_SEPARATOR;
+
 
 /**
  * A base implementation for tests.
@@ -37,6 +39,11 @@ import jmul.persistence.xml.XmlSerializerImpl;
  * @author Kristian Kutin
  */
 abstract class SerializationTestBase extends TestBase {
+
+    /**
+     * A default file suffix.
+     */
+    private static final String FILE_SUFFIX = ".xml";
 
     /**
      * The next index to append to an output file.
@@ -66,13 +73,14 @@ abstract class SerializationTestBase extends TestBase {
     /**
      * Appends a unique number to the specified file name.
      *
+     * @param aBaseDir
      * @param aFileName
      *
      * @return a file name
      */
-    protected String getOutputFileName(String aFileName) {
+    protected String getOutputFileName(String aBaseDir, String aFileName) {
 
-        String newFileName = aFileName + FILE_INDEX;
+        String newFileName = aBaseDir + FILE_SEPARATOR + aFileName + FILE_INDEX + FILE_SUFFIX;
         FILE_INDEX++;
 
         return newFileName;
