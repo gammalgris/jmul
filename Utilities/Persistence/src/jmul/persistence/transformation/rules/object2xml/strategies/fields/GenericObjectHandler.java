@@ -248,33 +248,72 @@ public class GenericObjectHandler implements FieldsHandler {
 
                 Class expectedAnnotation = ContainerInformations.class;
 
-                if (!field.isAnnotationPresent(expectedAnnotation)) {
+                boolean fieldIsAnnotated = field.isAnnotationPresent(expectedAnnotation);
+                boolean fieldClassIsAnnotated = field.getType().isAnnotationPresent(expectedAnnotation);
+                ContainerInformations containerInformations;
+
+                if (!fieldIsAnnotated && !fieldClassIsAnnotated) {
 
                     StringConcatenator message =
                         new StringConcatenator("The declared element type of a container (", realType.getName(), "#",
                                                fieldName,
                                                ") was not specified! Use the annotation @ContainerInformations.");
                     throw new TransformationException(message.toString());
+
+                } else if (!fieldIsAnnotated && fieldClassIsAnnotated) {
+
+                    containerInformations = (ContainerInformations) field.getType().getAnnotation(expectedAnnotation);
+
+                } else if (fieldIsAnnotated && !fieldClassIsAnnotated) {
+
+                    containerInformations = (ContainerInformations) field.getAnnotation(expectedAnnotation);
+
+                } else {
+
+                    StringConcatenator message =
+                        new StringConcatenator("The declared element type of a container (", realType.getName(), "#",
+                                               fieldName,
+                                               ") was provided twice! Either provide the annotation @ContainerInformations with the field or the field's class");
+                    throw new TransformationException(message.toString());
+
                 }
 
-                ContainerInformations containerInformations =
-                    (ContainerInformations) field.getAnnotation(expectedAnnotation);
                 fieldParameters.addPrerequisite(DECLARED_ELEMENT_TYPE, containerInformations.declaredElementType());
 
             } else if (Map.class.isInstance(fieldValue)) {
 
                 Class expectedAnnotation = MapInformations.class;
 
-                if (!field.isAnnotationPresent(expectedAnnotation)) {
+                boolean fieldIsAnnotated = field.isAnnotationPresent(expectedAnnotation);
+                boolean fieldClassIsAnnotated = field.getType().isAnnotationPresent(expectedAnnotation);
+                MapInformations mapInformations;
+
+                if (!fieldIsAnnotated && !fieldClassIsAnnotated) {
 
                     StringConcatenator message =
                         new StringConcatenator("The declared key and value types of a container (", realType.getName(),
                                                "#", fieldName,
                                                ") were not specified!  Use the annotation @MapInformations.");
                     throw new TransformationException(message.toString());
+
+                } else if (!fieldIsAnnotated && fieldClassIsAnnotated) {
+
+                    mapInformations = (MapInformations) field.getType().getAnnotation(expectedAnnotation);
+
+                } else if (fieldIsAnnotated && !fieldClassIsAnnotated) {
+
+                    mapInformations = (MapInformations) field.getAnnotation(expectedAnnotation);
+
+                } else {
+
+                    StringConcatenator message =
+                        new StringConcatenator("The declared key and value types of a container (", realType.getName(),
+                                               "#", fieldName,
+                                               ") were provided twice! Either provide the annotation @MapInformations with the field or the field's class.");
+                    throw new TransformationException(message.toString());
+
                 }
 
-                MapInformations mapInformations = (MapInformations) field.getAnnotation(expectedAnnotation);
                 fieldParameters.addPrerequisite(DECLARED_KEY_TYPE, mapInformations.declaredKeyType());
                 fieldParameters.addPrerequisite(DECLARED_VALUE_TYPE, mapInformations.declaredValueType());
             }

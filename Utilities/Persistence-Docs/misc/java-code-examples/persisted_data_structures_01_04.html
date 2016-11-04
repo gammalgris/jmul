@@ -3,7 +3,7 @@
 
   <head>
 
-    <title>persisted_data_ structures_02</title>
+    <title>persisted_data_ structures_01_04</title>
 
       <script src="google-code-prettify/run_prettify.js?autoload=true&amp;skin=sons-of-obsidian&amp;lang=css" defer="defer"></script>
 
@@ -14,14 +14,24 @@
   <?prettify linenums=1?>
     <pre class="prettyprint" id="quine">
 
-      public class Person {
+      public interface Person {
 
-        private String firstName;
+        String getFirstName();
 
-        private String lastName;
+        String getLastName();
 
-        @Exempted
-        private boolean dirtyFlag;
+      }
+
+
+      @RootNode(declaredType=Person.class)
+      public abstract class PersonBase implements Person {
+
+        ...
+
+      }
+
+
+      public class PersonImpl extends PersonBase {
 
         ...
 

@@ -3,7 +3,7 @@
 
   <head>
 
-    <title>persisted_data_ structures_02</title>
+    <title>persisted_data_ structures_03_02</title>
 
       <script src="google-code-prettify/run_prettify.js?autoload=true&amp;skin=sons-of-obsidian&amp;lang=css" defer="defer"></script>
 
@@ -14,14 +14,24 @@
   <?prettify linenums=1?>
     <pre class="prettyprint" id="quine">
 
-      public class Person {
+      public class Book {
 
-        private String firstName;
+        ...
 
-        private String lastName;
+      }
 
-        @Exempted
-        private boolean dirtyFlag;
+
+      @CollectionInformations(declaredElementType=Book.class)
+      public class BookList extends ArrayList&lt;Book&gt; {
+
+        ...
+
+      }
+
+
+      public class Library {
+
+        private BookList books;
 
         ...
 

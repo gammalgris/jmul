@@ -38,7 +38,7 @@ import static jmul.string.Constants.FILE_SEPARATOR;
  *
  * @author Kristian Kutin
  */
-abstract class SerializationTestBase extends TestBase {
+public abstract class SerializationTestBase extends TestBase {
 
     /**
      * A default file suffix.

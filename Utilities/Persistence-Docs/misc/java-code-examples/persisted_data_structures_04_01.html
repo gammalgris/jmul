@@ -3,7 +3,7 @@
 
   <head>
 
-    <title>persisted_data_ structures_02</title>
+    <title>persisted_data_ structures_04_01</title>
 
       <script src="google-code-prettify/run_prettify.js?autoload=true&amp;skin=sons-of-obsidian&amp;lang=css" defer="defer"></script>
 
@@ -14,14 +14,17 @@
   <?prettify linenums=1?>
     <pre class="prettyprint" id="quine">
 
-      public class Person {
+      public class Book {
 
-        private String firstName;
+        ...
 
-        private String lastName;
+      }
 
-        @Exempted
-        private boolean dirtyFlag;
+
+      public class Library {
+
+        @MapInformations(declaredKeyType=String.class,declaredValueType=Book.class)
+        private Map&lt;String, Book&gt; sortedBooks;
 
         ...
 
