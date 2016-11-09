@@ -22,15 +22,16 @@
  * e-mail: kristian.kutin@arcor.de
  */
 
-package test.jmul.persistence.scenarios;
+package test.jmul.persistence;
 
-
-import java.io.IOException;
 
 import static jmul.math.Constants.EPSILON;
 
-import jmul.persistence.xml.XmlDeserializer;
-import jmul.persistence.xml.XmlSerializer;
+import jmul.persistence.InvalidRootNodeException;
+import jmul.persistence.PersistenceContainer;
+import jmul.persistence.PersistenceContainerImpl;
+import jmul.persistence.PersistenceException;
+import jmul.persistence.id.ID;
 
 import jmul.test.classification.ModuleTest;
 
@@ -44,36 +45,20 @@ import org.junit.Test;
 
 import test.jmul.datatypes.scenarios.scenario001.Employee;
 import test.jmul.datatypes.scenarios.scenario001.Person;
-import test.jmul.persistence.SerializationTestBase;
 
 
 /**
- * This class contains tests to check the serialization and deserialization of objects.
+ * This class contains tests to check a persistence container.
  *
  * @author Kristian Kutin
  */
 @ModuleTest
-public class Scenario001SerializationTest extends SerializationTestBase {
+public class MultipleContainerShutdownTest extends PersistenceTestBase {
 
     /**
      * A base directory for tests.
      */
-    private static final String BASEDIR = ".\\Test\\Serialization\\Scenario-001";
-
-    /**
-     * The file where the generated IDs are persisted.
-     */
-    private static final String OUTPUT_FILE = "output";
-
-    /**
-     * An XML serializer.
-     */
-    private XmlSerializer serializer;
-
-    /**
-     * An XML deserializer.
-     */
-    private XmlDeserializer deserializer;
+    private static final String BASEDIR = ".\\Test\\Persistence\\Shutdown";
 
     /**
      * Preparations before this test suite.
@@ -98,8 +83,6 @@ public class Scenario001SerializationTest extends SerializationTestBase {
     @Before
     public void setUpTest() {
 
-        serializer = initXmlSerializer();
-        deserializer = initXmlDeserializer();
     }
 
     /**
@@ -108,58 +91,115 @@ public class Scenario001SerializationTest extends SerializationTestBase {
     @After
     public void tearDownTest() {
 
-        serializer = null;
-        deserializer = null;
     }
 
     /**
-     * Tests the serialization of a person entity (i.e. the root node possesses several
-     * class members).
+     * Tests the shutdown with multiple containers.
      */
     @Test
-    public void testSerializePerson() {
+    public void testShutdownSequentialScenario() {
 
-        String fileName = getOutputFileName(BASEDIR, OUTPUT_FILE);
+        PersistenceContainer<Person> container1 = new PersistenceContainerImpl<Person>(Person.class, BASEDIR);
 
         Person person = newPerson("John", "Doe", "1.1.2000", "male");
-        Person copy = null;
+        Person personCopy = null;
 
         try {
 
-            serializer.serialize(fileName, person);
-            copy = (Person) deserializer.deserialize(fileName);
+            ID id = container1.store(person);
 
-        } catch (IOException e) {
+            waitForEmptyCash();
+
+            personCopy = container1.get(id);
+
+            container1.shutdown();
+
+        } catch (PersistenceException e) {
+
+            fail(e.toString());
+
+        } catch (InvalidRootNodeException e) {
 
             fail(e.toString());
         }
 
-        comparePersons(person, copy);
+        comparePersons(person, personCopy);
+
+
+        PersistenceContainer<Employee> container2 = new PersistenceContainerImpl<Employee>(Employee.class, BASEDIR);
+
+        Employee employee = newEmployee("John", "Doe", "1.1.2000", "male", "salesperson", 2000.0f);
+        Employee employeeCopy = null;
+
+        try {
+
+            ID id = container2.store(employee);
+
+            waitForEmptyCash();
+
+            employeeCopy = container2.get(id);
+
+            container2.shutdown();
+
+        } catch (PersistenceException e) {
+
+            fail(e.toString());
+
+        } catch (InvalidRootNodeException e) {
+
+            fail(e.toString());
+        }
+
+        compareEmployees(employee, employeeCopy);
     }
 
     /**
-     * Tests the serialization of an employee entity (i.e. the root node possesses several
-     * class members).
+     * Tests the shutdown with multiple containers.
      */
     @Test
-    public void testSerializeEmployee() {
+    public void testShutdownParallelScenario() {
 
-        String fileName = getOutputFileName(BASEDIR, OUTPUT_FILE);
+        PersistenceContainer<Person> container1 = new PersistenceContainerImpl<Person>(Person.class, BASEDIR);
+
+        Person person = newPerson("John", "Doe", "1.1.2000", "male");
+        Person personCopy = null;
+
+
+        PersistenceContainer<Employee> container2 = new PersistenceContainerImpl<Employee>(Employee.class, BASEDIR);
 
         Employee employee = newEmployee("John", "Doe", "1.1.2000", "male", "salesperson", 2000.0f);
-        Employee copy = null;
+        Employee employeeCopy = null;
+
 
         try {
 
-            serializer.serialize(fileName, employee);
-            copy = (Employee) deserializer.deserialize(fileName);
+            ID id1 = container1.store(person);
 
-        } catch (IOException e) {
+            waitForEmptyCash();
+
+            ID id2 = container2.store(employee);
+
+            personCopy = container1.get(id1);
+
+            container1.shutdown();
+
+            waitForEmptyCash();
+
+            employeeCopy = container2.get(id2);
+
+            container2.shutdown();
+
+        } catch (PersistenceException e) {
+
+            fail(e.toString());
+
+        } catch (InvalidRootNodeException e) {
 
             fail(e.toString());
         }
 
-        compareEmployees(employee, copy);
+        comparePersons(person, personCopy);
+        compareEmployees(employee, employeeCopy);
     }
 
     /**

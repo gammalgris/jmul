@@ -46,7 +46,7 @@ import test.jmul.persistence.SerializationTestBase;
 
 
 /**
- * This class contains tests to check the serialization of objects.
+ * This class contains tests to check the serialization and deserialization of objects.
  *
  * @author Kristian Kutin
  */

@@ -25,55 +25,45 @@
 package test.jmul.persistence.scenarios;
 
 
-import java.io.IOException;
+import java.util.Iterator;
 
 import static jmul.math.Constants.EPSILON;
 
-import jmul.persistence.xml.XmlDeserializer;
-import jmul.persistence.xml.XmlSerializer;
+import jmul.persistence.InvalidRootNodeException;
+import jmul.persistence.PersistenceContainer;
+import jmul.persistence.PersistenceContainerImpl;
+import jmul.persistence.PersistenceException;
+import jmul.persistence.id.ID;
 
 import jmul.test.classification.ModuleTest;
 
 import org.junit.After;
 import org.junit.AfterClass;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
 import test.jmul.datatypes.scenarios.interfaces.Employee;
-import test.jmul.datatypes.scenarios.scenario005.EmployeeImpl;
-import test.jmul.persistence.SerializationTestBase;
+import test.jmul.datatypes.scenarios.scenario009.Company;
+import test.jmul.datatypes.scenarios.scenario009.EmployeeImpl;
+import test.jmul.persistence.PersistenceTestBase;
 
 
 /**
- * This class contains tests to check the serialization and deserialization of objects.
+ * This class contains tests to check a persistence container.
  *
  * @author Kristian Kutin
  */
 @ModuleTest
-public class Scenario005SerializationTest extends SerializationTestBase {
+public class Scenario009PersistenceTest extends PersistenceTestBase {
 
     /**
      * A base directory for tests.
      */
-    private static final String BASEDIR = ".\\Test\\Serialization\\Scenario-005";
-
-    /**
-     * The file where the generated IDs are persisted.
-     */
-    private static final String OUTPUT_FILE = "output";
-
-    /**
-     * An XML serializer.
-     */
-    private XmlSerializer serializer;
-
-    /**
-     * An XML deserializer.
-     */
-    private XmlDeserializer deserializer;
+    private static final String BASEDIR = ".\\Test\\Persistence\\Scenario-009";
 
     /**
      * Preparations before this test suite.
@@ -98,8 +88,6 @@ public class Scenario005SerializationTest extends SerializationTestBase {
     @Before
     public void setUpTest() {
 
-        serializer = initXmlSerializer();
-        deserializer = initXmlDeserializer();
     }
 
     /**
@@ -108,33 +96,42 @@ public class Scenario005SerializationTest extends SerializationTestBase {
     @After
     public void tearDownTest() {
 
-        serializer = null;
-        deserializer = null;
     }
 
     /**
-     * Tests the serialization of an employee entity (i.e. the root node possesses several
+     * Tests the serialization of a person entity (i.e. the root node possesses several
      * class members).
      */
     @Test
-    public void testSerializeEmployee() {
+    public void testPersistCompany() {
 
-        String fileName = getOutputFileName(BASEDIR, OUTPUT_FILE);
+        PersistenceContainer<Company> container = new PersistenceContainerImpl<Company>(Company.class, BASEDIR);
 
-        Employee employee = newEmployee("John", "Doe", "1.1.2000", "male", "salesperson", 2000.0f);
-        Employee copy = null;
+        Employee employee1 = newEmployee("John", "Doe", "1.1.2000", "male", "salesperson", 2500.0f);
+        Employee employee2 = newEmployee("Jane", "Doe", "2.2.1999", "female", "salesperson", 2000.0f);
+        Company company = newCompany("Acme Corp", employee1, employee2);
+        Company copy = null;
 
         try {
 
-            serializer.serialize(fileName, employee);
-            copy = (Employee) deserializer.deserialize(fileName);
+            ID id = container.store(company);
 
-        } catch (IOException e) {
+            waitForEmptyCash();
+
+            copy = container.get(id);
+
+            container.shutdown();
+
+        } catch (PersistenceException e) {
+
+            fail(e.toString());
+
+        } catch (InvalidRootNodeException e) {
 
             fail(e.toString());
         }
 
-        compareEmployees(employee, copy);
+        compareCompanies(company, copy);
     }
 
     /**
@@ -161,6 +158,48 @@ public class Scenario005SerializationTest extends SerializationTestBase {
         e.setSalary(aSalary);
 
         return e;
+    }
+
+    /**
+     * Creates a new company according to the specified parameters.
+     *
+     * @param aCompanyName
+     * @param someEmployees
+     *
+     * @return a new company
+     */
+    private static Company newCompany(String aCompanyName, Employee... someEmployees) {
+
+        Company c = new Company();
+        c.setCompanyName(aCompanyName);
+
+        for (Employee e : someEmployees) {
+
+            c.addEmployee(e);
+        }
+
+        return c;
+    }
+
+    /**
+     * Compares two companies via assertions.
+     *
+     * @param c1
+     * @param c2
+     */
+    private static void compareCompanies(Company c1, Company c2) {
+
+        assertEquals("The companies' names don't match!", c1.getCompanyName(), c2.getCompanyName());
+
+        Iterator<Employee> i1 = c1.getEmployees().values().iterator();
+        Iterator<Employee> i2 = c2.getEmployees().values().iterator();
+
+        while (i1.hasNext() && i2.hasNext()) {
+
+            compareEmployees(i1.next(), i2.next());
+
+            assertTrue((i1.hasNext() && i2.hasNext()) || (!i1.hasNext() && !i2.hasNext()));
+        }
     }
 
     /**

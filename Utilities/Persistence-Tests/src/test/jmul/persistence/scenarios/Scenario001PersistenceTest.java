@@ -25,12 +25,13 @@
 package test.jmul.persistence.scenarios;
 
 
-import java.io.IOException;
-
 import static jmul.math.Constants.EPSILON;
 
-import jmul.persistence.xml.XmlDeserializer;
-import jmul.persistence.xml.XmlSerializer;
+import jmul.persistence.InvalidRootNodeException;
+import jmul.persistence.PersistenceContainer;
+import jmul.persistence.PersistenceContainerImpl;
+import jmul.persistence.PersistenceException;
+import jmul.persistence.id.ID;
 
 import jmul.test.classification.ModuleTest;
 
@@ -42,38 +43,23 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import test.jmul.datatypes.scenarios.interfaces.Employee;
-import test.jmul.datatypes.scenarios.scenario005.EmployeeImpl;
-import test.jmul.persistence.SerializationTestBase;
+import test.jmul.datatypes.scenarios.scenario001.Employee;
+import test.jmul.datatypes.scenarios.scenario001.Person;
+import test.jmul.persistence.PersistenceTestBase;
 
 
 /**
- * This class contains tests to check the serialization and deserialization of objects.
+ * This class contains tests to check a persistence container.
  *
  * @author Kristian Kutin
  */
 @ModuleTest
-public class Scenario005SerializationTest extends SerializationTestBase {
+public class Scenario001PersistenceTest extends PersistenceTestBase {
 
     /**
      * A base directory for tests.
      */
-    private static final String BASEDIR = ".\\Test\\Serialization\\Scenario-005";
-
-    /**
-     * The file where the generated IDs are persisted.
-     */
-    private static final String OUTPUT_FILE = "output";
-
-    /**
-     * An XML serializer.
-     */
-    private XmlSerializer serializer;
-
-    /**
-     * An XML deserializer.
-     */
-    private XmlDeserializer deserializer;
+    private static final String BASEDIR = ".\\Test\\Persistence\\Scenario-001";
 
     /**
      * Preparations before this test suite.
@@ -98,8 +84,6 @@ public class Scenario005SerializationTest extends SerializationTestBase {
     @Before
     public void setUpTest() {
 
-        serializer = initXmlSerializer();
-        deserializer = initXmlDeserializer();
     }
 
     /**
@@ -108,8 +92,40 @@ public class Scenario005SerializationTest extends SerializationTestBase {
     @After
     public void tearDownTest() {
 
-        serializer = null;
-        deserializer = null;
+    }
+
+    /**
+     * Tests the serialization of a person entity (i.e. the root node possesses several
+     * class members).
+     */
+    @Test
+    public void testPersistPerson() {
+
+        PersistenceContainer<Person> container = new PersistenceContainerImpl<Person>(Person.class, BASEDIR);
+
+        Person person = newPerson("John", "Doe", "1.1.2000", "male");
+        Person copy = null;
+
+        try {
+
+            ID id = container.store(person);
+
+            waitForEmptyCash();
+
+            copy = container.get(id);
+
+            container.shutdown();
+
+        } catch (PersistenceException e) {
+
+            fail(e.toString());
+
+        } catch (InvalidRootNodeException e) {
+
+            fail(e.toString());
+        }
+
+        comparePersons(person, copy);
     }
 
     /**
@@ -117,24 +133,54 @@ public class Scenario005SerializationTest extends SerializationTestBase {
      * class members).
      */
     @Test
-    public void testSerializeEmployee() {
+    public void testPersistEmployee() {
 
-        String fileName = getOutputFileName(BASEDIR, OUTPUT_FILE);
+        PersistenceContainer<Employee> container = new PersistenceContainerImpl<Employee>(Employee.class, BASEDIR);
 
         Employee employee = newEmployee("John", "Doe", "1.1.2000", "male", "salesperson", 2000.0f);
         Employee copy = null;
 
         try {
 
-            serializer.serialize(fileName, employee);
-            copy = (Employee) deserializer.deserialize(fileName);
+            ID id = container.store(employee);
 
-        } catch (IOException e) {
+            waitForEmptyCash();
+
+            copy = container.get(id);
+
+            container.shutdown();
+
+        } catch (PersistenceException e) {
+
+            fail(e.toString());
+
+        } catch (InvalidRootNodeException e) {
 
             fail(e.toString());
         }
 
         compareEmployees(employee, copy);
+    }
+
+    /**
+     * Creates a new person according to the specified parameters.
+     *
+     * @param aFirstName
+     * @param aLastName
+     * @param aBirthDate
+     * @param aGender
+     *
+     * @return a new person
+     */
+    private static Person newPerson(String aFirstName, String aLastName, String aBirthDate, String aGender) {
+
+        Person p = new Person();
+        p.setFirstName(aFirstName);
+        p.setLastName(aLastName);
+        p.setBirthDate(aBirthDate);
+        p.setGender(aGender);
+
+        return p;
     }
 
     /**
@@ -152,7 +198,7 @@ public class Scenario005SerializationTest extends SerializationTestBase {
     private static Employee newEmployee(String aFirstName, String aLastName, String aBirthDate, String aGender,
                                         String aJobTitle, float aSalary) {
 
-        Employee e = new EmployeeImpl();
+        Employee e = new Employee();
         e.setFirstName(aFirstName);
         e.setLastName(aLastName);
         e.setBirthDate(aBirthDate);
@@ -165,6 +211,20 @@ public class Scenario005SerializationTest extends SerializationTestBase {
 
     /**
      * Compares two persons via assertions.
+     *
+     * @param p1
+     * @param p2
+     */
+    private static void comparePersons(Person p1, Person p2) {
+
+        assertEquals("The persons' first names don't match!", p1.getFirstName(), p2.getFirstName());
+        assertEquals("The persons' last names don't match!", p1.getLastName(), p2.getLastName());
+        assertEquals("The persons' birthdates don't match!", p1.getBirthDate(), p2.getBirthDate());
+        assertEquals("The persons' genders don't match!", p1.getGender(), p2.getGender());
+    }
+
+    /**
+     * Compares two employees via assertions.
      *
      * @param e1
      * @param e2

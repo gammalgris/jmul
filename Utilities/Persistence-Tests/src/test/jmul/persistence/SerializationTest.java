@@ -64,6 +64,7 @@ import test.jmul.datatypes.legacy.person.PersonImpl5;
  *
  * @author Kristian Kutin
  */
+@Deprecated
 @ModuleTest
 public class SerializationTest extends SerializationTestBase {
 

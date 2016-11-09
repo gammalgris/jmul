@@ -25,53 +25,39 @@
 package test.jmul.persistence.scenarios;
 
 
-import java.io.IOException;
-
-import jmul.persistence.xml.XmlDeserializer;
-import jmul.persistence.xml.XmlSerializer;
+import jmul.persistence.InvalidRootNodeException;
+import jmul.persistence.PersistenceContainer;
+import jmul.persistence.PersistenceContainerImpl;
+import jmul.persistence.PersistenceException;
+import jmul.persistence.id.ID;
 
 import jmul.test.classification.ModuleTest;
 
 import org.junit.After;
 import org.junit.AfterClass;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.fail;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import test.jmul.datatypes.scenarios.interfaces.Person;
-import test.jmul.datatypes.scenarios.scenario004.PersonImpl;
-import test.jmul.persistence.SerializationTestBase;
+import test.jmul.datatypes.scenarios.scenario003.Person;
+import test.jmul.persistence.PersistenceTestBase;
 
 
 /**
- * This class contains tests to check the serialization and deserialization of objects.
+ * This class contains tests to check a persistence container.
  *
  * @author Kristian Kutin
  */
 @ModuleTest
-public class Scenario004SerializationTest extends SerializationTestBase {
+public class Scenario003PersistenceTest extends PersistenceTestBase {
 
     /**
      * A base directory for tests.
      */
-    private static final String BASEDIR = ".\\Test\\Serialization\\Scenario-004";
-
-    /**
-     * The file where the generated IDs are persisted.
-     */
-    private static final String OUTPUT_FILE = "output";
-
-    /**
-     * An XML serializer.
-     */
-    private XmlSerializer serializer;
-
-    /**
-     * An XML deserializer.
-     */
-    private XmlDeserializer deserializer;
+    private static final String BASEDIR = ".\\Test\\Persistence\\Scenario-003";
 
     /**
      * Preparations before this test suite.
@@ -96,8 +82,6 @@ public class Scenario004SerializationTest extends SerializationTestBase {
     @Before
     public void setUpTest() {
 
-        serializer = initXmlSerializer();
-        deserializer = initXmlDeserializer();
     }
 
     /**
@@ -106,8 +90,6 @@ public class Scenario004SerializationTest extends SerializationTestBase {
     @After
     public void tearDownTest() {
 
-        serializer = null;
-        deserializer = null;
     }
 
     /**
@@ -115,24 +97,35 @@ public class Scenario004SerializationTest extends SerializationTestBase {
      * class members).
      */
     @Test
-    public void testSerializePerson() {
+    public void testPersistPerson() {
 
-        String fileName = getOutputFileName(BASEDIR, OUTPUT_FILE);
+        PersistenceContainer<Person> container = new PersistenceContainerImpl<Person>(Person.class, BASEDIR);
 
         Person person = newPerson("John", "Doe", "1.1.2000", "male");
+        person.setDirtyFlag(true);
         Person copy = null;
 
         try {
 
-            serializer.serialize(fileName, person);
-            copy = (Person) deserializer.deserialize(fileName);
+            ID id = container.store(person);
 
-        } catch (IOException e) {
+            waitForEmptyCash();
+
+            copy = container.get(id);
+
+            container.shutdown();
+
+        } catch (PersistenceException e) {
+
+            fail(e.toString());
+
+        } catch (InvalidRootNodeException e) {
 
             fail(e.toString());
         }
 
         comparePersons(person, copy);
+        compareDirtyFlag(person, copy);
     }
 
     /**
@@ -147,7 +140,7 @@ public class Scenario004SerializationTest extends SerializationTestBase {
      */
     private static Person newPerson(String aFirstName, String aLastName, String aBirthDate, String aGender) {
 
-        Person p = new PersonImpl();
+        Person p = new Person();
         p.setFirstName(aFirstName);
         p.setLastName(aLastName);
         p.setBirthDate(aBirthDate);
@@ -168,6 +161,17 @@ public class Scenario004SerializationTest extends SerializationTestBase {
         assertEquals("The persons' last names don't match!", p1.getLastName(), p2.getLastName());
         assertEquals("The persons' birthdates don't match!", p1.getBirthDate(), p2.getBirthDate());
         assertEquals("The persons' genders don't match!", p1.getGender(), p2.getGender());
+    }
+
+    /**
+     * Compares the dirty flag via assertions.
+     *
+     * @param p1
+     * @param p2
+     */
+    private static void compareDirtyFlag(Person p1, Person p2) {
+
+        assertNotEquals(p1.isDirtyFlag(), p2.isDirtyFlag());
     }
 
 }

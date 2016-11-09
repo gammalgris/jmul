@@ -27,8 +27,6 @@ package test.jmul.persistence.scenarios;
 
 import java.io.IOException;
 
-import static jmul.math.Constants.EPSILON;
-
 import jmul.persistence.xml.XmlDeserializer;
 import jmul.persistence.xml.XmlSerializer;
 
@@ -42,8 +40,8 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import test.jmul.datatypes.scenarios.interfaces.Employee;
-import test.jmul.datatypes.scenarios.scenario005.EmployeeImpl;
+import test.jmul.datatypes.scenarios.interfaces.Person;
+import test.jmul.datatypes.scenarios.scenario010.PersonImpl;
 import test.jmul.persistence.SerializationTestBase;
 
 
@@ -53,12 +51,12 @@ import test.jmul.persistence.SerializationTestBase;
  * @author Kristian Kutin
  */
 @ModuleTest
-public class Scenario005SerializationTest extends SerializationTestBase {
+public class Scenario010SerializationTest extends SerializationTestBase {
 
     /**
      * A base directory for tests.
      */
-    private static final String BASEDIR = ".\\Test\\Serialization\\Scenario-005";
+    private static final String BASEDIR = ".\\Test\\Serialization\\Scenario-010";
 
     /**
      * The file where the generated IDs are persisted.
@@ -113,28 +111,28 @@ public class Scenario005SerializationTest extends SerializationTestBase {
     }
 
     /**
-     * Tests the serialization of an employee entity (i.e. the root node possesses several
+     * Tests the serialization of a person entity (i.e. the root node possesses several
      * class members).
      */
     @Test
-    public void testSerializeEmployee() {
+    public void testSerializePerson() {
 
         String fileName = getOutputFileName(BASEDIR, OUTPUT_FILE);
 
-        Employee employee = newEmployee("John", "Doe", "1.1.2000", "male", "salesperson", 2000.0f);
-        Employee copy = null;
+        Person person = newPerson("John", "Doe", "1.1.2000", "male");
+        Person copy = null;
 
         try {
 
-            serializer.serialize(fileName, employee);
-            copy = (Employee) deserializer.deserialize(fileName);
+            serializer.serialize(fileName, person);
+            copy = (Person) deserializer.deserialize(fileName);
 
         } catch (IOException e) {
 
             fail(e.toString());
         }
 
-        compareEmployees(employee, copy);
+        comparePersons(person, copy);
     }
 
     /**
@@ -144,39 +142,32 @@ public class Scenario005SerializationTest extends SerializationTestBase {
      * @param aLastName
      * @param aBirthDate
      * @param aGender
-     * @param aJobTitle
-     * @param aSalary
      *
      * @return a new person
      */
-    private static Employee newEmployee(String aFirstName, String aLastName, String aBirthDate, String aGender,
-                                        String aJobTitle, float aSalary) {
+    private static Person newPerson(String aFirstName, String aLastName, String aBirthDate, String aGender) {
 
-        Employee e = new EmployeeImpl();
-        e.setFirstName(aFirstName);
-        e.setLastName(aLastName);
-        e.setBirthDate(aBirthDate);
-        e.setGender(aGender);
-        e.setJobTitle(aJobTitle);
-        e.setSalary(aSalary);
+        Person p = new PersonImpl();
+        p.setFirstName(aFirstName);
+        p.setLastName(aLastName);
+        p.setBirthDate(aBirthDate);
+        p.setGender(aGender);
 
-        return e;
+        return p;
     }
 
     /**
      * Compares two persons via assertions.
      *
-     * @param e1
-     * @param e2
+     * @param p1
+     * @param p2
      */
-    private static void compareEmployees(Employee e1, Employee e2) {
+    private static void comparePersons(Person p1, Person p2) {
 
-        assertEquals("The employees' first names don't match!", e1.getFirstName(), e2.getFirstName());
-        assertEquals("The employees' last names don't match!", e1.getLastName(), e2.getLastName());
-        assertEquals("The employees' birthdates don't match!", e1.getBirthDate(), e2.getBirthDate());
-        assertEquals("The employees' genders don't match!", e1.getGender(), e2.getGender());
-        assertEquals("The employees' job titles don't match!", e1.getJobTitle(), e2.getJobTitle());
-        assertEquals("The employees' salaries don't match!", e1.getSalary(), e2.getSalary(), EPSILON);
+        assertEquals("The persons' first names don't match!", p1.getFirstName(), p2.getFirstName());
+        assertEquals("The persons' last names don't match!", p1.getLastName(), p2.getLastName());
+        assertEquals("The persons' birthdates don't match!", p1.getBirthDate(), p2.getBirthDate());
+        assertEquals("The persons' genders don't match!", p1.getGender(), p2.getGender());
     }
 
 }
