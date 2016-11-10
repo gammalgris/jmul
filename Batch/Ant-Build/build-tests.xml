@@ -70,8 +70,11 @@
 
     <target name="copyResources">
 
-        <!-- copy todir="${project.tmp.cfg.dir}">
-        </copy -->
+        <copy todir="${project.tmp.tests-cfg.dir}" overwrite="true">
+            <fileset dir="${package.persistence-tests.cfg.dir}">
+                <include name="**/*.properties" />
+            </fileset>
+        </copy>
 
     </target>
 
