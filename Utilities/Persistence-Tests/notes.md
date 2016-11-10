@@ -64,3 +64,48 @@ Example #3.2
 Example #4.1
 
 Example #4.2
+
+
+## Usage
+
+Below are listed the usage examples (see documentation for details)
+and the associated test scenarios.
+
+### Associated Test Scenarios
+
+#### Positive Tests
+
+Example #1
+  * scenario 001 to 015
+
+Example #2
+  * scenario 001 to 015
+
+Example #3
+
+Example #4
+
+Example #5
+  * scenario 001 to 015
+
+Example #6
+
+Example #7
+  * scenario 001 to 015
+
+
+#### Negative Tests
+
+Example #1
+
+Example #2
+
+Example #3
+
+Example #4
+
+Example #5
+
+Example #6
+
+Example #7
