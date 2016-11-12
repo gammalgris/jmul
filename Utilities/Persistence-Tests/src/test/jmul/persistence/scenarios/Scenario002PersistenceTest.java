@@ -107,7 +107,7 @@ public class Scenario002PersistenceTest extends PersistenceTestBase {
 
             ID id = container.store(person);
 
-            waitForEmptyCash();
+            waitForEmptyCache();
 
             copy = container.get(id);
 

@@ -29,6 +29,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.ResourceBundle;
 
+import static jmul.math.Constants.SECOND;
+
 import jmul.persistence.id.ID;
 
 
@@ -86,7 +88,7 @@ public class ExpirationMonitorImpl implements ExpirationMonitor {
         ResourceBundle bundle = ResourceBundle.getBundle(ExpirationMonitor.class.getName());
 
         sleepTime = Long.parseLong(bundle.getString(SLEEP_TIME));
-        expirationInterval = 1000L * 60L * Long.parseLong(bundle.getString(EXPIRATION_INTERVAL));
+        expirationInterval = SECOND * Long.parseLong(bundle.getString(EXPIRATION_INTERVAL));
 
         id = anID;
 

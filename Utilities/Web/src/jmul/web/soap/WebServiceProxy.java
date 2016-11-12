@@ -173,22 +173,6 @@ public class WebServiceProxy {
     }
 
     /**
-     * Die Methode untersucht die Service-Klasse und ermittelt eine Methode
-     * um eine Proxy-Klasse des Web-Service zu erhalten.
-     *
-     * Hinweis: Der Name der Methode kann variieren. Jedoch sollte immer der
-     * Pr�fix 'get' vorhanden sein. Optional existiert ein Suffix 'Port'.
-     * Weiterhin muss es eine parameterlose Variante der Methode geben.
-     * Idealerweise gibt es nur eine getPort-Methode. Mehrdeutigkeiten k�nnen
-     * nicht ohne weitere Informationen aufgel�st werden.
-     *
-     * @param c
-     *        die Service Klasse
-     *
-     * @return die getProxy-Methode der Service Klasse
-     */
-
-    /**
      * Scans a service class and returns a specific getter method.
      *
      * @param anOutputDirectory

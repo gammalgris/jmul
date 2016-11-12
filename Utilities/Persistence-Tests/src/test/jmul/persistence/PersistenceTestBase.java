@@ -82,9 +82,9 @@ public class PersistenceTestBase extends TestBase {
     }
 
     /**
-     * Pauses the current thread until the cash is cleaned.
+     * Pauses the current thread until the cache is cleaned.
      */
-    protected static void waitForEmptyCash() {
+    protected static void waitForEmptyCache() {
 
         long sleepTime = getExpirationInterval() + getSleepTime() + SECOND * 2;
 

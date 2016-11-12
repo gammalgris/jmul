@@ -48,7 +48,8 @@ import test.jmul.datatypes.scenarios.scenario001.Person;
 
 
 /**
- * This class contains tests to check a persistence container.
+ * This class contains tests to check the correct behaviour of a
+ * persistence container.
  *
  * @author Kristian Kutin
  */
@@ -108,7 +109,7 @@ public class MultipleContainerShutdownTest extends PersistenceTestBase {
 
             ID id = container1.store(person);
 
-            waitForEmptyCash();
+            waitForEmptyCache();
 
             personCopy = container1.get(id);
 
@@ -135,7 +136,7 @@ public class MultipleContainerShutdownTest extends PersistenceTestBase {
 
             ID id = container2.store(employee);
 
-            waitForEmptyCash();
+            waitForEmptyCache();
 
             employeeCopy = container2.get(id);
 
@@ -175,7 +176,7 @@ public class MultipleContainerShutdownTest extends PersistenceTestBase {
 
             ID id1 = container1.store(person);
 
-            waitForEmptyCash();
+            waitForEmptyCache();
 
             ID id2 = container2.store(employee);
 
@@ -183,7 +184,7 @@ public class MultipleContainerShutdownTest extends PersistenceTestBase {
 
             container1.shutdown();
 
-            waitForEmptyCash();
+            waitForEmptyCache();
 
             employeeCopy = container2.get(id2);
 
