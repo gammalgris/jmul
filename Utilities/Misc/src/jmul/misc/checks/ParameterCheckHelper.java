@@ -354,9 +354,9 @@ public final class ParameterCheckHelper {
     /**
      * Checks the specified parameter.
      *
-     * @param aString
+     * @param aRegex
      *
-     * @return the specified string
+     * @return the specified regular expression
      *
      * @throws IllegalArgumentException
      *         is thrown if the specified parameter is invalid

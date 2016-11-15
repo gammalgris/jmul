@@ -17,6 +17,7 @@ Example #1.1
 Example #1.2
   * scenario 004
   * scenario 005
+  * scenario 021 (interface misses setter methods)
 
 Example #1.3
   * scenario 010

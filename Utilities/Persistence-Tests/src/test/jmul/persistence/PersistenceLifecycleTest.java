@@ -208,7 +208,6 @@ public class PersistenceLifecycleTest extends PersistenceTestBase {
         }
 
         container.shutdown();
-        System.out.println("DEBUG:: shutdown done");
     }
 
     /**

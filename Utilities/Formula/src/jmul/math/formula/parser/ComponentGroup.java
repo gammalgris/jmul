@@ -99,7 +99,7 @@ public class ComponentGroup {
     /**
      * The method returns the operator which is the basis for this group.
      *
-     * @return
+     * @return an operator
      */
     public Operator getOperator() {
 

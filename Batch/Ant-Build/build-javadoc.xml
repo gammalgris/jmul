@@ -13,7 +13,7 @@
 
     <target name="build">
 
-        <javadoc sourcepath="${project.tmp.src.dir}" destdir="${project.tmp.javadoc.dir}" access="public">
+        <javadoc sourcepath="${project.tmp.src.dir}" destdir="${project.tmp.javadoc.dir}" access="public"  classpathref="jmul.build.classpath">
             <doctitle>${project.name}</doctitle>
             <header>${status.line}</header>
             <footer>${status.line}</footer>

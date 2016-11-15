@@ -36,6 +36,7 @@
     <path id="jmul.execution.classpath">
       <pathelement location="${project.tmp.cfg.dir}" />
       <pathelement location="${project.tmp.build.dir}" />
+      <pathelement location="${project.lib.commons-lang.file}" />
     </path>
 
     <pathconvert property="jmul.execution.classpath.string" refid="jmul.execution.classpath" pathsep="${line.separator}" />

@@ -137,7 +137,7 @@ public enum PersistenceMarkups implements XmlMarkup {
     /**
      * Checks if the specified xml markup this markup.
      *
-     * @param aName
+     * @param anXmlMarkup
      *
      * @return <code>true</code> if the specified xml markup matches this
      *         markup, else <code>false</code>

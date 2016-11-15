@@ -177,7 +177,7 @@ public class WebServiceProxy {
      *
      * @param anOutputDirectory
      *
-     * @return
+     * @return a getter method
      */
     private static Method getGetPortMethod(Class aServiceClass) {
 

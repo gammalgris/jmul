@@ -25,8 +25,6 @@
 package test.jmul.persistence.scenarios;
 
 
-import java.util.Collection;
-
 import jmul.persistence.InvalidRootNodeException;
 import jmul.persistence.PersistenceContainer;
 import jmul.persistence.PersistenceContainerImpl;
@@ -35,33 +33,31 @@ import jmul.persistence.id.ID;
 
 import jmul.test.classification.ModuleTest;
 
-import jmul.xml.query.XPathQuery;
-
 import org.junit.After;
 import org.junit.AfterClass;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import test.jmul.datatypes.scenarios.scenario001.Person;
+import test.jmul.datatypes.scenarios.interfaces.PersonRO;
+import test.jmul.datatypes.scenarios.scenario021.PersonImpl;
 import test.jmul.persistence.PersistenceTestBase;
 
 
 /**
- * This class contains tests to check the serialization of objects.
+ * This class contains tests to check a persistence container.
  *
  * @author Kristian Kutin
  */
 @ModuleTest
-public class Scenario020PersistenceTest extends PersistenceTestBase {
+public class Scenario021PersistenceTest extends PersistenceTestBase {
 
     /**
      * A base directory for tests.
      */
-    private static final String BASEDIR = ".\\Test\\Serialization\\Scenario-020";
+    private static final String BASEDIR = ".\\Test\\Persistence\\Scenario-021";
 
     /**
      * Preparations before this test suite.
@@ -97,65 +93,37 @@ public class Scenario020PersistenceTest extends PersistenceTestBase {
     }
 
     /**
-     * Tests querying an object.
+     * Tests the serialization of a person entity (i.e. the root node possesses several
+     * class members).
      */
     @Test
-    public void testQueryObject() {
+    public void testPersistPerson() {
 
-        PersistenceContainer<Person> container = new PersistenceContainerImpl<Person>(Person.class, BASEDIR);
+        PersistenceContainer<PersonRO> container = new PersistenceContainerImpl<PersonRO>(PersonRO.class, BASEDIR);
 
-        Person person = newPerson("John", "Doe", "1.1.2000", "male");
-        Person personCopy = null;
-        ID id = null;
-
-        try {
-
-            id = container.store(person);
-            personCopy = container.get(id);
-            comparePersons(person, personCopy);
-
-        } catch (PersistenceException e) {
-
-            fail(e.getMessage());
-
-        } catch (InvalidRootNodeException e) {
-
-            fail(e.getMessage());
-        }
-
-
-        person = newPerson("James", "Doe", "1.1.2000", "male");
-        personCopy = null;
-        id = null;
+        PersonRO person = newPerson("John", "Doe", "1.1.2000", "male");
+        PersonRO copy = null;
 
         try {
 
-            id = container.store(person);
-            personCopy = container.get(id);
-            comparePersons(person, personCopy);
+            ID id = container.store(person);
+
+            waitForEmptyCache();
+
+            copy = container.get(id);
+
+            container.shutdown();
 
         } catch (PersistenceException e) {
 
-            fail(e.getMessage());
+            fail(e.toString());
 
         } catch (InvalidRootNodeException e) {
 
-            fail(e.getMessage());
+            fail(e.toString());
         }
 
-
-        waitForEmptyCache();
-
-
-        String xpathExpression = "//object/@value";
-        String expectedValue = "James";
-        XPathQuery query = new XPathQuery(xpathExpression, expectedValue);
-
-        Collection<ID> results = container.findByXpathExpression(query);
-
-        checkResult(results, id);
-
-        container.shutdown();
+        comparePersons(person, copy);
     }
 
     /**
@@ -168,9 +136,9 @@ public class Scenario020PersistenceTest extends PersistenceTestBase {
      *
      * @return a new person
      */
-    private static Person newPerson(String aFirstName, String aLastName, String aBirthDate, String aGender) {
+    private static PersonRO newPerson(String aFirstName, String aLastName, String aBirthDate, String aGender) {
 
-        Person p = new Person();
+        PersonImpl p = new PersonImpl();
         p.setFirstName(aFirstName);
         p.setLastName(aLastName);
         p.setBirthDate(aBirthDate);
@@ -185,25 +153,12 @@ public class Scenario020PersistenceTest extends PersistenceTestBase {
      * @param p1
      * @param p2
      */
-    private static void comparePersons(Person p1, Person p2) {
+    private static void comparePersons(PersonRO p1, PersonRO p2) {
 
         assertEquals("The persons' first names don't match!", p1.getFirstName(), p2.getFirstName());
         assertEquals("The persons' last names don't match!", p1.getLastName(), p2.getLastName());
         assertEquals("The persons' birthdates don't match!", p1.getBirthDate(), p2.getBirthDate());
         assertEquals("The persons' genders don't match!", p1.getGender(), p2.getGender());
-    }
-
-    /**
-     * Checks if the specified result collection contains the specified target ID.
-     *
-     * @param allResults
-     * @param targetID
-     */
-    private static void checkResult(Collection<ID> allResults, ID targetID) {
-
-        assertTrue("No result collection was specified (null)!", allResults != null);
-        assertEquals("The query didn't return the expected results!", allResults.size(), 1);
-        assertTrue("The result collection doesn't contain the expected target ID", allResults.contains(targetID));
     }
 
 }

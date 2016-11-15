@@ -247,8 +247,9 @@ public class MeasurementSystemImpl implements MeasurementSystem {
     }
 
     /**
-     * The overridden toString-method.
-     * @return
+     * Returns a string representation for this object.
+     * 
+     * @return a string representation
      */
     @Override
     public String toString() {
