@@ -37,8 +37,8 @@ import org.xml.sax.SAXException;
  * This interface describes an entity that reads an XML-Document and parses its
  * content. The parsed XML-Document is returned as a Document object.<br>
  * <br>
- * For further informations about the document structure see the javadoc for
- * org.w3c.dom.Document.
+ * For further informations about the document structure see
+ * <a href="https://docs.oracle.com/javase/7/docs/api/org/w3c/dom/Document.html">org.w3c.dom.Document</a>.
  *
  * @author Kristian Kutin
  */

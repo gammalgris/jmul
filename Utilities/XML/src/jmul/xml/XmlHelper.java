@@ -116,6 +116,46 @@ public final class XmlHelper {
     }
 
     /**
+     * Creates an xml attribute according to the specified parameters and adds it
+     * to the specified xml element.
+     *
+     * @param aDocument
+     * @param anElement
+     * @param anAttributeName
+     * @param anAttributeValue
+     *
+     * @return an xml attribute
+     */
+    public static Attr createXmlAttribute(Document aDocument, Element anElement, String anAttributeName,
+                                          String anAttributeValue) {
+
+        Attr attribute = createXmlAttribute(aDocument, anAttributeName, anAttributeValue);
+        anElement.setAttributeNode(attribute);
+
+        return attribute;
+    }
+
+    /**
+     * Creates an xml attribute according to the specified parameters and adds it
+     * to the specified xml element.
+     *
+     * @param aDocument
+     * @param anElement
+     * @param anAttribute
+     * @param anAttributeValue
+     *
+     * @return an xml attribute
+     */
+    public static Attr createXmlAttribute(Document aDocument, Element anElement, XmlMarkup anAttribute,
+                                          String anAttributeValue) {
+
+        Attr attribute = createXmlAttribute(aDocument, anAttribute, anAttributeValue);
+        anElement.setAttributeNode(attribute);
+
+        return attribute;
+    }
+
+    /**
      * Creates an xml element.
      *
      * @param aDocument

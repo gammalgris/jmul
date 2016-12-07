@@ -30,16 +30,14 @@ import java.io.File;
 import java.io.IOException;
 
 import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
+
+import jmul.io.JarResources;
+
+import jmul.misc.markers.Inefficient;
 
 import org.w3c.dom.Document;
 
 import org.xml.sax.SAXException;
-
-import jmul.io.JarResources;
-
-import jmul.string.StringConcatenator;
 
 
 /**
@@ -54,12 +52,7 @@ import jmul.string.StringConcatenator;
  *
  * @author Kristian Kutin
  */
-public class XmlDocumentReaderImpl implements XmlDocumentReader {
-
-    /**
-     * A document builder factory.
-     */
-    private DocumentBuilderFactory factory;
+public class XmlDocumentReaderImpl extends XmlDocumentReaderBase {
 
     /**
      * The constructor requires a reference on a ResourceManager to access
@@ -67,30 +60,7 @@ public class XmlDocumentReaderImpl implements XmlDocumentReader {
      */
     public XmlDocumentReaderImpl() {
 
-        factory = DocumentBuilderFactory.newInstance();
-    }
-
-    /**
-     * Returns a new instance of a document builder.
-     *
-     * @return a document builder
-     */
-    private DocumentBuilder newDocumentBuilder() {
-
-        DocumentBuilder builder = null;
-
-        try {
-
-            builder = factory.newDocumentBuilder();
-
-        } catch (ParserConfigurationException e) {
-
-            StringConcatenator message =
-                new StringConcatenator("Couldn't instantiate ", this.getClass().getName(), "!");
-            throw new ReaderException(message.toString(), e);
-        }
-
-        return builder;
+        super();
     }
 
     /**
@@ -119,16 +89,16 @@ public class XmlDocumentReaderImpl implements XmlDocumentReader {
      * into a Document object.
      *
      * @param aFile
-     * the XML file
+     *        the XML file
      *
      * @return a Document object
      *
      * @throws SAXException
-     * This exception can be thrown if the xml file is malformed
+     *         This exception can be thrown if the xml file is malformed
      * @throws IOException
-     * This exception can be thrown if IO operations fail
+     *         This exception can be thrown if IO operations fail
      * @throws jmul.xml.reader.EmptyFileException
-     * This  exception is thrown if the specified file is empty
+     *         This  exception is thrown if the specified file is empty
      */
     @Override
     public Document parseDocument(File aFile) throws SAXException, IOException {
@@ -159,6 +129,7 @@ public class XmlDocumentReaderImpl implements XmlDocumentReader {
      * @throws IOException
      *         This exception can be thrown if IO operations fail
      */
+    @Inefficient
     @Override
     public Document parseArchivedDocument(String archiveName, String filename) throws SAXException, IOException {
 
