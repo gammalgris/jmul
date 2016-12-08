@@ -28,10 +28,9 @@ package jmul.persistence.transformation.rules.xml2object;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 
-import jmul.persistence.transformation.cache.Xml2ObjectCache;
-
 import jmul.persistence.id.ID;
 import jmul.persistence.id.IntegerID;
+import jmul.persistence.transformation.cache.Xml2ObjectCache;
 import static jmul.persistence.transformation.rules.PersistenceMarkups.ID_ATTRIBUTE;
 import static jmul.persistence.transformation.rules.PersistenceMarkups.OBJECT_ELEMENT;
 import static jmul.persistence.transformation.rules.PersistenceMarkups.TYPE_ATTRIBUTE;
@@ -184,9 +183,7 @@ public class Xml2IDRule extends TransformationRuleBase {
 
         } catch (NoSuchMethodException e) {
 
-            StringConcatenator message =
-                new StringConcatenator("Cannot instantiate an ID (", type, " // \"", valueString, "\")!");
-            throw new TransformationException(message.toString(), e);
+            throw createCannotInstantiateIdException(e, type, valueString);
         }
 
 
@@ -201,27 +198,52 @@ public class Xml2IDRule extends TransformationRuleBase {
 
         } catch (InstantiationException e) {
 
-            StringConcatenator message =
-                new StringConcatenator("Cannot instantiate an ID (", type, " // \"", valueString, "\")!");
-            throw new TransformationException(message.toString(), e);
+            throw createCannotInstantiateIdException(e, type, valueString);
 
         } catch (IllegalAccessException e) {
 
-            StringConcatenator message =
-                new StringConcatenator("Cannot instantiate an ID (", type, " // \"", valueString, "\")!");
-            throw new TransformationException(message.toString(), e);
+            throw createCannotInstantiateIdException(e, type, valueString);
 
         } catch (InvocationTargetException e) {
 
-            StringConcatenator message =
-                new StringConcatenator("Cannot instantiate an ID (", type, " // \"", valueString, "\")!");
-            throw new TransformationException(message.toString(), e);
+            throw createCannotInstantiateIdException(e, type, valueString);
         }
 
 
         objectCache.addObject(id, object, type.getType());
 
         return object;
+    }
+
+    /**
+     * Creates an exception according to the specified parameters.
+     *
+     * @param aCause
+     * @param aType
+     * @param aValue
+     *
+     * @return an exception
+     */
+    private static TransformationException createCannotInstantiateIdException(Throwable aCause, ClassDefinition aType,
+                                                                              String aValue) {
+
+        return new TransformationException(createErrorMessage(aType, aValue), aCause);
+    }
+
+    /**
+     * Creates an error message according to the specified parameters.
+     *
+     * @param aType
+     * @param aValue
+     *
+     * @return an error message
+     */
+    private static String createErrorMessage(ClassDefinition aType, String aValue) {
+
+        StringConcatenator message =
+            new StringConcatenator("Cannot instantiate an ID (", aType, " // \"", aValue, "\")!");
+
+        return message.toString();
     }
 
 }

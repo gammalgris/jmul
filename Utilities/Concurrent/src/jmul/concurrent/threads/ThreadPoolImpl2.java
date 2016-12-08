@@ -58,7 +58,7 @@ public class ThreadPoolImpl2 implements ThreadPool {
      * If a new worker thread is started this ID will be assigned to it. After assignment this member's value will
      * be increased by 1.
      */
-    private static int NEXT_WORKER_THREAD_ID = 1;
+    private static int nextWorkerThreadId = 1;
 
     /**
      * A property key.
@@ -152,7 +152,7 @@ public class ThreadPoolImpl2 implements ThreadPool {
 
             } else if (delta > 0) {
 
-                String digits = String.valueOf(MathHelper.max(NEXT_WORKER_THREAD_ID, activeThreads, delta));
+                String digits = String.valueOf(MathHelper.max(nextWorkerThreadId, activeThreads, delta));
                 String patternString = digits.replaceAll(".", "0");
                 DecimalFormat pattern = new DecimalFormat(patternString);
 
@@ -182,8 +182,8 @@ public class ThreadPoolImpl2 implements ThreadPool {
      */
     private static int getNextWorkerThreadID() {
 
-        int newID = NEXT_WORKER_THREAD_ID;
-        NEXT_WORKER_THREAD_ID++;
+        int newID = nextWorkerThreadId;
+        nextWorkerThreadId++;
 
         return newID;
     }

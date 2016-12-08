@@ -67,7 +67,7 @@ public final class CheckIP {
      * @throws UnknownHostException
      * @throws IOException
      */
-    public static boolean checkIP(String aHostName) throws UnknownHostException, IOException {
+    public static boolean checkIP(String aHostName) throws IOException {
 
         return checkIP(aHostName, DEFAULT_TIMEOUT);
     }
@@ -84,7 +84,7 @@ public final class CheckIP {
      * @throws UnknownHostException
      * @throws IOException
      */
-    public static boolean checkIP(String aHostName, int aTimeout) throws UnknownHostException, IOException {
+    public static boolean checkIP(String aHostName, int aTimeout) throws IOException {
 
         checkParameter(aHostName);
 

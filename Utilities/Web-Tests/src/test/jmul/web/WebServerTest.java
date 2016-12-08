@@ -26,8 +26,8 @@ package test.jmul.web;
 
 import jmul.test.classification.ManualTest;
 
+import jmul.web.StaticContentWebServer;
 import jmul.web.WebServer;
-import jmul.web.WebServerImpl;
 
 
 /**
@@ -46,7 +46,7 @@ public class WebServerTest {
      */
     public static void main(String[] args) {
 
-        WebServer webServer = new WebServerImpl(WebServer.class.getName());
+        WebServer webServer = new StaticContentWebServer(WebServer.class.getName());
         webServer.startServer();
     }
 

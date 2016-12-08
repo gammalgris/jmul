@@ -49,7 +49,7 @@ public class ObjectCacheImpl<T> implements ExpirationListener, ObjectCache<T> {
      * If a new expiration monitor is started this ID will be assigned to it. After assignment this member's value
      * will be increased by 1.
      */
-    private static int NEXT_EXPIRATION_MONITOR_ID = 1;
+    private static int nextExpirationMonitorId = 1;
 
     /**
      * References to all monitors in case the cache needs to be cleaned.
@@ -168,7 +168,7 @@ public class ObjectCacheImpl<T> implements ExpirationListener, ObjectCache<T> {
                 monitor.addExpirationListener(this);
                 monitors.put(anID, monitor);
 
-                String digits = String.valueOf(NEXT_EXPIRATION_MONITOR_ID);
+                String digits = String.valueOf(nextExpirationMonitorId);
                 String patternString = digits.replaceAll(".", "0");
                 DecimalFormat pattern = new DecimalFormat(patternString);
 
@@ -197,8 +197,8 @@ public class ObjectCacheImpl<T> implements ExpirationListener, ObjectCache<T> {
      */
     private static int getNextExpirationMonitorID() {
 
-        int newID = NEXT_EXPIRATION_MONITOR_ID;
-        NEXT_EXPIRATION_MONITOR_ID++;
+        int newID = nextExpirationMonitorId;
+        nextExpirationMonitorId++;
 
         return newID;
     }

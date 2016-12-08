@@ -273,7 +273,7 @@ public class TokenParserImpl implements TokenParser {
      *
      * @return true, if the string may contain more tokens, else false
      */
-    private boolean hasNext(String aString) {
+    private static boolean hasNext(String aString) {
 
         return aString.length() > 0;
     }
@@ -543,6 +543,7 @@ public class TokenParserImpl implements TokenParser {
 
             // As this is the first token it doesn't meet the
             // criteria.
+
 
 
 

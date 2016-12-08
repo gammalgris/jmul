@@ -43,42 +43,42 @@ public enum WebServerState implements State {
     /**
      * The web server instance is uninitialized.
      */
-    UNINITIALIZED("uninitialized", "initialization"),
+    UNINITIALIZED(Constants.UNINITIALIZED_STRING, Constants.INITIALIZATION_STRING),
 
     /**
      * The web server instance is being initialized.
      */
-    INITIALIZATION("initialization", "initialized", "error"),
+    INITIALIZATION(Constants.INITIALIZATION_STRING, Constants.INITIALIZED_STRING, Constants.ERROR_STRING),
 
     /**
      * The initialization of the web server instacne is finished.
      */
-    INITIALIZED("initialized", "starting"),
+    INITIALIZED(Constants.INITIALIZED_STRING, Constants.STARTING_STRING),
 
     /**
      * The web server instance is being started.
      */
-    STARTING("starting", "running", "error"),
+    STARTING(Constants.STARTING_STRING, Constants.RUNNING_STRING, Constants.ERROR_STRING),
 
     /**
      * The web server instance is up and running.
      */
-    RUNNING("running", "stopping", "error"),
+    RUNNING(Constants.RUNNING_STRING, Constants.STOPPING_STRING, Constants.ERROR_STRING),
 
     /**
      * The web server insatnce is being shut down.
      */
-    STOPPING("stopping", "stopped", "error"),
+    STOPPING(Constants.STOPPING_STRING, Constants.STOPPED_STRING, Constants.ERROR_STRING),
 
     /**
      * The web server instance is stopped.
      */
-    STOPPED("stopped"),
+    STOPPED(Constants.STOPPED_STRING),
 
     /**
      * An unrecoverable error occurred.
      */
-    ERROR("error"), ;
+    ERROR(Constants.ERROR_STRING), ;
 
 
     /**
@@ -234,5 +234,22 @@ public enum WebServerState implements State {
 
         throw StateHelper.newUnknownStateException(aStateName);
     }
+
+}
+
+
+/**
+ * This utility class contains specific string constants.
+ */
+final class Constants {
+
+    static final String UNINITIALIZED_STRING = "uninitialized";
+    static final String INITIALIZATION_STRING = "initialization";
+    static final String INITIALIZED_STRING = "initialized";
+    static final String STARTING_STRING = "starting";
+    static final String RUNNING_STRING = "running";
+    static final String STOPPING_STRING = "stopping";
+    static final String STOPPED_STRING = "stopped";
+    static final String ERROR_STRING = "error";
 
 }

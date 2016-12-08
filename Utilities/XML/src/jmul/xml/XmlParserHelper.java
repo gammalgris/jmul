@@ -227,13 +227,7 @@ public final class XmlParserHelper {
 
         if (!hasXmlSubelements(subelements)) {
 
-            StringBuffer message = new StringBuffer();
-
-            message.append("The element \"");
-            message.append(subelements.getParentName());
-            message.append("\" has no subelements!");
-
-            throw new ParsingException(message);
+            throw createNoSubelementsException(subelements.getParentName());
         }
     }
 
@@ -259,13 +253,7 @@ public final class XmlParserHelper {
 
         if (!hasXmlSubelements(subelements)) {
 
-            StringBuffer message = new StringBuffer();
-
-            message.append("The element \"");
-            message.append(subelements.getParentName());
-            message.append("\" has no subelements!");
-
-            throw new ParsingException(message);
+            throw createNoSubelementsException(subelements.getParentName());
         }
     }
 
@@ -296,16 +284,46 @@ public final class XmlParserHelper {
 
         if (!hasXmlSubelements(subelements, markup)) {
 
-            StringBuffer message = new StringBuffer();
-
-            message.append("The element \"");
-            message.append(subelements.getParentName());
-            message.append("\" has no subelements of the type \"");
-            message.append(markup);
-            message.append("\"!");
-
-            throw new ParsingException(message);
+            throw createNoSpecificSubelementsException(subelements.getParentName(), markup);
         }
+    }
+
+    /**
+     * Creates a new exception according to the specified parameters.
+     *
+     * @param anElementName
+     *
+     * @return an exception
+     */
+    private static ParsingException createNoSubelementsException(String anElementName) {
+
+        StringBuffer message = new StringBuffer();
+
+        message.append("The element \"");
+        message.append(anElementName);
+        message.append("\" has no subelements!");
+
+        return new ParsingException(message);
+    }
+
+    /**
+     * Creates a new exception according to the specified parameters.
+     *
+     * @param anElementName
+     *
+     * @return an exception
+     */
+    private static ParsingException createNoSpecificSubelementsException(String anElementName, XmlMarkup markup) {
+
+        StringBuffer message = new StringBuffer();
+
+        message.append("The element \"");
+        message.append(anElementName);
+        message.append("\" has no subelements of the type \"");
+        message.append(markup);
+        message.append("\"!");
+
+        return new ParsingException(message);
     }
 
 }

@@ -83,7 +83,7 @@ public class DiceOperator extends BinaryOperatorBase implements Operator {
      *
      * @return the sum of all dice rolls
      */
-    private int rollDice(int dice, int sides) {
+    private static int rollDice(int dice, int sides) {
 
         if (dice < 1) {
 
@@ -110,7 +110,7 @@ public class DiceOperator extends BinaryOperatorBase implements Operator {
      *
      * @return the result of the roll
      */
-    private int rollDie(int sides) {
+    private static int rollDie(int sides) {
 
         if (sides < 2) {
 

@@ -118,7 +118,7 @@ public class Initializer {
      *         This exception is thrown if the initialization couldn't be
      *         finished
      */
-    public Object newInitializedInstance() throws InitializerException {
+    public Object newInitializedInstance() {
 
         StringConcatenator errorMessage =
             new StringConcatenator("Unable to create a new instance of the class ", classDefinition,

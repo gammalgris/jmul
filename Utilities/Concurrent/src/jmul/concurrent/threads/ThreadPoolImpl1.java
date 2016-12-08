@@ -39,7 +39,10 @@ import java.util.ResourceBundle;
  * situation regularly.</i>
  *
  * @author Kristian Kutin
+ * 
+ * @deprecated
  */
+@Deprecated
 public class ThreadPoolImpl1 implements ThreadPool, ThreadListener {
 
     /**

@@ -27,6 +27,8 @@ package jmul.measures.definitions.reader;
 
 import jmul.xml.XmlMarkup;
 import jmul.xml.XmlMarkupType;
+import static jmul.xml.XmlMarkupType.XML_ATTRIBUTE;
+import static jmul.xml.XmlMarkupType.XML_ELEMENT;
 
 
 /**
@@ -38,13 +40,13 @@ import jmul.xml.XmlMarkupType;
 public enum DefinitionMarkups implements XmlMarkup {
 
 
-    CategoryAttribute("category", XmlMarkupType.XmlAttribute),
-    NameAttribute("name", XmlMarkupType.XmlAttribute),
-    NormalizedValueAttribute("normalized-value", XmlMarkupType.XmlAttribute),
-    AbbreviationAttribute("abbreviation", XmlMarkupType.XmlAttribute),
+    CATEGORY_ATTRIBUTE("category", XML_ATTRIBUTE),
+    NAME_ATTRIBUTE("name", XML_ATTRIBUTE),
+    NORMALIZED_VALUE_ATTRIBUTE("normalized-value", XML_ATTRIBUTE),
+    ABBREVIATION_ATTRIBUTE("abbreviation", XML_ATTRIBUTE),
 
-    DefinitionElement("definition", XmlMarkupType.XmlElement),
-    UnitElement("unit", XmlMarkupType.XmlElement);
+    DEFINITION_ELEMENT("definition", XML_ELEMENT),
+    UNIT_ELEMENT("unit", XML_ELEMENT);
 
 
     /**
@@ -93,7 +95,7 @@ public enum DefinitionMarkups implements XmlMarkup {
     @Override
     public boolean isXmlElement() {
 
-        return XmlMarkupType.XmlElement.equals(type);
+        return XML_ELEMENT.equals(type);
     }
 
     /**
@@ -105,7 +107,7 @@ public enum DefinitionMarkups implements XmlMarkup {
     @Override
     public boolean isXmlAttribute() {
 
-        return XmlMarkupType.XmlAttribute.equals(type);
+        return XML_ATTRIBUTE.equals(type);
     }
 
     /**

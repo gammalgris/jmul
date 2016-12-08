@@ -37,14 +37,14 @@ import jmul.string.StringConcatenator;
 import jmul.transformation.TransformationException;
 import jmul.transformation.TransformationResources;
 import jmul.transformation.TransformationRule;
-import static jmul.transformation.configuration.ConfigurationMarkups.ClassnameAttribute;
-import static jmul.transformation.configuration.ConfigurationMarkups.ClasspathAttribute;
-import static jmul.transformation.configuration.ConfigurationMarkups.DestinationAttribute;
-import static jmul.transformation.configuration.ConfigurationMarkups.ImplementationElement;
-import static jmul.transformation.configuration.ConfigurationMarkups.OriginAttribute;
-import static jmul.transformation.configuration.ConfigurationMarkups.PriorityAttribute;
-import static jmul.transformation.configuration.ConfigurationMarkups.RuleElement;
-import static jmul.transformation.configuration.ConfigurationMarkups.TransformationPathElement;
+import static jmul.transformation.configuration.ConfigurationMarkups.CLASSNAME_ATTRIBUTE;
+import static jmul.transformation.configuration.ConfigurationMarkups.CLASSPATH_ATTRIBUTE;
+import static jmul.transformation.configuration.ConfigurationMarkups.DESTINATION_ATTRIBUTE;
+import static jmul.transformation.configuration.ConfigurationMarkups.IMPLEMENTATION_ELEMENT;
+import static jmul.transformation.configuration.ConfigurationMarkups.ORIGIN_ATTRIBUTE;
+import static jmul.transformation.configuration.ConfigurationMarkups.PRIORITY_ATTRIBUTE;
+import static jmul.transformation.configuration.ConfigurationMarkups.RULE_ELEMENT;
+import static jmul.transformation.configuration.ConfigurationMarkups.TRANSFORMATION_PATH_ELEMENT;
 
 import jmul.xml.ParsingException;
 import jmul.xml.SubelementMap;
@@ -264,10 +264,10 @@ public class ConfigurationReaderImpl implements ConfigurationReader {
          */
         private ConfigurationData(Node aRootNode) {
 
-            assertMatchesXmlElement(aRootNode, RuleElement);
+            assertMatchesXmlElement(aRootNode, RULE_ELEMENT);
 
 
-            Node priorityAttribute = getXmlAttribute(aRootNode, PriorityAttribute);
+            Node priorityAttribute = getXmlAttribute(aRootNode, PRIORITY_ATTRIBUTE);
             priority = Integer.parseInt(priorityAttribute.getTextContent());
 
 
@@ -275,18 +275,18 @@ public class ConfigurationReaderImpl implements ConfigurationReader {
             assertHasXmlSubelements(subelements);
 
 
-            Node transformationPathElement = subelements.getSubelement(TransformationPathElement);
+            Node transformationPathElement = subelements.getSubelement(TRANSFORMATION_PATH_ELEMENT);
 
-            Node originAttribute = getXmlAttribute(transformationPathElement, OriginAttribute);
+            Node originAttribute = getXmlAttribute(transformationPathElement, ORIGIN_ATTRIBUTE);
             origin = originAttribute.getTextContent();
 
-            Node destinationAttribute = getXmlAttribute(transformationPathElement, DestinationAttribute);
+            Node destinationAttribute = getXmlAttribute(transformationPathElement, DESTINATION_ATTRIBUTE);
             destination = destinationAttribute.getTextContent();
 
 
-            Node implementationElement = subelements.getSubelement(ImplementationElement);
+            Node implementationElement = subelements.getSubelement(IMPLEMENTATION_ELEMENT);
 
-            Node classnameAttribute = getXmlAttribute(implementationElement, ClassnameAttribute);
+            Node classnameAttribute = getXmlAttribute(implementationElement, CLASSNAME_ATTRIBUTE);
             classname = classnameAttribute.getTextContent();
 
 
@@ -294,7 +294,7 @@ public class ConfigurationReaderImpl implements ConfigurationReader {
 
             try {
 
-                Node classpathAttribute = getXmlAttribute(implementationElement, ClasspathAttribute);
+                Node classpathAttribute = getXmlAttribute(implementationElement, CLASSPATH_ATTRIBUTE);
                 tmpClasspath = classpathAttribute.getTextContent();
 
             } catch (ParsingException e) {

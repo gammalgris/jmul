@@ -53,6 +53,7 @@
     <target name="initTmp">
 
         <delete dir="${project.tmp.dir}" />
+        <sleep seconds="5" />
         <mkdir dir="${project.tmp.dir}" />
 
         <mkdir dir="${project.tmp.src.dir}" />

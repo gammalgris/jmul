@@ -149,28 +149,8 @@ public class PersistenceContainerImpl<T> implements PersistenceContainer<T> {
     @Override
     public ID store(T anObject) throws InvalidRootNodeException, PersistenceException {
 
-        // Check some plausibilities first.
+        checkParameter(anObject);
 
-        if (anObject == null) {
-
-            String message = "No valid object has been specified (null)!";
-            throw new IllegalArgumentException(message);
-        }
-
-        Class foundType = anObject.getClass();
-
-        if (!expectedType.isInstance(anObject)) {
-
-            StringConcatenator message =
-                new StringConcatenator("Invalid object (expected:" + expectedType + " / found:" + foundType + ")!");
-            throw new PersistenceException(message.toString());
-        }
-
-        if (!foundType.isAnnotationPresent(RootNode.class)) {
-
-            String message = "The specified object is not marked as root node!";
-            throw new InvalidRootNodeException(message);
-        }
 
         if (cache.existsObject(anObject)) {
 
@@ -223,10 +203,7 @@ public class PersistenceContainerImpl<T> implements PersistenceContainer<T> {
 
         } catch (IOException e) {
 
-            StringConcatenator message =
-                new StringConcatenator("Serialization of an object (", anObject, " -> ", file.getName(),
-                                       ") was not successful!");
-            throw new PersistenceException(message.toString(), e);
+            throw createUnsuccessfulSerializationException(e, anObject, file);
         }
 
 
@@ -253,28 +230,8 @@ public class PersistenceContainerImpl<T> implements PersistenceContainer<T> {
     @Override
     public ID commit(T anObject) throws InvalidRootNodeException, PersistenceException {
 
-        // Check some plausibilities first.
+        checkParameter(anObject);
 
-        if (anObject == null) {
-
-            String message = "No valid object has been specified (null)!";
-            throw new IllegalArgumentException(message);
-        }
-
-        Class foundType = anObject.getClass();
-
-        if (!expectedType.isInstance(anObject)) {
-
-            StringConcatenator message =
-                new StringConcatenator("Invalid object (expected:" + expectedType + " / found:" + foundType + ")!");
-            throw new PersistenceException(message.toString());
-        }
-
-        if (!foundType.isAnnotationPresent(RootNode.class)) {
-
-            String message = "The specified object is not marked as root node!";
-            throw new InvalidRootNodeException(message);
-        }
 
         if (!cache.existsObject(anObject)) {
 
@@ -299,10 +256,7 @@ public class PersistenceContainerImpl<T> implements PersistenceContainer<T> {
 
         } catch (IOException e) {
 
-            StringConcatenator message =
-                new StringConcatenator("Serialization of an object (", anObject, " -> ", file.getName(),
-                                       ") was not successful!");
-            throw new PersistenceException(message.toString(), e);
+            throw createUnsuccessfulSerializationException(e, anObject, file);
         }
 
 
@@ -341,28 +295,7 @@ public class PersistenceContainerImpl<T> implements PersistenceContainer<T> {
     @Override
     public ID commit(ID anID, T anObject) throws InvalidRootNodeException, PersistenceException {
 
-        // Check some plausibilities first.
-
-        if (anObject == null) {
-
-            String message = "No valid object has been specified (null)!";
-            throw new IllegalArgumentException(message);
-        }
-
-        Class foundType = anObject.getClass();
-
-        if (!expectedType.isInstance(anObject)) {
-
-            StringConcatenator message =
-                new StringConcatenator("Invalid object (expected:" + expectedType + " / found:" + foundType + ")!");
-            throw new PersistenceException(message.toString());
-        }
-
-        if (!foundType.isAnnotationPresent(RootNode.class)) {
-
-            String message = "The specified object is not marked as root node!";
-            throw new InvalidRootNodeException(message);
-        }
+        checkParameter(anObject);
 
 
         // Serialize the object now.
@@ -376,10 +309,7 @@ public class PersistenceContainerImpl<T> implements PersistenceContainer<T> {
 
         } catch (IOException e) {
 
-            StringConcatenator message =
-                new StringConcatenator("Serialization of an object (", anObject, " -> ", file.getName(),
-                                       ") was not successful!");
-            throw new PersistenceException(message.toString(), e);
+            throw createUnsuccessfulSerializationException(e, anObject, file);
         }
 
 
@@ -548,6 +478,53 @@ public class PersistenceContainerImpl<T> implements PersistenceContainer<T> {
         }
 
         return results;
+    }
+
+    /**
+     * Checks the specified parameters.
+     *
+     * @param anObject
+     */
+    private void checkParameter(T anObject) throws PersistenceException, InvalidRootNodeException {
+
+        if (anObject == null) {
+
+            String message = "No valid object has been specified (null)!";
+            throw new IllegalArgumentException(message);
+        }
+
+        Class foundType = anObject.getClass();
+
+        if (!expectedType.isInstance(anObject)) {
+
+            StringConcatenator message =
+                new StringConcatenator("Invalid object (expected:" + expectedType + " / found:" + foundType + ")!");
+            throw new PersistenceException(message.toString());
+        }
+
+        if (!foundType.isAnnotationPresent(RootNode.class)) {
+
+            String message = "The specified object is not marked as root node!";
+            throw new InvalidRootNodeException(message);
+        }
+    }
+
+    /**
+     * Creates a new exception according to the specified parameters.
+     *
+     * @param aCause
+     * @param anObject
+     * @param aFile
+     *
+     * @return an exception
+     */
+    private static PersistenceException createUnsuccessfulSerializationException(Throwable aCause, Object anObject,
+                                                                                 File aFile) {
+
+        StringConcatenator message =
+            new StringConcatenator("Serialization of an object (", anObject, " -> ", aFile.getName(),
+                                   ") was not successful!");
+        return new PersistenceException(message.toString(), aCause);
     }
 
 }

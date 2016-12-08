@@ -25,9 +25,6 @@
 package jmul.xml.validation;
 
 
-import javax.xml.bind.ValidationException;
-
-
 /**
  * This interface describes an entity which performs XML validation.
  *
@@ -42,10 +39,7 @@ public interface XmlValidator {
      * @param aFileName
      *
      * @return a validation result
-     *
-     * @throws ValidationException
-     *         is thrown if the validation fails
      */
-    XmlValidationResult validate(String aFileName) throws XmlValidationException;
+    XmlValidationResult validate(String aFileName);
 
 }

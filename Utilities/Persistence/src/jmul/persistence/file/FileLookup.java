@@ -90,6 +90,35 @@ public class FileLookup implements ThreadListener {
     private static Lock threadPoolLock = new ReentrantLock();
 
     /**
+     * The results of a lookup.
+     */
+    private Collection<File> results;
+
+    /**
+     * A count of active scans.
+     */
+    private int activeScans;
+
+    /**
+     * The default constructor.<br>
+     * <br>
+     * <i>Implementation detail:<br>
+     * The constructor will only initialize this object. To avoid having too
+     * many IO operations blocking the computer all file lookup entities share
+     * the same thread pool which executes IO operations.<br>
+     * This shared thread pool must be explicitely activated (see
+     * {@link #activateLookupMechanism}) or deactivated (see
+     * {@link #deactivateLookupMechanism}).</i>
+     */
+    FileLookup() {
+
+        super();
+
+        results = new ArrayList<File>();
+        activeScans = 0;
+    }
+
+    /**
      * The method creates a new threadpool which manages parallel file lookups.
      */
     private static void newThreadPoolSingleton() {
@@ -175,35 +204,6 @@ public class FileLookup implements ThreadListener {
         }
 
         return pool;
-    }
-
-    /**
-     * The results of a lookup.
-     */
-    private Collection<File> results;
-
-    /**
-     * A count of active scans.
-     */
-    private int activeScans;
-
-    /**
-     * The default constructor.<br>
-     * <br>
-     * <i>Implementation detail:<br>
-     * The constructor will only initialize this object. To avoid having too
-     * many IO operations blocking the computer all file lookup entities share
-     * the same thread pool which executes IO operations.<br>
-     * This shared thread pool must be explicitely activated (see
-     * {@link #activateLookupMechanism}) or deactivated (see
-     * {@link #deactivateLookupMechanism}).</i>
-     */
-    FileLookup() {
-
-        super();
-
-        results = new ArrayList<File>();
-        activeScans = 0;
     }
 
     /**

@@ -217,10 +217,7 @@ public class WebServiceProxy {
         boolean foundMoreThanOneGetPortMethod = getPortMethods.size() > 1;
         if (foundMoreThanOneGetPortMethod) {
 
-            String message =
-                "The service class " + aServiceClass.getName() +
-                " has more than one matching getter method (see pattern \"" + GET_PORT_PATTERN + "\")!";
-            throw new WebServiceProxyException(message);
+            throw createTooManyGetterMethodsException(aServiceClass, GET_PORT_PATTERN);
         }
 
 
@@ -244,16 +241,10 @@ public class WebServiceProxy {
         boolean foundMoreThanOneRelevantGetterMethod = validGetterMethods.size() > 1;
         if (foundMoreThanOneRelevantGetterMethod) {
 
-            String message =
-                "The service class " + aServiceClass.getName() +
-                " has more than one matching getter method (see pattern \"" + GETTER_PATTERN + "\")!";
-            throw new WebServiceProxyException(message);
+            throw createTooManyGetterMethodsException(aServiceClass, GETTER_PATTERN);
         }
 
-        String message =
-            "The service class " + aServiceClass.getName() + " has no matching getter method (see pattern \"" +
-            GET_PORT_PATTERN + "\")";
-        throw new WebServiceProxyException(message);
+        throw createNoGetterMethodException(aServiceClass, GET_PORT_PATTERN);
     }
 
     /**
@@ -317,6 +308,38 @@ public class WebServiceProxy {
     public String getOutputDirectory() {
 
         return outputDirectory;
+    }
+
+    /**
+     * Creates a new exception according to the specified parameters.
+     *
+     * @param aServiceClass
+     * @param aPattern
+     *
+     * @return an exception
+     */
+    private static WebServiceProxyException createTooManyGetterMethodsException(Class aServiceClass, String aPattern) {
+
+        String message =
+            "The service class " + aServiceClass.getName() +
+            " has more than one matching getter method (see pattern \"" + aPattern + "\")!";
+        return new WebServiceProxyException(message);
+    }
+
+    /**
+     * Creates a new exception according to the specified parameters.
+     *
+     * @param aServiceClass
+     * @param aPattern
+     *
+     * @return an exception
+     */
+    private static WebServiceProxyException createNoGetterMethodException(Class aServiceClass, String aPattern) {
+
+        String message =
+            "The service class " + aServiceClass.getName() + " has no matching getter method (see pattern \"" +
+            aPattern + "\")";
+        return new WebServiceProxyException(message);
     }
 
 }

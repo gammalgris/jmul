@@ -24,8 +24,11 @@
 
 package jmul.transformation.configuration;
 
+
 import jmul.xml.XmlMarkup;
 import jmul.xml.XmlMarkupType;
+import static jmul.xml.XmlMarkupType.XML_ATTRIBUTE;
+import static jmul.xml.XmlMarkupType.XML_ELEMENT;
 
 
 /**
@@ -37,15 +40,15 @@ import jmul.xml.XmlMarkupType;
 public enum ConfigurationMarkups implements XmlMarkup {
 
 
-    ClassnameAttribute("classname", XmlMarkupType.XmlAttribute),
-    ClasspathAttribute("classpath", XmlMarkupType.XmlAttribute),
-    DestinationAttribute("destination", XmlMarkupType.XmlAttribute),
-    OriginAttribute("origin", XmlMarkupType.XmlAttribute),
-    PriorityAttribute("priority", XmlMarkupType.XmlAttribute),
+    CLASSNAME_ATTRIBUTE("classname", XML_ATTRIBUTE),
+    CLASSPATH_ATTRIBUTE("classpath", XML_ATTRIBUTE),
+    DESTINATION_ATTRIBUTE("destination", XML_ATTRIBUTE),
+    ORIGIN_ATTRIBUTE("origin", XML_ATTRIBUTE),
+    PRIORITY_ATTRIBUTE("priority", XML_ATTRIBUTE),
 
-    ImplementationElement("implementation", XmlMarkupType.XmlElement),
-    RuleElement("rule", XmlMarkupType.XmlElement),
-    TransformationPathElement("transformation-path", XmlMarkupType.XmlElement);
+    IMPLEMENTATION_ELEMENT("implementation", XML_ELEMENT),
+    RULE_ELEMENT("rule", XML_ELEMENT),
+    TRANSFORMATION_PATH_ELEMENT("transformation-path", XML_ELEMENT);
 
 
     /**
@@ -94,7 +97,7 @@ public enum ConfigurationMarkups implements XmlMarkup {
     @Override
     public boolean isXmlElement() {
 
-        return XmlMarkupType.XmlElement.equals(type);
+        return XML_ELEMENT.equals(type);
     }
 
     /**
@@ -106,7 +109,7 @@ public enum ConfigurationMarkups implements XmlMarkup {
     @Override
     public boolean isXmlAttribute() {
 
-        return XmlMarkupType.XmlAttribute.equals(type);
+        return XML_ATTRIBUTE.equals(type);
     }
 
     /**

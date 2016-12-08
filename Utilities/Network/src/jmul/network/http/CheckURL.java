@@ -114,7 +114,7 @@ public final class CheckURL {
      * @throws MalformedURLException
      * @throws IOException
      */
-    public static ResponseCode checkURL(String aURLString) throws MalformedURLException, IOException {
+    public static ResponseCode checkURL(String aURLString) throws IOException {
 
         URL url = new URL(aURLString);
         return checkURL(url);

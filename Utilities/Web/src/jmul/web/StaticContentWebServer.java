@@ -231,7 +231,14 @@ public class StaticContentWebServer implements WebServer {
 
         } catch (UnknownHostException e) {
 
-            ;
+            message.append(TABULATOR);
+            message.append(TABULATOR);
+            message.append("name: ");
+            message.append(e.getClass().getName());
+            message.append(" \"");
+            message.append(e.getMessage());
+            message.append("\"");
+            message.append(NEW_LINE);
         }
 
         message.append(TABULATOR);

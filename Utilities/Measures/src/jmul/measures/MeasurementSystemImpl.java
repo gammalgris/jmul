@@ -139,7 +139,7 @@ public class MeasurementSystemImpl implements MeasurementSystem {
 
                 if (a != b) {
 
-                    double conversionRatio = (double) (targetNormalizedValue / originNormalizedValue);
+                    double conversionRatio = targetNormalizedValue / originNormalizedValue;
 
                     ConversionRule conversionRule = new ConversionRuleImpl(target, conversionRatio);
                     origin.addConversionRule(conversionRule);
@@ -248,7 +248,7 @@ public class MeasurementSystemImpl implements MeasurementSystem {
 
     /**
      * Returns a string representation for this object.
-     * 
+     *
      * @return a string representation
      */
     @Override

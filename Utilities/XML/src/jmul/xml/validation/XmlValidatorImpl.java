@@ -73,7 +73,7 @@ public class XmlValidatorImpl implements XmlValidator {
      *         is thrown if the validation fails
      */
     @Override
-    public XmlValidationResult validate(String aFileName) throws XmlValidationException {
+    public XmlValidationResult validate(String aFileName) {
 
         if (aFileName == null) {
 

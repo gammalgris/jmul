@@ -166,6 +166,8 @@ public final class FileHelper {
      *
      * @param aFile
      *        a file or directory
+     * 
+     * @deprecated
      */
     @Deprecated
     public static void delete(File aFile) {

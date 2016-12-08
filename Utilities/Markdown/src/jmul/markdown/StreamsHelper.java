@@ -77,8 +77,7 @@ public final class StreamsHelper {
      * @throws IOException
      *         is thrown if the output file cannot be opened
      */
-    public static CoupledStreams openStreams(File aSourceFile, File anOutputFile) throws FileNotFoundException,
-                                                                                         IOException {
+    public static CoupledStreams openStreams(File aSourceFile, File anOutputFile) throws IOException {
 
         BufferedReader r = new BufferedReader(new FileReader(aSourceFile));
         BufferedWriter w = new BufferedWriter(new FileWriter(anOutputFile));

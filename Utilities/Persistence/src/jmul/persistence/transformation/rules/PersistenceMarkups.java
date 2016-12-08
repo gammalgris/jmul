@@ -27,6 +27,8 @@ package jmul.persistence.transformation.rules;
 
 import jmul.xml.XmlMarkup;
 import jmul.xml.XmlMarkupType;
+import static jmul.xml.XmlMarkupType.XML_ATTRIBUTE;
+import static jmul.xml.XmlMarkupType.XML_ELEMENT;
 
 
 /**
@@ -38,25 +40,25 @@ import jmul.xml.XmlMarkupType;
 public enum PersistenceMarkups implements XmlMarkup {
 
 
-    DECLARED_TYPE_ATTRIBUTE("declaredType", XmlMarkupType.XmlAttribute),
-    DECLARED_ELEMENT_TYPE_ATTRIBUTE("declaredElementType", XmlMarkupType.XmlAttribute),
-    DECLARED_KEY_TYPE_ATTRIBUTE("declaredKeyType", XmlMarkupType.XmlAttribute),
-    DECLARED_VALUE_TYPE_ATTRIBUTE("declaredValueType", XmlMarkupType.XmlAttribute),
-    FORMAT_ATTRIBUTE("format", XmlMarkupType.XmlAttribute),
-    ID_ATTRIBUTE("id", XmlMarkupType.XmlAttribute),
-    NAME_ATTRIBUTE("name", XmlMarkupType.XmlAttribute),
-    REFERENCED_ELEMENT_ATTRIBUTE("referencedElement", XmlMarkupType.XmlAttribute),
-    REFERENCED_KEY_ATTRIBUTE("referencedKey", XmlMarkupType.XmlAttribute),
-    REFERENCED_OBJECT_ATTRIBUTE("referencedObject", XmlMarkupType.XmlAttribute),
-    REFERENCED_VALUE_ATTRIBUTE("referencedValue", XmlMarkupType.XmlAttribute),
-    TYPE_ATTRIBUTE("type", XmlMarkupType.XmlAttribute),
-    VALUE_ATTRIBUTE("value", XmlMarkupType.XmlAttribute),
+    DECLARED_TYPE_ATTRIBUTE("declaredType", XML_ATTRIBUTE),
+    DECLARED_ELEMENT_TYPE_ATTRIBUTE("declaredElementType", XML_ATTRIBUTE),
+    DECLARED_KEY_TYPE_ATTRIBUTE("declaredKeyType", XML_ATTRIBUTE),
+    DECLARED_VALUE_TYPE_ATTRIBUTE("declaredValueType", XML_ATTRIBUTE),
+    FORMAT_ATTRIBUTE("format", XML_ATTRIBUTE),
+    ID_ATTRIBUTE("id", XML_ATTRIBUTE),
+    NAME_ATTRIBUTE("name", XML_ATTRIBUTE),
+    REFERENCED_ELEMENT_ATTRIBUTE("referencedElement", XML_ATTRIBUTE),
+    REFERENCED_KEY_ATTRIBUTE("referencedKey", XML_ATTRIBUTE),
+    REFERENCED_OBJECT_ATTRIBUTE("referencedObject", XML_ATTRIBUTE),
+    REFERENCED_VALUE_ATTRIBUTE("referencedValue", XML_ATTRIBUTE),
+    TYPE_ATTRIBUTE("type", XML_ATTRIBUTE),
+    VALUE_ATTRIBUTE("value", XML_ATTRIBUTE),
 
-    ELEMENT_ELEMENT("element", XmlMarkupType.XmlElement),
-    ENTRY_ELEMENT("entry", XmlMarkupType.XmlElement),
-    FIELD_ELEMENT("field", XmlMarkupType.XmlElement),
-    OBJECT_ELEMENT("object", XmlMarkupType.XmlElement),
-    OBJECTS_ELEMENT("objects", XmlMarkupType.XmlElement), ;
+    ELEMENT_ELEMENT("element", XML_ELEMENT),
+    ENTRY_ELEMENT("entry", XML_ELEMENT),
+    FIELD_ELEMENT("field", XML_ELEMENT),
+    OBJECT_ELEMENT("object", XML_ELEMENT),
+    OBJECTS_ELEMENT("objects", XML_ELEMENT), ;
 
 
     /**
@@ -105,7 +107,7 @@ public enum PersistenceMarkups implements XmlMarkup {
     @Override
     public boolean isXmlElement() {
 
-        return XmlMarkupType.XmlElement.equals(type);
+        return XML_ELEMENT.equals(type);
     }
 
     /**
@@ -117,7 +119,7 @@ public enum PersistenceMarkups implements XmlMarkup {
     @Override
     public boolean isXmlAttribute() {
 
-        return XmlMarkupType.XmlAttribute.equals(type);
+        return XML_ATTRIBUTE.equals(type);
     }
 
     /**

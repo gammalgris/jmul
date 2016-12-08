@@ -33,8 +33,8 @@ package jmul.xml;
 public enum XmlMarkupType {
 
 
-    XmlElement(),
-    XmlAttribute();
+    XML_ELEMENT(),
+    XML_ATTRIBUTE();
 
 
     /**

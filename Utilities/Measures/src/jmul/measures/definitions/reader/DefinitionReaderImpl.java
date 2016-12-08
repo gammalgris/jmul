@@ -31,12 +31,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import static jmul.measures.definitions.reader.DefinitionMarkups.AbbreviationAttribute;
-import static jmul.measures.definitions.reader.DefinitionMarkups.CategoryAttribute;
-import static jmul.measures.definitions.reader.DefinitionMarkups.DefinitionElement;
-import static jmul.measures.definitions.reader.DefinitionMarkups.NameAttribute;
-import static jmul.measures.definitions.reader.DefinitionMarkups.NormalizedValueAttribute;
-import static jmul.measures.definitions.reader.DefinitionMarkups.UnitElement;
+import static jmul.measures.definitions.reader.DefinitionMarkups.ABBREVIATION_ATTRIBUTE;
+import static jmul.measures.definitions.reader.DefinitionMarkups.CATEGORY_ATTRIBUTE;
+import static jmul.measures.definitions.reader.DefinitionMarkups.DEFINITION_ELEMENT;
+import static jmul.measures.definitions.reader.DefinitionMarkups.NAME_ATTRIBUTE;
+import static jmul.measures.definitions.reader.DefinitionMarkups.NORMALIZED_VALUE_ATTRIBUTE;
+import static jmul.measures.definitions.reader.DefinitionMarkups.UNIT_ELEMENT;
 
 import jmul.xml.SubelementList;
 import static jmul.xml.XmlParserHelper.assertHasXmlSubelements;
@@ -152,13 +152,13 @@ public class DefinitionReaderImpl implements DefinitionReader {
      *
      * @return a definition of units of measurement
      */
-    private Definition parseDocument(Document aDocument) {
+    private static Definition parseDocument(Document aDocument) {
 
         Node rootNode = aDocument.getDocumentElement();
-        assertMatchesXmlElement(rootNode, DefinitionElement);
+        assertMatchesXmlElement(rootNode, DEFINITION_ELEMENT);
 
 
-        Node categoryAttribute = getXmlAttribute(rootNode, CategoryAttribute);
+        Node categoryAttribute = getXmlAttribute(rootNode, CATEGORY_ATTRIBUTE);
         String category = categoryAttribute.getTextContent();
 
 
@@ -167,7 +167,7 @@ public class DefinitionReaderImpl implements DefinitionReader {
 
         for (Node unitElement : rootSubelements) {
 
-            assertMatchesXmlElement(unitElement, UnitElement);
+            assertMatchesXmlElement(unitElement, UNIT_ELEMENT);
         }
 
 
@@ -175,13 +175,13 @@ public class DefinitionReaderImpl implements DefinitionReader {
 
         for (Node unitElement : rootSubelements) {
 
-            Node nameAttribute = getXmlAttribute(unitElement, NameAttribute);
+            Node nameAttribute = getXmlAttribute(unitElement, NAME_ATTRIBUTE);
             String unitName = nameAttribute.getTextContent();
 
-            Node abbreviationAttribute = getXmlAttribute(unitElement, AbbreviationAttribute);
+            Node abbreviationAttribute = getXmlAttribute(unitElement, ABBREVIATION_ATTRIBUTE);
             String unitAbbreviation = abbreviationAttribute.getTextContent();
 
-            Node normalizedValueAttribute = getXmlAttribute(unitElement, NormalizedValueAttribute);
+            Node normalizedValueAttribute = getXmlAttribute(unitElement, NORMALIZED_VALUE_ATTRIBUTE);
             double normalizedValue = Double.parseDouble(normalizedValueAttribute.getTextContent());
 
             Unit unit = new Unit(unitName, unitAbbreviation, normalizedValue);
