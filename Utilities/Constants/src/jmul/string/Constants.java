@@ -43,9 +43,19 @@ public final class Constants {
     public static final String EMPTY_STRING = "";
 
     /**
+     * A slash character.
+     */
+    public static final String SLASH = "/";
+
+    /**
+     * A slash character.
+     */
+    public static final String BACKSLASH = "\\";
+
+    /**
      * The prefix to escape a special character in a regular expression.
      */
-    public static final String REGEX_ESCAPE = "\\";
+    public static final String REGEX_ESCAPE = BACKSLASH;
 
     /**
      * The file separator which is used under the current operating system (e.g.
@@ -56,12 +66,12 @@ public final class Constants {
     /**
      * The file separator which is used under windows.
      */
-    public static final String FILE_SEPARATOR_WINDOWS = "\\";
+    public static final String FILE_SEPARATOR_WINDOWS = BACKSLASH;
 
     /**
      * The file separator which is used under unix.
      */
-    public static final String FILE_SEPARATOR_UNIX = "/";
+    public static final String FILE_SEPARATOR_UNIX = SLASH;
 
     /**
      * A new line character.
@@ -84,14 +94,19 @@ public final class Constants {
     public static final String POINT = ".";
 
     /**
-     * A slash character.
-     */
-    public static final String SLASH = "/";
-
-    /**
      * A tabulator character.
      */
     public static final String TABULATOR = "\t";
+
+    /**
+     * A colon character.
+     */
+    public static final String COLON = ":";
+
+    /**
+     * A semicolon character.
+     */
+    public static final String SEMICOLON = ";";
 
     /**
      * The default constructor.

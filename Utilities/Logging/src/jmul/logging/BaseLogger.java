@@ -102,18 +102,3 @@ abstract class BaseLogger implements Logger {
     }
 
 }
-
-
-/**
- * The enumeration contains all supported log levels.
- *
- * @author Kristian Kutin
- */
-enum LogLevels {
-
-    DEBUG,
-    WARNING,
-    ERROR,
-    INFO, ;
-
-}
