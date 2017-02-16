@@ -25,10 +25,10 @@
 package jmul.persistence.cache;
 
 
-import jmul.persistence.cache.contracts.Clearable;
-import jmul.persistence.cache.contracts.ExplicitIDAppender;
-import jmul.persistence.cache.contracts.IDQueries;
-import jmul.persistence.cache.contracts.ObjectQueries;
+import jmul.misc.cache.contracts.Clearable;
+import jmul.misc.cache.contracts.ExplicitIDAppender;
+import jmul.misc.cache.contracts.IDQueries;
+import jmul.misc.cache.contracts.ObjectQueries;
 
 
 /**

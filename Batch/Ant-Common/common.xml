@@ -90,6 +90,9 @@
         <echo message="  package transformation dir .................. ${package.transformation.dir}" />
         <echo message="  package transformation src dir .............. ${package.transformation.src.dir}" />
         <echo message="  package transformation cfg dir .............. ${package.transformation.cfg.dir}" />
+        <echo message="  package transformation-xml dir .............. ${package.transformation-xml.dir}" />
+        <echo message="  package transformation-xml src dir .......... ${package.transformation-xml.src.dir}" />
+        <echo message="  package transformation-xml cfg dir .......... ${package.transformation-xml.cfg.dir}" />
         <echo message="  package version dir ......................... ${package.version.dir}" />
         <echo message="  package version cfg dir ..................... ${package.version.cfg.dir}" />
         <echo message="  package web dir ............................. ${package.web.dir}" />

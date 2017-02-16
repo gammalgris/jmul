@@ -95,13 +95,6 @@
          <hash>
             <hash n="dependable">
                <url n="sourceOwnerURL" path="../Java Miscellaneous Utility Libraries.jws"/>
-               <url n="sourceURL" path="../String/String.jpr"/>
-            </hash>
-            <value n="recognizerId" v="oracle.jdeveloper.library"/>
-         </hash>
-         <hash>
-            <hash n="dependable">
-               <url n="sourceOwnerURL" path="../Java Miscellaneous Utility Libraries.jws"/>
                <url n="sourceURL" path="../IO/IO.jpr"/>
             </hash>
             <value n="recognizerId" v="oracle.jdeveloper.library"/>
@@ -109,14 +102,21 @@
          <hash>
             <hash n="dependable">
                <url n="sourceOwnerURL" path="../Java Miscellaneous Utility Libraries.jws"/>
-               <url n="sourceURL" path="../XML/XML.jpr"/>
+               <url n="sourceURL" path="../Reflection/Reflection.jpr"/>
             </hash>
             <value n="recognizerId" v="oracle.jdeveloper.library"/>
          </hash>
          <hash>
             <hash n="dependable">
                <url n="sourceOwnerURL" path="../Java Miscellaneous Utility Libraries.jws"/>
-               <url n="sourceURL" path="../Reflection/Reflection.jpr"/>
+               <url n="sourceURL" path="../String/String.jpr"/>
+            </hash>
+            <value n="recognizerId" v="oracle.jdeveloper.library"/>
+         </hash>
+         <hash>
+            <hash n="dependable">
+               <url n="sourceOwnerURL" path="../Java Miscellaneous Utility Libraries.jws"/>
+               <url n="sourceURL" path="../XML/XML.jpr"/>
             </hash>
             <value n="recognizerId" v="oracle.jdeveloper.library"/>
          </hash>

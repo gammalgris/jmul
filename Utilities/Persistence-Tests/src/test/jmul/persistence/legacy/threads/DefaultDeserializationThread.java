@@ -27,7 +27,8 @@ package test.jmul.persistence.legacy.threads;
 
 import java.io.IOException;
 
-import jmul.persistence.xml.XmlDeserializer;
+import jmul.io.deserialization.Deserializer;
+
 import jmul.persistence.xml.XmlDeserializerImpl;
 
 import jmul.concurrent.threads.ObservableThreadBase;
@@ -63,7 +64,7 @@ public class DefaultDeserializationThread extends ObservableThreadBase {
      */
     protected void performAction() {
 
-        XmlDeserializer deserializer = new XmlDeserializerImpl();
+        Deserializer deserializer = new XmlDeserializerImpl();
 
         try {
 

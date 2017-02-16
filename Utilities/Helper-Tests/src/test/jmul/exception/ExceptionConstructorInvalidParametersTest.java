@@ -41,13 +41,13 @@ import jmul.io.NestedStreamsException;
 import jmul.math.formula.parser.FormulaParserException;
 
 import jmul.misc.exceptions.InitializationException;
+import jmul.misc.id.GeneratorException;
 
 import jmul.network.NetworkException;
 
 import jmul.persistence.InvalidIDException;
 import jmul.persistence.InvalidRootNodeException;
 import jmul.persistence.PersistenceException;
-import jmul.persistence.id.GeneratorException;
 
 import jmul.reflection.constructors.ConstructorInvoker;
 import jmul.reflection.constructors.ConstructorSignatures;

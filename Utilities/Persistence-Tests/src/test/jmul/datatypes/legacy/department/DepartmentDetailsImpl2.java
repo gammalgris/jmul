@@ -30,9 +30,9 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-import jmul.persistence.annotations.ContainerInformations;
-import jmul.persistence.annotations.MapInformations;
-import jmul.persistence.annotations.RootNode;
+import jmul.transformation.xml.annotations.ContainerInformations;
+import jmul.transformation.xml.annotations.MapInformations;
+import jmul.transformation.xml.annotations.RootNode;
 
 import test.jmul.datatypes.legacy.employee.Employee;
 import test.jmul.datatypes.legacy.employee.EmployeeList;
@@ -59,8 +59,7 @@ public class DepartmentDetailsImpl2 implements DepartmentDetails {
     /**
      * All employees of this department sorted by job title.
      */
-    @MapInformations(declaredKeyType = String.class,
-                     declaredValueType = EmployeeList.class)
+    @MapInformations(declaredKeyType = String.class, declaredValueType = EmployeeList.class)
     private Map<String, EmployeeList> sortedWorkforce;
 
     /**
@@ -83,10 +82,8 @@ public class DepartmentDetailsImpl2 implements DepartmentDetails {
         if (unsortedWorkforce.contains(anEmployee)) {
 
             StringConcatenator message =
-                new StringConcatenator("The specified employee (",
-                                       anEmployee.getLastName(), ", ",
-                                       anEmployee.getFirstName(),
-                                       ") already works in this department!");
+                new StringConcatenator("The specified employee (", anEmployee.getLastName(), ", ",
+                                       anEmployee.getFirstName(), ") already works in this department!");
             throw new IllegalArgumentException(message.toString());
         }
 
@@ -117,10 +114,8 @@ public class DepartmentDetailsImpl2 implements DepartmentDetails {
         if (!unsortedWorkforce.contains(anEmployee)) {
 
             StringConcatenator message =
-                new StringConcatenator("The specified employee (",
-                                       anEmployee.getLastName(), ", ",
-                                       anEmployee.getFirstName(),
-                                       ") doesn't work for this department!");
+                new StringConcatenator("The specified employee (", anEmployee.getLastName(), ", ",
+                                       anEmployee.getFirstName(), ") doesn't work for this department!");
             throw new IllegalArgumentException(message.toString());
         }
 
@@ -274,7 +269,7 @@ public class DepartmentDetailsImpl2 implements DepartmentDetails {
 
         if (o instanceof DepartmentDetailsImpl2) {
 
-            DepartmentDetailsImpl2 other = (DepartmentDetailsImpl2)o;
+            DepartmentDetailsImpl2 other = (DepartmentDetailsImpl2) o;
 
             return (this.unsortedWorkforce.equals(other.unsortedWorkforce) &&
                     this.sortedWorkforce.equals(other.sortedWorkforce));

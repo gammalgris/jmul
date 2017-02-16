@@ -27,7 +27,7 @@ package test.jmul.persistence.legacy.db4o;
 
 import com.db4o.query.Predicate;
 
-import jmul.persistence.id.ID;
+import jmul.misc.id.ID;
 
 
 /**

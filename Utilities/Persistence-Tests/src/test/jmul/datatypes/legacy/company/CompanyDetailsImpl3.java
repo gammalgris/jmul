@@ -28,8 +28,8 @@ package test.jmul.datatypes.legacy.company;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import jmul.persistence.annotations.ContainerInformations;
-import jmul.persistence.annotations.RootNode;
+import jmul.transformation.xml.annotations.ContainerInformations;
+import jmul.transformation.xml.annotations.RootNode;
 
 import test.jmul.datatypes.legacy.employee.Employee;
 import test.jmul.datatypes.legacy.payroll.PayrollList;

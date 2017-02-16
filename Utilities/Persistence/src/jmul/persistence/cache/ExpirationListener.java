@@ -25,7 +25,7 @@
 package jmul.persistence.cache;
 
 
-import jmul.persistence.id.ID;
+import jmul.misc.id.ID;
 
 
 /**

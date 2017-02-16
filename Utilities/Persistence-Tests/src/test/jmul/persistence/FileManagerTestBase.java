@@ -28,10 +28,11 @@ package test.jmul.persistence;
 import java.io.File;
 import java.io.IOException;
 
+import jmul.misc.id.ID;
+import jmul.misc.id.IDGenerator;
+
 import jmul.persistence.file.FileManager;
 import jmul.persistence.file.FileManagerImpl;
-import jmul.persistence.id.ID;
-import jmul.persistence.id.IDGenerator;
 import jmul.persistence.id.StringIDGenerator;
 
 import static org.junit.Assert.assertEquals;

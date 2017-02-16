@@ -28,7 +28,8 @@ package test.jmul.persistence.legacy;
 import java.io.File;
 import java.io.IOException;
 
-import jmul.persistence.xml.XmlSerializer;
+import jmul.io.serialization.Serializer;
+
 import jmul.persistence.xml.XmlSerializerImpl;
 
 import test.jmul.datatypes.legacy.company.CompanyDetails;
@@ -92,7 +93,7 @@ public class TestFailedSerialization extends SerializationBase {
 
         try {
 
-            XmlSerializer serializer = new XmlSerializerImpl();
+            Serializer serializer = new XmlSerializerImpl();
             serializer.serialize(BASE_DIR + FILE_SEPARATOR + "test.xml", object);
 
         } catch (IOException e) {
@@ -113,7 +114,7 @@ public class TestFailedSerialization extends SerializationBase {
 
         try {
 
-            XmlSerializer serializer = new XmlSerializerImpl();
+            Serializer serializer = new XmlSerializerImpl();
             serializer.serialize(BASE_DIR + FILE_SEPARATOR + "test.xml", person);
 
         } catch (IOException e) {
@@ -134,7 +135,7 @@ public class TestFailedSerialization extends SerializationBase {
 
         try {
 
-            XmlSerializer serializer = new XmlSerializerImpl();
+            Serializer serializer = new XmlSerializerImpl();
             serializer.serialize(BASE_DIR + FILE_SEPARATOR + "test.xml", employee);
 
         } catch (IOException e) {
@@ -161,7 +162,7 @@ public class TestFailedSerialization extends SerializationBase {
 
         try {
 
-            XmlSerializer serializer = new XmlSerializerImpl();
+            Serializer serializer = new XmlSerializerImpl();
             serializer.serialize(BASE_DIR + FILE_SEPARATOR + "test.xml", person);
 
         } catch (IOException e) {
@@ -186,7 +187,7 @@ public class TestFailedSerialization extends SerializationBase {
 
         try {
 
-            XmlSerializer serializer = new XmlSerializerImpl();
+            Serializer serializer = new XmlSerializerImpl();
             serializer.serialize(BASE_DIR + FILE_SEPARATOR + "test.xml", person);
 
         } catch (IOException e) {
@@ -207,7 +208,7 @@ public class TestFailedSerialization extends SerializationBase {
 
         try {
 
-            XmlSerializer serializer = new XmlSerializerImpl();
+            Serializer serializer = new XmlSerializerImpl();
             serializer.serialize(BASE_DIR + FILE_SEPARATOR + "test.xml", employee);
 
         } catch (IOException e) {
@@ -228,7 +229,7 @@ public class TestFailedSerialization extends SerializationBase {
 
         try {
 
-            XmlSerializer serializer = new XmlSerializerImpl();
+            Serializer serializer = new XmlSerializerImpl();
             serializer.serialize(BASE_DIR + FILE_SEPARATOR + "test.xml", employee);
 
         } catch (IOException e) {
@@ -249,7 +250,7 @@ public class TestFailedSerialization extends SerializationBase {
 
         try {
 
-            XmlSerializer serializer = new XmlSerializerImpl();
+            Serializer serializer = new XmlSerializerImpl();
             serializer.serialize(BASE_DIR + FILE_SEPARATOR + "test.xml", employee);
 
         } catch (IOException e) {
@@ -270,7 +271,7 @@ public class TestFailedSerialization extends SerializationBase {
 
         try {
 
-            XmlSerializer serializer = new XmlSerializerImpl();
+            Serializer serializer = new XmlSerializerImpl();
             serializer.serialize(BASE_DIR + FILE_SEPARATOR + "test.xml", employee);
 
         } catch (IOException e) {
@@ -294,7 +295,7 @@ public class TestFailedSerialization extends SerializationBase {
         details.addEmployee(new EmployeeImpl6("John", "Doe", "1.1.2000", "male", 1000.00f, "Engineer"));
         details.addEmployee(new EmployeeImpl6("Jane", "Doe", "2.2.2002", "female", 800.00f, "Engineer"));
 
-        XmlSerializer serializer = new XmlSerializerImpl();
+        Serializer serializer = new XmlSerializerImpl();
 
         try {
 
@@ -322,7 +323,7 @@ public class TestFailedSerialization extends SerializationBase {
         details.addEmployee(new EmployeeImpl6("John", "Doe", "1.1.2000", "male", 1000.00f, "Engineer"));
         details.addEmployee(new EmployeeImpl6("Jane", "Doe", "2.2.2002", "female", 800.00f, "Engineer"));
 
-        XmlSerializer serializer = new XmlSerializerImpl();
+        Serializer serializer = new XmlSerializerImpl();
 
         try {
 
@@ -344,7 +345,7 @@ public class TestFailedSerialization extends SerializationBase {
         details.addEmployee(new EmployeeImpl6("John", "Doe", "1.1.2000", "male", 1000.00f, "Engineer"));
         details.addEmployee(new EmployeeImpl6("Jane", "Doe", "2.2.2002", "female", 800.00f, "Engineer"));
 
-        XmlSerializer serializer = new XmlSerializerImpl();
+        Serializer serializer = new XmlSerializerImpl();
 
         try {
 

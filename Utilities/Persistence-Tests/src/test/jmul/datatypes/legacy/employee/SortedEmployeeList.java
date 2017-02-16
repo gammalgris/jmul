@@ -27,7 +27,7 @@ package test.jmul.datatypes.legacy.employee;
 
 import java.util.HashMap;
 
-import jmul.persistence.annotations.MapInformations;
+import jmul.transformation.xml.annotations.MapInformations;
 
 
 /**

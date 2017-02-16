@@ -34,9 +34,10 @@ import javax.swing.JOptionPane;
 
 import jmul.io.FileHelper;
 
+import jmul.misc.id.IDGenerator;
+
 import jmul.persistence.PersistenceContainer;
 import jmul.persistence.PersistenceContainerImpl;
-import jmul.persistence.id.IDGenerator;
 import jmul.persistence.id.StringIDGenerator;
 
 import test.jmul.datatypes.legacy.department.DepartmentGenderDetails;

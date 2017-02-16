@@ -29,7 +29,8 @@ import jmul.concurrent.threads.ObservableThreadBase;
 
 import jmul.persistence.PersistenceContainer;
 import jmul.persistence.PersistenceException;
-import jmul.persistence.id.ID;
+
+import jmul.misc.id.ID;
 
 import jmul.string.StringConcatenator;
 

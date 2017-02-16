@@ -35,6 +35,10 @@ import java.io.IOException;
 import jmul.math.markov.Algorithm;
 import jmul.math.markov.Rule;
 
+import jmul.misc.id.ID;
+import jmul.misc.id.IDGenerator;
+import jmul.misc.id.StringID;
+
 
 /**
  * An implementation of an ID generator.<br>

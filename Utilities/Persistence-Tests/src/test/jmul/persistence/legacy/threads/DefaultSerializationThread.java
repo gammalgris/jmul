@@ -27,7 +27,8 @@ package test.jmul.persistence.legacy.threads;
 
 import java.io.IOException;
 
-import jmul.persistence.xml.XmlSerializer;
+import jmul.io.serialization.Serializer;
+
 import jmul.persistence.xml.XmlSerializerImpl;
 
 import jmul.concurrent.threads.ObservableThreadBase;
@@ -71,7 +72,7 @@ public class DefaultSerializationThread extends ObservableThreadBase {
      */
     protected void performAction() {
 
-        XmlSerializer serializer = new XmlSerializerImpl();
+        Serializer serializer = new XmlSerializerImpl();
 
         try {
 

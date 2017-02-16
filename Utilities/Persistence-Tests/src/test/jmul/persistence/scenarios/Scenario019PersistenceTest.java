@@ -25,12 +25,13 @@
 package test.jmul.persistence.scenarios;
 
 
+import jmul.misc.id.ID;
+
 import jmul.persistence.InvalidIDException;
 import jmul.persistence.InvalidRootNodeException;
 import jmul.persistence.PersistenceContainer;
 import jmul.persistence.PersistenceContainerImpl;
 import jmul.persistence.PersistenceException;
-import jmul.persistence.id.ID;
 
 import jmul.test.classification.ModuleTest;
 

@@ -27,7 +27,7 @@ package test.jmul.datatypes.scenarios.scenario007;
 
 import java.util.Collection;
 
-import jmul.persistence.annotations.RootNode;
+import jmul.transformation.xml.annotations.RootNode;
 
 import test.jmul.datatypes.scenarios.interfaces.Employee;
 

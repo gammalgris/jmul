@@ -28,8 +28,9 @@ package test.jmul.persistence;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import jmul.persistence.id.ID;
-import jmul.persistence.id.IDGenerator;
+import jmul.misc.id.ID;
+import jmul.misc.id.IDGenerator;
+
 import jmul.persistence.id.StringIDGenerator;
 
 import static jmul.string.Constants.FILE_SEPARATOR;

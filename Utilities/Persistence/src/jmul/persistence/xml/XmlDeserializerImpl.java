@@ -28,7 +28,9 @@ package jmul.persistence.xml;
 import java.io.File;
 import java.io.IOException;
 
-import jmul.persistence.transformation.TransformationHelper;
+import jmul.io.deserialization.Deserializer;
+
+import jmul.transformation.xml.TransformationHelper;
 
 import jmul.string.StringConcatenator;
 
@@ -50,7 +52,7 @@ import org.xml.sax.SAXException;
  *
  * @author Kristian Kutin
  */
-public class XmlDeserializerImpl implements XmlDeserializer {
+public class XmlDeserializerImpl implements Deserializer {
 
     /**
      * The default transformation path for this serializer entity.

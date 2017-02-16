@@ -25,7 +25,7 @@
 package test.jmul.datatypes.legacy.person;
 
 
-import jmul.persistence.annotations.RootNode;
+import jmul.transformation.xml.annotations.RootNode;
 
 
 /**

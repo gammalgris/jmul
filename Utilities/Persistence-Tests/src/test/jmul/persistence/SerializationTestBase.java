@@ -25,9 +25,10 @@
 package test.jmul.persistence;
 
 
-import jmul.persistence.xml.XmlDeserializer;
+import jmul.io.deserialization.Deserializer;
+import jmul.io.serialization.Serializer;
+
 import jmul.persistence.xml.XmlDeserializerImpl;
-import jmul.persistence.xml.XmlSerializer;
 import jmul.persistence.xml.XmlSerializerImpl;
 
 import static jmul.string.Constants.FILE_SEPARATOR;
@@ -55,7 +56,7 @@ public abstract class SerializationTestBase extends TestBase {
      *
      * @return an XML serializer
      */
-    protected XmlSerializer initXmlSerializer() {
+    protected Serializer initXmlSerializer() {
 
         return new XmlSerializerImpl();
     }
@@ -65,7 +66,7 @@ public abstract class SerializationTestBase extends TestBase {
      *
      * @return an XML deserializer
      */
-    protected XmlDeserializer initXmlDeserializer() {
+    protected Deserializer initXmlDeserializer() {
 
         return new XmlDeserializerImpl();
     }

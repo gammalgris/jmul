@@ -30,7 +30,7 @@ import test.jmul.datatypes.scenarios.interfaces.Employee;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import jmul.persistence.annotations.ContainerInformations;
+import jmul.transformation.xml.annotations.ContainerInformations;
 
 
 /**

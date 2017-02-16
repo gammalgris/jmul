@@ -32,19 +32,21 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import jmul.io.FileHelper;
+import jmul.io.deserialization.Deserializer;
+import jmul.io.serialization.Serializer;
 
-import jmul.persistence.annotations.RootNode;
+import jmul.misc.id.ID;
+import jmul.misc.id.IDGenerator;
+import jmul.misc.id.StringID;
+
+import jmul.transformation.xml.annotations.RootNode;
+
 import jmul.persistence.cache.ObjectCache;
 import jmul.persistence.cache.ObjectCacheImpl;
 import jmul.persistence.file.FileManager;
 import jmul.persistence.file.FileManagerImpl;
-import jmul.persistence.id.ID;
-import jmul.persistence.id.IDGenerator;
-import jmul.persistence.id.StringID;
 import jmul.persistence.id.StringIDGenerator;
-import jmul.persistence.xml.XmlDeserializer;
 import jmul.persistence.xml.XmlDeserializerImpl;
-import jmul.persistence.xml.XmlSerializer;
 import jmul.persistence.xml.XmlSerializerImpl;
 
 import jmul.string.StringConcatenator;
@@ -195,7 +197,7 @@ public class PersistenceContainerImpl<T> implements PersistenceContainer<T> {
 
         // Serialize the object now.
 
-        XmlSerializer serializer = new XmlSerializerImpl();
+        Serializer serializer = new XmlSerializerImpl();
 
         try {
 
@@ -248,7 +250,7 @@ public class PersistenceContainerImpl<T> implements PersistenceContainer<T> {
         // Serialize the object now.
 
         File file = fileManager.getFile(id.toString());
-        XmlSerializer serializer = new XmlSerializerImpl();
+        Serializer serializer = new XmlSerializerImpl();
 
         try {
 
@@ -301,7 +303,7 @@ public class PersistenceContainerImpl<T> implements PersistenceContainer<T> {
         // Serialize the object now.
 
         File file = fileManager.getFile(anID.toString());
-        XmlSerializer serializer = new XmlSerializerImpl();
+        Serializer serializer = new XmlSerializerImpl();
 
         try {
 
@@ -407,7 +409,7 @@ public class PersistenceContainerImpl<T> implements PersistenceContainer<T> {
         // Deserialize the object now.
 
         File file = fileManager.getFile(anID.toString());
-        XmlDeserializer deserializer = new XmlDeserializerImpl();
+        Deserializer deserializer = new XmlDeserializerImpl();
         T restoredObject = null;
 
         try {

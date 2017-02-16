@@ -33,10 +33,11 @@ import java.util.Collection;
 
 import jmul.io.FileHelper;
 
+import jmul.misc.id.ID;
+import jmul.misc.id.IDGenerator;
+
 import jmul.persistence.file.FileManager;
 import jmul.persistence.file.FileManagerImpl;
-import jmul.persistence.id.ID;
-import jmul.persistence.id.IDGenerator;
 import jmul.persistence.id.StringIDGenerator;
 
 import jmul.string.StringConcatenator;

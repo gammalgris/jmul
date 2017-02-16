@@ -31,7 +31,7 @@ import java.util.ResourceBundle;
 
 import static jmul.math.Constants.SECOND;
 
-import jmul.persistence.id.ID;
+import jmul.misc.id.ID;
 
 
 /**

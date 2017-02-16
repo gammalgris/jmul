@@ -30,14 +30,13 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-import jmul.persistence.annotations.ContainerInformations;
-import jmul.persistence.annotations.MapInformations;
-import jmul.persistence.annotations.RootNode;
-
-import test.jmul.datatypes.legacy.employee.Employee;
-
 import jmul.string.StringConcatenator;
 
+import jmul.transformation.xml.annotations.ContainerInformations;
+import jmul.transformation.xml.annotations.MapInformations;
+import jmul.transformation.xml.annotations.RootNode;
+
+import test.jmul.datatypes.legacy.employee.Employee;
 import test.jmul.datatypes.legacy.employee.EmployeeList;
 import test.jmul.datatypes.legacy.employee.SortedEmployeeList;
 

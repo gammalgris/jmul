@@ -27,7 +27,7 @@ package test.jmul.datatypes.legacy.employee;
 
 import java.util.ArrayList;
 
-import jmul.persistence.annotations.ContainerInformations;
+import jmul.transformation.xml.annotations.ContainerInformations;
 
 
 /**

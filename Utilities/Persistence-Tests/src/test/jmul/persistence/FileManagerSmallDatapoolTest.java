@@ -25,8 +25,9 @@
 package test.jmul.persistence;
 
 
+import jmul.misc.id.IDGenerator;
+
 import jmul.persistence.file.FileManager;
-import jmul.persistence.id.IDGenerator;
 
 import static jmul.string.Constants.FILE_SEPARATOR;
 

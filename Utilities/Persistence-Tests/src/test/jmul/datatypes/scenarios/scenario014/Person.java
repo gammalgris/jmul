@@ -25,7 +25,7 @@
 package test.jmul.datatypes.scenarios.scenario014;
 
 
-import jmul.persistence.annotations.RootNode;
+import jmul.transformation.xml.annotations.RootNode;
 
 
 /**

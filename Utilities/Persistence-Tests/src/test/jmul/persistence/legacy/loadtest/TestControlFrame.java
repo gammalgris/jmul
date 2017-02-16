@@ -37,7 +37,8 @@ import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 
 import jmul.persistence.PersistenceContainer;
-import jmul.persistence.id.IDGenerator;
+
+import jmul.misc.id.IDGenerator;
 
 import test.jmul.datatypes.legacy.department.DepartmentGenderDetails;
 

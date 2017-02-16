@@ -30,8 +30,8 @@ import test.jmul.datatypes.legacy.department.DepartmentGenderDetailsImpl2;
 import test.jmul.datatypes.legacy.employee.Employee;
 import test.jmul.datatypes.legacy.employee.EmployeeImpl6;
 
-import jmul.persistence.id.ID;
-import jmul.persistence.id.StringID;
+import jmul.misc.id.ID;
+import jmul.misc.id.StringID;
 
 import jmul.string.StringConcatenator;
 

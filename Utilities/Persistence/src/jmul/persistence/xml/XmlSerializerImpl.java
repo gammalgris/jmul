@@ -28,7 +28,9 @@ package jmul.persistence.xml;
 import java.io.File;
 import java.io.IOException;
 
-import jmul.persistence.transformation.TransformationHelper;
+import jmul.io.serialization.Serializer;
+
+import jmul.transformation.xml.TransformationHelper;
 
 import jmul.transformation.TransformationFactory;
 import jmul.transformation.TransformationParameters;
@@ -46,7 +48,7 @@ import org.w3c.dom.Document;
  *
  * @author Kristian Kutin
  */
-public class XmlSerializerImpl implements XmlSerializer {
+public class XmlSerializerImpl implements Serializer {
 
     /**
      * The default transformation path for this serializer entity.

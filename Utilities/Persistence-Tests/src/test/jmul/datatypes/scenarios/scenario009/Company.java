@@ -27,7 +27,7 @@ package test.jmul.datatypes.scenarios.scenario009;
 
 import java.util.Map;
 
-import jmul.persistence.annotations.RootNode;
+import jmul.transformation.xml.annotations.RootNode;
 
 import test.jmul.datatypes.scenarios.interfaces.Employee;
 

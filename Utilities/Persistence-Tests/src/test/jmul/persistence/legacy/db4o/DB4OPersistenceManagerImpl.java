@@ -34,12 +34,13 @@ import java.io.File;
 
 import java.util.Collection;
 
+import jmul.misc.id.ID;
+import jmul.misc.id.IDGenerator;
+
 import jmul.persistence.InvalidIDException;
 import jmul.persistence.InvalidRootNodeException;
 import jmul.persistence.PersistenceContainer;
 import jmul.persistence.PersistenceException;
-import jmul.persistence.id.ID;
-import jmul.persistence.id.IDGenerator;
 import jmul.persistence.id.StringIDGenerator;
 
 import jmul.string.StringConcatenator;

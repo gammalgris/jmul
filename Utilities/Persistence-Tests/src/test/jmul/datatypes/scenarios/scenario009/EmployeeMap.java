@@ -28,7 +28,7 @@ package test.jmul.datatypes.scenarios.scenario009;
 import java.util.HashMap;
 import java.util.Map;
 
-import jmul.persistence.annotations.MapInformations;
+import jmul.transformation.xml.annotations.MapInformations;
 
 import test.jmul.datatypes.scenarios.interfaces.Employee;
 

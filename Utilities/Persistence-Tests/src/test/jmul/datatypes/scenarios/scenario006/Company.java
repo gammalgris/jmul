@@ -28,8 +28,8 @@ package test.jmul.datatypes.scenarios.scenario006;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import jmul.persistence.annotations.ContainerInformations;
-import jmul.persistence.annotations.RootNode;
+import jmul.transformation.xml.annotations.ContainerInformations;
+import jmul.transformation.xml.annotations.RootNode;
 
 import test.jmul.datatypes.scenarios.interfaces.Employee;
 

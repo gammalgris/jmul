@@ -6,6 +6,10 @@ Utility functions and classes have been moved from my other projects to this pro
 - Test and code coverage need to be improved.
 
 
+## [1.1.1] - 2016-02-16
+### Refactored
+- Extracted XML transformation code from package Persistence into seperate package Transformation-XML
+
 ## [1.0.82] - 2016-10-06
 ### Added
 - formula parser

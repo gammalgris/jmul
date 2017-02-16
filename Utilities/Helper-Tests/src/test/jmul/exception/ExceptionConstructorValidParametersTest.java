@@ -47,6 +47,7 @@ import jmul.misc.exceptions.NullArrayParameterException;
 import jmul.misc.exceptions.NullDirectoryParameterException;
 import jmul.misc.exceptions.NullFileParameterException;
 import jmul.misc.exceptions.NullParameterException;
+import jmul.misc.id.GeneratorException;
 import jmul.misc.state.IllegalStateTransitionException;
 import jmul.misc.state.UnknownStateException;
 
@@ -55,7 +56,6 @@ import jmul.network.NetworkException;
 import jmul.persistence.InvalidIDException;
 import jmul.persistence.InvalidRootNodeException;
 import jmul.persistence.PersistenceException;
-import jmul.persistence.id.GeneratorException;
 
 import jmul.reflection.constructors.ConstructorInvoker;
 import jmul.reflection.constructors.ConstructorSignatures;

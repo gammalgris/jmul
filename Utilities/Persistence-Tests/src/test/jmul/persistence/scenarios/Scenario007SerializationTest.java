@@ -29,10 +29,10 @@ import java.io.IOException;
 
 import java.util.Iterator;
 
-import static jmul.math.Constants.EPSILON;
+import jmul.io.deserialization.Deserializer;
+import jmul.io.serialization.Serializer;
 
-import jmul.persistence.xml.XmlDeserializer;
-import jmul.persistence.xml.XmlSerializer;
+import static jmul.math.Constants.EPSILON;
 
 import jmul.test.classification.ModuleTest;
 
@@ -72,12 +72,12 @@ public class Scenario007SerializationTest extends SerializationTestBase {
     /**
      * An XML serializer.
      */
-    private XmlSerializer serializer;
+    private Serializer serializer;
 
     /**
      * An XML deserializer.
      */
-    private XmlDeserializer deserializer;
+    private Deserializer deserializer;
 
     /**
      * Preparations before this test suite.

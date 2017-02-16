@@ -58,6 +58,9 @@
             <fileset dir="${package.transformation.src.dir}">
                 <include name="**/*.java" />
             </fileset>
+            <fileset dir="${package.transformation-xml.src.dir}">
+                <include name="**/*.java" />
+            </fileset>
             <fileset dir="${package.web.src.dir}">
                 <include name="**/*.java" />
             </fileset>
@@ -93,6 +96,9 @@
                 <include name="**/*.properties" />
             </fileset>
             <fileset dir="${package.transformation.cfg.dir}">
+                <include name="**/*.properties" />
+            </fileset>
+            <fileset dir="${package.transformation-xml.cfg.dir}">
                 <include name="**/*.properties" />
                 <include name="**/*.configuration" />
             </fileset>

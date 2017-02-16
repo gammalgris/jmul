@@ -25,7 +25,7 @@
 package test.jmul.persistence.legacy.db4o;
 
 
-import jmul.persistence.id.ID;
+import jmul.misc.id.ID;
 
 
 /**

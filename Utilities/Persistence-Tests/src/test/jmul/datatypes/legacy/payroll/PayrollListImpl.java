@@ -28,7 +28,7 @@ package test.jmul.datatypes.legacy.payroll;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import jmul.persistence.annotations.ContainerInformations;
+import jmul.transformation.xml.annotations.ContainerInformations;
 
 import test.jmul.datatypes.legacy.employee.Employee;
 

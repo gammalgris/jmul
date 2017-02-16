@@ -27,11 +27,12 @@ package test.jmul.persistence.scenarios;
 
 import static jmul.math.Constants.EPSILON;
 
+import jmul.misc.id.ID;
+
 import jmul.persistence.InvalidRootNodeException;
 import jmul.persistence.PersistenceContainer;
 import jmul.persistence.PersistenceContainerImpl;
 import jmul.persistence.PersistenceException;
-import jmul.persistence.id.ID;
 
 import jmul.test.classification.ModuleTest;
 

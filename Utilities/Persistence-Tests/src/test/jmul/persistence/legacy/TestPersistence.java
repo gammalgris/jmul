@@ -25,21 +25,21 @@
 package test.jmul.persistence.legacy;
 
 
+import jmul.misc.id.ID;
+import jmul.misc.id.StringID;
+
 import jmul.persistence.InvalidRootNodeException;
-import jmul.persistence.PersistenceException;
 import jmul.persistence.PersistenceContainer;
 import jmul.persistence.PersistenceContainerImpl;
+import jmul.persistence.PersistenceException;
+
+import static org.junit.Assert.assertEquals;
+import org.junit.Test;
 
 import test.jmul.datatypes.legacy.department.DepartmentDetails;
 import test.jmul.datatypes.legacy.department.DepartmentDetailsImpl2;
 import test.jmul.datatypes.legacy.department.DepartmentGenderDetails;
 import test.jmul.datatypes.legacy.employee.EmployeeImpl6;
-
-import jmul.persistence.id.ID;
-import jmul.persistence.id.StringID;
-
-import static org.junit.Assert.assertEquals;
-import org.junit.Test;
 
 
 /**
