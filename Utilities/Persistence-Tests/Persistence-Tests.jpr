@@ -192,10 +192,6 @@
             <value n="id" v="Junit-4.11"/>
             <value n="isJDK" v="false"/>
          </hash>
-         <hash>
-            <value n="id" v="Db4o-8.0.224.15975-all-java5"/>
-            <value n="isJDK" v="false"/>
-         </hash>
       </list>
       <hash n="internalDefinitions">
          <list n="libraryDefinitions">
@@ -215,22 +211,11 @@
                   <url path="../../Libraries/JUnit/hamcrest-core-1.3-sources.jar" jar-entry=""/>
                </list>
             </hash>
-            <hash>
-               <list n="classPath">
-                  <url path="../../Libraries/DB4O/db4o-8.0.224.15975-all-java5.jar" jar-entry=""/>
-               </list>
-               <value n="description" v="Db4o-8.0.224.15975-all-java5"/>
-               <value n="id" v="Db4o-8.0.224.15975-all-java5"/>
-            </hash>
          </list>
       </hash>
       <list n="libraryReferences">
          <hash>
             <value n="id" v="Junit-4.11"/>
-            <value n="isJDK" v="false"/>
-         </hash>
-         <hash>
-            <value n="id" v="Db4o-8.0.224.15975-all-java5"/>
             <value n="isJDK" v="false"/>
          </hash>
       </list>
