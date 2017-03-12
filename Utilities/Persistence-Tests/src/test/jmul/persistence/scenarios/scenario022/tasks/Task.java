@@ -26,6 +26,7 @@ package test.jmul.persistence.scenarios.scenario022.tasks;
 
 
 import jmul.misc.id.ID;
+import jmul.misc.state.State;
 
 
 /**
@@ -62,5 +63,12 @@ public interface Task extends Runnable {
      * @return a duration
      */
     long getMeasuredTime();
+
+    /**
+     * Returns the state of the task.
+     *
+     * @return a state
+     */
+    State getState();
 
 }

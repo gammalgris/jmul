@@ -38,47 +38,47 @@ import jmul.misc.state.StateHelper;
  *
  * @author Kristian Kutin
  */
-public enum WebServerState implements State {
+public enum WebServerStates implements State {
 
     /**
      * The web server instance is uninitialized.
      */
-    UNINITIALIZED(Constants.UNINITIALIZED_STRING, Constants.INITIALIZATION_STRING),
+    UNINITIALIZED(StateNames.UNINITIALIZED_STRING, StateNames.INITIALIZATION_STRING),
 
     /**
      * The web server instance is being initialized.
      */
-    INITIALIZATION(Constants.INITIALIZATION_STRING, Constants.INITIALIZED_STRING, Constants.ERROR_STRING),
+    INITIALIZATION(StateNames.INITIALIZATION_STRING, StateNames.INITIALIZED_STRING, StateNames.ERROR_STRING),
 
     /**
      * The initialization of the web server instacne is finished.
      */
-    INITIALIZED(Constants.INITIALIZED_STRING, Constants.STARTING_STRING),
+    INITIALIZED(StateNames.INITIALIZED_STRING, StateNames.STARTING_STRING),
 
     /**
      * The web server instance is being started.
      */
-    STARTING(Constants.STARTING_STRING, Constants.RUNNING_STRING, Constants.ERROR_STRING),
+    STARTING(StateNames.STARTING_STRING, StateNames.RUNNING_STRING, StateNames.ERROR_STRING),
 
     /**
      * The web server instance is up and running.
      */
-    RUNNING(Constants.RUNNING_STRING, Constants.STOPPING_STRING, Constants.ERROR_STRING),
+    RUNNING(StateNames.RUNNING_STRING, StateNames.STOPPING_STRING, StateNames.ERROR_STRING),
 
     /**
      * The web server insatnce is being shut down.
      */
-    STOPPING(Constants.STOPPING_STRING, Constants.STOPPED_STRING, Constants.ERROR_STRING),
+    STOPPING(StateNames.STOPPING_STRING, StateNames.STOPPED_STRING, StateNames.ERROR_STRING),
 
     /**
      * The web server instance is stopped.
      */
-    STOPPED(Constants.STOPPED_STRING),
+    STOPPED(StateNames.STOPPED_STRING),
 
     /**
      * An unrecoverable error occurred.
      */
-    ERROR(Constants.ERROR_STRING), ;
+    ERROR(StateNames.ERROR_STRING), ;
 
 
     /**
@@ -100,7 +100,7 @@ public enum WebServerState implements State {
      * @param someDestinationStates
      *        names of destination states
      */
-    private WebServerState(String aStateName, String... someDestinationStates) {
+    private WebServerStates(String aStateName, String... someDestinationStates) {
 
         stateName = aStateName;
 
@@ -129,7 +129,7 @@ public enum WebServerState implements State {
 
         StateHelper.checkParameter(newState);
 
-        if (newState instanceof WebServerState) {
+        if (newState instanceof WebServerStates) {
 
             return isAllowedTransition(newState.getStateName());
         }
@@ -239,9 +239,9 @@ public enum WebServerState implements State {
 
 
 /**
- * This utility class contains specific string constants.
+ * This utility class contains state names.
  */
-final class Constants {
+final class StateNames {
 
     static final String UNINITIALIZED_STRING = "uninitialized";
     static final String INITIALIZATION_STRING = "initialization";

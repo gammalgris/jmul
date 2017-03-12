@@ -26,23 +26,38 @@ package test.jmul.persistence.scenarios.scenario022;
 
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Iterator;
 import java.util.List;
 
+import jmul.concurrent.threads.ThreadHelper;
+
+import static jmul.math.Constants.SECOND;
 import jmul.math.random.Dice;
 import jmul.math.random.DiceImpl;
 import jmul.math.random.DieImpl;
 
 import jmul.misc.id.ID;
+import jmul.misc.state.State;
 
 import jmul.persistence.PersistenceContainer;
 
 import test.jmul.datatypes.scenarios.interfaces.Person;
+import static test.jmul.persistence.scenarios.scenario022.LifecycleStates.EXECUTING_FIRST_TASK;
+import static test.jmul.persistence.scenarios.scenario022.LifecycleStates.EXECUTING_FOLLOWUP_TASKS;
+import static test.jmul.persistence.scenarios.scenario022.LifecycleStates.FINISHED_FIRST_TASK;
+import static test.jmul.persistence.scenarios.scenario022.LifecycleStates.FINISHED_FOLLOWUP_TASKS;
+import static test.jmul.persistence.scenarios.scenario022.LifecycleStates.INITIALIZED_FIRST_TASK;
+import static test.jmul.persistence.scenarios.scenario022.LifecycleStates.INITIALIZED_FOLLOWUP_TASKS;
+import static test.jmul.persistence.scenarios.scenario022.LifecycleStates.INITIALIZING_FIRST_TASK;
+import static test.jmul.persistence.scenarios.scenario022.LifecycleStates.INITIALIZING_FOLLOWUP_TASKS;
+import static test.jmul.persistence.scenarios.scenario022.LifecycleStates.STARTING_FIRST_TASK;
+import static test.jmul.persistence.scenarios.scenario022.LifecycleStates.STARTING_FOLLOWUP_TASKS;
+import static test.jmul.persistence.scenarios.scenario022.LifecycleStates.UNINITIALIZED;
 import test.jmul.persistence.scenarios.scenario022.tasks.CreationTask;
 import test.jmul.persistence.scenarios.scenario022.tasks.DeletionTask;
 import test.jmul.persistence.scenarios.scenario022.tasks.ReadTask;
 import test.jmul.persistence.scenarios.scenario022.tasks.Task;
+import static test.jmul.persistence.scenarios.scenario022.tasks.TaskStates.ERROR;
+import static test.jmul.persistence.scenarios.scenario022.tasks.TaskStates.STOPPED;
 import test.jmul.persistence.scenarios.scenario022.tasks.UpdateTask;
 
 
@@ -52,6 +67,16 @@ import test.jmul.persistence.scenarios.scenario022.tasks.UpdateTask;
  * @author Kristian Kutin
  */
 public class ObjectLifecycle {
+
+    /**
+     * A prefix for a thread name.
+     */
+    private static final String TASK_PREFIX = "task.";
+
+    /**
+     * A prefix for a thread name.
+     */
+    private static final String LIFECYCLE_PREFIX = "lifecycle.";
 
     /**
      * A numeric value representing a task type.
@@ -67,6 +92,11 @@ public class ObjectLifecycle {
      * A numeric value representing a task type.
      */
     private static final int DELETE_TASK = 3;
+
+    /**
+     * The state of the lifecycle.
+     */
+    private volatile State lifecycleState;
 
     /**
      * The ID of an object (only available after the creation task).
@@ -86,12 +116,12 @@ public class ObjectLifecycle {
     /**
      * A persistence container.
      */
-    private final PersistenceContainer<Person> container;
+    private volatile PersistenceContainer<Person> container;
 
     /**
      * A result collector.
      */
-    private final TaskResultCollector collector;
+    private volatile TaskResultCollector collector;
 
     /**
      * An intervall count.
@@ -104,9 +134,9 @@ public class ObjectLifecycle {
     private final int startingIntervallFollowupTasks;
 
     /**
-     * An intervall duration.
+     * An intervall duration (in ms).
      */
-    private final int intervalDuration;
+    private final long intervalDuration;
 
     /**
      * Creates a set of tasks which are performed during the lifecycle of a specific
@@ -118,9 +148,13 @@ public class ObjectLifecycle {
      * @param anIntervalDuration
      */
     public ObjectLifecycle(PersistenceContainer<Person> aContainer, TaskResultCollector aCollector, int anIntervalCount,
-                           int anIntervalDuration) {
+                           long anIntervalDuration) {
 
         super();
+
+        lifecycleState = UNINITIALIZED;
+
+        transitionTo(INITIALIZING_FIRST_TASK);
 
         container = aContainer;
         collector = aCollector;
@@ -136,6 +170,8 @@ public class ObjectLifecycle {
         initFirstTask(aContainer, aCollector, startingInterval, anIntervalDuration);
 
         startingIntervallFollowupTasks = startingInterval + 1;
+
+        transitionTo(INITIALIZED_FIRST_TASK);
     }
 
     /**
@@ -147,7 +183,7 @@ public class ObjectLifecycle {
      * @param anIntervalDuration
      */
     private void initFirstTask(PersistenceContainer<Person> aContainer, TaskResultCollector aCollector, int anInterval,
-                               int anIntervalDuration) {
+                               long anIntervalDuration) {
 
         firstTask = createCreationTask(aContainer, aCollector, anInterval, anIntervalDuration, true);
     }
@@ -162,7 +198,7 @@ public class ObjectLifecycle {
      * @param anIntervalDuration
      */
     private void initFollowupTasks(PersistenceContainer<Person> aContainer, TaskResultCollector aCollector,
-                                   int aStartingInterval, int anIntervalCount, int anIntervalDuration) {
+                                   int aStartingInterval, int anIntervalCount, long anIntervalDuration) {
 
         Dice randomTask = new DiceImpl(new DieImpl(3));
 
@@ -202,7 +238,7 @@ public class ObjectLifecycle {
      * @return a creation task
      */
     private static Task createCreationTask(PersistenceContainer<Person> aContainer, TaskResultCollector aCollector,
-                                           int anInterval, int anIntervalDuration, boolean aSuccessFlag) {
+                                           int anInterval, long anIntervalDuration, boolean aSuccessFlag) {
 
         return new CreationTask(aContainer, aCollector, randomSleepTime(anInterval, anIntervalDuration), aSuccessFlag);
     }
@@ -220,7 +256,7 @@ public class ObjectLifecycle {
      * @return a creation task
      */
     private static Task createDeletionTask(PersistenceContainer<Person> aContainer, TaskResultCollector aCollector,
-                                           ID anID, int anInterval, int anIntervalDuration, boolean aSuccessFlag) {
+                                           ID anID, int anInterval, long anIntervalDuration, boolean aSuccessFlag) {
 
         return new DeletionTask(aContainer, aCollector, randomSleepTime(anInterval, anIntervalDuration), anID,
                                 aSuccessFlag);
@@ -239,7 +275,7 @@ public class ObjectLifecycle {
      * @return a creation task
      */
     private static Task createReadTask(PersistenceContainer<Person> aContainer, TaskResultCollector aCollector, ID anID,
-                                       int anInterval, int anIntervalDuration, boolean aSuccessFlag) {
+                                       int anInterval, long anIntervalDuration, boolean aSuccessFlag) {
 
         return new ReadTask(aContainer, aCollector, randomSleepTime(anInterval, anIntervalDuration), anID,
                             aSuccessFlag);
@@ -258,7 +294,7 @@ public class ObjectLifecycle {
      * @return a creation task
      */
     private static Task createUpdateTask(PersistenceContainer<Person> aContainer, TaskResultCollector aCollector,
-                                         ID anID, int anInterval, int anIntervalDuration, boolean aSuccessFlag) {
+                                         ID anID, int anInterval, long anIntervalDuration, boolean aSuccessFlag) {
 
         return new UpdateTask(aContainer, aCollector, randomSleepTime(anInterval, anIntervalDuration), anID,
                               aSuccessFlag);
@@ -268,14 +304,14 @@ public class ObjectLifecycle {
      * Determines a random sleep time according to the specified parameters.
      *
      * @param anInterval
-     * @param anIntervalDuration
+     * @param anIntervalDuration (in ms)
      *
      * @return a sleep time
      */
-    private static long randomSleepTime(int anInterval, int anIntervalDuration) {
+    private static long randomSleepTime(int anInterval, long anIntervalDuration) {
 
-        Dice dice = new DiceImpl(new DieImpl(anIntervalDuration));
-        int result = ((anInterval - 1) * anIntervalDuration) + dice.roll();
+        Dice dice = new DiceImpl(new DieImpl((int) anIntervalDuration));
+        long result = ((anInterval - 1) * anIntervalDuration) + dice.roll();
 
         return result;
     }
@@ -286,18 +322,97 @@ public class ObjectLifecycle {
     public void startLifecycle() {
 
         Thread t = new Thread(new LifecycleThread());
+        t.setName(LIFECYCLE_PREFIX + t.getName());
         t.start();
+
+        ThreadHelper.sleep(SECOND);
     }
 
+    /**
+     * Checks if the followup tasks have finished.
+     *
+     * @return <code>true</code> if the followup tasks have finished,
+     *         else <code>false</code>
+     */
+    private boolean areFinishedFollowupTasks() {
+
+        if (FINISHED_FOLLOWUP_TASKS == getLifecycleState()) {
+
+            return true;
+        }
+
+        if (EXECUTING_FOLLOWUP_TASKS == getLifecycleState()) {
+
+            for (Task task : followupTasks) {
+
+                if ((STOPPED == task.getState()) || (ERROR == task.getState())) {
+
+                    continue;
+
+                } else {
+
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Returns the state of the task.
+     *
+     * @return a state
+     */
+    public State getLifecycleState() {
+
+        State currentState;
+
+        synchronized (this) {
+
+            currentState = lifecycleState;
+        }
+
+        return currentState;
+    }
+
+    /**
+     * Changes the state of this task to the specified new state.
+     *
+     * @param newState
+     */
+    protected void transitionTo(State newState) {
+
+        synchronized (this) {
+
+            lifecycleState = lifecycleState.transitionTo(newState);
+
+        }
+    }
+
+
+    /**
+     * This inner class takes care of starting all tasks regarding a specific object.
+     */
     class LifecycleThread implements Runnable {
 
+        /**
+         * Creates an object and starts all followup tasks.
+         */
         @Override
         public void run() {
+
+            transitionTo(STARTING_FIRST_TASK);
 
             try {
 
                 Thread t = new Thread(firstTask);
+                t.setName(TASK_PREFIX + t.getName());
                 t.start();
+
+                transitionTo(EXECUTING_FIRST_TASK);
                 t.join();
                 id = firstTask.getID();
 
@@ -306,15 +421,39 @@ public class ObjectLifecycle {
                 Thread.currentThread().interrupt();
             }
 
+            transitionTo(FINISHED_FIRST_TASK);
+
+
+            ThreadHelper.sleep(SECOND);
+
+
+            transitionTo(INITIALIZING_FOLLOWUP_TASKS);
 
             initFollowupTasks(container, collector, startingIntervallFollowupTasks, intervalCount, intervalDuration);
 
+            transitionTo(INITIALIZED_FOLLOWUP_TASKS);
+
+
+            transitionTo(STARTING_FOLLOWUP_TASKS);
 
             for (Task task : followupTasks) {
 
                 Thread t = new Thread(task);
+                t.setName(TASK_PREFIX + t.getName());
                 t.start();
             }
+
+            transitionTo(EXECUTING_FOLLOWUP_TASKS);
+
+            ThreadHelper.sleep(SECOND);
+
+
+            while (!areFinishedFollowupTasks()) {
+
+                ThreadHelper.sleep(SECOND);
+            }
+
+            transitionTo(FINISHED_FOLLOWUP_TASKS);
         }
     }
 

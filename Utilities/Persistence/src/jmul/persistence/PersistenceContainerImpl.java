@@ -237,7 +237,7 @@ public class PersistenceContainerImpl<T> implements PersistenceContainer<T> {
 
         if (!cache.existsObject(anObject)) {
 
-            String message = "The specified object must be retrieved first before it can be committed!!";
+            String message = "The specified object must be retrieved first before it can be committed!";
             throw new PersistenceException(message);
         }
 

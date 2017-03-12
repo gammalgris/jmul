@@ -28,6 +28,7 @@ package test.jmul.persistence.scenarios.scenario022.tasks;
 import jmul.concurrent.threads.ThreadHelper;
 
 import jmul.misc.id.ID;
+import jmul.misc.state.State;
 
 import jmul.persistence.PersistenceContainer;
 
@@ -36,6 +37,10 @@ import jmul.time.Stopwatch;
 import test.jmul.datatypes.scenarios.interfaces.Person;
 import test.jmul.persistence.scenarios.scenario022.TaskResult;
 import test.jmul.persistence.scenarios.scenario022.TaskResultCollector;
+import static test.jmul.persistence.scenarios.scenario022.tasks.TaskStates.INITIALIZATION;
+import static test.jmul.persistence.scenarios.scenario022.tasks.TaskStates.INITIALIZED;
+import static test.jmul.persistence.scenarios.scenario022.tasks.TaskStates.STARTING;
+import static test.jmul.persistence.scenarios.scenario022.tasks.TaskStates.UNINITIALIZED;
 
 
 /**
@@ -76,6 +81,11 @@ abstract class TaskBase implements Task {
     private final Stopwatch stopwatch;
 
     /**
+     * The state of the task.
+     */
+    private volatile State state;
+
+    /**
      * Creates a new task according to the specified parameters.
      *
      * @param aContainer
@@ -87,12 +97,16 @@ abstract class TaskBase implements Task {
     public TaskBase(PersistenceContainer<Person> aContainer, TaskResultCollector aCollector, long aSleepTime, ID anID,
                     boolean anExpectedResult) {
 
+        state = UNINITIALIZED;
+
+        transitionTo(INITIALIZATION);
         container = aContainer;
         collector = aCollector;
         sleepTime = aSleepTime;
         id = anID;
         expectedResult = anExpectedResult;
         stopwatch = new Stopwatch();
+        transitionTo(INITIALIZED);
     }
 
     /**
@@ -100,6 +114,8 @@ abstract class TaskBase implements Task {
      */
     @Override
     public void run() {
+
+        transitionTo(STARTING);
 
         ThreadHelper.sleep(sleepTime);
 
@@ -199,6 +215,37 @@ abstract class TaskBase implements Task {
     protected void stopCount() {
 
         stopwatch.stopCount();
+    }
+
+    /**
+     * Returns the state of the task.
+     *
+     * @return a state
+     */
+    public State getState() {
+
+        State currentState;
+
+        synchronized (this) {
+
+            currentState = state;
+        }
+
+        return currentState;
+    }
+
+    /**
+     * Changes the state of this task to the specified new state.
+     *
+     * @param newState
+     */
+    protected void transitionTo(State newState) {
+
+        synchronized (this) {
+
+            state = state.transitionTo(newState);
+
+        }
     }
 
 }

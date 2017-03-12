@@ -36,6 +36,10 @@ import jmul.persistence.PersistenceException;
 import test.jmul.datatypes.scenarios.interfaces.Person;
 import test.jmul.persistence.scenarios.scenario022.TaskResult;
 import test.jmul.persistence.scenarios.scenario022.TaskResultCollector;
+import static test.jmul.persistence.scenarios.scenario022.tasks.TaskStates.ERROR;
+import static test.jmul.persistence.scenarios.scenario022.tasks.TaskStates.RUNNING;
+import static test.jmul.persistence.scenarios.scenario022.tasks.TaskStates.STOPPED;
+import static test.jmul.persistence.scenarios.scenario022.tasks.TaskStates.STOPPING;
 
 
 /**
@@ -71,6 +75,7 @@ public class UpdateTask extends TaskBase {
 
 
         startCount();
+        transitionTo(RUNNING);
 
         try {
 
@@ -84,6 +89,7 @@ public class UpdateTask extends TaskBase {
             getContainer().commit(person);
 
             exception = null;
+            transitionTo(STOPPING);
 
         } catch (PersistenceException e) {
 
@@ -104,10 +110,12 @@ public class UpdateTask extends TaskBase {
         if (xor(isExpectedResult(), actualResult)) {
 
             result = TaskResult.createSuccessfulTaskReport(id, message, getMeasuredTime());
+            transitionTo(STOPPED);
 
         } else {
 
             result = TaskResult.createFailedTaskReport(id, message, getMeasuredTime());
+            transitionTo(ERROR);
         }
     }
 

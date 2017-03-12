@@ -24,8 +24,77 @@
 
 package test.jmul.persistence.scenarios.scenario022;
 
+
+import static jmul.math.Constants.MINUTE;
+
+import jmul.persistence.PersistenceContainer;
+import jmul.persistence.PersistenceContainerImpl;
+
+import jmul.test.classification.ModuleTest;
+
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+
+import test.jmul.datatypes.scenarios.interfaces.Person;
+
+
+/**
+ * This test scenario tests concurrent write and read operation on a
+ * persistence container.
+ *
+ * @author Kristian Kutin
+ */
+@ModuleTest
 public class Scenario022PersistenceTest {
-    public Scenario022PersistenceTest() {
-        super();
+
+    private String baseDirectory;
+
+    private volatile PersistenceContainer<Person> container;
+
+    private volatile TaskResultCollector collector;
+
+    @Before
+    public void setUp() {
+
+        baseDirectory = ".";
+        container = new PersistenceContainerImpl<Person>(Person.class, baseDirectory);
+        collector = new TaskResultCollector();
     }
+
+    @After
+    public void tearDown() {
+
+        container.shutdown();
+    }
+
+    /**
+     * Tests concurrent read write oprations during an objcetc's lifecycle.
+     */
+    @Test
+    void testConcurrentReadWriteOperations() {
+
+        /*long testDuration = MINUTE * 5;
+        int maxObjectsCount = 500;*/
+        long testDuration = MINUTE * 5;
+        int maxObjectsCount = 1;
+
+        TestSetup testSetup = new TestSetup(container, collector, testDuration, maxObjectsCount);
+        testSetup.startTest();
+    }
+
+    /**
+     * The main method for manual testing purposes.
+     *
+     * @param args
+     */
+    public static void main(String[] args) {
+
+        Scenario022PersistenceTest test = new Scenario022PersistenceTest();
+
+        test.setUp();
+        test.testConcurrentReadWriteOperations();
+        test.tearDown();
+    }
+
 }

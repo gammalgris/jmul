@@ -41,6 +41,10 @@ import static test.jmul.persistence.scenarios.scenario022.RandomizationHelper.ra
 import static test.jmul.persistence.scenarios.scenario022.RandomizationHelper.randomLastName;
 import test.jmul.persistence.scenarios.scenario022.TaskResult;
 import test.jmul.persistence.scenarios.scenario022.TaskResultCollector;
+import static test.jmul.persistence.scenarios.scenario022.tasks.TaskStates.ERROR;
+import static test.jmul.persistence.scenarios.scenario022.tasks.TaskStates.RUNNING;
+import static test.jmul.persistence.scenarios.scenario022.tasks.TaskStates.STOPPED;
+import static test.jmul.persistence.scenarios.scenario022.tasks.TaskStates.STOPPING;
 
 
 /**
@@ -53,7 +57,7 @@ public class CreationTask extends TaskBase {
     /**
      * The ID of a new data entry in the persistence container.
      */
-    private ID id;
+    private ID newID;
 
     /**
      * Creates a new task according to the specified parameters.
@@ -76,17 +80,18 @@ public class CreationTask extends TaskBase {
     void performTask() {
 
         Throwable exception;
-        ID id = getID();
 
 
         startCount();
+        transitionTo(RUNNING);
 
         try {
 
             Person person = newPerson();
-            ID newID = getContainer().store(person);
-            setID(newID);
+            ID personID = getContainer().store(person);
+            setID(personID);
             exception = null;
+            transitionTo(STOPPING);
 
         } catch (PersistenceException e) {
 
@@ -101,16 +106,18 @@ public class CreationTask extends TaskBase {
 
 
         TaskResult result;
-        String message = createMessage(id, exception);
+        String message = createMessage(getID(), exception);
         boolean actualResult = (exception == null);
 
         if (xor(isExpectedResult(), actualResult)) {
 
-            result = TaskResult.createSuccessfulTaskReport(id, message, getMeasuredTime());
+            result = TaskResult.createSuccessfulTaskReport(getID(), message, getMeasuredTime());
+            transitionTo(STOPPED);
 
         } else {
 
-            result = TaskResult.createFailedTaskReport(id, message, getMeasuredTime());
+            result = TaskResult.createFailedTaskReport(getID(), message, getMeasuredTime());
+            transitionTo(ERROR);
         }
     }
 
@@ -152,7 +159,7 @@ public class CreationTask extends TaskBase {
     @Override
     public ID getID() {
 
-        return id;
+        return newID;
     }
 
     /**
@@ -162,7 +169,7 @@ public class CreationTask extends TaskBase {
      */
     public void setID(ID anID) {
 
-        id = anID;
+        newID = anID;
     }
 
     /**

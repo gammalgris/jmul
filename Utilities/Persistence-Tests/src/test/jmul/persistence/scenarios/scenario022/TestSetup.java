@@ -24,22 +24,91 @@
 
 package test.jmul.persistence.scenarios.scenario022;
 
+
+import java.util.ArrayList;
 import java.util.List;
 
-import test.jmul.persistence.scenarios.scenario022.tasks.Task;
+import jmul.concurrent.threads.ThreadHelper;
+
+import static jmul.math.Constants.SECOND;
+
+import jmul.persistence.PersistenceContainer;
+
+import test.jmul.datatypes.scenarios.interfaces.Person;
+import static test.jmul.persistence.scenarios.scenario022.LifecycleStates.FINISHED_FOLLOWUP_TASKS;
 
 
+/**
+ * Creates a test setup for szenario 22.
+ *
+ * @author Kristian Kutin
+ */
 public class TestSetup {
 
-    private List<Task> creationTasks;
+    /**
+     * A default interval length.
+     */
+    private static final int DEFAULT_INTERVAL_LENGTH = 1000;
 
-    
+    /**
+     * An interval count which corresponds to the a specified test duration.
+     */
+    private final int intervalCount;
 
-    public TestSetup(long aTestDuration, int aMaxTasksThreshold) {
+    /**
+     * All object lifecycles of the test setup.
+     */
+    private List<ObjectLifecycle> lifecycles;
+
+    /**
+     * Creates a new test setup according to the specified parmaeters.
+     * @param aContainer
+     * @param aCollector
+     * @param aTestDuration
+     * @param aMaxObjectsCount
+     */
+    public TestSetup(PersistenceContainer<Person> aContainer, TaskResultCollector aCollector, long aTestDuration,
+                     int aMaxObjectsCount) {
 
         super();
+
+        lifecycles = new ArrayList<ObjectLifecycle>();
+
+        intervalCount = (int) (aTestDuration / DEFAULT_INTERVAL_LENGTH);
+
+        for (int a = 1; a <= aMaxObjectsCount; a++) {
+
+            ObjectLifecycle lifecycle =
+                new ObjectLifecycle(aContainer, aCollector, intervalCount, DEFAULT_INTERVAL_LENGTH);
+
+            lifecycles.add(lifecycle);
+        }
     }
 
+    /**
+     * Starts the actual test (concurrent read write operations on a persistence container).
+     */
+    public void startTest() {
 
+        for (ObjectLifecycle lifecycle : lifecycles) {
+
+            lifecycle.startLifecycle();
+        }
+
+
+        long sleepTime = SECOND * 30;
+
+        boolean stop = false;
+        while (!stop) {
+
+            ThreadHelper.sleep(sleepTime);
+
+            stop = true;
+            for (ObjectLifecycle lifecycle : lifecycles) {
+
+                stop = stop && (FINISHED_FOLLOWUP_TASKS == lifecycle.getLifecycleState());
+            }
+        }
+    }
 
 }
