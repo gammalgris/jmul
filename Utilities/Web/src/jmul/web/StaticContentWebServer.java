@@ -51,6 +51,14 @@ import static jmul.string.Constants.COMMA;
 import static jmul.string.Constants.NEW_LINE;
 import static jmul.string.Constants.TABULATOR;
 
+import static jmul.web.WebServerStates.ERROR;
+import static jmul.web.WebServerStates.INITIALIZATION;
+import static jmul.web.WebServerStates.INITIALIZED;
+import static jmul.web.WebServerStates.RUNNING;
+import static jmul.web.WebServerStates.STARTING;
+import static jmul.web.WebServerStates.STOPPED;
+import static jmul.web.WebServerStates.STOPPING;
+import static jmul.web.WebServerStates.UNINITIALIZED;
 import jmul.web.logging.WebServerLogger;
 import jmul.web.page.PageHandler;
 
@@ -84,9 +92,9 @@ public class StaticContentWebServer implements WebServer {
      */
     public StaticContentWebServer(String aBundleName) {
 
-        serverState = WebServerState.UNINITIALIZED;
+        serverState = UNINITIALIZED;
 
-        serverState = serverState.transitionTo(WebServerState.INITIALIZATION);
+        serverState = serverState.transitionTo(INITIALIZATION);
 
 
         configurationReader = new ConfigurationReader(aBundleName);
@@ -98,7 +106,7 @@ public class StaticContentWebServer implements WebServer {
 
         } catch (Exception e) {
 
-            serverState = serverState.transitionTo(WebServerState.ERROR);
+            serverState = serverState.transitionTo(ERROR);
             throw new RuntimeException(e);
         }
 
@@ -106,7 +114,7 @@ public class StaticContentWebServer implements WebServer {
         Runtime.getRuntime().addShutdownHook(new SigintHandler());
 
 
-        serverState = serverState.transitionTo(WebServerState.INITIALIZED);
+        serverState = serverState.transitionTo(INITIALIZED);
         logCurrentServerState();
     }
 
@@ -333,7 +341,7 @@ public class StaticContentWebServer implements WebServer {
     @Override
     public void startServer() {
 
-        serverState = serverState.transitionTo(WebServerState.STARTING);
+        serverState = serverState.transitionTo(STARTING);
         logCurrentServerState();
 
         try {
@@ -344,14 +352,14 @@ public class StaticContentWebServer implements WebServer {
 
         } catch (Exception e) {
 
-            serverState = serverState.transitionTo(WebServerState.ERROR);
+            serverState = serverState.transitionTo(ERROR);
             logCurrentServerState();
             throw new RuntimeException(e);
         }
 
         logCurrentConfiguration();
 
-        serverState = serverState.transitionTo(WebServerState.RUNNING);
+        serverState = serverState.transitionTo(RUNNING);
         logCurrentServerState();
     }
 
@@ -361,7 +369,7 @@ public class StaticContentWebServer implements WebServer {
     @Override
     public void stopServer() {
 
-        serverState = serverState.transitionTo(WebServerState.STOPPING);
+        serverState = serverState.transitionTo(STOPPING);
         logCurrentServerState();
 
         try {
@@ -371,12 +379,12 @@ public class StaticContentWebServer implements WebServer {
 
         } catch (Exception e) {
 
-            serverState = serverState.transitionTo(WebServerState.ERROR);
+            serverState = serverState.transitionTo(ERROR);
             logCurrentServerState();
             throw new RuntimeException(e);
         }
 
-        serverState = serverState.transitionTo(WebServerState.STOPPED);
+        serverState = serverState.transitionTo(STOPPED);
         logCurrentServerState();
     }
 
