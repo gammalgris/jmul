@@ -4,7 +4,7 @@
  * JMUL is a central repository for utilities which are used in my
  * other public and private repositories.
  *
- * Copyright (C) 2016  Kristian Kutin
+ * Copyright (C) 2017  Kristian Kutin
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -22,42 +22,43 @@
  * e-mail: kristian.kutin@arcor.de
  */
 
-package jmul.misc.id;
+package jmul.document.type;
 
 
-import static jmul.misc.checks.ParameterCheckHelper.checkExceptionCause;
-import static jmul.misc.checks.ParameterCheckHelper.checkExceptionMessage;
+import java.util.List;
 
 
 /**
- * This exception is thrown by a generator when an internal error occurrs.
+ * This interface describes an entity which represents a document type.
  *
  * @author Kristian Kutin
  */
-public class GeneratorException extends RuntimeException {
+public interface DocumentType {
 
     /**
-     * Constructs an exception.
+     * Returns a short description of the document type.
      *
-     * @param aMessage
-     *        a message which provides details about the exception
-     * @param aCause
-     *        the cause of this exception
+     * @return a short description
      */
-    public GeneratorException(String aMessage, Throwable aCause) {
-
-        super(checkExceptionMessage(aMessage), checkExceptionCause(aCause));
-    }
+    String getDocumentTypeDescription();
 
     /**
-     * Constructs an exception
+     * Returns all file extensions which are associated with this document
+     * type.
      *
-     * @param aMessage
-     *        a message which provides details about the exception
+     * @return
      */
-    public GeneratorException(String aMessage) {
+    List<String> getFileExtensions();
 
-        super(checkExceptionMessage(aMessage));
-    }
+    /**
+     * Checks if the specified file name matches the file extension of this
+     * document type.
+     *
+     * @param aFileName
+     *
+     * @return <code>true</code> if the file extensions match, else
+     *         <code>false</code>
+     */
+    boolean matchesFileExtension(String aFileName);
 
 }

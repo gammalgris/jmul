@@ -1,0 +1,126 @@
+/*
+ * (J)ava (M)iscellaneous (U)tilities (L)ibrary
+ *
+ * JMUL is a central repository for utilities which are used in my
+ * other public and private repositories.
+ *
+ * Copyright (C) 2017  Kristian Kutin
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * e-mail: kristian.kutin@arcor.de
+ */
+
+package jmul.document.csv;
+
+
+import java.io.IOException;
+
+import java.nio.charset.Charset;
+
+import java.util.List;
+
+import jmul.document.DocumentBase;
+import jmul.document.csv.content.CsvStructure;
+import jmul.document.csv.content.HeaderType;
+import static jmul.document.csv.content.HeaderType.NO_HEADER;
+
+import jmul.io.NestedStreams;
+import jmul.io.text.ReadBuffer;
+import static jmul.io.text.TextFileHelper.closeFile;
+import static jmul.io.text.TextFileHelper.openFile;
+import static jmul.io.text.TextFileHelper.readLine;
+
+import jmul.string.TextHelper;
+
+
+/**
+ * A base implementation of a CSV style document.
+ *
+ * @author Kristian Kutin
+ */
+public class CsvDocumentBase extends DocumentBase<CsvStructure> {
+
+    /**
+     * Details about the document's structure.
+     */
+    private final CsvStructure structure;
+
+    /**
+     * Creates a new instance according to the specified parmaeters.
+     *
+     * @param aFileName
+     * @param aHeaderType
+     * @param aColumnSeparator
+     * @param aRowSeparator
+     *
+     * @throws IOException
+     *         is thrown if an error occurs while reading from the underlying file
+     */
+    public CsvDocumentBase(String aFileName, HeaderType aHeaderType, String aColumnSeparator,
+                           String aRowSeparator) throws IOException {
+
+        super(aFileName);
+
+        if (aHeaderType == NO_HEADER) {
+
+            throw new IllegalArgumentException("The header type " + aHeaderType + " is not valid!");
+
+        }
+
+
+        NestedStreams ns = openFile(aFileName);
+
+        ReadBuffer buffer = readLine(ns, aRowSeparator);
+        String headerLine = buffer.getLine();
+
+        closeFile(ns);
+
+        List<String> header = TextHelper.splitLine(headerLine, aColumnSeparator);
+        String[] columnNames = header.toArray(new String[] { });
+
+
+        structure =
+            new CsvStructure(Charset.defaultCharset(), aHeaderType, aColumnSeparator, aRowSeparator, columnNames);
+    }
+
+    /**
+     * Creates a new instance according to the specified parameters.
+     *
+     * @param aFileName
+     * @param aColumnSeparator
+     * @param aRowSeparator
+     *
+     * @throws IOException
+     *         is thrown if an error occurs while reading from the underlying file
+     */
+    public CsvDocumentBase(String aFileName, String aColumnSeparator, String aRowSeparator) throws IOException {
+
+        super(aFileName);
+
+        structure = new CsvStructure(Charset.defaultCharset(), aColumnSeparator, aRowSeparator);
+    }
+
+    /**
+     * Returns a document's structure.
+     *
+     * @return a document structure
+     */
+    @Override
+    public CsvStructure getStructure() {
+
+        return structure;
+    }
+
+}

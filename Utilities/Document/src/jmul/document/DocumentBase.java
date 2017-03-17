@@ -1,0 +1,273 @@
+/*
+ * (J)ava (M)iscellaneous (U)tilities (L)ibrary
+ *
+ * JMUL is a central repository for utilities which are used in my
+ * other public and private repositories.
+ *
+ * Copyright (C) 2017  Kristian Kutin
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * e-mail: kristian.kutin@arcor.de
+ */
+
+package jmul.document;
+
+
+import java.io.File;
+import java.io.IOException;
+
+import java.nio.file.Files;
+import java.nio.file.Path;
+
+import java.util.Date;
+
+import jmul.document.content.Structure;
+import jmul.document.meta.MetaData;
+import jmul.document.type.DocumentType;
+import jmul.document.type.DocumentTypes;
+
+import static jmul.string.Constants.NEW_LINE;
+import static jmul.string.Constants.POINT;
+
+
+/**
+ * A base implementation of a document.
+ *
+ * @author Kristian Kutin
+ */
+public abstract class DocumentBase<T extends Structure> implements Document<T> {
+
+    /**
+     * The file name of the document.
+     */
+    private final String fileName;
+
+    /**
+     * The file's meta data.
+     */
+    private final MetaData metaData;
+
+    /**
+     * The document type.
+     */
+    private final DocumentType documentType;
+
+    /**
+     * Creates a new document object according to the specified parameters.
+     *
+     * @param aFileName
+     *
+     * @throws IOException
+     */
+    protected DocumentBase(String aFileName) throws IOException {
+
+        super();
+
+        fileName = aFileName;
+        metaData = new MetaDataImpl(aFileName);
+        documentType = DocumentTypes.getDocumentType(fileName);
+    }
+
+    /**
+     * Returns some meta data which is associated with the document.
+     *
+     * @return some meta data
+     */
+    @Override
+    public MetaData getMetaData() {
+
+        return metaData;
+    }
+
+    /**
+     * Returns the document type of the document.
+     *
+     * @return a document type
+     */
+    @Override
+    public DocumentType getDocumentType() {
+
+        return documentType;
+    }
+
+}
+
+
+/**
+ * An implementation of an entity which provides access to a file's meta data.
+ *
+ * @author Kristian Kutin
+ */
+class MetaDataImpl implements MetaData {
+
+    /**
+     * A handle to the actual file.
+     */
+    private final Path fileHandle;
+
+    /**
+     * The name of the file (without path and file extension).
+     */
+    private final String name;
+
+    /**
+     * The file's file extension.
+     */
+    private final String fileExtension;
+
+    /**
+     * The file's location in the file system.
+     */
+    private final String path;
+
+    /**
+     * The owner of the file.
+     */
+    private final String owner;
+
+    /**
+     * The time of last modification.
+     */
+    private final Date lastModifiedDate;
+
+    /**
+     * Creates a new instance according to the specified parameters.
+     *
+     * @param aFileName
+     *
+     * @throws IOException
+     */
+    public MetaDataImpl(String aFileName) throws IOException {
+
+        File file = new File(aFileName);
+        file = file.getCanonicalFile();
+
+        String nameWithSuffix = file.getName();
+        int index = nameWithSuffix.lastIndexOf(POINT);
+
+        name = nameWithSuffix.substring(0, index);
+        fileExtension = nameWithSuffix.substring(index);
+        path = file.getParent();
+        fileHandle = file.toPath();
+
+        owner = Files.getOwner(fileHandle).getName();
+
+        lastModifiedDate = new Date(Files.getLastModifiedTime(fileHandle).toMillis());
+    }
+
+    /**
+     * Returns the name of the document (i.e. without path and file extension).
+     *
+     * @return a document name
+     */
+    @Override
+    public String getName() {
+
+        return name;
+    }
+
+    /**
+     * Returns the path of the document.
+     *
+     * @return a document path
+     */
+    @Override
+    public String getPath() {
+
+        return path;
+    }
+
+    /**
+     * Returns the file extension of the document file.
+     *
+     * @return a file extension
+     */
+    @Override
+    public String getFileExtension() {
+
+        return fileExtension;
+    }
+
+    /**
+     * Returns the owner of the document file.
+     *
+     * @return a file owner
+     */
+    @Override
+    public String getOwner() {
+
+        return owner;
+    }
+
+    /**
+     * Returns the document file's last modified time.
+     *
+     * @return the last modified time
+     */
+    @Override
+    public Date getLastModifiedTime() {
+
+        return lastModifiedDate;
+    }
+
+    /**
+     * Returns the value of the specified file attribute.
+     *
+     * @param anAttributeName
+     *
+     * @return the value of the specified attribute
+     *
+     * @throws IOException
+     *         is thrown if the file attribute cannot be read
+     */
+    @Override
+    public Object getAttribute(String anAttributeName) throws IOException {
+
+        return Files.getAttribute(fileHandle, anAttributeName);
+    }
+
+    /**
+     * Returns a string representation for this object.
+     *
+     * @return a string representation
+     */
+    @Override
+    public String toString() {
+
+        StringBuilder buffer = new StringBuilder();
+
+        buffer.append("name=");
+        buffer.append(getName());
+        buffer.append(NEW_LINE);
+
+        buffer.append("path=");
+        buffer.append(getPath());
+        buffer.append(NEW_LINE);
+
+        buffer.append("file extension=");
+        buffer.append(getFileExtension());
+        buffer.append(NEW_LINE);
+
+        buffer.append("owner=");
+        buffer.append(getOwner());
+        buffer.append(NEW_LINE);
+
+        buffer.append("last modified time=");
+        buffer.append(getLastModifiedTime());
+
+        return buffer.toString();
+    }
+
+}
