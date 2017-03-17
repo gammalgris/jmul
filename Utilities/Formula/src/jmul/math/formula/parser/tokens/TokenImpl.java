@@ -153,7 +153,7 @@ public class TokenImpl implements Token {
     @Override
     public boolean isUndefined() {
 
-        return (matchingPatterns == null) || ((matchingPatterns != null) && (matchingPatterns.size() == 0));
+        return (matchingPatterns == null) || ((matchingPatterns != null) && (matchingPatterns.isEmpty()));
     }
 
     /**

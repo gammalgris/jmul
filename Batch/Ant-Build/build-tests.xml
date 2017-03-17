@@ -38,6 +38,9 @@
             <fileset dir="${package.persistence-tests.src.dir}">
                 <include name="**/*.java" />
             </fileset>
+            <fileset dir="${package.reflection-tests.src.dir}">
+                <include name="**/*.java" />
+            </fileset>
             <fileset dir="${package.string-tests.src.dir}">
                 <include name="**/*.java" />
             </fileset>

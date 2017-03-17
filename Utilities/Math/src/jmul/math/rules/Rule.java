@@ -46,6 +46,7 @@ public interface Rule {
      *
      * @return a string representation
      */
+    @Override
     String toString();
 
 }

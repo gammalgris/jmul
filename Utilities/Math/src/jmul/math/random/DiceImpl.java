@@ -122,7 +122,7 @@ public class DiceImpl implements Dice {
     @Override
     public String toString() {
 
-        StringBuffer buffer = new StringBuffer();
+        StringBuilder buffer = new StringBuilder();
 
         boolean isFirstElement = true;
         for (Collection<Die> subset : diceMap.values()) {

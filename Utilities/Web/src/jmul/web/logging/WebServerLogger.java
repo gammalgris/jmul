@@ -61,7 +61,7 @@ public class WebServerLogger implements Logger {
      */
     private String getPrefix() {
 
-        StringBuffer prefix = new StringBuffer();
+        StringBuilder prefix = new StringBuilder();
 
         prefix.append(TABULATOR);
         prefix.append(Thread.currentThread().getName());

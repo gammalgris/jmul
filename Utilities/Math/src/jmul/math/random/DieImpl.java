@@ -97,7 +97,7 @@ public class DieImpl implements Die {
     @Override
     public String toString() {
 
-        StringBuffer buffer = new StringBuffer();
+        StringBuilder buffer = new StringBuilder();
 
         buffer.append("d");
         buffer.append(getSides());
@@ -116,7 +116,7 @@ public class DieImpl implements Die {
 
         if (!isValid) {
 
-            StringBuffer errorMessage = new StringBuffer();
+            StringBuilder errorMessage = new StringBuilder();
 
             errorMessage.append("An invalid value was specified (value=");
             errorMessage.append(aNumericValue);

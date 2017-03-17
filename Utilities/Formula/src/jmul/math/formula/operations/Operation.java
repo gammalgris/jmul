@@ -109,7 +109,7 @@ public enum Operation {
             }
         }
 
-        if (matchingOperators.size() == 0) {
+        if (matchingOperators.isEmpty()) {
 
             String message = "Unknown operator \"" + aSymbol + "\"!";
             throw new IllegalArgumentException(message);

@@ -83,7 +83,7 @@ public class SubelementMap {
         boolean notExistsSubelement = subelement == null;
         if (notExistsSubelement) {
 
-            StringBuffer message = new StringBuffer();
+            StringBuilder message = new StringBuilder();
 
             message.append("The element \"");
             message.append(parentName);

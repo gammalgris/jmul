@@ -65,6 +65,9 @@ public interface MeasurementUnit {
      *
      * @param aRule
      *        a conversion rule
+     *
+     * @deprecated This is an internal operation and thus should not be declared
+     *             in the interface.
      */
     @Deprecated
     void addConversionRule(ConversionRule aRule);

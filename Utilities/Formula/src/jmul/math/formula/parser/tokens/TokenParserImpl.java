@@ -71,6 +71,7 @@ public class TokenParserImpl implements TokenParser {
      * @param aTokenPattern
      *        a token pattern
      */
+    @Override
     public void addTokenPattern(TokenPattern aTokenPattern) {
 
         if (tokenPatterns.contains(aTokenPattern)) {
@@ -90,6 +91,7 @@ public class TokenParserImpl implements TokenParser {
      *
      * @return a parsed expression
      */
+    @Override
     public TokenSequence parseExpression(String anExpression) {
 
         TokenSequence determinedSequence = null;
@@ -333,7 +335,7 @@ public class TokenParserImpl implements TokenParser {
             }
         }
 
-        if (matchingPatterns.size() == 0) {
+        if (matchingPatterns.isEmpty()) {
 
             return null;
 
@@ -543,6 +545,9 @@ public class TokenParserImpl implements TokenParser {
 
             // As this is the first token it doesn't meet the
             // criteria.
+
+
+
 
 
 

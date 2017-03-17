@@ -73,7 +73,7 @@ public final class XmlParserHelper {
 
         if (!matchesXmlElement(node, markup)) {
 
-            StringBuffer message = new StringBuffer();
+            StringBuilder message = new StringBuilder();
 
             message.append("Unexpected xml element found (expected name= \"");
             message.append(markup);
@@ -94,7 +94,7 @@ public final class XmlParserHelper {
 
         if (markup.isXmlAttribute()) {
 
-            StringBuffer message = new StringBuffer();
+            StringBuilder message = new StringBuilder();
 
             message.append("The specified markup details are describing an xml attribute (");
             message.append(markup);
@@ -156,7 +156,7 @@ public final class XmlParserHelper {
 
         if (attribute == null) {
 
-            StringBuffer message = new StringBuffer();
+            StringBuilder message = new StringBuilder();
 
             message.append("The xml element \"");
             message.append(name);
@@ -195,7 +195,7 @@ public final class XmlParserHelper {
 
         if (markup.isXmlElement()) {
 
-            StringBuffer message = new StringBuffer();
+            StringBuilder message = new StringBuilder();
 
             message.append("The specified markup details are describing an xml element (");
             message.append(markup);
@@ -271,7 +271,7 @@ public final class XmlParserHelper {
 
         List<Node> sublist = subelements.getSubelements(markup);
 
-        return sublist.size() > 0;
+        return !sublist.isEmpty();
     }
 
     /**
@@ -297,7 +297,7 @@ public final class XmlParserHelper {
      */
     private static ParsingException createNoSubelementsException(String anElementName) {
 
-        StringBuffer message = new StringBuffer();
+        StringBuilder message = new StringBuilder();
 
         message.append("The element \"");
         message.append(anElementName);
@@ -315,7 +315,7 @@ public final class XmlParserHelper {
      */
     private static ParsingException createNoSpecificSubelementsException(String anElementName, XmlMarkup markup) {
 
-        StringBuffer message = new StringBuffer();
+        StringBuilder message = new StringBuilder();
 
         message.append("The element \"");
         message.append(anElementName);

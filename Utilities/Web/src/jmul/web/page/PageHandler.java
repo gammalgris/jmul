@@ -108,7 +108,7 @@ public class PageHandler implements HttpHandler {
                 } catch (Exception e) {
 
                     logger.logError(e);
-                    throw new RuntimeException(e);
+                    throw new PageHandlerException(e);
                 }
             }
         }

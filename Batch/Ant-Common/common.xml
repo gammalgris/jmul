@@ -54,8 +54,13 @@
         <echo message="  package concurrent cfg dir .................. ${package.concurrent.cfg.dir}" />
         <echo message="  package constants dir ....................... ${package.constants.dir}" />
         <echo message="  package constants src dir ................... ${package.constants.src.dir}" />
+        <echo message="  package document dir ........................ ${package.document.dir}" />
+        <echo message="  package document src dir .................... ${package.document.src.dir}" />
+        <echo message="  package document cfg dir .................... ${package.document.cfg.dir}" />
         <echo message="  package documentation dir ................... ${package.documentation.dir}" />
         <echo message="  package documentation src dir ............... ${package.documentation.src.dir}" />
+        <echo message="  package document-csv dir .................... ${package.document-csv.dir}" />
+        <echo message="  package document-csv src dir ................ ${package.document-csv.src.dir}" />
         <echo message="  package formula dir ......................... ${package.formula.dir}" />
         <echo message="  package formula src dir ..................... ${package.formula.src.dir}" />
         <echo message="  package io dir .............................. ${package.io.dir}" />
@@ -81,6 +86,8 @@
         <echo message="  package reflection dir ...................... ${package.reflection.dir}" />
         <echo message="  package reflection src dir .................. ${package.reflection.src.dir}" />
         <echo message="  package reflection cfg dir .................. ${package.reflection.cfg.dir}" />
+        <echo message="  package reflection-tests dir ................ ${package.reflection-tests.dir}" />
+        <echo message="  package reflection-tests src dir ............ ${package.reflection-tests.src.dir}" />
         <echo message="  package string dir .......................... ${package.string.dir}" />
         <echo message="  package string src dir ...................... ${package.string.src.dir}" />
         <echo message="  package test dir ............................ ${package.test.dir}" />

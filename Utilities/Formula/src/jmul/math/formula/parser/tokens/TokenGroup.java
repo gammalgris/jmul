@@ -326,7 +326,7 @@ public class TokenGroup implements Iterable<Token> {
     @Override
     public String toString() {
 
-        StringBuffer buffer = new StringBuffer();
+        StringBuilder buffer = new StringBuilder();
 
         int end = startIndex + length;
         for (int a = startIndex; a < end; a++) {

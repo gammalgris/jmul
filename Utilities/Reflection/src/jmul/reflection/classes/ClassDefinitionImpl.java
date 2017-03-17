@@ -125,8 +125,8 @@ class ClassDefinitionImpl implements ClassDefinition {
     /**
      * The method determines if this class is located on the default classpath.
      *
-     * @return true, if this class is located on the default classpath, else
-     *         false
+     * @return <code>true</code> if this class is located on the default classpath,
+     *         else <code>false</code>
      */
     @Override
     public boolean isLocatedOnDefaultClasspath() {
@@ -137,8 +137,8 @@ class ClassDefinitionImpl implements ClassDefinition {
     /**
      * The method determines if this class is located on an alternate classpath.
      *
-     * @return true, if this class is located on an alternate classpath, else
-     *         false
+     * @return <code>true</code>, if this class is located on an alternate classpath,
+     *         else <code>false</code>
      */
     @Override
     public boolean isLocatedOnAlternateClasspath() {
@@ -160,7 +160,8 @@ class ClassDefinitionImpl implements ClassDefinition {
     /**
      * The method determines if this class represents a primitive type.
      *
-     * @return true, if this class represents a primitive type, else false
+     * @return <code>true</code> if this class represents a primitive type,
+     *         else <code>false</code>
      */
     @Override
     public boolean isPrimitiveType() {
@@ -172,8 +173,8 @@ class ClassDefinitionImpl implements ClassDefinition {
      * The method determines if this class represents a wrapper for a primitive
      * type.
      *
-     * @return true, if this class represents a wrapper for a primitive type,
-     *         else false
+     * @return <code>true</code> if this class represents a wrapper for a primitive type,
+     *         else <code>false</code>
      */
     @Override
     public boolean isPrimitiveWrapper() {
@@ -196,7 +197,8 @@ class ClassDefinitionImpl implements ClassDefinition {
      * The method determines if this class represents a class (i.e. it is no
      * interface and no primitive type).
      *
-     * @return true, if this class represents a class, else false
+     * @return <code>true</code> if this class represents a class,
+     *         else <code>false</code>
      */
     @Override
     public boolean isClass() {
@@ -207,7 +209,8 @@ class ClassDefinitionImpl implements ClassDefinition {
     /**
      * The method determines if this class represents an interface.
      *
-     * @return true, if this class represents an interface, else false
+     * @return <code>true</code>, if this class represents an interface,
+     *         else <code>false</code>
      */
     @Override
     public boolean isInterface() {
@@ -218,27 +221,20 @@ class ClassDefinitionImpl implements ClassDefinition {
     /**
      * The method determines if this class implements a specified interface.
      *
-     * TODO
-     * Inefficient implementation / high memory consumption
-     *
      * @param anInterface
      *        an interface
      *
-     * @return true, if this class implements the specified interface, else
-     *         false
+     * @return <code>true</code>, if this class implements the specified interface,
+     *         else <code>false</code>
      */
     @Override
-    @Deprecated
     public boolean implementsInterface(ClassDefinition anInterface) {
 
-        return implementsInterface(anInterface, false);
+        return anInterface.isInterface() && anInterface.getType().isAssignableFrom(getType());
     }
 
     /**
      * The method determines if this class implements a specified interface.
-     *
-     * TODO
-     * Inefficient implementation / high memory consumption
      *
      * @param anInterface
      *        an interface
@@ -247,6 +243,9 @@ class ClassDefinitionImpl implements ClassDefinition {
      *
      * @return true, if this class implements the specified interface, else
      *         false
+     *
+     * @deprecated This operation is inefficient. {@link #implementsInterface}
+     *             already handles this case.
      */
     @Override
     @Deprecated
@@ -269,9 +268,6 @@ class ClassDefinitionImpl implements ClassDefinition {
     /**
      * The method determines if this class implements a specified interface.
      *
-     * TODO
-     * Inefficient implementation / high memory consumption
-     *
      * @param anInterface
      *        an interface
      * @param recurse
@@ -279,6 +275,9 @@ class ClassDefinitionImpl implements ClassDefinition {
      *
      * @return true, if this class implements the specified interface, else
      *         false
+     *
+     * @deprecated This operation is inefficient. {@link #implementsInterface}
+     *             already handles this case.
      */
     @Deprecated
     private boolean implementsInterface(Class anInterface, boolean recurse) {
@@ -327,35 +326,31 @@ class ClassDefinitionImpl implements ClassDefinition {
     /**
      * The method determines if this class extends a specified interface.
      *
-     * TODO
-     * Inefficient implementation / high memory consumption
-     *
      * @param anInterface
      *        an interface
      *
-     * @return true, if this class implements the specified interface, else
-     *         false
+     * @return <code>true</code>, if this class implements the specified interface, else
+     *         <code>false</code>
      */
     @Override
-    @Deprecated
     public boolean extendsInterface(ClassDefinition anInterface) {
 
-        return extendsInterface(anInterface, false);
+        return isInterface() && anInterface.isInterface() && anInterface.getType().isAssignableFrom(getType());
     }
 
     /**
      * The method determines if this class extends a specified interface.
-     *
-     * TODO
-     * Inefficient implementation / high memory consumption
      *
      * @param anInterface
      *        an interface
      * @param recurse
      *        a flag indicating to recurse through the inheritence structure
      *
-     * @return true, if this class implements the specified interface, else
-     *         false
+     * @return <code>true</code>, if this class implements the specified interface,
+     *         else <code>false</code>
+     *
+     * @deprecated This operation is inefficient. {@link #extendsInterface}
+     *             already handles this case.
      */
     @Override
     @Deprecated
@@ -378,16 +373,16 @@ class ClassDefinitionImpl implements ClassDefinition {
     /**
      * The method determines if this class extends a specified interface.
      *
-     * TODO
-     * Inefficient implementation / high memory consumption
-     *
      * @param anInterface
      *        an interface
      * @param recurse
      *        a flag indicating to recurse through the inheritence structure
      *
-     * @return true, if this class implements the specified interface, else
-     *         false
+     * @return <code>true</code> if this class implements the specified interface,
+     *         else <code>false</code>
+     *
+     * @deprecated This operation is inefficient. {@link #extendsInterface}
+     *             already handles this case.
      */
     @Deprecated
     private boolean extendsInterface(Class anInterface, boolean recurse) {
@@ -425,7 +420,8 @@ class ClassDefinitionImpl implements ClassDefinition {
      * @param aParentClass
      *        a parent class
      *
-     * @return true, if this class extends the specified class, else false
+     * @return <code>true</code> if this class extends the specified class,
+     *         else <code>false</code>
      */
     @Override
     public boolean extendsClass(ClassDefinition aParentClass) {
@@ -441,7 +437,8 @@ class ClassDefinitionImpl implements ClassDefinition {
      * @param recurse
      *        a flag indicating to recurse through the inheritence structure
      *
-     * @return true, if this class extends the specified class, else false
+     * @return <code>true</code> if this class extends the specified class,
+     *         else <code>false</code>
      */
     @Override
     public boolean extendsClass(ClassDefinition aParentClass, boolean recurse) {
@@ -467,7 +464,8 @@ class ClassDefinitionImpl implements ClassDefinition {
      * @param recurse
      *        a flag indicating to recurse through the inheritence structure
      *
-     * @return true, if this class extends the specified class, else false
+     * @return <code>true</code> if this class extends the specified class,
+     *         else <code>false</code>
      */
     private boolean extendsClass(Class aParentClass, boolean recurse) {
 
@@ -676,7 +674,7 @@ class ClassDefinitionImpl implements ClassDefinition {
 
             Collection<Method> foundMethods = getMethods(methodname, 1, recurse);
 
-            if (foundMethods.size() == 0) {
+            if (foundMethods.isEmpty()) {
 
                 StringConcatenator message =
                     new StringConcatenator("No setter method with the name ", methodname, " was found!");
@@ -702,7 +700,7 @@ class ClassDefinitionImpl implements ClassDefinition {
 
             Collection<Method> foundMethods = getMethods(methodname, 0, recurse);
 
-            if (foundMethods.size() == 0) {
+            if (foundMethods.isEmpty()) {
 
                 StringConcatenator message =
                     new StringConcatenator("No getter method with the name ", methodname, " was found!");
@@ -782,7 +780,8 @@ class ClassDefinitionImpl implements ClassDefinition {
      * @param aClass
      *        a class
      *
-     * @return true, if this class equals the specified class, else false
+     * @return <code>true</code> if this class equals the specified class,
+     *         else <code>false</code>
      */
     @Override
     public boolean equalsClass(ClassDefinition aClass) {
@@ -811,7 +810,8 @@ class ClassDefinitionImpl implements ClassDefinition {
      * @param anInterface
      *        an interface
      *
-     * @return true, if this class equals the specified interface, else false
+     * @return <code>true</code> if this class equals the specified interface,
+     *         else <code>false</code>
      */
     @Override
     public boolean equalsInterface(ClassDefinition anInterface) {
@@ -843,7 +843,8 @@ class ClassDefinitionImpl implements ClassDefinition {
      * @param secondClass
      *        a classname
      *
-     * @return true, if the two classes are equal, else false
+     * @return <code>true</code> if the two classes are equal,
+     *         else <code>false</code>
      */
     private static boolean equalClasses(ClassDefinition firstClass, ClassDefinition secondClass) {
 
@@ -878,7 +879,8 @@ class ClassDefinitionImpl implements ClassDefinition {
      * @param secondClass
      *        a classname
      *
-     * @return true, if the two classes are equal, else false
+     * @return <code>true</code> if the two classes are equal,
+     *         else <code>false</code>
      */
     private static boolean equalClasses(Class firstClass, Class secondClass) {
 
@@ -893,7 +895,8 @@ class ClassDefinitionImpl implements ClassDefinition {
      * @param secondClassname
      *        a classname
      *
-     * @return true, if the two classnames are equal, else false
+     * @return <code>true</code> if the two classnames are equal,
+     *         else <code>false</code>
      */
     private static boolean equalClassnames(String firstClassname, String secondClassname) {
 

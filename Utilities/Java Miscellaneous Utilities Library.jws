@@ -26,6 +26,9 @@
       <hash><url n="URL" path="../Batch/Batch.jpr"/></hash>
       <hash><url n="URL" path="Concurrent/Concurrent.jpr"/></hash>
       <hash><url n="URL" path="Constants/Constants.jpr"/></hash>
+      <hash><url n="URL" path="Document/Document.jpr"/></hash>
+      <hash><url n="URL" path="Document-CSV/Document-CSV.jpr"/></hash>
+      <hash><url n="URL" path="Document-Tests/Document-Tests.jpr"/></hash>
       <hash><url n="URL" path="Formula/Formula.jpr"/></hash>
       <hash><url n="URL" path="Formula-Tests/Formula-Tests.jpr"/></hash>
       <hash><url n="URL" path="Helper-Tests/Helper-Tests.jpr"/></hash>
@@ -46,6 +49,7 @@
       <hash><url n="URL" path="Persistence/Persistence.jpr"/></hash>
       <hash><url n="URL" path="Persistence-Tests/Persistence-Tests.jpr"/></hash>
       <hash><url n="URL" path="Reflection/Reflection.jpr"/></hash>
+      <hash><url n="URL" path="Reflection-Tests/Reflection-Tests.jpr"/></hash>
       <hash><url n="URL" path="String/String.jpr"/></hash>
       <hash><url n="URL" path="String-Tests/String-Tests.jpr"/></hash>
       <hash><url n="URL" path="Test/Test.jpr"/></hash>

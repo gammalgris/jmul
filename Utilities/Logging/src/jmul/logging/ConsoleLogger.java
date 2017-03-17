@@ -98,7 +98,7 @@ public class ConsoleLogger extends BaseLogger implements Logger {
     @Override
     public void logError(Throwable anException) {
 
-        StringBuffer buffer = new StringBuffer();
+        StringBuilder buffer = new StringBuilder();
 
         buffer.append(anException.getMessage());
         buffer.append(NEW_LINE);

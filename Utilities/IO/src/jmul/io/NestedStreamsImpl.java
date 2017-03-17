@@ -162,7 +162,7 @@ public class NestedStreamsImpl implements NestedStreams {
      */
     private String createExceptionMessage(List<Throwable> someNestedExceptions) {
 
-        StringBuffer buffer = new StringBuffer();
+        StringBuilder buffer = new StringBuilder();
 
         for (int a = 0; a < someNestedExceptions.size(); a++) {
 

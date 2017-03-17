@@ -155,7 +155,7 @@ public class ClassScanner {
 
         serviceClassDefinition = null;
 
-        boolean noServiceClass = serviceClasses.size() == 0;
+        boolean noServiceClass = serviceClasses.isEmpty();
         boolean oneServiceClass = serviceClasses.size() == 1;
         boolean moreThanOneServiceClass = serviceClasses.size() > 1;
 

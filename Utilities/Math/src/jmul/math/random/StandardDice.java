@@ -65,6 +65,7 @@ public enum StandardDice implements Die {
      *
      * @return the result of a die roll
      */
+    @Override
     public int roll() {
 
         return die.roll();
@@ -75,6 +76,7 @@ public enum StandardDice implements Die {
      *
      * @return the sides of this die
      */
+    @Override
     public int getSides() {
 
         return die.getSides();
@@ -85,6 +87,7 @@ public enum StandardDice implements Die {
      *
      * @return a string representation
      */
+    @Override
     public String toString() {
 
         return String.valueOf(die);

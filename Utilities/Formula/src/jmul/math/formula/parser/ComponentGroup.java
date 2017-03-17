@@ -125,7 +125,7 @@ public class ComponentGroup {
     public void addComponent(ComponentType aComponentType, String aComponent) {
 
         // check if a valid component is added
-        if ((components.size() > 0) && !containsOperator()) {
+        if ((components.isEmpty()) && !containsOperator()) {
             String message =
                 "More than one operand has been associated with this group, but no operator was yet determined: \"" +
                 getString() + " " + aComponent + "\"";
@@ -213,7 +213,7 @@ public class ComponentGroup {
      */
     public String getComponentTypeSequence() {
 
-        StringBuffer buffer = new StringBuffer();
+        StringBuilder buffer = new StringBuilder();
 
         for (ComponentType componentType : componentTypes) {
 
@@ -234,7 +234,7 @@ public class ComponentGroup {
      */
     public String getComponentSequence() {
 
-        StringBuffer buffer = new StringBuffer();
+        StringBuilder buffer = new StringBuilder();
 
         for (String component : components) {
 
@@ -325,7 +325,7 @@ public class ComponentGroup {
      */
     public String getStringWithoutLastOperand() {
 
-        StringBuffer buffer = new StringBuffer();
+        StringBuilder buffer = new StringBuilder();
         int index = getLastOperatorIndex();
 
         for (int a = 0; a <= index; a++) {
@@ -357,12 +357,12 @@ public class ComponentGroup {
         int middle = getLastOperatorIndex();
         int end = getOperandCount() + getOperatorCount() - 1;
 
-        StringBuffer left = new StringBuffer();
+        StringBuilder left = new StringBuilder();
         for (int a = start; a < middle; a++) {
             left.append(getComponent(a));
         }
 
-        StringBuffer right = new StringBuffer();
+        StringBuilder right = new StringBuilder();
         for (int a = middle + 1; a <= end; a++) {
             right.append(getComponent(a));
         }

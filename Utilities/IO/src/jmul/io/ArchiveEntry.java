@@ -172,8 +172,8 @@ public final class ArchiveEntry {
      */
     public byte[] getData() {
 
-        boolean wasLoaded = data != null;
-        if (!wasLoaded) {
+        boolean wasntLoaded = data == null;
+        if (wasntLoaded) {
 
             try {
 
@@ -181,7 +181,7 @@ public final class ArchiveEntry {
 
             } catch (IOException e) {
 
-                throw new RuntimeException(e);
+                throw new ArchiveException(e);
             }
         }
 

@@ -35,6 +35,7 @@ import java.io.IOException;
 import jmul.math.markov.Algorithm;
 import jmul.math.markov.Rule;
 
+import jmul.misc.generators.GeneratorException;
 import jmul.misc.id.ID;
 import jmul.misc.id.IDGenerator;
 import jmul.misc.id.StringID;
@@ -172,7 +173,7 @@ public final class StringIDGenerator implements IDGenerator {
         } catch (IOException e) {
 
             String message = "Unable to persist IDs!";
-            throw new RuntimeException(message, e);
+            throw new GeneratorException(message, e);
         }
     }
 
@@ -191,7 +192,7 @@ public final class StringIDGenerator implements IDGenerator {
         } catch (IOException e) {
 
             String message = "Unable to retrieve persisted IDs!";
-            throw new RuntimeException(message, e);
+            throw new GeneratorException(message, e);
         }
     }
 

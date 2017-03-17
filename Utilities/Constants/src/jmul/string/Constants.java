@@ -74,17 +74,17 @@ public final class Constants {
     public static final String FILE_SEPARATOR_UNIX = SLASH;
 
     /**
-     * A new line character.
+     * A new line character for the current operating system.
      */
     public static final String NEW_LINE = System.getProperty("line.separator");
 
     /**
-     * A new line character.
+     * A new line character for unix/ linux style operating systems.
      */
     public static final String NEW_LINE_UNIX = "\n";
 
     /**
-     * A new line character.
+     * A new line character for windows style operating systems.
      */
     public static final String NEW_LINE_WINDOWS = "\r\n";
 
@@ -107,6 +107,16 @@ public final class Constants {
      * A semicolon character.
      */
     public static final String SEMICOLON = ";";
+
+    /**
+     * A quotation mark character.
+     */
+    public static final String QUOTATION_MARK = "\"";
+
+    /**
+     * An apostrophe character.
+     */
+    public static final String APOSTROPHE = "'";
 
     /**
      * The default constructor.

@@ -184,7 +184,7 @@ public class CoupledStreamsImpl implements CoupledStreams {
      */
     private String createExceptionMessage(Map<String, Throwable> someCoupledExceptions) {
 
-        StringBuffer buffer = new StringBuffer();
+        StringBuilder buffer = new StringBuilder();
 
         for (Map.Entry<String, Throwable> entry : someCoupledExceptions.entrySet()) {
 

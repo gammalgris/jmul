@@ -80,7 +80,7 @@ public final class StateHelper {
      */
     public static IllegalArgumentException newUnknownStateException(String aStateName) {
 
-        StringBuffer message = new StringBuffer();
+        StringBuilder message = new StringBuilder();
         message.append("The specified state \"");
         message.append(aStateName);
         message.append("\" is unknown!");
@@ -100,7 +100,7 @@ public final class StateHelper {
     public static IllegalStateTransitionException newIllegalTransitionException(State thisState,
                                                                                 State destinationState) {
 
-        StringBuffer message = new StringBuffer();
+        StringBuilder message = new StringBuilder();
         message.append("A transition from ");
         message.append(thisState.getStateName());
         message.append(" to ");
@@ -121,7 +121,7 @@ public final class StateHelper {
      */
     public static String newStringRepresentation(State aState) {
 
-        StringBuffer buffer = new StringBuffer();
+        StringBuilder buffer = new StringBuilder();
         buffer.append(aState.getStateName());
 
         Iterator<State> i = aState.getAllowedTransitions().iterator();

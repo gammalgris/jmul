@@ -92,7 +92,7 @@ public class PageLoader {
         } catch (FileNotFoundException e) {
 
             String message = "Unable to load the web content (\"" + file + "\")!";
-            throw new RuntimeException(message, e);
+            throw new PageLoaderException(message, e);
         }
 
 
@@ -119,11 +119,11 @@ public class PageLoader {
 
             if (followupError != null) {
 
-                throw new RuntimeException(message, new MultipleCausesException(e, followupError));
+                throw new PageLoaderException(message, new MultipleCausesException(e, followupError));
 
             } else {
 
-                throw new RuntimeException(message, followupError);
+                throw new PageLoaderException(message, followupError);
             }
         }
 
@@ -225,7 +225,7 @@ public class PageLoader {
         } catch (IOException e) {
 
             String message = "Unable to resolve paths (\"" + baseDirectory + "\" & \"" + file + "\")!";
-            throw new RuntimeException(message, e);
+            throw new PageLoaderException(message, e);
         }
 
         return path;

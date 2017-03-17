@@ -107,7 +107,7 @@ public class StaticContentWebServer implements WebServer {
         } catch (Exception e) {
 
             serverState = serverState.transitionTo(ERROR);
-            throw new RuntimeException(e);
+            throw new WebServerException(e);
         }
 
 
@@ -354,7 +354,7 @@ public class StaticContentWebServer implements WebServer {
 
             serverState = serverState.transitionTo(ERROR);
             logCurrentServerState();
-            throw new RuntimeException(e);
+            throw new WebServerException(e);
         }
 
         logCurrentConfiguration();
@@ -381,7 +381,7 @@ public class StaticContentWebServer implements WebServer {
 
             serverState = serverState.transitionTo(ERROR);
             logCurrentServerState();
-            throw new RuntimeException(e);
+            throw new WebServerException(e);
         }
 
         serverState = serverState.transitionTo(STOPPED);

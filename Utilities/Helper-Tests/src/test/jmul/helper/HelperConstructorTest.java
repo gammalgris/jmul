@@ -169,6 +169,8 @@ public class HelperConstructorTest {
         parameters.add(new Object[] { jmul.math.rules.RuleFactory.class });
         parameters.add(new Object[] { jmul.transformation.xml.rules.TransformationConstants.class });
         parameters.add(new Object[] { jmul.transformation.xml.annotations.AnnotationHelper.class });
+        parameters.add(new Object[] { jmul.string.TextHelper.class });
+        parameters.add(new Object[] { jmul.io.text.TextFileHelper.class });
 
         return parameters;
     }

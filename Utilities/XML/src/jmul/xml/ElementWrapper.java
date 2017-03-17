@@ -38,6 +38,11 @@ import org.w3c.dom.Node;
  * A wrapper class which provides additional utility functionality.
  *
  * @author Kristian Kutin
+ *
+ * @deprecated To handle subelements of an XML element either use
+ *             {@link jmul.xml.SubelementList} or {@link jmul.xml.SubelementMap}.
+ *             To handle attributes of an XML Element use
+ *             {@link jmul.xml.XmlParserHelper}.
  */
 @Deprecated
 public class ElementWrapper {

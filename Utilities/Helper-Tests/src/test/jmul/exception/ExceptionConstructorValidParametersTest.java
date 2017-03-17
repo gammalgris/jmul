@@ -32,6 +32,8 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import javax.xml.ws.WebServiceException;
+
 import jmul.io.ArchiveException;
 import jmul.io.CopyFileException;
 import jmul.io.CoupledStreamsException;
@@ -47,7 +49,7 @@ import jmul.misc.exceptions.NullArrayParameterException;
 import jmul.misc.exceptions.NullDirectoryParameterException;
 import jmul.misc.exceptions.NullFileParameterException;
 import jmul.misc.exceptions.NullParameterException;
-import jmul.misc.id.GeneratorException;
+import jmul.misc.generators.GeneratorException;
 import jmul.misc.state.IllegalStateTransitionException;
 import jmul.misc.state.UnknownStateException;
 
@@ -70,6 +72,8 @@ import jmul.test.exceptions.TearDownException;
 
 import jmul.time.StopwatchException;
 
+import jmul.web.page.PageHandlerException;
+import jmul.web.page.PageLoaderException;
 import jmul.web.soap.CodeGeneratorException;
 import jmul.web.soap.TooManyClassesException;
 import jmul.web.soap.WebServiceProxyException;
@@ -294,6 +298,9 @@ public class ExceptionConstructorValidParametersTest {
         addDefaultTestCases(parameters, CodeGeneratorException.class);
         addDefaultTestCases3(parameters, TooManyClassesException.class);
         addDefaultTestCases(parameters, WebServiceProxyException.class);
+        addDefaultTestCases(parameters, WebServiceException.class);
+        addDefaultTestCases(parameters, PageHandlerException.class);
+        addDefaultTestCases(parameters, PageLoaderException.class);
 
 
         return parameters;

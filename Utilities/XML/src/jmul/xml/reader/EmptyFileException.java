@@ -52,7 +52,7 @@ public class EmptyFileException extends RuntimeException {
      */
     private static String createErrorMessage(File aFile) {
 
-        StringBuffer errorMessage = new StringBuffer();
+        StringBuilder errorMessage = new StringBuilder();
         errorMessage.append("The file \"");
         errorMessage.append(aFile.getAbsolutePath());
         errorMessage.append("\" is empty!");

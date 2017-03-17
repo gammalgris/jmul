@@ -73,7 +73,7 @@ abstract class BaseLogger implements Logger {
      */
     protected void logMessage(LogLevels aLevel, String aMessage) {
 
-        StringBuffer buffer = new StringBuffer();
+        StringBuilder buffer = new StringBuilder();
 
         buffer.append(getPrefix(aLevel));
         buffer.append(" ");

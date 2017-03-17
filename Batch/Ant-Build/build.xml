@@ -16,6 +16,12 @@
             <fileset dir="${package.constants.src.dir}">
                 <include name="**/*.java" />
             </fileset>
+            <fileset dir="${package.document.src.dir}">
+                <include name="**/*.java" />
+            </fileset>
+            <fileset dir="${package.document-csv.src.dir}">
+                <include name="**/*.java" />
+            </fileset>
             <fileset dir="${package.formula.src.dir}">
                 <include name="**/*.java" />
             </fileset>
@@ -76,6 +82,9 @@
 
         <copy todir="${project.tmp.cfg.dir}" overwrite="true">
             <fileset dir="${package.concurrent.cfg.dir}">
+                <include name="**/*.properties" />
+            </fileset>
+            <fileset dir="${package.document.cfg.dir}">
                 <include name="**/*.properties" />
             </fileset>
             <fileset dir="${package.markdown.cfg.dir}">

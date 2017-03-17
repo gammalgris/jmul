@@ -25,8 +25,6 @@
 package jmul.io;
 
 
-import java.io.IOException;
-
 import static jmul.misc.checks.ParameterCheckHelper.checkExceptionCause;
 import static jmul.misc.checks.ParameterCheckHelper.checkExceptionMessage;
 
@@ -36,7 +34,7 @@ import static jmul.misc.checks.ParameterCheckHelper.checkExceptionMessage;
  *
  * @author Kristian Kutin
  */
-public class ArchiveException extends IOException {
+public class ArchiveException extends RuntimeException {
 
     /**
      * The default constructor.

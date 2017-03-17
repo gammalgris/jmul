@@ -191,8 +191,8 @@ public class WSImport implements CodeGenerator {
 
         ProcessMonitor monitor = new ProcessMonitor(process);
 
-        StringBuffer consoleOutput = new StringBuffer();
-        StringBuffer errorOutput = new StringBuffer();
+        StringBuilder consoleOutput = new StringBuilder();
+        StringBuilder errorOutput = new StringBuilder();
 
         try {
 

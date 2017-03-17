@@ -77,7 +77,7 @@ public class XmlValidationException extends RuntimeException {
      */
     private static String formatMessage(String aFileName, Collection<XmlValidationResult> allValidationResults) {
 
-        StringBuffer buffer = new StringBuffer();
+        StringBuilder buffer = new StringBuilder();
 
         buffer.append(buildErrorMessage(aFileName));
         buffer.append(NEW_LINE);
@@ -100,7 +100,12 @@ public class XmlValidationException extends RuntimeException {
      */
     private static String buildErrorMessage(String aFileName) {
 
-        return "The XML file (" + aFileName + ") doesn't adhere to a known XML schema!";
+        StringBuilder buffer = new StringBuilder();
+        buffer.append("The XML file (");
+        buffer.append(aFileName);
+        buffer.append(") doesn't adhere to a known XML schema!");
+
+        return buffer.toString();
     }
 
 }

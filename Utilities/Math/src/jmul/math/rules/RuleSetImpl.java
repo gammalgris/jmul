@@ -105,7 +105,7 @@ public class RuleSetImpl implements RuleSet {
     @Override
     public String toString() {
 
-        StringBuffer buffer = new StringBuffer();
+        StringBuilder buffer = new StringBuilder();
 
         buffer.append("RuleSet[");
 

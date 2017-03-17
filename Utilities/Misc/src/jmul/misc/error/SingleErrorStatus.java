@@ -112,7 +112,7 @@ public class SingleErrorStatus implements ErrorStatus {
     @Override
     public String toString() {
 
-        StringBuffer message = new StringBuffer();
+        StringBuilder message = new StringBuilder();
 
         if (hasOccurredError()) {
 

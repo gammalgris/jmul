@@ -121,7 +121,7 @@ public class MultipleErrorStatus implements ErrorStatus {
     @Override
     public String toString() {
 
-        StringBuffer message = new StringBuffer();
+        StringBuilder message = new StringBuilder();
 
         if (hasOccurredError()) {
 
