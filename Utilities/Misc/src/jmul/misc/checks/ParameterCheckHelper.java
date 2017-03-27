@@ -385,4 +385,34 @@ public final class ParameterCheckHelper {
         return aRegex;
     }
 
+    /**
+     * Checks the specified parameter.
+     *
+     * @param aMinValue
+     * @param aValue
+     * @param aMaxValue
+     *
+     * @return the index
+     */
+    public static int checkIndex(int aMinValue, int anIndex, int aMaxValue) {
+
+        if (anIndex < aMinValue) {
+
+            String message =
+                "The specified index is smaller than the allowed minimum value (min value = " + aMinValue +
+                "; index = " + anIndex + ")!";
+            throw new IndexOutOfBoundsException(message);
+        }
+
+        if (anIndex > aMaxValue) {
+
+            String message =
+                "The specified index is greater than the allowed maximum value (max value = " + aMaxValue +
+                "; index = " + anIndex + ")!";
+            throw new IndexOutOfBoundsException(message);
+        }
+
+        return anIndex;
+    }
+
 }
