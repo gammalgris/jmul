@@ -50,7 +50,7 @@ import jmul.string.TextHelper;
  *
  * @author Kristian Kutin
  */
-public class CsvDocumentBase extends DocumentBase<CsvStructure> {
+abstract class CsvDocumentBase extends DocumentBase<CsvStructure> implements CsvDocument {
 
     /**
      * Details about the document's structure.
@@ -68,8 +68,8 @@ public class CsvDocumentBase extends DocumentBase<CsvStructure> {
      * @throws IOException
      *         is thrown if an error occurs while reading from the underlying file
      */
-    public CsvDocumentBase(String aFileName, HeaderType aHeaderType, String aColumnSeparator,
-                           String aRowSeparator) throws IOException {
+    protected CsvDocumentBase(String aFileName, HeaderType aHeaderType, String aColumnSeparator,
+                              String aRowSeparator) throws IOException {
 
         super(aFileName);
 
@@ -105,7 +105,7 @@ public class CsvDocumentBase extends DocumentBase<CsvStructure> {
      * @throws IOException
      *         is thrown if an error occurs while reading from the underlying file
      */
-    public CsvDocumentBase(String aFileName, String aColumnSeparator, String aRowSeparator) throws IOException {
+    protected CsvDocumentBase(String aFileName, String aColumnSeparator, String aRowSeparator) throws IOException {
 
         super(aFileName);
 

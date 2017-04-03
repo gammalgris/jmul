@@ -24,36 +24,27 @@
 
 package jmul.misc.table;
 
+
+import java.util.ArrayList;
 import java.util.List;
 
 
 /**
- * This interface defines the functionalities of a table with read only
- * access to its data.
+ * A base implementation for table functions.
  *
  * @param <T>
  *
- * @author Krsitian Kutin
+ * @author Kristian Kutin
  */
-public interface Table<T> extends NamedColumns {
+abstract class TableBase<T> implements Table<T> {
 
     /**
-     * Returns the number of columns of this table.
-     *
-     * @return the number of columns
+     * The default constructor.
      */
-    int columns();
+    protected TableBase() {
 
-    /**
-     * Returns the cell at the specified position. If the cell is empty
-     * then <code>null</code> is returned.
-     *
-     * @param aColumnIndex
-     * @param aRowIndex
-     *
-     * @return a cell or <code>null</code> if the cell is empty
-     */
-    T getCell(int aColumnIndex, int aRowIndex);
+        super();
+    }
 
     /**
      * Checks if the specified cell is empty (i.e. is <code>null</code>).
@@ -64,38 +55,55 @@ public interface Table<T> extends NamedColumns {
      * @return <code>true</code> if the cell is empty (i.e. is <code>null</code>),
      *         else <code>false</code>
      */
-    boolean isEmptyCell(int aColumnIndex, int aRowIndex);
+    @Override
+    public boolean isEmptyCell(int aColumnIndex, int aRowIndex) {
+
+        T cell = getCell(aColumnIndex, aRowIndex);
+        return cell == null;
+    }
 
     /**
-     * Returns a list of all values of the specified row.
+     * Returns a list of all values of the specified row. Modifications to
+     * the returned list don't affect the actual table.
      *
      * @param aRowIndex
      *
      * @return all row values
      */
-    List<T> getRow(int aRowIndex);
+    @Override
+    public List<T> getRow(int aRowIndex) {
+
+        List<T> result = new ArrayList<T>(rows());
+
+        for (int a = 0; a < columns(); a++) {
+
+            T cell = getCell(a, aRowIndex);
+            result.add(cell);
+        }
+
+        return result;
+    }
 
     /**
-     * Returns a list of all values of the specified column.
+     * Returns a list of all values of the specified column. Modifications to
+     * the returned list don't affect the actual table.
      *
      * @param aColumnIndex
      *
      * @return all column values
      */
-    List<T> getColumn(int aColumnIndex);
+    @Override
+    public List<T> getColumn(int aColumnIndex) {
 
-    /**
-     * Returns the number of rows of this table.
-     *
-     * @return the number of rows
-     */
-    int rows();
+        List<T> result = new ArrayList<T>(columns());
 
-    /**
-     * Returns the total number of cells within the table.
-     *
-     * @return a cell count
-     */
-    int cells();
+        for (int a = 0; a < rows(); a++) {
+
+            T cell = getCell(aColumnIndex, a);
+            result.add(cell);
+        }
+
+        return result;
+    }
 
 }

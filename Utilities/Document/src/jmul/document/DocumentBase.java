@@ -113,6 +113,11 @@ public abstract class DocumentBase<T extends Structure> implements Document<T> {
 class MetaDataImpl implements MetaData {
 
     /**
+     * The canonical file name.
+     */
+    private final String fileName;
+
+    /**
      * A handle to the actual file.
      */
     private final Path fileHandle;
@@ -153,6 +158,7 @@ class MetaDataImpl implements MetaData {
 
         File file = new File(aFileName);
         file = file.getCanonicalFile();
+        fileName = file.getCanonicalPath();
 
         String nameWithSuffix = file.getName();
         int index = nameWithSuffix.lastIndexOf(POINT);
@@ -165,6 +171,17 @@ class MetaDataImpl implements MetaData {
         owner = Files.getOwner(fileHandle).getName();
 
         lastModifiedDate = new Date(Files.getLastModifiedTime(fileHandle).toMillis());
+    }
+
+    /**
+     * Returns the canonical file name.
+     *
+     * @return a canonical file name
+     */
+    @Override
+    public String getFileName() {
+
+        return fileName;
     }
 
     /**

@@ -25,6 +25,8 @@
 package test.jmul.misc.table;
 
 
+import java.util.List;
+
 import jmul.misc.table.Table;
 import jmul.misc.table.UnmodifiableTableImpl;
 
@@ -54,7 +56,7 @@ public class UnmodifiableTableTest {
     public void setUp() {
 
         table = new UnmodifiableTableImpl<Integer>(new String[] { "A", "B", "C" }, new Integer[][] {
-                                                   { 1, 2, 3 }, { 4, 5, 6 }, { 7, 8, 9 }
+                                                   { 1, 2, 3 }, { 4, 5, 6 }, { 7, 8, null }
             });
     }
 
@@ -106,7 +108,7 @@ public class UnmodifiableTableTest {
         assertTrue(6 == table.getCell(2, 1));
         assertTrue(7 == table.getCell(0, 2));
         assertTrue(8 == table.getCell(1, 2));
-        assertTrue(9 == table.getCell(2, 2));
+        assertTrue(null == table.getCell(2, 2));
     }
 
     /**
@@ -127,6 +129,76 @@ public class UnmodifiableTableTest {
     public void testHeaderModification() {
 
         table.setColumnName(0, "Z");
+    }
+
+    /**
+     * Tests the getRow operation.
+     */
+    @Test
+    public void testGetRow() {
+
+        List<Integer> list = table.getRow(1);
+
+        assertTrue(4 == list.get(0));
+        assertTrue(5 == list.get(1));
+        assertTrue(6 == list.get(2));
+
+
+        // Modifying the result list should not have an impact
+        // on the actual table.
+
+        list.add(-1);
+        list.remove(0);
+
+        assertTrue(1 == table.getCell(0, 0));
+        assertTrue(2 == table.getCell(1, 0));
+        assertTrue(3 == table.getCell(2, 0));
+        assertTrue(4 == table.getCell(0, 1));
+        assertTrue(5 == table.getCell(1, 1));
+        assertTrue(6 == table.getCell(2, 1));
+        assertTrue(7 == table.getCell(0, 2));
+        assertTrue(8 == table.getCell(1, 2));
+        assertTrue(null == table.getCell(2, 2));
+    }
+
+    /**
+     * Tests the getColumn operation.
+     */
+    @Test
+    public void testGetColumn() {
+
+        List<Integer> list = table.getColumn(1);
+
+        assertTrue(2 == list.get(0));
+        assertTrue(5 == list.get(1));
+        assertTrue(8 == list.get(2));
+
+
+        // Modifying the result list should not have an impact
+        // on the actual table.
+
+        list.add(-1);
+        list.remove(0);
+
+        assertTrue(1 == table.getCell(0, 0));
+        assertTrue(2 == table.getCell(1, 0));
+        assertTrue(3 == table.getCell(2, 0));
+        assertTrue(4 == table.getCell(0, 1));
+        assertTrue(5 == table.getCell(1, 1));
+        assertTrue(6 == table.getCell(2, 1));
+        assertTrue(7 == table.getCell(0, 2));
+        assertTrue(8 == table.getCell(1, 2));
+        assertTrue(null == table.getCell(2, 2));
+    }
+
+    /**
+     * Tests the isEmptyCell operation.
+     */
+    @Test
+    public void testIsEmptyCell() {
+
+        assertEquals(false, table.isEmptyCell(1, 2));
+        assertEquals(true, table.isEmptyCell(2, 2));
     }
 
 }

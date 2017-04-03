@@ -40,7 +40,12 @@ import static jmul.misc.checks.ParameterCheckHelper.checkIndex;
  *
  * @author Kristian Kutin
  */
-public class ModifiableTableImpl<T> implements ModifiableTable<T> {
+public class ModifiableTableImpl<T> extends TableBase<T> implements ModifiableTable<T> {
+
+    /**
+     * A name component.
+     */
+    private static final String COLUMN_NAME_PREFIX = "column";
 
     /**
      * The number of columns;
@@ -74,13 +79,7 @@ public class ModifiableTableImpl<T> implements ModifiableTable<T> {
 
         super();
 
-        columns = 0;
-        rows = 0;
-
-        updateCells();
-
-        table = new ArrayList<List<T>>();
-        header = new ArrayList<String>();
+        redimensionTable();
     }
 
     /**
@@ -256,17 +255,25 @@ public class ModifiableTableImpl<T> implements ModifiableTable<T> {
     @Override
     public void addColumn() {
 
-        int newColumns = columns + 1;
-        String newColumnName = "column " + newColumns;
+        if ((columns == 0) && (rows == 0)) {
 
-        for (List<T> inner : table) {
+            header.add(newColumnName(columns));
 
-            inner.add(newEmptyCell());
+            columns++;
+            table.add(newRow(columns));
+            rows++;
+
+        } else {
+
+            for (List<T> inner : table) {
+
+                inner.add(newEmptyCell());
+            }
+
+            header.add(newColumnName(columns));
+            columns++;
         }
 
-        header.add(newColumnName);
-
-        columns = newColumns;
         updateCells();
     }
 
@@ -276,10 +283,29 @@ public class ModifiableTableImpl<T> implements ModifiableTable<T> {
     @Override
     public void addRow() {
 
-        table.add(newRow(columns));
-        rows++;
+        if ((columns == 0) && (rows == 0)) {
 
+            header.add(newColumnName(columns));
+            columns++;
+
+        }
+
+        table.add(newRow(columns));
+
+        rows++;
         updateCells();
+    }
+
+    /**
+     * Returns a columns name according to the specified parameters.
+     *
+     * @param aColumnIndex
+     *
+     * @return a column name
+     */
+    private static String newColumnName(int aColumnIndex) {
+
+        return COLUMN_NAME_PREFIX + aColumnIndex;
     }
 
     /**
@@ -292,16 +318,23 @@ public class ModifiableTableImpl<T> implements ModifiableTable<T> {
 
         checkIndex(0, aColumnIndex, columns - 1);
 
-        for (List<T> inner : table) {
+        if (columns == 1) {
 
-            inner.remove(aColumnIndex);
+            redimensionTable();
+
+        } else {
+
+            for (List<T> inner : table) {
+
+                inner.remove(aColumnIndex);
+            }
+
+            header.remove(aColumnIndex);
+
+            columns--;
+
+            updateCells();
         }
-
-        header.remove(aColumnIndex);
-
-        columns--;
-
-        updateCells();
     }
 
     /**
@@ -314,9 +347,30 @@ public class ModifiableTableImpl<T> implements ModifiableTable<T> {
 
         checkIndex(0, aRowIndex, rows - 1);
 
-        table.remove(aRowIndex);
+        if (rows == 1) {
 
-        rows--;
+            redimensionTable();
+
+        } else {
+
+            table.remove(aRowIndex);
+
+            rows--;
+
+            updateCells();
+        }
+    }
+
+    /**
+     * The table will be redimensioned to zero rows and zero columns. The
+     * header will be changed accordingly.
+     */
+    private void redimensionTable() {
+
+        table = new ArrayList<List<T>>();
+        header = new ArrayList<String>();
+        columns = 0;
+        rows = 0;
 
         updateCells();
     }

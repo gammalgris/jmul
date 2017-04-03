@@ -42,6 +42,13 @@ import java.util.Date;
 public interface MetaData {
 
     /**
+     * Returns the canonical file name.
+     *
+     * @return a canonical file name
+     */
+    String getFileName();
+
+    /**
      * Returns the name of the document (i.e. without path and file extension).
      *
      * @return a document name
@@ -82,7 +89,7 @@ public interface MetaData {
      * @param anAttributeName
      *
      * @return the value of the specified attribute
-     * 
+     *
      * @throws IOException
      *         is thrown if the file attribute cannot be read
      */

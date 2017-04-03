@@ -31,8 +31,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.ResourceBundle;
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
 
 import jmul.concurrent.threads.ThreadEvent;
 import jmul.concurrent.threads.ThreadExecutionStatus;
@@ -87,7 +85,7 @@ public class FileLookup implements ThreadListener {
      * A lock to safeguard that the thread pool is instantiated and initialized
      * properly.
      */
-    private static Lock threadPoolLock = new ReentrantLock();
+    private static volatile Object threadPoolSynchronizer = new Object();
 
     /**
      * The results of a lookup.
@@ -123,7 +121,7 @@ public class FileLookup implements ThreadListener {
      */
     private static void newThreadPoolSingleton() {
 
-        synchronized (threadPoolLock) {
+        synchronized (threadPoolSynchronizer) {
 
             if (threadPoolSingleton == null) {
 
@@ -161,7 +159,7 @@ public class FileLookup implements ThreadListener {
      */
     private static void stopThreadPoolSingleton() {
 
-        synchronized (threadPoolLock) {
+        synchronized (threadPoolSynchronizer) {
 
             if (threadPoolSingleton != null) {
 
@@ -181,7 +179,7 @@ public class FileLookup implements ThreadListener {
 
         boolean result;
 
-        synchronized (threadPoolLock) {
+        synchronized (threadPoolSynchronizer) {
 
             result = threadPoolSingleton != null;
         }
@@ -198,7 +196,7 @@ public class FileLookup implements ThreadListener {
 
         ThreadPool pool;
 
-        synchronized (threadPoolLock) {
+        synchronized (threadPoolSynchronizer) {
 
             pool = threadPoolSingleton;
         }

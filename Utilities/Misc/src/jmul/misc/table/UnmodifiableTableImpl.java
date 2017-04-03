@@ -40,7 +40,7 @@ import static jmul.misc.checks.ParameterCheckHelper.checkIndex;
  *
  * @author Kristian Kutin
  */
-public class UnmodifiableTableImpl<T> implements Table<T> {
+public class UnmodifiableTableImpl<T> extends TableBase<T> {
 
     /**
      * The number of columns;
