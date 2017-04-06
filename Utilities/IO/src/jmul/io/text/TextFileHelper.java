@@ -68,8 +68,22 @@ public final class TextFileHelper {
      */
     public static NestedStreams openFile(String aFileName) throws FileNotFoundException {
 
-        File file = new File(aFileName);
-        FileInputStream fis = new FileInputStream(file);
+        return openFile(new File(aFileName));
+    }
+
+    /**
+     * Opens the specified file for subsequent reading operations.
+     *
+     * @param aFile
+     *
+     * @return an input stream
+     *
+     * @throws FileNotFoundException
+     *         is thrown if the specified file doesn't exist
+     */
+    public static NestedStreams openFile(File aFile) throws FileNotFoundException {
+
+        FileInputStream fis = new FileInputStream(aFile);
         InputStreamReader isr = new InputStreamReader(fis);
         BufferedReader br = new BufferedReader(isr);
 
@@ -91,8 +105,23 @@ public final class TextFileHelper {
      */
     public static NestedStreams openFile(String aFileName, Charset aCharset) throws FileNotFoundException {
 
-        File file = new File(aFileName);
-        FileInputStream fis = new FileInputStream(file);
+        return openFile(new File(aFileName), aCharset);
+    }
+
+    /**
+     * Opens the specified file for subsequent reading operations.
+     *
+     * @param aFile
+     * @param aCharset
+     *
+     * @return an input stream
+     *
+     * @throws FileNotFoundException
+     *         is thrown if the specified file doesn't exist
+     */
+    public static NestedStreams openFile(File aFile, Charset aCharset) throws FileNotFoundException {
+
+        FileInputStream fis = new FileInputStream(aFile);
         InputStreamReader isr = new InputStreamReader(fis, aCharset);
         BufferedReader br = new BufferedReader(isr);
 

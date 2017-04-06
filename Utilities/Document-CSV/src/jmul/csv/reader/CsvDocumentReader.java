@@ -22,43 +22,48 @@
  * e-mail: kristian.kutin@arcor.de
  */
 
-package test.jmul.document;
+package jmul.csv.reader;
 
 
+import java.io.File;
 import java.io.IOException;
 
-import jmul.document.Document;
-import jmul.document.GenericDocumentImpl;
-
-import jmul.test.classification.ManualTest;
+import jmul.document.csv.CsvDocument;
 
 
 /**
- * A test to check the general properties of a document.
+ * This interface describes an entity that reads CSV files.
  *
  * @author Kristian Kutin
- *
- * @deprecated delete before checking in
  */
-@Deprecated
-@ManualTest
-public class Test {
+public interface CsvDocumentReader {
 
-    public static void main(String[] args) {
+    /**
+     * Parses the specified file and returns a document that contains the
+     * file content.
+     *
+     * @param aFilename
+     *        filename of the CSV file
+     *
+     * @return a document object
+     *
+     * @throws IOException
+     *         is thrown if an error occurrs while trying to read from the file
+     */
+    CsvDocument parseDocument(String aFilename) throws IOException;
 
-        try {
-
-            GenericDocumentImpl gdocument = new GenericDocumentImpl("D:\\readme.txt");
-            Document document = gdocument;
-
-            System.out.println(gdocument.getStructure());
-
-            System.out.println(gdocument.getMetaData());
-            System.out.println(gdocument.getDocumentType());
-            System.out.println("done.");
-
-        } catch (IOException e) {
-        }
-    }
+    /**
+     * Parses the specified file and returns a document that contains the
+     * file content.
+     *
+     * @param aFile
+     *        the CSV file
+     *
+     * @return a document object
+     *
+     * @throws IOException
+     *         is thrown if an error occurrs while trying to read from the file
+     */
+    CsvDocument parseDocument(File aFile) throws IOException;
 
 }

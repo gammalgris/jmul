@@ -22,7 +22,7 @@
  * e-mail: kristian.kutin@arcor.de
  */
 
-package jmul.document.meta;
+package jmul.io.metadata;
 
 
 import java.io.IOException;

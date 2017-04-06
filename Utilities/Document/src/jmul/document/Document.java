@@ -26,7 +26,6 @@ package jmul.document;
 
 
 import jmul.document.content.Structure;
-import jmul.document.properties.Detailed;
 import jmul.document.properties.Structured;
 import jmul.document.properties.Typed;
 
@@ -38,6 +37,6 @@ import jmul.document.properties.Typed;
  *
  * @author Kristian Kutin
  */
-public interface Document<T extends Structure> extends Structured<T>, Detailed, Typed {
+public interface Document<T extends Structure> extends Structured<T>, Typed {
 
 }

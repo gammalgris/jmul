@@ -27,59 +27,89 @@ package jmul.document.csv;
 
 import java.io.IOException;
 
+import java.util.List;
+
 import jmul.document.csv.content.HeaderType;
+import jmul.document.type.DocumentType;
 
 import jmul.misc.table.Table;
+import jmul.misc.table.UnmodifiableTableImpl;
 
 
 /**
  * This is an implementation of a CSV document where the file content
- * is too large to be loaded into memory.
+ * can be fully loaded into memory.
  *
  * @author Kristian Kutin
  */
-public class LargeCsvDocumentImpl extends CsvDocumentBase {
+public class CsvDocumentImpl extends CsvDocumentBase {
+
+    /**
+     * The content of the underlying CSV file.
+     */
+    private Table<String> content;
 
     /**
      * Creates a new document according to the specified parmaeters.
      *
-     * @param aFileName
+     * @param aDocumentType
      * @param aHeaderType
      * @param aColumnSeparator
      * @param aRowSeparator
+     * @param aTable
      *
      * @throws IOException
      */
-    public LargeCsvDocumentImpl(String aFileName, HeaderType aHeaderType, String aColumnSeparator,
-                                String aRowSeparator) throws IOException {
+    public CsvDocumentImpl(DocumentType aDocumentType, HeaderType aHeaderType, String aColumnSeparator,
+                           String aRowSeparator, Table<String> aTable) throws IOException {
 
-        super(aFileName, aHeaderType, aColumnSeparator, aRowSeparator);
+        super(aDocumentType, aHeaderType, aColumnSeparator, aRowSeparator, transformColumnNamesToArray(aTable));
+
+        content = new UnmodifiableTableImpl<String>(aTable);
     }
 
     /**
      * Creates a new document according to the specified parmaeters.
      *
-     * @param aFileName
+     * @param aDocumentType
      * @param aColumnSeparator
      * @param aRowSeparator
+     * @param aTable
+     *
      * @throws IOException
      */
-    public LargeCsvDocumentImpl(String aFileName, String aColumnSeparator, String aRowSeparator) throws IOException {
+    public CsvDocumentImpl(DocumentType aDocumentType, String aColumnSeparator, String aRowSeparator,
+                           Table<String> aTable) throws IOException {
 
-        super(aFileName, aColumnSeparator, aRowSeparator);
+        super(aDocumentType, aColumnSeparator, aRowSeparator);
+
+        content = new UnmodifiableTableImpl<String>(aTable);
     }
 
     /**
-     * Returns a handle to access the CSV content as table. Internally part
-     * of the file content is cached.
+     * Transforms the table column names from a list into an array.
      *
-     * @return a handle with a table like access to the file data
+     * @param aTable
+     *
+     * @return an array of column names
+     */
+    private static String[] transformColumnNamesToArray(Table<String> aTable) {
+
+        List<String> columnNames = aTable.getColumnNames();
+        String[] header = new String[columnNames.size()];
+
+        return columnNames.toArray(header);
+    }
+
+    /**
+     * Returns the CSV content as table.
+     *
+     * @return a table
      */
     @Override
     public Table<String> getContent() {
 
-        // TODO Implement this method
-        return null;
+        return content;
     }
 
 }

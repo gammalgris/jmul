@@ -25,21 +25,8 @@
 package jmul.document;
 
 
-import java.io.File;
-import java.io.IOException;
-
-import java.nio.file.Files;
-import java.nio.file.Path;
-
-import java.util.Date;
-
 import jmul.document.content.Structure;
-import jmul.document.meta.MetaData;
 import jmul.document.type.DocumentType;
-import jmul.document.type.DocumentTypes;
-
-import static jmul.string.Constants.NEW_LINE;
-import static jmul.string.Constants.POINT;
 
 
 /**
@@ -50,16 +37,6 @@ import static jmul.string.Constants.POINT;
 public abstract class DocumentBase<T extends Structure> implements Document<T> {
 
     /**
-     * The file name of the document.
-     */
-    private final String fileName;
-
-    /**
-     * The file's meta data.
-     */
-    private final MetaData metaData;
-
-    /**
      * The document type.
      */
     private final DocumentType documentType;
@@ -67,28 +44,13 @@ public abstract class DocumentBase<T extends Structure> implements Document<T> {
     /**
      * Creates a new document object according to the specified parameters.
      *
-     * @param aFileName
-     *
-     * @throws IOException
+     * @param aDocumentType
      */
-    protected DocumentBase(String aFileName) throws IOException {
+    protected DocumentBase(DocumentType aDocumentType) {
 
         super();
 
-        fileName = aFileName;
-        metaData = new MetaDataImpl(aFileName);
-        documentType = DocumentTypes.getDocumentType(fileName);
-    }
-
-    /**
-     * Returns some meta data which is associated with the document.
-     *
-     * @return some meta data
-     */
-    @Override
-    public MetaData getMetaData() {
-
-        return metaData;
+        documentType = aDocumentType;
     }
 
     /**
@@ -100,191 +62,6 @@ public abstract class DocumentBase<T extends Structure> implements Document<T> {
     public DocumentType getDocumentType() {
 
         return documentType;
-    }
-
-}
-
-
-/**
- * An implementation of an entity which provides access to a file's meta data.
- *
- * @author Kristian Kutin
- */
-class MetaDataImpl implements MetaData {
-
-    /**
-     * The canonical file name.
-     */
-    private final String fileName;
-
-    /**
-     * A handle to the actual file.
-     */
-    private final Path fileHandle;
-
-    /**
-     * The name of the file (without path and file extension).
-     */
-    private final String name;
-
-    /**
-     * The file's file extension.
-     */
-    private final String fileExtension;
-
-    /**
-     * The file's location in the file system.
-     */
-    private final String path;
-
-    /**
-     * The owner of the file.
-     */
-    private final String owner;
-
-    /**
-     * The time of last modification.
-     */
-    private final Date lastModifiedDate;
-
-    /**
-     * Creates a new instance according to the specified parameters.
-     *
-     * @param aFileName
-     *
-     * @throws IOException
-     */
-    public MetaDataImpl(String aFileName) throws IOException {
-
-        File file = new File(aFileName);
-        file = file.getCanonicalFile();
-        fileName = file.getCanonicalPath();
-
-        String nameWithSuffix = file.getName();
-        int index = nameWithSuffix.lastIndexOf(POINT);
-
-        name = nameWithSuffix.substring(0, index);
-        fileExtension = nameWithSuffix.substring(index);
-        path = file.getParent();
-        fileHandle = file.toPath();
-
-        owner = Files.getOwner(fileHandle).getName();
-
-        lastModifiedDate = new Date(Files.getLastModifiedTime(fileHandle).toMillis());
-    }
-
-    /**
-     * Returns the canonical file name.
-     *
-     * @return a canonical file name
-     */
-    @Override
-    public String getFileName() {
-
-        return fileName;
-    }
-
-    /**
-     * Returns the name of the document (i.e. without path and file extension).
-     *
-     * @return a document name
-     */
-    @Override
-    public String getName() {
-
-        return name;
-    }
-
-    /**
-     * Returns the path of the document.
-     *
-     * @return a document path
-     */
-    @Override
-    public String getPath() {
-
-        return path;
-    }
-
-    /**
-     * Returns the file extension of the document file.
-     *
-     * @return a file extension
-     */
-    @Override
-    public String getFileExtension() {
-
-        return fileExtension;
-    }
-
-    /**
-     * Returns the owner of the document file.
-     *
-     * @return a file owner
-     */
-    @Override
-    public String getOwner() {
-
-        return owner;
-    }
-
-    /**
-     * Returns the document file's last modified time.
-     *
-     * @return the last modified time
-     */
-    @Override
-    public Date getLastModifiedTime() {
-
-        return lastModifiedDate;
-    }
-
-    /**
-     * Returns the value of the specified file attribute.
-     *
-     * @param anAttributeName
-     *
-     * @return the value of the specified attribute
-     *
-     * @throws IOException
-     *         is thrown if the file attribute cannot be read
-     */
-    @Override
-    public Object getAttribute(String anAttributeName) throws IOException {
-
-        return Files.getAttribute(fileHandle, anAttributeName);
-    }
-
-    /**
-     * Returns a string representation for this object.
-     *
-     * @return a string representation
-     */
-    @Override
-    public String toString() {
-
-        StringBuilder buffer = new StringBuilder();
-
-        buffer.append("name=");
-        buffer.append(getName());
-        buffer.append(NEW_LINE);
-
-        buffer.append("path=");
-        buffer.append(getPath());
-        buffer.append(NEW_LINE);
-
-        buffer.append("file extension=");
-        buffer.append(getFileExtension());
-        buffer.append(NEW_LINE);
-
-        buffer.append("owner=");
-        buffer.append(getOwner());
-        buffer.append(NEW_LINE);
-
-        buffer.append("last modified time=");
-        buffer.append(getLastModifiedTime());
-
-        return buffer.toString();
     }
 
 }

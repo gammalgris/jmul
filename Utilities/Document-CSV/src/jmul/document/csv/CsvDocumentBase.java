@@ -29,20 +29,11 @@ import java.io.IOException;
 
 import java.nio.charset.Charset;
 
-import java.util.List;
-
 import jmul.document.DocumentBase;
 import jmul.document.csv.content.CsvStructure;
 import jmul.document.csv.content.HeaderType;
 import static jmul.document.csv.content.HeaderType.NO_HEADER;
-
-import jmul.io.NestedStreams;
-import jmul.io.text.ReadBuffer;
-import static jmul.io.text.TextFileHelper.closeFile;
-import static jmul.io.text.TextFileHelper.openFile;
-import static jmul.io.text.TextFileHelper.readLine;
-
-import jmul.string.TextHelper;
+import jmul.document.type.DocumentType;
 
 
 /**
@@ -60,39 +51,27 @@ abstract class CsvDocumentBase extends DocumentBase<CsvStructure> implements Csv
     /**
      * Creates a new instance according to the specified parmaeters.
      *
-     * @param aFileName
+     * @param aDocumentType
      * @param aHeaderType
      * @param aColumnSeparator
      * @param aRowSeparator
+     * @param someColumnNames
      *
      * @throws IOException
      *         is thrown if an error occurs while reading from the underlying file
      */
-    protected CsvDocumentBase(String aFileName, HeaderType aHeaderType, String aColumnSeparator,
-                              String aRowSeparator) throws IOException {
+    protected CsvDocumentBase(DocumentType aDocumentType, HeaderType aHeaderType, String aColumnSeparator,
+                              String aRowSeparator, String... someColumnNames) {
 
-        super(aFileName);
+        super(aDocumentType);
 
         if (aHeaderType == NO_HEADER) {
 
             throw new IllegalArgumentException("The header type " + aHeaderType + " is not valid!");
-
         }
 
-
-        NestedStreams ns = openFile(aFileName);
-
-        ReadBuffer buffer = readLine(ns, aRowSeparator);
-        String headerLine = buffer.getLine();
-
-        closeFile(ns);
-
-        List<String> header = TextHelper.splitLine(headerLine, aColumnSeparator);
-        String[] columnNames = header.toArray(new String[] { });
-
-
         structure =
-            new CsvStructure(Charset.defaultCharset(), aHeaderType, aColumnSeparator, aRowSeparator, columnNames);
+            new CsvStructure(Charset.defaultCharset(), aHeaderType, aColumnSeparator, aRowSeparator, someColumnNames);
     }
 
     /**
@@ -101,13 +80,10 @@ abstract class CsvDocumentBase extends DocumentBase<CsvStructure> implements Csv
      * @param aFileName
      * @param aColumnSeparator
      * @param aRowSeparator
-     *
-     * @throws IOException
-     *         is thrown if an error occurs while reading from the underlying file
      */
-    protected CsvDocumentBase(String aFileName, String aColumnSeparator, String aRowSeparator) throws IOException {
+    protected CsvDocumentBase(DocumentType aDocumentType, String aColumnSeparator, String aRowSeparator) {
 
-        super(aFileName);
+        super(aDocumentType);
 
         structure = new CsvStructure(Charset.defaultCharset(), aColumnSeparator, aRowSeparator);
     }

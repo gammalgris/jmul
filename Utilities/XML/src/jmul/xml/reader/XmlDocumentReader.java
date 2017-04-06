@@ -48,7 +48,7 @@ public interface XmlDocumentReader {
      * The method reads one XML file and transforms the content into a Document
      * object.
      *
-     * @param filename
+     * @param aFilename
      *        filename of the XML file
      *
      * @return a Document object
@@ -58,7 +58,7 @@ public interface XmlDocumentReader {
      * @throws IOException
      *         This exception can be thrown if IO operations fail
      */
-    Document parseDocument(String filename) throws SAXException, IOException;
+    Document parseDocument(String aFilename) throws SAXException, IOException;
 
     /**
      * The method reads one XML file and transforms the content into a Document
@@ -80,9 +80,9 @@ public interface XmlDocumentReader {
      * The method reads an XML file from an archive and transforms the content
      * into a Document object.
      *
-     * @param archiveName
+     * @param anArchiveName
      *        the name of the archive file
-     * @param filename
+     * @param aFilename
      *        filename of the XML file
      *
      * @return a Document object
@@ -92,6 +92,6 @@ public interface XmlDocumentReader {
      * @throws IOException
      *         This exception can be thrown if IO operations fail
      */
-    Document parseArchivedDocument(String archiveName, String filename) throws SAXException, IOException;
+    Document parseArchivedDocument(String anArchiveName, String aFilename) throws SAXException, IOException;
 
 }

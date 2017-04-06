@@ -6,11 +6,12 @@
       <value n="oracle.adf.share.dt.migration.wsm.PolicyAttachmentMigratorHelper" v="12.1.2.0.0"/>
       <value n="oracle.adfdt.controller.adfc.source.migration.SavePointDataSourceForWLSMigrator" v="11.1.1.1.0"/>
       <value n="oracle.adfdtinternal.model.ide.security.extension.AdfSecurityMigrator" v="11.1.1.1.0.13"/>
-      <value n="oracle.ide.model.Project" v="11.1.1.1.0;12.1.3.0.0"/>
+      <value n="oracle.ide.model.Project" v="11.1.1.1.0;12.1.3.0.0;12.2.1.1.0"/>
       <value n="oracle.jbo.dt.jdevx.deployment.JbdProjectMigrator" v="11.1.2.0.0"/>
+      <value n="oracle.jdeveloper.maven.migrator.POMNodeMigrator" v="12.2.1.0.0"/>
       <value n="oracle.jdevimpl.appresources.ApplicationSrcDirMigrator" v="11.1.2.0.0"/>
       <value n="oracle.jdevimpl.deploy.migrators.JeeDeploymentMigrator" v="12.1.2.0.0"/>
-      <value n="oracle.jdevimpl.xml.oc4j.jps.JpsConfigMigratorHelper" v="11.1.1.1.0.1"/>
+      <value n="oracle.jdevimpl.xml.oc4j.jps.JpsConfigMigratorHelper" v="11.1.1.1.0.1;12.1.4.0.0"/>
       <value n="oracle.jdevimpl.xml.wl.WeblogicMigratorHelper" v="11.1.1.1.0"/>
       <value n="oracle.mds.internal.dt.deploy.base.MarMigratorHelper" v="11.1.1.1.0"/>
       <value n="oracle.mds.internal.dt.ide.migrator.MDSConfigMigratorHelper" v="11.1.1.0.5313"/>
@@ -28,7 +29,7 @@
       <hash><url n="URL" path="Constants/Constants.jpr"/></hash>
       <hash><url n="URL" path="Document/Document.jpr"/></hash>
       <hash><url n="URL" path="Document-CSV/Document-CSV.jpr"/></hash>
-      <hash><url n="URL" path="Document-Tests/Document-Tests.jpr"/></hash>
+      <hash><url n="URL" path="Document-CSV-Tests/Document-CSV-Tests.jpr"/></hash>
       <hash><url n="URL" path="Formula/Formula.jpr"/></hash>
       <hash><url n="URL" path="Formula-Tests/Formula-Tests.jpr"/></hash>
       <hash><url n="URL" path="Helper-Tests/Helper-Tests.jpr"/></hash>

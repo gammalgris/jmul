@@ -22,24 +22,24 @@
  * e-mail: kristian.kutin@arcor.de
  */
 
-package jmul.document.properties;
+package jmul.misc.annotations;
 
-import jmul.document.meta.MetaData;
+
+import java.lang.annotation.Documented;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
 
 /**
- * This interface describes certain functionalities a document (see {@link Document#})
- * must provide if further details can be provided (like e.g. meta data).
+ * This annotation is intended as marker for parameters that are modified
+ * (i.e. content is changed).
  *
  * @author Kristian Kutin
  */
-public interface Detailed {
-
-    /**
-     * Returns some meta data which is associated with the document.
-     *
-     * @return some meta data
-     */
-    MetaData getMetaData();
-
+@Documented
+@Target(ElementType.PARAMETER)
+@Retention(RetentionPolicy.RUNTIME)
+public @interface Modified {
 }
