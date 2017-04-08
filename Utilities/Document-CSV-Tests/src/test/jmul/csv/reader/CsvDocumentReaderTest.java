@@ -31,6 +31,7 @@ import java.util.List;
 
 import jmul.csv.reader.CsvDocumentReader;
 import jmul.csv.reader.CsvDocumentReaderImpl;
+import jmul.csv.reader.CsvDocumentReaderImpl2;
 
 import jmul.document.csv.CsvDocument;
 import jmul.document.csv.content.HeaderType;
@@ -38,6 +39,8 @@ import jmul.document.type.DocumentTypes;
 
 import jmul.misc.table.Table;
 
+import static jmul.string.Constants.COMMA;
+import static jmul.string.Constants.NEW_LINE_UNIX;
 import static jmul.string.Constants.NEW_LINE_WINDOWS;
 import static jmul.string.Constants.SEMICOLON;
 
@@ -58,10 +61,13 @@ import org.junit.Test;
 @ModuleTest
 public class CsvDocumentReaderTest {
 
+    /**
+     * Tests parsing a CSV file.
+     */
     @Test
     public void testParseDocument() {
 
-        String filename = "testdata//example01.csv";
+        String filename = "testdata-csv\\example01.csv";
         CsvDocumentReader reader = new CsvDocumentReaderImpl();
 
         CsvDocument document;
@@ -100,6 +106,296 @@ public class CsvDocumentReaderTest {
 
                 int expectedNumber = (b * 3) + (a + 1);
                 String expectedString = "" + expectedNumber;
+                String actualString = table.getCell(a, b);
+                String message =
+                    "expected: " + expectedString + "; row=" + b + "; column=" + a + "; actual=" + actualString;
+
+                assertEquals(message, expectedString, actualString);
+            }
+        }
+    }
+
+    /**
+     * Tests parsing a CSV file.
+     */
+    @Test
+    public void testParseDocument2() {
+
+        String filename = "testdata-csv\\example02.csv";
+        CsvDocumentReader reader = new CsvDocumentReaderImpl(COMMA);
+
+        CsvDocument document;
+
+        try {
+
+            document = reader.parseDocument(filename);
+
+        } catch (IOException e) {
+
+            throw new FailedTestException(e);
+        }
+
+
+        assertEquals(DocumentTypes.CSV, document.getDocumentType());
+        assertEquals(COMMA, document.getStructure().getColumnSeparator());
+        assertEquals(NEW_LINE_WINDOWS, document.getStructure().getRowSeparator());
+        assertEquals(HeaderType.RIGID, document.getStructure().getHeaderType());
+
+        String[] header1 = document.getStructure().getHeader();
+        List<String> header2 = document.getContent().getColumnNames();
+
+        Table<String> table = document.getContent();
+        int columns = table.columns();
+        int rows = table.rows();
+
+        for (int a = 0; a < columns; a++) {
+
+            assertEquals(header1[a], header2.get(a));
+        }
+
+
+        for (int a = 0; a < columns; a++) {
+
+            for (int b = 0; b < rows; b++) {
+
+                int expectedNumber = (b * 3) + (a + 1);
+                String expectedString = "" + expectedNumber;
+                String actualString = table.getCell(a, b);
+                String message =
+                    "expected: " + expectedString + "; row=" + b + "; column=" + a + "; actual=" + actualString;
+
+                assertEquals(message, expectedString, actualString);
+            }
+        }
+    }
+
+    /**
+     * Tests parsing a CSV file.
+     */
+    @Test
+    public void testParseDocument3() {
+
+        String filename = "testdata-csv\\example03.csv";
+        CsvDocumentReader reader = new CsvDocumentReaderImpl(SEMICOLON, NEW_LINE_UNIX);
+
+        CsvDocument document;
+
+        try {
+
+            document = reader.parseDocument(filename);
+
+        } catch (IOException e) {
+
+            throw new FailedTestException(e);
+        }
+
+
+        assertEquals(DocumentTypes.CSV, document.getDocumentType());
+        assertEquals(SEMICOLON, document.getStructure().getColumnSeparator());
+        assertEquals(NEW_LINE_UNIX, document.getStructure().getRowSeparator());
+        assertEquals(HeaderType.RIGID, document.getStructure().getHeaderType());
+
+        String[] header1 = document.getStructure().getHeader();
+        List<String> header2 = document.getContent().getColumnNames();
+
+        Table<String> table = document.getContent();
+        int columns = table.columns();
+        int rows = table.rows();
+
+        for (int a = 0; a < columns; a++) {
+
+            assertEquals(header1[a], header2.get(a));
+        }
+
+
+        for (int a = 0; a < columns; a++) {
+
+            for (int b = 0; b < rows; b++) {
+
+                int expectedNumber = (b * 3) + (a + 1);
+                String expectedString = "" + expectedNumber;
+                String actualString = table.getCell(a, b);
+                String message =
+                    "expected: " + expectedString + "; row=" + b + "; column=" + a + "; actual=" + actualString;
+
+                assertEquals(message, expectedString, actualString);
+            }
+        }
+    }
+
+    /**
+     * Tests parsing a CSV file.
+     */
+    @Test
+    public void testParseDocument4() {
+
+        String filename = "testdata-csv\\example04.csv";
+        CsvDocumentReader reader = new CsvDocumentReaderImpl();
+
+        CsvDocument document;
+
+        try {
+
+            document = reader.parseDocument(filename);
+
+        } catch (IOException e) {
+
+            throw new FailedTestException(e);
+        }
+
+
+        assertEquals(DocumentTypes.CSV, document.getDocumentType());
+        assertEquals(SEMICOLON, document.getStructure().getColumnSeparator());
+        assertEquals(NEW_LINE_WINDOWS, document.getStructure().getRowSeparator());
+        assertEquals(HeaderType.RIGID, document.getStructure().getHeaderType());
+
+        String[] header1 = document.getStructure().getHeader();
+        List<String> header2 = document.getContent().getColumnNames();
+
+        Table<String> table = document.getContent();
+        int columns = table.columns();
+        int rows = table.rows();
+
+        for (int a = 0; a < columns; a++) {
+
+            assertEquals(header1[a], header2.get(a));
+        }
+
+
+        for (int a = 0; a < columns; a++) {
+
+            for (int b = 0; b < rows; b++) {
+
+                int expectedNumber = (b * 3) + (a + 1);
+                String expectedString = "\"" + expectedNumber + "\"";
+                String actualString = table.getCell(a, b);
+                String message =
+                    "expected: " + expectedString + "; row=" + b + "; column=" + a + "; actual=" + actualString;
+
+                assertEquals(message, expectedString, actualString);
+            }
+        }
+    }
+
+    /**
+     * Tests parsing a CSV file.
+     */
+    @Test
+    public void testParseDocument5() {
+
+        String filename = "testdata-csv\\example05.csv";
+        CsvDocumentReader reader = new CsvDocumentReaderImpl2();
+
+        CsvDocument document;
+
+        try {
+
+            document = reader.parseDocument(filename);
+
+        } catch (IOException e) {
+
+            throw new FailedTestException(e);
+        }
+
+
+        assertEquals(DocumentTypes.CSV, document.getDocumentType());
+        assertEquals(SEMICOLON, document.getStructure().getColumnSeparator());
+        assertEquals(NEW_LINE_WINDOWS, document.getStructure().getRowSeparator());
+        assertEquals(HeaderType.RIGID, document.getStructure().getHeaderType());
+
+        String[] header1 = document.getStructure().getHeader();
+        List<String> header2 = document.getContent().getColumnNames();
+
+        Table<String> table = document.getContent();
+        int columns = table.columns();
+        int rows = table.rows();
+
+        for (int a = 0; a < columns; a++) {
+
+            assertEquals(header1[a], header2.get(a));
+        }
+
+
+        for (int a = 0; a < columns; a++) {
+
+            for (int b = 0; b < rows; b++) {
+
+                int expectedNumber = (b * 3) + (a + 1);
+                String expectedString;
+
+                if (expectedNumber == 5) {
+
+                    expectedString = "HalloWelt";
+
+                } else {
+
+                    expectedString = "" + expectedNumber;
+                }
+
+                String actualString = table.getCell(a, b);
+                String message =
+                    "expected: " + expectedString + "; row=" + b + "; column=" + a + "; actual=" + actualString;
+
+                assertEquals(message, expectedString, actualString);
+            }
+        }
+    }
+
+    /**
+     * Tests parsing a CSV file.
+     */
+    @Test
+    public void testParseDocument6() {
+
+        String filename = "testdata-csv\\example06.csv";
+        CsvDocumentReader reader = new CsvDocumentReaderImpl2();
+
+        CsvDocument document;
+
+        try {
+
+            document = reader.parseDocument(filename);
+
+        } catch (IOException e) {
+
+            throw new FailedTestException(e);
+        }
+
+
+        assertEquals(DocumentTypes.CSV, document.getDocumentType());
+        assertEquals(SEMICOLON, document.getStructure().getColumnSeparator());
+        assertEquals(NEW_LINE_WINDOWS, document.getStructure().getRowSeparator());
+        assertEquals(HeaderType.RIGID, document.getStructure().getHeaderType());
+
+        String[] header1 = document.getStructure().getHeader();
+        List<String> header2 = document.getContent().getColumnNames();
+
+        Table<String> table = document.getContent();
+        int columns = table.columns();
+        int rows = table.rows();
+
+        for (int a = 0; a < columns; a++) {
+
+            assertEquals(header1[a], header2.get(a));
+        }
+
+
+        for (int a = 0; a < columns; a++) {
+
+            for (int b = 0; b < rows; b++) {
+
+                int expectedNumber = (b * 3) + (a + 1);
+                String expectedString;
+
+                if (expectedNumber == 6) {
+
+                    expectedString = "\"HalloWelt\"";
+
+                } else {
+
+                    expectedString = "" + expectedNumber;
+                }
+
                 String actualString = table.getCell(a, b);
                 String message =
                     "expected: " + expectedString + "; row=" + b + "; column=" + a + "; actual=" + actualString;

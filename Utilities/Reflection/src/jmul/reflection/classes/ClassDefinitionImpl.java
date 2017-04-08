@@ -662,7 +662,7 @@ class ClassDefinitionImpl implements ClassDefinition {
 
             StringConcatenator message =
                 new StringConcatenator("No field with the specified name \"", aFieldname, "\" exists!");
-            throw new NoSuchMethodException(message.toString());
+            throw new MissingAccessorException(message.toString());
         }
 
 
@@ -678,7 +678,7 @@ class ClassDefinitionImpl implements ClassDefinition {
 
                 StringConcatenator message =
                     new StringConcatenator("No setter method with the name ", methodname, " was found!");
-                throw new NoSuchMethodException(message.toString());
+                throw new MissingAccessorException(message.toString());
 
             } else if (foundMethods.size() == 1) {
 

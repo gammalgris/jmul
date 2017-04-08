@@ -34,6 +34,8 @@ import java.util.Collection;
 
 import javax.xml.ws.WebServiceException;
 
+import jmul.csv.reader.CsvStructureException;
+
 import jmul.io.ArchiveException;
 import jmul.io.CopyFileException;
 import jmul.io.CoupledStreamsException;
@@ -51,9 +53,11 @@ import jmul.persistence.InvalidIDException;
 import jmul.persistence.InvalidRootNodeException;
 import jmul.persistence.PersistenceException;
 
+import jmul.reflection.classes.MissingAccessorException;
 import jmul.reflection.constructors.ConstructorInvoker;
 import jmul.reflection.constructors.ConstructorSignatures;
 
+import jmul.string.QuoteNotClosedException;
 import jmul.string.UnknownPlaceholderException;
 import jmul.string.UnresolvedPlaceholderException;
 
@@ -165,6 +169,11 @@ public class ExceptionConstructorInvalidParametersTest {
         Collection<Object[]> parameters = new ArrayList<Object[]>();
 
 
+        // Exceptions from package Document-CSV
+
+        addDefaultTestCases(parameters, CsvStructureException.class);
+
+
         // Exceptions from package Formula
 
         addDefaultTestCases(parameters, FormulaParserException.class);
@@ -198,10 +207,16 @@ public class ExceptionConstructorInvalidParametersTest {
         addDefaultTestCases(parameters, PersistenceException.class);
 
 
+        // Exceptions from package Reflection
+
+        addDefaultTestCases(parameters, MissingAccessorException.class);
+
+
         // Exceptions from package String
 
         addMessageOnlyTestCases(parameters, UnresolvedPlaceholderException.class);
         addMessageOnlyTestCases(parameters, UnknownPlaceholderException.class);
+        addDefaultTestCases(parameters, QuoteNotClosedException.class);
 
 
         // Exceptions from package Test

@@ -24,7 +24,6 @@
 
 package jmul.csv.reader;
 
-
 import java.io.IOException;
 
 import java.util.List;
@@ -41,6 +40,7 @@ import jmul.misc.table.ModifiableTable;
 
 import static jmul.string.Constants.NEW_LINE_WINDOWS;
 import static jmul.string.Constants.SEMICOLON;
+import jmul.string.QuoteNotClosedException;
 import jmul.string.TextHelper;
 
 
@@ -49,13 +49,14 @@ import jmul.string.TextHelper;
  * structured CSV file where there exist
  * <ul>
  * <li>a defined header line,</li>
- * <li>a defined column separator</li>
- * <li>and in each line exists the same number of columns as indicated by the header line</li>.
+ * <li>a defined column separator,</li>
+ * <li>in each line exists the same number of columns as indicated by the header line</li>
+ * <li>and a table row may be spread along several lines.
  * </ul>
  *
  * @author Kristian Kutin
  */
-public class CsvDocumentReaderImpl extends CsvDocumentReaderBase {
+public class CsvDocumentReaderImpl2 extends CsvDocumentReaderBase {
 
     /**
      * The default column separator.
@@ -75,7 +76,7 @@ public class CsvDocumentReaderImpl extends CsvDocumentReaderBase {
     /**
      * The default constructor.
      */
-    public CsvDocumentReaderImpl() {
+    public CsvDocumentReaderImpl2() {
 
         super(DEFAULT_HEADER_TYPE, DEFAULT_COLUMN_SEPARATOR, DEFAULT_ROW_SEPARATOR);
     }
@@ -85,7 +86,7 @@ public class CsvDocumentReaderImpl extends CsvDocumentReaderBase {
      *
      * @param aColumnSeparator
      */
-    public CsvDocumentReaderImpl(String aColumnSeparator) {
+    public CsvDocumentReaderImpl2(String aColumnSeparator) {
 
         super(DEFAULT_HEADER_TYPE, aColumnSeparator, DEFAULT_ROW_SEPARATOR);
     }
@@ -95,7 +96,7 @@ public class CsvDocumentReaderImpl extends CsvDocumentReaderBase {
      *
      * @param aColumnSeparator
      */
-    public CsvDocumentReaderImpl(String aColumnSeparator, String aRowSeparator) {
+    public CsvDocumentReaderImpl2(String aColumnSeparator, String aRowSeparator) {
 
         super(DEFAULT_HEADER_TYPE, aColumnSeparator, aRowSeparator);
     }
@@ -107,7 +108,7 @@ public class CsvDocumentReaderImpl extends CsvDocumentReaderBase {
      * @param aColumnSeparator
      * @param aRowSeparator
      */
-    public CsvDocumentReaderImpl(HeaderType aHeaderType, String aColumnSeparator, String aRowSeparator) {
+    public CsvDocumentReaderImpl2(HeaderType aHeaderType, String aColumnSeparator, String aRowSeparator) {
 
         super(aHeaderType, aColumnSeparator, aRowSeparator);
     }
@@ -169,16 +170,45 @@ public class CsvDocumentReaderImpl extends CsvDocumentReaderBase {
 
         while (true) {
 
-            ReadBuffer result = TextFileHelper.readLine(someStreams, getRowSeparator());
+            StringBuilder buffer = new StringBuilder();
+            int expectedColumns = aTable.columns();
+            List<String> substrings;
 
-            if (result.isEndOfFile()) {
+            while (true) {
 
-                return;
+                ReadBuffer result = TextFileHelper.readLine(someStreams, getRowSeparator());
+
+                if (result.isEndOfFile()) {
+
+                    return;
+                }
+
+                String line = result.getLine();
+                buffer.append(line);
+
+                try {
+
+                    substrings = TextHelper.splitLine(buffer.toString(), getColumnSeparator());
+
+                } catch (QuoteNotClosedException e) {
+
+                    continue;
+                }
+
+                int actualColumns = substrings.size();
+
+                if (actualColumns == expectedColumns) {
+
+                    break;
+
+                } else if (actualColumns > expectedColumns) {
+
+                    String message =
+                        "The table structure is invalid (current row=" + currentRow + "; expected columns=" +
+                        expectedColumns + "; actual columns=" + actualColumns + ")!";
+                    throw new CsvStructureException(message);
+                }
             }
-
-
-            String line = result.getLine();
-            List<String> substrings = TextHelper.splitLine(line, getColumnSeparator());
 
             currentRow++;
 

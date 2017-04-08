@@ -44,14 +44,14 @@ exit /b 0
 
 	set projectDir=%~dp0..\..\Utilities\
 
-	set directory.length=45
+	set directory.length=46
 
 	set directory[1]=%projectDir%.data\
 	set directory[2]=%projectDir%Concurrent\classes\
 	set directory[3]=%projectDir%Constants\classes\
 	set directory[4]=%projectDir%Document\classes\
 	set directory[5]=%projectDir%Document-CSV\classes\
-	set directory[6]=%projectDir%Document-Tests\classes\
+	set directory[6]=%projectDir%Document-CSV-Tests\classes\
 	set directory[7]=%projectDir%Formula\classes\
 	set directory[8]=%projectDir%Formula-Tests\classes\
 	set directory[9]=%projectDir%Helper-Tests\classes\
@@ -93,6 +93,7 @@ exit /b 0
 
 	set directory[44]=%projectDir%IO-Tests\testdata-io\
 	set directory[45]=%projectDir%XML-Tests\testdata-xml\
+	set directory[46]=%projectDir%Document-CSV-Tests\testdata-csv\
 
 exit /b 0
 

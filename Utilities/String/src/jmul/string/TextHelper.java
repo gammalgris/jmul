@@ -131,6 +131,12 @@ public final class TextHelper {
             }
         }
 
+        if (isQuote) {
+
+            String message = "A quoted section within this string isn't closed properly (\"" + aString + "\")!";
+            throw new QuoteNotClosedException(message);
+        }
+
         return index;
     }
 

@@ -11,6 +11,9 @@
     <target name="copySources">
 
         <copy todir="${project.tmp.tests-src.dir}" overwrite="true">
+            <fileset dir="${package.document-csv-tests.src.dir}">
+                <include name="**/*.java" />
+            </fileset>
             <fileset dir="${package.formula-tests.src.dir}">
                 <include name="**/*.java" />
             </fileset>
@@ -47,6 +50,9 @@
             <fileset dir="${package.test-base.src.dir}">
                 <include name="**/*.java" />
             </fileset>
+            <fileset dir="${package.xml-tests.src.dir}">
+                <include name="**/*.java" />
+            </fileset>
         </copy>
 
     </target>
@@ -55,7 +61,13 @@
     <target name="copyCreators">
 
         <copy todir="${project.tmp.dir}" overwrite="true">
+            <file file="${package.document-csv-tests.testdata.creator}" />
+        </copy>
+        <copy todir="${project.tmp.dir}" overwrite="true">
             <file file="${package.io-tests.testdata.creator}" />
+        </copy>
+        <copy todir="${project.tmp.dir}" overwrite="true">
+            <file file="${package.xml-tests.testdata.creator}" />
         </copy>
 
     </target>
@@ -65,7 +77,15 @@
 
         <exec executable="cmd" dir="${project.tmp.dir}">
             <arg value="/C" />
+            <arg value="${project.tmp.document-csv-tests.testdata.creator}" />
+        </exec>
+        <exec executable="cmd" dir="${project.tmp.dir}">
+            <arg value="/C" />
             <arg value="${project.tmp.io-tests.testdata.creator}" />
+        </exec>
+        <exec executable="cmd" dir="${project.tmp.dir}">
+            <arg value="/C" />
+            <arg value="${project.tmp.xml-tests.testdata.creator}" />
         </exec>
 
     </target>

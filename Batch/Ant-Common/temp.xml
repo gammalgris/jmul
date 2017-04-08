@@ -20,7 +20,9 @@
         <echo message="  project tmp instrumented dir ................ ${project.tmp.instrumented.dir}" />
         <echo message="  project tmp javadoc dir ..................... ${project.tmp.javadoc.dir}" />
         <echo />
-        <echo message="  project tmp io tests ........................ ${project.tmp.io-tests.testdata.creator}" />
+        <echo message="  project tmp document-csv testdata creator ... ${project.tmp.document-csv-tests.testdata.creator}" />
+        <echo message="  project tmp io testdata creator ............. ${project.tmp.io-tests.testdata.creator}" />
+        <echo message="  project tmp xml testdata creator ............ ${project.tmp.xml-tests.testdata.creator}" />
         <echo />
         <echo message="  project tmp tests-src dir ................... ${project.tmp.tests-src.dir}" />
         <echo message="  project tmp tests-cfg dir ................... ${project.tmp.tests-cfg.dir}" />

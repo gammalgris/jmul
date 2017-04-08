@@ -46,7 +46,10 @@ import jmul.math.MathHelper;
  * tasks and execute tasks on their own.</i>
  *
  * @author Kristian Kutin
+ *
+ * @deprecated Rework the treadpool, worker threads and observable threads.
  */
+@Deprecated
 public class ThreadPoolImpl2 implements ThreadPool {
 
     /**

@@ -88,6 +88,13 @@
          <hash>
             <hash n="dependable">
                <url n="sourceOwnerURL" path="../Java Miscellaneous Utilities Library.jws"/>
+               <url n="sourceURL" path="../Document-CSV/Document-CSV.jpr"/>
+            </hash>
+            <value n="recognizerId" v="oracle.jdeveloper.library"/>
+         </hash>
+         <hash>
+            <hash n="dependable">
+               <url n="sourceOwnerURL" path="../Java Miscellaneous Utilities Library.jws"/>
                <url n="sourceURL" path="../Formula/Formula.jpr"/>
             </hash>
             <value n="recognizerId" v="oracle.jdeveloper.library"/>
