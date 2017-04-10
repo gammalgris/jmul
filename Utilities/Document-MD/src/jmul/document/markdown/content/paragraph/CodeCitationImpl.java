@@ -22,46 +22,54 @@
  * e-mail: kristian.kutin@arcor.de
  */
 
-package jmul.document;
-
-
-import jmul.document.structure.Structure;
-import jmul.document.type.DocumentType;
+package jmul.document.markdown.content.paragraph;
 
 
 /**
- * A base implementation of a document.
+ * An implementation of a code citation.
  *
  * @author Kristian Kutin
  */
-public abstract class DocumentBase<T extends Structure> implements Document<T> {
+public class CodeCitationImpl extends CitationBase implements CodeCitation {
 
     /**
-     * The document type.
+     * The actual programming language which should be considered for
+     * code highlighting.
      */
-    private final DocumentType documentType;
+    private String programmingLanguage;
 
     /**
-     * Creates a new document object according to the specified parameters.
+     * Creates a new code citation block according to the specified parameters.
      *
-     * @param aDocumentType
+     * @param aProgrammingLanguage
+     * @param aText
      */
-    protected DocumentBase(DocumentType aDocumentType) {
+    public CodeCitationImpl(String aProgrammingLanguage, String aText) {
 
-        super();
+        super(aText);
 
-        documentType = aDocumentType;
+        programmingLanguage = aProgrammingLanguage;
     }
 
     /**
-     * Returns the document type of the document.
+     * Returns the underlying programming for the code citation.
      *
-     * @return a document type
+     * @return a programming language
      */
     @Override
-    public DocumentType getDocumentType() {
+    public String getProgrammingLanguage() {
 
-        return documentType;
+        return programmingLanguage;
+    }
+
+    /**
+     * A setter method.
+     *
+     * @param aProgrammingLanguage
+     */
+    public void setProgrammingLanguage(String aProgrammingLanguage) {
+
+        programmingLanguage = aProgrammingLanguage;
     }
 
 }

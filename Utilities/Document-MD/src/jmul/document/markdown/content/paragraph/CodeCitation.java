@@ -22,27 +22,21 @@
  * e-mail: kristian.kutin@arcor.de
  */
 
-package jmul.document.csv;
-
-
-import jmul.document.Document;
-import jmul.document.csv.structure.CsvStructure;
-
-import jmul.misc.table.Table;
+package jmul.document.markdown.content.paragraph;
 
 
 /**
- * This interface describes a CSV style document.
+ * This interface describes a paragraph which represents a code citation.
  *
  * @author Kristian Kutin
  */
-public interface CsvDocument extends Document<CsvStructure> {
+public interface CodeCitation extends Citation {
 
     /**
-     * Returns the CSV content as table.
+     * Returns the underlying programming for the code citation.
      *
-     * @return a table
+     * @return a programming language
      */
-    Table<String> getContent();
+    String getProgrammingLanguage();
 
 }

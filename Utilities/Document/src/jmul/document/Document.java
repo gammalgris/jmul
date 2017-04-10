@@ -25,7 +25,7 @@
 package jmul.document;
 
 
-import jmul.document.content.Structure;
+import jmul.document.structure.Structure;
 import jmul.document.properties.Structured;
 import jmul.document.properties.Typed;
 

@@ -22,27 +22,13 @@
  * e-mail: kristian.kutin@arcor.de
  */
 
-package jmul.document.csv;
-
-
-import jmul.document.Document;
-import jmul.document.csv.structure.CsvStructure;
-
-import jmul.misc.table.Table;
+package jmul.document.markdown.content.paragraph;
 
 
 /**
- * This interface describes a CSV style document.
+ * This is a marker interface to identify paragraphs.
  *
  * @author Kristian Kutin
  */
-public interface CsvDocument extends Document<CsvStructure> {
-
-    /**
-     * Returns the CSV content as table.
-     *
-     * @return a table
-     */
-    Table<String> getContent();
-
+public interface Paragraph {
 }

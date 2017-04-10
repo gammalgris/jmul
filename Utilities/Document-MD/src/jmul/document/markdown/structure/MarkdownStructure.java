@@ -22,24 +22,63 @@
  * e-mail: kristian.kutin@arcor.de
  */
 
-package jmul.document.properties;
+package jmul.document.markdown.structure;
+
+
+import java.nio.charset.Charset;
 
 import jmul.document.structure.Structure;
 
 
 /**
- * This interface describes certain functionalities a structured
- * document must provide (see {@link Document#}).
+ * This interface describes a document structure for markdown files.
  *
  * @author Kristian Kutin
  */
-public interface Structured<T extends Structure> {
+public class MarkdownStructure implements Structure {
 
     /**
-     * Returns a document's structure.
-     *
-     * @return a document structure
+     * The actual char set.
      */
-    T getStructure();
+    private final Charset charset;
+
+    /**
+     * The line separator.
+     */
+    private final String lineSeparator;
+
+    /**
+     * Creates a new instance according to the specified parameters.
+     *
+     * @param aCharset
+     * @param aLineSeparator
+     */
+    public MarkdownStructure(Charset aCharset, String aLineSeparator) {
+
+        super();
+
+        charset = aCharset;
+        lineSeparator = aLineSeparator;
+    }
+
+    /**
+     * Returns the charset for the markdown file.
+     *
+     * @return a char set
+     */
+    public Charset getCharset() {
+
+        return charset;
+    }
+
+    /**
+     * Returns a line separator
+     *
+     * @return a line separator
+     */
+    public String getLineSeparator() {
+
+        return lineSeparator;
+    }
 
 }

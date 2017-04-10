@@ -14,6 +14,9 @@
             <fileset dir="${package.document-csv-tests.src.dir}">
                 <include name="**/*.java" />
             </fileset>
+            <fileset dir="${package.document-md-tests.src.dir}">
+                <include name="**/*.java" />
+            </fileset>
             <fileset dir="${package.formula-tests.src.dir}">
                 <include name="**/*.java" />
             </fileset>
@@ -21,9 +24,6 @@
                 <include name="**/*.java" />
             </fileset>
             <fileset dir="${package.io-tests.src.dir}">
-                <include name="**/*.java" />
-            </fileset>
-            <fileset dir="${package.markdown-tests.src.dir}">
                 <include name="**/*.java" />
             </fileset>
             <fileset dir="${package.math-tests.src.dir}">

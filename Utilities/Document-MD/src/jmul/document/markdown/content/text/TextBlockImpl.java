@@ -22,27 +22,27 @@
  * e-mail: kristian.kutin@arcor.de
  */
 
-package jmul.document.csv;
+package jmul.document.markdown.content.text;
 
 
-import jmul.document.Document;
-import jmul.document.csv.structure.CsvStructure;
-
-import jmul.misc.table.Table;
+import static jmul.string.TextHelper.normalizeString;
 
 
 /**
- * This interface describes a CSV style document.
+ * An implementation of a text block.
  *
  * @author Kristian Kutin
  */
-public interface CsvDocument extends Document<CsvStructure> {
+public class TextBlockImpl extends TextBlockBase {
 
     /**
-     * Returns the CSV content as table.
+     * Creates a new text block according to the specified parameters.
      *
-     * @return a table
+     * @param aText
      */
-    Table<String> getContent();
+    public TextBlockImpl(String aText) {
+
+        super(normalizeString(aText));
+    }
 
 }

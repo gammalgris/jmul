@@ -22,27 +22,52 @@
  * e-mail: kristian.kutin@arcor.de
  */
 
-package jmul.document.csv;
-
-
-import jmul.document.Document;
-import jmul.document.csv.structure.CsvStructure;
-
-import jmul.misc.table.Table;
+package jmul.document.markdown.content.internal;
 
 
 /**
- * This interface describes a CSV style document.
+ * An implementation of a content node.
  *
  * @author Kristian Kutin
  */
-public interface CsvDocument extends Document<CsvStructure> {
+public class ContentNodeImpl implements ContentNode {
 
     /**
-     * Returns the CSV content as table.
-     *
-     * @return a table
+     * A reference to a parent node.
      */
-    Table<String> getContent();
+    private ContentNode parent;
+
+    /**
+     * The default constructor.
+     */
+    protected ContentNodeImpl() {
+
+        super();
+
+        parent = null;
+    }
+
+    /**
+     * Returns a reference to the parent text node.
+     *
+     * @return a reference to a parent text node or <code>null</code> if
+     *         this text node is the topmost parent node
+     */
+    @Override
+    public ContentNode getParent() {
+
+        return parent;
+    }
+
+    /**
+     * Sets (i.e. updates) the parent reference of this text node.
+     *
+     * @param aParent
+     */
+    @Override
+    public void setParent(ContentNode aParent) {
+
+        parent = aParent;
+    }
 
 }

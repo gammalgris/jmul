@@ -22,27 +22,47 @@
  * e-mail: kristian.kutin@arcor.de
  */
 
-package jmul.document.csv;
+package jmul.document.markdown.content.paragraph;
 
 
-import jmul.document.Document;
-import jmul.document.csv.structure.CsvStructure;
-
-import jmul.misc.table.Table;
+import jmul.document.markdown.content.text.TextBlock;
 
 
 /**
- * This interface describes a CSV style document.
+ * This interface describes a parapgraph within a markdown document.
  *
  * @author Kristian Kutin
  */
-public interface CsvDocument extends Document<CsvStructure> {
+public interface TextBlocks extends Paragraph {
 
     /**
-     * Returns the CSV content as table.
+     * Returns the current text block count.
      *
-     * @return a table
+     * @return a text block count
      */
-    Table<String> getContent();
+    int textBlocks();
+
+    /**
+     * Adds (i.e. appends) the specified text block to this paragraph.
+     *
+     * @param aTextBlock
+     */
+    void addTextBlock(TextBlock aTextBlock);
+
+    /**
+     * Returns the text block at the specified index.
+     *
+     * @param anIndex
+     *
+     * @return a text block
+     */
+    TextBlock getTextBlock(int anIndex);
+
+    /**
+     * Removes the text block at the specified index.
+     *
+     * @param anIndex
+     */
+    void removeTextBlock(int anIndex);
 
 }

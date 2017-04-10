@@ -30,9 +30,9 @@ import java.io.IOException;
 import java.nio.charset.Charset;
 
 import jmul.document.DocumentBase;
-import jmul.document.csv.content.CsvStructure;
-import jmul.document.csv.content.HeaderType;
-import static jmul.document.csv.content.HeaderType.NO_HEADER;
+import jmul.document.csv.structure.CsvStructure;
+import jmul.document.csv.structure.HeaderType;
+import static jmul.document.csv.structure.HeaderType.NO_HEADER;
 import jmul.document.type.DocumentType;
 
 

@@ -29,7 +29,7 @@ import java.io.IOException;
 
 import java.util.List;
 
-import jmul.document.csv.content.HeaderType;
+import jmul.document.csv.structure.HeaderType;
 import jmul.document.type.DocumentType;
 
 import jmul.misc.table.Table;

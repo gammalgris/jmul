@@ -22,27 +22,18 @@
  * e-mail: kristian.kutin@arcor.de
  */
 
-package jmul.document.csv;
-
-
-import jmul.document.Document;
-import jmul.document.csv.structure.CsvStructure;
-
-import jmul.misc.table.Table;
+package jmul.document.markdown.content.link;
 
 
 /**
- * This interface describes a CSV style document.
+ * This enumeration contains all supported link types.
  *
  * @author Kristian Kutin
  */
-public interface CsvDocument extends Document<CsvStructure> {
+public enum LinkTypes {
 
-    /**
-     * Returns the CSV content as table.
-     *
-     * @return a table
-     */
-    Table<String> getContent();
+    IMAGE,
+    TABLE,
+    URL, ;
 
 }

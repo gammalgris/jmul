@@ -22,27 +22,14 @@
  * e-mail: kristian.kutin@arcor.de
  */
 
-package jmul.document.csv;
-
-
-import jmul.document.Document;
-import jmul.document.csv.structure.CsvStructure;
-
-import jmul.misc.table.Table;
+package jmul.document.markdown.content.text;
 
 
 /**
- * This interface describes a CSV style document.
+ * This interface describes a text block within a markdown document. Text
+ * blocks are leaves within the document tree.
  *
  * @author Kristian Kutin
  */
-public interface CsvDocument extends Document<CsvStructure> {
-
-    /**
-     * Returns the CSV content as table.
-     *
-     * @return a table
-     */
-    Table<String> getContent();
-
+public interface TextBlock extends CharSequence {
 }

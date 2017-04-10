@@ -24,12 +24,16 @@
 
 package jmul.string;
 
+
 import java.util.ArrayList;
 import java.util.List;
 
 import static jmul.string.Constants.APOSTROPHE;
+import static jmul.string.Constants.CARRIAGE_RETURN;
 import static jmul.string.Constants.EMPTY_STRING;
+import static jmul.string.Constants.LINE_FEED;
 import static jmul.string.Constants.QUOTATION_MARK;
+import static jmul.string.Constants.SPACE;
 
 
 /**
@@ -151,6 +155,40 @@ public final class TextHelper {
     public static boolean startsWithQuotes(String aString) {
 
         return aString.startsWith(QUOTATION_MARK) || aString.startsWith(APOSTROPHE);
+    }
+
+    /**
+     * Removes all leading and trailing spaces and all line breaks (unix style and windows
+     * style).
+     *
+     * @param aString
+     *
+     * @return a normalized string
+     */
+    public static String normalizeString(String aString) {
+
+        String tmp = aString.replaceAll(CARRIAGE_RETURN, LINE_FEED);
+        String substrings[] = tmp.split(LINE_FEED);
+
+        StringBuilder buffer = new StringBuilder();
+        for (int a = 0; a < substrings.length; a++) {
+
+            String s = substrings[a].trim();
+
+            if (s.isEmpty()) {
+
+                continue;
+            }
+
+            if (a > 0) {
+
+                buffer.append(SPACE);
+            }
+
+            buffer.append(s);
+        }
+
+        return buffer.toString();
     }
 
 }

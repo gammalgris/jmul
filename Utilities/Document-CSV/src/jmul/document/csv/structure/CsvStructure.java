@@ -22,13 +22,13 @@
  * e-mail: kristian.kutin@arcor.de
  */
 
-package jmul.document.csv.content;
+package jmul.document.csv.structure;
 
 
 import java.nio.charset.Charset;
 
-import jmul.document.content.Structure;
-import static jmul.document.csv.content.HeaderType.NO_HEADER;
+import jmul.document.structure.Structure;
+import static jmul.document.csv.structure.HeaderType.NO_HEADER;
 
 
 /**

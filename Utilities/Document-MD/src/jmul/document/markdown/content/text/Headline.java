@@ -22,27 +22,23 @@
  * e-mail: kristian.kutin@arcor.de
  */
 
-package jmul.document.csv;
-
-
-import jmul.document.Document;
-import jmul.document.csv.structure.CsvStructure;
-
-import jmul.misc.table.Table;
+package jmul.document.markdown.content.text;
 
 
 /**
- * This interface describes a CSV style document.
+ * This interface describes the headline of a chapter.
  *
  * @author Kristian Kutin
  */
-public interface CsvDocument extends Document<CsvStructure> {
+public interface Headline extends TextBlock {
 
     /**
-     * Returns the CSV content as table.
+     * Returns the type of the headline (e.g. type 1 is a headline on the
+     * topmost level, type 2 is a headline below the topmost level, etc.)
+     * as a numeric value.
      *
-     * @return a table
+     * @return a headline type
      */
-    Table<String> getContent();
+    int getHeadlineType();
 
 }

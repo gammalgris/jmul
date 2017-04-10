@@ -29,7 +29,7 @@ import java.io.IOException;
 
 import jmul.document.csv.CsvDocument;
 import jmul.document.csv.CsvDocumentImpl;
-import jmul.document.csv.content.HeaderType;
+import jmul.document.csv.structure.HeaderType;
 import jmul.document.type.DocumentType;
 import jmul.document.type.DocumentTypes;
 

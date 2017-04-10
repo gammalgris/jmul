@@ -79,14 +79,24 @@ public final class Constants {
     public static final String NEW_LINE = System.getProperty("line.separator");
 
     /**
+     * A carriage return character.
+     */
+    public static final String CARRIAGE_RETURN = "\r";
+
+    /**
+     * A line feed character.
+     */
+    public static final String LINE_FEED = "\n";
+
+    /**
      * A new line character for unix/ linux style operating systems.
      */
-    public static final String NEW_LINE_UNIX = "\n";
+    public static final String NEW_LINE_UNIX = LINE_FEED;
 
     /**
      * A new line character for windows style operating systems.
      */
-    public static final String NEW_LINE_WINDOWS = "\r\n";
+    public static final String NEW_LINE_WINDOWS = CARRIAGE_RETURN + LINE_FEED;
 
     /**
      * A separator character.
@@ -117,6 +127,11 @@ public final class Constants {
      * An apostrophe character.
      */
     public static final String APOSTROPHE = "'";
+
+    /**
+     * A space character.
+     */
+    public static final String SPACE = " ";
 
     /**
      * The default constructor.

@@ -22,27 +22,29 @@
  * e-mail: kristian.kutin@arcor.de
  */
 
-package jmul.document.csv;
-
-
-import jmul.document.Document;
-import jmul.document.csv.structure.CsvStructure;
-
-import jmul.misc.table.Table;
+package jmul.document.csv.structure;
 
 
 /**
- * This interface describes a CSV style document.
+ * This enumeration contains csv header types.
  *
  * @author Kristian Kutin
  */
-public interface CsvDocument extends Document<CsvStructure> {
+public enum HeaderType {
 
     /**
-     * Returns the CSV content as table.
-     *
-     * @return a table
+     * The csv file doesn't have a header line.
      */
-    Table<String> getContent();
+    NO_HEADER,
+
+    /**
+     * The csv file can contain more columns than the header indicates.
+     */
+    FLEXIBLE,
+
+    /**
+     * The csv file contains a set column number.
+     */
+    RIGID, ;
 
 }

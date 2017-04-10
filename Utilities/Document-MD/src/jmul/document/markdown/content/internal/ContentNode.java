@@ -22,29 +22,29 @@
  * e-mail: kristian.kutin@arcor.de
  */
 
-package jmul.document.csv.content;
+package jmul.document.markdown.content.internal;
 
 
 /**
- * This enumeration contains csv header types.
+ * This interface decsribes a node within a markdown document object.
  *
  * @author Kristian Kutin
  */
-public enum HeaderType {
+public interface ContentNode {
 
     /**
-     * The csv file doesn't have a header line.
+     * Returns a reference to the parent text node.
+     *
+     * @return a reference to a parent text node or <code>null</code> if
+     *         this text node is the topmost parent node
      */
-    NO_HEADER,
+    ContentNode getParent();
 
     /**
-     * The csv file can contain more columns than the header indicates.
+     * Sets (i.e. updates) the parent reference of this text node.
+     *
+     * @param aParent
      */
-    FLEXIBLE,
-
-    /**
-     * The csv file contains a set column number.
-     */
-    RIGID, ;
+    void setParent(ContentNode aParent);
 
 }

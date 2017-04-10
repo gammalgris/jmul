@@ -28,8 +28,8 @@ import java.io.IOException;
 
 import java.util.List;
 
-import jmul.document.csv.content.HeaderType;
-import static jmul.document.csv.content.HeaderType.NO_HEADER;
+import jmul.document.csv.structure.HeaderType;
+import static jmul.document.csv.structure.HeaderType.NO_HEADER;
 
 import jmul.io.NestedStreams;
 import jmul.io.text.ReadBuffer;

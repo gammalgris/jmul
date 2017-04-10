@@ -34,7 +34,7 @@ import jmul.csv.reader.CsvDocumentReaderImpl;
 import jmul.csv.reader.CsvDocumentReaderImpl2;
 
 import jmul.document.csv.CsvDocument;
-import jmul.document.csv.content.HeaderType;
+import jmul.document.csv.structure.HeaderType;
 import jmul.document.type.DocumentTypes;
 
 import jmul.misc.table.Table;

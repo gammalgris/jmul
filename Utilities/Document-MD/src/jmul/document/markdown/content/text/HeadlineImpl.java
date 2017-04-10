@@ -22,46 +22,54 @@
  * e-mail: kristian.kutin@arcor.de
  */
 
-package jmul.document;
+package jmul.document.markdown.content.text;
 
 
-import jmul.document.structure.Structure;
-import jmul.document.type.DocumentType;
+import jmul.document.markdown.content.chapter.Chapter;
+import jmul.document.markdown.content.internal.ContentNode;
 
 
 /**
- * A base implementation of a document.
+ * An implementation of a headline.
  *
  * @author Kristian Kutin
  */
-public abstract class DocumentBase<T extends Structure> implements Document<T> {
+public class HeadlineImpl extends TextBlockBase implements Headline {
 
     /**
-     * The document type.
-     */
-    private final DocumentType documentType;
-
-    /**
-     * Creates a new document object according to the specified parameters.
+     * Creates a new headline according to the specified parameters.
      *
-     * @param aDocumentType
+     * @param aText
      */
-    protected DocumentBase(DocumentType aDocumentType) {
+    public HeadlineImpl(String aText) {
 
-        super();
-
-        documentType = aDocumentType;
+        super(aText.trim());
     }
 
     /**
-     * Returns the document type of the document.
+     * Returns the type of the headline (e.g. type 1 is a headline on the
+     * topmost level, type 2 is a headline below the topmost level, etc.)
+     * as a numeric value.
      *
-     * @return a document type
+     * @return a headline type
      */
     @Override
-    public DocumentType getDocumentType() {
+    public int getHeadlineType() {
 
-        return documentType;
+        int level = 0;
+        ContentNode parent = getParent();
+
+        while (parent != null) {
+
+            if (parent instanceof Chapter) {
+
+                level++;
+            }
+
+            parent = parent.getParent();
+        }
+
+        return level;
     }
 
 }

@@ -22,14 +22,46 @@
  * e-mail: kristian.kutin@arcor.de
  */
 
-package jmul.document.content;
+package jmul.document.markdown.content;
+
+import jmul.document.markdown.content.chapter.Chapter;
 
 
 /**
- * This marker interface indicates that a document is structured (see {@link Document#}).
- * Details about a concrete structure are elaborated in sub classes.
+ * This interface describes the content of a markdown file.
  *
  * @author Kristian Kutin
  */
-public interface Structure {
+public interface MarkdownContent {
+
+    /**
+     * Returns the current chapter count.
+     *
+     * @return a chapter count
+     */
+    int chapters();
+
+    /**
+     * Adds (i.e. appends) the specified chapter to this markdown document.
+     *
+     * @param aChapter
+     */
+    void addChapter(Chapter aChapter);
+
+    /**
+     * Returns the chapter at the specified index.
+     *
+     * @param anIndex
+     *
+     * @return a chapter
+     */
+    Chapter getChapter(int anIndex);
+
+    /**
+     * Removes the chapter at the specified index.
+     *
+     * @param anIndex
+     */
+    void removeChapter(int anIndex);
+
 }

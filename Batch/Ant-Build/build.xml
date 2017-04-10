@@ -22,6 +22,9 @@
             <fileset dir="${package.document-csv.src.dir}">
                 <include name="**/*.java" />
             </fileset>
+            <fileset dir="${package.document-md.src.dir}">
+                <include name="**/*.java" />
+            </fileset>
             <fileset dir="${package.formula.src.dir}">
                 <include name="**/*.java" />
             </fileset>
@@ -29,9 +32,6 @@
                 <include name="**/*.java" />
             </fileset>
             <fileset dir="${package.logging.src.dir}">
-                <include name="**/*.java" />
-            </fileset>
-            <fileset dir="${package.markdown.src.dir}">
                 <include name="**/*.java" />
             </fileset>
             <fileset dir="${package.math.src.dir}">
@@ -85,9 +85,6 @@
                 <include name="**/*.properties" />
             </fileset>
             <fileset dir="${package.document.cfg.dir}">
-                <include name="**/*.properties" />
-            </fileset>
-            <fileset dir="${package.markdown.cfg.dir}">
                 <include name="**/*.properties" />
             </fileset>
             <fileset dir="${package.measures.cfg.dir}">

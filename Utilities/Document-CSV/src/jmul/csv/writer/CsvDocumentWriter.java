@@ -22,27 +22,46 @@
  * e-mail: kristian.kutin@arcor.de
  */
 
-package jmul.document.csv;
+package jmul.csv.writer;
 
 
-import jmul.document.Document;
-import jmul.document.csv.structure.CsvStructure;
+import java.io.File;
+import java.io.IOException;
 
-import jmul.misc.table.Table;
+import jmul.document.csv.CsvDocument;
 
 
 /**
- * This interface describes a CSV style document.
+ * This interface describes an entity that writes CSV files.
  *
  * @author Kristian Kutin
  */
-public interface CsvDocument extends Document<CsvStructure> {
+public interface CsvDocumentWriter {
 
     /**
-     * Returns the CSV content as table.
+     * The method writes an xml document.
      *
-     * @return a table
+     * @param aFilename
+     *        the name of the output file
+     * @param aDocument
+     *        a document object
+     *
+     * @throws IOException
+     *         This exception can be thrown if IO operations fail
      */
-    Table<String> getContent();
+    void writeDocument(String aFilename, CsvDocument aDocument) throws IOException;
+
+    /**
+     * The method writes an xml document.
+     *
+     * @param aFile
+     *        the output file
+     * @param aDocument
+     *        a document object
+     *
+     * @throws IOException
+     *         This exception can be thrown if IO operations fail
+     */
+    void writeDocument(File aFile, CsvDocument aDocument) throws IOException;
 
 }
