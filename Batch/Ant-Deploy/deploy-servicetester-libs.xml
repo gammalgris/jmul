@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<project xmlns="antlib:org.apache.tools.ant" name="deploy-webserver" default="deploy">
+<project xmlns="antlib:org.apache.tools.ant" name="deploy-servicetester" default="deploy">
 
 
     <include file="${basedir}\..\Ant-Common\common.xml" />
