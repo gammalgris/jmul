@@ -58,7 +58,7 @@
     </target>
 
 
-    <target name="deploy" depends="build-webserver.build, build-javadoc.build, info, jarClasses, jarSources, jarJavadoc" />
+    <target name="deploy" depends="build-servicetester.build, build-javadoc.build, info, jarClasses, jarSources, jarJavadoc" />
 
 
 </project>
