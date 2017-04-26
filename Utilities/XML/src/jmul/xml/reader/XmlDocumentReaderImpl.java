@@ -103,8 +103,7 @@ public class XmlDocumentReaderImpl extends XmlDocumentReaderBase {
     @Override
     public Document parseDocument(File aFile) throws SAXException, IOException {
 
-        boolean empty = !aFile.exists() || (aFile.length() == 0);
-        if (empty) {
+        if (aFile.exists() && (aFile.length() == 0)) {
 
             throw new EmptyFileException(aFile);
         }

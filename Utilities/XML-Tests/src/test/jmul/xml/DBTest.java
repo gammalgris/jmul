@@ -27,18 +27,22 @@ package test.jmul.xml;
 
 import java.io.IOException;
 
-import java.nio.file.Files;
-import java.nio.file.Paths;
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.SQLXML;
 
+import jmul.io.FileHelper;
+
 import jmul.test.classification.ManualTest;
 
 
+/**
+ *
+ * @deprecated Rework the test or delete it
+ */
+@Deprecated
 @ManualTest
 public class DBTest {
 
@@ -83,11 +87,9 @@ public class DBTest {
             connection.commit();
             statement.close();*/
 
-            statement = connection.prepareStatement("CREATE TABLE xml_cache\n" + 
-            "(\n" + 
-            "	name varchar(255),\n" + 
-            "	content clob\n" + 
-            ")");
+            statement =
+                connection.prepareStatement("CREATE TABLE xml_cache\n" + "(\n" + "	name varchar(255),\n" +
+                                            "	content clob\n" + ")");
             statement.execute();
             connection.commit();
             statement.close();
@@ -133,7 +135,7 @@ public class DBTest {
         try {
 
             SQLXML sqlxml = connection.createSQLXML();
-            sqlxml.setString(loadDocumentAsString(fileName));
+            sqlxml.setString(FileHelper.loadFileContentAsString(fileName));
 
             statement.setString(1, fileName);
             statement.setSQLXML(2, sqlxml);
@@ -155,6 +157,21 @@ public class DBTest {
 
                 throw new RuntimeException(e);
             }
+
+        } catch (IOException e) {
+
+            try {
+
+                connection.close();
+
+            } catch (SQLException f) {
+
+                f.printStackTrace();
+
+            } finally {
+
+                throw new RuntimeException(e);
+            }
         }
 
         try {
@@ -162,19 +179,6 @@ public class DBTest {
             connection.close();
 
         } catch (SQLException e) {
-
-            throw new RuntimeException(e);
-        }
-    }
-
-    private static String loadDocumentAsString(String aFileName) {
-
-        try {
-
-            byte[] content = Files.readAllBytes(Paths.get(aFileName));
-            return new String(content);
-
-        } catch (IOException e) {
 
             throw new RuntimeException(e);
         }

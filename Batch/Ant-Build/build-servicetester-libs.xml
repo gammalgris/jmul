@@ -13,6 +13,12 @@
             <fileset dir="${package.constants.src.dir}">
                 <include name="**/*.java" />
             </fileset>
+            <fileset dir="${package.document.src.dir}">
+                <include name="**/*.java" />
+            </fileset>
+            <fileset dir="${package.document-csv.src.dir}">
+                <include name="**/*.java" />
+            </fileset>
             <fileset dir="${package.io.src.dir}">
                 <include name="**/*.java" />
             </fileset>
@@ -22,16 +28,16 @@
             <fileset dir="${package.misc.src.dir}">
                 <include name="**/*.java" />
             </fileset>
-            <fileset dir="${package.network.src.dir}">
-                <include name="**/*.java" />
-            </fileset>
             <fileset dir="${package.reflection.src.dir}">
                 <include name="**/*.java" />
             </fileset>
             <fileset dir="${package.string.src.dir}">
                 <include name="**/*.java" />
             </fileset>
-            <fileset dir="${package.web.src.dir}">
+            <fileset dir="${package.transformation.src.dir}">
+                <include name="**/*.java" />
+            </fileset>
+            <fileset dir="${package.xml.src.dir}">
                 <include name="**/*.java" />
             </fileset>
         </copy>
@@ -42,31 +48,31 @@
     <target name="copyResources">
 
         <copy todir="${project.tmp.cfg.dir}" overwrite="true">
-            <fileset dir="${package.network.cfg.dir}">
+            <fileset dir="${package.document.cfg.dir}">
                 <include name="**/*.properties" />
             </fileset>
             <fileset dir="${package.reflection.cfg.dir}">
                 <include name="**/*.properties" />
             </fileset>
-            <fileset dir="${package.version.cfg.dir}">
+            <fileset dir="${package.transformation.cfg.dir}">
                 <include name="**/*.properties" />
             </fileset>
-            <fileset dir="${package.web.cfg.dir}">
+            <fileset dir="${package.version.cfg.dir}">
                 <include name="**/*.properties" />
             </fileset>
         </copy>
 
         <copy todir="${project.tmp.build.dir}" overwrite="true">
-            <fileset dir="${package.network.cfg.dir}">
+            <fileset dir="${package.document.cfg.dir}">
                 <include name="**/*.properties" />
             </fileset>
             <fileset dir="${package.reflection.cfg.dir}">
                 <include name="**/*.properties" />
             </fileset>
-            <fileset dir="${package.version.cfg.dir}">
+            <fileset dir="${package.transformation.cfg.dir}">
                 <include name="**/*.properties" />
             </fileset>
-            <fileset dir="${package.web.cfg.dir}">
+            <fileset dir="${package.version.cfg.dir}">
                 <include name="**/*.properties" />
             </fileset>
         </copy>

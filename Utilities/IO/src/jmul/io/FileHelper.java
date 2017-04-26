@@ -29,6 +29,9 @@ import java.io.File;
 import java.io.FileFilter;
 import java.io.IOException;
 
+import java.nio.file.Files;
+import java.nio.file.Paths;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
@@ -166,7 +169,7 @@ public final class FileHelper {
      *
      * @param aFile
      *        a file or directory
-     * 
+     *
      * @deprecated
      */
     @Deprecated
@@ -219,6 +222,22 @@ public final class FileHelper {
     public static void copyFile(File aSourceFile, File aDestinationFile) throws CopyFileException {
 
         fileCopierSingleton.copyFile(aSourceFile, aDestinationFile);
+    }
+
+    /**
+     * Loads the content of the specified file and returns it as string.
+     *
+     * @param aFileName
+     *
+     * @return a string containing a file content
+     *
+     * @throws IOException
+     *         is thrown if an error occurrs while reading from a file
+     */
+    public static String loadFileContentAsString(String aFileName) throws IOException {
+
+        byte[] content = Files.readAllBytes(Paths.get(aFileName));
+        return new String(content);
     }
 
 }

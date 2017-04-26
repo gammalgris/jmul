@@ -2,7 +2,7 @@
 
 ## Cobertura
 
-Last Check: 2016.10.06
+Last Check: 2016.10.06, 2017.04.19
 
 Used Version: 2.1.1
 
@@ -14,11 +14,11 @@ Purpose: Code coverage with SonarQube.
 
 ## Commons Lang
 
-Last Check: 2016.10.06
+Last Check: 2016.10.06, 2017.04.19
 
 Used Version: 3.2.1
 
-Latest Version: 3.4
+Latest Version: 3.5
 
 Link: https://commons.apache.org/proper/commons-lang/
 
@@ -26,7 +26,7 @@ Purpose: Some classes use the HashCodeBuilder and EqualsBuilder.
 
 ## DB4O
 
-Latest Check: 2016.10.06
+Latest Check: 2016.10.06, 2017.04.19
 
 Used Version: 8.0
 
@@ -38,7 +38,7 @@ Purpose: Some legacy tests compared the performance of the persistence framework
 
 ## JUnit
 
-Latest Check: 2016.10.06
+Latest Check: 2016.10.06, 2017.04.19
 
 Used Version: 4.11
 
@@ -52,7 +52,7 @@ Note: Changes regarding test runners (see https://github.com/junit-team/junit4/p
 
 ## MarkdownJ
 
-Latest Check: 2016.10.06
+Latest Check: 2016.10.06, 2017.04.19
 
 Used Version: ?
 
@@ -64,11 +64,11 @@ Purpose: Evaluation of the capabilities of this library. There is a need to gene
 
 ## Sonar Ant Task
 
-Latest Check: 2016.10.06
+Latest Check: 2016.10.06, 2017.04.19
 
 Used Version: 2.4
 
-Latest Version: 2.4.1
+Latest Version: 2.5
 
 Link: http://docs.sonarqube.org/display/SCAN/Analyzing+with+SonarQube+Scanner+for+Ant
 

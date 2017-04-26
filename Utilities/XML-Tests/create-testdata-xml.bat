@@ -180,9 +180,11 @@ set functionCalls.length=
 
 	echo create XML files...
 
+	copy NUL testdata-xml\empty.xml 1>NUL 2>&1
+
 	(
 		echo.
-	) > testdata-xml\empty.xml
+	) > testdata-xml\empty2.xml
 
 	(
 		echo ^<?xml version="1.0" encoding="UTF-8" ?^>
@@ -214,7 +216,7 @@ set functionCalls.length=
 
 	(
 		echo ^<?xml version="1.0" encoding="UTF-8" ?^>
-		echo ^<persons^>
+		echo ^<persons count=^"1^"^>
 		echo   ^<person^>
 		echo     ^<firstName^>John^</firstName^>
 		echo     ^<lastName^>Doe^</lastName^>

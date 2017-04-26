@@ -138,6 +138,8 @@
         <echo message="  package string tests src dir ................ ${package.string-tests.src.dir}" />
         <echo message="  package test base dir ....................... ${package.test-base.dir}" />
         <echo message="  package test base src dir ................... ${package.test-base.src.dir}" />
+        <echo message="  package transformation tests dir ............ ${package.transformation-tests.dir}" />
+        <echo message="  package transformation tests src dir ........ ${package.transformation-tests.src.dir}" />
         <echo message="  package web tests dir ....................... ${package.web-tests.dir}" />
         <echo message="  package web tests src dir ................... ${package.web-tests.src.dir}" />
         <echo />

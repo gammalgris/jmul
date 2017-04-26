@@ -3,11 +3,12 @@
 ## Modules
 (in alphabetical order)
 
-* Constants
-* Document
 * IO
 * Misc
+* Reflection
 * String
+* Transformation
+* XML
 
 ## Libraries
 (in alphabetical order)

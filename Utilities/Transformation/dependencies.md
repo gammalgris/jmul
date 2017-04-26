@@ -4,6 +4,7 @@
 (in alphabetical order)
 
 * IO
+* Misc
 * Reflection
 * String
 * XML
