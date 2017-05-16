@@ -4,6 +4,7 @@
 (in alphabetical order)
 
 * Formula
+* Misc
 * String
 * Test
 

@@ -33,6 +33,11 @@ package jmul.string;
 public final class Constants {
 
     /**
+     * The At sign.
+     */
+    public static final String AT = "@";
+
+    /**
      * A separator character.
      */
     public static final String COMMA = ",";

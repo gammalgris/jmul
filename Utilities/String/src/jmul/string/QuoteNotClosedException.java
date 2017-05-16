@@ -25,6 +25,9 @@
 package jmul.string;
 
 
+import jmul.misc.checks.ParameterCheckHelper;
+
+
 /**
  * Is thrown if a quoted section within a string isn't closed properly.
  *
@@ -47,7 +50,7 @@ public class QuoteNotClosedException extends RuntimeException {
      */
     public QuoteNotClosedException(String aMessage) {
 
-        super(aMessage);
+        super(ParameterCheckHelper.checkStringParameter(aMessage));
     }
 
     /**
@@ -57,7 +60,7 @@ public class QuoteNotClosedException extends RuntimeException {
      */
     public QuoteNotClosedException(Throwable aCause) {
 
-        super(aCause);
+        super(ParameterCheckHelper.checkExceptionCause(aCause));
     }
 
     /**
@@ -68,7 +71,7 @@ public class QuoteNotClosedException extends RuntimeException {
      */
     public QuoteNotClosedException(String aMessage, Throwable aCause) {
 
-        super(aMessage, aCause);
+        super(ParameterCheckHelper.checkStringParameter(aMessage), ParameterCheckHelper.checkExceptionCause(aCause));
     }
 
 }

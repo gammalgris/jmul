@@ -4,7 +4,7 @@
  * JMUL is a central repository for utilities which are used in my
  * other public and private repositories.
  *
- * Copyright (C) 2016  Kristian Kutin
+ * Copyright (C) 2017  Kristian Kutin
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -22,40 +22,52 @@
  * e-mail: kristian.kutin@arcor.de
  */
 
-package test.jmul.misc.container;
+package test.jmul.math.prime;
 
 
-import jmul.misc.container.DataContainer;
-import jmul.misc.container.DataContainerImpl;
+import java.util.ArrayList;
+import java.util.Collection;
+
+import jmul.math.prime.PrimeNumberHelper;
 
 import jmul.test.classification.UnitTest;
 
 import org.junit.After;
-import static org.junit.Assert.assertEquals;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
 
 
 /**
- * This class tests the functionalities of a data container.
+ * Tests the {@link jmul.math.MathHelper#max} method.
  *
  * @author Kristian Kutin
  */
 @UnitTest
-public class DataContainerTest {
+@RunWith(Parameterized.class)
+public class NextPrimeNumberInvalidParametersTest {
 
     /**
-     * A data container.
+     * The input.
      */
-    private DataContainer<String, String> container;
+    private int input;
+
+    /**
+     * Creates a new test according to the specified parameters.
+     *
+     * @param anInput
+     */
+    public NextPrimeNumberInvalidParametersTest(int anInput) {
+
+        input = anInput;
+    }
 
     /**
      * Steps which have to be performed before a test.
      */
     @Before
     public void setUp() {
-
-        container = new DataContainerImpl<String, String>();
     }
 
     /**
@@ -63,22 +75,31 @@ public class DataContainerTest {
      */
     @After
     public void tearDown() {
-
-        container = null;
     }
 
     /**
-     * Tests putting and retrieving data from a data container.
+     * Invokes the max method and checks if the result matches the expected result.
      */
-    @Test
-    public void testDataContainer() {
+    @Test(expected = IllegalArgumentException.class)
+    public void testNextPrimeNumber() {
 
-        String key = "key";
-        String value = "value";
+        PrimeNumberHelper.getNextPrimeNumber(input);
+    }
 
-        container.putValue(key, value);
+    /**
+     * Returns a matrix of input data.
+     *
+     * @return a matrix of input data
+     */
+    @Parameterized.Parameters
+    public static Collection<Object[]> data() {
 
-        assertEquals(value, container.getValue(key));
+        Collection<Object[]> parameters = new ArrayList<Object[]>();
+
+        parameters.add(new Object[] { 0 });
+        parameters.add(new Object[] { -1 });
+
+        return parameters;
     }
 
 }

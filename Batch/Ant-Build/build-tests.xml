@@ -53,6 +53,9 @@
             <fileset dir="${package.transformation-tests.src.dir}">
                 <include name="**/*.java" />
             </fileset>
+            <fileset dir="${package.transformation-xml-tests.src.dir}">
+                <include name="**/*.java" />
+            </fileset>
             <fileset dir="${package.xml-tests.src.dir}">
                 <include name="**/*.java" />
             </fileset>

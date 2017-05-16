@@ -24,6 +24,9 @@
 
 package jmul.math;
 
+import java.util.Set;
+import java.util.TreeSet;
+
 import jmul.misc.exceptions.EmptyArrayParameterException;
 import jmul.misc.exceptions.NullArrayParameterException;
 
@@ -94,6 +97,39 @@ public final class MathHelper {
 
             throw new EmptyArrayParameterException();
         }
+    }
+
+    /**
+     * Calculates all divisors (including 1 and the number itself)
+     * for the specified number.
+     *
+     * @param n
+     *
+     * @return all divisors
+     */
+    public static Set<Integer> calculateAllDivisors(int n) {
+
+        if (n < 1) {
+
+            String message = "Only positive integers are allowed (actual parameter=" + n + ")!";
+            throw new IllegalArgumentException(message);
+        }
+
+        Set<Integer> result = new TreeSet<Integer>();
+
+        int sqrt = (int) (Math.sqrt(n));
+
+        for (int a = 1; a <= sqrt; a++) {
+
+            int b = n / a;
+            if ((n % a) == 0) {
+
+                result.add(a);
+                result.add(b);
+            }
+        }
+
+        return result;
     }
 
 }

@@ -32,17 +32,16 @@ import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import jmul.transformation.xml.annotations.Exempted;
-
-import jmul.transformation.TransformationParameters;
-import jmul.transformation.TransformationParametersImpl;
-import jmul.transformation.TransformationPath;
-
 import jmul.reflection.classes.AccessorHelper;
 import jmul.reflection.classes.ClassDefinition;
 import jmul.reflection.classes.ClassHelper;
 
 import jmul.string.StringConcatenator;
+
+import jmul.transformation.TransformationParameters;
+import jmul.transformation.TransformationParametersImpl;
+import jmul.transformation.TransformationPath;
+import jmul.transformation.xml.annotations.Exempted;
 
 
 /**
@@ -127,14 +126,22 @@ public final class TransformationHelper {
         // Check parameter.
         if (aClass == null) {
 
-            String message = "No class was specified!";
+            String message = "No class was specified (null)!";
             throw new IllegalArgumentException(message);
         }
 
         if (aClass.isInterface()) {
 
-            StringConcatenator message = new StringConcatenator("The specified class is an interface (", aClass, ")!");
-            throw new IllegalArgumentException(message.toString());
+            String message = "The specified class is an interface (" + aClass + ")!";
+            throw new IllegalArgumentException(message);
+        }
+
+        if ((anExemptedSuperclass != null) && !anExemptedSuperclass.isAssignableFrom(aClass)) {
+
+            String message =
+                "The specified exempted superclass " + anExemptedSuperclass.getName() +
+                " is not related to the specified class " + aClass.getName() + "!";
+            throw new IllegalArgumentException(message);
         }
 
 
@@ -208,6 +215,20 @@ public final class TransformationHelper {
      *         <code>false</code>
      */
     public static boolean isComposite(Class aClass, Class anExemptedSuperclass) {
+
+        // Check parameter.
+        if (aClass == null) {
+
+            String message = "No class was specified (null)!";
+            throw new IllegalArgumentException(message);
+        }
+
+        if (aClass.isInterface()) {
+
+            String message = "The specified class is an interface (" + aClass + ")!";
+            throw new IllegalArgumentException(message);
+        }
+
 
         // Check the specified parameter.
 

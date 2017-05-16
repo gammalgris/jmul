@@ -167,10 +167,13 @@ public class HelperConstructorTest {
         parameters.add(new Object[] { jmul.transformation.xml.TransformationHelper.class });
         parameters.add(new Object[] { jmul.math.random.DiceFactory.class });
         parameters.add(new Object[] { jmul.math.rules.RuleFactory.class });
+        parameters.add(new Object[] { jmul.math.prime.PrimeNumberHelper.class });
+        parameters.add(new Object[] { jmul.math.hash.HashHelper.class });
         parameters.add(new Object[] { jmul.transformation.xml.rules.TransformationConstants.class });
         parameters.add(new Object[] { jmul.transformation.xml.annotations.AnnotationHelper.class });
         parameters.add(new Object[] { jmul.string.TextHelper.class });
         parameters.add(new Object[] { jmul.io.text.TextFileHelper.class });
+        parameters.add(new Object[] { jmul.reflection.ContainerHelper.class });
 
         return parameters;
     }

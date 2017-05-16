@@ -677,7 +677,8 @@ class ClassDefinitionImpl implements ClassDefinition {
             if (foundMethods.isEmpty()) {
 
                 StringConcatenator message =
-                    new StringConcatenator("No setter method with the name ", methodname, " was found!");
+                    new StringConcatenator("No setter method with the name ", methodname,
+                                           " was found in the class " + getType().getName() + "!");
                 throw new MissingAccessorException(message.toString());
 
             } else if (foundMethods.size() == 1) {

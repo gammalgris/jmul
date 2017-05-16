@@ -25,6 +25,9 @@
 package jmul.reflection.classes;
 
 
+import jmul.misc.checks.ParameterCheckHelper;
+
+
 /**
  * Thrown when a particular getter or setter method cannot be found.
  *
@@ -47,7 +50,7 @@ public class MissingAccessorException extends RuntimeException {
      */
     public MissingAccessorException(String aMessage) {
 
-        super(aMessage);
+        super(ParameterCheckHelper.checkStringParameter(aMessage));
     }
 
     /**
@@ -57,7 +60,7 @@ public class MissingAccessorException extends RuntimeException {
      */
     public MissingAccessorException(Throwable aCause) {
 
-        super(aCause);
+        super(ParameterCheckHelper.checkExceptionCause(aCause));
     }
 
     /**
@@ -68,7 +71,7 @@ public class MissingAccessorException extends RuntimeException {
      */
     public MissingAccessorException(String aMessage, Throwable aCause) {
 
-        super(aMessage, aCause);
+        super(ParameterCheckHelper.checkStringParameter(aMessage), ParameterCheckHelper.checkExceptionCause(aCause));
     }
 
 }

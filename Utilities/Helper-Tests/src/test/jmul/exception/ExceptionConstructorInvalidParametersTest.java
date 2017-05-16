@@ -32,8 +32,6 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import javax.xml.ws.WebServiceException;
-
 import jmul.csv.reader.CsvStructureException;
 
 import jmul.io.ArchiveException;
@@ -68,6 +66,7 @@ import jmul.test.exceptions.TearDownException;
 
 import jmul.time.StopwatchException;
 
+import jmul.web.WebServerException;
 import jmul.web.page.PageHandlerException;
 import jmul.web.page.PageLoaderException;
 import jmul.web.soap.CodeGeneratorException;
@@ -236,7 +235,7 @@ public class ExceptionConstructorInvalidParametersTest {
         addDefaultTestCases(parameters, CodeGeneratorException.class);
         addDefaultTestCases2(parameters, TooManyClassesException.class);
         addDefaultTestCases(parameters, WebServiceProxyException.class);
-        addDefaultTestCases(parameters, WebServiceException.class);
+        addDefaultTestCases(parameters, WebServerException.class);
         addDefaultTestCases(parameters, PageHandlerException.class);
         addDefaultTestCases(parameters, PageLoaderException.class);
 

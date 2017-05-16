@@ -64,6 +64,9 @@ public final class ContainerHelper {
      */
     private static final Collection<Class> KNOWN_MAP_IMPLEMENTATIONS;
 
+    /*
+     * The static initializer.
+     */
     static {
 
         ResourceBundle bundle = ResourceBundle.getBundle(ContainerHelper.class.getName());
@@ -126,6 +129,8 @@ public final class ContainerHelper {
      * The default constructor.
      */
     private ContainerHelper() {
+
+        throw new UnsupportedOperationException();
     }
 
     /**

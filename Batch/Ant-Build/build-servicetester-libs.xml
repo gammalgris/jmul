@@ -34,6 +34,9 @@
             <fileset dir="${package.string.src.dir}">
                 <include name="**/*.java" />
             </fileset>
+            <fileset dir="${package.test.src.dir}">
+                <include name="**/*.java" />
+            </fileset>
             <fileset dir="${package.transformation.src.dir}">
                 <include name="**/*.java" />
             </fileset>

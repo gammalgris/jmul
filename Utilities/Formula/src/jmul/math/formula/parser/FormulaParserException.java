@@ -25,6 +25,9 @@
 package jmul.math.formula.parser;
 
 
+import jmul.misc.checks.ParameterCheckHelper;
+
+
 /**
  * A special exception type for the the formula parser, which is derived from
  * the base exception type.
@@ -50,7 +53,7 @@ public class FormulaParserException extends RuntimeException {
      */
     public FormulaParserException(String aMessage) {
 
-        super(aMessage);
+        super(ParameterCheckHelper.checkStringParameter(aMessage));
     }
 
     /**
@@ -62,7 +65,7 @@ public class FormulaParserException extends RuntimeException {
      */
     public FormulaParserException(Throwable aCause) {
 
-        super(aCause);
+        super(ParameterCheckHelper.checkExceptionCause(aCause));
     }
 
     /**
@@ -76,7 +79,7 @@ public class FormulaParserException extends RuntimeException {
      */
     public FormulaParserException(String aMessage, Throwable aCause) {
 
-        super(aMessage, aCause);
+        super(ParameterCheckHelper.checkStringParameter(aMessage), ParameterCheckHelper.checkExceptionCause(aCause));
     }
 
 }

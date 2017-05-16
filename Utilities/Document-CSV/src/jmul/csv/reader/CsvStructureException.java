@@ -25,6 +25,9 @@
 package jmul.csv.reader;
 
 
+import jmul.misc.checks.ParameterCheckHelper;
+
+
 /**
  * Is thrown if the structure of a CSV file doesn't match its header.
  *
@@ -47,7 +50,7 @@ public class CsvStructureException extends RuntimeException {
      */
     public CsvStructureException(String aMessage) {
 
-        super(aMessage);
+        super(ParameterCheckHelper.checkStringParameter(aMessage));
     }
 
     /**
@@ -57,7 +60,7 @@ public class CsvStructureException extends RuntimeException {
      */
     public CsvStructureException(Throwable aCause) {
 
-        super(aCause);
+        super(ParameterCheckHelper.checkExceptionCause(aCause));
     }
 
     /**
@@ -68,7 +71,7 @@ public class CsvStructureException extends RuntimeException {
      */
     public CsvStructureException(String aMessage, Throwable aCause) {
 
-        super(aMessage, aCause);
+        super(ParameterCheckHelper.checkStringParameter(aMessage), ParameterCheckHelper.checkExceptionCause(aCause));
     }
 
 }
