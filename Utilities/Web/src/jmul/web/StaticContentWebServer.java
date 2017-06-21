@@ -48,7 +48,9 @@ import jmul.misc.management.ResourceContainerImpl;
 import jmul.misc.state.State;
 
 import static jmul.string.Constants.COMMA;
+import static jmul.string.Constants.FILE_SEPARATOR;
 import static jmul.string.Constants.NEW_LINE;
+import static jmul.string.Constants.SLASH;
 import static jmul.string.Constants.TABULATOR;
 
 import static jmul.web.WebServerStates.ERROR;
@@ -139,6 +141,7 @@ public class StaticContentWebServer implements WebServer {
 
 
         bindWebContent(scanWebContent());
+        bindMainPage();
     }
 
     /**
@@ -190,6 +193,36 @@ public class StaticContentWebServer implements WebServer {
             message = "content registered as \"" + path + "\"";
             logger.logInfo(message);
         }
+    }
+
+    /**
+     * Binds a main page if one was specified.
+     */
+    private void bindMainPage() {
+
+        HttpServer server = (HttpServer) resourceContainer.getResource(WebServerResourcesKeys.SERVER);
+        Logger logger = (Logger) resourceContainer.getResource(WebServerResourcesKeys.LOGGER);
+
+        File baseDir = configurationReader.getBaseDirectory();
+
+        if (!configurationReader.existsMainPage()) {
+
+            logger.logInfo("No main page has been specified.");
+            return;
+        }
+
+        String relativePath = configurationReader.getMainPage();
+        String absolutePath = baseDir.getAbsolutePath() + FILE_SEPARATOR + FILE_SEPARATOR + relativePath;
+        File file = new File(absolutePath);
+
+        String message = "found content: \"" + file + "\"";
+        logger.logInfo(message);
+
+        PageHandler handler = new PageHandler(logger, baseDir, file);
+        server.createContext(SLASH, handler);
+
+        message = "content registered as main page";
+        logger.logInfo(message);
     }
 
     /**
@@ -447,6 +480,11 @@ class ConfigurationReader {
     private static final String CONTENT_CONTENT_TYPES_KEY = "content.content-types";
 
     /**
+     * A property key (optional).
+     */
+    private static final String CONTENT_MAIN_PAGE_KEY = "content.main-page";
+
+    /**
      * The name of a resource bundle.
      */
     private final String bundleName;
@@ -552,6 +590,27 @@ class ConfigurationReader {
         s = s.trim();
 
         return s.split(COMMA);
+    }
+
+    /**
+     * Checks if a main page has been specified.
+     *
+     * @return <code>true</code> if a main page has been specified,
+     *         else <code>false</code>
+     */
+    public boolean existsMainPage() {
+
+        return getBundle().containsKey(CONTENT_MAIN_PAGE_KEY);
+    }
+
+    /**
+     * Returns the specified main page.
+     *
+     * @return a relative main page path
+     */
+    public String getMainPage() {
+
+        return getString(CONTENT_MAIN_PAGE_KEY);
     }
 
 }
