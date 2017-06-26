@@ -4,7 +4,7 @@
  * JMUL is a central repository for utilities which are used in my
  * other public and private repositories.
  *
- * Copyright (C) 2016  Kristian Kutin
+ * Copyright (C) 2017  Kristian Kutin
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -22,7 +22,7 @@
  * e-mail: kristian.kutin@arcor.de
  */
 
-package jmul.web;
+package jmul.time;
 
 
 import java.util.Collections;
@@ -34,51 +34,53 @@ import jmul.misc.state.StateHelper;
 
 
 /**
- * This enumeration class describes all possible states of a web server.
+ * This enumeration class describes all possible states of a stopwatch.
  *
  * @author Kristian Kutin
  */
-public enum WebServerStates implements State {
+public enum StopwatchStates implements State {
+
 
     /**
-     * The web server instance is uninitialized.
+     * The stopwatch instance is uninitialized.
      */
     UNINITIALIZED(StateNames.UNINITIALIZED_STRING, StateNames.INITIALIZATION_STRING),
 
     /**
-     * The web server instance is being initialized.
+     * The stopwatch instance is being initialized.
      */
     INITIALIZATION(StateNames.INITIALIZATION_STRING, StateNames.INITIALIZED_STRING, StateNames.ERROR_STRING),
 
     /**
-     * The initialization of the web server instance is finished.
+     * The initialization of the stopwatch instance is finished.
      */
-    INITIALIZED(StateNames.INITIALIZED_STRING, StateNames.STARTING_STRING),
+    INITIALIZED(StateNames.INITIALIZED_STRING, StateNames.MEASUREMENT_IN_PROGRESS_STRING, StateNames.RESETTING_STRING),
 
     /**
-     * The web server instance is being started.
+     * A measurement is in progress.
      */
-    STARTING(StateNames.STARTING_STRING, StateNames.RUNNING_STRING, StateNames.ERROR_STRING),
+    MEASUREMENT_IN_PROGRESS(StateNames.MEASUREMENT_IN_PROGRESS_STRING, StateNames.MEASUREMENT_STOPPED_STRING, StateNames.ERROR_STRING),
 
     /**
-     * The web server instance is up and running.
+     * A measurement has been stopped regularly.
      */
-    RUNNING(StateNames.RUNNING_STRING, StateNames.STOPPING_STRING, StateNames.ERROR_STRING),
+    MEASUREMENT_STOPPED(StateNames.MEASUREMENT_STOPPED_STRING, StateNames.RESETTING_STRING),
 
     /**
-     * The web server instance is being shut down.
+     * The stopwatch instance is being resetted.
      */
-    STOPPING(StateNames.STOPPING_STRING, StateNames.STOPPED_STRING, StateNames.ERROR_STRING),
+    RESETTING(StateNames.RESETTING_STRING, StateNames.RESET_STRING, StateNames.ERROR_STRING),
 
     /**
-     * The web server instance is stopped.
+     * The stopwatch instance is reset.
      */
-    STOPPED(StateNames.STOPPED_STRING),
+    RESET(StateNames.RESET_STRING, StateNames.MEASUREMENT_IN_PROGRESS_STRING),
 
     /**
-     * An unrecoverable error occurred.
+     * An error occurred.
      */
-    ERROR(StateNames.ERROR_STRING), ;
+    ERROR(StateNames.ERROR_STRING, StateNames.RESETTING_STRING), ;
+    ;    
 
 
     /**
@@ -100,7 +102,7 @@ public enum WebServerStates implements State {
      * @param someDestinationStates
      *        names of destination states
      */
-    private WebServerStates(String aStateName, String... someDestinationStates) {
+    private StopwatchStates(String aStateName, String... someDestinationStates) {
 
         stateName = aStateName;
 
@@ -129,7 +131,7 @@ public enum WebServerStates implements State {
 
         StateHelper.checkParameter(newState);
 
-        if (newState instanceof WebServerStates) {
+        if (newState instanceof StopwatchStates) {
 
             return isAllowedTransition(newState.getStateName());
         }
@@ -246,10 +248,10 @@ final class StateNames {
     static final String UNINITIALIZED_STRING = "uninitialized";
     static final String INITIALIZATION_STRING = "initialization";
     static final String INITIALIZED_STRING = "initialized";
-    static final String STARTING_STRING = "starting";
-    static final String RUNNING_STRING = "running";
-    static final String STOPPING_STRING = "stopping";
-    static final String STOPPED_STRING = "stopped";
+    static final String MEASUREMENT_IN_PROGRESS_STRING = "measurement in progress";
+    static final String MEASUREMENT_STOPPED_STRING = "measurement stopped";
+    static final String RESETTING_STRING = "resetting";
+    static final String RESET_STRING = "reset";
     static final String ERROR_STRING = "error";
 
 }

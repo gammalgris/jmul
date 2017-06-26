@@ -662,7 +662,7 @@ class ClassDefinitionImpl implements ClassDefinition {
 
             StringConcatenator message =
                 new StringConcatenator("No field with the specified name \"", aFieldname, "\" exists!");
-            throw new MissingAccessorException(message.toString());
+            throw new MissingAccessorException(message.toString(), e);
         }
 
 

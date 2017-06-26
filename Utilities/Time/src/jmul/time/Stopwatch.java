@@ -25,147 +25,45 @@
 package jmul.time;
 
 
+import jmul.misc.state.State;
+
+
 /**
- * This class is an implementation of a stopwatch.
+ * This interface describes a stopwatch entity.
  *
  * @author Kristian Kutin
  */
-public class Stopwatch {
+public interface Stopwatch {
 
     /**
-     * A flag which indicates if the stopwatch is currently being used to
-     * measure the elapsed time.
+     * Returns the stopwatch's current state.
+     *
+     * @return a state
      */
-    private boolean isMeasuringElapsedTime;
-
-    /**
-     * A flag which indicates that a measurement was completed.
-     */
-    private boolean hasCompletedMeasurement;
-
-    /**
-     * The start time.
-     */
-    private long startTime;
-
-    /**
-     * The stop time.
-     */
-    private long stopTime;
-
-    /**
-     * The default constructor.
-     */
-    public Stopwatch() {
-
-        reset();
-    }
+    State getStopwatchState();
 
     /**
      * The stopwatch is being reset. An ongoing measurement is aborted.
      */
-    public final void reset() {
-
-        startTime = 0L;
-        stopTime = 0L;
-
-        isMeasuringElapsedTime = false;
-        hasCompletedMeasurement = false;
-    }
+    void reset();
 
     /**
      * Starts a new measurement. If there is an ongoing measurement
      * then invoking this method has no effect.
      */
-    public void startCount() {
-
-        if (isMeasuringElapsedTime) {
-
-            return;
-        }
-
-        if (hasCompletedMeasurement) {
-
-            reset();
-        }
-
-        isMeasuringElapsedTime = true;
-        startTime = System.currentTimeMillis();
-    }
+    void startMeasurement();
 
     /**
      * Stops an ongoing measurement. If there is no ongoing measurement
      * then invoking this method has no effect.
      */
-    public void stopCount() {
-
-        if (hasCompletedMeasurement || !isMeasuringElapsedTime) {
-
-            return;
-        }
-
-        stopTime = System.currentTimeMillis();
-        isMeasuringElapsedTime = false;
-        hasCompletedMeasurement = true;
-    }
+    void stopMeasurement();
 
     /**
      * Returns the elapsed time of the last measurement.
      *
      * @return the elapsed time
-     *
-     * @throws StopwatchException
-     *         is thrown if there is no finished measurement
      */
-    public long getMeasuredTime() {
-
-        if (!isMeasuringElapsedTime && !hasCompletedMeasurement) {
-
-            String message = "There is no finished measurement!";
-            throw new StopwatchException(message);
-
-        } else if (isMeasuringElapsedTime && !hasCompletedMeasurement) {
-
-            String message = "A measurement is still being made!";
-            throw new StopwatchException(message);
-
-        }
-
-        return stopTime - startTime;
-    }
-
-    /**
-     * Checks if the stopwatch is currntly being used.
-     *
-     * @return <code>true</code> if a measurement is taking place, else
-     *         <code>false</code>
-     */
-    public boolean isActiveCount() {
-
-        return isMeasuringElapsedTime;
-    }
-
-    /**
-     * Returns a string representation of the stopwatch's current state.
-     *
-     * @return a string representation
-     */
-    @Override
-    public String toString() {
-
-        String message = null;
-
-        try {
-
-            long result = getMeasuredTime();
-            message = "" + result + " ms";
-
-        } catch (StopwatchException e) {
-
-            message = e.getMessage();
-        }
-
-        return message;
-    }
+    long getMeasuredTime();
 
 }

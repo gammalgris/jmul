@@ -44,7 +44,7 @@ exit /b 0
 
 	set projectDir=%~dp0..\..\Utilities\
 
-	set directory.length=47
+	set directory.length=48
 
 	set directory[1]=%projectDir%.data\
 	set directory[2]=%projectDir%Concurrent\classes\
@@ -79,22 +79,23 @@ exit /b 0
 	set directory[31]=%projectDir%Test\classes\
 	set directory[32]=%projectDir%Test-Base\classes\
 	set directory[33]=%projectDir%Time\classes\
-	set directory[34]=%projectDir%Transformation\classes\
-	set directory[35]=%projectDir%Transformation-Tests\classes\
-	set directory[36]=%projectDir%Transformation-XML\classes\
-	set directory[37]=%projectDir%Version\classes\
-	set directory[38]=%projectDir%Web\classes\
-	set directory[39]=%projectDir%Web-Tests\classes\
-	set directory[40]=%projectDir%XML\classes\
-	set directory[41]=%projectDir%XML-Tests\classes\
+	set directory[34]=%projectDir%Time-Tests\classes\
+	set directory[35]=%projectDir%Transformation\classes\
+	set directory[36]=%projectDir%Transformation-Tests\classes\
+	set directory[37]=%projectDir%Transformation-XML\classes\
+	set directory[38]=%projectDir%Version\classes\
+	set directory[39]=%projectDir%Web\classes\
+	set directory[40]=%projectDir%Web-Tests\classes\
+	set directory[41]=%projectDir%XML\classes\
+	set directory[42]=%projectDir%XML-Tests\classes\
 
-	set directory[42]=%projectDir%..\Batch\classes\
-	set directory[43]=%projectDir%..\Batch\Ant-Sonar\.sonar\
-	set directory[44]=%projectDir%..\tmp\
+	set directory[43]=%projectDir%..\Batch\classes\
+	set directory[44]=%projectDir%..\Batch\Ant-Sonar\.sonar\
+	set directory[45]=%projectDir%..\tmp\
 
-	set directory[45]=%projectDir%IO-Tests\testdata-io\
-	set directory[46]=%projectDir%XML-Tests\testdata-xml\
-	set directory[47]=%projectDir%Document-CSV-Tests\testdata-csv\
+	set directory[46]=%projectDir%IO-Tests\testdata-io\
+	set directory[47]=%projectDir%XML-Tests\testdata-xml\
+	set directory[48]=%projectDir%Document-CSV-Tests\testdata-csv\
 
 exit /b 0
 

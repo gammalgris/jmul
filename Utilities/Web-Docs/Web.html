@@ -5668,7 +5668,7 @@ Error message and password prompt
 <div modified="20150606172020989" modifier="KK" title="$:/state/showeditpreview">
 <pre>yes</pre>
 </div>
-<div modified="20160811131803030" modifier="KK" title="$:/state/sidebar">
+<div modified="20170626082817925" modifier="KK" title="$:/state/sidebar">
 <pre>yes</pre>
 </div>
 <div modified="20160808125258625" modifier="KK" title="$:/state/tab-1749438307">
@@ -5683,7 +5683,7 @@ Error message and password prompt
 <div created="20150606171842764" creator="K" modified="20150606171842937" modifier="K" title="$:/status/UserName">
 <pre>KK</pre>
 </div>
-<div list="[[Table of Contents]] Introduction Deployment [[Implementation Details]] Usage Configuration" title="$:/StoryList">
+<div list="[[Table of Contents]] Configuration" title="$:/StoryList">
 <pre></pre>
 </div>
 <div modified="20150606212211544" modifier="KK" title="$:/temp/advancedsearch">
@@ -5806,7 +5806,7 @@ Error message and password prompt
     }
 }</pre>
 </div>
-<div created="20160811113858489" creator="KK" modified="20160811131024139" modifier="KK" tags="web configuration tutorial" title="Configuration">
+<div created="20160811113858489" creator="KK" modified="20170626082811598" modifier="KK" tags="web configuration tutorial" title="Configuration">
 <pre>This article describes the steps which have to be done after the deployment.
 
 !Setting up the environment
@@ -5817,7 +5817,7 @@ In this script the location of a java runtime environment has to be specified. F
 
 &lt;html&gt;&lt;iframe src=&quot;misc/code-examples/configuration_example_01.html&quot; seamless width=&quot;90%&quot; height=&quot;270&quot; /&gt;&lt;/html&gt;
 
-When invoked the script will check if the environment is available as specified in the script (i.e. location and version). In the case that the environment differs from the specifications the script will stop with an appropriate error message.
+When invoked the script will check if the environment is available as specified in the script (i.e. location and version). In the case that the environment differs from the configuration the script will stop with an appropriate error message.
 
 !Changing start script settings
 
@@ -5833,12 +5833,14 @@ In general no modifications are necessary when using the standard implementation
 
 In contrast the web server configuration file &lt;code&gt;CustomWebServer.properties&lt;/code&gt; should be modified.
 
-&lt;html&gt;&lt;iframe src=&quot;misc/code-examples/configuration_example_03.html&quot; seamless width=&quot;90%&quot; height=&quot;190&quot; /&gt;&lt;/html&gt;
+&lt;html&gt;&lt;iframe src=&quot;misc/code-examples/configuration_example_03.html&quot; seamless width=&quot;90%&quot; height=&quot;220&quot; /&gt;&lt;/html&gt;
 
 The relevant entries are:
 
-* &lt;code&gt;socket.port&lt;/code&gt;
-* &lt;code&gt;content.base-directory&lt;/code&gt;
+* &lt;code&gt;socket.port&lt;/code&gt;&lt;br /&gt;Binds the web serever to the specified port.
+* &lt;code&gt;content.base-directory&lt;/code&gt;&lt;br /&gt;Specifies where to look for the web content.
+* &lt;code&gt;content.main-page&lt;/code&gt; (optional)&lt;br /&gt;Specifies a main page (i.e. the URL contains only of the IP adress).
+* &lt;code&gt;content.special-response.{status}&lt;/code&gt; (optional)&lt;br /&gt;Specifies pages which will return a specific http status code instead of an actual site. A comma seperated list can be provided if several sites should return the same status code.
 
 If several instances of the web server have to run on the same machine then each instance should listen to a different port (&lt;code&gt;socket.port&lt;/code&gt;). Different instances will also provide access to different content (&lt;code&gt;content.base-directory&lt;/code&gt;).
 </pre>

@@ -154,6 +154,16 @@
          <list n="url-path"/>
       </hash>
    </hash>
+   <hash n="oracle.jdeveloper.runner.RunConfigurations">
+      <hash n="runConfigurationDefinitions">
+         <hash n="Default">
+            <value n="custom" v="false"/>
+            <value n="name" v="Default"/>
+            <value n="programArguments" v="jmul.web.StaticContentWebServer jmul.Web.WebServer"/>
+            <url n="targetURL" path="src/jmul/web/WebServerRunner.java"/>
+         </hash>
+      </hash>
+   </hash>
    <hash n="oracle.jdevimpl.config.JProjectPaths">
       <url n="outputDirectory" path="classes/"/>
    </hash>

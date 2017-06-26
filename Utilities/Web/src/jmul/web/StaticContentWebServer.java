@@ -47,6 +47,9 @@ import jmul.misc.management.ResourceContainer;
 import jmul.misc.management.ResourceContainerImpl;
 import jmul.misc.state.State;
 
+import jmul.network.http.ResponseCode;
+import jmul.network.http.ResponseCodes;
+
 import static jmul.string.Constants.COMMA;
 import static jmul.string.Constants.FILE_SEPARATOR;
 import static jmul.string.Constants.NEW_LINE;
@@ -63,6 +66,7 @@ import static jmul.web.WebServerStates.STOPPING;
 import static jmul.web.WebServerStates.UNINITIALIZED;
 import jmul.web.logging.WebServerLogger;
 import jmul.web.page.PageHandler;
+import jmul.web.page.StatusCodeResponseHandler;
 
 
 /**
@@ -142,6 +146,7 @@ public class StaticContentWebServer implements WebServer {
 
         bindWebContent(scanWebContent());
         bindMainPage();
+        bindStatusCodeResponseContent();
     }
 
     /**
@@ -223,6 +228,47 @@ public class StaticContentWebServer implements WebServer {
 
         message = "content registered as main page";
         logger.logInfo(message);
+    }
+
+    /**
+     * Binds pages which return only special response codes.
+     */
+    private void bindStatusCodeResponseContent() {
+
+        HttpServer server = (HttpServer) resourceContainer.getResource(WebServerResourcesKeys.SERVER);
+        Logger logger = (Logger) resourceContainer.getResource(WebServerResourcesKeys.LOGGER);
+
+        for (ResponseCode code : ResponseCodes.values()) {
+
+            if (!configurationReader.existSpecialResponseContent(code)) {
+
+                continue;
+            }
+
+
+            for (String path : configurationReader.getSpecialResponseContent(code)) {
+
+                String message =
+                    "special response content: status code (" + code.getValue() + "); path: \"" + path + "\"";
+                logger.logInfo(message);
+
+                String fullPath;
+                if (path.startsWith(SLASH)) {
+
+                    fullPath = path;
+
+                } else {
+
+                    fullPath = SLASH + path;
+                }
+
+                StatusCodeResponseHandler handler = new StatusCodeResponseHandler(logger, fullPath, code);
+                server.createContext(fullPath, handler);
+
+                message = "content registered as \"" + path + "\"";
+                logger.logInfo(message);
+            }
+        }
     }
 
     /**
@@ -485,6 +531,11 @@ class ConfigurationReader {
     private static final String CONTENT_MAIN_PAGE_KEY = "content.main-page";
 
     /**
+     * A property key (optional).
+     */
+    private static final String SPECIAL_RESPONSE_PREFIX_KEY = "content.special-response.";
+
+    /**
      * The name of a resource bundle.
      */
     private final String bundleName;
@@ -611,6 +662,50 @@ class ConfigurationReader {
     public String getMainPage() {
 
         return getString(CONTENT_MAIN_PAGE_KEY);
+    }
+
+    /**
+     * Builds a property key according to the specified parameters.
+     *
+     * @param aResponseCode
+     *
+     * @return a property key
+     */
+    private static String buildSpecialResponseContentKey(ResponseCode aResponseCode) {
+
+        return SPECIAL_RESPONSE_PREFIX_KEY + aResponseCode.getValue();
+    }
+
+    /**
+     * Checks if special response content for the specified response code
+     * exists.
+     *
+     * @param aResponseCode
+     *
+     * @return <code>true</code> if special response content exists,
+     *         else <code>false</code>
+     */
+    public boolean existSpecialResponseContent(ResponseCode aResponseCode) {
+
+        String key = buildSpecialResponseContentKey(aResponseCode);
+        return getBundle().containsKey(key);
+    }
+
+    /**
+     * Returns the pages (i.e. their paths) that are supposed to return the
+     * specified status code.
+     *
+     * @param aResponseCode
+     *
+     * @return a list of paths
+     */
+    public String[] getSpecialResponseContent(ResponseCode aResponseCode) {
+
+        String key = buildSpecialResponseContentKey(aResponseCode);
+        String s = getString(key);
+        s = s.trim();
+
+        return s.split(COMMA);
     }
 
 }

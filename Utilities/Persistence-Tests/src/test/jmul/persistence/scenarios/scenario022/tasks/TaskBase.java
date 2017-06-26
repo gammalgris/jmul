@@ -33,6 +33,7 @@ import jmul.misc.state.State;
 import jmul.persistence.PersistenceContainer;
 
 import jmul.time.Stopwatch;
+import jmul.time.StopwatchImpl;
 
 import test.jmul.datatypes.scenarios.interfaces.Person;
 import test.jmul.persistence.scenarios.scenario022.TaskResult;
@@ -105,7 +106,7 @@ abstract class TaskBase implements Task {
         sleepTime = aSleepTime;
         id = anID;
         expectedResult = anExpectedResult;
-        stopwatch = new Stopwatch();
+        stopwatch = new StopwatchImpl();
         transitionTo(INITIALIZED);
     }
 
@@ -206,7 +207,7 @@ abstract class TaskBase implements Task {
      */
     protected void startCount() {
 
-        stopwatch.startCount();
+        stopwatch.startMeasurement();
     }
 
     /**
@@ -214,7 +215,7 @@ abstract class TaskBase implements Task {
      */
     protected void stopCount() {
 
-        stopwatch.stopCount();
+        stopwatch.stopMeasurement();
     }
 
     /**

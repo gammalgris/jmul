@@ -56,6 +56,7 @@
       <hash><url n="URL" path="Test/Test.jpr"/></hash>
       <hash><url n="URL" path="Test-Base/Test-Base.jpr"/></hash>
       <hash><url n="URL" path="Time/Time.jpr"/></hash>
+      <hash><url n="URL" path="Time-Tests/Time-Tests.jpr"/></hash>
       <hash><url n="URL" path="Transformation/Transformation.jpr"/></hash>
       <hash><url n="URL" path="Transformation-Tests/Transformation-Tests.jpr"/></hash>
       <hash><url n="URL" path="Transformation-XML/Transformation-XML.jpr"/></hash>
