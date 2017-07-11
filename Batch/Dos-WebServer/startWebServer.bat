@@ -9,6 +9,7 @@
 @rem ===   the web server.
 @rem ===
 
+call:resetErrorlevel
 call:defineMacros
 
 set "initializerPath=%~dp0"
@@ -113,6 +114,18 @@ set windowTitle=
 @rem ===
 @rem ===   Internal Subroutines
 @rem ===
+
+@rem --------------------------------------------------------------------------------
+@rem ---
+@rem ---   void resetErrorlevel()
+@rem ---
+@rem ---   The subroutine resets the errorlevel.
+@rem ---
+
+:resetErrorlevel
+
+exit /b 0
+
 
 @rem --------------------------------------------------------------------------------
 @rem ---

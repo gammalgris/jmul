@@ -25,6 +25,9 @@
             <fileset dir="${package.logging.src.dir}">
                 <include name="**/*.java" />
             </fileset>
+            <fileset dir="${package.math.src.dir}">
+                <include name="**/*.java" />
+            </fileset>
             <fileset dir="${package.misc.src.dir}">
                 <include name="**/*.java" />
             </fileset>

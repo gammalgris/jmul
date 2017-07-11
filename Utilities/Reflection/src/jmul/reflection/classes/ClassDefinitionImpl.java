@@ -1031,6 +1031,11 @@ class ClassDefinitionImpl implements ClassDefinition {
 
         while (loop) {
 
+            if (probedType == null) {
+
+                break;
+            }
+
             try {
 
                 foundField = probedType.getDeclaredField(aFieldname);
@@ -1048,7 +1053,8 @@ class ClassDefinitionImpl implements ClassDefinition {
 
         if (foundField == null) {
 
-            String message = "No field with the specified name could be found!";
+            String message =
+                "The class " + getType().getCanonicalName() + " doesn't have a field with the name " + aFieldname + "!";
             throw new NoSuchFieldException(message);
         }
 
