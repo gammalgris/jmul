@@ -27,10 +27,10 @@ package test.jmul.time;
 
 import jmul.concurrent.threads.ThreadHelper;
 
-import static jmul.math.Constants.EPSILON;
 import static jmul.math.Constants.HOUR;
 import static jmul.math.Constants.MINUTE;
 import static jmul.math.Constants.SECOND;
+import static jmul.math.Constants.getEpsilon;
 
 import jmul.misc.state.State;
 
@@ -211,7 +211,7 @@ public class StopwatchTest {
         assertTrue("The result has to be positive!", result > 0L);
         long delta1 = result - SECOND;
         float delta2 = ((float) delta1) / (SECOND * MINUTE * HOUR);
-        assertTrue("", delta2 < EPSILON);
+        assertTrue("", delta2 < getEpsilon(Float.TYPE).floatValue());
     }
 
 }

@@ -27,6 +27,8 @@ package jmul.csv.reader;
 
 import java.io.IOException;
 
+import java.nio.charset.Charset;
+
 import java.util.List;
 
 import jmul.document.csv.structure.HeaderType;
@@ -58,6 +60,11 @@ import jmul.string.TextHelper;
 public class CsvDocumentReaderImpl extends CsvDocumentReaderBase {
 
     /**
+     * The default charset.
+     */
+    private static final Charset DEFAULT_CHARSET = Charset.defaultCharset();
+
+    /**
      * The default column separator.
      */
     private static final String DEFAULT_COLUMN_SEPARATOR = SEMICOLON;
@@ -77,7 +84,17 @@ public class CsvDocumentReaderImpl extends CsvDocumentReaderBase {
      */
     public CsvDocumentReaderImpl() {
 
-        super(DEFAULT_HEADER_TYPE, DEFAULT_COLUMN_SEPARATOR, DEFAULT_ROW_SEPARATOR);
+        super(DEFAULT_CHARSET, DEFAULT_HEADER_TYPE, DEFAULT_COLUMN_SEPARATOR, DEFAULT_ROW_SEPARATOR);
+    }
+
+    /**
+     * Creates a new document reader according to the specified parameters.
+     *
+     * @param aCharset
+     */
+    public CsvDocumentReaderImpl(Charset aCharset) {
+
+        super(aCharset, DEFAULT_HEADER_TYPE, DEFAULT_COLUMN_SEPARATOR, DEFAULT_ROW_SEPARATOR);
     }
 
     /**
@@ -87,17 +104,41 @@ public class CsvDocumentReaderImpl extends CsvDocumentReaderBase {
      */
     public CsvDocumentReaderImpl(String aColumnSeparator) {
 
-        super(DEFAULT_HEADER_TYPE, aColumnSeparator, DEFAULT_ROW_SEPARATOR);
+        super(DEFAULT_CHARSET, DEFAULT_HEADER_TYPE, aColumnSeparator, DEFAULT_ROW_SEPARATOR);
+    }
+
+    /**
+     * Creates a new document reader according to the specified parameters.
+     *
+     * @param aCharset
+     * @param aColumnSeparator
+     */
+    public CsvDocumentReaderImpl(Charset aCharset, String aColumnSeparator) {
+
+        super(aCharset, DEFAULT_HEADER_TYPE, aColumnSeparator, DEFAULT_ROW_SEPARATOR);
     }
 
     /**
      * Creates a new document reader according to the specified parameters.
      *
      * @param aColumnSeparator
+     * @param aRowSeparator
      */
     public CsvDocumentReaderImpl(String aColumnSeparator, String aRowSeparator) {
 
-        super(DEFAULT_HEADER_TYPE, aColumnSeparator, aRowSeparator);
+        super(DEFAULT_CHARSET, DEFAULT_HEADER_TYPE, aColumnSeparator, aRowSeparator);
+    }
+
+    /**
+     * Creates a new document reader according to the specified parameters.
+     *
+     * @param aCharset
+     * @param aColumnSeparator
+     * @param aRowSeparator
+     */
+    public CsvDocumentReaderImpl(Charset aCharset, String aColumnSeparator, String aRowSeparator) {
+
+        super(aCharset, DEFAULT_HEADER_TYPE, aColumnSeparator, aRowSeparator);
     }
 
     /**
@@ -109,7 +150,21 @@ public class CsvDocumentReaderImpl extends CsvDocumentReaderBase {
      */
     public CsvDocumentReaderImpl(HeaderType aHeaderType, String aColumnSeparator, String aRowSeparator) {
 
-        super(aHeaderType, aColumnSeparator, aRowSeparator);
+        super(DEFAULT_CHARSET, aHeaderType, aColumnSeparator, aRowSeparator);
+    }
+
+    /**
+     * Creates a new document reader according to the specified parameters.
+     *
+     * @param aCharset
+     * @param aHeaderType
+     * @param aColumnSeparator
+     * @param aRowSeparator
+     */
+    public CsvDocumentReaderImpl(Charset aCharset, HeaderType aHeaderType, String aColumnSeparator,
+                                 String aRowSeparator) {
+
+        super(aCharset, aHeaderType, aColumnSeparator, aRowSeparator);
     }
 
     /**
@@ -130,7 +185,7 @@ public class CsvDocumentReaderImpl extends CsvDocumentReaderBase {
         }
 
 
-        ReadBuffer result = TextFileHelper.readLine(someStreams, getRowSeparator());
+        ReadBuffer result = TextFileHelper.readLine(getCharset(), someStreams, getRowSeparator());
 
         if (result.isEndOfFile()) {
 
@@ -169,9 +224,9 @@ public class CsvDocumentReaderImpl extends CsvDocumentReaderBase {
 
         while (true) {
 
-            ReadBuffer result = TextFileHelper.readLine(someStreams, getRowSeparator());
+            ReadBuffer result = TextFileHelper.readLine(getCharset(), someStreams, getRowSeparator());
 
-            if (result.isEndOfFile()) {
+            if (result.isEndOfFile() && result.isEmpty()) {
 
                 return;
             }
@@ -193,6 +248,12 @@ public class CsvDocumentReaderImpl extends CsvDocumentReaderBase {
             for (int a = 0; a < columns; a++) {
 
                 String newValue = substrings.get(a);
+
+                if (newValue.isEmpty()) {
+
+                    newValue = null;
+                }
+
                 aTable.updateCell(a, newRowIndex, newValue);
             }
         }

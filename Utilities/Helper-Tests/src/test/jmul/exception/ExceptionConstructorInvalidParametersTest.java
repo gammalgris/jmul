@@ -44,6 +44,8 @@ import jmul.math.formula.parser.FormulaParserException;
 
 import jmul.misc.exceptions.InitializationException;
 import jmul.misc.generators.GeneratorException;
+import jmul.misc.state.IllegalStateTransitionException;
+import jmul.misc.state.UnknownStateException;
 
 import jmul.network.NetworkException;
 
@@ -55,6 +57,7 @@ import jmul.reflection.classes.MissingAccessorException;
 import jmul.reflection.constructors.ConstructorInvoker;
 import jmul.reflection.constructors.ConstructorSignatures;
 
+import static jmul.string.Constants.COMMA;
 import jmul.string.QuoteNotClosedException;
 import jmul.string.UnknownPlaceholderException;
 import jmul.string.UnresolvedPlaceholderException;
@@ -132,7 +135,8 @@ public class ExceptionConstructorInvalidParametersTest {
     @Test(expected = IllegalArgumentException.class)
     public void testInstantiation() throws Throwable {
 
-        String messagePrefix = constructorInvoker.getAssociatedClass().getName() + "@testInstantiation";
+        String messagePrefix =
+            constructorInvoker.getAssociatedClass().getName() + "@testInstantiation" + getSignatureString();
 
         try {
 
@@ -158,6 +162,42 @@ public class ExceptionConstructorInvalidParametersTest {
     }
 
     /**
+     * Returns the signatature of the constructor invocation.
+     *
+     * @return a signature string
+     */
+    public String getSignatureString() {
+
+        StringBuilder buffer = new StringBuilder("(");
+        boolean first = true;
+
+        for (Object o : parameters) {
+
+            if (first) {
+
+                first = false;
+
+            } else {
+
+                buffer.append(COMMA);
+            }
+
+            if (o == null) {
+
+                buffer.append(o);
+
+            } else {
+
+                buffer.append(o.getClass().getName());
+            }
+        }
+
+        buffer.append(")");
+
+        return buffer.toString();
+    }
+
+    /**
      * Returns a matrix of input data.
      *
      * @return a matrix of input data
@@ -178,15 +218,24 @@ public class ExceptionConstructorInvalidParametersTest {
         addDefaultTestCases(parameters, FormulaParserException.class);
 
 
+        // Exceptions from package Misc
+
+        //addDefaultTestCases(parameters, EmptyArrayParameterException.class);
+        //addDefaultTestCases(parameters, EmptyStringParameterException.class);
+        addDefaultTestCases2(parameters, InitializationException.class);
+        addDefaultTestCases2(parameters, jmul.misc.exceptions.InstantiationException.class);
+        //addDefaultTestCases(parameters, NullArrayParameterException.class);
+        //addDefaultTestCases(parameters, NullFileParameterException.class);
+        //addDefaultTestCases(parameters, NullParameterException.class);
+        addDefaultTestCases(parameters, IllegalStateTransitionException.class);
+        addDefaultTestCases(parameters, UnknownStateException.class);
+        //addDefaultTestCases(parameters, NullDirectoryParameterException.class);
+        //addDefaultTestCases(parameters, NullNumberException.class);
+
+
         // Exceptions from package Network
 
         addDefaultTestCases(parameters, NetworkException.class);
-
-
-        // Exceptions from package Misc
-
-        addDefaultTestCases2(parameters, InitializationException.class);
-        addDefaultTestCases2(parameters, jmul.misc.exceptions.InstantiationException.class);
 
 
         // Exceptions from package IO
@@ -223,6 +272,7 @@ public class ExceptionConstructorInvalidParametersTest {
         addDefaultTestCases(parameters, FailedTestException.class);
         addDefaultTestCases(parameters, SetUpException.class);
         addDefaultTestCases(parameters, TearDownException.class);
+        addDefaultTestCases(parameters, InvalidIDException.class);
 
 
         // Exceptions from package Time

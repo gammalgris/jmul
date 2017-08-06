@@ -25,6 +25,10 @@
 package jmul.misc.state;
 
 
+import static jmul.misc.checks.ParameterCheckHelper.checkExceptionCause;
+import static jmul.misc.checks.ParameterCheckHelper.checkExceptionMessage;
+
+
 /**
  * A custom exception class for illegal state transitions.
  *
@@ -47,7 +51,7 @@ public class IllegalStateTransitionException extends IllegalArgumentException {
      */
     public IllegalStateTransitionException(String aMessage) {
 
-        super(aMessage);
+        super(checkExceptionMessage(aMessage));
     }
 
     /**
@@ -57,7 +61,7 @@ public class IllegalStateTransitionException extends IllegalArgumentException {
      */
     public IllegalStateTransitionException(Throwable aCause) {
 
-        super(aCause);
+        super(checkExceptionCause(aCause));
     }
 
     /**
@@ -68,7 +72,7 @@ public class IllegalStateTransitionException extends IllegalArgumentException {
      */
     public IllegalStateTransitionException(String aMessage, Throwable aCause) {
 
-        super(aMessage, aCause);
+        super(checkExceptionMessage(aMessage), checkExceptionCause(aCause));
     }
 
 }

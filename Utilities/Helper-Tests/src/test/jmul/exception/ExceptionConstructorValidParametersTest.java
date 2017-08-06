@@ -50,6 +50,7 @@ import jmul.misc.exceptions.InitializationException;
 import jmul.misc.exceptions.NullArrayParameterException;
 import jmul.misc.exceptions.NullDirectoryParameterException;
 import jmul.misc.exceptions.NullFileParameterException;
+import jmul.misc.exceptions.NullNumberException;
 import jmul.misc.exceptions.NullParameterException;
 import jmul.misc.generators.GeneratorException;
 import jmul.misc.state.IllegalStateTransitionException;
@@ -259,6 +260,7 @@ public class ExceptionConstructorValidParametersTest {
         addDefaultTestCases(parameters, IllegalStateTransitionException.class);
         addDefaultTestCases(parameters, UnknownStateException.class);
         addDefaultConstructorTestCase(parameters, NullDirectoryParameterException.class);
+        addDefaultConstructorTestCase(parameters, NullNumberException.class);
 
 
         // Exceptions from package Network

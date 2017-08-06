@@ -1,0 +1,57 @@
+/*
+ * (J)ava (M)iscellaneous (U)tilities (L)ibrary
+ *
+ * JMUL is a central repository for utilities which are used in my
+ * other public and private repositories.
+ *
+ * Copyright (C) 2017  Kristian Kutin
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * e-mail: kristian.kutin@arcor.de
+ */
+
+package jmul.math.types;
+
+
+/**
+ * This interface describes a tuple (see <a href="https://en.wikipedia.org/wiki/Tuple">article</a>).
+ * A tuple has following properties:<br />
+ * <ul>
+ *   <li>a tuple contains zero or more elements</li>
+ *   <li>a tuple cannot be changed</li>
+ *   <li>a tuple's elements cannot be changed</li>
+ * </ul>
+ *
+ * @param <T>
+ */
+public interface Tuple<T> {
+
+    /**
+     * Returns the element with the specified index.
+     *
+     * @param anIndex
+     *
+     * @return an element
+     */
+    T get(int anIndex);
+
+    /**
+     * The number of elements within this tuple.
+     *
+     * @return an element count
+     */
+    int size();
+
+}

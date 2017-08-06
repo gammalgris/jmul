@@ -25,6 +25,10 @@
 package jmul.misc.state;
 
 
+import static jmul.misc.checks.ParameterCheckHelper.checkExceptionCause;
+import static jmul.misc.checks.ParameterCheckHelper.checkExceptionMessage;
+
+
 /**
  * A custom exception class if a state lookup doesn't return a result.
  *
@@ -47,7 +51,7 @@ public class UnknownStateException extends IllegalArgumentException {
      */
     public UnknownStateException(String aMessage) {
 
-        super(aMessage);
+        super(checkExceptionMessage(aMessage));
     }
 
     /**
@@ -57,7 +61,7 @@ public class UnknownStateException extends IllegalArgumentException {
      */
     public UnknownStateException(Throwable aCause) {
 
-        super(aCause);
+        super(checkExceptionCause(aCause));
     }
 
     /**
@@ -68,7 +72,7 @@ public class UnknownStateException extends IllegalArgumentException {
      */
     public UnknownStateException(String aMessage, Throwable aCause) {
 
-        super(aMessage, aCause);
+        super(checkExceptionMessage(aMessage), checkExceptionCause(aCause));
     }
 
 }

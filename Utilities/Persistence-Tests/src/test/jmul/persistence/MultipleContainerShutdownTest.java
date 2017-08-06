@@ -25,7 +25,7 @@
 package test.jmul.persistence;
 
 
-import static jmul.math.Constants.EPSILON;
+import static jmul.math.Constants.getEpsilon;
 
 import jmul.misc.id.ID;
 
@@ -278,7 +278,8 @@ public class MultipleContainerShutdownTest extends PersistenceTestBase {
         assertEquals("The employees' birthdates don't match!", e1.getBirthDate(), e2.getBirthDate());
         assertEquals("The employees' genders don't match!", e1.getGender(), e2.getGender());
         assertEquals("The employees' job titles don't match!", e1.getJobTitle(), e2.getJobTitle());
-        assertEquals("The employees' salaries don't match!", e1.getSalary(), e2.getSalary(), EPSILON);
+        assertEquals("The employees' salaries don't match!", e1.getSalary(), e2.getSalary(),
+                     getEpsilon(Float.TYPE).floatValue());
     }
 
 }

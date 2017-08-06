@@ -24,6 +24,10 @@
 
 package jmul.math;
 
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
+
 
 /**
  * This utility class is a central place for numeric constants.
@@ -48,9 +52,72 @@ public final class Constants {
     public static final long HOUR = 60L * MINUTE;
 
     /**
-     * An arbitrary small limit.
+     * An arbitrary small limit for different number types.
      */
-    public static final float EPSILON = 0.001f;
+    private static final Map<Class, Number> EPSILONS;
+
+    /**
+     * Zero for different number types.
+     */
+    private static final Map<Class, Number> ZEROS;
+
+    /**
+     * The static initializer.
+     */
+    static {
+
+        byte b;
+        short s;
+        int i;
+        long l;
+        float f;
+        double d;
+
+
+        Map<Class, Number> tmp;
+
+
+        tmp = new HashMap<Class, Number>();
+
+        f = 0.001F;
+        tmp.put(Float.TYPE, f);
+        tmp.put(Float.class, new Float(f));
+
+        d = 0.001D;
+        tmp.put(Double.TYPE, d);
+        tmp.put(Double.class, new Double(d));
+
+        EPSILONS = Collections.unmodifiableMap(tmp);
+
+
+        tmp = new HashMap<Class, Number>();
+
+        b = 0;
+        tmp.put(Byte.TYPE, b);
+        tmp.put(Byte.class, new Byte(b));
+
+        s = 0;
+        tmp.put(Short.TYPE, s);
+        tmp.put(Short.class, new Short(s));
+
+        i = 0;
+        tmp.put(Integer.TYPE, i);
+        tmp.put(Integer.class, new Integer(i));
+
+        l = 0L;
+        tmp.put(Long.TYPE, l);
+        tmp.put(Long.class, new Long(l));
+
+        f = 0.0F;
+        tmp.put(Float.TYPE, f);
+        tmp.put(Float.class, new Float(f));
+
+        d = 0.0D;
+        tmp.put(Double.TYPE, d);
+        tmp.put(Double.class, new Double(d));
+
+        ZEROS = Collections.unmodifiableMap(tmp);
+    }
 
     /**
      * The default constructor.
@@ -58,6 +125,46 @@ public final class Constants {
     private Constants() {
 
         throw new UnsupportedOperationException();
+    }
+
+    /**
+     * Returns the epsilon for the specified number type.
+     *
+     * @param aType
+     *
+     * @return epsilon (an arbitrary small limit)
+     */
+    public static Number getEpsilon(Class aType) {
+
+        Number value = EPSILONS.get(aType);
+
+        if (value == null) {
+
+            String message = "For the type " + aType.getName() + " no epsilon was defined!";
+            throw new IllegalArgumentException(message);
+        }
+
+        return value;
+    }
+
+    /**
+     * Returns zero for the specified number type.
+     *
+     * @param aType
+     *
+     * @return zero
+     */
+    public static Number getZero(Class aType) {
+
+        Number value = ZEROS.get(aType);
+
+        if (value == null) {
+
+            String message = "For the type " + aType.getName() + " no zero was defined!";
+            throw new IllegalArgumentException(message);
+        }
+
+        return value;
     }
 
 }

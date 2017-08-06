@@ -88,7 +88,10 @@ public class HelperConstructorTest {
     @Test
     public void testClassModifiers() {
 
-        assertTrue(Modifier.isFinal(helperClass.getModifiers()));
+        {
+            String message = "The helper class " + helperClass.getName() + " is not declared final!";
+            assertTrue(message, Modifier.isFinal(helperClass.getModifiers()));
+        }
     }
 
     /**
@@ -112,7 +115,11 @@ public class HelperConstructorTest {
                                                InvocationTargetException {
 
         Constructor c = helperClass.getDeclaredConstructor();
-        assertTrue(Modifier.isPrivate(c.getModifiers()));
+
+        {
+            String message = "The default constructor of " + helperClass.getName() + " is not private!";
+            assertTrue(message, Modifier.isPrivate(c.getModifiers()));
+        }
 
         c.newInstance();
     }
@@ -168,6 +175,7 @@ public class HelperConstructorTest {
         parameters.add(new Object[] { jmul.math.random.DiceFactory.class });
         parameters.add(new Object[] { jmul.math.rules.RuleFactory.class });
         parameters.add(new Object[] { jmul.math.prime.PrimeNumberHelper.class });
+        parameters.add(new Object[] { jmul.math.NumberPropertiesHelper.class });
         parameters.add(new Object[] { jmul.math.hash.HashHelper.class });
         parameters.add(new Object[] { jmul.transformation.xml.rules.TransformationConstants.class });
         parameters.add(new Object[] { jmul.transformation.xml.annotations.AnnotationHelper.class });

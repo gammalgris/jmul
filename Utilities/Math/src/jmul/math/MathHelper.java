@@ -24,6 +24,7 @@
 
 package jmul.math;
 
+
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -130,6 +131,42 @@ public final class MathHelper {
         }
 
         return result;
+    }
+
+    /**
+     * Multiplies the specified base with itself as many times as specified by
+     * the exponent.
+     *
+     * @param aBase
+     * @param anExponent
+     *
+     * @return the multiple product of the specified base with itself
+     */
+    public static int eponentitation(int aBase, int anExponent) {
+
+        if (anExponent < 0) {
+
+            String message = "This operation doesn't support negative exponents!";
+            throw new IllegalArgumentException(message);
+        }
+
+        if (anExponent == 0) {
+
+            return 1;
+        }
+
+        if (anExponent == 1) {
+
+            return aBase;
+        }
+
+        int total = aBase;
+        for (int a = 2; a <= anExponent; a++) {
+
+            total *= aBase;
+        }
+
+        return total;
     }
 
 }

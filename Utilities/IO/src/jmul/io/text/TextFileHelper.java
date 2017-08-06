@@ -26,6 +26,7 @@ package jmul.io.text;
 
 
 import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -147,6 +148,7 @@ public final class TextFileHelper {
      * Reads a line from the specified input stream according to the specified line
      * separator.
      *
+     * @param aCharset
      * @param someNestedStreams
      * @param aLineSeparator
      *
@@ -155,12 +157,13 @@ public final class TextFileHelper {
      * @throws IOException
      *         is thrown if an error occurs while reading from the input stream
      */
-    public static ReadBuffer readLine(NestedStreams someNestedStreams, String aLineSeparator) throws IOException {
+    public static ReadBuffer readLine(Charset aCharset, NestedStreams someNestedStreams,
+                                      String aLineSeparator) throws IOException {
 
         BufferedReader br = (BufferedReader) someNestedStreams.getOuterStream();
 
 
-        StringBuilder buffer = new StringBuilder();
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
         boolean endOfFile = false;
 
         while (true) {
@@ -173,10 +176,8 @@ public final class TextFileHelper {
                 break;
             }
 
-            char c = (char) i;
-
-            buffer.append(c);
-            String line = buffer.toString();
+            baos.write(i);
+            String line = baos.toString(aCharset.name());
 
             if (line.endsWith(aLineSeparator)) {
 
@@ -184,7 +185,7 @@ public final class TextFileHelper {
             }
         }
 
-        String line = buffer.toString();
+        String line = baos.toString(aCharset.name());
         line = line.replace(aLineSeparator, EMPTY_STRING);
 
         return new ReadBuffer(line, endOfFile);

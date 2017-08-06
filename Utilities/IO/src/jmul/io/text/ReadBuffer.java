@@ -87,4 +87,15 @@ public final class ReadBuffer {
         return endOfFile;
     }
 
+    /**
+     * Returns a boolean value indicating that the buffer is empty.
+     *
+     * @return <code>true</code> if the buffer is empty,
+     *         else <code>false</code>
+     */
+    public boolean isEmpty() {
+
+        return (line == null) || (line.isEmpty());
+    }
+
 }

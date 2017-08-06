@@ -24,8 +24,11 @@
 
 package jmul.csv.reader;
 
+
 import java.io.File;
 import java.io.IOException;
+
+import java.nio.charset.Charset;
 
 import jmul.document.csv.CsvDocument;
 import jmul.document.csv.CsvDocumentImpl;
@@ -51,6 +54,11 @@ import jmul.misc.table.ModifiableTableImpl;
 abstract class CsvDocumentReaderBase implements CsvDocumentReader {
 
     /**
+     * The charset which will be used to read from files.
+     */
+    private final Charset charset;
+
+    /**
      * The column separator which is expected.
      */
     private final String columnSeparator;
@@ -68,14 +76,17 @@ abstract class CsvDocumentReaderBase implements CsvDocumentReader {
     /**
      * Creates a new document reader according to the specified parameters.
      *
+     * @param aCharset
      * @param aHeaderType
      * @param aColumnSeparator
      * @param aRowSeparator
      */
-    protected CsvDocumentReaderBase(HeaderType aHeaderType, String aColumnSeparator, String aRowSeparator) {
+    protected CsvDocumentReaderBase(Charset aCharset, HeaderType aHeaderType, String aColumnSeparator,
+                                    String aRowSeparator) {
 
         super();
 
+        charset = aCharset;
         headerType = aHeaderType;
         columnSeparator = aColumnSeparator;
         rowSeparator = aRowSeparator;
@@ -118,7 +129,7 @@ abstract class CsvDocumentReaderBase implements CsvDocumentReader {
 
         ModifiableTable<String> table = new ModifiableTableImpl<String>();
 
-        NestedStreams ns = openFile(aFile);
+        NestedStreams ns = openFile(aFile, charset);
 
         try {
 
@@ -140,6 +151,16 @@ abstract class CsvDocumentReaderBase implements CsvDocumentReader {
         closeFile(ns);
 
         return new CsvDocumentImpl(documentType, headerType, columnSeparator, rowSeparator, table);
+    }
+
+    /**
+     * A getter method.
+     *
+     * @return the expected charset
+     */
+    public Charset getCharset() {
+
+        return charset;
     }
 
     /**
