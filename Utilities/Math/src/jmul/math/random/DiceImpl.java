@@ -53,7 +53,7 @@ public class DiceImpl implements Dice {
      */
     public DiceImpl(Die... someDice) {
 
-        SortedMap<Integer, Collection<Die>> map = new TreeMap<Integer, Collection<Die>>();
+        SortedMap<Integer, Collection<Die>> map = new TreeMap<>();
 
         for (Die die : someDice) {
 
@@ -67,7 +67,7 @@ public class DiceImpl implements Dice {
 
             } else {
 
-                collection = new ArrayList<Die>();
+                collection = new ArrayList<>();
                 map.put(sides, collection);
             }
 
@@ -104,7 +104,7 @@ public class DiceImpl implements Dice {
     @Override
     public Iterator<Die> iterator() {
 
-        Collection<Die> collection = new ArrayList<Die>();
+        Collection<Die> collection = new ArrayList<>();
 
         for (Collection<Die> subset : diceMap.values()) {
 

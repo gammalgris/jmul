@@ -95,7 +95,7 @@ public final class HashHelper {
      */
     public static List<Integer> determineTwoPrimeNumbers() {
 
-        Set<Integer> primeNumbers = new TreeSet<Integer>();
+        Set<Integer> primeNumbers = new TreeSet<>();
 
         while (primeNumbers.size() < 2) {
 
@@ -103,7 +103,7 @@ public final class HashHelper {
             primeNumbers.add(primeNumber);
         }
 
-        return new ArrayList<Integer>(primeNumbers);
+        return new ArrayList<>(primeNumbers);
     }
 
 }

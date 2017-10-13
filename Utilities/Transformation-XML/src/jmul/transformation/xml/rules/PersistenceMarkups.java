@@ -26,6 +26,7 @@ package jmul.transformation.xml.rules;
 
 
 import jmul.xml.XmlMarkup;
+import jmul.xml.XmlMarkupHelper;
 import jmul.xml.XmlMarkupType;
 import static jmul.xml.XmlMarkupType.XML_ATTRIBUTE;
 import static jmul.xml.XmlMarkupType.XML_ELEMENT;
@@ -133,7 +134,7 @@ public enum PersistenceMarkups implements XmlMarkup {
     @Override
     public boolean equalsTagName(String aName) {
 
-        return getTagName().equals(aName);
+        return XmlMarkupHelper.equalTagNames(this.getTagName(), name);
     }
 
     /**
@@ -147,8 +148,7 @@ public enum PersistenceMarkups implements XmlMarkup {
     @Override
     public boolean equalsXmlMarkup(XmlMarkup anXmlMarkup) {
 
-        return (this.isXmlAttribute() && anXmlMarkup.isXmlAttribute() && equalsTagName(anXmlMarkup.getTagName())) ||
-               (this.isXmlElement() && anXmlMarkup.isXmlElement() && equalsTagName(anXmlMarkup.getTagName()));
+        return XmlMarkupHelper.equalXmlMarkups(this, anXmlMarkup);
     }
 
     /**

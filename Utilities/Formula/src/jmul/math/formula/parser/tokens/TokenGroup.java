@@ -130,7 +130,9 @@ public class TokenGroup implements Iterable<Token> {
 
                 // The next token is a binary operator.
 
-                Operator nextOperator = nextOperatorToken.getMatchingOperators().iterator().next();
+                Operator nextOperator = nextOperatorToken.getMatchingOperators()
+                                                         .iterator()
+                                                         .next();
 
                 if (operator != null) {
 
@@ -183,7 +185,9 @@ public class TokenGroup implements Iterable<Token> {
 
                 if (nextOperatorToken.isOfType(TokenType.BINARY)) {
 
-                    Operator nextOperator = nextOperatorToken.getMatchingOperators().iterator().next();
+                    Operator nextOperator = nextOperatorToken.getMatchingOperators()
+                                                             .iterator()
+                                                             .next();
                     operator = nextOperator;
                 }
             }
@@ -208,7 +212,9 @@ public class TokenGroup implements Iterable<Token> {
             if (nextToken.isOfType(TokenType.OPERATOR)) {
 
                 OperatorToken nextOperatorToken = (OperatorToken) nextToken;
-                Operator nextOperator = nextOperatorToken.getMatchingOperators().iterator().next();
+                Operator nextOperator = nextOperatorToken.getMatchingOperators()
+                                                         .iterator()
+                                                         .next();
 
                 if (operator.equals(nextOperator)) {
                     return a;
@@ -304,7 +310,7 @@ public class TokenGroup implements Iterable<Token> {
      */
     public SortedSet<Integer> getOperands() {
 
-        SortedSet<Integer> indexSet = new TreeSet<Integer>();
+        SortedSet<Integer> indexSet = new TreeSet<>();
 
         for (int a = startIndex; a < (startIndex + size()); a++) {
 

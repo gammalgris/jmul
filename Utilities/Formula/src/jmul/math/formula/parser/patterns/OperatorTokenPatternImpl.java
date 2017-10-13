@@ -99,7 +99,7 @@ public class OperatorTokenPatternImpl extends TokenPatternImpl implements Operat
      */
     private static Set<TokenType> createClassification(Operator anOperator) {
 
-        Set<TokenType> classification = new HashSet<TokenType>();
+        Set<TokenType> classification = new HashSet<>();
         classification.add(TokenType.OPERATOR);
 
         Arity arity = anOperator.getArity();

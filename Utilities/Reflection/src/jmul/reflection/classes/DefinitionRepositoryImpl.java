@@ -55,8 +55,8 @@ class DefinitionRepositoryImpl implements DefinitionRepository {
      */
     DefinitionRepositoryImpl() {
 
-        wrappersByIdentifier = new HashMap<ClassIdentifier, ClassDefinition>();
-        wrappersByClass = new HashMap<Class, ClassDefinition>();
+        wrappersByIdentifier = new HashMap<>();
+        wrappersByClass = new HashMap<>();
 
         init();
     }

@@ -71,8 +71,8 @@ public class Initializer {
     public Initializer(ClassDefinition aClassDefinition) {
 
         classDefinition = aClassDefinition;
-        unsortedFields = new ArrayList<String>();
-        fieldMap = new HashMap<String, Object>();
+        unsortedFields = new ArrayList<>();
+        fieldMap = new HashMap<>();
     }
 
     /**

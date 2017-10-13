@@ -55,8 +55,7 @@ import org.xml.sax.SAXException;
 public class XmlDocumentReaderImpl extends XmlDocumentReaderBase {
 
     /**
-     * The constructor requires a reference on a ResourceManager to access
-     * loggers.
+     * The default constructor.
      */
     public XmlDocumentReaderImpl() {
 

@@ -71,23 +71,23 @@ public final class ConstructorSignatures {
 
         List<Class> tmp;
 
-        tmp = new ArrayList<Class>();
+        tmp = new ArrayList<>();
         DEFAULT_CONSTRUCTOR = Collections.unmodifiableList(tmp);
 
-        tmp = new ArrayList<Class>();
+        tmp = new ArrayList<>();
         tmp.add(String.class);
         MESSAGE_CONSTRUCTOR = Collections.unmodifiableList(tmp);
 
-        tmp = new ArrayList<Class>();
+        tmp = new ArrayList<>();
         tmp.add(Throwable.class);
         CAUSE_CONSTRUCTOR = Collections.unmodifiableList(tmp);
 
-        tmp = new ArrayList<Class>();
+        tmp = new ArrayList<>();
         tmp.add(String.class);
         tmp.add(Throwable.class);
         MESSAGE_CAUSE_CONSTRUCTOR = Collections.unmodifiableList(tmp);
 
-        tmp = new ArrayList<Class>();
+        tmp = new ArrayList<>();
         tmp.add(String.class);
         tmp.add(File.class);
         MESSAGE_FILE_CONSTRUCTOR = Collections.unmodifiableList(tmp);

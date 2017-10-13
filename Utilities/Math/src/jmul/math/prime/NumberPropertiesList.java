@@ -42,7 +42,7 @@ interface NumberPropertiesList {
      * @param n
      *
      * @return <code>true</code> if the specified number is
-     * a prime number, else <code>false</code>
+     *         a prime number, else <code>false</code>
      */
     boolean isPrimeNumber(int n);
 

@@ -37,6 +37,11 @@ import java.lang.reflect.InvocationTargetException;
 public final class WebServerRunner {
 
     /**
+     * A string constant.
+     */
+    private static final String PARAMETER_SIGNATURE_STRING = "(String)";
+
+    /**
      * The default constructor.
      */
     private WebServerRunner() {
@@ -218,21 +223,18 @@ public final class WebServerRunner {
 
         } catch (NoSuchMethodException e) {
 
-            String message =
-                "No such constructor exists (" + aClass.getName() + "." + aClass.getSimpleName() + "(String))!";
+            String message = "No such constructor exists (" + getConstructorSignature(aClass) + ")!";
             throw new IllegalArgumentException(message, e);
 
         } catch (InvocationTargetException e) {
 
             String message =
-                "An error occurred while invoking the constructor (" + aClass.getName() + "." + aClass.getSimpleName() +
-                "(String))!";
+                "An error occurred while invoking the constructor (" + getConstructorSignature(aClass) + ")!";
             throw new IllegalArgumentException(message, e);
 
         } catch (IllegalAccessException e) {
 
-            String message =
-                "The constructor is not accessible (" + aClass.getName() + "." + aClass.getSimpleName() + "(String))!";
+            String message = "The constructor is not accessible (" + getConstructorSignature(aClass) + ")!";
             throw new IllegalArgumentException(message, e);
 
         } catch (InstantiationException e) {
@@ -242,6 +244,18 @@ public final class WebServerRunner {
         }
 
         return instance;
+    }
+
+    /**
+     * Returns a constructor signature as string.
+     *
+     * @param aClass
+     *
+     * @return a string
+     */
+    private static String getConstructorSignature(Class aClass) {
+
+        return "" + aClass.getName() + "." + aClass.getSimpleName() + PARAMETER_SIGNATURE_STRING;
     }
 
 }

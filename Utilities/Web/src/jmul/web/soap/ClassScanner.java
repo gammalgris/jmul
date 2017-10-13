@@ -100,10 +100,10 @@ public class ClassScanner {
         Collection<File> foundFiles = FileHelper.getFiles(path, fileType.getFileSuffix(), true);
 
 
-        Collection<ClassDefinition> interfaces = new ArrayList<ClassDefinition>();
-        Collection<ClassDefinition> markerInterfaces = new ArrayList<ClassDefinition>();
-        Collection<ClassDefinition> classes = new ArrayList<ClassDefinition>();
-        Collection<ClassDefinition> serviceClasses = new ArrayList<ClassDefinition>();
+        Collection<ClassDefinition> interfaces = new ArrayList<>();
+        Collection<ClassDefinition> markerInterfaces = new ArrayList<>();
+        Collection<ClassDefinition> classes = new ArrayList<>();
+        Collection<ClassDefinition> serviceClasses = new ArrayList<>();
 
         for (File file : foundFiles) {
 

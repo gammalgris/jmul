@@ -160,7 +160,7 @@ public class XmlValidationResult {
      */
     public List<String> getReport() {
 
-        List<String> report = new ArrayList<String>();
+        List<String> report = new ArrayList<>();
 
         report.add("XML file: " + getFileName());
         report.add("XML schema: " + getSchemaName());

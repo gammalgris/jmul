@@ -105,7 +105,7 @@ public enum WebServerStates implements State {
         stateName = aStateName;
 
 
-        Set<String> tmp = new HashSet<String>();
+        Set<String> tmp = new HashSet<>();
 
         for (String destinationState : someDestinationStates) {
 
@@ -170,7 +170,7 @@ public enum WebServerStates implements State {
     @Override
     public Set<State> getAllowedTransitions() {
 
-        Set<State> states = new HashSet<State>();
+        Set<State> states = new HashSet<>();
 
         for (String destinationName : allowedTransitionNames) {
 

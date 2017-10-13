@@ -81,7 +81,7 @@ public class SchemaArchiveImpl extends DirectoryDetailsImpl implements SchemaArc
         super(aDirectoryName, false);
 
 
-        Map<String, Schema> map = new HashMap<String, Schema>();
+        Map<String, Schema> map = new HashMap<>();
         SchemaFactory schemaFactory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
 
         for (File file : FileHelper.getFiles(aDirectoryName, FILE_SUFFIX, RECURSE)) {
@@ -108,7 +108,7 @@ public class SchemaArchiveImpl extends DirectoryDetailsImpl implements SchemaArc
         }
 
 
-        List<String> list = new ArrayList<String>();
+        List<String> list = new ArrayList<>();
 
         for (String schluessel : map.keySet()) {
 

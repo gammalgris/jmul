@@ -56,7 +56,7 @@ public class ObjectFactoryImpl implements ObjectFactory {
      */
     public ObjectFactoryImpl() {
 
-        objectMap = new HashMap<String, ObjectCreator>();
+        objectMap = new HashMap<>();
 
         initFactory();
     }

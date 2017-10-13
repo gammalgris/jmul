@@ -80,7 +80,7 @@ public class ElementWrapper {
 
         // Extracts all subelements.
 
-        sortedSubelements = new HashMap<String, Collection<Node>>();
+        sortedSubelements = new HashMap<>();
 
         for (Node node : XmlHelper.extractChildElementNodes(anXmlElement)) {
 
@@ -89,7 +89,7 @@ public class ElementWrapper {
 
             if (subset == null) {
 
-                subset = new ArrayList<Node>();
+                subset = new ArrayList<>();
                 sortedSubelements.put(tagname, subset);
             }
 

@@ -32,8 +32,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static jmul.string.Constants.NEW_LINE;
-
 
 /**
  * A class that manages nested streams.<br />
@@ -73,6 +71,7 @@ public class NestedStreamsImpl implements NestedStreams {
      * Returns the stream at the specified index.
      *
      * @param anIndex
+     *        the index of a specific stream
      *
      * @return a stream
      */
@@ -97,11 +96,12 @@ public class NestedStreamsImpl implements NestedStreams {
      * Closes all nested streams.
      *
      * @throws IOException
+     *         is thrown if at least one of the streams cannot be closed properly
      */
     @Override
     public void close() throws IOException {
 
-        List<Throwable> nestedExceptions = new ArrayList<Throwable>();
+        List<Throwable> nestedExceptions = new ArrayList<>();
         Closeable outerStream = getOuterStream();
         int exceptionCount = 0;
 
@@ -143,6 +143,7 @@ public class NestedStreamsImpl implements NestedStreams {
      * Creates an exception according to the specified list of nested exceptions.
      *
      * @param someNestedExceptions
+     *        a list of exceptions
      *
      * @return an exception
      */
@@ -157,6 +158,7 @@ public class NestedStreamsImpl implements NestedStreams {
      * exceptions.
      *
      * @param someNestedExceptions
+     *        a list of all exceptions
      *
      * @return an error message
      */
@@ -169,19 +171,7 @@ public class NestedStreamsImpl implements NestedStreams {
             Closeable stream = getStream(a);
             Throwable exception = someNestedExceptions.get(a);
 
-            buffer.append(stream.getClass().getName());
-            if (exception == null) {
-
-                buffer.append(" was closed regularly.");
-
-            } else {
-
-                buffer.append(" ");
-                buffer.append(exception.getClass().getName());
-                buffer.append(" ");
-                buffer.append(exception.getMessage());
-            }
-            buffer.append(NEW_LINE);
+            StreamsHelper.addStreamEntry(buffer, stream.getClass().getName(), exception);
         }
 
         return String.valueOf(buffer);

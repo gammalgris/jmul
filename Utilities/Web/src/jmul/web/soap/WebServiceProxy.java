@@ -181,8 +181,8 @@ public class WebServiceProxy {
      */
     private static Method getGetPortMethod(Class aServiceClass) {
 
-        Collection<Method> getPortMethods = new ArrayList<Method>();
-        Collection<Method> getterMethods = new ArrayList<Method>();
+        Collection<Method> getPortMethods = new ArrayList<>();
+        Collection<Method> getterMethods = new ArrayList<>();
 
         Method[] allMethods = aServiceClass.getDeclaredMethods();
         for (Method method : allMethods) {
@@ -221,7 +221,7 @@ public class WebServiceProxy {
         }
 
 
-        Collection<Method> validGetterMethods = new ArrayList<Method>();
+        Collection<Method> validGetterMethods = new ArrayList<>();
         for (Method getter : getterMethods) {
 
             Class returnType = getter.getReturnType();

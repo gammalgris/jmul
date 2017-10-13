@@ -183,7 +183,7 @@ public class PageLoader {
     private static byte[] loadContent(NestedStreams someNestedStreams) throws IOException {
 
         InputStream reader = (InputStream) someNestedStreams.getOuterStream();
-        List<Byte> buffer = new ArrayList<Byte>();
+        List<Byte> buffer = new ArrayList<>();
 
         while (true) {
 

@@ -71,10 +71,10 @@ public class ObjectCacheImpl<T> implements ExpirationListener, ObjectCache<T> {
      */
     public ObjectCacheImpl() {
 
-        monitors = new HashMap<ID, ExpirationMonitor>();
+        monitors = new HashMap<>();
 
-        id2Object = new HashMap<ID, T>();
-        object2ID = new HashMap<T, ID>();
+        id2Object = new HashMap<>();
+        object2ID = new HashMap<>();
     }
 
     /**

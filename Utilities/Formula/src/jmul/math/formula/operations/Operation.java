@@ -100,7 +100,7 @@ public enum Operation {
      */
     public static Collection<Operator> getOperators(String aSymbol) {
 
-        Collection<Operator> matchingOperators = new ArrayList<Operator>();
+        Collection<Operator> matchingOperators = new ArrayList<>();
 
         for (Operation operation : values()) {
 

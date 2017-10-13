@@ -45,6 +45,11 @@ import jmul.math.MathHelper;
 public class HexadecimalNumber extends Number implements Comparable<HexadecimalNumber> {
 
     /**
+     * A constant message.
+     */
+    private static final String NOT_IMPLEMENTED_MESSAGE = "Not yet implemented!";
+
+    /**
      * The max size of the byte array for the number type <code>byte</code>.
      */
     private static final int BYTE_TYPE_LENGTH = 1;
@@ -208,7 +213,7 @@ public class HexadecimalNumber extends Number implements Comparable<HexadecimalN
     @Override
     public long longValue() {
 
-        throw new UnsupportedOperationException("Not yet implemented!");
+        throw new UnsupportedOperationException(NOT_IMPLEMENTED_MESSAGE);
     }
 
     /**
@@ -221,7 +226,7 @@ public class HexadecimalNumber extends Number implements Comparable<HexadecimalN
     @Override
     public float floatValue() {
 
-        throw new UnsupportedOperationException("Not yet implemented!");
+        throw new UnsupportedOperationException(NOT_IMPLEMENTED_MESSAGE);
     }
 
     /**
@@ -234,7 +239,7 @@ public class HexadecimalNumber extends Number implements Comparable<HexadecimalN
     @Override
     public double doubleValue() {
 
-        throw new UnsupportedOperationException("Not yet implemented!");
+        throw new UnsupportedOperationException(NOT_IMPLEMENTED_MESSAGE);
     }
 
     /**
@@ -249,7 +254,7 @@ public class HexadecimalNumber extends Number implements Comparable<HexadecimalN
     @Override
     public int compareTo(HexadecimalNumber o) {
 
-        throw new UnsupportedOperationException("Not yet implemented!");
+        throw new UnsupportedOperationException(NOT_IMPLEMENTED_MESSAGE);
     }
 
     /**
@@ -262,7 +267,7 @@ public class HexadecimalNumber extends Number implements Comparable<HexadecimalN
     @Override
     public boolean equals(Object o) {
 
-        throw new UnsupportedOperationException("Not yet implemented!");
+        throw new UnsupportedOperationException(NOT_IMPLEMENTED_MESSAGE);
     }
 
     /**
@@ -273,7 +278,7 @@ public class HexadecimalNumber extends Number implements Comparable<HexadecimalN
     @Override
     public int hashCode() {
 
-        throw new UnsupportedOperationException("Not yet implemented!");
+        throw new UnsupportedOperationException(NOT_IMPLEMENTED_MESSAGE);
     }
 
     /**
@@ -336,7 +341,7 @@ public class HexadecimalNumber extends Number implements Comparable<HexadecimalN
      */
     private static List<Byte> translateStringtoBytes(String aHexadecimalString) {
 
-        List<Byte> result = new ArrayList<Byte>();
+        List<Byte> result = new ArrayList<>();
 
         for (String byteString : splitStringIntoByteStrings(aHexadecimalString)) {
 
@@ -386,7 +391,7 @@ public class HexadecimalNumber extends Number implements Comparable<HexadecimalN
      */
     private static List<String> splitStringIntoByteStrings(String aHexadecimalString) {
 
-        List<String> tmp = new ArrayList<String>();
+        List<String> tmp = new ArrayList<>();
 
         if ((aHexadecimalString == null) || aHexadecimalString.isEmpty()) {
 
@@ -436,7 +441,7 @@ public class HexadecimalNumber extends Number implements Comparable<HexadecimalN
      */
     private static List<Byte> reverseOrder(List<Byte> someBytes) {
 
-        List<Byte> result = new ArrayList<Byte>();
+        List<Byte> result = new ArrayList<>();
 
 
         for (int a = someBytes.size() - 1; a >= 0; a--) {

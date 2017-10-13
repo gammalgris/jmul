@@ -57,7 +57,7 @@ public class OperatorTokenImpl extends TokenImpl implements OperatorToken {
 
         super(aToken, someMatchingPatterns);
 
-        matchingOperatorPatterns = new HashMap<Operator, OperatorTokenPattern>();
+        matchingOperatorPatterns = new HashMap<>();
 
         for (TokenPattern pattern : getMatchingPatterns()) {
 

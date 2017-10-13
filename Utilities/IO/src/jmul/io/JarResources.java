@@ -65,8 +65,8 @@ public final class JarResources {
 
         archiveName = anArchiveName;
 
-        archiveDirectory = new HashMap<String, ArchiveEntry>();
-        shortcuts = new HashMap<String, Collection<String>>();
+        archiveDirectory = new HashMap<>();
+        shortcuts = new HashMap<>();
 
         init();
     }
@@ -152,7 +152,7 @@ public final class JarResources {
      */
     public Collection<String> getResourceNamesWithSuffix(String aSuffix) {
 
-        Collection<String> foundEntries = new ArrayList<String>();
+        Collection<String> foundEntries = new ArrayList<>();
 
         for (String entry : archiveDirectory.keySet()) {
 

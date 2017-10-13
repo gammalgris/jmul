@@ -59,7 +59,7 @@ public class WebServerLogger implements Logger {
      *
      * @return a prefix.
      */
-    private String getPrefix() {
+    private static String getPrefix() {
 
         StringBuilder prefix = new StringBuilder();
 

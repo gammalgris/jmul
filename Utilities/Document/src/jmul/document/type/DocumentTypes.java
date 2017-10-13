@@ -128,7 +128,7 @@ public enum DocumentTypes implements DocumentType {
         String value = getString(aBundle, anEntryName, aSuffix);
 
         String[] array = value.trim().split(SEMICOLON);
-        List<String> list = new ArrayList<String>();
+        List<String> list = new ArrayList<>();
 
         for (String s : array) {
 

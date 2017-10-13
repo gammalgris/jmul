@@ -116,7 +116,7 @@ public class TransformationParametersImpl implements TransformationParameters {
         realType = anObject.getClass();
         declaredType = aDeclaredType;
 
-        prerequisites = new HashMap<CharSequence, Object>();
+        prerequisites = new HashMap<>();
     }
 
     /**

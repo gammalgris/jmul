@@ -128,7 +128,7 @@ public class PersistenceContainerImpl<T> implements PersistenceContainer<T> {
         String idFile = baseDirectory + FILE_SEPARATOR + expectedType.getName();
         idGenerator = StringIDGenerator.getAlternativeGenerator(idFile);
 
-        cache = new ObjectCacheImpl<T>();
+        cache = new ObjectCacheImpl<>();
 
         fileManager = new FileManagerImpl(baseDirectory);
     }
@@ -469,7 +469,7 @@ public class PersistenceContainerImpl<T> implements PersistenceContainer<T> {
         Collection<File> foundFiles = fileManager.findFiles(someQueries);
 
 
-        Collection<ID> results = new ArrayList<ID>();
+        Collection<ID> results = new ArrayList<>();
 
         for (File file : foundFiles) {
 

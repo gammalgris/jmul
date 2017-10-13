@@ -138,7 +138,7 @@ public class TermTokenPatternImpl extends TokenPatternImpl implements TokenPatte
      */
     private static Set<TokenType> getClassifcation() {
 
-        Set<TokenType> classification = new HashSet<TokenType>();
+        Set<TokenType> classification = new HashSet<>();
         classification.add(TokenType.OPERAND);
         classification.add(TokenType.TERM);
 

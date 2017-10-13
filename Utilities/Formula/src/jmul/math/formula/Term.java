@@ -68,7 +68,7 @@ public class Term implements Operand {
      */
     public Term(Formula aFormula, Operator anOperator) {
 
-        operands = new ArrayList<Operand>();
+        operands = new ArrayList<>();
         operator = anOperator;
         variableManager = aFormula.getVariableManager();
     }

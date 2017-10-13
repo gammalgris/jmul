@@ -54,7 +54,7 @@ public class TextBlocksImpl extends ContentNodeImpl implements TextBlocks {
 
         super();
 
-        textBlocks = new ArrayList<TextBlock>();
+        textBlocks = new ArrayList<>();
     }
 
     /**

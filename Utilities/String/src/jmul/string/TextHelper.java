@@ -30,7 +30,6 @@ import java.util.List;
 
 import static jmul.string.Constants.APOSTROPHE;
 import static jmul.string.Constants.CARRIAGE_RETURN;
-import static jmul.string.Constants.EMPTY_STRING;
 import static jmul.string.Constants.LINE_FEED;
 import static jmul.string.Constants.QUOTATION_MARK;
 import static jmul.string.Constants.SPACE;
@@ -68,7 +67,7 @@ public final class TextHelper {
      */
     public static List<String> splitLine(String aLine, String aSeparator) {
 
-        List<String> result = new ArrayList<String>();
+        List<String> result = new ArrayList<>();
 
         if (aLine.isEmpty()) {
 
@@ -85,7 +84,6 @@ public final class TextHelper {
         if (index == NOT_FOUND) {
 
             left = aLine;
-            right = EMPTY_STRING;
 
             result.add(left);
 
@@ -168,7 +166,7 @@ public final class TextHelper {
     public static String normalizeString(String aString) {
 
         String tmp = aString.replaceAll(CARRIAGE_RETURN, LINE_FEED);
-        String substrings[] = tmp.split(LINE_FEED);
+        String[] substrings = tmp.split(LINE_FEED);
 
         StringBuilder buffer = new StringBuilder();
         for (int a = 0; a < substrings.length; a++) {

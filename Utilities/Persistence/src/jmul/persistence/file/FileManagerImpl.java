@@ -94,7 +94,7 @@ public class FileManagerImpl implements FileManager {
      */
     static {
 
-        instanceCounter = new InstanceCounter<FileManager>();
+        instanceCounter = new InstanceCounter<>();
     }
 
     /**
@@ -174,7 +174,7 @@ public class FileManagerImpl implements FileManager {
 
 
         subfolders = null;
-        subfolderVacancies = new HashMap<File, Integer>();
+        subfolderVacancies = new HashMap<>();
 
 
         ResourceBundle bundle = ResourceBundle.getBundle(getClass().getName());
@@ -200,7 +200,7 @@ public class FileManagerImpl implements FileManager {
         subfolderVacancies.clear();
 
         File[] foundDirectories = baseDirectory.listFiles(FileHelper.getDirectoryFilter());
-        subfolders = new ArrayList<File>(Arrays.asList(foundDirectories));
+        subfolders = new ArrayList<>(Arrays.asList(foundDirectories));
 
 
         maxFolderIndex = 0;
@@ -297,7 +297,9 @@ public class FileManagerImpl implements FileManager {
     @Override
     public File newFile(String aUniqueIdentifier) {
 
-        File firstSubfolder = subfolderVacancies.keySet().iterator().next();
+        File firstSubfolder = subfolderVacancies.keySet()
+                                                .iterator()
+                                                .next();
         int vacancies = subfolderVacancies.get(firstSubfolder);
 
         StringConcatenator filename =
@@ -375,18 +377,13 @@ public class FileManagerImpl implements FileManager {
                 return null;
             }
 
-            if (specifiedPath.startsWith(expectedPath)) {
+            if (specifiedPath.startsWith(expectedPath) && aFile.getName().endsWith(templateFileSuffix) &&
+                aFile.exists()) {
 
-                if (aFile.getName().endsWith(templateFileSuffix)) {
+                String filename = aFile.getName();
 
-                    if (aFile.exists()) {
-
-                        String filename = aFile.getName();
-
-                        StringConcatenator suffix = new StringConcatenator(".", templateFileSuffix);
-                        return filename.replace(suffix.toString(), "");
-                    }
-                }
+                StringConcatenator suffix = new StringConcatenator(".", templateFileSuffix);
+                return filename.replace(suffix.toString(), "");
             }
         }
 
@@ -502,7 +499,7 @@ class InstanceCounter<T> {
      */
     public InstanceCounter() {
 
-        registeredInstances = new ArrayList<T>();
+        registeredInstances = new ArrayList<>();
     }
 
     /**

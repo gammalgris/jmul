@@ -47,7 +47,7 @@ class VariableManager {
      */
     protected VariableManager() {
 
-        variables = new HashMap<String, Variable>();
+        variables = new HashMap<>();
     }
 
     /**

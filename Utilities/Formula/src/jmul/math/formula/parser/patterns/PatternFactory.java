@@ -57,7 +57,7 @@ public final class PatternFactory {
      */
     public static TokenPattern newTokenPattern(String aString, TokenType... types) {
 
-        Set<TokenType> classification = new HashSet<TokenType>();
+        Set<TokenType> classification = new HashSet<>();
         for (TokenType type : types) {
 
             classification.add(type);

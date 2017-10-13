@@ -87,9 +87,9 @@ public class XmlValidatorImpl implements XmlValidator {
         }
 
 
-        Collection<XmlValidationResult> results = new ArrayList<XmlValidationResult>();
+        Collection<XmlValidationResult> results = new ArrayList<>();
 
-        Exception cause = null;
+        Exception cause;
 
         for (String schemaKey : archive.getSchemaKeys()) {
 

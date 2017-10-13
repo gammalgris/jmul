@@ -92,7 +92,7 @@ public class ExpirationMonitorImpl implements ExpirationMonitor {
 
         id = anID;
 
-        listeners = new ArrayList<ExpirationListener>();
+        listeners = new ArrayList<>();
 
         setExpirationTime();
     }

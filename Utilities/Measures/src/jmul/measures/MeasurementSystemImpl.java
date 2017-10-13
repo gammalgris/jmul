@@ -85,9 +85,9 @@ public class MeasurementSystemImpl implements MeasurementSystem {
      */
     public MeasurementSystemImpl() {
 
-        units = new HashSet<MeasurementUnit>();
-        unitsByCategory = new HashMap<String, Set<MeasurementUnit>>();
-        unitsByName = new HashMap<String, MeasurementUnit>();
+        units = new HashSet<>();
+        unitsByCategory = new HashMap<>();
+        unitsByName = new HashMap<>();
 
         init();
     }
@@ -114,7 +114,7 @@ public class MeasurementSystemImpl implements MeasurementSystem {
     private void processDefinition(Definition aDefinition) {
 
         // instantiate all new units of measurement
-        List<MeasurementUnit> newUnits = new ArrayList<MeasurementUnit>();
+        List<MeasurementUnit> newUnits = new ArrayList<>();
 
         int size = aDefinition.units();
         for (int a = 0; a < size; a++) {
@@ -159,7 +159,7 @@ public class MeasurementSystemImpl implements MeasurementSystem {
         boolean existsCategory = unitsByCategory.containsKey(aDefinition.category);
         if (!existsCategory) {
 
-            Set<MeasurementUnit> subset = new HashSet<MeasurementUnit>();
+            Set<MeasurementUnit> subset = new HashSet<>();
             unitsByCategory.put(aDefinition.category, subset);
         }
 
@@ -311,7 +311,7 @@ class DefinitionsLoader {
      */
     public Collection<Definition> loadAllDefinitions() {
 
-        Collection<Definition> allDefinitions = new ArrayList<Definition>();
+        Collection<Definition> allDefinitions = new ArrayList<>();
 
         String fileExtension = getDefinitionsFileExtension();
 
@@ -328,14 +328,15 @@ class DefinitionsLoader {
             throw new InitializationException(message);
         }
 
+        for (Map.Entry<String, Collection<File>> entry : foundResources.entrySet()) {
 
-        for (String key : foundResources.keySet()) {
+            File configurationFile = entry.getValue()
+                                          .iterator()
+                                          .next();
 
-            File configurationFile = foundResources.get(key).iterator().next();
             Definition definition = parseConfigurationFile(configurationFile);
             allDefinitions.add(definition);
         }
-
 
         return allDefinitions;
     }

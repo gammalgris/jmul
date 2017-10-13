@@ -121,8 +121,8 @@ public class ThreadPoolImpl2 implements ThreadPool {
 
         active = true;
 
-        queue = new ConcurrentLinkedQueue<ObservableThread>();
-        workerThreads = new ArrayList<WorkerThread>();
+        queue = new ConcurrentLinkedQueue<>();
+        workerThreads = new ArrayList<>();
 
         updateThreadCapacity();
     }
@@ -141,7 +141,7 @@ public class ThreadPoolImpl2 implements ThreadPool {
 
                 // Too many threads are running. Stop some.
 
-                Collection<WorkerThread> stoppedWorkers = new ArrayList<WorkerThread>();
+                Collection<WorkerThread> stoppedWorkers = new ArrayList<>();
                 Iterator<WorkerThread> i = workerThreads.iterator();
 
                 for (int a = 0; a < Math.abs(delta); a++) {

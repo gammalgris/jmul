@@ -227,9 +227,8 @@ public final class ReflectionHelper {
         // Prepare the method invocation.
 
         ErrorStatus status = new SingleErrorStatus();
-        InvocationResult result = null;
-
-        Method getter = null;
+        InvocationResult result;
+        Method getter;
 
         Object[] parameters = { };
         Class[] parameterSignature = { };
@@ -256,6 +255,16 @@ public final class ReflectionHelper {
 
             String methodname = AccessorHelper.determineAccesorName(AccessorHelper.GETTER_PREFIX, fieldName);
             getter = probedClass.getMethod(methodname, parameterSignature);
+
+        } catch (NoSuchMethodException e) {
+
+            status.reportError(e);
+            getter = null;
+        }
+
+
+        if (getter != null) {
+
             result = standardFunctionInvoker.invoke(target, getter, parameters);
 
             if (result.hasFailed()) {
@@ -263,9 +272,9 @@ public final class ReflectionHelper {
                 status.reportError(result.getCauseOfFailure());
             }
 
-        } catch (NoSuchMethodException e) {
+        } else {
 
-            status.reportError(e);
+            result = null;
         }
 
 

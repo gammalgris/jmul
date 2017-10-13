@@ -80,7 +80,7 @@ public final class PathHelper {
         String[] paths = fullClasspath.split(PATH_SEPARATOR);
 
         // traverse all entries
-        Collection<File> classpath = new ArrayList<File>();
+        Collection<File> classpath = new ArrayList<>();
         for (String path : paths) {
 
             File element = new File(path);
@@ -123,7 +123,7 @@ public final class PathHelper {
 
         Collection<File> classpath = getClasspath();
 
-        Collection<File> archives = new ArrayList<File>();
+        Collection<File> archives = new ArrayList<>();
 
         for (File directory : classpath) {
 

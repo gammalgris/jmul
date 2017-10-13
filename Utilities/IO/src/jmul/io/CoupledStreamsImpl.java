@@ -32,8 +32,6 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
-import static jmul.string.Constants.NEW_LINE;
-
 
 /**
  * An implementation of {@link jmul.io.CoupledStreams}.
@@ -51,10 +49,11 @@ public class CoupledStreamsImpl implements CoupledStreams {
      * Creates a new instance according to the specified parameters.
      *
      * @param someEntries
+     *        all related streams
      */
     public CoupledStreamsImpl(StreamEntry... someEntries) {
 
-        Map<String, Closeable> tmp = new HashMap<String, Closeable>();
+        Map<String, Closeable> tmp = new HashMap<>();
 
         for (StreamEntry entry : someEntries) {
 
@@ -68,6 +67,7 @@ public class CoupledStreamsImpl implements CoupledStreams {
      * Returns the stream which is associated with the specified name.
      *
      * @param aName
+     *        the name of a specific stream
      *
      * @return a stream
      */
@@ -92,11 +92,12 @@ public class CoupledStreamsImpl implements CoupledStreams {
      * Close all coupled streams regularly.
      *
      * @throws IOException
+     *         is thrown if at least one of the streams cannot be closed properly
      */
     @Override
     public void close() throws IOException {
 
-        Map<String, Throwable> coupledExceptions = new HashMap<String, Throwable>();
+        Map<String, Throwable> coupledExceptions = new HashMap<>();
         int exceptionCount = 0;
 
         for (String name : coupledStreams.keySet()) {
@@ -133,7 +134,7 @@ public class CoupledStreamsImpl implements CoupledStreams {
     @Override
     public void closeOnError(String aName) throws IOException {
 
-        Map<String, Throwable> coupledExceptions = new HashMap<String, Throwable>();
+        Map<String, Throwable> coupledExceptions = new HashMap<>();
         int exceptionCount = 0;
 
         for (String name : coupledStreams.keySet()) {
@@ -166,7 +167,8 @@ public class CoupledStreamsImpl implements CoupledStreams {
     /**
      * Creates an exception according to the specified exceptions.
      *
-     * @param someNestedExceptions
+     * @param someCoupledExceptions
+     *        a map with all exceptions
      *
      * @return an exception
      */
@@ -179,6 +181,7 @@ public class CoupledStreamsImpl implements CoupledStreams {
      * Creates an exception message according to the specified exceptions.
      *
      * @param someCoupledExceptions
+     *        a map with all exceptions
      *
      * @return an error message
      */
@@ -191,19 +194,7 @@ public class CoupledStreamsImpl implements CoupledStreams {
             Closeable stream = getStream(entry.getKey());
             Throwable exception = entry.getValue();
 
-            buffer.append(stream.getClass().getName());
-            if (exception == null) {
-
-                buffer.append(" was closed regularly.");
-
-            } else {
-
-                buffer.append(" ");
-                buffer.append(exception.getClass().getName());
-                buffer.append(" ");
-                buffer.append(exception.getMessage());
-            }
-            buffer.append(NEW_LINE);
+            StreamsHelper.addStreamEntry(buffer, stream.getClass().getName(), exception);
         }
 
         return String.valueOf(buffer);

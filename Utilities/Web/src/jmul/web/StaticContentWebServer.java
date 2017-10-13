@@ -156,7 +156,7 @@ public class StaticContentWebServer implements WebServer {
      */
     private List<File> scanWebContent() {
 
-        List<File> allResults = new ArrayList<File>();
+        List<File> allResults = new ArrayList<>();
 
         File baseDir = configurationReader.getBaseDirectory();
         String[] contentTypes = configurationReader.getContentyTypes();

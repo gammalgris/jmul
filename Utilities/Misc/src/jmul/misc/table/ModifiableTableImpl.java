@@ -97,30 +97,20 @@ public class ModifiableTableImpl<T> extends TableBase<T> implements ModifiableTa
         updateCells();
 
 
-        header = new ArrayList<String>(Arrays.asList(aHeader));
+        header = new ArrayList<>(Arrays.asList(aHeader));
 
 
-        List<List<T>> tmpOuter = new ArrayList<List<T>>();
+        List<List<T>> tmpOuter = new ArrayList<>();
 
         int rowIndex = 0;
         for (T[] inner : someValues) {
 
-
             if (inner.length != columns) {
 
-                StringBuilder buffer = new StringBuilder();
-                buffer.append("The specified header (");
-                buffer.append(columns);
-                buffer.append(" columns) doesn't match the specified table data (row index ");
-                buffer.append(rowIndex);
-                buffer.append("; ");
-                buffer.append(inner.length);
-                buffer.append(" columns)!");
-
-                throw new IllegalArgumentException(buffer.toString());
+                throw createInvalidRowException(columns, rowIndex, inner.length);
             }
 
-            List<T> tmpInner = new ArrayList<T>(Arrays.asList(inner));
+            List<T> tmpInner = new ArrayList<>(Arrays.asList(inner));
             tmpOuter.add(tmpInner);
 
             rowIndex++;
@@ -143,14 +133,14 @@ public class ModifiableTableImpl<T> extends TableBase<T> implements ModifiableTa
         updateCells();
 
 
-        header = new ArrayList<String>(aTable.getColumnNames());
+        header = new ArrayList<>(aTable.getColumnNames());
 
 
-        List<List<T>> tmpOuter = new ArrayList<List<T>>();
+        List<List<T>> tmpOuter = new ArrayList<>();
 
         for (int r = 0; r < aTable.rows(); r++) {
 
-            List<T> tmpInner = new ArrayList<T>();
+            List<T> tmpInner = new ArrayList<>();
             for (int c = 0; c < aTable.columns(); c++) {
 
                 tmpInner.add(aTable.getCell(c, r));
@@ -181,21 +171,14 @@ public class ModifiableTableImpl<T> extends TableBase<T> implements ModifiableTa
     }
 
     /**
-     * Returns the cell at the specified position. If the cell is empty
-     * then <code>null</code> is returned.
+     * Returns a refrence to the internal table.
      *
-     * @param aColumnIndex
-     * @param aRowIndex
-     *
-     * @return a cell or <code>null</code> if the cell is empty
+     * @return a table
      */
     @Override
-    public T getCell(int aColumnIndex, int aRowIndex) {
+    protected List<List<T>> getTable() {
 
-        checkIndex(0, aColumnIndex, columns - 1);
-        checkIndex(0, aRowIndex, rows - 1);
-
-        return table.get(aRowIndex).get(aColumnIndex);
+        return table;
     }
 
     /**
@@ -239,7 +222,7 @@ public class ModifiableTableImpl<T> extends TableBase<T> implements ModifiableTa
      */
     private List<T> newRow(int aColumnCount) {
 
-        List<T> newRow = new ArrayList<T>();
+        List<T> newRow = new ArrayList<>();
 
         for (int a = 0; a < aColumnCount; a++) {
 
@@ -367,8 +350,8 @@ public class ModifiableTableImpl<T> extends TableBase<T> implements ModifiableTa
      */
     private void redimensionTable() {
 
-        table = new ArrayList<List<T>>();
-        header = new ArrayList<String>();
+        table = new ArrayList<>();
+        header = new ArrayList<>();
         columns = 0;
         rows = 0;
 

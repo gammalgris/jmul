@@ -45,7 +45,7 @@ public class DataContainerImpl<K, V> implements DataContainer<K, V> {
      */
     public DataContainerImpl() {
 
-        container = new HashMap<K, V>();
+        container = new HashMap<>();
     }
 
     /**

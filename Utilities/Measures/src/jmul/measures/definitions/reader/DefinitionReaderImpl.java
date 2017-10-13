@@ -171,7 +171,7 @@ public class DefinitionReaderImpl implements DefinitionReader {
         }
 
 
-        List<Unit> unitEntries = new ArrayList<Unit>();
+        List<Unit> unitEntries = new ArrayList<>();
 
         for (Node unitElement : rootSubelements) {
 

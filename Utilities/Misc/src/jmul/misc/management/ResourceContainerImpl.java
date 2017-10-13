@@ -48,7 +48,7 @@ public class ResourceContainerImpl implements ResourceContainer {
      */
     public ResourceContainerImpl() {
 
-        resources = new HashMap<ResourceIdentifier, Object>();
+        resources = new HashMap<>();
     }
 
     /**

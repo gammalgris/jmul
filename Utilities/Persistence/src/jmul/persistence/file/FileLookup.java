@@ -112,7 +112,7 @@ public class FileLookup implements ThreadListener {
 
         super();
 
-        results = new ArrayList<File>();
+        results = new ArrayList<>();
         activeScans = 0;
     }
 

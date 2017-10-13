@@ -48,7 +48,7 @@ class ClassLoaderArchive {
      */
     ClassLoaderArchive() {
 
-        classLoaderMap = new HashMap<Object, ClassLoader>();
+        classLoaderMap = new HashMap<>();
     }
 
     /**

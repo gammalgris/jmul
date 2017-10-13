@@ -115,7 +115,7 @@ public final class FileHelper {
      */
     public static Collection<File> getFiles(File aBasedir, String aFileExtension, boolean recurse) {
 
-        Collection<File> fileCollection = new ArrayList<File>();
+        Collection<File> fileCollection = new ArrayList<>();
         File dir = aBasedir;
 
         try {

@@ -127,7 +127,7 @@ public class StopwatchImpl implements Stopwatch {
 
         } else {
 
-            throw createIllegalStateException("reset", getStopwatchState());
+            throw createIllegalStateException("reset()", getStopwatchState());
         }
     }
 
@@ -155,7 +155,7 @@ public class StopwatchImpl implements Stopwatch {
 
         } else {
 
-            throw createIllegalStateException("reset", getStopwatchState());
+            throw createIllegalStateException("startMeasurement()", getStopwatchState());
         }
     }
 
@@ -185,7 +185,7 @@ public class StopwatchImpl implements Stopwatch {
 
         } else {
 
-            throw createIllegalStateException("reset", getStopwatchState());
+            throw createIllegalStateException("stopMeasurement()", getStopwatchState());
         }
     }
 
@@ -227,7 +227,7 @@ public class StopwatchImpl implements Stopwatch {
 
         } else {
 
-            throw createIllegalStateException("reset", getStopwatchState());
+            throw createIllegalStateException("getMeasuredTime()", getStopwatchState());
         }
     }
 
@@ -257,7 +257,7 @@ public class StopwatchImpl implements Stopwatch {
 
         } else {
 
-            throw createIllegalStateException("reset", getStopwatchState());
+            throw createIllegalStateException("toString()", getStopwatchState());
         }
     }
 

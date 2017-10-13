@@ -88,9 +88,7 @@ public final class TextFileHelper {
         InputStreamReader isr = new InputStreamReader(fis);
         BufferedReader br = new BufferedReader(isr);
 
-        NestedStreams ns = new NestedStreamsImpl(br, isr, fis);
-
-        return ns;
+        return new NestedStreamsImpl(br, isr, fis);
     }
 
     /**
@@ -126,9 +124,7 @@ public final class TextFileHelper {
         InputStreamReader isr = new InputStreamReader(fis, aCharset);
         BufferedReader br = new BufferedReader(isr);
 
-        NestedStreams ns = new NestedStreamsImpl(br, isr, fis);
-
-        return ns;
+        return new NestedStreamsImpl(br, isr, fis);
     }
 
     /**

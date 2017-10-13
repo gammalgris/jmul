@@ -28,6 +28,8 @@ package jmul.misc.table;
 import java.util.ArrayList;
 import java.util.List;
 
+import static jmul.misc.checks.ParameterCheckHelper.checkIndex;
+
 
 /**
  * A base implementation for table functions.
@@ -73,7 +75,7 @@ abstract class TableBase<T> implements Table<T> {
     @Override
     public List<T> getRow(int aRowIndex) {
 
-        List<T> result = new ArrayList<T>(rows());
+        List<T> result = new ArrayList<>(rows());
 
         for (int a = 0; a < columns(); a++) {
 
@@ -95,7 +97,7 @@ abstract class TableBase<T> implements Table<T> {
     @Override
     public List<T> getColumn(int aColumnIndex) {
 
-        List<T> result = new ArrayList<T>(columns());
+        List<T> result = new ArrayList<>(columns());
 
         for (int a = 0; a < rows(); a++) {
 
@@ -104,6 +106,58 @@ abstract class TableBase<T> implements Table<T> {
         }
 
         return result;
+    }
+
+    /**
+     * Returns a refrence to the internal table.
+     *
+     * @return a table
+     */
+    protected abstract List<List<T>> getTable();
+
+    /**
+     * Returns the cell at the specified position. If the cell is empty
+     * then <code>null</code> is returned.
+     *
+     * @param aColumnIndex
+     * @param aRowIndex
+     *
+     * @return a cell or <code>null</code> if the cell is empty
+     */
+    @Override
+    public T getCell(int aColumnIndex, int aRowIndex) {
+
+        checkIndex(0, aColumnIndex, columns() - 1);
+        checkIndex(0, aRowIndex, rows() - 1);
+
+        return getTable().get(aRowIndex).get(aColumnIndex);
+    }
+
+    /**
+     * Creates an Exception according to the specified parameters.
+     *
+     * @param aColumnCount
+     *        the expected column count
+     * @param aRowIndex
+     *        the current row index
+     * @param anActualColumnCount
+     *        the current row's column count
+     *
+     * @return an exception
+     */
+    static IllegalArgumentException createInvalidRowException(int aColumnCount, int aRowIndex,
+                                                              int anActualColumnCount) {
+
+        StringBuilder buffer = new StringBuilder();
+        buffer.append("The specified header (");
+        buffer.append(aColumnCount);
+        buffer.append(" columns) doesn't match the specified table data (row index ");
+        buffer.append(aRowIndex);
+        buffer.append("; ");
+        buffer.append(anActualColumnCount);
+        buffer.append(" columns)!");
+
+        return new IllegalArgumentException(buffer.toString());
     }
 
 }

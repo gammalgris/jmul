@@ -89,7 +89,7 @@ public class MeasurementUnitImpl implements MeasurementUnit {
         abbreviation = anAbbreviation;
         category = aCategory;
 
-        conversionRules = new HashMap<MeasurementUnit, ConversionRule>();
+        conversionRules = new HashMap<>();
     }
 
     /**

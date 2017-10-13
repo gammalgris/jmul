@@ -62,7 +62,7 @@ public class TokenParserImpl implements TokenParser {
      */
     public TokenParserImpl() {
 
-        tokenPatterns = new HashSet<TokenPattern>();
+        tokenPatterns = new HashSet<>();
     }
 
     /**
@@ -229,7 +229,7 @@ public class TokenParserImpl implements TokenParser {
      */
     private List<TokenSequence> splitString(String aString) {
 
-        List<TokenSequence> allSequences = new ArrayList<TokenSequence>();
+        List<TokenSequence> allSequences = new ArrayList<>();
 
         String string = aString.trim(); // The sequence may still have leading
         // and trailing spaces
@@ -238,9 +238,10 @@ public class TokenParserImpl implements TokenParser {
 
             Map<Integer, Token> next = getNextToken(string);
 
-            for (int i : next.keySet()) {
+            for (Map.Entry<Integer, Token> entry : next.entrySet()) {
 
-                Token token = next.get(i);
+                Token token = entry.getValue();
+
                 int length = token.getToken().length();
                 String rest = string.substring(length);
                 rest = rest.trim(); // Remove leading spaces.
@@ -293,7 +294,7 @@ public class TokenParserImpl implements TokenParser {
      */
     private Map<Integer, Token> getNextToken(String aString) {
 
-        Map<Integer, Token> identifiedTokens = new HashMap<Integer, Token>();
+        Map<Integer, Token> identifiedTokens = new HashMap<>();
 
         int length = aString.length();
         for (int a = 1; a <= length; a++) {
@@ -322,7 +323,7 @@ public class TokenParserImpl implements TokenParser {
      */
     private Token identifyToken(String aString) {
 
-        Collection<TokenPattern> matchingPatterns = new ArrayList<TokenPattern>();
+        Collection<TokenPattern> matchingPatterns = new ArrayList<>();
 
         // Recognize all matching patterns.
         for (TokenPattern pattern : tokenPatterns) {
@@ -370,16 +371,17 @@ public class TokenParserImpl implements TokenParser {
         Set<Operator> operators = operatorToken.getMatchingOperators();
 
         // the operator with the lowest arity takes precedence
-        SortedMap<Arity, Operator> orderOfPrecedence = new TreeMap<Arity, Operator>();
+        SortedMap<Arity, Operator> orderOfPrecedence = new TreeMap<>();
 
         for (Operator operator : operators) {
             orderOfPrecedence.put(operator.getArity(), operator);
         }
 
         // check each possible operator and determine which is one applicable
-        for (Arity arity : orderOfPrecedence.keySet()) {
+        for (Map.Entry<Arity, Operator> entry : orderOfPrecedence.entrySet()) {
 
-            Operator operator = orderOfPrecedence.get(arity);
+            Arity arity = entry.getKey();
+            Operator operator = entry.getValue();
 
             if (arity.equals(Arity.UNARY)) {
 
@@ -545,6 +547,8 @@ public class TokenParserImpl implements TokenParser {
 
             // As this is the first token it doesn't meet the
             // criteria.
+
+
 
 
 

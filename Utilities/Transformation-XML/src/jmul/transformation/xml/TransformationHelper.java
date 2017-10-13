@@ -52,6 +52,11 @@ import jmul.transformation.xml.annotations.Exempted;
 public final class TransformationHelper {
 
     /**
+     * A constant value.
+     */
+    private static final Method NO_METHOD_EXISTS = null;
+
+    /**
      * The default constructor.
      */
     private TransformationHelper() {
@@ -145,7 +150,7 @@ public final class TransformationHelper {
         }
 
 
-        Collection<Field> result = new ArrayList<Field>();
+        Collection<Field> result = new ArrayList<>();
 
 
         // This method will recurse through this class and all parent classes
@@ -251,14 +256,15 @@ public final class TransformationHelper {
 
         Collection<Field> fields = getAllPersistableFields(aClass, anExemptedSuperclass);
 
-        boolean result = !fields.isEmpty();
+        boolean hasFields = !fields.isEmpty();
+        boolean isCompositeType = hasFields;
 
         for (Field field : fields) {
 
             String fieldName = field.getName();
 
-            Method getter = null;
-            Method setter = null;
+            Method getter;
+            Method setter;
 
             try {
 
@@ -266,7 +272,7 @@ public final class TransformationHelper {
 
             } catch (NoSuchMethodException e) {
 
-                // Ignore this exception. In this case no getter method exists.
+                getter = NO_METHOD_EXISTS;
             }
 
             try {
@@ -275,19 +281,19 @@ public final class TransformationHelper {
 
             } catch (NoSuchMethodException e) {
 
-                // Ignore this exception. In this case no setter method exists.
+                setter = NO_METHOD_EXISTS;
             }
 
-            boolean existAccessors = (getter != null) && (setter != null);
-            result = existAccessors && result;
+            boolean existAccessors = (getter != NO_METHOD_EXISTS) && (setter != NO_METHOD_EXISTS);
+            isCompositeType = existAccessors && hasFields;
 
-            if (!result) {
+            if (!isCompositeType) {
 
                 break;
             }
         }
 
-        return result;
+        return isCompositeType;
     }
 
 }

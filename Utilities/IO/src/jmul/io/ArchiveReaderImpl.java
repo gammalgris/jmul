@@ -98,7 +98,7 @@ public class ArchiveReaderImpl implements ArchiveReader {
      *         specified archive.
      */
     @Override
-    public byte[] loadEntry(String anEntryName) throws ArchiveException {
+    public byte[] loadEntry(String anEntryName) {
 
         checkFileNameParameter(anEntryName);
 
@@ -185,7 +185,7 @@ public class ArchiveReaderImpl implements ArchiveReader {
      */
     private static byte[] loadResource(ZipInputStream zis) throws IOException {
 
-        List<Byte> buffer = new ArrayList<Byte>();
+        List<Byte> buffer = new ArrayList<>();
 
         while (true) {
 

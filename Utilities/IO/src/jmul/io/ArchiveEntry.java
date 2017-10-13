@@ -242,7 +242,7 @@ public final class ArchiveEntry {
 
         try {
 
-            Collection<ArchiveEntry> archiveEntries = new ArrayList<ArchiveEntry>();
+            Collection<ArchiveEntry> archiveEntries = new ArrayList<>();
             ZipFile zipFile = new ZipFile(anArchiveName);
             Enumeration e = zipFile.entries();
 

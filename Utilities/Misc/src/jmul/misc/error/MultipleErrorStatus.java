@@ -53,7 +53,7 @@ public class MultipleErrorStatus implements ErrorStatus {
      */
     public MultipleErrorStatus() {
 
-        errors = new TreeMap<Date, Throwable>();
+        errors = new TreeMap<>();
     }
 
     /**
@@ -88,7 +88,9 @@ public class MultipleErrorStatus implements ErrorStatus {
     @Override
     public Date getDate() {
 
-        return errors.keySet().iterator().next();
+        return errors.keySet()
+                     .iterator()
+                     .next();
     }
 
     /**

@@ -78,7 +78,7 @@ public final class ContainerHelper {
         value = bundle.getString(KNOWN_COLLECTION_IMPLEMENTATIONS_KEY);
         classnames = value.split(COMMA);
 
-        Collection<Class> tmp1 = new ArrayList<Class>();
+        Collection<Class> tmp1 = new ArrayList<>();
 
         for (String classname : classnames) {
 
@@ -103,7 +103,7 @@ public final class ContainerHelper {
         value = bundle.getString(KNOWN_MAP_IMPLEMENTATIONS_KEY);
         classnames = value.split(COMMA);
 
-        Collection<Class> tmp2 = new ArrayList<Class>();
+        Collection<Class> tmp2 = new ArrayList<>();
 
         for (String classname : classnames) {
 

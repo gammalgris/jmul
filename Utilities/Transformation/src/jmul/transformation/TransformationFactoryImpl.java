@@ -83,7 +83,7 @@ public class TransformationFactoryImpl implements TransformationFactory {
 
         defaultFileExtension = resourceBundle.getString(FILE_EXTENSION);
 
-        transformationRules = new HashMap<TransformationPath, Collection<TransformationRule>>();
+        transformationRules = new HashMap<>();
 
         init();
     }
@@ -111,9 +111,12 @@ public class TransformationFactoryImpl implements TransformationFactory {
 
             int processedResources = 0;
 
-            for (String key : foundResources.keySet()) {
+            for (Map.Entry<String, Collection<File>> entry : foundResources.entrySet()) {
 
-                String filename = foundResources.get(key).iterator().next().getAbsolutePath();
+                String filename = entry.getValue()
+                                       .iterator()
+                                       .next()
+                                       .getAbsolutePath();
 
                 try {
 
@@ -147,9 +150,10 @@ public class TransformationFactoryImpl implements TransformationFactory {
 
             int processedEmbeddedResources = 0;
 
-            for (String archiveName : foundArchives.keySet()) {
+            for (Map.Entry<String, JarResources> entry : foundArchives.entrySet()) {
 
-                JarResources jar = foundArchives.get(archiveName);
+                String archiveName = entry.getKey();
+                JarResources jar = entry.getValue();
 
                 Collection<String> embeddedResources = jar.getResourceNamesWithSuffix(defaultFileExtension);
 
@@ -210,7 +214,7 @@ public class TransformationFactoryImpl implements TransformationFactory {
 
         } else {
 
-            Collection<TransformationRule> ruleset = new ArrayList<TransformationRule>();
+            Collection<TransformationRule> ruleset = new ArrayList<>();
             transformationRules.put(path, ruleset);
             ruleset.add(aRule);
         }
@@ -242,8 +246,7 @@ public class TransformationFactoryImpl implements TransformationFactory {
         // Find all applicable rules and sort them according to their
         // priorities.
         Collection<TransformationRule> ruleset = transformationRules.get(path);
-        SortedMap<Integer, Collection<TransformationRule>> sortedRules =
-            new TreeMap<Integer, Collection<TransformationRule>>();
+        SortedMap<Integer, Collection<TransformationRule>> sortedRules = new TreeMap<>();
 
         for (TransformationRule rule : ruleset) {
 
@@ -253,7 +256,7 @@ public class TransformationFactoryImpl implements TransformationFactory {
                 Integer priority = rule.getPriority();
                 boolean existsPriority = sortedRules.containsKey(priority);
                 if (!existsPriority) {
-                    Collection<TransformationRule> subset = new ArrayList<TransformationRule>();
+                    Collection<TransformationRule> subset = new ArrayList<>();
                     sortedRules.put(priority, subset);
                 }
 
@@ -274,7 +277,10 @@ public class TransformationFactoryImpl implements TransformationFactory {
 
             StringConcatenator message =
                 new StringConcatenator("The transformation path ", path, " doesn't know a rule for objects of type ",
-                                       someParameters.getObject().getClass().getName(), "!");
+                                       someParameters.getObject()
+                                                                                                                                    .getClass()
+                                                                                                                                    .getName(),
+                                                                                "!");
             throw new IllegalArgumentException(message.toString(), e);
         }
 
@@ -286,7 +292,10 @@ public class TransformationFactoryImpl implements TransformationFactory {
             StringConcatenator message =
                 new StringConcatenator("The transformation path ", path,
                                        " knows several rules with the same priority for objects of type ",
-                                       someParameters.getObject().getClass().getName(), "!");
+                                       someParameters.getObject()
+                                                                                                                         .getClass()
+                                                                                                                         .getName(),
+     "!");
             throw new IllegalArgumentException(message.toString());
         }
 

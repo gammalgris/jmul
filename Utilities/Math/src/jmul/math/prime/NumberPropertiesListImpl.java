@@ -54,13 +54,22 @@ class NumberPropertiesListImpl implements NumberPropertiesList {
      */
     public NumberPropertiesListImpl() {
 
-        properties = new ArrayList<Boolean>();
+        properties = new ArrayList<>();
 
         properties.add(false); // index = 0 => no prime number
         properties.add(false); // index = 1 => no prime number
         properties.add(true); // index = 2 => prime number
     }
 
+    /**
+     * Checks if the specified number is a prime number.
+     *
+     * @param n
+     *
+     * @return <code>true</code> if the specified number is
+     *         a prime number, else <code>false</code>
+     */
+    @Override
     public boolean isPrimeNumber(int n) {
 
         if (n < 0) {
@@ -110,7 +119,7 @@ class NumberPropertiesListImpl implements NumberPropertiesList {
      *
      * @return all divisors
      */
-    private boolean checkPropertyPrimeNumber(int n) {
+    private static boolean checkPropertyPrimeNumber(int n) {
 
         if (n < 1) {
 
@@ -118,7 +127,7 @@ class NumberPropertiesListImpl implements NumberPropertiesList {
             throw new IllegalArgumentException(message);
         }
 
-        Set<Integer> result = new TreeSet<Integer>();
+        Set<Integer> result = new TreeSet<>();
 
         int sqrt = (int) (Math.sqrt(n));
 

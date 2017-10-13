@@ -65,7 +65,7 @@ public class CsvDocumentImpl extends CsvDocumentBase {
 
         super(aDocumentType, aHeaderType, aColumnSeparator, aRowSeparator, transformColumnNamesToArray(aTable));
 
-        content = new UnmodifiableTableImpl<String>(aTable);
+        content = new UnmodifiableTableImpl<>(aTable);
     }
 
     /**
@@ -83,7 +83,7 @@ public class CsvDocumentImpl extends CsvDocumentBase {
 
         super(aDocumentType, aColumnSeparator, aRowSeparator);
 
-        content = new UnmodifiableTableImpl<String>(aTable);
+        content = new UnmodifiableTableImpl<>(aTable);
     }
 
     /**

@@ -568,7 +568,7 @@ class ClassDefinitionImpl implements ClassDefinition {
             for (Method method : filteredMethods) {
 
                 Class[] requiredNativeSignature = method.getParameterTypes();
-                List<ClassDefinition> requiredSignature = new ArrayList<ClassDefinition>();
+                List<ClassDefinition> requiredSignature = new ArrayList<>();
 
                 try {
 
@@ -744,7 +744,7 @@ class ClassDefinitionImpl implements ClassDefinition {
      */
     private Collection<Method> getMethods(String aMethodname, int numberOfParameters, boolean recurse) {
 
-        Collection<Method> matchingMethods = new ArrayList<Method>();
+        Collection<Method> matchingMethods = new ArrayList<>();
 
         Class probedClass = getType();
         boolean loop = true;
@@ -926,7 +926,7 @@ class ClassDefinitionImpl implements ClassDefinition {
         }
 
 
-        Collection<Class> allImplementedInterfaces = new ArrayList<Class>();
+        Collection<Class> allImplementedInterfaces = new ArrayList<>();
         Class consideredClass = aClass;
         boolean loop = true;
 
@@ -974,7 +974,7 @@ class ClassDefinitionImpl implements ClassDefinition {
         }
 
 
-        Collection<Class> parentInterfaces = new ArrayList<Class>();
+        Collection<Class> parentInterfaces = new ArrayList<>();
         Class[] foundInterfaces = anInterface.getInterfaces();
 
         for (Class foundInterface : foundInterfaces) {
@@ -1083,7 +1083,7 @@ class ClassDefinitionImpl implements ClassDefinition {
     @Override
     public Field[] getFields(boolean recurse) {
 
-        Collection<Field> fields = new ArrayList<Field>();
+        Collection<Field> fields = new ArrayList<>();
         Class probedClass = getType();
 
 
@@ -1124,7 +1124,7 @@ class ClassDefinitionImpl implements ClassDefinition {
     @Override
     public Method[] getMethods(boolean recurse) {
 
-        Collection<Method> methods = new ArrayList<Method>();
+        Collection<Method> methods = new ArrayList<>();
         Class probedClass = getType();
 
 

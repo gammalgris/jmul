@@ -71,8 +71,8 @@ public class ComponentGroup {
     public ComponentGroup(int aStartingIndex) {
 
         startingItemIndex = aStartingIndex;
-        componentTypes = new ArrayList<ComponentType>();
-        components = new ArrayList<String>();
+        componentTypes = new ArrayList<>();
+        components = new ArrayList<>();
     }
 
     /**
@@ -367,7 +367,7 @@ public class ComponentGroup {
             right.append(getComponent(a));
         }
 
-        List<String> result = new ArrayList<String>();
+        List<String> result = new ArrayList<>();
         result.add(left.toString());
         result.add(right.toString());
 
@@ -381,7 +381,7 @@ public class ComponentGroup {
      */
     public List<String> getOperands() {
 
-        List<String> operands = new ArrayList<String>();
+        List<String> operands = new ArrayList<>();
 
         int length = componentTypes.size();
         for (int a = 0; a < length; a++) {

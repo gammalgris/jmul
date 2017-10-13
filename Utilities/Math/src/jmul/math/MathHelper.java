@@ -116,7 +116,7 @@ public final class MathHelper {
             throw new IllegalArgumentException(message);
         }
 
-        Set<Integer> result = new TreeSet<Integer>();
+        Set<Integer> result = new TreeSet<>();
 
         int sqrt = (int) (Math.sqrt(n));
 

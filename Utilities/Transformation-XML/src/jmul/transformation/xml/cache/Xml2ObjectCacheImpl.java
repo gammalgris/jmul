@@ -53,8 +53,8 @@ public class Xml2ObjectCacheImpl implements Xml2ObjectCache {
      */
     public Xml2ObjectCacheImpl() {
 
-        entries = new HashMap<ID, CacheEntry>();
-        objects = new HashMap<CacheEntry, ID>();
+        entries = new HashMap<>();
+        objects = new HashMap<>();
     }
 
     /**

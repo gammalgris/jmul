@@ -58,7 +58,7 @@ public class PublicMethodFilter implements MethodFilter {
     @Override
     public Method[] filterMethods(Method[] someMethods) {
 
-        Collection<Method> matchingMethods = new ArrayList<Method>();
+        Collection<Method> matchingMethods = new ArrayList<>();
 
         for (Method foundMethod : someMethods) {
 
@@ -88,7 +88,7 @@ public class PublicMethodFilter implements MethodFilter {
     @Override
     public Collection<Method> filterMethods(Collection<Method> someMethods) {
 
-        Collection<Method> matchingMethods = new ArrayList<Method>();
+        Collection<Method> matchingMethods = new ArrayList<>();
 
         for (Method foundMethod : someMethods) {
 

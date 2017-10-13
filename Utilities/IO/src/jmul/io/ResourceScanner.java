@@ -77,7 +77,7 @@ public class ResourceScanner {
 
         // Scan the directory tree and group all entries according to their
         // names.
-        ressourceCache = new HashMap<String, Collection<File>>();
+        ressourceCache = new HashMap<>();
         Collection<File> classpaths = PathHelper.getClasspath();
 
         for (File directory : classpaths) {
@@ -95,7 +95,7 @@ public class ResourceScanner {
 
                 } else {
 
-                    Collection<File> subset = new ArrayList<File>();
+                    Collection<File> subset = new ArrayList<>();
                     subset.add(file);
                     ressourceCache.put(filename, subset);
 
@@ -104,7 +104,7 @@ public class ResourceScanner {
         }
 
         // scan all archives
-        archiveCache = new HashMap<String, JarResources>();
+        archiveCache = new HashMap<>();
         Collection<File> archives = PathHelper.getArchives();
 
         for (File archive : archives) {

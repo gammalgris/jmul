@@ -46,7 +46,7 @@ public abstract class ObservableThreadBase implements ObservableThread {
      */
     protected ObservableThreadBase() {
 
-        listeners = new ArrayList<ThreadListener>();
+        listeners = new ArrayList<>();
     }
 
     /**

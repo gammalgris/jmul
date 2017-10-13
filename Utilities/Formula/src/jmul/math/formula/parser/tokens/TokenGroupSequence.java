@@ -64,22 +64,17 @@ public class TokenGroupSequence extends ArrayList<TokenGroup> implements List<To
 
             TokenGroup group = get(a);
 
-            if (determinedGroup == null) {
+            if ((determinedGroup == null) && (group.containsOperator())) {
 
-                if (group.containsOperator()) {
-
-                    determinedGroup = group;
-                    index = a;
-                }
+                determinedGroup = group;
+                index = a;
             }
 
-            if (group.containsOperator()) {
+            if (group.containsOperator() &&
+                (group.getOperator().getPriority() <= determinedGroup.getOperator().getPriority())) {
 
-                if (group.getOperator().getPriority() <= determinedGroup.getOperator().getPriority()) {
-
-                    determinedGroup = group;
-                    index = a;
-                }
+                determinedGroup = group;
+                index = a;
             }
         }
 

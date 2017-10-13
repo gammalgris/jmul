@@ -107,7 +107,7 @@ public class SubelementList implements Iterable<Node> {
 
         XmlParserHelper.assertDescribesXmlElement(markup);
 
-        List<Node> sublist = new ArrayList<Node>();
+        List<Node> sublist = new ArrayList<>();
 
         for (Node node : this) {
 

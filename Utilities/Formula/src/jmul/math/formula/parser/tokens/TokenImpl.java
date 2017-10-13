@@ -105,7 +105,7 @@ public class TokenImpl implements Token {
     @Override
     public void retainPattern(TokenPattern aPattern) {
 
-        Collection<TokenPattern> retainables = new ArrayList<TokenPattern>();
+        Collection<TokenPattern> retainables = new ArrayList<>();
         retainables.add(aPattern);
         matchingPatterns.retainAll(retainables);
     }

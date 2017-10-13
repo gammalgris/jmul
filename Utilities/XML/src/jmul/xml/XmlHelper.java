@@ -321,7 +321,7 @@ public final class XmlHelper {
      */
     static List<Node> extractChildNodes(Node aParentNode, short aRequiredType) {
 
-        List<Node> elementNodes = new ArrayList<Node>();
+        List<Node> elementNodes = new ArrayList<>();
 
         NodeList childNodeList = aParentNode.getChildNodes();
         for (int a = 0; a < childNodeList.getLength(); a++) {
@@ -347,7 +347,7 @@ public final class XmlHelper {
      */
     static Map<String, Node> nodeList2Map(List<Node> someNodes) {
 
-        Map<String, Node> map = new HashMap<String, Node>();
+        Map<String, Node> map = new HashMap<>();
 
         for (Node node : someNodes) {
 

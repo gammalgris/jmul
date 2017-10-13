@@ -35,9 +35,18 @@ import java.util.Map;
 
 import jmul.misc.id.ID;
 
+import jmul.reflection.ReflectionHelper;
+
+import jmul.string.StringConcatenator;
+
+import jmul.transformation.TransformationException;
+import jmul.transformation.TransformationFactory;
+import jmul.transformation.TransformationParameters;
+import jmul.transformation.TransformationPath;
+import jmul.transformation.TransformationResources;
+import jmul.transformation.xml.TransformationHelper;
 import jmul.transformation.xml.annotations.ContainerInformations;
 import jmul.transformation.xml.annotations.MapInformations;
-import jmul.transformation.xml.TransformationHelper;
 import jmul.transformation.xml.cache.Object2XmlCache;
 import static jmul.transformation.xml.rules.PersistenceMarkups.DECLARED_TYPE_ATTRIBUTE;
 import static jmul.transformation.xml.rules.PersistenceMarkups.FIELD_ELEMENT;
@@ -49,16 +58,6 @@ import static jmul.transformation.xml.rules.TransformationConstants.DECLARED_VAL
 import static jmul.transformation.xml.rules.TransformationConstants.OBJECT_CACHE;
 import static jmul.transformation.xml.rules.TransformationConstants.ROOT_ELEMENT;
 import static jmul.transformation.xml.rules.TransformationConstants.XML_DOCUMENT;
-
-import jmul.reflection.ReflectionHelper;
-
-import jmul.string.StringConcatenator;
-
-import jmul.transformation.TransformationException;
-import jmul.transformation.TransformationFactory;
-import jmul.transformation.TransformationParameters;
-import jmul.transformation.TransformationPath;
-import jmul.transformation.TransformationResources;
 
 import jmul.xml.XmlHelper;
 
@@ -159,7 +158,7 @@ public class GenericObjectHandler implements FieldsHandler {
         Collection<Field> persistableFields =
             TransformationHelper.getAllPersistableFields(realType, anExemptedSuperclass);
 
-        Collection<String> processedFields = new ArrayList<String>();
+        Collection<String> processedFields = new ArrayList<>();
 
         for (Field field : persistableFields) {
 

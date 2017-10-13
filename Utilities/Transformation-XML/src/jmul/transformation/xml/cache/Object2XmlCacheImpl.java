@@ -63,8 +63,8 @@ public class Object2XmlCacheImpl implements Object2XmlCache {
 
         idGenerator = new IntegerIDGenerator();
 
-        entries = new HashMap<ID, CacheEntry>();
-        objects = new HashMap<CacheEntry, ID>();
+        entries = new HashMap<>();
+        objects = new HashMap<>();
     }
 
     /**

@@ -59,7 +59,8 @@ public enum StopwatchStates implements State {
     /**
      * A measurement is in progress.
      */
-    MEASUREMENT_IN_PROGRESS(StateNames.MEASUREMENT_IN_PROGRESS_STRING, StateNames.MEASUREMENT_STOPPED_STRING, StateNames.ERROR_STRING),
+    MEASUREMENT_IN_PROGRESS(StateNames.MEASUREMENT_IN_PROGRESS_STRING, StateNames.MEASUREMENT_STOPPED_STRING,
+                            StateNames.ERROR_STRING),
 
     /**
      * A measurement has been stopped regularly.
@@ -80,7 +81,6 @@ public enum StopwatchStates implements State {
      * An error occurred.
      */
     ERROR(StateNames.ERROR_STRING, StateNames.RESETTING_STRING), ;
-    ;    
 
 
     /**
@@ -107,7 +107,7 @@ public enum StopwatchStates implements State {
         stateName = aStateName;
 
 
-        Set<String> tmp = new HashSet<String>();
+        Set<String> tmp = new HashSet<>();
 
         for (String destinationState : someDestinationStates) {
 
@@ -172,7 +172,7 @@ public enum StopwatchStates implements State {
     @Override
     public Set<State> getAllowedTransitions() {
 
-        Set<State> states = new HashSet<State>();
+        Set<State> states = new HashSet<>();
 
         for (String destinationName : allowedTransitionNames) {
 

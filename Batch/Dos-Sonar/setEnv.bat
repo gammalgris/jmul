@@ -34,7 +34,7 @@ for /L %%i in (1,1,%subroutineCalls.length%) do (
 )
 
 
-call:changeConsoleTitle "Java 7"
+call:changeConsoleTitle "Java 8"
 
 
 for /L %%i in (1,1,%subroutineCalls.length%) do (
@@ -192,11 +192,11 @@ call:cleanVariables
 
 :setJava
 
-	set JAVA_HOME=D:\Programme\jdk1.7.0_80\
+	set JAVA_HOME=C:\Oracle\Middleware\Oracle_Home\oracle_common\jdk\
 	set JAVA_BIN=%JAVA_HOME%bin\
 	set JAVA_EXE=%JAVA_BIN%java.exe
 
-	call:addApplication JAVA JAVA_HOME JAVA_EXE 1.7.0
+	call:addApplication JAVA JAVA_HOME JAVA_EXE 1.8.0
 
 %return%
 

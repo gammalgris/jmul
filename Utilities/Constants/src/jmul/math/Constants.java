@@ -77,7 +77,7 @@ public final class Constants {
         Map<Class, Number> tmp;
 
 
-        tmp = new HashMap<Class, Number>();
+        tmp = new HashMap<>();
 
         f = 0.001F;
         tmp.put(Float.TYPE, f);
@@ -90,7 +90,7 @@ public final class Constants {
         EPSILONS = Collections.unmodifiableMap(tmp);
 
 
-        tmp = new HashMap<Class, Number>();
+        tmp = new HashMap<>();
 
         b = 0;
         tmp.put(Byte.TYPE, b);

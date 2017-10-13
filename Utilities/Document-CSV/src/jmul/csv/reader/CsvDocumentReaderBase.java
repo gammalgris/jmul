@@ -127,7 +127,7 @@ abstract class CsvDocumentReaderBase implements CsvDocumentReader {
 
         DocumentType documentType = DocumentTypes.getDocumentType(aFile.getName());
 
-        ModifiableTable<String> table = new ModifiableTableImpl<String>();
+        ModifiableTable<String> table = new ModifiableTableImpl<>();
 
         NestedStreams ns = openFile(aFile, charset);
 
