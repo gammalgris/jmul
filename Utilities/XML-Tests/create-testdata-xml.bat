@@ -224,4 +224,21 @@ set functionCalls.length=
 		echo ^</persons^>
 	) > testdata-xml\valid.xml
 
+	(
+		echo ^<?xml version="1.0" encoding="UTF-8" ?^>
+		echo ^<root info1=^"1^"^ info2=^"2^"^ info3=^"3^"^>
+		echo   ^<level1^>
+		echo     ^<level2^>Text^</level2^>
+		echo     ^<level2^>Text^</level2^>
+		echo   ^</level1^>
+		echo   ^<level1^>
+		echo     ^<level2^>Text^</level2^>
+		echo     ^<level2^>Text^</level2^>
+		echo   ^</level1^>
+		echo   ^<sub1^>
+		echo     ^<sub2^>Text^</sub2^>
+		echo   ^</sub1^>
+		echo ^</root^>
+	) > testdata-xml\test.xml
+
 %return%

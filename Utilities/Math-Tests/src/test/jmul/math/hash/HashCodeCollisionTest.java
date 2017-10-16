@@ -40,13 +40,21 @@ import org.junit.Test;
 
 
 /**
+ * This class contains tests to test for hash collisions.
  *
+ * @author Kristian Kutin
  */
 @UnitTest
 public class HashCodeCollisionTest {
 
+    /**
+     * A list containing two prime numbers.
+     */
     private List<Integer> twoPrimeNumbers;
 
+    /**
+     * A map with objects and their their corresponding hash codes.
+     */
     private Map<String, Integer> hashCodes;
 
     /**
@@ -75,18 +83,20 @@ public class HashCodeCollisionTest {
     @Test
     public void testHashCodeCollision() {
 
-        for (Byte a = Byte.MIN_VALUE; a < Byte.MAX_VALUE; a++) {
+        Byte a = Byte.MIN_VALUE;
 
-            String name = byte2String(a);
+        while (true) {
+
+            String name = String.valueOf(a);
             int hash = HashHelper.calculateHashCode(twoPrimeNumbers, a);
             addHashCode(name, hash);
-        }
 
-        {
-            Byte a = Byte.MAX_VALUE;
-            String name = byte2String(a);
-            int hash = HashHelper.calculateHashCode(twoPrimeNumbers, a);
-            addHashCode(name, hash);
+            if (a.equals(Byte.MAX_VALUE)) {
+
+                break;
+            }
+
+            a++;
         }
     }
 
@@ -96,21 +106,43 @@ public class HashCodeCollisionTest {
     @Test
     public void testHashCodeCollision2() {
 
-        for (Byte a = Byte.MIN_VALUE; a < Byte.MAX_VALUE; a++) {
-            for (Byte b = Byte.MIN_VALUE; b < Byte.MAX_VALUE; b++) {
+        Character c = Character.MIN_VALUE;
 
-                String name = byte2String(a, b);
-                int hash = HashHelper.calculateHashCode(twoPrimeNumbers, a);
-                addHashCode(name, hash);
-            }
-        }
+        while (true) {
 
-        {
-            Byte a = Byte.MAX_VALUE;
-            Byte b = Byte.MAX_VALUE;
-            String name = byte2String(a, b);
-            int hash = HashHelper.calculateHashCode(twoPrimeNumbers, a);
+            String name = String.valueOf(c);
+            int hash = HashHelper.calculateHashCode(twoPrimeNumbers, c);
             addHashCode(name, hash);
+
+            if (c.equals(Character.MAX_VALUE)) {
+
+                break;
+            }
+
+            c++;
+        }
+    }
+
+    /**
+     * Tests generating hash codes in order to detect hash code collisions.
+     */
+    @Test
+    public void testHashCodeCollision3() {
+
+        Short s = Short.MIN_VALUE;
+
+        while (true) {
+
+            String name = String.valueOf(s);
+            int hash = HashHelper.calculateHashCode(twoPrimeNumbers, s);
+            addHashCode(name, hash);
+
+            if (s.equals(Short.MAX_VALUE)) {
+
+                break;
+            }
+
+            s++;
         }
     }
 
@@ -136,22 +168,4 @@ public class HashCodeCollisionTest {
         hashCodes.put(aRepresentation, aHashCode);
     }
 
-    /**
-     * Returns a string representation for the specified parameters.
-     *
-     * @param someBytes
-     *
-     * @return a string representation
-     */
-    private String byte2String(byte... someBytes) {
-
-        StringBuilder buffer = new StringBuilder();
-
-        for (byte a : someBytes) {
-
-            buffer.append(a);
-        }
-
-        return buffer.toString();
-    }
 }

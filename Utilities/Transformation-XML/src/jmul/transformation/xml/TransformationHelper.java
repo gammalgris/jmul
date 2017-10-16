@@ -161,6 +161,12 @@ public final class TransformationHelper {
             return result;
         }
 
+        // If this is the exempted superclass then we're done as well.
+        if (aClass.equals(anExemptedSuperclass)) {
+
+            return result;
+        }
+
 
         // Identify locally declared persistable fields.
         Field[] locallyDeclaredFields = aClass.getDeclaredFields();
@@ -179,11 +185,7 @@ public final class TransformationHelper {
         // and thus are not considered.
 
         Class superclass = aClass.getSuperclass();
-
-        if (!superclass.equals(anExemptedSuperclass)) {
-
-            result.addAll(TransformationHelper.getAllPersistableFields(superclass, anExemptedSuperclass));
-        }
+        result.addAll(TransformationHelper.getAllPersistableFields(superclass, anExemptedSuperclass));
 
         return result;
     }
@@ -257,7 +259,7 @@ public final class TransformationHelper {
         Collection<Field> fields = getAllPersistableFields(aClass, anExemptedSuperclass);
 
         boolean hasFields = !fields.isEmpty();
-        boolean isCompositeType = hasFields;
+        boolean isCompositeType = false;
 
         for (Field field : fields) {
 

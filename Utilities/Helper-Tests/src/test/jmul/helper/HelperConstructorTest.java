@@ -183,6 +183,7 @@ public class HelperConstructorTest {
         parameters.add(new Object[] { jmul.io.text.TextFileHelper.class });
         parameters.add(new Object[] { jmul.reflection.ContainerHelper.class });
         parameters.add(new Object[] { jmul.io.StreamsHelper.class });
+        parameters.add(new Object[] { jmul.xml.XmlMarkupHelper.class });
 
         return parameters;
     }

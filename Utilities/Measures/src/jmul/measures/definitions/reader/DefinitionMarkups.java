@@ -122,7 +122,7 @@ public enum DefinitionMarkups implements XmlMarkup {
     @Override
     public boolean equalsTagName(String aName) {
 
-        return XmlMarkupHelper.equalTagNames(this.getTagName(), name);
+        return XmlMarkupHelper.equalTagNames(this.getTagName(), aName);
     }
 
     /**

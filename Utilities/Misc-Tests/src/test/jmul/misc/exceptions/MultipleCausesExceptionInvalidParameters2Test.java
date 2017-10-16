@@ -88,7 +88,7 @@ public class MultipleCausesExceptionInvalidParameters2Test {
     @Test(expected = IllegalArgumentException.class)
     public void testInstantiation() {
 
-        new MultipleCausesException(causes);
+        new MultipleCausesException(message, causes);
     }
 
     /**

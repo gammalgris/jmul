@@ -4,7 +4,7 @@
  * JMUL is a central repository for utilities which are used in my
  * other public and private repositories.
  *
- * Copyright (C) 2014  Kristian Kutin
+ * Copyright (C) 2017  Kristian Kutin
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -22,7 +22,7 @@
  * e-mail: kristian.kutin@arcor.de
  */
 
-package jmul.transformation.configuration;
+package test.jmul.xml;
 
 
 import jmul.xml.XmlMarkup;
@@ -34,22 +34,22 @@ import static jmul.xml.XmlMarkupType.XML_ELEMENT;
 
 /**
  * This enumeration defines a set of xml elements and xml attributes which are
- * found in a configuration file.
+ * used in a text file.
  *
  * @author Kristian Kutin
  */
-public enum ConfigurationMarkups implements XmlMarkup {
+public enum TestMarkups implements XmlMarkup {
 
 
-    CLASSNAME_ATTRIBUTE("classname", XML_ATTRIBUTE),
-    CLASSPATH_ATTRIBUTE("classpath", XML_ATTRIBUTE),
-    DESTINATION_ATTRIBUTE("destination", XML_ATTRIBUTE),
-    ORIGIN_ATTRIBUTE("origin", XML_ATTRIBUTE),
-    PRIORITY_ATTRIBUTE("priority", XML_ATTRIBUTE),
+    INFO1_ATTRIBUTE("info1", XML_ATTRIBUTE),
+    INFO2_ATTRIBUTE("info2", XML_ATTRIBUTE),
+    INFO3_ATTRIBUTE("info3", XML_ATTRIBUTE),
 
-    IMPLEMENTATION_ELEMENT("implementation", XML_ELEMENT),
-    RULE_ELEMENT("rule", XML_ELEMENT),
-    TRANSFORMATION_PATH_ELEMENT("transformation-path", XML_ELEMENT);
+    ROOT_ELEMENT("root", XML_ELEMENT),
+    LEVEL1_ELEMENT("level1", XML_ELEMENT),
+    LEVEL2_ELEMENT("level2", XML_ELEMENT),
+    SUB1_ELEMENT("sub1", XML_ELEMENT),
+    SUB2_ELEMENT("sub2", XML_ELEMENT), ;
 
 
     /**
@@ -71,7 +71,7 @@ public enum ConfigurationMarkups implements XmlMarkup {
      * @param aType
      *        the type of this enumeration element
      */
-    private ConfigurationMarkups(String aName, XmlMarkupType aType) {
+    private TestMarkups(String aName, XmlMarkupType aType) {
 
         name = aName;
         type = aType;
