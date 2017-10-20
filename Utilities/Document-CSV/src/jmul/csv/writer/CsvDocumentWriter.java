@@ -39,7 +39,7 @@ import jmul.document.csv.CsvDocument;
 public interface CsvDocumentWriter {
 
     /**
-     * The method writes an xml document.
+     * The method writes a CSV document.
      *
      * @param aFilename
      *        the name of the output file
@@ -52,7 +52,7 @@ public interface CsvDocumentWriter {
     void writeDocument(String aFilename, CsvDocument aDocument) throws IOException;
 
     /**
-     * The method writes an xml document.
+     * The method writes a CSV document.
      *
      * @param aFile
      *        the output file

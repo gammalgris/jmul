@@ -52,11 +52,9 @@ import org.junit.Test;
 
 
 /**
- * A test to check the general properties of a document.
+ * This class contains tests to check if a specific document reader works correctly.
  *
  * @author Kristian Kutin
- *
- * @deprecated delete before checking in
  */
 @ModuleTest
 public class CsvDocumentReaderTest {

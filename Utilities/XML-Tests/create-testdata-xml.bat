@@ -241,4 +241,136 @@ set functionCalls.length=
 		echo ^</root^>
 	) > testdata-xml\test.xml
 
+	(
+		echo ^<?xml version="1.0" encoding="utf-8" ?^>
+		echo.
+		echo ^<xsd:schema 
+		echo 	xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+		echo 	xmlns="http://www.test.org"
+		echo 	targetNamespace="http://www.test.org"
+		echo 	elementFormDefault="qualified"^>
+		echo.
+		echo 	^<xsd:simpleType name="Info1Attribute"^>
+		echo 		^<xsd:restriction base="xsd:string"/^>
+		echo 	^</xsd:simpleType^>
+		echo.
+		echo 	^<xsd:simpleType name="Info2Attribute"^>
+		echo 		^<xsd:restriction base="xsd:string"/^>
+		echo 	^</xsd:simpleType^>
+		echo.
+		echo 	^<xsd:simpleType name="Info3Attribute"^>
+		echo 		^<xsd:restriction base="xsd:string"/^>
+		echo 	^</xsd:simpleType^>
+		echo.
+		echo 	^<xsd:complexType name="Level1Element"^>
+		echo 		^<xsd:sequence^>
+		echo 			^<xsd:element name="level2" type="Level2Element" minOccurs="1" maxOccurs="unbounded"/^>
+		echo 		^</xsd:sequence^>
+		echo 	^</xsd:complexType^>
+		echo.
+		echo 	^<xsd:complexType name="Level2Element"^>
+		echo 		^<xsd:simpleContent^>
+		echo 			^<xsd:extension base="xsd:string" /^>
+		echo 		^</xsd:simpleContent^>
+		echo 	^</xsd:complexType^>
+		echo.
+		echo 	^<xsd:complexType name="RootElement"^>
+		echo 		^<xsd:sequence^>
+		echo 			^<xsd:element name="level1" type="Level1Element" minOccurs="1" maxOccurs="unbounded"/^>
+		echo 			^<xsd:element name="sub1" type="Sub1Element" minOccurs="1" maxOccurs="unbounded"/^>
+		echo 			^</xsd:sequence^>
+		echo 		^<xsd:attribute name="info1" type="Info1Attribute" use="optional"/^>
+		echo 		^<xsd:attribute name="info2" type="Info2Attribute" use="optional"/^>
+		echo 		^<xsd:attribute name="info3" type="Info3Attribute" use="optional"/^>
+		echo 	^</xsd:complexType^>
+		echo.
+		echo 	^<xsd:complexType name="Sub1Element"^>
+		echo 		^<xsd:sequence^>
+		echo 			^<xsd:element name="sub2" type="Sub2Element" minOccurs="1" maxOccurs="unbounded"/^>
+		echo 		^</xsd:sequence^>
+		echo 	^</xsd:complexType^>
+		echo.
+		echo 	^<xsd:complexType name="Sub2Element"^>
+		echo 		^<xsd:simpleContent^>
+		echo 			^<xsd:extension base="xsd:string" /^>
+		echo 		^</xsd:simpleContent^>
+		echo 	^</xsd:complexType^>
+		echo.
+		echo 	^<xsd:element name="root" type="RootElement"/^>
+		echo.
+		echo ^</xsd:schema^>
+	) > testdata-xml\TestSchema.xsd
+
+	(
+		echo ^<?xml version="1.0" encoding="UTF-8" ?^>
+		echo ^<root
+		echo 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		echo 	xsi:schemaLocation="http://www.test.org testdata-xml/TestSchema.xsd"
+		echo 	xmlns="http://www.test.org"
+		echo 	info1=^"1^"^ info2=^"2^"^ info3=^"3^"^>
+		echo 	^<level1^>
+		echo 		^<level2^>Text^</level2^>
+		echo 		^<level2^>Text^</level2^>
+		echo 	^</level1^>
+		echo 	^<level1^>
+		echo 		^<level2^>Text^</level2^>
+		echo 		^<level2^>Text^</level2^>
+		echo 	^</level1^>
+		echo 	^<sub1^>
+		echo 		^<sub2^>Text^</sub2^>
+		echo 	^</sub1^>
+		echo ^</root^>
+	) > testdata-xml\test-valid.xml
+
+	(
+		echo ^<?xml version="1.0" encoding="UTF-8" ?^>
+		echo ^<root
+		echo 	info1=^"1^"^ info2=^"2^"^ info3=^"3^"^>
+		echo 	^<level1^>
+		echo 		^<level2^>Text^</level2^>
+		echo 		^<level2^>Text^</level2^>
+		echo 	^</level1^>
+		echo 	^<level1^>
+		echo 		^<level2^>Text^</level2^>
+		echo 		^<level2^>Text^</level2^>
+		echo 	^</level1^>
+		echo 	^<sub1^>
+		echo 		^<sub2^>Text^</sub2^>
+		echo 	^</sub1^>
+		echo ^</root^>
+	) > testdata-xml\test-valid2.xml
+
+	(
+		echo ^<?xml version="1.0" encoding="UTF-8" ?^>
+		echo ^<root
+		echo 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		echo 	xsi:schemaLocation="http://www.test.org testdata-xml/TestSchema.xsd"
+		echo 	xmlns="http://www.test.org"
+		echo 	info1=^"1^"^ info2=^"2^"^ info3=^"3^"^>
+		echo 	^<level1^>
+		echo 		^<level2^>Text^</level2^>
+		echo 		^<level2^>Text^</level2^>
+		echo 	^</level1^>
+		echo 	^<level1^>
+		echo 		^<level2^>Text^</level2^>
+		echo 		^<level2^>Text^</level2^>
+		echo 	^</level1^>
+		echo ^</root^>
+	) > testdata-xml\test-invalid.xml
+
+	(
+		echo ^<?xml version="1.0" encoding="UTF-8" ?^>
+		echo ^<root
+		echo 	info1=^"1^"^ info2=^"2^"^ info3=^"3^"^>
+		echo 	^<level1^>
+		echo 		^<level2^>Text^</level2^>
+		echo 		^<level2^>Text^</level2^>
+		echo 	^</level1^>
+		echo 	^<level1^>
+		echo 		^<level2^>Text^</level2^>
+		echo 		^<level2^>Text^</level2^>
+		echo 	^</level1^>
+		echo ^</root^>
+	) > testdata-xml\test-invalid2.xml
+
 %return%

@@ -254,4 +254,12 @@ final class StateNames {
     static final String RESET_STRING = "reset";
     static final String ERROR_STRING = "error";
 
+    /**
+     * The default constructor.
+     */
+    private StateNames() {
+
+        throw new UnsupportedOperationException();
+    }
+
 }

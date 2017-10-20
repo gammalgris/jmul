@@ -28,16 +28,6 @@ package jmul.transformation.xml.rules.xml2object;
 import jmul.misc.id.ID;
 import jmul.misc.id.IntegerID;
 
-import jmul.transformation.xml.cache.Xml2ObjectCache;
-import static jmul.transformation.xml.rules.PersistenceMarkups.DECLARED_TYPE_ATTRIBUTE;
-import static jmul.transformation.xml.rules.PersistenceMarkups.FIELD_ELEMENT;
-import static jmul.transformation.xml.rules.PersistenceMarkups.ID_ATTRIBUTE;
-import static jmul.transformation.xml.rules.PersistenceMarkups.NAME_ATTRIBUTE;
-import static jmul.transformation.xml.rules.PersistenceMarkups.OBJECT_ELEMENT;
-import static jmul.transformation.xml.rules.PersistenceMarkups.REFERENCED_OBJECT_ATTRIBUTE;
-import static jmul.transformation.xml.rules.PersistenceMarkups.TYPE_ATTRIBUTE;
-import static jmul.transformation.xml.rules.TransformationConstants.OBJECT_CACHE;
-
 import jmul.reflection.Initializer;
 import jmul.reflection.classes.ClassDefinition;
 import jmul.reflection.classes.ClassHelper;
@@ -47,6 +37,15 @@ import jmul.string.StringConcatenator;
 import jmul.transformation.TransformationException;
 import jmul.transformation.TransformationParameters;
 import jmul.transformation.TransformationRuleBase;
+import jmul.transformation.xml.cache.Xml2ObjectCache;
+import static jmul.transformation.xml.rules.PersistenceMarkups.DECLARED_TYPE_ATTRIBUTE;
+import static jmul.transformation.xml.rules.PersistenceMarkups.FIELD_ELEMENT;
+import static jmul.transformation.xml.rules.PersistenceMarkups.ID_ATTRIBUTE;
+import static jmul.transformation.xml.rules.PersistenceMarkups.NAME_ATTRIBUTE;
+import static jmul.transformation.xml.rules.PersistenceMarkups.OBJECT_ELEMENT;
+import static jmul.transformation.xml.rules.PersistenceMarkups.REFERENCED_OBJECT_ATTRIBUTE;
+import static jmul.transformation.xml.rules.PersistenceMarkups.TYPE_ATTRIBUTE;
+import static jmul.transformation.xml.rules.TransformationConstants.OBJECT_CACHE;
 
 import jmul.xml.SubelementList;
 import jmul.xml.XmlParserHelper;
@@ -170,7 +169,6 @@ public class Xml2RootNodeRule extends TransformationRuleBase {
 
             // Get the required field informations.
 
-            //String declaredFieldType = XmlParserHelper.getXmlAttributeValue(fieldElement, DECLARED_TYPE_ATTRIBUTE);
             String fieldName = XmlParserHelper.getXmlAttributeValue(fieldElement, NAME_ATTRIBUTE);
             String referencedObject = XmlParserHelper.getXmlAttributeValue(fieldElement, REFERENCED_OBJECT_ATTRIBUTE);
 

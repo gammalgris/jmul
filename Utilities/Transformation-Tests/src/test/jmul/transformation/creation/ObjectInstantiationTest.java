@@ -32,6 +32,8 @@ import java.util.Date;
 import jmul.reflection.classes.ClassDefinition;
 import jmul.reflection.classes.ClassHelper;
 
+import jmul.test.classification.UnitTest;
+
 import jmul.transformation.creation.ObjectFactory;
 import jmul.transformation.creation.ObjectFactoryImpl;
 
@@ -47,6 +49,7 @@ import org.junit.Test;
  *
  * @author Kristian Kutin
  */
+@UnitTest
 public class ObjectInstantiationTest {
 
     /**

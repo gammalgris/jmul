@@ -252,4 +252,12 @@ final class StateNames {
     static final String STOPPED_STRING = "stopped";
     static final String ERROR_STRING = "error";
 
+    /**
+     * The default constructor.
+     */
+    private StateNames() {
+
+        throw new UnsupportedOperationException();
+    }
+
 }

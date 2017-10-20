@@ -59,6 +59,8 @@
         <echo message="  package document cfg dir .................... ${package.document.cfg.dir}" />
         <echo message="  package documentation dir ................... ${package.documentation.dir}" />
         <echo message="  package documentation src dir ............... ${package.documentation.src.dir}" />
+        <echo message="  package document-binary dir ................. ${package.document-binary.dir}" />
+        <echo message="  package document-binaty src dir ............. ${package.document-binary.src.dir}" />
         <echo message="  package document-csv dir .................... ${package.document-csv.dir}" />
         <echo message="  package document-csv src dir ................ ${package.document-csv.src.dir}" />
         <echo message="  package document-md dir ..................... ${package.document-md.dir}" />
@@ -110,6 +112,8 @@
         <echo message="  package xml dir ............................. ${package.xml.dir}" />
         <echo message="  package xml src dir ......................... ${package.xml.src.dir}" />
         <echo />
+        <echo message="  package document-binary tests dir ........... ${package.document-binary-tests.dir}" />
+        <echo message="  package document-binary tests src dir ....... ${package.document-binary-tests.src.dir}" />
         <echo message="  package document-csv tests dir .............. ${package.document-csv-tests.dir}" />
         <echo message="  package document-csv tests src dir .......... ${package.document-csv-tests.src.dir}" />
         <echo message="  package document-md tests dir ............... ${package.document-md-tests.dir}" />

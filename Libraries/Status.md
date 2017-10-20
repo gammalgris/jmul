@@ -24,18 +24,6 @@ Link: https://commons.apache.org/proper/commons-lang/
 
 Purpose: Some classes use the HashCodeBuilder and EqualsBuilder.
 
-## DB4O
-
-Latest Check: 2016.10.06, 2017.04.19
-
-Used Version: 8.0
-
-Latest Version: 8.0 (discontinued since 2014)
-
-Link: https://en.wikipedia.org/wiki/Db4o
-
-Purpose: Some legacy tests compared the performance of the persistence framework with the performance of DB4O.
-
 ## JUnit
 
 Latest Check: 2016.10.06, 2017.04.19

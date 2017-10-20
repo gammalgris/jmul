@@ -99,8 +99,6 @@ public final class ReflectionHelper {
 
         ErrorStatus status = new SingleErrorStatus();
 
-        //InvocationResult result;
-        //Method setter;
 
         Object[] parameters = { fieldValue };
         Class[] parameterSignature = { fieldValue.getClass() };

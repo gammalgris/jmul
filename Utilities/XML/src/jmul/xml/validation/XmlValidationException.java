@@ -62,7 +62,7 @@ public class XmlValidationException extends RuntimeException {
      *
      * @return all validation results
      */
-    public Collection<XmlValidationResult> getPruefergebnisse() {
+    public Collection<XmlValidationResult> getValidationResults() {
 
         return validationResults;
     }

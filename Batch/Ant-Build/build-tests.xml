@@ -11,6 +11,9 @@
     <target name="copySources">
 
         <copy todir="${project.tmp.tests-src.dir}" overwrite="true">
+            <fileset dir="${package.document-binary-tests.src.dir}">
+                <include name="**/*.java" />
+            </fileset>
             <fileset dir="${package.document-csv-tests.src.dir}">
                 <include name="**/*.java" />
             </fileset>
@@ -70,6 +73,9 @@
     <target name="copyCreators">
 
         <copy todir="${project.tmp.dir}" overwrite="true">
+            <file file="${package.document-binary-tests.testdata.creator}" />
+        </copy>
+        <copy todir="${project.tmp.dir}" overwrite="true">
             <file file="${package.document-csv-tests.testdata.creator}" />
         </copy>
         <copy todir="${project.tmp.dir}" overwrite="true">
@@ -84,6 +90,10 @@
 
     <target name="buildTestData">
 
+        <exec executable="cmd" dir="${project.tmp.dir}">
+            <arg value="/C" />
+            <arg value="${project.tmp.document-binary-tests.testdata.creator}" />
+        </exec>
         <exec executable="cmd" dir="${project.tmp.dir}">
             <arg value="/C" />
             <arg value="${project.tmp.document-csv-tests.testdata.creator}" />

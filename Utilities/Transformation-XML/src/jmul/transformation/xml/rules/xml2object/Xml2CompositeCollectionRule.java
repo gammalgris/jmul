@@ -30,6 +30,15 @@ import java.util.Collection;
 import jmul.misc.id.ID;
 import jmul.misc.id.IntegerID;
 
+import jmul.reflection.Initializer;
+import jmul.reflection.classes.ClassDefinition;
+import jmul.reflection.classes.ClassHelper;
+
+import jmul.string.StringConcatenator;
+
+import jmul.transformation.TransformationException;
+import jmul.transformation.TransformationParameters;
+import jmul.transformation.TransformationRuleBase;
 import jmul.transformation.xml.cache.Xml2ObjectCache;
 import static jmul.transformation.xml.rules.PersistenceMarkups.DECLARED_ELEMENT_TYPE_ATTRIBUTE;
 import static jmul.transformation.xml.rules.PersistenceMarkups.DECLARED_TYPE_ATTRIBUTE;
@@ -42,16 +51,6 @@ import static jmul.transformation.xml.rules.PersistenceMarkups.REFERENCED_ELEMEN
 import static jmul.transformation.xml.rules.PersistenceMarkups.REFERENCED_OBJECT_ATTRIBUTE;
 import static jmul.transformation.xml.rules.PersistenceMarkups.TYPE_ATTRIBUTE;
 import static jmul.transformation.xml.rules.TransformationConstants.OBJECT_CACHE;
-
-import jmul.reflection.Initializer;
-import jmul.reflection.classes.ClassDefinition;
-import jmul.reflection.classes.ClassHelper;
-
-import jmul.string.StringConcatenator;
-
-import jmul.transformation.TransformationException;
-import jmul.transformation.TransformationParameters;
-import jmul.transformation.TransformationRuleBase;
 
 import jmul.xml.SubelementList;
 import jmul.xml.XmlParserHelper;
@@ -148,7 +147,6 @@ public class Xml2CompositeCollectionRule extends TransformationRuleBase {
 
         String idString = XmlParserHelper.getXmlAttributeValue(objectElement, ID_ATTRIBUTE);
         String typeString = XmlParserHelper.getXmlAttributeValue(objectElement, TYPE_ATTRIBUTE);
-        //String declaredElementTypeString = XmlParserHelper.getXmlAttributeValue(objectElement, DECLARED_ELEMENT_TYPE_ATTRIBUTE);
 
         ID id = new IntegerID(idString);
         ClassDefinition type = null;
@@ -180,7 +178,6 @@ public class Xml2CompositeCollectionRule extends TransformationRuleBase {
 
             // Get the required field informations.
 
-            //String declaredFieldType = XmlParserHelper.getXmlAttributeValue(fieldElement, DECLARED_TYPE_ATTRIBUTE);
             String fieldName = XmlParserHelper.getXmlAttributeValue(fieldElement, NAME_ATTRIBUTE);
             String referencedObject = XmlParserHelper.getXmlAttributeValue(fieldElement, REFERENCED_OBJECT_ATTRIBUTE);
 

@@ -33,6 +33,11 @@ package jmul.string;
 public final class Constants {
 
     /**
+     * An index position within a string.
+     */
+    public static final int STARTING_INDEX = 0;
+
+    /**
      * The At sign.
      */
     public static final String AT = "@";

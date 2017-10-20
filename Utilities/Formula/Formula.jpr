@@ -94,6 +94,8 @@
    </hash>
    <hash n="oracle.jdeveloper.compiler.OjcConfiguration">
       <value n="internalEncoding" v="UTF-8"/>
+      <value n="source" v="1.7"/>
+      <value n="target" v="1.7"/>
       <value n="webIANAEncoding" v="UTF-8"/>
    </hash>
    <hash n="oracle.jdevimpl.config.JProjectLibraries">

@@ -214,7 +214,7 @@
          <string v=".xsd"/>
          <string v=".configuration"/>
       </list>
-      <value n="internalEncoding" v="Cp1252"/>
+      <value n="internalEncoding" v="UTF-8"/>
       <list n="Javac.commandline.optionlist">
          <string v="-g"/>
          <string v="-Xlint:all"/>
@@ -225,8 +225,8 @@
          <string v="-Xlint:-serial"/>
          <string v="-Xlint:-unchecked"/>
       </list>
-      <value n="source" v="Default"/>
-      <value n="target" v="Default"/>
+      <value n="source" v="1.7"/>
+      <value n="target" v="1.7"/>
       <value n="webIANAEncoding" v="windows-1252"/>
    </hash>
    <hash n="oracle.jdeveloper.deploy.dt.DeploymentProfiles">

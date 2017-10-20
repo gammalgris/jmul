@@ -308,7 +308,7 @@ public class WSImport implements CodeGenerator {
          * Das Klassenattribut enthält den Inhalt des Eingabestroms, soweit
          * dieser auslesbar war.
          */
-        private StringBuffer streamContent;
+        private StringBuilder streamContent;
 
         /**
          * Das Klassenattribut enthält die Information ob der Eingabestrom
@@ -327,7 +327,7 @@ public class WSImport implements CodeGenerator {
             InputStreamReader isr = new InputStreamReader(anInputStream);
             reader = new BufferedReader(isr);
 
-            streamContent = new StringBuffer();
+            streamContent = new StringBuilder();
 
             endOfStream = false;
         }

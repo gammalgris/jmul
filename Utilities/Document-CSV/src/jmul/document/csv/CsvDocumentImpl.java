@@ -25,8 +25,6 @@
 package jmul.document.csv;
 
 
-import java.io.IOException;
-
 import java.util.List;
 
 import jmul.document.csv.structure.HeaderType;
@@ -57,11 +55,9 @@ public class CsvDocumentImpl extends CsvDocumentBase {
      * @param aColumnSeparator
      * @param aRowSeparator
      * @param aTable
-     *
-     * @throws IOException
      */
     public CsvDocumentImpl(DocumentType aDocumentType, HeaderType aHeaderType, String aColumnSeparator,
-                           String aRowSeparator, Table<String> aTable) throws IOException {
+                           String aRowSeparator, Table<String> aTable) {
 
         super(aDocumentType, aHeaderType, aColumnSeparator, aRowSeparator, transformColumnNamesToArray(aTable));
 
@@ -75,11 +71,9 @@ public class CsvDocumentImpl extends CsvDocumentBase {
      * @param aColumnSeparator
      * @param aRowSeparator
      * @param aTable
-     *
-     * @throws IOException
      */
     public CsvDocumentImpl(DocumentType aDocumentType, String aColumnSeparator, String aRowSeparator,
-                           Table<String> aTable) throws IOException {
+                           Table<String> aTable) {
 
         super(aDocumentType, aColumnSeparator, aRowSeparator);
 

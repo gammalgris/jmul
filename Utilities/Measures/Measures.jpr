@@ -172,7 +172,9 @@
          <string v=".xsl"/>
          <string v=".units"/>
       </list>
-      <value n="internalEncoding" v="Cp1252"/>
+      <value n="internalEncoding" v="UTF-8"/>
+      <value n="source" v="1.7"/>
+      <value n="target" v="1.7"/>
    </hash>
    <hash n="oracle.jdeveloper.model.J2eeSettings">
       <value n="j2eeWebAppName" v="Test-Measures-webapp"/>

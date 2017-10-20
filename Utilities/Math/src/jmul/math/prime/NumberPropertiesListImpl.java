@@ -146,7 +146,7 @@ class NumberPropertiesListImpl implements NumberPropertiesList {
             }
         }
 
-        return (result.size() == 2);
+        return result.size() == 2;
     }
 
 }

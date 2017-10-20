@@ -22,12 +22,13 @@
       <string v="oracle.jdeveloper.model.PathsConfiguration/ApplicationSrcContentSet"/>
       <string v="oracle.jdeveloper.model.PathsConfiguration/ResourceBundlesContentSet"/>
    </list>
-   <list n="listOfChildren"/>
    <list n="listOfChildren">
       <hash><url n="URL" path="../Batch/Batch.jpr"/></hash>
       <hash><url n="URL" path="Concurrent/Concurrent.jpr"/></hash>
       <hash><url n="URL" path="Constants/Constants.jpr"/></hash>
       <hash><url n="URL" path="Document/Document.jpr"/></hash>
+      <hash><url n="URL" path="Document-Binary/Document-Binary.jpr"/></hash>
+      <hash><url n="URL" path="Document-Binary-Tests/Document-Binary-Tests.jpr"/></hash>
       <hash><url n="URL" path="Document-CSV/Document-CSV.jpr"/></hash>
       <hash><url n="URL" path="Document-CSV-Tests/Document-CSV-Tests.jpr"/></hash>
       <hash><url n="URL" path="Document-MD/Document-MD.jpr"/></hash>

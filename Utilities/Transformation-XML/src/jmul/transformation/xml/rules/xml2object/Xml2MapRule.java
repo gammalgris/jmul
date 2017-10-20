@@ -30,6 +30,15 @@ import java.util.Map;
 import jmul.misc.id.ID;
 import jmul.misc.id.IntegerID;
 
+import jmul.reflection.Initializer;
+import jmul.reflection.classes.ClassDefinition;
+import jmul.reflection.classes.ClassHelper;
+
+import jmul.string.StringConcatenator;
+
+import jmul.transformation.TransformationException;
+import jmul.transformation.TransformationParameters;
+import jmul.transformation.TransformationRuleBase;
 import jmul.transformation.xml.cache.Xml2ObjectCache;
 import static jmul.transformation.xml.rules.PersistenceMarkups.DECLARED_KEY_TYPE_ATTRIBUTE;
 import static jmul.transformation.xml.rules.PersistenceMarkups.DECLARED_VALUE_TYPE_ATTRIBUTE;
@@ -41,16 +50,6 @@ import static jmul.transformation.xml.rules.PersistenceMarkups.REFERENCED_KEY_AT
 import static jmul.transformation.xml.rules.PersistenceMarkups.REFERENCED_VALUE_ATTRIBUTE;
 import static jmul.transformation.xml.rules.PersistenceMarkups.TYPE_ATTRIBUTE;
 import static jmul.transformation.xml.rules.TransformationConstants.OBJECT_CACHE;
-
-import jmul.reflection.Initializer;
-import jmul.reflection.classes.ClassDefinition;
-import jmul.reflection.classes.ClassHelper;
-
-import jmul.string.StringConcatenator;
-
-import jmul.transformation.TransformationException;
-import jmul.transformation.TransformationParameters;
-import jmul.transformation.TransformationRuleBase;
 
 import jmul.xml.SubelementList;
 import jmul.xml.XmlParserHelper;
@@ -149,8 +148,6 @@ public class Xml2MapRule extends TransformationRuleBase {
 
         String idString = XmlParserHelper.getXmlAttributeValue(objectElement, ID_ATTRIBUTE);
         String typeString = XmlParserHelper.getXmlAttributeValue(objectElement, TYPE_ATTRIBUTE);
-        //String declaredKeyTypeString = XmlParserHelper.getXmlAttributeValue(objectElement, DECLARED_KEY_TYPE_ATTRIBUTE);
-        //String declaredValueTypeString = XmlParserHelper.getXmlAttributeValue(objectElement, DECLARED_VALUE_TYPE_ATTRIBUTE);
 
         ID id = new IntegerID(idString);
         ClassDefinition type = null;

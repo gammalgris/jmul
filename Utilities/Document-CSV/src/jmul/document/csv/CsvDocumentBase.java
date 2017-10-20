@@ -25,8 +25,6 @@
 package jmul.document.csv;
 
 
-import java.io.IOException;
-
 import java.nio.charset.Charset;
 
 import jmul.document.DocumentBase;
@@ -56,9 +54,6 @@ abstract class CsvDocumentBase extends DocumentBase<CsvStructure> implements Csv
      * @param aColumnSeparator
      * @param aRowSeparator
      * @param someColumnNames
-     *
-     * @throws IOException
-     *         is thrown if an error occurs while reading from the underlying file
      */
     protected CsvDocumentBase(DocumentType aDocumentType, HeaderType aHeaderType, String aColumnSeparator,
                               String aRowSeparator, String... someColumnNames) {

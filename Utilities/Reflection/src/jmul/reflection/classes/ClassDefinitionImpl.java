@@ -1087,7 +1087,7 @@ class ClassDefinitionImpl implements ClassDefinition {
         Class probedClass = getType();
 
 
-        while (recurse && (probedClass != null)) {
+        while (probedClass != null) {
 
             for (Field field : probedClass.getDeclaredFields()) {
 
@@ -1103,7 +1103,14 @@ class ClassDefinitionImpl implements ClassDefinition {
                 fields.add(field);
             }
 
-            probedClass = probedClass.getSuperclass();
+            if (recurse) {
+
+                probedClass = probedClass.getSuperclass();
+
+            } else {
+
+                break;
+            }
         }
 
 
@@ -1127,8 +1134,7 @@ class ClassDefinitionImpl implements ClassDefinition {
         Collection<Method> methods = new ArrayList<>();
         Class probedClass = getType();
 
-
-        while (recurse && (probedClass != null)) {
+        while (probedClass != null) {
 
             for (Method method : probedClass.getDeclaredMethods()) {
 
@@ -1141,7 +1147,14 @@ class ClassDefinitionImpl implements ClassDefinition {
                 methods.add(method);
             }
 
-            probedClass = probedClass.getSuperclass();
+            if (recurse) {
+
+                probedClass = probedClass.getSuperclass();
+
+            } else {
+
+                break;
+            }
         }
 
 

@@ -19,6 +19,9 @@
             <fileset dir="${package.document.src.dir}">
                 <include name="**/*.java" />
             </fileset>
+            <fileset dir="${package.document-binary.src.dir}">
+                <include name="**/*.java" />
+            </fileset>
             <fileset dir="${package.document-csv.src.dir}">
                 <include name="**/*.java" />
             </fileset>

@@ -39,12 +39,12 @@ public class ConstructorInvoker<T> {
     /**
      * An exception  clazz.
      */
-    public Class<T> clazz;
+    private final Class<T> clazz;
 
     /**
      * A constructor signature.
      */
-    public Class[] signature;
+    private final Class[] signature;
 
     /**
      * Creates a new instance according to the specified parameters.

@@ -150,7 +150,7 @@ public class XmlValidationResult {
      */
     public boolean existErrorDetails() {
 
-        return (error != null);
+        return error != null;
     }
 
     /**
@@ -183,7 +183,7 @@ public class XmlValidationResult {
     @Override
     public String toString() {
 
-        StringBuffer buffer = new StringBuffer();
+        StringBuilder buffer = new StringBuilder();
 
         buffer.append("\tXML schema: ");
         buffer.append(getSchemaName());

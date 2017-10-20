@@ -32,7 +32,7 @@ import static jmul.document.csv.structure.HeaderType.NO_HEADER;
 
 
 /**
- * This interface describes a document structure for csv files.
+ * This class describes a document structure for CSV files.
  *
  * @author Kristian Kutin
  */

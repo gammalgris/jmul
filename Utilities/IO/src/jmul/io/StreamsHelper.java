@@ -25,7 +25,11 @@
 package jmul.io;
 
 
+import java.io.Closeable;
+import java.io.IOException;
+
 import jmul.misc.annotations.Modified;
+import jmul.misc.exceptions.MultipleCausesException;
 
 import static jmul.string.Constants.NEW_LINE;
 
@@ -73,6 +77,44 @@ public final class StreamsHelper {
         }
 
         aBuffer.append(NEW_LINE);
+    }
+
+    /**
+     * Tries to close the specified stream.
+     *
+     * @param aStream
+     *        an input or output stream
+     *
+     * @throws IOException
+     *         is thrown if the specified stream couldn't be closed properly
+     */
+    public static void closeStream(Closeable aStream) throws IOException {
+
+        aStream.close();
+    }
+
+    /**
+     * Tries to close the specified stream after an exception occurred on a
+     * previous action.
+     *
+     * @param aStream
+     *        an input or output stream
+     * @param aPreviousException
+     *        the exception of the previous stream operation
+     *
+     * @throws IOException
+     *         is thrown if the specified stream couldn't be closed properly
+     */
+    public static void closeStreamAfterException(Closeable aStream, Throwable aPreviousException) throws IOException {
+
+        try {
+
+            aStream.close();
+
+        } catch (IOException e) {
+
+            throw new IOException(new MultipleCausesException(aPreviousException, e));
+        }
     }
 
 }
