@@ -4,7 +4,7 @@
  * JMUL is a central repository for utilities which are used in my
  * other public and private repositories.
  *
- * Copyright (C) 2016  Kristian Kutin
+ * Copyright (C) 2017  Kristian Kutin
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -30,17 +30,17 @@ package jmul.misc.exceptions;
  *
  * @author Kristian Kutin
  */
-public class NullArrayParameterException extends IllegalArgumentException {
+public class NullListParameterException extends IllegalArgumentException {
 
     /**
      * The default message for this kind of exception.
      */
-    private static final String DEFAULT_MESSAGE = "No array (null) has been specified!";
+    private static final String DEFAULT_MESSAGE = "No list (null) has been specified!";
 
     /**
      * The default constructor.
      */
-    public NullArrayParameterException() {
+    public NullListParameterException() {
 
         super(DEFAULT_MESSAGE);
     }

@@ -32,6 +32,8 @@ import jmul.test.classification.UnitTest;
 
 import org.junit.After;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
@@ -93,6 +95,88 @@ public class TupleTest {
         assertTrue(tuple.size() == 2);
         assertEquals(new Integer(1), tuple.get(0));
         assertEquals(new Integer(2), tuple.get(1));
+    }
+
+    /**
+     * Test equality of two different tuples with the same values.
+     */
+    @Test
+    public void testEquality() {
+
+        Tuple<Integer> t1 = new TupleImpl<>(1, 2, 3);
+        Tuple<Integer> t2 = new TupleImpl<>(1, 2, 3);
+
+        assertFalse(t1 == t2);
+
+        assertTrue(t1.equals(t2));
+        assertTrue(t2.equals(t1));
+
+        assertEquals(t1.hashCode(), t2.hashCode());
+    }
+
+    /**
+     * Test equality of the same tuple.
+     */
+    @Test
+    public void testEquality2() {
+
+        Tuple<Integer> t1 = new TupleImpl<>(1, 2, 3);
+        Tuple<Integer> t2 = t1;
+
+        assertTrue(t1 == t2);
+
+        assertTrue(t1.equals(t2));
+        assertTrue(t2.equals(t1));
+
+        assertEquals(t1.hashCode(), t2.hashCode());
+    }
+
+    /**
+     * Test inequality of two different tuples with different values.
+     */
+    @Test
+    public void testInequality() {
+
+        Tuple<Integer> t1 = new TupleImpl<>(1, 2, 3);
+        Tuple<Integer> t2 = new TupleImpl<>(1, 2, 4);
+
+        assertFalse(t1 == t2);
+
+        assertFalse(t1.equals(t2));
+        assertFalse(t2.equals(t1));
+
+        assertNotEquals(t1.hashCode(), t2.hashCode());
+    }
+
+    /**
+     * Test inequality with invalid parameters.
+     */
+    @Test
+    public void testEqualityWithInvalidParameters() {
+
+        Tuple<Integer> t1 = new TupleImpl<>(1, 2, 3);
+        Tuple<Integer> t2 = null;
+
+        assertFalse(t1 == t2);
+
+        assertFalse(t1.equals(t2));
+    }
+
+    /**
+     * Test inequality of two different tuples of different sizes.
+     */
+    @Test
+    public void testInequality2() {
+
+        Tuple<Integer> t1 = new TupleImpl<>(1, 2, 3, 4);
+        Tuple<Integer> t2 = new TupleImpl<>(1, 2, 4);
+
+        assertFalse(t1 == t2);
+
+        assertFalse(t1.equals(t2));
+        assertFalse(t2.equals(t1));
+
+        assertNotEquals(t1.hashCode(), t2.hashCode());
     }
 
 }

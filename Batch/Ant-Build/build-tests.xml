@@ -11,6 +11,9 @@
     <target name="copySources">
 
         <copy todir="${project.tmp.tests-src.dir}" overwrite="true">
+            <fileset dir="${package.constants-tests.src.dir}">
+                <include name="**/*.java" />
+            </fileset>
             <fileset dir="${package.document-binary-tests.src.dir}">
                 <include name="**/*.java" />
             </fileset>

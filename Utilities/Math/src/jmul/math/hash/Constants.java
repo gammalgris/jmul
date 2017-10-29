@@ -4,7 +4,7 @@
  * JMUL is a central repository for utilities which are used in my
  * other public and private repositories.
  *
- * Copyright (C) 2016  Kristian Kutin
+ * Copyright (C) 2017  Kristian Kutin
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -22,27 +22,27 @@
  * e-mail: kristian.kutin@arcor.de
  */
 
-package jmul.misc.exceptions;
+package jmul.math.hash;
 
 
 /**
- * An exception which is derived from {@link java.lang.IllegalArgumentException}.
+ * A utility class which only contains declaration of constants.
  *
  * @author Kristian Kutin
  */
-public class NullArrayParameterException extends IllegalArgumentException {
+public final class Constants {
 
     /**
-     * The default message for this kind of exception.
+     * A constant value.
      */
-    private static final String DEFAULT_MESSAGE = "No array (null) has been specified!";
+    public static final int DEFAULT_LIST_SIZE = 2;
 
     /**
      * The default constructor.
      */
-    public NullArrayParameterException() {
+    private Constants() {
 
-        super(DEFAULT_MESSAGE);
+        throw new UnsupportedOperationException();
     }
 
 }

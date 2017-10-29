@@ -24,11 +24,15 @@
 
 package jmul.math.hash;
 
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
+import static jmul.math.hash.Constants.DEFAULT_LIST_SIZE;
+import jmul.math.hash.archive.PrimeNumberArchive;
+import jmul.math.hash.archive.PrimeNumberArchiveImpl;
 import jmul.math.prime.PrimeNumberHelper;
 import static jmul.math.random.StandardDice.D20;
 
@@ -41,6 +45,19 @@ import static jmul.math.random.StandardDice.D20;
 public final class HashHelper {
 
     /**
+     * The archive stores prime numbers for calculating hash codes.
+     */
+    private static PrimeNumberArchive archive;
+
+    /*
+     * The static initializer.
+     */
+    static {
+
+        archive = new PrimeNumberArchiveImpl();
+    }
+
+    /**
      * The efault constructor.
      */
     private HashHelper() {
@@ -49,7 +66,25 @@ public final class HashHelper {
     }
 
     /**
-     * Calculate a hash code according to the specified parameters.
+     * Calculates a hash code according to the specified parameters.
+     *
+     * @param aClass
+     * @param someObjects
+     *
+     * @return
+     */
+    public static int calculateHashCode(Class aClass, Object... someObjects) {
+
+        if (!archive.existsEntry(aClass)) {
+
+            archive.addEntry(aClass, determineTwoPrimeNumbers());
+        }
+
+        return calculateHashCode(archive.getEntry(aClass), someObjects);
+    }
+
+    /**
+     * Calculates a hash code according to the specified parameters.
      *
      * @param twoPrimeNumbers
      * @param someObjects
@@ -58,7 +93,7 @@ public final class HashHelper {
      */
     public static int calculateHashCode(List<Integer> twoPrimeNumbers, Object... someObjects) {
 
-        if (twoPrimeNumbers.size() != 2) {
+        if (twoPrimeNumbers.size() != DEFAULT_LIST_SIZE) {
 
             String message = "No two numbers were specified!";
             throw new IllegalArgumentException(message);
@@ -97,7 +132,7 @@ public final class HashHelper {
 
         Set<Integer> primeNumbers = new TreeSet<>();
 
-        while (primeNumbers.size() < 2) {
+        while (primeNumbers.size() < DEFAULT_LIST_SIZE) {
 
             int primeNumber = PrimeNumberHelper.getNextPrimeNumber(D20.roll());
             primeNumbers.add(primeNumber);

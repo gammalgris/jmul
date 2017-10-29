@@ -27,6 +27,7 @@ package jmul.misc.checks;
 
 import java.io.File;
 
+import java.util.List;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
 
@@ -38,8 +39,10 @@ import jmul.misc.exceptions.NullClassParameterException;
 import jmul.misc.exceptions.NullDirectoryParameterException;
 import jmul.misc.exceptions.NullFileNameParameterException;
 import jmul.misc.exceptions.NullFileParameterException;
+import jmul.misc.exceptions.NullListParameterException;
 import jmul.misc.exceptions.NullListenerParameterException;
 import jmul.misc.exceptions.NullParameterException;
+import jmul.misc.exceptions.UnexpectedSizeException;
 
 
 /**
@@ -152,7 +155,7 @@ public final class ParameterCheckHelper {
      *
      * @param aCause
      *
-     * @return the specified cause
+     * @return the specified exception cause
      *
      * @throws IllegalArgumentException
      *         is thrown if the specified parameter is invalid
@@ -172,7 +175,7 @@ public final class ParameterCheckHelper {
      *
      * @param someCauses
      *
-     * @return the specified causes
+     * @return the specified exception causes
      *
      * @throws IllegalArgumentException
      *         is thrown if the specified parameter is invalid
@@ -197,7 +200,7 @@ public final class ParameterCheckHelper {
      *
      * @param aFile
      *
-     * @return the specified file
+     * @return the specified file object
      *
      * @throws IllegalArgumentException
      *         is thrown if the specified parameter is invalid
@@ -217,7 +220,7 @@ public final class ParameterCheckHelper {
      *
      * @param aFileName
      *
-     * @return the specified parameter
+     * @return the specified file name
      *
      * @throws IllegalArgumentException
      *         if the specified parameter is invalid
@@ -249,7 +252,7 @@ public final class ParameterCheckHelper {
      *
      * @param aDirectory
      *
-     * @return the specified directory
+     * @return the specified directory object
      *
      * @throws IllegalArgumentException
      *         is thrown if the specified parameter is invalid
@@ -269,7 +272,7 @@ public final class ParameterCheckHelper {
      *
      * @param aDirectoryName
      *
-     * @return the specified parameter
+     * @return the specified directory name
      *
      * @throws IllegalArgumentException
      *         if the specified parameter is invalid
@@ -301,7 +304,7 @@ public final class ParameterCheckHelper {
      *
      * @param aListener
      *
-     * @return the specified parameter
+     * @return the specified listener
      *
      * @throws IllegalArgumentException
      *         if the specified listener is invalid
@@ -322,7 +325,7 @@ public final class ParameterCheckHelper {
      * @param aListenerClass
      * @param aListener
      *
-     * @return the specified parameter
+     * @return the specified listener
      *
      * @throws IllegalArgumentException
      *         if the specified listener is invalid
@@ -389,10 +392,10 @@ public final class ParameterCheckHelper {
      * Checks the specified parameter.
      *
      * @param aMinValue
-     * @param aValue
+     * @param anIndex
      * @param aMaxValue
      *
-     * @return the index
+     * @return the specified index
      */
     public static int checkIndex(int aMinValue, int anIndex, int aMaxValue) {
 
@@ -413,6 +416,43 @@ public final class ParameterCheckHelper {
         }
 
         return anIndex;
+    }
+
+    /**
+     * Checks the specified parameter.
+     *
+     * @param aList
+     *
+     * @return the specified list
+     */
+    public static List checkList(List aList) {
+
+        if (aList == null) {
+
+            throw new NullListParameterException();
+        }
+
+        return aList;
+    }
+
+    /**
+     * Checks the specified paramter.
+     *
+     * @param aList
+     * @param anExpectedSize
+     *
+     * @return the specified list
+     */
+    public static List checkList(List aList, int anExpectedSize) {
+
+        checkList(aList);
+
+        if (anExpectedSize != aList.size()) {
+
+            throw new UnexpectedSizeException(anExpectedSize, aList.size());
+        }
+
+        return aList;
     }
 
 }

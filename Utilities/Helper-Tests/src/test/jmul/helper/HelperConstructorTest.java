@@ -184,6 +184,8 @@ public class HelperConstructorTest {
         parameters.add(new Object[] { jmul.reflection.ContainerHelper.class });
         parameters.add(new Object[] { jmul.io.StreamsHelper.class });
         parameters.add(new Object[] { jmul.xml.XmlMarkupHelper.class });
+        parameters.add(new Object[] { jmul.math.hash.Constants.class });
+        parameters.add(new Object[] { jmul.misc.checks.EqualityHelper.class });
 
         return parameters;
     }

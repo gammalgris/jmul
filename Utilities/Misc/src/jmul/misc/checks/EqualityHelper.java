@@ -4,7 +4,7 @@
  * JMUL is a central repository for utilities which are used in my
  * other public and private repositories.
  *
- * Copyright (C) 2016  Kristian Kutin
+ * Copyright (C) 2017  Kristian Kutin
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -22,27 +22,48 @@
  * e-mail: kristian.kutin@arcor.de
  */
 
-package jmul.misc.exceptions;
+package jmul.misc.checks;
 
 
 /**
- * An exception which is derived from {@link java.lang.IllegalArgumentException}.
+ * A utility class with operations to determine object equality.
  *
  * @author Kristian Kutin
  */
-public class NullArrayParameterException extends IllegalArgumentException {
-
-    /**
-     * The default message for this kind of exception.
-     */
-    private static final String DEFAULT_MESSAGE = "No array (null) has been specified!";
+public final class EqualityHelper {
 
     /**
      * The default constructor.
      */
-    public NullArrayParameterException() {
+    private EqualityHelper() {
 
-        super(DEFAULT_MESSAGE);
+        throw new UnsupportedOperationException();
+    }
+
+    /**
+     * Checks the equality of the specified objects.
+     *
+     * @param o1
+     * @param o2
+     *
+     * @return <code>true</code> if both objects are either <code>null</code> or
+     *         equal according to the result of the <code>equals</code> method.
+     *         Otherwise <code>false</code> is returned.
+     */
+    public static boolean equalObjects(Object o1, Object o2) {
+
+        if ((o1 == null) && (o2 == null)) {
+
+            return true;
+
+        } else if ((o1 == null) || (o2 == null)) {
+
+            return false;
+
+        } else {
+
+            return o1.equals(o2);
+        }
     }
 
 }

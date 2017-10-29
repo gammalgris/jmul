@@ -64,6 +64,16 @@ public final class ConstructorSignatures {
      */
     public static final List<Class> MESSAGE_FILE_CONSTRUCTOR;
 
+    /**
+     * A signature of a constructor.
+     */
+    public static final List<Class> CLASS_PARAMETER_CONSTRUCTOR;
+
+    /**
+     * A signature of a constructor.
+     */
+    public static final List<Class> SIZES_PARAMETERS_CONSTRUCTOR;
+
     /*
      * The static initializer.
      */
@@ -91,6 +101,15 @@ public final class ConstructorSignatures {
         tmp.add(String.class);
         tmp.add(File.class);
         MESSAGE_FILE_CONSTRUCTOR = Collections.unmodifiableList(tmp);
+
+        tmp = new ArrayList<>();
+        tmp.add(Class.class);
+        CLASS_PARAMETER_CONSTRUCTOR = Collections.unmodifiableList(tmp);
+
+        tmp = new ArrayList<>();
+        tmp.add(Integer.TYPE);
+        tmp.add(Integer.TYPE);
+        SIZES_PARAMETERS_CONSTRUCTOR = Collections.unmodifiableList(tmp);
     }
 
     /**
@@ -159,6 +178,26 @@ public final class ConstructorSignatures {
     public static Class[] getMessageFileConstructorSignature() {
 
         return MESSAGE_FILE_CONSTRUCTOR.toArray(new Class[] { });
+    }
+
+    /**
+     * Returns a constructor signature.
+     *
+     * @return a constructor signature
+     */
+    public static Class[] getClassParameterConstructor() {
+
+        return CLASS_PARAMETER_CONSTRUCTOR.toArray(new Class[] { });
+    }
+
+    /**
+     * Returns a constructor signature.
+     *
+     * @return a constructor signature
+     */
+    public static Class[] getSizesParametersConstructor() {
+
+        return SIZES_PARAMETERS_CONSTRUCTOR.toArray(new Class[] { });
     }
 
 }

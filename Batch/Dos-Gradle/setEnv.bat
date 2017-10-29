@@ -19,7 +19,7 @@ call:defineVariables
 
 set subroutineCalls.length=5
 set subroutineCalls[1]=setJava
-set subroutineCalls[2]=setAnt
+set subroutineCalls[2]=setGradle
 set subroutineCalls[3]=printInfo
 set subroutineCalls[4]=checkEnvironment
 set subroutineCalls[5]=setPath
@@ -35,7 +35,7 @@ for /L %%i in (1,1,%subroutineCalls.length%) do (
 )
 
 
-call:changeConsoleTitle "Java 7"
+call:changeConsoleTitle "Java 8"
 
 
 for /L %%i in (1,1,%subroutineCalls.length%) do (
@@ -193,31 +193,29 @@ call:cleanVariables
 
 :setJava
 
-	set JAVA_HOME=D:\Programme\jdk1.7.0_80\
+	set JAVA_HOME=C:\Oracle\Middleware\Oracle_Home\oracle_common\jdk\
 	set JAVA_BIN=%JAVA_HOME%bin\
 	set JAVA_EXE=%JAVA_BIN%java.exe
 
-	call:addApplication JAVA JAVA_HOME JAVA_EXE 1.7.0
+	call:addApplication JAVA JAVA_HOME JAVA_EXE 1.8.0
 
 %return%
 
 
 @rem --------------------------------------------------------------------------------
 @rem ---
-@rem ---   void setAnt()
+@rem ---   void setGradle()
 @rem ---
-@rem ---   The subroutine defines several environment variables for ant.
+@rem ---   The subroutine defines several environment variables for Gradle.
 @rem ---
 
-:setAnt
+:setGradle
 
-	set ANT_HOME=C:\Oracle\Middleware\Oracle_Home\oracle_common\modules\org.apache.ant_1.9.2\
-	rem set ANT_HOME=D:\Programme\apache-ant-1.8.0\
-	set ANT_BIN=%ANT_HOME%bin\
-	set ANT_EXE=%ANT_BIN%ant.bat
+	set GRADLE_HOME=D:\Programme\gradle-4.2.1\
+	set GRADLE_BIN=%GRADLE_HOME%bin\
+	set GRADLE_EXE=%GRADLE_BIN%gradle.bat
 
-	rem call:addApplication ANT ANT_HOME ANT_EXE 1.8.0
-	call:addApplication ANT ANT_HOME ANT_EXE 1.9.2
+	call:addApplication GRADLE GRADLE_HOME GRADLE_EXE 4.2.1
 
 %return%
 
@@ -237,8 +235,8 @@ call:cleanVariables
 	set NEW_PATH=C:\WINDOWS\system32
 	set NEW_PATH=C:\WINDOWS;%NEW_PATH%
 
-	set NEW_PATH=%ANT_HOME%bin;%NEW_PATH%
-	set NEW_PATH=%JAVA_HOME%bin;%NEW_PATH%
+	set NEW_PATH=%JAVA_BIN%;%NEW_PATH%
+	set NEW_PATH=%GRADLE_BIN%;%NEW_PATH%
 	set NEW_PATH=.;%NEW_PATH%
 
 

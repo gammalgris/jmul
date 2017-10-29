@@ -4,7 +4,7 @@
  * JMUL is a central repository for utilities which are used in my
  * other public and private repositories.
  *
- * Copyright (C) 2016  Kristian Kutin
+ * Copyright (C) 2017  Kristian Kutin
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -22,27 +22,45 @@
  * e-mail: kristian.kutin@arcor.de
  */
 
-package jmul.misc.exceptions;
+package jmul.math.hash.archive;
+
+
+import jmul.misc.checks.ParameterCheckHelper;
 
 
 /**
- * An exception which is derived from {@link java.lang.IllegalArgumentException}.
+ * The exception is thrown if an unknown class was specified as parameter.
  *
  * @author Kristian Kutin
  */
-public class NullArrayParameterException extends IllegalArgumentException {
+public class UnknownClassException extends IllegalArgumentException {
 
     /**
-     * The default message for this kind of exception.
+     * Creates a new exception according to the specified parameters.
+     *
+     * @param aClass
      */
-    private static final String DEFAULT_MESSAGE = "No array (null) has been specified!";
+    public UnknownClassException(Class aClass) {
+
+        super(createMessage(ParameterCheckHelper.checkClass(aClass)));
+    }
 
     /**
-     * The default constructor.
+     * Creates an error message according to the specified parameters.
+     *
+     * @param aClass
+     *
+     * @return an error message
      */
-    public NullArrayParameterException() {
+    private static String createMessage(Class aClass) {
 
-        super(DEFAULT_MESSAGE);
+        StringBuilder buffer = new StringBuilder();
+
+        buffer.append("No entry exists for the specified class (");
+        buffer.append(aClass.getCanonicalName());
+        buffer.append("!");
+
+        return String.valueOf(buffer);
     }
 
 }

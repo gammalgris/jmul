@@ -43,15 +43,20 @@ import jmul.io.FileDeletionException;
 import jmul.io.NestedStreamsException;
 
 import jmul.math.formula.parser.FormulaParserException;
+import jmul.math.hash.archive.ExistingEntryException;
+import jmul.math.hash.archive.UnknownClassException;
 
+import jmul.misc.annotations.Modified;
 import jmul.misc.exceptions.EmptyArrayParameterException;
 import jmul.misc.exceptions.EmptyStringParameterException;
 import jmul.misc.exceptions.InitializationException;
 import jmul.misc.exceptions.NullArrayParameterException;
 import jmul.misc.exceptions.NullDirectoryParameterException;
 import jmul.misc.exceptions.NullFileParameterException;
+import jmul.misc.exceptions.NullListParameterException;
 import jmul.misc.exceptions.NullNumberException;
 import jmul.misc.exceptions.NullParameterException;
+import jmul.misc.exceptions.UnexpectedSizeException;
 import jmul.misc.generators.GeneratorException;
 import jmul.misc.state.IllegalStateTransitionException;
 import jmul.misc.state.UnknownStateException;
@@ -247,6 +252,13 @@ public class ExceptionConstructorValidParametersTest {
         addDefaultConstructorTestCase(parameters, FormulaParserException.class);
 
 
+        // Exceptions from package Math
+
+        addClassParameterTestCases(parameters, ExistingEntryException.class);
+        addClassParameterTestCases(parameters, UnknownClassException.class);
+        addSizesParametersTestCases(parameters, UnexpectedSizeException.class);
+
+
         // Exceptions from package Misc
 
         addDefaultConstructorTestCase(parameters, EmptyArrayParameterException.class);
@@ -261,6 +273,7 @@ public class ExceptionConstructorValidParametersTest {
         addDefaultTestCases(parameters, UnknownStateException.class);
         addDefaultConstructorTestCase(parameters, NullDirectoryParameterException.class);
         addDefaultConstructorTestCase(parameters, NullNumberException.class);
+        addDefaultConstructorTestCase(parameters, NullListParameterException.class);
 
 
         // Exceptions from package Network
@@ -329,7 +342,7 @@ public class ExceptionConstructorValidParametersTest {
      * @param someParameters
      * @param anExceptionClass
      */
-    private static void addDefaultTestCases(Collection<Object[]> someParameters, Class anExceptionClass) {
+    private static void addDefaultTestCases(@Modified Collection<Object[]> someParameters, Class anExceptionClass) {
 
         addDefaultConstructorTestCase(someParameters, anExceptionClass);
         addMessageOnlyTestCases(someParameters, anExceptionClass);
@@ -343,7 +356,7 @@ public class ExceptionConstructorValidParametersTest {
      * @param someParameters
      * @param anExceptionClass
      */
-    private static void addDefaultTestCases2(Collection<Object[]> someParameters, Class anExceptionClass) {
+    private static void addDefaultTestCases2(@Modified Collection<Object[]> someParameters, Class anExceptionClass) {
 
         addMessageOnlyTestCases(someParameters, anExceptionClass);
         addMessageCauseCombinationsTestCases(someParameters, anExceptionClass);
@@ -355,7 +368,7 @@ public class ExceptionConstructorValidParametersTest {
      * @param someParameters
      * @param anExceptionClass
      */
-    private static void addDefaultTestCases3(Collection<Object[]> someParameters, Class anExceptionClass) {
+    private static void addDefaultTestCases3(@Modified Collection<Object[]> someParameters, Class anExceptionClass) {
 
         addDefaultConstructorTestCase(someParameters, anExceptionClass);
         addMessageOnlyTestCases(someParameters, anExceptionClass);
@@ -368,7 +381,8 @@ public class ExceptionConstructorValidParametersTest {
      * @param someParameters
      * @param anExceptionClass
      */
-    private static void addDefaultConstructorTestCase(Collection<Object[]> someParameters, Class anExceptionClass) {
+    private static void addDefaultConstructorTestCase(@Modified Collection<Object[]> someParameters,
+                                                      Class anExceptionClass) {
 
         Class[] signature = ConstructorSignatures.getDefaultConstructorSignature();
 
@@ -381,12 +395,12 @@ public class ExceptionConstructorValidParametersTest {
      * @param someParameters
      * @param anExceptionClass
      */
-    private static void addMessageOnlyTestCases(Collection<Object[]> someParameters, Class anExceptionClass) {
+    private static void addMessageOnlyTestCases(@Modified Collection<Object[]> someParameters, Class anExceptionClass) {
 
         Class[] signature = ConstructorSignatures.getMessageConstructorSignature();
 
-        someParameters.add(new Object[] {
-                           new ConstructorInvoker(anExceptionClass, signature), new Object[] { "Hello" } });
+        someParameters.add(new Object[] { new ConstructorInvoker(anExceptionClass, signature),
+                                          new Object[] { "Hello" } });
     }
 
     /**
@@ -395,13 +409,12 @@ public class ExceptionConstructorValidParametersTest {
      * @param someParameters
      * @param anExceptionClass
      */
-    private static void addCauseOnlyTestCases(Collection<Object[]> someParameters, Class anExceptionClass) {
+    private static void addCauseOnlyTestCases(@Modified Collection<Object[]> someParameters, Class anExceptionClass) {
 
         Class[] signature = ConstructorSignatures.getCauseConstructorSignature();
 
-        someParameters.add(new Object[] {
-                           new ConstructorInvoker(anExceptionClass, signature),
-                           new Object[] { new RuntimeException() } });
+        someParameters.add(new Object[] { new ConstructorInvoker(anExceptionClass, signature),
+                                          new Object[] { new RuntimeException() } });
     }
 
     /**
@@ -410,14 +423,13 @@ public class ExceptionConstructorValidParametersTest {
      * @param someParameters
      * @param anExceptionClass
      */
-    private static void addMessageCauseCombinationsTestCases(Collection<Object[]> someParameters,
+    private static void addMessageCauseCombinationsTestCases(@Modified Collection<Object[]> someParameters,
                                                              Class anExceptionClass) {
 
         Class[] signature = ConstructorSignatures.getMessageCauseConstructorSignature();
 
-        someParameters.add(new Object[] {
-                           new ConstructorInvoker(anExceptionClass, signature),
-                           new Object[] { "Hello", new RuntimeException() } });
+        someParameters.add(new Object[] { new ConstructorInvoker(anExceptionClass, signature),
+                                          new Object[] { "Hello", new RuntimeException() } });
     }
 
     /**
@@ -425,15 +437,41 @@ public class ExceptionConstructorValidParametersTest {
      *
      * @param someParameters
      */
-    private static void addFileDeletionExceptionTestCases(Collection<Object[]> someParameters) {
+    private static void addFileDeletionExceptionTestCases(@Modified Collection<Object[]> someParameters) {
 
         Class exceptionClass = FileDeletionException.class;
         Class[] signature = ConstructorSignatures.getMessageFileConstructorSignature();
 
-        someParameters.add(new Object[] {
-                           new ConstructorInvoker(exceptionClass, signature),
-                           new Object[] { "Hello", new File("test.txt") } });
+        someParameters.add(new Object[] { new ConstructorInvoker(exceptionClass, signature),
+                                          new Object[] { "Hello", new File("test.txt") } });
 
+    }
+
+    /**
+     * Adds test cases for a specific exception.
+     *
+     * @param someParameters
+     */
+    private static void addClassParameterTestCases(@Modified Collection<Object[]> someParameters,
+                                                   Class anExceptionClass) {
+
+        Class[] signature = ConstructorSignatures.getClassParameterConstructor();
+
+        someParameters.add(new Object[] { new ConstructorInvoker(anExceptionClass, signature),
+                                          new Object[] { Object.class } });
+    }
+
+    /**
+     * Adds test cases for a specific exception.
+     *
+     * @param someParameters
+     */
+    private static void addSizesParametersTestCases(@Modified Collection<Object[]> someParameters,
+                                                    Class anExceptionClass) {
+
+        Class[] signature = ConstructorSignatures.getSizesParametersConstructor();
+
+        someParameters.add(new Object[] { new ConstructorInvoker(anExceptionClass, signature), new Object[] { 2, 1 } });
     }
 
 }

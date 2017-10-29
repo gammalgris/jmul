@@ -483,7 +483,7 @@ call:cleanVariables
 	endlocal & set "_executable=%_tmp%"
 
 
-	call "%_executable%" -version 2>&1 | findstr "%_expectedVersion%" > NUL
+	call "%_executable%" -version 2>&1 | findstr /L "%_expectedVersion%" > NUL
 	%ifError% (
 
 		%cprintln% %_executable% ... %_expectedVersion% ... failed >&2

@@ -136,6 +136,11 @@ public final class Constants {
      */
     public static Number getEpsilon(Class aType) {
 
+        if (aType == null) {
+
+            throw new IllegalArgumentException("No value (null) was specified!");
+        }
+
         Number value = EPSILONS.get(aType);
 
         if (value == null) {
@@ -155,6 +160,11 @@ public final class Constants {
      * @return zero
      */
     public static Number getZero(Class aType) {
+
+        if (aType == null) {
+
+            throw new IllegalArgumentException("No value (null) was specified!");
+        }
 
         Number value = ZEROS.get(aType);
 

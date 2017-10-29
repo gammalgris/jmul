@@ -130,6 +130,14 @@
                   <string v="+**"/>
                </list>
                <list n="url-path">
+                  <url path="Ant-Gradle/"/>
+               </list>
+            </hash>
+            <hash>
+               <list n="pattern-filters">
+                  <string v="+**"/>
+               </list>
+               <list n="url-path">
                   <url path="Ant-Misc/"/>
                </list>
             </hash>

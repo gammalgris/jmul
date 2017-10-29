@@ -30,6 +30,8 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+import jmul.misc.checks.EqualityHelper;
+
 
 /**
  * An implementation of a tuple.
@@ -117,7 +119,7 @@ public class TupleImpl<T> implements Tuple<T> {
                     Object o1 = this.get(a);
                     Object o2 = other.get(a);
 
-                    if (!compareObjects(o1, o2)) {
+                    if (!EqualityHelper.equalObjects(o1, o2)) {
 
                         return false;
                     }
@@ -128,24 +130,6 @@ public class TupleImpl<T> implements Tuple<T> {
         }
 
         return false;
-    }
-
-    /**
-     * Checks the equality of the specified objects, including a
-     * <code>null</code> check..
-     *
-     * @param o1
-     * @param o2
-     *
-     * @return <code>true</code> if the specified objects are equal,
-     *         else <code>false</code>
-     */
-    private static boolean compareObjects(Object o1, Object o2) {
-
-        boolean bothAreNull = (o1 == null) && (o2 == null);
-        boolean bothAreEqual = (o1 != null) && (o2 != null) && o1.equals(o2);
-
-        return bothAreNull || bothAreEqual;
     }
 
     /**

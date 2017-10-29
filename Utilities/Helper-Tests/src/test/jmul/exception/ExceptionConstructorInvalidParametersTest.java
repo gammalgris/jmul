@@ -41,7 +41,10 @@ import jmul.io.FileDeletionException;
 import jmul.io.NestedStreamsException;
 
 import jmul.math.formula.parser.FormulaParserException;
+import jmul.math.hash.archive.ExistingEntryException;
+import jmul.math.hash.archive.UnknownClassException;
 
+import jmul.misc.annotations.Modified;
 import jmul.misc.exceptions.InitializationException;
 import jmul.misc.generators.GeneratorException;
 import jmul.misc.state.IllegalStateTransitionException;
@@ -218,6 +221,12 @@ public class ExceptionConstructorInvalidParametersTest {
         addDefaultTestCases(parameters, FormulaParserException.class);
 
 
+        // Exceptions from package Math
+
+        addClassParameterTestCases(parameters, ExistingEntryException.class);
+        addClassParameterTestCases(parameters, UnknownClassException.class);
+
+
         // Exceptions from package Misc
 
         //addDefaultTestCases(parameters, EmptyArrayParameterException.class);
@@ -359,20 +368,17 @@ public class ExceptionConstructorInvalidParametersTest {
 
         Class[] signature = ConstructorSignatures.getMessageCauseConstructorSignature();
 
-        someParameters.add(new Object[] {
-                           new ConstructorInvoker(anExceptionClass, signature),
-                           new Object[] { null, new RuntimeException() } });
+        someParameters.add(new Object[] { new ConstructorInvoker(anExceptionClass, signature),
+                                          new Object[] { null, new RuntimeException() } });
 
-        someParameters.add(new Object[] {
-                           new ConstructorInvoker(anExceptionClass, signature),
-                           new Object[] { "", new RuntimeException() } });
+        someParameters.add(new Object[] { new ConstructorInvoker(anExceptionClass, signature),
+                                          new Object[] { "", new RuntimeException() } });
 
-        someParameters.add(new Object[] {
-                           new ConstructorInvoker(anExceptionClass, signature),
-                           new Object[] { " ", new RuntimeException() } });
+        someParameters.add(new Object[] { new ConstructorInvoker(anExceptionClass, signature),
+                                          new Object[] { " ", new RuntimeException() } });
 
-        someParameters.add(new Object[] {
-                           new ConstructorInvoker(anExceptionClass, signature), new Object[] { "Hello", null } });
+        someParameters.add(new Object[] { new ConstructorInvoker(anExceptionClass, signature),
+                                          new Object[] { "Hello", null } });
     }
 
     /**
@@ -385,21 +391,31 @@ public class ExceptionConstructorInvalidParametersTest {
         Class exceptionClass = FileDeletionException.class;
         Class[] signature = ConstructorSignatures.getMessageFileConstructorSignature();
 
-        someParameters.add(new Object[] {
-                           new ConstructorInvoker(exceptionClass, signature),
-                           new Object[] { null, new File("test.txt") } });
+        someParameters.add(new Object[] { new ConstructorInvoker(exceptionClass, signature),
+                                          new Object[] { null, new File("test.txt") } });
 
-        someParameters.add(new Object[] {
-                           new ConstructorInvoker(exceptionClass, signature),
-                           new Object[] { "", new File("test.txt") } });
+        someParameters.add(new Object[] { new ConstructorInvoker(exceptionClass, signature),
+                                          new Object[] { "", new File("test.txt") } });
 
-        someParameters.add(new Object[] {
-                           new ConstructorInvoker(exceptionClass, signature),
-                           new Object[] { " ", new File("test.txt") } });
+        someParameters.add(new Object[] { new ConstructorInvoker(exceptionClass, signature),
+                                          new Object[] { " ", new File("test.txt") } });
 
-        someParameters.add(new Object[] {
-                           new ConstructorInvoker(exceptionClass, signature), new Object[] { "Hello", null } });
+        someParameters.add(new Object[] { new ConstructorInvoker(exceptionClass, signature),
+                                          new Object[] { "Hello", null } });
 
+    }
+
+    /**
+     * Adds test cases for a specific exception.
+     *
+     * @param someParameters
+     */
+    private static void addClassParameterTestCases(@Modified Collection<Object[]> someParameters,
+                                                   Class anExceptionClass) {
+
+        Class[] signature = ConstructorSignatures.getClassParameterConstructor();
+
+        someParameters.add(new Object[] { new ConstructorInvoker(anExceptionClass, signature), new Object[] { null } });
     }
 
 }
