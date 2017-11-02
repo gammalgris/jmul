@@ -10,6 +10,9 @@
     <target name="copySources">
 
         <copy todir="${project.tmp.src.dir}" overwrite="true">
+            <fileset dir="${package.component.src.dir}">
+                <include name="**/*.java" />
+            </fileset>
             <fileset dir="${package.concurrent.src.dir}">
                 <include name="**/*.java" />
             </fileset>

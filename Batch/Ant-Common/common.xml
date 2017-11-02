@@ -49,6 +49,8 @@
         <echo />
         <echo message="  packages base dir ........................... ${packages.base.dir}" />
         <echo />
+        <echo message="  package component dir ....................... ${package.component.dir}" />
+        <echo message="  package component src dir ................... ${package.component.src.dir}" />
         <echo message="  package concurrent dir ...................... ${package.concurrent.dir}" />
         <echo message="  package concurrent src dir .................. ${package.concurrent.src.dir}" />
         <echo message="  package concurrent cfg dir .................. ${package.concurrent.cfg.dir}" />
@@ -112,6 +114,8 @@
         <echo message="  package xml dir ............................. ${package.xml.dir}" />
         <echo message="  package xml src dir ......................... ${package.xml.src.dir}" />
         <echo />
+        <echo message="  package component tests dir ................. ${package.component-tests.dir}" />
+        <echo message="  package component tests src dir ............. ${package.component-tests.src.dir}" />
         <echo message="  package constants tests dir ................. ${package.constants-tests.dir}" />
         <echo message="  package constants tests src dir ............. ${package.constants-tests.src.dir}" />
         <echo message="  package document-binary tests dir ........... ${package.document-binary-tests.dir}" />
