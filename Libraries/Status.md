@@ -2,7 +2,7 @@
 
 ## Cobertura
 
-Last Check: 2016.10.06, 2017.04.19
+Last Check: 2016.10.06, 2017.04.19, 2017.11.02
 
 Used Version: 2.1.1
 
