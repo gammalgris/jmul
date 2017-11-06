@@ -232,6 +232,34 @@ public final class XmlParserHelper {
     }
 
     /**
+     * Checks if the specified container contains the specified subelement.
+     *
+     * @param subelements
+     * @param markup
+     *
+     * @return <code>true</code> if the container contains the specified subelement,
+     *         else <code>false</code>
+     */
+    public static boolean hasXmlSubelement(SubelementMap subelements, XmlMarkup markup) {
+
+        return subelements.hasSubelement(markup);
+    }
+
+    /**
+     * Checks if specified container contains the specified subelement.
+     *
+     * @param subelements
+     * @param markup
+     */
+    public static void assertHasXmlSubelement(SubelementMap subelements, XmlMarkup markup) {
+
+        if (!hasXmlSubelement(subelements, markup)) {
+
+            throw createNoSpecificSubelementsException(subelements.getParentName(), markup);
+        }
+    }
+
+    /**
      * Checks if the specified container contains subelements.
      *
      * @param subelements
@@ -324,6 +352,22 @@ public final class XmlParserHelper {
         message.append("\"!");
 
         return new ParsingException(message);
+    }
+
+    /**
+     * Returns the text content of the specified child element.
+     *
+     * @param parentSubelements
+     * @param child
+     *
+     * @return a string
+     */
+    public static String getTextContent(SubelementMap parentSubelements, XmlMarkup child) {
+
+        Node childNode = parentSubelements.getSubelement(child);
+        assertHasXmlSubelement(parentSubelements, child);
+
+        return childNode.getTextContent();
     }
 
 }
