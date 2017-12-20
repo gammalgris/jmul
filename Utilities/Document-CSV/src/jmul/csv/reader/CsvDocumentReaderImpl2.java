@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -24,6 +27,7 @@
 
 package jmul.csv.reader;
 
+
 import java.io.IOException;
 
 import java.nio.charset.Charset;
@@ -47,13 +51,13 @@ import jmul.string.TextHelper;
 
 
 /**
- * An implementation for a CSV document reader. The reader expects uniformly
- * structured CSV file where there exist
+ * An implementation for a CSV document reader. The reader expects a uniformly
+ * structured CSV file with
  * <ul>
  * <li>a defined header line,</li>
  * <li>a defined column separator,</li>
  * <li>in each line exists the same number of columns as indicated by the header line</li>
- * <li>and a table row may be spread along several lines.
+ * <li>and a table row may be spread along several lines</li>
  * </ul>
  *
  * @author Kristian Kutin
@@ -92,6 +96,7 @@ public class CsvDocumentReaderImpl2 extends CsvDocumentReaderBase {
      * Creates a new document reader according to the specified parameters.
      *
      * @param aCharset
+     *        the assumed charset
      */
     public CsvDocumentReaderImpl2(Charset aCharset) {
 
@@ -102,6 +107,7 @@ public class CsvDocumentReaderImpl2 extends CsvDocumentReaderBase {
      * Creates a new document reader according to the specified parameters.
      *
      * @param aColumnSeparator
+     *        the assumed column separator
      */
     public CsvDocumentReaderImpl2(String aColumnSeparator) {
 
@@ -112,7 +118,9 @@ public class CsvDocumentReaderImpl2 extends CsvDocumentReaderBase {
      * Creates a new document reader according to the specified parameters.
      *
      * @param aCharset
+     *        the assumed charset
      * @param aColumnSeparator
+     *        the assumed column separator
      */
     public CsvDocumentReaderImpl2(Charset aCharset, String aColumnSeparator) {
 
@@ -123,7 +131,9 @@ public class CsvDocumentReaderImpl2 extends CsvDocumentReaderBase {
      * Creates a new document reader according to the specified parameters.
      *
      * @param aColumnSeparator
+     *        the assumed column separator
      * @param aRowSeparator
+     *        the assumed row separator
      */
     public CsvDocumentReaderImpl2(String aColumnSeparator, String aRowSeparator) {
 
@@ -134,8 +144,11 @@ public class CsvDocumentReaderImpl2 extends CsvDocumentReaderBase {
      * Creates a new document reader according to the specified parameters.
      *
      * @param aCharset
+     *        the assumed charset
      * @param aColumnSeparator
+     *        the assumed column separator
      * @param aRowSeparator
+     *        the assumed row separator
      */
     public CsvDocumentReaderImpl2(Charset aCharset, String aColumnSeparator, String aRowSeparator) {
 
@@ -146,8 +159,11 @@ public class CsvDocumentReaderImpl2 extends CsvDocumentReaderBase {
      * Creates a new document reader according to the specified parameters.
      *
      * @param aHeaderType
+     *        the assumed header type
      * @param aColumnSeparator
+     *        the assumed column separator
      * @param aRowSeparator
+     *        the assumed row separator
      */
     public CsvDocumentReaderImpl2(HeaderType aHeaderType, String aColumnSeparator, String aRowSeparator) {
 
@@ -158,9 +174,13 @@ public class CsvDocumentReaderImpl2 extends CsvDocumentReaderBase {
      * Creates a new document reader according to the specified parameters.
      *
      * @param aCharset
+     *        the assumed charset
      * @param aHeaderType
+     *        the assumed header type
      * @param aColumnSeparator
+     *        the assumed column separator
      * @param aRowSeparator
+     *        the assumed row separator
      */
     public CsvDocumentReaderImpl2(Charset aCharset, HeaderType aHeaderType, String aColumnSeparator,
                                   String aRowSeparator) {
@@ -172,7 +192,9 @@ public class CsvDocumentReaderImpl2 extends CsvDocumentReaderBase {
      * The header of a CSV file is parsed and the specified table is updated accordingly.
      *
      * @param someStreams
+     *        the input streams
      * @param aTable
+     *        the table which is filled with the file content
      *
      * @throws IOException
      *         is thrown if an error occurrs while trying to read from the CSV file
@@ -212,7 +234,9 @@ public class CsvDocumentReaderImpl2 extends CsvDocumentReaderBase {
      * The content of a CSV file is parsed and the specified table is updated accordingly.
      *
      * @param someStreams
+     *        the input streams
      * @param aTable
+     *        the table which is filled with the file content
      *
      * @throws IOException
      *         is thrown if an error occurrs while trying to read from the CSV file

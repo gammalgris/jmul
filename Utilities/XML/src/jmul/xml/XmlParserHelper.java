@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -48,7 +51,9 @@ public final class XmlParserHelper {
      * Checks if the specified xml element matches the specified markup details.
      *
      * @param node
+     *        the xml element which is checked
      * @param markup
+     *        the expected markup details
      *
      * @return <code>true</code> if the specified parameters match, else <code>false</code>
      */
@@ -65,7 +70,9 @@ public final class XmlParserHelper {
      * An exception is thrown if the specified informations do not match.
      *
      * @param node
+     *        the xml element which is checked
      * @param markup
+     *        the expected markup details
      */
     public static void assertMatchesXmlElement(Node node, XmlMarkup markup) {
 
@@ -89,6 +96,7 @@ public final class XmlParserHelper {
      * Checks if the specified markup details describe an xml element.
      *
      * @param markup
+     *        the xml markup which is checked
      */
     protected static void assertDescribesXmlElement(XmlMarkup markup) {
 
@@ -109,7 +117,9 @@ public final class XmlParserHelper {
      * specified markup details.
      *
      * @param node
+     *        the xml element which is checked
      * @param markup
+     *        the expected markup details
      *
      * @return <code>true</code> if such an attribute exists, else
      *         <code>false</code>
@@ -130,7 +140,9 @@ public final class XmlParserHelper {
      * thrown.
      *
      * @param node
+     *        the xml element which is checked
      * @param markup
+     *        the expected markup details
      */
     public static void assertExistsXmlAttribute(Node node, XmlMarkup markup) {
 
@@ -142,7 +154,9 @@ public final class XmlParserHelper {
      * matches the specified markup details.
      *
      * @param node
+     *        the xml element which is checked
      * @param markup
+     *        the expected markup details
      *
      * @return an xml attribute
      */
@@ -175,7 +189,9 @@ public final class XmlParserHelper {
      * markup details.
      *
      * @param node
+     *        the xml element which is checked
      * @param markup
+     *        the expected markup details
      *
      * @return an attribute value
      */
@@ -190,6 +206,7 @@ public final class XmlParserHelper {
      * Checks if the specified markup details describe an xml attribute.
      *
      * @param markup
+     *        the markup which is checked
      */
     protected static void assertDescribesXmlAttribute(XmlMarkup markup) {
 
@@ -209,6 +226,7 @@ public final class XmlParserHelper {
      * Checks if the specified container contains subelements.
      *
      * @param subelements
+     *        the subelement container which is checked
      *
      * @return <code>true</code> if the specified container contains
      *         subelements, else <code>false</code>
@@ -222,6 +240,7 @@ public final class XmlParserHelper {
      * Checks if specified container contains subelements.
      *
      * @param subelements
+     *        the subelement container which is checked
      */
     public static void assertHasXmlSubelements(SubelementMap subelements) {
 
@@ -235,7 +254,9 @@ public final class XmlParserHelper {
      * Checks if the specified container contains the specified subelement.
      *
      * @param subelements
+     *        the subelement container which is checked
      * @param markup
+     *        the expected markup details
      *
      * @return <code>true</code> if the container contains the specified subelement,
      *         else <code>false</code>
@@ -249,7 +270,9 @@ public final class XmlParserHelper {
      * Checks if specified container contains the specified subelement.
      *
      * @param subelements
+     *        the subelement container which is checked
      * @param markup
+     *        the expected markup details
      */
     public static void assertHasXmlSubelement(SubelementMap subelements, XmlMarkup markup) {
 
@@ -263,6 +286,7 @@ public final class XmlParserHelper {
      * Checks if the specified container contains subelements.
      *
      * @param subelements
+     *        the subelement container which is checked
      *
      * @return <code>true</code> if the specified container contains
      *         subelements, else <code>false</code>
@@ -276,6 +300,7 @@ public final class XmlParserHelper {
      * Checks if specified container contains subelements.
      *
      * @param subelements
+     *        the subelement container which is checked
      */
     public static void assertHasXmlSubelements(SubelementList subelements) {
 
@@ -290,7 +315,9 @@ public final class XmlParserHelper {
      * type.
      *
      * @param subelements
+     *        the subelement container which is checked
      * @param markup
+     *        the expected markup details
      *
      * @return <code>true</code> if the specified container contains
      *         subelements, else <code>false</code>
@@ -306,7 +333,9 @@ public final class XmlParserHelper {
      * Checks if specified container contains subelements of the specified type.
      *
      * @param subelements
+     *        the subelement container which is checked
      * @param markup
+     *        the expected markup details
      */
     public static void assertHasXmlSubelements(SubelementList subelements, XmlMarkup markup) {
 
@@ -320,6 +349,7 @@ public final class XmlParserHelper {
      * Creates a new exception according to the specified parameters.
      *
      * @param anElementName
+     *        the name of an xml element
      *
      * @return an exception
      */
@@ -338,6 +368,7 @@ public final class XmlParserHelper {
      * Creates a new exception according to the specified parameters.
      *
      * @param anElementName
+     *        the name of an xml element
      *
      * @return an exception
      */
@@ -357,15 +388,17 @@ public final class XmlParserHelper {
     /**
      * Returns the text content of the specified child element.
      *
-     * @param parentSubelements
+     * @param subelements
+     *        the subelement container which is checked
      * @param child
+     *        the expected markup details
      *
      * @return a string
      */
-    public static String getTextContent(SubelementMap parentSubelements, XmlMarkup child) {
+    public static String getTextContent(SubelementMap subelements, XmlMarkup child) {
 
-        Node childNode = parentSubelements.getSubelement(child);
-        assertHasXmlSubelement(parentSubelements, child);
+        Node childNode = subelements.getSubelement(child);
+        assertHasXmlSubelement(subelements, child);
 
         return childNode.getTextContent();
     }

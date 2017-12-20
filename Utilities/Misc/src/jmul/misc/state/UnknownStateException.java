@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -48,6 +51,7 @@ public class UnknownStateException extends IllegalArgumentException {
      * Creates a new exception according to the specified parameters.
      *
      * @param aMessage
+     *        the error message
      */
     public UnknownStateException(String aMessage) {
 
@@ -58,6 +62,7 @@ public class UnknownStateException extends IllegalArgumentException {
      * Creates a new exception according to the specified parameters.
      *
      * @param aCause
+     *        the error cause
      */
     public UnknownStateException(Throwable aCause) {
 
@@ -68,7 +73,9 @@ public class UnknownStateException extends IllegalArgumentException {
      * Creates a new exception according to the specified parameters.
      *
      * @param aMessage
+     *        the error message
      * @param aCause
+     *        the error cause
      */
     public UnknownStateException(String aMessage, Throwable aCause) {
 

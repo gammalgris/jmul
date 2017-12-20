@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -27,9 +30,11 @@ package jmul.transformation;
 
 import jmul.transformation.configuration.ConfigurationReader;
 import jmul.transformation.configuration.ConfigurationReaderImpl;
-
 import jmul.transformation.creation.ObjectFactory;
 import jmul.transformation.creation.ObjectFactoryImpl;
+import jmul.transformation.message.MessageFactory;
+import jmul.transformation.message.MessageFactoryImpl;
+
 import jmul.xml.reader.XmlDocumentReader;
 import jmul.xml.reader.XmlDocumentReaderImpl;
 
@@ -60,6 +65,11 @@ public final class TransformationResources {
      * A singleton.
      */
     private static ObjectFactory objectFactorySingleton;
+
+    /**
+     * A singleton.
+     */
+    private static MessageFactory messageFactorySingleton;
 
     /**
      * The default constructor.
@@ -125,6 +135,21 @@ public final class TransformationResources {
         }
 
         return objectFactorySingleton;
+    }
+
+    /**
+     * Returns a reference to a message factory.
+     *
+     * @return a message factory
+     */
+    public static synchronized MessageFactory getMessageFactory() {
+
+        if (messageFactorySingleton == null) {
+
+            messageFactorySingleton = new MessageFactoryImpl();
+        }
+
+        return messageFactorySingleton;
     }
 
 }

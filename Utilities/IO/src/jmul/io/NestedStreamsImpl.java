@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -34,8 +37,8 @@ import java.util.List;
 
 
 /**
- * A class that manages nested streams.<br />
- * <br />
+ * A class that manages nested streams.<br>
+ * <br>
  * See <a href="http://stackoverflow.com/questions/884007/best-way-to-close-nested-streams-in-java-6">Best way to close nested streams in Java 6</a>.
  */
 public class NestedStreamsImpl implements NestedStreams {
@@ -103,7 +106,6 @@ public class NestedStreamsImpl implements NestedStreams {
 
         List<Throwable> nestedExceptions = new ArrayList<>();
         Closeable outerStream = getOuterStream();
-        int exceptionCount = 0;
 
         try {
 
@@ -112,9 +114,7 @@ public class NestedStreamsImpl implements NestedStreams {
         } catch (IOException e) {
 
             nestedExceptions.add(e);
-            exceptionCount++;
-
-        } finally {
+            int exceptionCount = 1;
 
             for (int a = 1; a < innerStreamIndex; a++) {
 
@@ -132,10 +132,7 @@ public class NestedStreamsImpl implements NestedStreams {
                 }
             }
 
-            if (exceptionCount > 0) {
-
-                throw createException(nestedExceptions);
-            }
+            throw createException(nestedExceptions);
         }
     }
 

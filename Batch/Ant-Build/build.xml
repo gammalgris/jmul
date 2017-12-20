@@ -31,6 +31,9 @@
             <fileset dir="${package.document-md.src.dir}">
                 <include name="**/*.java" />
             </fileset>
+            <fileset dir="${package.document-text.src.dir}">
+                <include name="**/*.java" />
+            </fileset>
             <fileset dir="${package.formula.src.dir}">
                 <include name="**/*.java" />
             </fileset>
@@ -109,6 +112,7 @@
             </fileset>
             <fileset dir="${package.transformation.cfg.dir}">
                 <include name="**/*.properties" />
+                <include name="**/*.configuration" />
             </fileset>
             <fileset dir="${package.transformation-xml.cfg.dir}">
                 <include name="**/*.properties" />

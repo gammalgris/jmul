@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -39,31 +42,31 @@ import jmul.document.csv.CsvDocument;
 public interface CsvDocumentReader {
 
     /**
-     * Parses the specified file and returns a document that contains the
-     * file content.
+     * Reads from the specified file and returns a document that
+     * contains the file content.
      *
      * @param aFilename
-     *        filename of the CSV file
+     *        the name of the input file
      *
      * @return a document object
      *
      * @throws IOException
      *         is thrown if an error occurrs while trying to read from the file
      */
-    CsvDocument parseDocument(String aFilename) throws IOException;
+    CsvDocument readFrom(String aFilename) throws IOException;
 
     /**
-     * Parses the specified file and returns a document that contains the
-     * file content.
+     * Reads from the specified file and returns a document that
+     * contains the file content.
      *
      * @param aFile
-     *        the CSV file
+     *        the input file
      *
      * @return a document object
      *
      * @throws IOException
      *         is thrown if an error occurrs while trying to read from the file
      */
-    CsvDocument parseDocument(File aFile) throws IOException;
+    CsvDocument readFrom(File aFile) throws IOException;
 
 }

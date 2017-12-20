@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -30,7 +33,7 @@ import java.text.SimpleDateFormat;
 
 import java.util.Date;
 
-import jmul.string.StringConcatenator;
+import jmul.string.TextHelper;
 
 
 /**
@@ -88,9 +91,8 @@ public class DateCreator implements ObjectCreator {
 
         } catch (IllegalArgumentException e) {
 
-            StringConcatenator message =
-                new StringConcatenator("An invalid pattern has been specified (", aPattern, ")!");
-            throw new IllegalArgumentException(message.toString(), e);
+            String message = TextHelper.concatenateStrings("An invalid pattern has been specified (", aPattern, ")!");
+            throw new IllegalArgumentException(message, e);
         }
 
         Date date = null;
@@ -101,10 +103,10 @@ public class DateCreator implements ObjectCreator {
 
         } catch (ParseException e) {
 
-            StringConcatenator message =
-                new StringConcatenator("The specified initial value \"", anInitialValue,
-                                       "\" doesn't match the specified pattern \"", aPattern, "\"!");
-            throw new IllegalArgumentException(message.toString());
+            String message =
+                TextHelper.concatenateStrings("The specified initial value \"", anInitialValue,
+                                              "\" doesn't match the specified pattern \"", aPattern, "\"!");
+            throw new IllegalArgumentException(message);
         }
 
         return date;

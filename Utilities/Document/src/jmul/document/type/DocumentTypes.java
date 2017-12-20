@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -34,10 +37,11 @@ import static jmul.string.Constants.SEMICOLON;
 
 
 /**
- * This enumeration contains entries for all known document types.
- *
- * TODO
- * The enumeration is missing more file types. Add as required.
+ * This enumeration contains entries for all known document types.<br>
+ * <br>
+ * <i>Note:<br>
+ * The enumeration contains entries that are currently used. Missing
+ * document have to be added as needed.</i>
  *
  * @author Kristian Kutin
  */
@@ -78,6 +82,7 @@ public enum DocumentTypes implements DocumentType {
      * Creates a new enumeration element according to the specified parameters.
      *
      * @param entryName
+     *        a reference name
      */
     private DocumentTypes(String entryName) {
 
@@ -92,8 +97,11 @@ public enum DocumentTypes implements DocumentType {
      * is thrown.
      *
      * @param aBundle
+     *        a resource bundle
      * @param anEntryName
+     *        a reference name
      * @param aSuffix
+     *        a property name
      *
      * @return a value from a resource bundle
      */
@@ -118,8 +126,11 @@ public enum DocumentTypes implements DocumentType {
      * is thrown.
      *
      * @param aBundle
+     *        a resource bundle
      * @param anEntryName
+     *        a reference name
      * @param aSuffix
+     *        a property name
      *
      * @return a list from a resource bundle
      */
@@ -154,7 +165,7 @@ public enum DocumentTypes implements DocumentType {
      * Returns all file extensions which are associated with this document
      * type.
      *
-     * @return
+     * @return a list of file extensions
      */
     @Override
     public List<String> getFileExtensions() {
@@ -167,6 +178,7 @@ public enum DocumentTypes implements DocumentType {
      * document type.
      *
      * @param aFileName
+     *        a file name
      *
      * @return <code>true</code> if the file extensions match, else
      *         <code>false</code>
@@ -223,6 +235,7 @@ public enum DocumentTypes implements DocumentType {
      * If no such document type exists an exception is thrown.
      *
      * @param aFileName
+     *        a file name
      *
      * @return a document type
      */

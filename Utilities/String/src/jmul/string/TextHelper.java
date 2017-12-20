@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -25,8 +28,13 @@
 package jmul.string;
 
 
+import java.nio.charset.Charset;
+
 import java.util.ArrayList;
 import java.util.List;
+
+import jmul.misc.annotations.Modified;
+import jmul.misc.checks.ParameterCheckHelper;
 
 import static jmul.string.Constants.APOSTROPHE;
 import static jmul.string.Constants.CARRIAGE_RETURN;
@@ -61,7 +69,9 @@ public final class TextHelper {
      * separator.
      *
      * @param aLine
+     *        a string
      * @param aSeparator
+     *        a separator
      *
      * @return all substrings
      */
@@ -104,7 +114,9 @@ public final class TextHelper {
      * specified string and returns the starting index of the next occurrence.
      *
      * @param aString
+     *        a string
      * @param aSeparator
+     *        a separator
      *
      * @return an index or -1 if no such separator was found
      */
@@ -146,6 +158,7 @@ public final class TextHelper {
      * Checks if the specified string starts with a quote.
      *
      * @param aString
+     *        a string
      *
      * @return <code>true</code> if the string starts qith a quote, else
      *         <code>false</code>
@@ -160,6 +173,7 @@ public final class TextHelper {
      * style).
      *
      * @param aString
+     *        a string
      *
      * @return a normalized string
      */
@@ -187,6 +201,61 @@ public final class TextHelper {
         }
 
         return buffer.toString();
+    }
+
+    /**
+     * Concatenates all string representations of all specified objects.
+     *
+     * @param someObjects
+     *        several objects
+     *
+     * @return a string
+     */
+    public static String concatenateStrings(Object... someObjects) {
+
+        ParameterCheckHelper.checkObjectArrayParameter(someObjects);
+
+        StringBuilder buffer = new StringBuilder();
+
+        for (Object o : someObjects) {
+
+            buffer.append(String.valueOf(o));
+        }
+
+        return String.valueOf(buffer);
+    }
+
+    /**
+     * Concatenates all string representations of all specified objects.
+     *
+     * @param aBuffer
+     *        the buffer which is modified
+     * @param someObjects
+     *        several objects
+     *
+     * @return a concatenated string
+     */
+    public static StringBuilder append2StringBuilder(@Modified StringBuilder aBuffer, Object... someObjects) {
+
+        ParameterCheckHelper.checkStringBuilderParameter(aBuffer);
+        ParameterCheckHelper.checkObjectArrayParameter(someObjects);
+
+        for (Object o : someObjects) {
+
+            aBuffer.append(String.valueOf(o));
+        }
+
+        return aBuffer;
+    }
+
+    /**
+     * Determines the jvm's default charset.
+     *
+     * @return a charset
+     */
+    public static Charset getDefaultCharset() {
+
+        return Charset.defaultCharset();
     }
 
 }

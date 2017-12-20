@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -44,6 +47,7 @@ public interface ContentNode {
      * Sets (i.e. updates) the parent reference of this text node.
      *
      * @param aParent
+     *        the new parent of this node
      */
     void setParent(ContentNode aParent);
 

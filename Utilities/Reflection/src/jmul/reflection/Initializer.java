@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -34,7 +37,7 @@ import java.util.Map;
 
 import jmul.reflection.classes.ClassDefinition;
 
-import jmul.string.StringConcatenator;
+import jmul.string.TextHelper;
 
 
 /**
@@ -120,9 +123,9 @@ public class Initializer {
      */
     public Object newInitializedInstance() {
 
-        StringConcatenator errorMessage =
-            new StringConcatenator("Unable to create a new instance of the class ", classDefinition,
-                                   " and to initialize the object!");
+        String errorMessage =
+            TextHelper.concatenateStrings("Unable to create a new instance of the class ", classDefinition,
+                                          " and to initialize the object!");
 
         try {
 
@@ -136,21 +139,11 @@ public class Initializer {
 
             return object;
 
-        } catch (InstantiationException e) {
+        } catch (InstantiationException | NoSuchMethodException | IllegalAccessException |
+                 InvocationTargetException e) {
 
-            throw new InitializerException(String.valueOf(errorMessage), e);
+            throw new InitializerException(errorMessage, e);
 
-        } catch (NoSuchMethodException e) {
-
-            throw new InitializerException(String.valueOf(errorMessage), e);
-
-        } catch (IllegalAccessException e) {
-
-            throw new InitializerException(String.valueOf(errorMessage), e);
-
-        } catch (InvocationTargetException e) {
-
-            throw new InitializerException(String.valueOf(errorMessage), e);
         }
     }
 

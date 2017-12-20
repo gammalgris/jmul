@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -30,12 +33,11 @@ import java.io.IOException;
 
 import jmul.io.serialization.Serializer;
 
-import jmul.transformation.xml.TransformationHelper;
-
 import jmul.transformation.TransformationFactory;
 import jmul.transformation.TransformationParameters;
 import jmul.transformation.TransformationPath;
 import jmul.transformation.TransformationResources;
+import jmul.transformation.xml.TransformationHelper;
 
 import jmul.xml.XmlResources;
 import jmul.xml.writer.XmlDocumentWriter;
@@ -111,7 +113,7 @@ public class XmlSerializerImpl implements Serializer {
         Document document = (Document) factory.transform(parameters);
 
         XmlDocumentWriter writer = XmlResources.getXmlDocumentWriter();
-        writer.writeDocument(aFile, document);
+        writer.writeTo(aFile, document);
     }
 
 }

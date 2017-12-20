@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -59,6 +62,8 @@ public class DirectoryScannerThread extends ObservableThreadBase {
     /**
      * Constructs a thread.
      *
+     * @param anExecutionStatus
+     *        a status object for coordinating several scanner threads
      * @param aDirectory
      *        the directory which is to be scanned
      * @param aFilename

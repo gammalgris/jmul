@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -26,6 +29,8 @@ package jmul.misc.checks;
 
 
 import java.io.File;
+
+import java.nio.charset.Charset;
 
 import java.util.List;
 import java.util.regex.Pattern;
@@ -64,6 +69,7 @@ public final class ParameterCheckHelper {
      * Checks the specified parameter.
      *
      * @param aClass
+     *        a class parameter
      *
      * @return the specified class
      *
@@ -84,6 +90,7 @@ public final class ParameterCheckHelper {
      * Checks the specified parameter.
      *
      * @param aMessage
+     *        a string parameter
      *
      * @return the specified message
      *
@@ -109,6 +116,7 @@ public final class ParameterCheckHelper {
      * Checks the specified parameter.
      *
      * @param aString
+     *        a string parameter
      *
      * @return the specified string
      *
@@ -134,6 +142,7 @@ public final class ParameterCheckHelper {
      * Checks the specified parameter.
      *
      * @param aString
+     *        a string parameter
      *
      * @return the specified string
      *
@@ -154,6 +163,7 @@ public final class ParameterCheckHelper {
      * Checks the specified parameter.
      *
      * @param aCause
+     *        an exception parameter
      *
      * @return the specified exception cause
      *
@@ -174,6 +184,7 @@ public final class ParameterCheckHelper {
      * Checks the specified parameter.
      *
      * @param someCauses
+     *        several exception parameters
      *
      * @return the specified exception causes
      *
@@ -199,6 +210,7 @@ public final class ParameterCheckHelper {
      * Checks the specified parameter.
      *
      * @param aFile
+     *        a file object parameter
      *
      * @return the specified file object
      *
@@ -219,6 +231,7 @@ public final class ParameterCheckHelper {
      * Checks the specified parameter.
      *
      * @param aFileName
+     *        a string parameter
      *
      * @return the specified file name
      *
@@ -251,6 +264,7 @@ public final class ParameterCheckHelper {
      * Checks the specified parameter.
      *
      * @param aDirectory
+     *        a file object parameter
      *
      * @return the specified directory object
      *
@@ -271,6 +285,7 @@ public final class ParameterCheckHelper {
      * Checks the specified parameter.
      *
      * @param aDirectoryName
+     *        a string parameter
      *
      * @return the specified directory name
      *
@@ -303,6 +318,7 @@ public final class ParameterCheckHelper {
      * Checks the specified listener.
      *
      * @param aListener
+     *        a listener object parameter
      *
      * @return the specified listener
      *
@@ -323,7 +339,9 @@ public final class ParameterCheckHelper {
      * Checks the specified listener.
      *
      * @param aListenerClass
+     *        the expected listener type
      * @param aListener
+     *        a listener object parameter
      *
      * @return the specified listener
      *
@@ -358,6 +376,7 @@ public final class ParameterCheckHelper {
      * Checks the specified parameter.
      *
      * @param aRegex
+     *        a string parameter
      *
      * @return the specified regular expression
      *
@@ -392,8 +411,11 @@ public final class ParameterCheckHelper {
      * Checks the specified parameter.
      *
      * @param aMinValue
+     *        the expected min value
      * @param anIndex
+     *        a number parameter
      * @param aMaxValue
+     *        the expected max value
      *
      * @return the specified index
      */
@@ -422,6 +444,7 @@ public final class ParameterCheckHelper {
      * Checks the specified parameter.
      *
      * @param aList
+     *        a list parameter
      *
      * @return the specified list
      */
@@ -439,7 +462,9 @@ public final class ParameterCheckHelper {
      * Checks the specified paramter.
      *
      * @param aList
+     *        a list parameter
      * @param anExpectedSize
+     *        the expected list size
      *
      * @return the specified list
      */
@@ -453,6 +478,159 @@ public final class ParameterCheckHelper {
         }
 
         return aList;
+    }
+
+    /**
+     * Checks the specified Parameter.
+     *
+     * @param aParameter
+     *        a string builder parameter
+     *
+     * @throws IllegalArgumentException
+     *         is thrown if the parameter has an invalid value
+     */
+    public static void checkStringBuilderParameter(StringBuilder aParameter) {
+
+        if (aParameter == null) {
+
+            String message = "No argument (null) has been specified!";
+            throw new IllegalArgumentException(message);
+        }
+    }
+
+    /**
+     * Checks the specified Parameter.
+     *
+     * @param aParameter
+     *        a parameter array
+     *
+     * @return the parameter
+     *
+     * @throws IllegalArgumentException
+     *         is thrown if the parameter has an invalid value
+     */
+    public static Object[] checkObjectArrayParameter(Object[] aParameter) {
+
+        if (aParameter == null) {
+
+            String message = "No argument (null) has been specified!";
+            throw new IllegalArgumentException(message);
+        }
+
+        return aParameter;
+    }
+
+    /**
+     * Checks the specified Parameter.
+     *
+     * @param aParameter
+     *        a parameter array
+     *
+     * @return the parameter
+     *
+     * @throws IllegalArgumentException
+     *         is thrown if the parameter has an invalid value
+     */
+    public static String[] checkStringArrayParameter(String[] aParameter) {
+
+        if (aParameter == null) {
+
+            String message = "No argument (null) has been specified!";
+            throw new IllegalArgumentException(message);
+        }
+
+        return aParameter;
+    }
+
+    /**
+     * Checks the specified Parameter.
+     *
+     * @param aParameter
+     *        a parameter array
+     *
+     * @return the parameter
+     *
+     * @throws IllegalArgumentException
+     *         is thrown if the parameter has an invalid value
+     */
+    public static List<String> checkStringListParameter(List<String> aParameter) {
+
+        if (aParameter == null) {
+
+            String message = "No argument (null) has been specified!";
+            throw new IllegalArgumentException(message);
+        }
+
+        return aParameter;
+    }
+
+    /**
+     * Checks the specified parameter.
+     *
+     * @param aParameter
+     *        a charset parameter
+     *
+     * @return the parameter
+     *
+     * @throws IllegalArgumentException
+     *         is thrown if the parameter has an invalid value
+     */
+    public static Charset checkCharsetParameter(Charset aParameter) {
+
+        if (aParameter == null) {
+
+            String message = "No argument (null) has been specified!";
+            throw new IllegalArgumentException(message);
+        }
+
+        return aParameter;
+    }
+
+    /**
+     * Checks the specified parameter.
+     *
+     * @param aString
+     *        a string parameter
+     *
+     * @return the specified string
+     *
+     * @throws IllegalArgumentException
+     *         is thrown if the specified parameter is invalid
+     */
+    public static String checkLineSeparatorParameter(String aString) {
+
+        if (aString == null) {
+
+            throw new NullParameterException();
+        }
+
+        if (aString.isEmpty()) {
+
+            throw new EmptyStringParameterException();
+        }
+
+        return aString;
+    }
+
+    /**
+     * Checks the specified parameter.
+     *
+     * @param anObject
+     *        an object paramter
+     *
+     * @return the specified object
+     *
+     * @throws IllegalArgumentException
+     *         is thrown if the specified parameter is invalid
+     */
+    public static Object checkObjectParameter(Object anObject) {
+
+        if (anObject == null) {
+
+            throw new NullParameterException();
+        }
+
+        return anObject;
     }
 
 }

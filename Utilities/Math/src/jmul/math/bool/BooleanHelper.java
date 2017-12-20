@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -44,7 +47,9 @@ public final class BooleanHelper {
      * Implements the exclusive OR (see <a href="https://en.wikipedia.org/wiki/XOR_gate" target=_blank>XOR</a>).
      *
      * @param b1
+     *        a boolean value
      * @param b2
+     *        a boolean value
      *
      * @return a boolean value, see description.
      */

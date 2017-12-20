@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -42,7 +45,10 @@ import jmul.misc.exceptions.MultipleCausesException;
  * An implementation of a file copier.
  *
  * @author Kristian Kutin
+ *
+ * @deprecated see {@link java.nio.file.Files#copy(InputStream, OutputStream)
  */
+@Deprecated
 public class FileCopierImpl implements FileCopier {
 
     /**
@@ -77,7 +83,9 @@ public class FileCopierImpl implements FileCopier {
      * Copies the specified source file to the specified destination file.
      *
      * @param aSourceFileName
+     *        a file name (i.e. file path)
      * @param aDestinationFileName
+     *        a file name (i.e. file path)
      *
      * @throws CopyFileException
      *         The exception is thrown if an error occurs during the process
@@ -96,7 +104,9 @@ public class FileCopierImpl implements FileCopier {
      * Copies the specified source file to the specified destination file.
      *
      * @param aSourceFile
+     *        a file (i.e. file path)
      * @param aDestinationFile
+     *        a file (i.e. file path)
      *
      * @throws CopyFileException
      *         The exception is thrown if an error occurs during the process
@@ -188,7 +198,9 @@ public class FileCopierImpl implements FileCopier {
      * Opens an input and an output stream which are required for copying the file.
      *
      * @param aSourceFile
+     *        a file (i.e. file path)
      * @param aDestinationFile
+     *        a file (i.e. file path)
      *
      * @return an input and output stream
      *

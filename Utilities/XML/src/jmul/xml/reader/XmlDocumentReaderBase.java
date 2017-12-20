@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -29,7 +32,7 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
-import jmul.string.StringConcatenator;
+import jmul.string.TextHelper;
 
 
 /**
@@ -77,9 +80,8 @@ public abstract class XmlDocumentReaderBase implements XmlDocumentReader {
 
         } catch (ParserConfigurationException e) {
 
-            StringConcatenator message =
-                new StringConcatenator("Couldn't instantiate ", this.getClass().getName(), "!");
-            throw new ReaderException(message.toString(), e);
+            String message = TextHelper.concatenateStrings("Couldn't instantiate ", this.getClass().getName(), "!");
+            throw new ReaderException(message, e);
         }
 
         return builder;

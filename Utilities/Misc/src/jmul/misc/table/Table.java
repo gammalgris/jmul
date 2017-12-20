@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -24,6 +27,7 @@
 
 package jmul.misc.table;
 
+
 import java.util.List;
 
 
@@ -31,7 +35,7 @@ import java.util.List;
  * This interface defines the functionalities of a table with read only
  * access to its data.
  *
- * @param <T>
+ * @param <T> the content type of table cells
  *
  * @author Krsitian Kutin
  */
@@ -49,7 +53,9 @@ public interface Table<T> extends NamedColumns {
      * then <code>null</code> is returned.
      *
      * @param aColumnIndex
+     *        the column index of a cell
      * @param aRowIndex
+     *        the row index of a cell
      *
      * @return a cell or <code>null</code> if the cell is empty
      */
@@ -59,7 +65,9 @@ public interface Table<T> extends NamedColumns {
      * Checks if the specified cell is empty (i.e. is <code>null</code>).
      *
      * @param aColumnIndex
+     *        the column index of a cell
      * @param aRowIndex
+     *        the row index of a cell
      *
      * @return <code>true</code> if the cell is empty (i.e. is <code>null</code>),
      *         else <code>false</code>
@@ -70,6 +78,7 @@ public interface Table<T> extends NamedColumns {
      * Returns a list of all values of the specified row.
      *
      * @param aRowIndex
+     *        the row index of a row
      *
      * @return all row values
      */
@@ -79,6 +88,7 @@ public interface Table<T> extends NamedColumns {
      * Returns a list of all values of the specified column.
      *
      * @param aColumnIndex
+     *        the column index of a column
      *
      * @return all column values
      */

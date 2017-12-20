@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -39,7 +42,7 @@ import jmul.document.csv.CsvDocument;
 public interface CsvDocumentWriter {
 
     /**
-     * The method writes a CSV document.
+     * Writes the specified document to the specified file.
      *
      * @param aFilename
      *        the name of the output file
@@ -47,12 +50,12 @@ public interface CsvDocumentWriter {
      *        a document object
      *
      * @throws IOException
-     *         This exception can be thrown if IO operations fail
+     *         is thrown if an error occurrs while trying to write to the file
      */
-    void writeDocument(String aFilename, CsvDocument aDocument) throws IOException;
+    void writeTo(String aFilename, CsvDocument aDocument) throws IOException;
 
     /**
-     * The method writes a CSV document.
+     * Writes the specified document to the specified file.
      *
      * @param aFile
      *        the output file
@@ -60,8 +63,8 @@ public interface CsvDocumentWriter {
      *        a document object
      *
      * @throws IOException
-     *         This exception can be thrown if IO operations fail
+     *         is thrown if an error occurrs while trying to write to the file
      */
-    void writeDocument(File aFile, CsvDocument aDocument) throws IOException;
+    void writeTo(File aFile, CsvDocument aDocument) throws IOException;
 
 }

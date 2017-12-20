@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -30,8 +33,6 @@ import java.util.Collection;
 import java.util.Iterator;
 
 import jmul.math.formula.operations.Operator;
-
-import jmul.string.StringConcatenator;
 
 
 /**
@@ -97,7 +98,7 @@ public class Term implements Operand {
     @Override
     public String toString() {
 
-        StringConcatenator representation = new StringConcatenator("(");
+        StringBuilder representation = new StringBuilder("(");
 
         Iterator i = operands.iterator();
         while (i.hasNext()) {
@@ -105,7 +106,10 @@ public class Term implements Operand {
             representation.append(i.next().toString());
 
             if (i.hasNext()) {
-                representation.append(" ", getOperator(), " ");
+
+                representation.append(" ");
+                representation.append(getOperator());
+                representation.append(" ");
             }
         }
 

@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -44,7 +47,9 @@ public final class EqualityHelper {
      * Checks the equality of the specified objects.
      *
      * @param o1
+     *        an object
      * @param o2
+     *        an object
      *
      * @return <code>true</code> if both objects are either <code>null</code> or
      *         equal according to the result of the <code>equals</code> method.

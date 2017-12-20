@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -35,11 +38,17 @@ import static jmul.misc.checks.ParameterCheckHelper.checkExceptionMessage;
 
 
 /**
- * This exception contains several related exceptions.
+ * This exception contains several related exceptions (e.g. an exception
+ * and an exception which occurs during the exception handling).
  *
  * @author Kristian Kutin
  */
 public class MultipleCausesException extends Exception implements Iterable<Throwable> {
+
+    /**
+     * The index of the first exception.
+     */
+    private static final int FIRST_EXCEPTION_INDEX = 0;
 
     /**
      * All related exceptions.
@@ -50,10 +59,13 @@ public class MultipleCausesException extends Exception implements Iterable<Throw
      * Creates a new exception according to the specified parameters.
      *
      * @param someRelatedExceptions
+     *        alle related exceptions (i.e. the first exception is the actual exception
+     *        and the remaining should be folloup exceptions that occur during error
+     *        handling
      */
     public MultipleCausesException(Throwable... someRelatedExceptions) {
 
-        super();
+        super(getFirstExceptionMessage(someRelatedExceptions), getFirstException(someRelatedExceptions));
 
         relatedExceptions = Collections.unmodifiableList(Arrays.asList(checkExceptionCauses(someRelatedExceptions)));
     }
@@ -62,11 +74,15 @@ public class MultipleCausesException extends Exception implements Iterable<Throw
      * Creates a new exception according to the specified parameters.
      *
      * @param aMessage
+     *        the error message
      * @param someRelatedExceptions
+     *        alle related exceptions (i.e. the first exception is the actual exception
+     *        and the remaining should be folloup exceptions that occur during error
+     *        handling
      */
     public MultipleCausesException(String aMessage, Throwable... someRelatedExceptions) {
 
-        super(checkExceptionMessage(aMessage));
+        super(checkExceptionMessage(aMessage), getFirstException(someRelatedExceptions));
 
         relatedExceptions = Collections.unmodifiableList(Arrays.asList(checkExceptionCauses(someRelatedExceptions)));
     }
@@ -75,11 +91,42 @@ public class MultipleCausesException extends Exception implements Iterable<Throw
      * Returns an iterator to access all related exceptions.
      *
      * @return an iterator
+     *         an iterator to iterate through all exceptions
      */
     @Override
     public Iterator<Throwable> iterator() {
 
         return relatedExceptions.iterator();
+    }
+
+    /**
+     * Returns the first exception message.
+     *
+     * @param someRelatedExceptions
+     *        alle related exceptions (i.e. the first exception is the actual exception
+     *        and the remaining should be folloup exceptions that occur during error
+     *        handling
+     *
+     * @return an exception message
+     */
+    private static String getFirstExceptionMessage(Throwable... someRelatedExceptions) {
+
+        return getFirstException(someRelatedExceptions).getMessage();
+    }
+
+    /**
+     * Returns the first exceptions.
+     *
+     * @param someRelatedExceptions
+     *        alle related exceptions (i.e. the first exception is the actual exception
+     *        and the remaining should be folloup exceptions that occur during error
+     *        handling
+     *
+     * @return an exception
+     */
+    private static Throwable getFirstException(Throwable... someRelatedExceptions) {
+
+        return someRelatedExceptions[FIRST_EXCEPTION_INDEX];
     }
 
 }

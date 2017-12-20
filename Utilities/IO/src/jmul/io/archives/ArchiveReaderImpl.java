@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -22,7 +25,7 @@
  * e-mail: kristian.kutin@arcor.de
  */
 
-package jmul.io;
+package jmul.io.archives;
 
 
 import java.io.BufferedInputStream;
@@ -34,6 +37,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
+
+
+import jmul.io.NestedStreams;
+import jmul.io.NestedStreamsImpl;
 
 import static jmul.misc.checks.ParameterCheckHelper.checkFileNameParameter;
 
@@ -69,6 +76,7 @@ public class ArchiveReaderImpl implements ArchiveReader {
      * Opens the specified archive.
      *
      * @param anArchiveName
+     *        the name of an archive (i.e. zip file path)
      *
      * @throws FileNotFoundException
      *         The exception is thrown if the specified archive doesn't exist.
@@ -89,16 +97,17 @@ public class ArchiveReaderImpl implements ArchiveReader {
      * Loads the specified entry from the archive.
      *
      * @param anEntryName
+     *        the name of a file inside the archive
      *
      * @return the raw data representing the specified entry or <code>null</code>
      *         if no such entry exists
      *
-     * @throws ArchiveException
+     * @throws IOException
      *         The exception is thrown if an error occurs while reading from the
      *         specified archive.
      */
     @Override
-    public byte[] loadEntry(String anEntryName) {
+    public byte[] loadEntry(String anEntryName) throws IOException {
 
         checkFileNameParameter(anEntryName);
 
@@ -168,7 +177,7 @@ public class ArchiveReaderImpl implements ArchiveReader {
 
 
         String message = "Unknown resource: " + anEntryName + "!";
-        throw new IllegalArgumentException(message, exception);
+        throw new IOException(message, exception);
     }
 
     /**
@@ -176,6 +185,7 @@ public class ArchiveReaderImpl implements ArchiveReader {
      * extracted, but the actual size is unknown.
      *
      * @param zis
+     *        an input stream
      *
      * @return a byte array
      *
@@ -219,7 +229,9 @@ public class ArchiveReaderImpl implements ArchiveReader {
      * extracted.
      *
      * @param zis
+     *        an input stream
      * @param size
+     *        a file size in bytes
      *
      * @return a byte array
      *
@@ -245,8 +257,8 @@ public class ArchiveReaderImpl implements ArchiveReader {
      * Closes this archive.
      *
      * @throws ArchiveException
-     *         The exception is thrown if an error occurs while closing the
-     *         specified archive.
+     * The exception is thrown if an error occurs while closing the
+     * specified archive.
      */
     @Override
     public void close() throws IOException {

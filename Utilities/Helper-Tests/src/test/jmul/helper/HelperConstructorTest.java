@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -167,6 +170,7 @@ public class HelperConstructorTest {
         parameters.add(new Object[] { jmul.network.http.CheckURL.class });
         parameters.add(new Object[] { jmul.network.ip.CheckIP.class });
         parameters.add(new Object[] { jmul.network.ftp.CheckFTP.class });
+        parameters.add(new Object[] { jmul.io.archives.ArchiveHelper.class });
         parameters.add(new Object[] { jmul.io.FileHelper.class });
         parameters.add(new Object[] { jmul.io.FileDeletionHelper.class });
         parameters.add(new Object[] { jmul.io.PathHelper.class });
@@ -186,6 +190,7 @@ public class HelperConstructorTest {
         parameters.add(new Object[] { jmul.xml.XmlMarkupHelper.class });
         parameters.add(new Object[] { jmul.math.hash.Constants.class });
         parameters.add(new Object[] { jmul.misc.checks.EqualityHelper.class });
+        parameters.add(new Object[] { jmul.network.http.UploadHelper.class });
 
         return parameters;
     }

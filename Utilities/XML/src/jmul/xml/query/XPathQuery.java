@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -62,7 +65,9 @@ public class XPathQuery {
      * Creates this object.
      *
      * @param anXpathExpression
+     *        an xpath expression
      * @param anExpectedValue
+     *        the expected result of the xpath expression
      */
     public XPathQuery(String anXpathExpression, String anExpectedValue) {
 
@@ -88,6 +93,7 @@ public class XPathQuery {
      * Checks if the query finds matching entries within the specified document.
      *
      * @param aDocument
+     *        the xml document which is to be queried
      *
      * @return <code>true</code> if the query finds matching entries, else
      *         <code>false</code>

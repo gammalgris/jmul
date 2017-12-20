@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -55,13 +58,14 @@ public final class PrimeNumberHelper {
     }
 
     /**
-     * Calculates and returns the nth prime number.<br />
-     * <br />
-     * <i>Note:<br />
+     * Calculates and returns the nth prime number.<br>
+     * <br>
+     * <i>Note:<br>
      * 2 is the first prime number. 3 is the second prime number.
      * 5 ist the third prime number. And so on.</i>
      *
      * @param n
+     *        a number (see type)
      *
      * @return a prime number
      */

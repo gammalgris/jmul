@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -45,45 +48,45 @@ import org.xml.sax.SAXException;
 public interface XmlDocumentReader {
 
     /**
-     * The method reads one XML file and transforms the content into a Document
-     * object.
+     * Reads from the specified file and returns a document that
+     * contains the file content.
      *
      * @param aFilename
-     *        filename of the XML file
+     *        the name of the input file
      *
-     * @return a Document object
+     * @return a document object
      *
      * @throws SAXException
      *         This exception can be thrown if the xml file is malformed
      * @throws IOException
      *         This exception can be thrown if IO operations fail
      */
-    Document parseDocument(String aFilename) throws SAXException, IOException;
+    Document readFrom(String aFilename) throws SAXException, IOException;
 
     /**
-     * The method reads one XML file and transforms the content into a Document
-     * object.
+     * Reads from the specified file and returns a document that
+     * contains the file content.
      *
      * @param aFile
-     *        the XML file
+     *        the input file
      *
-     * @return a Document object
+     * @return a document object
      *
      * @throws SAXException
      *         This exception can be thrown if the xml file is malformed
      * @throws IOException
      *         This exception can be thrown if IO operations fail
      */
-    Document parseDocument(File aFile) throws SAXException, IOException;
+    Document readFrom(File aFile) throws SAXException, IOException;
 
     /**
-     * The method reads an XML file from an archive and transforms the content
-     * into a Document object.
+     * Reads from the specified archive and returns a document that
+     * contains the file content.
      *
      * @param anArchiveName
      *        the name of the archive file
      * @param aFilename
-     *        filename of the XML file
+     *        the name of the input file
      *
      * @return a Document object
      *
@@ -92,6 +95,6 @@ public interface XmlDocumentReader {
      * @throws IOException
      *         This exception can be thrown if IO operations fail
      */
-    Document parseArchivedDocument(String anArchiveName, String aFilename) throws SAXException, IOException;
+    Document readFrom(String anArchiveName, String aFilename) throws SAXException, IOException;
 
 }

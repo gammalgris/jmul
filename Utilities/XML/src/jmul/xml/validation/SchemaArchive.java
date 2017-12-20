@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ *
+ *
  * (J)ava (M)iscellaneous (U)tility (L)ibraries
  *
  * JMUL is a central repository for utilities which are used in my
@@ -43,6 +46,7 @@ public interface SchemaArchive extends DirectoryDetails {
      * A getter method.
      *
      * @param aSchemaKey
+     *        the key which is asocciated with a specific schema
      *
      * @return a XML schema
      */

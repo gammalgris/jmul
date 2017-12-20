@@ -1,10 +1,13 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
  * other public and private repositories.
  *
- * Copyright (C) 2016  Kristian Kutin
+ * Copyright (C) 2017  Kristian Kutin
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -22,57 +25,44 @@
  * e-mail: kristian.kutin@arcor.de
  */
 
-package jmul.io;
+package jmul.transformation.message.rules;
 
 
-import static jmul.misc.checks.ParameterCheckHelper.checkExceptionCause;
-import static jmul.misc.checks.ParameterCheckHelper.checkExceptionMessage;
+import jmul.string.TextHelper;
+
+import org.w3c.dom.Node;
 
 
 /**
- * This exception is thrown if an errors occurs while working with archives.
+ * A specific implementation for a message creator for XML
+ * Elements.
  *
  * @author Kristian Kutin
  */
-public class ArchiveException extends RuntimeException {
+public class NodeMessageCreator extends MessageCreatorBase {
 
     /**
      * The default constructor.
      */
-    public ArchiveException() {
+    public NodeMessageCreator() {
 
-        super();
+        super(Node.class);
     }
 
     /**
-     * Creates a new exception.
+     * Creates a new message for the specified object.
      *
-     * @param aMessage
-     */
-    public ArchiveException(String aMessage) {
-
-        super(checkExceptionMessage(aMessage));
-    }
-
-    /**
-     * Creates a new exception.
+     * @param anObject
      *
-     * @param aCause
+     * @return a message
      */
-    public ArchiveException(Throwable aCause) {
+    @Override
+    public String newMessage(Object anObject) {
 
-        super(checkExceptionCause(aCause));
-    }
+        Node node = (Node) anObject;
+        String name = node.getNodeName();
 
-    /**
-     * Creates a new exception.
-     *
-     * @param aMessage
-     * @param aCause
-     */
-    public ArchiveException(String aMessage, Throwable aCause) {
-
-        super(checkExceptionMessage(aMessage), checkExceptionCause(aCause));
+        return TextHelper.concatenateStrings(getParentClass().getName(), "(XML Element ", name, ")");
     }
 
 }

@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ *
+ *
  * (J)ava (M)iscellaneous (U)tility (L)ibraries
  *
  * JMUL is a central repository for utilities which are used in my
@@ -75,6 +78,7 @@ public class SchemaArchiveImpl extends DirectoryDetailsImpl implements SchemaArc
      * Creates a new XML schema archive according to the specified parameters.
      *
      * @param aDirectoryName
+     *        the base directory where all schema are stored
      */
     public SchemaArchiveImpl(String aDirectoryName) {
 
@@ -124,6 +128,7 @@ public class SchemaArchiveImpl extends DirectoryDetailsImpl implements SchemaArc
      * A getter method.
      *
      * @param aSchemaKey
+     *        the key which is asocciated with a specific schema
      *
      * @return a XML schema
      */

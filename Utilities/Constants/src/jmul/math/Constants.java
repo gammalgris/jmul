@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -23,6 +26,7 @@
  */
 
 package jmul.math;
+
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -131,6 +135,7 @@ public final class Constants {
      * Returns the epsilon for the specified number type.
      *
      * @param aType
+     *        a number type
      *
      * @return epsilon (an arbitrary small limit)
      */
@@ -156,6 +161,7 @@ public final class Constants {
      * Returns zero for the specified number type.
      *
      * @param aType
+     *        a number type
      *
      * @return zero
      */

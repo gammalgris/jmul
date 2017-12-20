@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -47,6 +50,7 @@ public class RuleSetImpl implements RuleSet {
      * Creates a new rule set.
      *
      * @param someRules
+     *        several rules
      */
     public RuleSetImpl(Rule... someRules) {
 
@@ -57,6 +61,7 @@ public class RuleSetImpl implements RuleSet {
      * Checks if the specified numeric value adheres to this rule set.
      *
      * @param aNumericValue
+     *        the number which is to be checked
      *
      * @return <code>true</code> the numeric value adheres to this rule set, else <code>false</code>
      */

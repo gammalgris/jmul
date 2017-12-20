@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ * 
+ * 
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -22,7 +25,7 @@
  * e-mail: kristian.kutin@arcor.de
  */
 
-package test.jmul.transformation;
+package test.jmul.transformation.configuration;
 
 
 import java.util.ArrayList;

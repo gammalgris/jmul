@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ *
+ *
  * (J)ava (M)iscellaneous (U)tility (L)ibraries
  *
  * JMUL is a central repository for utilities which are used in my
@@ -37,6 +40,7 @@ public interface XmlValidator {
      * schemas.
      *
      * @param aFileName
+     *        the xml file which is to be validated
      *
      * @return a validation result
      */

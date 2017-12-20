@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -49,7 +52,7 @@ import jmul.measures.rules.ConversionRuleImpl;
 
 import jmul.misc.exceptions.InitializationException;
 
-import jmul.string.StringConcatenator;
+import jmul.string.TextHelper;
 
 import jmul.xml.reader.ReaderException;
 
@@ -358,15 +361,14 @@ class DefinitionsLoader {
 
         } catch (SAXException e) {
 
-            StringConcatenator message =
-                new StringConcatenator("The file \"", aConfigurationFile, "\" has an invalid XML structure!");
-            throw new IllegalArgumentException(message.toString(), e);
+            String message =
+                TextHelper.concatenateStrings("The file \"", aConfigurationFile, "\" has an invalid XML structure!");
+            throw new IllegalArgumentException(message, e);
 
         } catch (IOException e) {
 
-            StringConcatenator message =
-                new StringConcatenator("Couldn't read from file \"", aConfigurationFile, "\"!");
-            throw new IllegalArgumentException(message.toString(), e);
+            String message = TextHelper.concatenateStrings("Couldn't read from file \"", aConfigurationFile, "\"!");
+            throw new IllegalArgumentException(message, e);
         }
 
         return definition;

@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ * 
+ * 
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -65,7 +68,9 @@ public class PageLoader {
      * Creates a new instance of a content loader.
      *
      * @param aBaseDirectory
+     *        a base directory
      * @param aFile
+     *        a file (i.e. file path)
      */
     public PageLoader(File aBaseDirectory, File aFile) {
 

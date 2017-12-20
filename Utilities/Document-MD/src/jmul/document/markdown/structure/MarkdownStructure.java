@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -51,7 +54,9 @@ public class MarkdownStructure implements Structure {
      * Creates a new instance according to the specified parameters.
      *
      * @param aCharset
+     *        the charset
      * @param aLineSeparator
+     *        the line separator
      */
     public MarkdownStructure(Charset aCharset, String aLineSeparator) {
 

@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ * 
+ * 
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -37,14 +40,14 @@ import jmul.document.binary.structure.BinaryFileStructure;
 public interface BinaryFile extends Document<BinaryFileStructure> {
 
     /**
-     * Returns the file content as byte array.
+     * Returns the content as byte array.
      *
      * @return a byte array
      */
     byte[] getContent();
 
     /**
-     * Returns the size of the file content.
+     * Returns the size of the content.
      *
      * @return a content size
      */

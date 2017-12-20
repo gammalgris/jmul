@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -49,7 +52,9 @@ public final class StreamEntry {
      * Creates a new entry according to the psecified parameters.
      *
      * @param aName
+     *        a name associated with a stream
      * @param aStream
+     *        an input or output stream
      */
     public StreamEntry(String aName, Closeable aStream) {
 

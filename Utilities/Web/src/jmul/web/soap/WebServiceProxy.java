@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -84,7 +87,9 @@ public class WebServiceProxy {
      * Creates a web server procxy according to the specified parameters.
      *
      * @param anOutputDirectory
+     *        the output directory
      * @param aFileExtension
+     *        the file extension of generated code
      */
     public WebServiceProxy(String anOutputDirectory, String aFileExtension) {
 
@@ -141,13 +146,15 @@ public class WebServiceProxy {
 
     /**
      * Returns a service class which could be identified according to the specified
-     * parameters.<br />
-     * <br />
-     * <i>Note:<br />
+     * parameters.<br>
+     * <br>
+     * <i>Note:<br>
      * The service class can be located outside the known class path.</i>
      *
      * @param anOutputDirectory
+     *        the output directory
      * @param aFileExtension
+     *        the file extension of generated code
      *
      * @return a service class
      */
@@ -176,6 +183,7 @@ public class WebServiceProxy {
      * Scans a service class and returns a specific getter method.
      *
      * @param anOutputDirectory
+     *        the output directory
      *
      * @return a getter method
      */
@@ -314,7 +322,9 @@ public class WebServiceProxy {
      * Creates a new exception according to the specified parameters.
      *
      * @param aServiceClass
+     *        a service class
      * @param aPattern
+     *        a name pattern
      *
      * @return an exception
      */
@@ -330,7 +340,9 @@ public class WebServiceProxy {
      * Creates a new exception according to the specified parameters.
      *
      * @param aServiceClass
+     *        a service class
      * @param aPattern
+     *        a name pattern
      *
      * @return an exception
      */

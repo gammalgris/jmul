@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -34,7 +37,7 @@ import jmul.reflection.Initializer;
 import jmul.reflection.classes.ClassDefinition;
 import jmul.reflection.classes.ClassHelper;
 
-import jmul.string.StringConcatenator;
+import jmul.string.TextHelper;
 
 import jmul.transformation.creation.creators.ObjectCreator;
 
@@ -81,8 +84,8 @@ public class ObjectFactoryImpl implements ObjectFactory {
 
             } catch (ClassNotFoundException e) {
 
-                StringConcatenator message = new StringConcatenator("Unknown class (", value, ")!");
-                throw new IllegalArgumentException(message.toString(), e);
+                String message = TextHelper.concatenateStrings("Unknown class (", value, ")!");
+                throw new IllegalArgumentException(message, e);
             }
 
 
@@ -130,14 +133,14 @@ public class ObjectFactoryImpl implements ObjectFactory {
 
         } catch (IllegalAccessException e) {
 
-            StringConcatenator message =
-                new StringConcatenator("The class ", className, " doesn't have a public default constructor!");
-            throw new IllegalArgumentException(message.toString(), e);
+            String message =
+                TextHelper.concatenateStrings("The class ", className, " doesn't have a public default constructor!");
+            throw new IllegalArgumentException(message, e);
 
         } catch (InstantiationException e) {
 
-            StringConcatenator message = new StringConcatenator("Couldn't create a new instance of ", className, "!");
-            throw new IllegalArgumentException(message.toString(), e);
+            String message = TextHelper.concatenateStrings("Couldn't create a new instance of ", className, "!");
+            throw new IllegalArgumentException(message, e);
         }
     }
 
@@ -170,10 +173,10 @@ public class ObjectFactoryImpl implements ObjectFactory {
 
         // If not then throw an exception.
 
-        StringConcatenator message =
-            new StringConcatenator("No rule exists to create a new instance of ", className,
-                                   " with the initial value \"", anInitialValue, "\"!");
-        throw new IllegalArgumentException(message.toString());
+        String message =
+            TextHelper.concatenateStrings("No rule exists to create a new instance of ", className,
+                                          " with the initial value \"", anInitialValue, "\"!");
+        throw new IllegalArgumentException(message);
     }
 
     /**
@@ -209,11 +212,11 @@ public class ObjectFactoryImpl implements ObjectFactory {
 
         // If not then throw an exception.
 
-        StringConcatenator message =
-            new StringConcatenator("No rule exists to create a new instance of ", className,
-                                   " with the initial value \"", anInitialValue, "\" and the pattern \"", aPattern,
-                                   "\"!");
-        throw new IllegalArgumentException(message.toString());
+        String message =
+            TextHelper.concatenateStrings("No rule exists to create a new instance of ", className,
+                                          " with the initial value \"", anInitialValue, "\" and the pattern \"",
+                                          aPattern, "\"!");
+        throw new IllegalArgumentException(message);
     }
 
 }

@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -29,10 +32,17 @@ import java.util.Collection;
 
 import jmul.misc.id.ID;
 
+import jmul.reflection.ContainerHelper;
+
+import jmul.string.TextHelper;
+
+import jmul.transformation.TransformationException;
+import jmul.transformation.TransformationParameters;
+import jmul.transformation.TransformationRuleBase;
+import jmul.transformation.xml.TransformationHelper;
 import jmul.transformation.xml.annotations.AnnotationHelper;
 import jmul.transformation.xml.annotations.ContainerInformations;
 import jmul.transformation.xml.annotations.RootNode;
-import jmul.transformation.xml.TransformationHelper;
 import jmul.transformation.xml.cache.Object2XmlCache;
 import static jmul.transformation.xml.rules.PersistenceMarkups.DECLARED_TYPE_ATTRIBUTE;
 import static jmul.transformation.xml.rules.PersistenceMarkups.ID_ATTRIBUTE;
@@ -46,14 +56,6 @@ import jmul.transformation.xml.rules.object2xml.strategies.containers.Collection
 import jmul.transformation.xml.rules.object2xml.strategies.containers.ContainerHandler;
 import jmul.transformation.xml.rules.object2xml.strategies.fields.FieldsHandler;
 import jmul.transformation.xml.rules.object2xml.strategies.fields.GenericObjectHandler;
-
-import jmul.reflection.ContainerHelper;
-
-import jmul.string.StringConcatenator;
-
-import jmul.transformation.TransformationException;
-import jmul.transformation.TransformationParameters;
-import jmul.transformation.TransformationRuleBase;
 
 import jmul.xml.XmlHelper;
 
@@ -206,10 +208,10 @@ public class CompositeCollection2XmlRule extends TransformationRuleBase {
 
             if (annotation == null) {
 
-                StringConcatenator message =
-                    new StringConcatenator("Cannot determine the element type for this collection (",
-                                           someParameters.getRealType().getName(), "<?>)!");
-                throw new TransformationException(message.toString());
+                String message =
+                    TextHelper.concatenateStrings("Cannot determine the element type for this collection (",
+                                                  someParameters.getRealType().getName(), "<?>)!");
+                throw new TransformationException(message);
             }
 
             Class declaredElementType = annotation.declaredElementType();

@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -112,6 +115,7 @@ public interface FileManager {
      * The method returns all files which meet the specified criteria.
      *
      * @param someQueries
+     *        all queries which will be performed on all files
      *
      * @return a list of files which meet the specified criteria
      */

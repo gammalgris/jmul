@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -41,6 +44,7 @@ public class MinimumValueRule implements Rule {
      * Creates a new rule.
      *
      * @param aMinimumValue
+     *        a threshold value for this rule
      */
     public MinimumValueRule(int aMinimumValue) {
 
@@ -61,6 +65,7 @@ public class MinimumValueRule implements Rule {
      * Checks if the specified numeric value adheres to this rule.
      *
      * @param aNumericValue
+     *        the number which is to be checked
      *
      * @return <code>true</code> the numeric value adheres to this rule, else <code>false</code>
      */

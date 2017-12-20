@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ * 
+ * 
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -29,7 +32,7 @@ import jmul.document.type.DocumentType;
 
 /**
  * This interface describes certain functionalities a typed
- * document must provide (see {@link Document#}).
+ * document must provide (see {@link jmul.document.Document}).
  *
  * @author Kristian Kutin
  */

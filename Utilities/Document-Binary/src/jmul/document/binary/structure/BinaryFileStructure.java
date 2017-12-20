@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -51,7 +54,9 @@ public class BinaryFileStructure implements Structure {
      * Creates a new instance according to the specified parameters.
      *
      * @param aByteOrder
+     *        a byte order
      * @param aWordLength
+     *        a word length
      */
     public BinaryFileStructure(ByteOrder aByteOrder, WordLengths aWordLength) {
 

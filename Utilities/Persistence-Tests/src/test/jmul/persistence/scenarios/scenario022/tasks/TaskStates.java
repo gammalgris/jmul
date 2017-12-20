@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -197,8 +200,11 @@ public enum TaskStates implements State {
      * Performs a state transitions and returns the new state.
      *
      * @param newState
+     *        the new state
      *
      * @throws IllegalStateTransitionException
+     *         is thrown if the current state doesn't allow a transition to the
+     *         specified state
      *
      * @return the new state
      */
@@ -214,9 +220,10 @@ public enum TaskStates implements State {
     }
 
     /**
-     * Returns the specified state.
+     * Identifies a state by the specified state name.
      *
      * @param aStateName
+     *        the name of a state
      *
      * @return a state
      *

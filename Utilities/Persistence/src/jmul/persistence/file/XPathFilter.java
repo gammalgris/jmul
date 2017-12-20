@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -23,6 +26,7 @@
  */
 
 package jmul.persistence.file;
+
 
 import java.io.File;
 import java.io.FileFilter;
@@ -58,6 +62,7 @@ public class XPathFilter implements FileFilter {
      * Constructs a file filter.
      *
      * @param someQueries
+     *        all queries which will be performed on all files
      */
     public XPathFilter(XPathQuery... someQueries) {
 
@@ -83,7 +88,7 @@ public class XPathFilter implements FileFilter {
 
             try {
 
-                document = reader.parseDocument(pathname);
+                document = reader.readFrom(pathname);
 
             } catch (SAXException e) {
 

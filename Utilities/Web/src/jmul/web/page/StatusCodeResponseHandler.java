@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -57,8 +60,11 @@ public class StatusCodeResponseHandler implements HttpHandler {
      * Creates a new content handler according to the specified parameters.
      *
      * @param aLogger
+     *        a logger instance
      * @param aPath
+     *        the published path
      * @param aResponseCode
+     *        the response code which is to be returned
      */
     public StatusCodeResponseHandler(Logger aLogger, String aPath, ResponseCode aResponseCode) {
 
@@ -72,6 +78,7 @@ public class StatusCodeResponseHandler implements HttpHandler {
      * Returns the path of the web page.
      *
      * @return a path
+     *        the published path
      */
     public String getPath() {
 
@@ -82,6 +89,7 @@ public class StatusCodeResponseHandler implements HttpHandler {
      * Handles a request and returns the web content to the caller.
      *
      * @param httpExchange
+     *        the request which is answered
      *
      * @throws IOException
      *         is thrown if an error occurs while delivering the web content

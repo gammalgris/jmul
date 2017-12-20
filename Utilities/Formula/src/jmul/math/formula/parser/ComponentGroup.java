@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -30,7 +33,7 @@ import java.util.List;
 
 import jmul.math.formula.operations.Operator;
 
-import jmul.string.StringConcatenator;
+import jmul.string.TextHelper;
 
 
 /**
@@ -120,7 +123,9 @@ public class ComponentGroup {
      * The method adds a component which belongs to this group.
      *
      * @param aComponentType
-     *        a component type
+     *        the component type
+     * @param aComponent
+     *        the component
      */
     public void addComponent(ComponentType aComponentType, String aComponent) {
 
@@ -252,16 +257,18 @@ public class ComponentGroup {
     @Override
     public String toString() {
 
-        StringConcatenator representation = new StringConcatenator();
+        StringBuilder representation = new StringBuilder();
 
         if (containsOperator()) {
 
-            representation.append("The group consists of ", getOperandCount(), " operand(s) on which the \"",
-                                  getOperator(), "\" operation is performed ", "(", getComponentSequence(), ").");
+            TextHelper.append2StringBuilder(representation, "The group consists of ", getOperandCount(),
+                                            " operand(s) on which the \"", getOperator(), "\" operation is performed ",
+                                            "(", getComponentSequence(), ").");
 
         } else {
 
-            representation.append("The group consists of ", getOperandCount(), " operand(s).");
+            TextHelper.append2StringBuilder(representation, "The group consists of ", getOperandCount(),
+                                            " operand(s).");
         }
 
         return representation.toString();

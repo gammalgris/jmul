@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -24,6 +27,7 @@
 
 package jmul.document.markdown.content;
 
+
 import jmul.document.markdown.content.chapter.Chapter;
 
 
@@ -45,6 +49,7 @@ public interface MarkdownContent {
      * Adds (i.e. appends) the specified chapter to this markdown document.
      *
      * @param aChapter
+     *        the chapter which is to be added
      */
     void addChapter(Chapter aChapter);
 
@@ -52,6 +57,7 @@ public interface MarkdownContent {
      * Returns the chapter at the specified index.
      *
      * @param anIndex
+     *        the index of the requested chapter
      *
      * @return a chapter
      */
@@ -61,6 +67,7 @@ public interface MarkdownContent {
      * Removes the chapter at the specified index.
      *
      * @param anIndex
+     *        the index of the chapter which is to be removed
      */
     void removeChapter(int anIndex);
 

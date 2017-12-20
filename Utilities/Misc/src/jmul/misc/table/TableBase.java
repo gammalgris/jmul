@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -34,7 +37,7 @@ import static jmul.misc.checks.ParameterCheckHelper.checkIndex;
 /**
  * A base implementation for table functions.
  *
- * @param <T>
+ * @param <T> the content type of table cells
  *
  * @author Kristian Kutin
  */
@@ -52,7 +55,9 @@ abstract class TableBase<T> implements Table<T> {
      * Checks if the specified cell is empty (i.e. is <code>null</code>).
      *
      * @param aColumnIndex
+     *        the column index of a cell
      * @param aRowIndex
+     *        the row index of a cell
      *
      * @return <code>true</code> if the cell is empty (i.e. is <code>null</code>),
      *         else <code>false</code>
@@ -69,6 +74,7 @@ abstract class TableBase<T> implements Table<T> {
      * the returned list don't affect the actual table.
      *
      * @param aRowIndex
+     *        the row index of a row
      *
      * @return all row values
      */
@@ -91,6 +97,7 @@ abstract class TableBase<T> implements Table<T> {
      * the returned list don't affect the actual table.
      *
      * @param aColumnIndex
+     *        the column index of a column
      *
      * @return all column values
      */
@@ -120,7 +127,9 @@ abstract class TableBase<T> implements Table<T> {
      * then <code>null</code> is returned.
      *
      * @param aColumnIndex
+     *        the column index of a cell
      * @param aRowIndex
+     *        the row index of a cell
      *
      * @return a cell or <code>null</code> if the cell is empty
      */

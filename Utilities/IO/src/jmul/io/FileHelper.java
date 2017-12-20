@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -25,8 +28,11 @@
 package jmul.io;
 
 
+import java.io.Closeable;
 import java.io.File;
 import java.io.FileFilter;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import java.nio.file.Files;
@@ -39,7 +45,7 @@ import java.util.Collection;
 import jmul.io.filters.DirectoryFilter;
 import jmul.io.filters.FileExtensionFilter;
 
-import jmul.string.StringConcatenator;
+import jmul.string.TextHelper;
 
 
 /**
@@ -124,8 +130,8 @@ public final class FileHelper {
 
         } catch (IOException e) {
 
-            StringConcatenator message = new StringConcatenator("Unable to resolve the directory \"", aBasedir, "\"!");
-            throw new IllegalArgumentException(message.toString(), e);
+            String message = TextHelper.concatenateStrings("Unable to resolve the directory \"", aBasedir, "\"!");
+            throw new IllegalArgumentException(message, e);
         }
 
         FileFilter extensionFilter = getFileFilter(aFileExtension);
@@ -133,8 +139,8 @@ public final class FileHelper {
 
         if (fileArray == null) {
 
-            StringConcatenator message = new StringConcatenator("The directory \"", aBasedir, "\" doesn't exist!");
-            throw new IllegalArgumentException(message.toString());
+            String message = TextHelper.concatenateStrings("The directory \"", aBasedir, "\" doesn't exist!");
+            throw new IllegalArgumentException(message);
         }
 
         fileCollection.addAll(Arrays.asList(fileArray));
@@ -146,8 +152,8 @@ public final class FileHelper {
 
             if (directoryArray == null) {
 
-                StringConcatenator message = new StringConcatenator("The directory \"", aBasedir, "\" doesn't exist!");
-                throw new IllegalArgumentException(message.toString());
+                String message = TextHelper.concatenateStrings("The directory \"", aBasedir, "\" doesn't exist!");
+                throw new IllegalArgumentException(message);
             }
 
             int directories = directoryArray.length;
@@ -164,22 +170,19 @@ public final class FileHelper {
     /**
      * The method recursively deletes the specified file or directory.
      *
-     * TODO
-     * Consolidate with FileDeletionHelper.
-     *
      * @param aFile
      *        a file or directory
      *
-     * @deprecated
+     * @deprecated Consolidate with helper class {@link jmul.io.FileDeletionHelper}.
      */
     @Deprecated
     public static void delete(File aFile) {
 
         if (!aFile.exists()) {
 
-            StringConcatenator message =
-                new StringConcatenator("The specified file or directory doesn't exist (", aFile, "!");
-            throw new IllegalArgumentException(message.toString());
+            String message =
+                TextHelper.concatenateStrings("The specified file or directory doesn't exist (", aFile, "!");
+            throw new IllegalArgumentException(message);
         }
 
         if (aFile.isDirectory()) {
@@ -200,7 +203,9 @@ public final class FileHelper {
      * Copies the specified source file to the specified destiantion file.
      *
      * @param aSourceFileName
+     *        the name of a file (i.e. file path)
      * @param aDestinationFileName
+     *        the name of a file (i.e. file path)
      *
      * @throws CopyFileException
      *         is thrown when an exception occurs during copying
@@ -214,7 +219,9 @@ public final class FileHelper {
      * Copies the specified source file to the specified destiantion file.
      *
      * @param aSourceFile
+     *        the name of a file (i.e. file path)
      * @param aDestinationFile
+     *        the name of a file (i.e. file path)
      *
      * @throws CopyFileException
      *         is thrown when an exception occurs during copying
@@ -228,6 +235,7 @@ public final class FileHelper {
      * Loads the content of the specified file and returns it as string.
      *
      * @param aFileName
+     *        the name of a file (i.e. file path)
      *
      * @return a string containing a file content
      *
@@ -238,6 +246,79 @@ public final class FileHelper {
 
         byte[] content = Files.readAllBytes(Paths.get(aFileName));
         return new String(content);
+    }
+
+    /**
+     * Checks if the specified file exists.
+     *
+     * @param aFileName
+     *        a file name (i.e. file path)
+     *
+     * @return <code>true</code> if the file exists, else <code>false</code>
+     */
+    public static boolean existsFile(String aFileName) {
+
+        return existsFile(new File(aFileName));
+    }
+
+    /**
+     * Checks if the specified file exists.
+     *
+     * @param aFile
+     *        a file object
+     *
+     * @return <code>true</code> if the file exists, else <code>false</code>
+     */
+    public static boolean existsFile(File aFile) {
+
+        if (aFile.isDirectory()) {
+
+            return false;
+        }
+
+        FileInputStream fis = null;
+        try {
+
+            fis = new FileInputStream(aFile);
+
+        } catch (FileNotFoundException e) {
+
+            if (fis != null) {
+
+                closeStreamIgnoreException(fis);
+            }
+
+            return false;
+        }
+
+        try {
+
+            fis.read();
+
+        } catch (IOException e) {
+
+            closeStreamIgnoreException(fis);
+            return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * Tries to close the specified stream and ignores potential exceptions.
+     *
+     * @param aStream
+     *        a stream
+     */
+    private static void closeStreamIgnoreException(Closeable aStream) {
+
+        try {
+
+            aStream.close();
+
+        } catch (IOException e) {
+
+        }
     }
 
 }

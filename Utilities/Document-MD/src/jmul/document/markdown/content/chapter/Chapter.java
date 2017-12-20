@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -24,6 +27,7 @@
 
 package jmul.document.markdown.content.chapter;
 
+
 import jmul.document.markdown.content.paragraph.Paragraph;
 import jmul.document.markdown.content.text.Headline;
 
@@ -39,6 +43,7 @@ public interface Chapter {
      * Adds the headline for this chapter.
      *
      * @param aHeadline
+     *        the chapter's new headline
      */
     void setHeadline(Headline aHeadline);
 
@@ -58,6 +63,7 @@ public interface Chapter {
      * Adds (i.e. appends) the specified subchapter to this chapter.
      *
      * @param aChapter
+     *        the subchapter which is to be added
      */
     void addSubchapter(Chapter aChapter);
 
@@ -65,6 +71,7 @@ public interface Chapter {
      * Returns the subchapter at the specified index.
      *
      * @param anIndex
+     *        the index of the requested subchapter
      *
      * @return a subchapter
      */
@@ -74,6 +81,7 @@ public interface Chapter {
      * Removes the subchapter at the specified index.
      *
      * @param anIndex
+     *        the index of the subchapter which is to be removed
      */
     void removeSubchapter(int anIndex);
 
@@ -88,6 +96,7 @@ public interface Chapter {
      * Adds (i.e. appends) the specified paragraph to this chapter.
      *
      * @param aParagraph
+     *        the paragraph which is to be added
      */
     void addParagraph(Paragraph aParagraph);
 
@@ -95,6 +104,7 @@ public interface Chapter {
      * Returns the paragraph at the specified index.
      *
      * @param anIndex
+     *        the index of the requested paragraph
      *
      * @return a paragraph
      */
@@ -104,6 +114,7 @@ public interface Chapter {
      * Removes the paragraph at the specified index.
      *
      * @param anIndex
+     *        the index of the pragraph which is to be removed
      */
     void removeParagraph(int anIndex);
 

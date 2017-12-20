@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -64,8 +67,11 @@ public class PageHandler implements HttpHandler {
      * Creates a new content handler according to the specified parameters.
      *
      * @param aLogger
+     *        a logger instance
      * @param aBaseDirectory
+     *        the base directory for the web content
      * @param aFile
+     *        the file which is published
      */
     public PageHandler(Logger aLogger, File aBaseDirectory, File aFile) {
 
@@ -89,6 +95,7 @@ public class PageHandler implements HttpHandler {
      * Handles a request and returns the web content to the caller.
      *
      * @param httpExchange
+     *        the request which is answered
      *
      * @throws IOException
      *         is thrown if an error occurs while delivering the web content

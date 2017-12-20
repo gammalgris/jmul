@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ * 
+ * 
  * (J)ava (M)iscellaneous (U)tility (L)ibraries
  *
  * JMUL is a central repository for utilities which are used in my
@@ -49,6 +52,7 @@ public abstract class DirectoryDetailsImpl implements DirectoryDetails {
      * Creates a new instance according to the specified parameters.
      *
      * @param aDirectoryName
+     *        a directory name (i.e. directory path)
      * @param create
      *        a flag which indicates that the specified directory should be
      *        created (<code>true</code>) or not (<code>false</code>)

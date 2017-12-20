@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -33,16 +36,19 @@ package jmul.concurrent.threads;
 public class ThreadEventBase implements ThreadEvent {
 
     /**
-     * The thread that is the cause of this event.
+     * The event source.
      */
     private ObservableThread thread;
 
     /**
      * The default constructor.
+     *
+     * @param aThread
+     *        the event source
      */
-    public ThreadEventBase(ObservableThread aCause) {
+    public ThreadEventBase(ObservableThread aThread) {
 
-        thread = aCause;
+        thread = aThread;
     }
 
     /**

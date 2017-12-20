@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -36,6 +39,7 @@ public interface Rule {
      * Checks if the specified numeric value adheres to this rule.
      *
      * @param aNumericValue
+     *        the number which is to be checked
      *
      * @return <code>true</code> the numeric value adheres to this rule, else <code>false</code>
      */

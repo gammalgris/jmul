@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -69,9 +72,11 @@ public final class HashHelper {
      * Calculates a hash code according to the specified parameters.
      *
      * @param aClass
+     *        the class
      * @param someObjects
+     *        all field values of an instance of the class
      *
-     * @return
+     * @return a hash value
      */
     public static int calculateHashCode(Class aClass, Object... someObjects) {
 
@@ -87,7 +92,9 @@ public final class HashHelper {
      * Calculates a hash code according to the specified parameters.
      *
      * @param twoPrimeNumbers
+     *        a list with two prime numbers
      * @param someObjects
+     *        all field values of an instance of the class
      *
      * @return a hash value
      */

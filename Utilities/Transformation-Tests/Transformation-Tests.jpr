@@ -81,6 +81,13 @@
          <hash>
             <hash n="dependable">
                <url n="sourceOwnerURL" path="../Java Miscellaneous Utilities Library.jws"/>
+               <url n="sourceURL" path="../Constants/Constants.jpr"/>
+            </hash>
+            <value n="recognizerId" v="oracle.jdeveloper.library"/>
+         </hash>
+         <hash>
+            <hash n="dependable">
+               <url n="sourceOwnerURL" path="../Java Miscellaneous Utilities Library.jws"/>
                <url n="sourceURL" path="../Misc/Misc.jpr"/>
             </hash>
             <value n="recognizerId" v="oracle.jdeveloper.library"/>
@@ -128,10 +135,54 @@
       </list>
    </hash>
    <hash n="oracle.jdeveloper.compiler.OjcConfiguration">
+      <list n="copyRes">
+         <string v=".cpx"/>
+         <string v=".dcx"/>
+         <string v=".ejx"/>
+         <string v=".gif"/>
+         <string v=".ini"/>
+         <string v=".jpeg"/>
+         <string v=".jpg"/>
+         <string v=".png"/>
+         <string v=".properties"/>
+         <string v=".sva"/>
+         <string v=".tag"/>
+         <string v=".tld"/>
+         <string v=".wsdl"/>
+         <string v=".xcfg"/>
+         <string v=".xlf"/>
+         <string v=".xml"/>
+         <string v=".xsd"/>
+         <string v=".xsl"/>
+         <string v=".configuration"/>
+      </list>
       <value n="internalEncoding" v="UTF-8"/>
       <value n="source" v="1.7"/>
       <value n="target" v="1.7"/>
       <value n="webIANAEncoding" v="UTF-8"/>
+   </hash>
+   <hash n="oracle.jdeveloper.model.PathsConfiguration">
+      <hash n="javaContentSet">
+         <list n="constituent-sets">
+            <hash>
+               <list n="pattern-filters">
+                  <string v="+**"/>
+               </list>
+               <list n="url-path">
+                  <url path="src/"/>
+               </list>
+            </hash>
+            <hash>
+               <list n="pattern-filters">
+                  <string v="+**"/>
+               </list>
+               <list n="url-path">
+                  <url path="properties/"/>
+               </list>
+            </hash>
+         </list>
+         <list n="url-path"/>
+      </hash>
    </hash>
    <hash n="oracle.jdevimpl.config.JProjectLibraries">
       <list n="exportedReferences">

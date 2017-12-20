@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -28,7 +31,7 @@ package jmul.math.formula.parser.tokens;
 import java.util.ArrayList;
 import java.util.List;
 
-import jmul.string.StringConcatenator;
+import jmul.string.TextHelper;
 
 
 /**
@@ -127,10 +130,10 @@ public class TokenSequence extends ArrayList<Token> implements List<Token> {
     @Override
     public String toString() {
 
-        StringConcatenator representation = new StringConcatenator();
+        StringBuilder representation = new StringBuilder();
         for (Token token : this) {
 
-            representation.append(token);
+            TextHelper.append2StringBuilder(representation, token);
         }
 
         return representation.toString();

@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -40,6 +43,7 @@ public class ExistingEntryException extends IllegalArgumentException {
      * Creates a new exception according to the specified parameters.
      *
      * @param aClass
+     *        the class for which an update was tried
      */
     public ExistingEntryException(Class aClass) {
 
@@ -50,6 +54,7 @@ public class ExistingEntryException extends IllegalArgumentException {
      * Creates an error message according to the specified parameters.
      *
      * @param aClass
+     *        a class
      *
      * @return an error message
      */

@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ * 
+ * 
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -33,9 +36,9 @@ import java.lang.annotation.Target;
 
 
 /**
- * This annotation represents a classification for a test suite (i.e. class).<br />
- * <br />
- * <i>Note:<br />
+ * This annotation represents a classification for a test suite (i.e. class).<br>
+ * <br>
+ * <i>Note:<br>
  * See this article about
  * <a href="https://en.wikipedia.org/wiki/Software_testing">software testing</a>,
  * specifically the subsection regarding

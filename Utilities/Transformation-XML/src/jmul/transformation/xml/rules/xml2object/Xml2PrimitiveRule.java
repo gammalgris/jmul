@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -28,23 +31,22 @@ package jmul.transformation.xml.rules.xml2object;
 import jmul.misc.id.ID;
 import jmul.misc.id.IntegerID;
 
-import jmul.transformation.xml.cache.Xml2ObjectCache;
-import static jmul.transformation.xml.rules.PersistenceMarkups.ID_ATTRIBUTE;
-import static jmul.transformation.xml.rules.PersistenceMarkups.OBJECT_ELEMENT;
-import static jmul.transformation.xml.rules.PersistenceMarkups.TYPE_ATTRIBUTE;
-import static jmul.transformation.xml.rules.PersistenceMarkups.VALUE_ATTRIBUTE;
-import static jmul.transformation.xml.rules.TransformationConstants.OBJECT_CACHE;
-
 import jmul.reflection.classes.ClassDefinition;
 import jmul.reflection.classes.ClassHelper;
 
-import jmul.string.StringConcatenator;
+import jmul.string.TextHelper;
 
 import jmul.transformation.TransformationException;
 import jmul.transformation.TransformationParameters;
 import jmul.transformation.TransformationResources;
 import jmul.transformation.TransformationRuleBase;
 import jmul.transformation.creation.ObjectFactory;
+import jmul.transformation.xml.cache.Xml2ObjectCache;
+import static jmul.transformation.xml.rules.PersistenceMarkups.ID_ATTRIBUTE;
+import static jmul.transformation.xml.rules.PersistenceMarkups.OBJECT_ELEMENT;
+import static jmul.transformation.xml.rules.PersistenceMarkups.TYPE_ATTRIBUTE;
+import static jmul.transformation.xml.rules.PersistenceMarkups.VALUE_ATTRIBUTE;
+import static jmul.transformation.xml.rules.TransformationConstants.OBJECT_CACHE;
 
 import jmul.xml.XmlParserHelper;
 
@@ -105,9 +107,8 @@ public class Xml2PrimitiveRule extends TransformationRuleBase {
 
                 } catch (ClassNotFoundException e) {
 
-                    StringConcatenator message =
-                        new StringConcatenator("An unknown class was specified (", classname, ")!");
-                    throw new TransformationException(message.toString(), e);
+                    String message = TextHelper.concatenateStrings("An unknown class was specified (", classname, ")!");
+                    throw new TransformationException(message, e);
                 }
 
                 return type.isPrimitiveType() || type.isPrimitiveWrapper();
@@ -133,9 +134,9 @@ public class Xml2PrimitiveRule extends TransformationRuleBase {
 
         if (!someParameters.containsPrerequisite(OBJECT_CACHE)) {
 
-            StringConcatenator message =
-                new StringConcatenator("Prerequisites for the transformation are missing (", OBJECT_CACHE, ")!");
-            throw new TransformationException(message.toString());
+            String message =
+                TextHelper.concatenateStrings("Prerequisites for the transformation are missing (", OBJECT_CACHE, ")!");
+            throw new TransformationException(message);
         }
 
 
@@ -165,8 +166,8 @@ public class Xml2PrimitiveRule extends TransformationRuleBase {
 
         } catch (ClassNotFoundException e) {
 
-            StringConcatenator message = new StringConcatenator("An unknown class was specified (", typeString, ")!");
-            throw new TransformationException(message.toString(), e);
+            String message = TextHelper.concatenateStrings("An unknown class was specified (", typeString, ")!");
+            throw new TransformationException(message, e);
         }
 
 

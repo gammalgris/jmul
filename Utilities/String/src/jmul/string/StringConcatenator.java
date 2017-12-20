@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -42,7 +45,10 @@ package jmul.string;
  * and methods accept an object array as input.</i>
  *
  * @author Kristian Kutin
+ *
+ * @deprecated use {@link java.lang.StringBuilder} instead
  */
+@Deprecated
 public final class StringConcatenator implements CharSequence {
 
     /**
@@ -73,6 +79,7 @@ public final class StringConcatenator implements CharSequence {
      * Checks the specified Parameter.
      *
      * @param aParameter
+     *        a parameter array
      *
      * @throws IllegalArgumentException
      *         is thrown if the parameter has an invalid value
@@ -128,6 +135,7 @@ public final class StringConcatenator implements CharSequence {
      * The method returns the character at the specified position within this string.
      *
      * @param index
+     *        the index of a character within the text
      *
      * @return a character
      */
@@ -141,7 +149,9 @@ public final class StringConcatenator implements CharSequence {
      * The method returns a substring at the specified location within this string.
      *
      * @param start
+     *        a start index
      * @param end
+     *        an end index
      *
      * @return a substring
      */

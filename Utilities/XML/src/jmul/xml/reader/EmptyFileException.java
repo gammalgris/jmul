@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ *
+ *
  * (J)ava (M)iscellaneous (U)tility (L)ibraries
  *
  * JMUL is a central repository for utilities which are used in my
@@ -24,6 +27,7 @@
 
 package jmul.xml.reader;
 
+
 import java.io.File;
 
 /**
@@ -37,6 +41,7 @@ public class EmptyFileException extends RuntimeException {
      * Creates a new eception.
      *
      * @param aFile
+     *        the parsed xml file (i.e. file path)
      */
     public EmptyFileException(File aFile) {
 
@@ -47,6 +52,7 @@ public class EmptyFileException extends RuntimeException {
      * An error message is created with the specified parameters.
      *
      * @param aFile
+     *        the parsed xml file (i.e. file path)
      *
      * @return an error message
      */

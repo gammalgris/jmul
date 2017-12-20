@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ * 
+ * 
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -39,6 +42,7 @@ public class TextBlockImpl extends TextBlockBase {
      * Creates a new text block according to the specified parameters.
      *
      * @param aText
+     *        the text content
      */
     public TextBlockImpl(String aText) {
 

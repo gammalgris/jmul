@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -42,6 +45,7 @@ public interface CoupledStreams extends Closeable {
      * Returns the stream which is associated with the specified name.
      *
      * @param aName
+     *        the name of the stream which is requested
      *
      * @return a stream
      */

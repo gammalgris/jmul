@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ *
+ *
  * (J)ava (M)iscellaneous (U)tility (L)ibraries
  *
  * JMUL is a central repository for utilities which are used in my
@@ -41,6 +44,7 @@ public class ThreadsafeXmlValidator implements XmlValidator {
      * Creates a new validator.
      *
      * @param aValidator
+     *        the validator which is to be wrapped
      */
     public ThreadsafeXmlValidator(XmlValidator aValidator) {
 
@@ -52,6 +56,7 @@ public class ThreadsafeXmlValidator implements XmlValidator {
      * schemas.
      *
      * @param aFileName
+     *        the xml file which is to be checked
      *
      * @return a validation result
      *

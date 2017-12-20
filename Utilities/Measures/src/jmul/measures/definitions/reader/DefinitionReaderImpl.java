@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -125,7 +128,7 @@ public class DefinitionReaderImpl implements DefinitionReader {
      */
     private Document loadDocument(String aFilename) throws SAXException, IOException {
 
-        return reader.parseDocument(aFilename);
+        return reader.readFrom(aFilename);
     }
 
     /**
@@ -142,7 +145,7 @@ public class DefinitionReaderImpl implements DefinitionReader {
      */
     private Document loadDocument(File aFile) throws SAXException, IOException {
 
-        return reader.parseDocument(aFile);
+        return reader.readFrom(aFile);
     }
 
     /**

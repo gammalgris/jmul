@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -41,7 +44,7 @@ import jmul.reflection.methods.OperationInvoker;
 import jmul.reflection.methods.StandardFunctionInvocation;
 import jmul.reflection.methods.StandardMethodInvocation;
 
-import jmul.string.StringConcatenator;
+import jmul.string.TextHelper;
 
 
 /**
@@ -90,6 +93,13 @@ public final class ReflectionHelper {
      *        the field name
      * @param fieldValue
      *        the new value of the field
+     *
+     * @throws NoSuchMethodException
+     *         is thrown if no setter method can be identified
+     * @throws IllegalAccessException
+     *         is thrown if the setter method has restricted access
+     * @throws InvocationTargetException
+     *         is thrown if an error occurs while the setter is executed
      */
     public static void invokeSetter(Object target, String fieldName, Object fieldValue) throws NoSuchMethodException,
                                                                                                IllegalAccessException,
@@ -112,9 +122,10 @@ public final class ReflectionHelper {
 
         } catch (ClassNotFoundException f) {
 
-            StringConcatenator message =
-                new StringConcatenator("The target's class couldn't be determined (", probedClass.getName(), ")!");
-            throw new IllegalArgumentException(message.toString(), f);
+            String message =
+                TextHelper.concatenateStrings("The target's class couldn't be determined (", probedClass.getName(),
+                                              ")!");
+            throw new IllegalArgumentException(message, f);
         }
 
 
@@ -216,6 +227,13 @@ public final class ReflectionHelper {
      *        the field name
      *
      * @return the field value
+     *
+     * @throws NoSuchMethodException
+     *         is thrown if no getter method can be identified
+     * @throws IllegalAccessException
+     *         is thrown if the getter method has restricted access
+     * @throws InvocationTargetException
+     *         is thrown if an error occurs while the getter is executed
      */
     public static Object invokeGetter(Object target, String fieldName) throws NoSuchMethodException,
                                                                               IllegalAccessException,
@@ -240,9 +258,10 @@ public final class ReflectionHelper {
 
         } catch (ClassNotFoundException f) {
 
-            StringConcatenator message =
-                new StringConcatenator("The target's class couldn't be determined (", probedClass.getName(), ")!");
-            throw new IllegalArgumentException(message.toString(), f);
+            String message =
+                TextHelper.concatenateStrings("The target's class couldn't be determined (", probedClass.getName(),
+                                              ")!");
+            throw new IllegalArgumentException(message, f);
         }
 
 

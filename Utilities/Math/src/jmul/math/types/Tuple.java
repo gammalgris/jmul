@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -27,14 +30,14 @@ package jmul.math.types;
 
 /**
  * This interface describes a tuple (see <a href="https://en.wikipedia.org/wiki/Tuple">article</a>).
- * A tuple has following properties:<br />
+ * A tuple has following properties:<br>
  * <ul>
  *   <li>a tuple contains zero or more elements</li>
  *   <li>a tuple cannot be changed</li>
  *   <li>a tuple's elements cannot be changed</li>
  * </ul>
  *
- * @param <T>
+ * @param <T> the element type
  */
 public interface Tuple<T> {
 
@@ -42,6 +45,7 @@ public interface Tuple<T> {
      * Returns the element with the specified index.
      *
      * @param anIndex
+     *        the index of the requested element
      *
      * @return an element
      */

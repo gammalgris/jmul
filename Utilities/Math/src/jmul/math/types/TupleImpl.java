@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -36,7 +39,7 @@ import jmul.misc.checks.EqualityHelper;
 /**
  * An implementation of a tuple.
  *
- * @param <T>
+ * @param <T> the element type
  */
 public class TupleImpl<T> implements Tuple<T> {
 
@@ -57,6 +60,7 @@ public class TupleImpl<T> implements Tuple<T> {
      * Creates a tuple according to the specified parameters.
      *
      * @param someElements
+     *        all elements of this tuple
      */
     @SafeVarargs
     public TupleImpl(T... someElements) {
@@ -68,6 +72,7 @@ public class TupleImpl<T> implements Tuple<T> {
      * Returns the element with the specified index.
      *
      * @param anIndex
+     *        the index of the requested element
      *
      * @return an element
      */
@@ -92,8 +97,9 @@ public class TupleImpl<T> implements Tuple<T> {
      * Checks if the specified object is equal to this object.
      *
      * @param o
+     *        an object
      *
-     * @return <code>true</code> if the objects are equal,
+     * @return <code>true</code> if the objects are considered equal,
      *         else <code>false</code>
      */
     @Override

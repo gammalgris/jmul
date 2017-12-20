@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ *
+ *
  * (J)ava (M)iscellaneous (U)tility (L)ibraries
  *
  * JMUL is a central repository for utilities which are used in my
@@ -49,8 +52,8 @@ public class XmlValidationResult {
     private final String schemaName;
 
     /**
-     * The result of the validation.<br />
-     * <br />
+     * The result of the validation.<br>
+     * <br>
      * <ul>
      * <li><code>true</code> if the file adheres to the XML schema</li>
      * <li><code>false</code> if the file doesn't adhere to the XML schema</li>
@@ -67,7 +70,9 @@ public class XmlValidationResult {
      * Creates a new validation result.
      *
      * @param aFileName
+     *        the file which was validated
      * @param aSchemaName
+     *        the reference name of the schema
      */
     public XmlValidationResult(String aFileName, String aSchemaName) {
 
@@ -78,8 +83,11 @@ public class XmlValidationResult {
      * Creates a new validation result.
      *
      * @param aFileName
+     *        the file which was validated
      * @param aSchemaName
+     *        the reference name of the schema
      * @param anError
+     *        the validation error
      */
     public XmlValidationResult(String aFileName, String aSchemaName, Exception anError) {
 
@@ -90,9 +98,13 @@ public class XmlValidationResult {
      * Creates a new validation result.
      *
      * @param aFileName
+     *        the file which was validated
      * @param aSchemaName
+     *        the reference name of the schema
      * @param aResult
+     *        a result flag (<code>true</code> = successful</code>; <code>false</code> = failed)
      * @param anError
+     *        the validation error
      */
     private XmlValidationResult(String aFileName, String aSchemaName, boolean aResult, Exception anError) {
 

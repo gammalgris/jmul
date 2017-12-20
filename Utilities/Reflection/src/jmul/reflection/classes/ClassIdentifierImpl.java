@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -25,7 +28,7 @@
 package jmul.reflection.classes;
 
 
-import jmul.string.StringConcatenator;
+import jmul.string.TextHelper;
 
 
 class ClassIdentifierImpl implements ClassIdentifier {
@@ -181,11 +184,11 @@ class ClassIdentifierImpl implements ClassIdentifier {
     @Override
     public String toString() {
 
-        StringConcatenator representation = new StringConcatenator(getClassname());
+        StringBuilder representation = new StringBuilder(getClassname());
 
         if (isLocatedOnAlternateClasspath()) {
 
-            representation.append(" (", getAlternateClasspath(), ")");
+            TextHelper.append2StringBuilder(representation, " (", getAlternateClasspath(), ")");
         }
 
         return representation.toString();

@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -25,7 +28,7 @@
 package jmul.transformation.creation.creators;
 
 
-import jmul.string.StringConcatenator;
+import jmul.string.TextHelper;
 
 
 /**
@@ -67,9 +70,9 @@ public class CharacterCreator implements ObjectCreator {
 
         if (anInitialValue.length() != 1) {
 
-            StringConcatenator message =
-                new StringConcatenator("An invalid initial value has been specified \"", anInitialValue, "\"!");
-            throw new IllegalArgumentException(message.toString());
+            String message =
+                TextHelper.concatenateStrings("An invalid initial value has been specified \"", anInitialValue, "\"!");
+            throw new IllegalArgumentException(message);
         }
 
         if (aPattern != null) {

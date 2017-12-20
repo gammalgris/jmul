@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -39,7 +42,7 @@ import org.xml.sax.SAXException;
 
 /**
  * A manual test to provoke parser exceptions.
- * 
+ *
  * @author Kristian Kutin
  */
 @ManualTest
@@ -57,7 +60,7 @@ public class ParserErrorTest {
 
         try {
 
-            Document document = reader.parseDocument(fileName);
+            Document document = reader.readFrom(fileName);
 
         } catch (IOException e) {
 

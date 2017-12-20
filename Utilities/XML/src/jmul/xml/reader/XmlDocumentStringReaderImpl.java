@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -53,18 +56,21 @@ public class XmlDocumentStringReaderImpl extends XmlDocumentReaderBase {
     }
 
     /**
-     * The specified string is expected to contain XML content and parses it
-     * accordingly.
+     * Reads from the specified string and returns a document that
+     * contains the file content.
      *
-     * @param source
+     * @param aFilename
+     *        the name of the input file
      *
-     * @return a document
+     * @return a document object
      *
      * @throws SAXException
+     *         This exception can be thrown if the xml file is malformed
      * @throws IOException
+     *         This exception can be thrown if IO operations fail
      */
     @Override
-    public Document parseDocument(String source) throws SAXException, IOException {
+    public Document readFrom(String source) throws SAXException, IOException {
 
         DocumentBuilder builder = newDocumentBuilder();
         InputSource input = new InputSource(new StringReader(source));
@@ -73,34 +79,47 @@ public class XmlDocumentStringReaderImpl extends XmlDocumentReaderBase {
     }
 
     /**
-     * This implementation doesn't provide this operation.
+     * This implementation doesn't provide this operation.<br>
+     * <br>
+     * <i>Note:<br>
+     * This operation is not supported in this implementation.</i>
      *
      * @param aFile
+     *        the input file
      *
-     * @return a document
+     * @return a document object
      *
      * @throws SAXException
+     *         is thrown if the xml structure is invalid
      * @throws IOException
+     *         is thrown if an error occurs while reading from the file
      */
     @Override
-    public Document parseDocument(File aFile) throws SAXException, IOException {
+    public Document readFrom(File aFile) throws SAXException, IOException {
 
         throw new UnsupportedOperationException();
     }
 
     /**
-     * This implementation doesn't provide this operation.
+     * This implementation doesn't provide this operation.<br>
+     * <br>
+     * <i>Note:<br>
+     * This operation is not supported in this implementation.</i>
      *
-     * @param archiveName
-     * @param filename
+     * @param anArchiveName
+     *        the name of the archive file
+     * @param aFilename
+     *        the name of the input file
      *
-     * @return a document
+     * @return a Document object
      *
      * @throws SAXException
+     *         is thrown if the xml structure is invalid
      * @throws IOException
+     *         is thrown if an error occurs while reading from the archive
      */
     @Override
-    public Document parseArchivedDocument(String archiveName, String filename) throws SAXException, IOException {
+    public Document readFrom(String archiveName, String filename) throws SAXException, IOException {
 
         throw new UnsupportedOperationException();
     }

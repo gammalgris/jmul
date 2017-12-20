@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -28,7 +31,7 @@ package jmul.io.filters;
 import java.io.File;
 import java.io.FileFilter;
 
-import jmul.string.StringConcatenator;
+import jmul.string.TextHelper;
 
 
 /**
@@ -85,17 +88,17 @@ public final class FileExtensionFilter implements FileFilter {
 
         if (aFileExtension.indexOf(SEPARATOR) > -1) {
 
-            StringConcatenator message =
-                new StringConcatenator("The file extension contains a separator character \"", SEPARATOR, "\"!");
-            throw new IllegalArgumentException(message.toString());
+            String message =
+                TextHelper.concatenateStrings("The file extension contains a separator character \"", SEPARATOR, "\"!");
+            throw new IllegalArgumentException(message);
         }
 
         if (!aFileExtension.equals(aFileExtension.trim())) {
 
-            StringConcatenator message =
-                new StringConcatenator("The file extension (\"", aFileExtension,
-                                       "\") contains leading or trailing spaces!");
-            throw new IllegalArgumentException(String.valueOf(message));
+            String message =
+                TextHelper.concatenateStrings("The file extension (\"", aFileExtension,
+                                              "\") contains leading or trailing spaces!");
+            throw new IllegalArgumentException(message);
         }
     }
 

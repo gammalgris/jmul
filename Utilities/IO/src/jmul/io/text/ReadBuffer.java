@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -47,6 +50,7 @@ public final class ReadBuffer {
      * Creates a new instance according to the specified parameters.
      *
      * @param aCharSequence
+     *        the read char sequence
      */
     public ReadBuffer(CharSequence aCharSequence) {
 
@@ -57,7 +61,10 @@ public final class ReadBuffer {
      * Creates a new instance according to the specified parameters.
      *
      * @param aCharSequence
+     *        the read char sequence
      * @param anEndOfFileFlag
+     *        a flag to indicate that the end of file was reached (<code>true</code>
+     *        - the end of file was reached; <code>false</code> the end of file was not reached)
      */
     public ReadBuffer(CharSequence aCharSequence, boolean anEndOfFileFlag) {
 

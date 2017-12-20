@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -44,6 +47,7 @@ public final class DiceFactory {
      * Creates a new die.
      *
      * @param sides
+     *        the sides of a die
      *
      * @return a new die
      */
@@ -56,6 +60,7 @@ public final class DiceFactory {
      * Creates a new set of dice.
      *
      * @param someDice
+     *        several dice
      *
      * @return a new set of dice
      */

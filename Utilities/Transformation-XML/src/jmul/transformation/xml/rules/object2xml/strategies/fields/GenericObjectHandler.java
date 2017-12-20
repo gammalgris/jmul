@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -37,7 +40,7 @@ import jmul.misc.id.ID;
 
 import jmul.reflection.ReflectionHelper;
 
-import jmul.string.StringConcatenator;
+import jmul.string.TextHelper;
 
 import jmul.transformation.TransformationException;
 import jmul.transformation.TransformationFactory;
@@ -175,11 +178,11 @@ public class GenericObjectHandler implements FieldsHandler {
 
             if (Modifier.isFinal(fieldModifiers)) {
 
-                StringConcatenator message =
-                    new StringConcatenator("The field ", realType.getName(), "#", fieldName,
-                                           " is final which will be an issue with deserialization!",
-                                           " Consider changing the field's modifier or implement a custom transformation rule for this class.");
-                throw new TransformationException(message.toString());
+                String message =
+                    TextHelper.concatenateStrings("The field ", realType.getName(), "#", fieldName,
+                                                  " is final which will be an issue with deserialization!",
+                                                  " Consider changing the field's modifier or implement a custom transformation rule for this class.");
+                throw new TransformationException(message);
             }
 
 
@@ -187,11 +190,11 @@ public class GenericObjectHandler implements FieldsHandler {
 
             if (processedFields.contains(fieldName)) {
 
-                StringConcatenator message =
-                    new StringConcatenator("The class ", realType.getName(),
-                                           " possesses more than one field with the name \"", fieldName, "\"!",
-                                           " This ambiguity makes it too complicated to access the field's value with getter and setter methods.");
-                throw new TransformationException(message.toString());
+                String message =
+                    TextHelper.concatenateStrings("The class ", realType.getName(),
+                                                  " possesses more than one field with the name \"", fieldName, "\"!",
+                                                  " This ambiguity makes it too complicated to access the field's value with getter and setter methods.");
+                throw new TransformationException(message);
             }
 
 
@@ -203,24 +206,24 @@ public class GenericObjectHandler implements FieldsHandler {
 
             } catch (NoSuchMethodException e) {
 
-                StringConcatenator message =
-                    new StringConcatenator("No public getter method could be identified for ", realType.getName(), "#",
-                                           fieldName, "!");
-                throw new TransformationException(message.toString(), e);
+                String message =
+                    TextHelper.concatenateStrings("No public getter method could be identified for ",
+                                                  realType.getName(), "#", fieldName, "!");
+                throw new TransformationException(message, e);
 
             } catch (IllegalAccessException e) {
 
-                StringConcatenator message =
-                    new StringConcatenator("Couldn't access getter method for ", realType.getName(), "#", fieldName,
-                                           "!");
-                throw new TransformationException(message.toString(), e);
+                String message =
+                    TextHelper.concatenateStrings("Couldn't access getter method for ", realType.getName(), "#",
+                                                  fieldName, "!");
+                throw new TransformationException(message, e);
 
             } catch (InvocationTargetException e) {
 
-                StringConcatenator message =
-                    new StringConcatenator("Invoking the getter method for ", realType.getName(), "#", fieldName,
-                                           " caused an exception!");
-                throw new TransformationException(message.toString(), e);
+                String message =
+                    TextHelper.concatenateStrings("Invoking the getter method for ", realType.getName(), "#", fieldName,
+                                                  " caused an exception!");
+                throw new TransformationException(message, e);
             }
 
 
@@ -254,11 +257,11 @@ public class GenericObjectHandler implements FieldsHandler {
 
                 if (!fieldIsAnnotated && !fieldClassIsAnnotated) {
 
-                    StringConcatenator message =
-                        new StringConcatenator("The declared element type of a container (", realType.getName(), "#",
-                                               fieldName,
-                                               ") was not specified! Use the annotation @ContainerInformations.");
-                    throw new TransformationException(message.toString());
+                    String message =
+                        TextHelper.concatenateStrings("The declared element type of a container (", realType.getName(),
+                                                      "#", fieldName,
+                                                      ") was not specified! Use the annotation @ContainerInformations.");
+                    throw new TransformationException(message);
 
                 } else if (!fieldIsAnnotated && fieldClassIsAnnotated) {
 
@@ -270,11 +273,11 @@ public class GenericObjectHandler implements FieldsHandler {
 
                 } else {
 
-                    StringConcatenator message =
-                        new StringConcatenator("The declared element type of a container (", realType.getName(), "#",
-                                               fieldName,
-                                               ") was provided twice! Either provide the annotation @ContainerInformations with the field or the field's class");
-                    throw new TransformationException(message.toString());
+                    String message =
+                        TextHelper.concatenateStrings("The declared element type of a container (", realType.getName(),
+                                                      "#", fieldName,
+                                                      ") was provided twice! Either provide the annotation @ContainerInformations with the field or the field's class");
+                    throw new TransformationException(message);
 
                 }
 
@@ -290,11 +293,11 @@ public class GenericObjectHandler implements FieldsHandler {
 
                 if (!fieldIsAnnotated && !fieldClassIsAnnotated) {
 
-                    StringConcatenator message =
-                        new StringConcatenator("The declared key and value types of a container (", realType.getName(),
-                                               "#", fieldName,
-                                               ") were not specified!  Use the annotation @MapInformations.");
-                    throw new TransformationException(message.toString());
+                    String message =
+                        TextHelper.concatenateStrings("The declared key and value types of a container (",
+                                                      realType.getName(), "#", fieldName,
+                                                      ") were not specified!  Use the annotation @MapInformations.");
+                    throw new TransformationException(message);
 
                 } else if (!fieldIsAnnotated && fieldClassIsAnnotated) {
 
@@ -306,11 +309,11 @@ public class GenericObjectHandler implements FieldsHandler {
 
                 } else {
 
-                    StringConcatenator message =
-                        new StringConcatenator("The declared key and value types of a container (", realType.getName(),
-                                               "#", fieldName,
-                                               ") were provided twice! Either provide the annotation @MapInformations with the field or the field's class.");
-                    throw new TransformationException(message.toString());
+                    String message =
+                        TextHelper.concatenateStrings("The declared key and value types of a container (",
+                                                      realType.getName(), "#", fieldName,
+                                                      ") were provided twice! Either provide the annotation @MapInformations with the field or the field's class.");
+                    throw new TransformationException(message);
 
                 }
 

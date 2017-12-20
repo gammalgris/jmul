@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -36,7 +39,9 @@ public class UnexpectedSizeException extends IllegalArgumentException {
      * Creates a new exception according to the specified parameters.
      *
      * @param anExpectedSize
+     *        the expected size
      * @param anActualSize
+     *        the actual size
      */
     public UnexpectedSizeException(int anExpectedSize, int anActualSize) {
 
@@ -47,7 +52,9 @@ public class UnexpectedSizeException extends IllegalArgumentException {
      * Creates an error message according to the specified parameters.
      *
      * @param anExpectedSize
+     *        the expected size
      * @param anActualSize
+     *        the actual size
      *
      * @return an error message
      */

@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -46,7 +49,7 @@ public interface DocumentType {
      * Returns all file extensions which are associated with this document
      * type.
      *
-     * @return
+     * @return the file extension
      */
     List<String> getFileExtensions();
 
@@ -55,6 +58,7 @@ public interface DocumentType {
      * document type.
      *
      * @param aFileName
+     *        the file name
      *
      * @return <code>true</code> if the file extensions match, else
      *         <code>false</code>

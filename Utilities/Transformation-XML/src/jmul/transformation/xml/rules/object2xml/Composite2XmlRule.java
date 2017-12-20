@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -30,6 +33,14 @@ import java.util.Map;
 
 import jmul.misc.id.ID;
 
+import jmul.reflection.classes.ClassDefinition;
+import jmul.reflection.classes.ClassHelper;
+
+import jmul.string.TextHelper;
+
+import jmul.transformation.TransformationException;
+import jmul.transformation.TransformationParameters;
+import jmul.transformation.TransformationRuleBase;
 import jmul.transformation.xml.annotations.AnnotationHelper;
 import jmul.transformation.xml.annotations.RootNode;
 import jmul.transformation.xml.cache.Object2XmlCache;
@@ -42,15 +53,6 @@ import static jmul.transformation.xml.rules.TransformationConstants.ROOT_ELEMENT
 import static jmul.transformation.xml.rules.TransformationConstants.XML_DOCUMENT;
 import jmul.transformation.xml.rules.object2xml.strategies.fields.FieldsHandler;
 import jmul.transformation.xml.rules.object2xml.strategies.fields.GenericObjectHandler;
-
-import jmul.reflection.classes.ClassDefinition;
-import jmul.reflection.classes.ClassHelper;
-
-import jmul.string.StringConcatenator;
-
-import jmul.transformation.TransformationException;
-import jmul.transformation.TransformationParameters;
-import jmul.transformation.TransformationRuleBase;
 
 import jmul.xml.XmlHelper;
 
@@ -120,9 +122,8 @@ public class Composite2XmlRule extends TransformationRuleBase {
 
         } catch (ClassNotFoundException e) {
 
-            StringConcatenator message =
-                new StringConcatenator("Unknown class (", someParameters.getDeclaredType(), ")!");
-            throw new IllegalArgumentException(message.toString(), e);
+            String message = TextHelper.concatenateStrings("Unknown class (", someParameters.getDeclaredType(), ")!");
+            throw new IllegalArgumentException(message, e);
         }
 
         return result;

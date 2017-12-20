@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -60,6 +63,7 @@ public interface XmlMarkup {
      * Checks if the specified name matches the name of this markup.
      *
      * @param aName
+     *        the tag name of an xml markup
      *
      * @return <code>true</code> if the specified name matches the name of this
      *         markup, else <code>false</code>
@@ -70,6 +74,7 @@ public interface XmlMarkup {
      * Checks if the specified xml markup this markup.
      *
      * @param anXmlMarkup
+     *        an xml markup
      *
      * @return <code>true</code> if the specified xml markup matches this
      *         markup, else <code>false</code>

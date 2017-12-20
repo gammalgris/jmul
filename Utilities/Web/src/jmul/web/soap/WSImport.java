@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -45,9 +48,9 @@ import static jmul.string.Constants.NEW_LINE;
  * with a java development environment (see
  * <a href="http://docs.oracle.com/javase/6/docs/technotes/tools/share/wsimport.html">documentation</a>).
  * The tool will generate code according to a specified WSDL contract. The
- * generated code allows the invocation of a web service.<br />
- * <br />
- * <i>Notes:<br />
+ * generated code allows the invocation of a web service.<br>
+ * <br>
+ * <i>Notes:<br>
  * The actual invocation relies on <code>Runtime.exec()</code>. See following
  * <a href="http://www.javaworld.com/javaworld/jw-12-2000/jw-1229-traps.html?page=1">article</a>
  * for details.</i>
@@ -74,6 +77,7 @@ public class WSImport implements CodeGenerator {
      * details of the build target (i.e. output directory).
      *
      * @param aSource
+     *        the source which provides details about the code which is to be generated
      *
      * @return details of the build target
      */
@@ -88,7 +92,9 @@ public class WSImport implements CodeGenerator {
      * details of the build target (i.e. output directory).
      *
      * @param aSource
+     *        the source which provides details about the code which is to be generated
      * @param aTarget
+     *        the place where to put the generated code
      *
      * @return details of the build target
      */
@@ -129,6 +135,7 @@ public class WSImport implements CodeGenerator {
      * Cleans the output target (i.e. output directory).
      *
      * @param aTarget
+     *        the place where to put the generated code
      */
     public void cleanTarget(String aTarget) {
 
@@ -147,7 +154,9 @@ public class WSImport implements CodeGenerator {
      * actual values).
      *
      * @param aSource
+     *        the source which provides details about the code which is to be generated
      * @param aTarget
+     *        the place where to put the generated code
      *
      * @return a command line
      */
@@ -169,6 +178,7 @@ public class WSImport implements CodeGenerator {
      * command line.
      *
      * @param aCommandLine
+     *        a command
      *
      * @return an exit code
      */

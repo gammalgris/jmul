@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -58,9 +61,9 @@ public interface MeasurementUnit {
     String getCategory();
 
     /**
-     * The method adds a conversion rule to this unit of measurement.<br />
-     * <br />
-     * <i>Note:<br />
+     * The method adds a conversion rule to this unit of measurement.<br>
+     * <br>
+     * <i>Note:<br>
      * This rule shouldn't be publicly accessible.</i>
      *
      * @param aRule

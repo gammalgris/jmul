@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -39,8 +42,6 @@ import jmul.misc.id.ID;
 import jmul.misc.id.IDGenerator;
 import jmul.misc.id.StringID;
 
-import jmul.transformation.xml.annotations.RootNode;
-
 import jmul.persistence.cache.ObjectCache;
 import jmul.persistence.cache.ObjectCacheImpl;
 import jmul.persistence.file.FileManager;
@@ -49,7 +50,9 @@ import jmul.persistence.id.StringIDGenerator;
 import jmul.persistence.xml.XmlDeserializerImpl;
 import jmul.persistence.xml.XmlSerializerImpl;
 
-import jmul.string.StringConcatenator;
+import jmul.string.TextHelper;
+
+import jmul.transformation.xml.annotations.RootNode;
 
 import jmul.xml.query.XPathQuery;
 
@@ -68,11 +71,10 @@ import jmul.xml.query.XPathQuery;
  * Thus searching, loading and storing specific objects is partly delegated to
  * the filesystem.<br>
  * <br>
- * <i>More informations:<br>
+ * <i>More informations:</i><br>
  * <ul>
- *   <li><a href="http://stackoverflow.com/questions/1239918/what-is-the-optimal-number-of-threads-for-performing-io-operations-in-java">StackOverflow</a></li>
+ *   <li><i><a href="http://stackoverflow.com/questions/1239918/what-is-the-optimal-number-of-threads-for-performing-io-operations-in-java">StackOverflow</a></i></li>
  * </ul>
- * </i>
  *
  * @param <T>
  *        the object type this persistance manager handles
@@ -418,9 +420,10 @@ public class PersistenceContainerImpl<T> implements PersistenceContainer<T> {
 
         } catch (IOException e) {
 
-            StringConcatenator message =
-                new StringConcatenator("Deserialization of an object (", file.getName(), " -> X) was not successful!");
-            throw new PersistenceException(message.toString(), e);
+            String message =
+                TextHelper.concatenateStrings("Deserialization of an object (", file.getName(),
+                                              " -> X) was not successful!");
+            throw new PersistenceException(message, e);
         }
 
 
@@ -499,9 +502,10 @@ public class PersistenceContainerImpl<T> implements PersistenceContainer<T> {
 
         if (!expectedType.isInstance(anObject)) {
 
-            StringConcatenator message =
-                new StringConcatenator("Invalid object (expected:" + expectedType + " / found:" + foundType + ")!");
-            throw new PersistenceException(message.toString());
+            String message =
+                TextHelper.concatenateStrings("Invalid object (expected:" + expectedType + " / found:" + foundType +
+                                              ")!");
+            throw new PersistenceException(message);
         }
 
         if (!foundType.isAnnotationPresent(RootNode.class)) {
@@ -523,10 +527,10 @@ public class PersistenceContainerImpl<T> implements PersistenceContainer<T> {
     private static PersistenceException createUnsuccessfulSerializationException(Throwable aCause, Object anObject,
                                                                                  File aFile) {
 
-        StringConcatenator message =
-            new StringConcatenator("Serialization of an object (", anObject, " -> ", aFile.getName(),
-                                   ") was not successful!");
-        return new PersistenceException(message.toString(), aCause);
+        String message =
+            TextHelper.concatenateStrings("Serialization of an object (", anObject, " -> ", aFile.getName(),
+                                          ") was not successful!");
+        return new PersistenceException(message, aCause);
     }
 
 }

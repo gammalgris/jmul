@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ * 
+ * 
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -59,11 +62,6 @@ abstract class CsvDocumentBase extends DocumentBase<CsvStructure> implements Csv
                               String aRowSeparator, String... someColumnNames) {
 
         super(aDocumentType);
-
-        if (aHeaderType == NO_HEADER) {
-
-            throw new IllegalArgumentException("The header type " + aHeaderType + " is not valid!");
-        }
 
         structure =
             new CsvStructure(Charset.defaultCharset(), aHeaderType, aColumnSeparator, aRowSeparator, someColumnNames);

@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -58,7 +61,7 @@ public class CsvDocumentWriterImpl implements CsvDocumentWriter {
     }
 
     /**
-     * The method writes a CSV document.
+     * Writes the specified document to the specified file.
      *
      * @param aFilename
      *        the name of the output file
@@ -66,16 +69,16 @@ public class CsvDocumentWriterImpl implements CsvDocumentWriter {
      *        a document object
      *
      * @throws IOException
-     *         This exception can be thrown if IO operations fail
+     *         is thrown if an error occurrs while trying to write to the file
      */
     @Override
-    public void writeDocument(String aFilename, CsvDocument aDocument) throws IOException {
+    public void writeTo(String aFilename, CsvDocument aDocument) throws IOException {
 
-        writeDocument(new File(aFilename), aDocument);
+        writeTo(new File(aFilename), aDocument);
     }
 
     /**
-     * The method writes a CSV document.
+     * Writes the specified document to the specified file.
      *
      * @param aFile
      *        the output file
@@ -83,10 +86,10 @@ public class CsvDocumentWriterImpl implements CsvDocumentWriter {
      *        a document object
      *
      * @throws IOException
-     *         This exception can be thrown if IO operations fail
+     *         is thrown if an error occurrs while trying to write to the file
      */
     @Override
-    public void writeDocument(File aFile, CsvDocument aDocument) throws IOException {
+    public void writeTo(File aFile, CsvDocument aDocument) throws IOException {
 
         NestedStreams ns = TextFileHelper.createFile(aFile);
 

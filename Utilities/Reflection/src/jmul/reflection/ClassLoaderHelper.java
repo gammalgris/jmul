@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -32,7 +35,7 @@ import java.net.URI;
 import java.net.URL;
 import java.net.URLClassLoader;
 
-import jmul.string.StringConcatenator;
+import jmul.string.TextHelper;
 
 
 /**
@@ -109,8 +112,8 @@ public final class ClassLoaderHelper {
 
         } catch (MalformedURLException e) {
 
-            StringConcatenator message = new StringConcatenator("Invalid URL: ", anAlternativeClassPath);
-            throw new IllegalArgumentException(message.toString(), e);
+            String message = TextHelper.concatenateStrings("Invalid URL: ", anAlternativeClassPath);
+            throw new IllegalArgumentException(message, e);
         }
 
         return loadClass(aClassName, url);

@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ * 
+ * 
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -37,6 +40,7 @@ public class ParsingException extends RuntimeException {
      * Creates a parsing exception.
      *
      * @param message
+     *        the error message
      */
     public ParsingException(CharSequence message) {
 

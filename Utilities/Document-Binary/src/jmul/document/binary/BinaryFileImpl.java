@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -47,8 +50,13 @@ public class BinaryFileImpl extends BinaryFileBase {
      * Creates a new document according to the specified parmaeters.
      *
      * @param aDocumentType
+     *        the document type
+     * @param aByteOrder
+     *        the byte order
      * @param someContent
+     *        the document content
      * @param aWordLength
+     *        the word length
      */
     public BinaryFileImpl(DocumentType aDocumentType, ByteOrder aByteOrder, WordLengths aWordLength,
                           byte[] someContent) {

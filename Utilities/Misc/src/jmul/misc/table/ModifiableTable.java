@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -28,6 +31,7 @@ package jmul.misc.table;
 /**
  * This interface defines the functionalities of a modifiable table.
  *
+ * @param <T> the content type of table cells
  *
  * @author Kristian Kutin
  */
@@ -47,6 +51,7 @@ public interface ModifiableTable<T> extends Table<T> {
      * Removes the specified column.
      *
      * @param aColumnIndex
+     *        the column index of the column which is to be removed
      */
     void removeColumn(int aColumnIndex);
 
@@ -54,6 +59,7 @@ public interface ModifiableTable<T> extends Table<T> {
      * Removes the specified row.
      *
      * @param aRowIndex
+     *        the row index of the row which is to be removed
      */
     void removeRow(int aRowIndex);
 
@@ -61,7 +67,9 @@ public interface ModifiableTable<T> extends Table<T> {
      * Cleans the specified cell.
      *
      * @param aColumnIndex
+     *        the column index of a cell
      * @param aRowIndex
+     *        the row index of a cell
      */
     void cleanCell(int aColumnIndex, int aRowIndex);
 
@@ -69,8 +77,11 @@ public interface ModifiableTable<T> extends Table<T> {
      * Changes the content of the specified cell.
      *
      * @param aColumnIndex
+     *        the column index of a cell
      * @param aRowIndex
+     *        the row index of a cell
      * @param aNewValue
+     *        the new cell value
      */
     void updateCell(int aColumnIndex, int aRowIndex, T aNewValue);
 

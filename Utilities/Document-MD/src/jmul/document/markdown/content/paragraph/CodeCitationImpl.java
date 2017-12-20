@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -42,7 +45,9 @@ public class CodeCitationImpl extends CitationBase implements CodeCitation {
      * Creates a new code citation block according to the specified parameters.
      *
      * @param aProgrammingLanguage
+     *        the programming language
      * @param aText
+     *        the quoted text
      */
     public CodeCitationImpl(String aProgrammingLanguage, String aText) {
 
@@ -52,7 +57,7 @@ public class CodeCitationImpl extends CitationBase implements CodeCitation {
     }
 
     /**
-     * Returns the underlying programming for the code citation.
+     * Returns the underlying programming language for the code citation.
      *
      * @return a programming language
      */
@@ -66,6 +71,7 @@ public class CodeCitationImpl extends CitationBase implements CodeCitation {
      * A setter method.
      *
      * @param aProgrammingLanguage
+     *        the programming language
      */
     public void setProgrammingLanguage(String aProgrammingLanguage) {
 

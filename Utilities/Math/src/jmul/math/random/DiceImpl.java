@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -50,6 +53,7 @@ public class DiceImpl implements Dice {
      * Creates a new set of dice.
      *
      * @param someDice
+     *        several dice
      */
     public DiceImpl(Die... someDice) {
 

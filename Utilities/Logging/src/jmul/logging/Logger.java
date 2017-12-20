@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -26,9 +29,9 @@ package jmul.logging;
 
 
 /**
- * This interface describes a logger.<br />
- * <br />
- * <i>Note:<br />
+ * This interface describes a logger.<br>
+ * <br>
+ * <i>Note:<br>
  * This interface and all its implementations represent an intermediary layer
  * to the actual logging mechanism.</i>
  *
@@ -40,6 +43,7 @@ public interface Logger {
      * Log a debug message.
      *
      * @param aMessage
+     *        the log message
      */
     void logDebug(String aMessage);
 
@@ -47,6 +51,7 @@ public interface Logger {
      * Log a warning message.
      *
      * @param aMessage
+     *        the log message
      */
     void logWarning(String aMessage);
 
@@ -54,6 +59,7 @@ public interface Logger {
      * Log an error message.
      *
      * @param aMessage
+     *        the log message
      */
     void logError(String aMessage);
 
@@ -61,6 +67,7 @@ public interface Logger {
      * Log an exception.
      *
      * @param anException
+     *        the exception which is to be logged
      */
     void logError(Throwable anException);
 
@@ -68,6 +75,7 @@ public interface Logger {
      * Log an info message.
      *
      * @param aMessage
+     *        the log message
      */
     void logInfo(String aMessage);
 

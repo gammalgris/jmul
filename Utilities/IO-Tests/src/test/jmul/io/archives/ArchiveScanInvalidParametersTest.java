@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ * 
+ * 
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -22,13 +25,13 @@
  * e-mail: kristian.kutin@arcor.de
  */
 
-package test.jmul.io;
+package test.jmul.io.archives;
 
 
 import java.util.ArrayList;
 import java.util.Collection;
 
-import jmul.io.ArchiveEntry;
+import jmul.io.archives.ArchiveEntry;
 
 import jmul.test.classification.UnitTest;
 
@@ -40,7 +43,7 @@ import org.junit.runners.Parameterized;
 
 
 /**
- * Tests scanning archives with invalid parameters (see {@link jmul.io.ArchiveEntry#scanArchive}).
+ * Tests scanning archives with invalid parameters (see {@link jmul.io.archives.ArchiveEntry#scanArchive} ).
  *
  * @author Kristian Kutin
  */

@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -29,14 +32,14 @@ import java.util.ResourceBundle;
 
 
 /**
- * This enumeration contains response codes for HTTP requests.<br />
- * <br />
- * <i>Notes:<br />
- * The response codes are taken from following resources:<br />
+ * This enumeration contains response codes for HTTP requests.<br>
+ * <br>
+ * <i>Notes:<br>
+ * The response codes are taken from following resources:<br></i>
  * <ul>
- *   <li><a href="https://en.wikipedia.org/wiki/List_of_HTTP_status_codes">Wikipedia</a></li>
- *   <li><a href="http://www.iana.org/assignments/http-status-codes/http-status-codes.xhtml">IANA</a></li>
- * </ul></i>
+ *   <li><i><a href="https://en.wikipedia.org/wiki/List_of_HTTP_status_codes">Wikipedia</a></i></li>
+ *   <li><i><a href="http://www.iana.org/assignments/http-status-codes/http-status-codes.xhtml">IANA</a></i></li>
+ * </ul>
  *
  * @author Kristian Kutin
  */
@@ -144,9 +147,8 @@ public enum ResponseCodes implements ResponseCode {
     /**
      * Creates a new enumeration element.
      *
-     * @param aValue
-     * @param aDescription
-     * @param aReference
+     * @param entryName
+     *        a reference name
      */
     private ResponseCodes(String entryName) {
 
@@ -162,8 +164,11 @@ public enum ResponseCodes implements ResponseCode {
      * is thrown.
      *
      * @param aBundle
+     *        a resource bundle
      * @param anEntryName
+     *        a reference name
      * @param aSuffix
+     *        a property name
      *
      * @return a value from a resource bundle
      */
@@ -241,6 +246,7 @@ public enum ResponseCodes implements ResponseCode {
      * exists (i.e. because it is undefined) an exception is thrown.
      *
      * @param aValue
+     *        a numerical value representing a valid response code
      *
      * @return a response code
      */

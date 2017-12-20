@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -103,9 +106,9 @@ public final class StreamsHelper {
      *        the exception of the previous stream operation
      *
      * @throws IOException
-     *         is thrown if the specified stream couldn't be closed properly
+     *         is always thrown because an error has occured before
      */
-    public static void closeStreamAfterException(Closeable aStream, Throwable aPreviousException) throws IOException {
+    public static void closeStreamAfterException(Closeable aStream, IOException aPreviousException) throws IOException {
 
         try {
 
@@ -115,6 +118,8 @@ public final class StreamsHelper {
 
             throw new IOException(new MultipleCausesException(aPreviousException, e));
         }
+
+        throw aPreviousException;
     }
 
 }

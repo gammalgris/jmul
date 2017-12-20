@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -50,6 +53,7 @@ public class OperatorTokenPatternImpl extends TokenPatternImpl implements Operat
      * The default constructor.
      *
      * @param anOperator
+     *        the operator
      */
     public OperatorTokenPatternImpl(Operator anOperator) {
 
@@ -104,10 +108,15 @@ public class OperatorTokenPatternImpl extends TokenPatternImpl implements Operat
 
         Arity arity = anOperator.getArity();
         if (arity.equals(Arity.UNARY)) {
+
             classification.add(TokenType.UNARY);
+
         } else if (arity.equals(Arity.BINARY)) {
+
             classification.add(TokenType.BINARY);
+
         } else if (arity.equals(Arity.TERNARY)) {
+
             classification.add(TokenType.TERNARY);
         }
 

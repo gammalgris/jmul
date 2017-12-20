@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -41,7 +44,7 @@ import jmul.math.formula.operations.Position;
 import jmul.math.formula.parser.patterns.OperatorTokenPattern;
 import jmul.math.formula.parser.patterns.TokenPattern;
 
-import jmul.string.StringConcatenator;
+import jmul.string.TextHelper;
 
 
 /**
@@ -403,9 +406,9 @@ public class TokenParserImpl implements TokenParser {
 
             } else {
 
-                StringConcatenator message =
-                    new StringConcatenator("The ", arity, " operator \"", symbol, "\" cannot be examined!");
-                throw new IllegalArgumentException(message.toString());
+                String message =
+                    TextHelper.concatenateStrings("The ", arity, " operator \"", symbol, "\" cannot be examined!");
+                throw new IllegalArgumentException(message);
             }
         }
 
@@ -547,6 +550,8 @@ public class TokenParserImpl implements TokenParser {
 
             // As this is the first token it doesn't meet the
             // criteria.
+
+
 
 
 

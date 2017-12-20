@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -33,9 +36,9 @@ import jmul.misc.exceptions.MultipleCausesException;
 
 
 /**
- * An implementation of an error status.<br />
- * <br />
- * <i>Note:<br />
+ * An implementation of an error status.<br>
+ * <br>
+ * <i>Note:<br>
  * This implementation will only remember all errors
  * that have occurred.</i>
  *
@@ -107,6 +110,7 @@ public class MultipleErrorStatus implements ErrorStatus {
      * Reports an error and changes the error status accordingly.
      *
      * @param anError
+     *        the error which is to be preserved
      */
     @Override
     public void reportError(Throwable anError) {

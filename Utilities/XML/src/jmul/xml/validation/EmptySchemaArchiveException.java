@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ *
+ *
  * (J)ava (M)iscellaneous (U)tility (L)ibraries
  *
  * JMUL is a central repository for utilities which are used in my
@@ -44,6 +47,7 @@ public class EmptySchemaArchiveException extends RuntimeException {
      * Creates a new exception according to the specified parameters.
      *
      * @param aMessage
+     *        the error message
      */
     public EmptySchemaArchiveException(String aMessage) {
 
@@ -54,6 +58,7 @@ public class EmptySchemaArchiveException extends RuntimeException {
      * Creates a new exception according to the specified parameters.
      *
      * @param aCause
+     *        the error cause
      */
     public EmptySchemaArchiveException(Throwable aCause) {
 
@@ -64,7 +69,9 @@ public class EmptySchemaArchiveException extends RuntimeException {
      * Creates a new exception according to the specified parameters.
      *
      * @param aMessage
+     *        the error message
      * @param aCause
+     *        the error cause
      */
     public EmptySchemaArchiveException(String aMessage, Throwable aCause) {
 

@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -43,7 +46,7 @@ import jmul.reflection.classes.filter.SignatureLengthFilter;
 import jmul.reflection.classes.signature.SignatureMatcher;
 import jmul.reflection.classes.signature.SignatureMatcherImpl;
 
-import jmul.string.StringConcatenator;
+import jmul.string.TextHelper;
 
 
 /**
@@ -255,10 +258,10 @@ class ClassDefinitionImpl implements ClassDefinition {
 
         if (isInterface()) {
 
-            StringConcatenator message =
-                new StringConcatenator("This class (", this.getType(),
-                                       ") represents an interface and cannot implement an interface!");
-            throw new UnsupportedOperationException(message.toString());
+            String message =
+                TextHelper.concatenateStrings("This class (", this.getType(),
+                                              ") represents an interface and cannot implement an interface!");
+            throw new UnsupportedOperationException(message);
         }
 
 
@@ -286,9 +289,8 @@ class ClassDefinitionImpl implements ClassDefinition {
 
         if (!anInterface.isInterface()) {
 
-            StringConcatenator message =
-                new StringConcatenator("The specified class ", anInterface, " is no interface!");
-            throw new IllegalArgumentException(message.toString());
+            String message = TextHelper.concatenateStrings("The specified class ", anInterface, " is no interface!");
+            throw new IllegalArgumentException(message);
         }
 
 
@@ -360,10 +362,10 @@ class ClassDefinitionImpl implements ClassDefinition {
 
         if (!isInterface()) {
 
-            StringConcatenator message =
-                new StringConcatenator("This class (", this.getType(),
-                                       ") is no interface and thus cannot extend an interface!");
-            throw new UnsupportedOperationException(message.toString());
+            String message =
+                TextHelper.concatenateStrings("This class (", this.getType(),
+                                              ") is no interface and thus cannot extend an interface!");
+            throw new UnsupportedOperationException(message);
         }
 
 
@@ -391,9 +393,8 @@ class ClassDefinitionImpl implements ClassDefinition {
 
         if (!anInterface.isInterface()) {
 
-            StringConcatenator message =
-                new StringConcatenator("The specified class ", anInterface, " is no interface!");
-            throw new IllegalArgumentException(message.toString());
+            String message = TextHelper.concatenateStrings("The specified class ", anInterface, " is no interface!");
+            throw new IllegalArgumentException(message);
         }
 
 
@@ -447,9 +448,10 @@ class ClassDefinitionImpl implements ClassDefinition {
 
         if (isInterface()) {
 
-            StringConcatenator message =
-                new StringConcatenator("This class (", this, ") is an interface and thus cannot extend a class!");
-            throw new UnsupportedOperationException(message.toString());
+            String message =
+                TextHelper.concatenateStrings("This class (", this,
+                                              ") is an interface and thus cannot extend a class!");
+            throw new UnsupportedOperationException(message);
         }
 
 
@@ -473,10 +475,10 @@ class ClassDefinitionImpl implements ClassDefinition {
 
         if (aParentClass.isInterface()) {
 
-            StringConcatenator message =
-                new StringConcatenator("The specified class ", aParentClass,
-                                       " is an interface and cannot be extended by a class!");
-            throw new IllegalArgumentException(message.toString());
+            String message =
+                TextHelper.concatenateStrings("The specified class ", aParentClass,
+                                              " is an interface and cannot be extended by a class!");
+            throw new IllegalArgumentException(message);
         }
 
 
@@ -582,11 +584,11 @@ class ClassDefinitionImpl implements ClassDefinition {
 
                     errorStatus.reportError(f);
 
-                    StringConcatenator message = new StringConcatenator("Method signature contains an unknown class:");
+                    StringBuilder message = new StringBuilder("Method signature contains an unknown class:");
 
                     for (Class clazz : requiredNativeSignature) {
 
-                        message.append(" ", clazz.getName());
+                        TextHelper.append2StringBuilder(message, " ", clazz.getName());
                     }
 
                     throw new IllegalArgumentException(message.toString(), errorStatus.getError());
@@ -603,10 +605,10 @@ class ClassDefinitionImpl implements ClassDefinition {
 
             if (!found) {
 
-                StringConcatenator message =
-                    new StringConcatenator("The class ", getType().getName(), " doesn't possess a method \"",
-                                           aMethodname, " and the signature ", aMethodSignature, "!");
-                throw new NoSuchMethodException(message.toString());
+                String message =
+                    TextHelper.concatenateStrings("The class ", getType().getName(), " doesn't possess a method \"",
+                                                  aMethodname, " and the signature ", aMethodSignature, "!");
+                throw new NoSuchMethodException(message);
             }
         }
 
@@ -660,9 +662,9 @@ class ClassDefinitionImpl implements ClassDefinition {
 
         } catch (NoSuchFieldException e) {
 
-            StringConcatenator message =
-                new StringConcatenator("No field with the specified name \"", aFieldname, "\" exists!");
-            throw new MissingAccessorException(message.toString(), e);
+            String message =
+                TextHelper.concatenateStrings("No field with the specified name \"", aFieldname, "\" exists!");
+            throw new MissingAccessorException(message, e);
         }
 
 
@@ -676,10 +678,10 @@ class ClassDefinitionImpl implements ClassDefinition {
 
             if (foundMethods.isEmpty()) {
 
-                StringConcatenator message =
-                    new StringConcatenator("No setter method with the name ", methodname,
-                                           " was found in the class " + getType().getName() + "!");
-                throw new MissingAccessorException(message.toString());
+                String message =
+                    TextHelper.concatenateStrings("No setter method with the name ", methodname,
+                                                  " was found in the class " + getType().getName() + "!");
+                throw new MissingAccessorException(message);
 
             } else if (foundMethods.size() == 1) {
 
@@ -703,9 +705,9 @@ class ClassDefinitionImpl implements ClassDefinition {
 
             if (foundMethods.isEmpty()) {
 
-                StringConcatenator message =
-                    new StringConcatenator("No getter method with the name ", methodname, " was found!");
-                throw new NoSuchMethodException(message.toString());
+                String message =
+                    TextHelper.concatenateStrings("No getter method with the name ", methodname, " was found!");
+                throw new NoSuchMethodException(message);
 
             } else if (foundMethods.size() == 1) {
 
@@ -724,8 +726,8 @@ class ClassDefinitionImpl implements ClassDefinition {
             }
         }
 
-        StringConcatenator message = new StringConcatenator("Unknown prefix \"", aPrefix, "\"!");
-        throw new IllegalArgumentException(message.toString());
+        String message = TextHelper.concatenateStrings("Unknown prefix \"", aPrefix, "\"!");
+        throw new IllegalArgumentException(message);
     }
 
     /**
@@ -791,14 +793,14 @@ class ClassDefinitionImpl implements ClassDefinition {
 
         if (aClass.isInterface()) {
 
-            StringConcatenator message = new StringConcatenator("The specified class ", aClass, " is an interface!");
-            throw new IllegalArgumentException(message.toString());
+            String message = TextHelper.concatenateStrings("The specified class ", aClass, " is an interface!");
+            throw new IllegalArgumentException(message);
         }
 
         if (isInterface()) {
 
-            StringConcatenator message = new StringConcatenator("This class ", getType(), " is an interface!");
-            throw new UnsupportedOperationException(message.toString());
+            String message = TextHelper.concatenateStrings("This class ", getType(), " is an interface!");
+            throw new UnsupportedOperationException(message);
         }
 
 
@@ -821,15 +823,14 @@ class ClassDefinitionImpl implements ClassDefinition {
 
         if (!anInterface.isInterface()) {
 
-            StringConcatenator message =
-                new StringConcatenator("The specified class ", anInterface, " is no interface!");
-            throw new IllegalArgumentException(message.toString());
+            String message = TextHelper.concatenateStrings("The specified class ", anInterface, " is no interface!");
+            throw new IllegalArgumentException(message);
         }
 
         if (!isInterface()) {
 
-            StringConcatenator message = new StringConcatenator("This class ", this, " is no interface!");
-            throw new UnsupportedOperationException(message.toString());
+            String message = TextHelper.concatenateStrings("This class ", this, " is no interface!");
+            throw new UnsupportedOperationException(message);
         }
 
 
@@ -921,8 +922,8 @@ class ClassDefinitionImpl implements ClassDefinition {
 
         if (aClass.isInterface()) {
 
-            StringConcatenator message = new StringConcatenator("The specified class ", aClass, " is an interface!");
-            throw new IllegalArgumentException(message.toString());
+            String message = TextHelper.concatenateStrings("The specified class ", aClass, " is an interface!");
+            throw new IllegalArgumentException(message);
         }
 
 
@@ -968,9 +969,8 @@ class ClassDefinitionImpl implements ClassDefinition {
 
         if (!anInterface.isInterface()) {
 
-            StringConcatenator message =
-                new StringConcatenator("The specified class ", anInterface, " is no interface!");
-            throw new IllegalArgumentException(message.toString());
+            String message = TextHelper.concatenateStrings("The specified class ", anInterface, " is no interface!");
+            throw new IllegalArgumentException(message);
         }
 
 

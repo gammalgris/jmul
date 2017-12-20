@@ -1,10 +1,13 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
  * other public and private repositories.
  *
- * Copyright (C) 2016  Kristian Kutin
+ * Copyright (C) 2017  Kristian Kutin
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -22,18 +25,23 @@
  * e-mail: kristian.kutin@arcor.de
  */
 
-package test.jmul.io;
+package test.jmul.text.reader;
 
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
 import java.util.ArrayList;
 import java.util.Collection;
 
-import jmul.io.ArchiveEntry;
-
 import jmul.test.classification.UnitTest;
 
+import jmul.text.reader.TextDocumentReader;
+import jmul.text.reader.TextDocumentReaderImpl;
+
 import org.junit.After;
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -41,74 +49,84 @@ import org.junit.runners.Parameterized;
 
 
 /**
- * Tests scanning archives with valid parameters (see {@link jmul.io.ArchiveEntry#scanArchive}).
+ * Tests the instantiation of a reader with various valid input parameters.
  *
  * @author Kristian Kutin
  */
 @UnitTest
 @RunWith(Parameterized.class)
-public class ArchiveScanValidParametersTest {
+public class ReadTextFileWithInvalidParameters2Test {
 
     /**
-     * The name of an archive.
+     * A reader instance.
      */
-    private String archiveName;
+    private TextDocumentReader reader;
 
     /**
-     * The number of expected entries.
+     * An input parameter.
      */
-    private int expectedEntriesCount;
+    private File file;
+
+    /**
+     * An input parameter.
+     */
+    private Class expectedException;
 
     /**
      * Creates a new test according to the specified parameters.
      *
-     * @param anArchiveName
-     * @param anExpectedEntriesCount
+     * @param aFileName
+     * @param anExpectedException
      */
-    public ArchiveScanValidParametersTest(String anArchiveName, int anExpectedEntriesCount) {
+    public ReadTextFileWithInvalidParameters2Test(File aFile, Class anExpectedException) {
 
-        archiveName = anArchiveName;
-        expectedEntriesCount = anExpectedEntriesCount;
+        file = aFile;
+        expectedException = anExpectedException;
     }
 
-    /**
-     * Steps which have to be performed before a test.
-     */
     @Before
     public void setUp() {
+
+        reader = new TextDocumentReaderImpl();
     }
 
-    /**
-     * Steps which have to be performed after a test.
-     */
     @After
     public void tearDown() {
+
+        reader = null;
     }
 
     /**
-     * Tests scanning for a specific archive entry.
+     * Tests the instantiation of a reader with valid input parameters.
      */
     @Test
-    public void testScan() {
+    public void testReadDocument() throws IOException {
 
-        Collection<ArchiveEntry> results = ArchiveEntry.scanArchive(archiveName);
-        assertEquals(expectedEntriesCount, results.size());
+        try {
+
+            reader.readFrom(file);
+
+        } catch (Exception e) {
+
+            if (!expectedException.isAssignableFrom(e.getClass())) {
+
+                fail(e.getMessage());
+            }
+        }
     }
 
     /**
-     * Returns a matrix of input data.
+     * Returns a matrix of formula strings and expected results.
      *
-     * @return a matrix of input data
+     * @return a matrix of formula strings and expected results
      */
     @Parameterized.Parameters
     public static Collection<Object[]> data() {
 
         Collection<Object[]> parameters = new ArrayList<Object[]>();
 
-        parameters.add(new Object[] { "testdata-io\\archive1.zip", 4 });
-        parameters.add(new Object[] { "testdata-io\\archive2.zip", 1 });
-        parameters.add(new Object[] { "testdata-io\\archive2.zip", 1 });
-        parameters.add(new Object[] { "testdata-io\\archive2.zip", 1 });
+        parameters.add(new Object[] { null, IllegalArgumentException.class });
+        parameters.add(new Object[] { new File("testdata-text"), FileNotFoundException.class });
 
         return parameters;
     }

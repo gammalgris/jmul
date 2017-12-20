@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -21,19 +24,25 @@
  *
  * e-mail: kristian.kutin@arcor.de
  */
+
 package jmul.misc.generators;
 
 
 /**
- * The interface describes an entity which will create a string according
- * to unspecified rules.
+ * The interface describes an entity which will create an object according
+ * to specific rules.
  *
- * @param <T>
+ * @param <T> the type of objects which will be generated
  *
  * @author Kristian Kutin
  */
 public interface Generator<T> {
 
+    /**
+     * Creates a new object.
+     *
+     * @return a new object
+     */
     T createValue();
 
 }

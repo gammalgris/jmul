@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -30,7 +33,7 @@ import java.util.Collection;
 
 import jmul.math.markov.Rule;
 
-import jmul.string.StringConcatenator;
+import jmul.string.TextHelper;
 
 import jmul.test.classification.UnitTest;
 
@@ -104,7 +107,7 @@ public class RuleValidParametersTest {
     @Test
     public void testToString() {
 
-        StringConcatenator expectedRepresentation = new StringConcatenator("\"", leftSide, "\" -> \"", rightSide, "\"");
+        String expectedRepresentation = TextHelper.concatenateStrings("\"", leftSide, "\" -> \"", rightSide, "\"");
         Rule rule = new Rule(leftSide, rightSide);
         assertEquals(expectedRepresentation.toString(), rule.toString());
     }

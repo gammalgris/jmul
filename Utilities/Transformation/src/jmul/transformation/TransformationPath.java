@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -25,7 +28,7 @@
 package jmul.transformation;
 
 
-import jmul.string.StringConcatenator;
+import jmul.string.TextHelper;
 
 
 /**
@@ -111,8 +114,7 @@ public final class TransformationPath {
     @Override
     public String toString() {
 
-        StringConcatenator representation = new StringConcatenator(origin, " -> ", destination);
-        return representation.toString();
+        return TextHelper.concatenateStrings(origin, " -> ", destination);
     }
 
     /**

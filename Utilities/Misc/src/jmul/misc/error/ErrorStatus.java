@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -23,6 +26,7 @@
  */
 
 package jmul.misc.error;
+
 
 import java.util.Date;
 
@@ -62,6 +66,7 @@ public interface ErrorStatus {
      * Reports an error and changes the error status accordingly.
      *
      * @param anError
+     *        the error which is to be preserved
      */
     void reportError(Throwable anError);
 

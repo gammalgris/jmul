@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -36,7 +39,7 @@ import static jmul.misc.checks.ParameterCheckHelper.checkIndex;
 /**
  * An implementation of a modifiable table.
  *
- * @param <T>
+ * @param <T> the content type of table cells
  *
  * @author Kristian Kutin
  */
@@ -86,7 +89,9 @@ public class ModifiableTableImpl<T> extends TableBase<T> implements ModifiableTa
      * Creates a new table according to the specified parameters.
      *
      * @param aHeader
+     *        an array with all column names
      * @param someValues
+     *        an array with all initial values
      */
     public ModifiableTableImpl(String[] aHeader, T[][] someValues) {
 
@@ -123,6 +128,7 @@ public class ModifiableTableImpl<T> extends TableBase<T> implements ModifiableTa
      * Creates a new table according to the specified parameters.
      *
      * @param aTable
+     *        a table with initial values
      */
     public ModifiableTableImpl(Table<T> aTable) {
 
@@ -217,6 +223,7 @@ public class ModifiableTableImpl<T> extends TableBase<T> implements ModifiableTa
      * Creates a new row with default values.
      *
      * @param aColumnCount
+     *        the number of columns of the new row
      *
      * @return a new row
      */
@@ -283,6 +290,7 @@ public class ModifiableTableImpl<T> extends TableBase<T> implements ModifiableTa
      * Returns a columns name according to the specified parameters.
      *
      * @param aColumnIndex
+     *        the index of the requested column
      *
      * @return a column name
      */
@@ -295,6 +303,7 @@ public class ModifiableTableImpl<T> extends TableBase<T> implements ModifiableTa
      * Removes the specified column.
      *
      * @param aColumnIndex
+     *        the index of the column which is to be removed
      */
     @Override
     public void removeColumn(int aColumnIndex) {
@@ -324,6 +333,7 @@ public class ModifiableTableImpl<T> extends TableBase<T> implements ModifiableTa
      * Removes the specified row.
      *
      * @param aRowIndex
+     *        the index of the row which is to be removed
      */
     @Override
     public void removeRow(int aRowIndex) {
@@ -362,7 +372,9 @@ public class ModifiableTableImpl<T> extends TableBase<T> implements ModifiableTa
      * Cleans the specified cell.
      *
      * @param aColumnIndex
+     *        the column index of a cell
      * @param aRowIndex
+     *        the row index of a cell
      */
     @Override
     public void cleanCell(int aColumnIndex, int aRowIndex) {
@@ -377,8 +389,11 @@ public class ModifiableTableImpl<T> extends TableBase<T> implements ModifiableTa
      * Changes the content of the specified cell.
      *
      * @param aColumnIndex
+     *        the column index of a cell
      * @param aRowIndex
+     *        the row index of a cell
      * @param aNewValue
+     *        the new value for the cell
      */
     @Override
     public void updateCell(int aColumnIndex, int aRowIndex, T aNewValue) {
@@ -393,6 +408,7 @@ public class ModifiableTableImpl<T> extends TableBase<T> implements ModifiableTa
      * Returns the name of the specified column.
      *
      * @param aColumnIndex
+     *        the column index of the requested column
      *
      * @return a column name
      */
@@ -408,7 +424,9 @@ public class ModifiableTableImpl<T> extends TableBase<T> implements ModifiableTa
      * Changes the name of the specified column.
      *
      * @param aColumnIndex
+     *        the column index
      * @param aColumnName
+     *        the new column name
      */
     @Override
     public void setColumnName(int aColumnIndex, String aColumnName) {

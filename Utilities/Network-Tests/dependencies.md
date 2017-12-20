@@ -3,6 +3,7 @@
 ## Modules
 (in alphabetical order)
 
+* Constants
 * Misc
 * Network
 * Test

@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -29,7 +32,8 @@ import jmul.misc.checks.ParameterCheckHelper;
 
 
 /**
- * Is thrown if a quoted section within a string isn't closed properly.
+ * A special exception implementation which is thrown if a quoted
+ * section within a string isn't closed properly.
  *
  * @author Kristian Kutin
  */
@@ -47,6 +51,7 @@ public class QuoteNotClosedException extends RuntimeException {
      * Creates a new exception according to the specified parameters.
      *
      * @param aMessage
+     *        the error message
      */
     public QuoteNotClosedException(String aMessage) {
 
@@ -57,6 +62,7 @@ public class QuoteNotClosedException extends RuntimeException {
      * Creates a new exception according to the specified parameters.
      *
      * @param aCause
+     *        the error cause
      */
     public QuoteNotClosedException(Throwable aCause) {
 
@@ -67,7 +73,9 @@ public class QuoteNotClosedException extends RuntimeException {
      * Creates a new exception according to the specified parameters.
      *
      * @param aMessage
+     *        the error message
      * @param aCause
+     *        the error cause
      */
     public QuoteNotClosedException(String aMessage, Throwable aCause) {
 

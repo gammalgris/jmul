@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -26,8 +29,9 @@ package jmul.document.structure;
 
 
 /**
- * This marker interface indicates that a document is structured (see {@link Document#}).
- * Details about a concrete structure are elaborated in sub classes.
+ * This marker interface indicates that a document is structured
+ * (see {@link jmul.document.Document}). Details about a concrete
+ * structure are elaborated in sub classes.
  *
  * @author Kristian Kutin
  */

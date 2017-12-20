@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ * 
+ * 
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -36,6 +39,7 @@ public interface ResourceDisposer {
      * The resources within the specified resource container are disposed and cleaned up.
      *
      * @param aResourceContainer
+     *        a resource container
      */
     void disposeResources(ResourceContainer aResourceContainer);
 

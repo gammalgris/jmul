@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -72,6 +75,7 @@ public class TextBlocksImpl extends ContentNodeImpl implements TextBlocks {
      * Adds (i.e. appends) the specified text block to this paragraph.
      *
      * @param aTextBlock
+     *        the text which is to be added
      */
     @Override
     public void addTextBlock(TextBlock aTextBlock) {
@@ -86,6 +90,7 @@ public class TextBlocksImpl extends ContentNodeImpl implements TextBlocks {
      * Returns the text block at the specified index.
      *
      * @param anIndex
+     *        the index of the requested text block
      *
      * @return a text block
      */
@@ -99,6 +104,7 @@ public class TextBlocksImpl extends ContentNodeImpl implements TextBlocks {
      * Removes the text block at the specified index.
      *
      * @param anIndex
+     *        the index of the text block which is to be removed
      */
     @Override
     public void removeTextBlock(int anIndex) {
@@ -114,6 +120,7 @@ public class TextBlocksImpl extends ContentNodeImpl implements TextBlocks {
      * A setter method.
      *
      * @param someTextBlocks
+     *        all text blocks which replace the previous text blocks
      */
     public void setTextBlocks(List<TextBlock> someTextBlocks) {
 

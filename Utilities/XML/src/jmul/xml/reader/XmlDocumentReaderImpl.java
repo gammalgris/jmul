@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -44,11 +47,10 @@ import org.xml.sax.SAXException;
  * The class XMLDocumentReaderImpl is an implmenentation for the
  * XMLDocumentReader interface.<br>
  * <br>
- * <i>More informations:<br>
+ * <i>More informations:</i><br>
  * <ul>
- *   <li><a href="http://stackoverflow.com/questions/3439485/java-and-xml-jaxp-what-about-caching-and-thread-safety">StackOverflow</a></li>
+ *   <li><i><a href="http://stackoverflow.com/questions/3439485/java-and-xml-jaxp-what-about-caching-and-thread-safety">StackOverflow</a></i></li>
  * </ul>
- * </i>
  *
  * @author Kristian Kutin
  */
@@ -63,34 +65,13 @@ public class XmlDocumentReaderImpl extends XmlDocumentReaderBase {
     }
 
     /**
-     * The method parseDocument reads one XML file and transforms the content
-     * into a Document object.
+     * Reads from the specified file and returns a document that
+     * contains the file content.
      *
      * @param aFilename
-     *        filename of the XML file
+     *        the name of the input file
      *
-     * @return a Document object
-     *
-     * @throws SAXException
-     *         This exception can be thrown if the xml file is malformed
-     * @throws IOException
-     *         This exception can be thrown if IO operations fail
-     */
-    @Override
-    public Document parseDocument(String aFilename) throws SAXException, IOException {
-
-        File file = new File(aFilename);
-        return parseDocument(file);
-    }
-
-    /**
-     * The method parseDocument reads one XML file and transforms the content
-     * into a Document object.
-     *
-     * @param aFile
-     *        the XML file
-     *
-     * @return a Document object
+     * @return a document object
      *
      * @throws SAXException
      *         This exception can be thrown if the xml file is malformed
@@ -100,7 +81,30 @@ public class XmlDocumentReaderImpl extends XmlDocumentReaderBase {
      *         This  exception is thrown if the specified file is empty
      */
     @Override
-    public Document parseDocument(File aFile) throws SAXException, IOException {
+    public Document readFrom(String aFilename) throws SAXException, IOException {
+
+        File file = new File(aFilename);
+        return readFrom(file);
+    }
+
+    /**
+     * Reads from the specified file and returns a document that
+     * contains the file content.
+     *
+     * @param aFile
+     *        the input file
+     *
+     * @return a document object
+     *
+     * @throws SAXException
+     *         This exception can be thrown if the xml file is malformed
+     * @throws IOException
+     *         This exception can be thrown if IO operations fail
+     * @throws jmul.xml.reader.EmptyFileException
+     *         This  exception is thrown if the specified file is empty
+     */
+    @Override
+    public Document readFrom(File aFile) throws SAXException, IOException {
 
         if (aFile.exists() && (aFile.length() == 0)) {
 
@@ -112,13 +116,13 @@ public class XmlDocumentReaderImpl extends XmlDocumentReaderBase {
     }
 
     /**
-     * The method reads an XML file from an archive and transforms the content
-     * into a Document object.
+     * Reads from the specified archive and returns a document that
+     * contains the file content.
      *
-     * @param archiveName
+     * @param anArchiveName
      *        the name of the archive file
-     * @param filename
-     *        filename of the XML file
+     * @param aFilename
+     *        the name of the input file
      *
      * @return a Document object
      *
@@ -129,7 +133,7 @@ public class XmlDocumentReaderImpl extends XmlDocumentReaderBase {
      */
     @Inefficient
     @Override
-    public Document parseArchivedDocument(String archiveName, String filename) throws SAXException, IOException {
+    public Document readFrom(String archiveName, String filename) throws SAXException, IOException {
 
         DocumentBuilder builder = newDocumentBuilder();
 

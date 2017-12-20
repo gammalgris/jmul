@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -30,15 +33,14 @@ import java.io.IOException;
 
 import jmul.io.deserialization.Deserializer;
 
-import jmul.transformation.xml.TransformationHelper;
-
-import jmul.string.StringConcatenator;
+import jmul.string.TextHelper;
 
 import jmul.transformation.TransformationException;
 import jmul.transformation.TransformationFactory;
 import jmul.transformation.TransformationParameters;
 import jmul.transformation.TransformationPath;
 import jmul.transformation.TransformationResources;
+import jmul.transformation.xml.TransformationHelper;
 
 import jmul.xml.reader.XmlDocumentReader;
 
@@ -110,13 +112,13 @@ public class XmlDeserializerImpl implements Deserializer {
 
         try {
 
-            document = documentReader.parseDocument(aFile);
+            document = documentReader.readFrom(aFile);
 
         } catch (SAXException e) {
 
-            StringConcatenator message =
-                new StringConcatenator("The specified file (", aFile.getName(), ") couldn't be parsed!");
-            throw new TransformationException(message.toString(), e);
+            String message =
+                TextHelper.concatenateStrings("The specified file (", aFile.getName(), ") couldn't be parsed!");
+            throw new TransformationException(message, e);
         }
 
         TransformationParameters parameters =

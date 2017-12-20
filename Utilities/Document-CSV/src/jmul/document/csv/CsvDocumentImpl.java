@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -43,18 +46,23 @@ import jmul.misc.table.UnmodifiableTableImpl;
 public class CsvDocumentImpl extends CsvDocumentBase {
 
     /**
-     * The content of the underlying CSV file.
+     * The actual content of the document.
      */
-    private Table<String> content;
+    private final Table<String> content;
 
     /**
      * Creates a new document according to the specified parmaeters.
      *
      * @param aDocumentType
+     *        the document type
      * @param aHeaderType
+     *        the header type
      * @param aColumnSeparator
+     *        the column separator
      * @param aRowSeparator
+     *        the row separator
      * @param aTable
+     *        the document content
      */
     public CsvDocumentImpl(DocumentType aDocumentType, HeaderType aHeaderType, String aColumnSeparator,
                            String aRowSeparator, Table<String> aTable) {
@@ -68,9 +76,13 @@ public class CsvDocumentImpl extends CsvDocumentBase {
      * Creates a new document according to the specified parmaeters.
      *
      * @param aDocumentType
+     *        the document type
      * @param aColumnSeparator
+     *        the column separator
      * @param aRowSeparator
+     *        the row separator
      * @param aTable
+     *        the document content
      */
     public CsvDocumentImpl(DocumentType aDocumentType, String aColumnSeparator, String aRowSeparator,
                            Table<String> aTable) {
@@ -84,6 +96,7 @@ public class CsvDocumentImpl extends CsvDocumentBase {
      * Transforms the table column names from a list into an array.
      *
      * @param aTable
+     *        an input table
      *
      * @return an array of column names
      */

@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -51,7 +54,12 @@ public class OperatorTokenImpl extends TokenImpl implements OperatorToken {
     private Map<Operator, OperatorTokenPattern> matchingOperatorPatterns;
 
     /**
-     * The default constructor.
+     * Creates a new operator token according to the specified parameters.
+     *
+     * @param aToken
+     *        the token
+     * @param someMatchingPatterns
+     *        all matchings
      */
     public OperatorTokenImpl(String aToken, Collection<TokenPattern> someMatchingPatterns) {
 

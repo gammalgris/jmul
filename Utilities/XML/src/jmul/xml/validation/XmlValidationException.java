@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ *
+ *
  * (J)ava (M)iscellaneous (U)tility (L)ibraries
  *
  * JMUL is a central repository for utilities which are used in my
@@ -48,7 +51,9 @@ public class XmlValidationException extends RuntimeException {
      * Create a new exception.
      *
      * @param aFileName
+     *        the xml file which was validated
      * @param allValidationResults
+     *        all validation results
      */
     public XmlValidationException(String aFileName, Collection<XmlValidationResult> allValidationResults) {
 
@@ -71,7 +76,9 @@ public class XmlValidationException extends RuntimeException {
      * Returns a formatted error message.
      *
      * @param aFileName
+     *        the xml file which was validated
      * @param allValidationResults
+     *        all validation results
      *
      * @return a formatted error message
      */
@@ -95,6 +102,7 @@ public class XmlValidationException extends RuntimeException {
      * Builds an error message according to the specified parameters.
      *
      * @param aFileName
+     *        the xml file which was validated
      *
      * @return an error message
      */

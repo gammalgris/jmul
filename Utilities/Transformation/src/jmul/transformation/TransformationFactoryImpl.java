@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -32,24 +35,24 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.NoSuchElementException;
 import java.util.ResourceBundle;
 import java.util.SortedMap;
 import java.util.TreeMap;
-
-import org.w3c.dom.Document;
-
-import org.xml.sax.SAXException;
-
-import jmul.transformation.configuration.ConfigurationReader;
 
 import jmul.io.JarResources;
 import jmul.io.ResourceScanner;
 import jmul.io.ResourceType;
 
-import jmul.string.StringConcatenator;
+import jmul.string.TextHelper;
+
+import jmul.transformation.configuration.ConfigurationReader;
+import jmul.transformation.message.MessageFactory;
 
 import jmul.xml.reader.XmlDocumentReader;
+
+import org.w3c.dom.Document;
+
+import org.xml.sax.SAXException;
 
 
 /**
@@ -162,7 +165,7 @@ public class TransformationFactoryImpl implements TransformationFactory {
                     try {
 
                         jar.getResource(embeddedResource);
-                        Document document = documentReader.parseArchivedDocument(archiveName, embeddedResource);
+                        Document document = documentReader.readFrom(archiveName, embeddedResource);
                         TransformationRule rule = configurationReader.parseConfiguration(document);
                         addTransformationRule(rule);
                         processedEmbeddedResources++;
@@ -238,8 +241,8 @@ public class TransformationFactoryImpl implements TransformationFactory {
         boolean existsPath = transformationRules.containsKey(path);
         if (!existsPath) {
 
-            StringConcatenator message = new StringConcatenator("Unknown transformation path: ", path);
-            throw new IllegalArgumentException(message.toString());
+            String message = TextHelper.concatenateStrings("Unknown transformation path: ", path);
+            throw new IllegalArgumentException(message);
         }
 
 
@@ -266,37 +269,30 @@ public class TransformationFactoryImpl implements TransformationFactory {
         }
 
 
+        MessageFactory messageFactory = TransformationResources.getMessageFactory();
+        String objectMessage = messageFactory.newMessage(someParameters.getObject());
+
         // Get the rule with the highest priority
-        Integer highestPriority = null;
+        if (sortedRules.isEmpty()) {
 
-        try {
-
-            highestPriority = sortedRules.firstKey();
-
-        } catch (NoSuchElementException e) {
-
-            StringConcatenator message =
-                new StringConcatenator("The transformation path ", path, " doesn't know a rule for objects of type ",
-                                       someParameters.getObject()
-                                                                                                                                    .getClass()
-                                                                                                                                    .getName(),
-                                                                                "!");
-            throw new IllegalArgumentException(message.toString(), e);
+            String message =
+                TextHelper.concatenateStrings("The transformation path ", path,
+                                              " doesn't know a rule for objects of type ", objectMessage, "!");
+            throw new IllegalArgumentException(message);
         }
+
+        Integer highestPriority = sortedRules.firstKey();
 
         Collection<TransformationRule> applicableRules = sortedRules.get(highestPriority);
 
         boolean existsAmbiguity = applicableRules.size() > 1;
         if (existsAmbiguity) {
 
-            StringConcatenator message =
-                new StringConcatenator("The transformation path ", path,
-                                       " knows several rules with the same priority for objects of type ",
-                                       someParameters.getObject()
-                                                                                                                         .getClass()
-                                                                                                                         .getName(),
-     "!");
-            throw new IllegalArgumentException(message.toString());
+            String message =
+                TextHelper.concatenateStrings("The transformation path ", path,
+                                              " knows several rules with the same priority for objects of type ",
+                                              objectMessage, "!");
+            throw new IllegalArgumentException(message);
         }
 
 

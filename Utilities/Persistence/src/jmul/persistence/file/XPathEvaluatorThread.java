@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -23,6 +26,7 @@
  */
 
 package jmul.persistence.file;
+
 
 import java.io.File;
 import java.io.FileFilter;
@@ -61,6 +65,7 @@ public class XPathEvaluatorThread extends ObservableThreadBase {
      * @param aDirectory
      *        the directory which is to be scanned
      * @param someQueries
+     *        all queries which will be performed on all files
      */
     public XPathEvaluatorThread(ThreadExecutionStatus anExecutionStatus, File aDirectory, XPathQuery... someQueries) {
 

@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -136,6 +139,7 @@ public class HexadecimalNumber extends Number implements Comparable<HexadecimalN
      * Creates a new hexadecimal number (i.e. zero).
      *
      * @param aByteOrder
+     *        the byte order
      */
     public HexadecimalNumber(ByteOrder aByteOrder) {
 
@@ -146,6 +150,7 @@ public class HexadecimalNumber extends Number implements Comparable<HexadecimalN
      * Creates a new hexadecimal number according to the specified parameters.
      *
      * @param aHexadecimalString
+     *        a string representing a hexadecimal number
      */
     public HexadecimalNumber(String aHexadecimalString) {
 
@@ -156,7 +161,9 @@ public class HexadecimalNumber extends Number implements Comparable<HexadecimalN
      * Creates a new hexadecimal number according to the specified parameters.
      *
      * @param aByteOrder
+     *        the byte order
      * @param aHexadecimalString
+     *        a string representing a hexadecimal number
      */
     public HexadecimalNumber(ByteOrder aByteOrder, String aHexadecimalString) {
 
@@ -248,8 +255,9 @@ public class HexadecimalNumber extends Number implements Comparable<HexadecimalN
      * than, equal to, or greater than the specified object.
      *
      * @param o
+     *        an object
      *
-     * @return
+     * @return a number (see method description)
      */
     @Override
     public int compareTo(HexadecimalNumber o) {
@@ -261,8 +269,10 @@ public class HexadecimalNumber extends Number implements Comparable<HexadecimalN
      * Compares this object with the specified object for equality.
      *
      * @param o
+     *        an object
      *
-     * @return
+     * @return <code>true</code> if the specified object and this object are considered
+     *         equal, else <code>false</code>
      */
     @Override
     public boolean equals(Object o) {
@@ -336,6 +346,7 @@ public class HexadecimalNumber extends Number implements Comparable<HexadecimalN
      * Tranlsates the specified string to a byte array.
      *
      * @param aHexadecimalString
+     *        a string representing a hexadecimal number
      *
      * @return a byte array
      */
@@ -355,6 +366,7 @@ public class HexadecimalNumber extends Number implements Comparable<HexadecimalN
      * Translates a byte string into a byte.
      *
      * @param aByteString
+     *        a string representing a byte
      *
      * @return a byte
      */
@@ -374,6 +386,7 @@ public class HexadecimalNumber extends Number implements Comparable<HexadecimalN
      * Translates the specified signed byte to an 'unsigned' integer.
      *
      * @param b
+     *        a number (see type)
      *
      * @return an 'unsigned' integer
      */
@@ -386,6 +399,7 @@ public class HexadecimalNumber extends Number implements Comparable<HexadecimalN
      * Splits the specified hexadecimal number into byte sized chunks.
      *
      * @param aHexadecimalString
+     *        a string representing a hexadecimal number
      *
      * @return the hexadecimal number as byte sized chunks
      */
@@ -411,7 +425,9 @@ public class HexadecimalNumber extends Number implements Comparable<HexadecimalN
      * The byte list is translated to lowest to highest byte order.
      *
      * @param aByteOrder
+     *        the assumed byte order
      * @param someBytes
+     *        a list of byte values which have to be processed
      *
      * @return a byte list
      */
@@ -436,6 +452,7 @@ public class HexadecimalNumber extends Number implements Comparable<HexadecimalN
      * Reverses the order of the specified byte list.
      *
      * @param someBytes
+     *        a list of byte values which have to be processed
      *
      * @return a list with reversed order
      */

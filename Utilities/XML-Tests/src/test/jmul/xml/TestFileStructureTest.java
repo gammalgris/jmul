@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -32,8 +35,8 @@ import jmul.xml.reader.XmlDocumentReader;
 import jmul.xml.reader.XmlDocumentReaderImpl;
 
 import org.junit.After;
-import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -67,7 +70,7 @@ public class TestFileStructureTest {
 
         try {
 
-            document = reader.parseDocument("testdata-xml/test.xml");
+            document = reader.readFrom("testdata-xml/test.xml");
 
         } catch (Exception e) {
 

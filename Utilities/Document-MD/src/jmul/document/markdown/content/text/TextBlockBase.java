@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -46,6 +49,7 @@ class TextBlockBase extends ContentNodeImpl implements TextBlock {
      * Creates a text block according to the specified parameters.
      *
      * @param aText
+     *        the text block content
      */
     protected TextBlockBase(String aText) {
 
@@ -71,6 +75,7 @@ class TextBlockBase extends ContentNodeImpl implements TextBlock {
      * Returns the character at the specified index.
      *
      * @param index
+     *        an index
      *
      * @return a character
      */
@@ -84,7 +89,9 @@ class TextBlockBase extends ContentNodeImpl implements TextBlock {
      * Returns a substring within the specified bounds.
      *
      * @param start
+     *        a start index
      * @param end
+     *        an end index
      *
      * @return a substring
      */
@@ -109,6 +116,7 @@ class TextBlockBase extends ContentNodeImpl implements TextBlock {
      * A setter method.
      *
      * @param aText
+     *        the text content
      */
     public void setText(String aText) {
 

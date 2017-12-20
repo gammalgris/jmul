@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -67,10 +70,15 @@ public class CsvStructure implements Structure {
      * Creates a new instance according to the specified parameters.
      *
      * @param aCharset
+     *        the charset
      * @param aHeaderType
+     *        the header type
      * @param aColumnSeparator
+     *        the column separator
      * @param aRowSeparator
+     *        the row separator
      * @param someColumnNames
+     *        the column names
      */
     public CsvStructure(Charset aCharset, HeaderType aHeaderType, String aColumnSeparator, String aRowSeparator,
                         String... someColumnNames) {
@@ -86,8 +94,11 @@ public class CsvStructure implements Structure {
      * Creates a new instance according to the specified parameters.
      *
      * @param aCharset
+     *        the charset
      * @param aColumnSeparator
+     *        the column separator
      * @param aRowSeparator
+     *        the row separator
      */
     public CsvStructure(Charset aCharset, String aColumnSeparator, String aRowSeparator) {
 

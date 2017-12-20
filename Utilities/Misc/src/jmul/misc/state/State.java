@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -62,8 +65,11 @@ public interface State {
      * Performs a state transitions and returns the new state.
      *
      * @param newState
+     *        the new state
      *
-     * @throws jmul.misc.state.IllegalStateTransitionException
+     * @throws IllegalStateTransitionException
+     *         is thrown if the current state doesn't allow a transition to the
+     *         specified state
      *
      * @return the new state
      */

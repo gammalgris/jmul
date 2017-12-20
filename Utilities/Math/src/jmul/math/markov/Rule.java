@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -28,7 +31,7 @@ package jmul.math.markov;
 import jmul.misc.exceptions.EmptyStringParameterException;
 import jmul.misc.exceptions.NullParameterException;
 
-import jmul.string.StringConcatenator;
+import jmul.string.TextHelper;
 
 
 /**
@@ -142,8 +145,7 @@ public class Rule {
     @Override
     public String toString() {
 
-        StringConcatenator representation = new StringConcatenator("\"", leftSide, "\" -> \"", rightSide, "\"");
-        return representation.toString();
+        return TextHelper.concatenateStrings("\"", leftSide, "\" -> \"", rightSide, "\"");
     }
 
 }

@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -42,7 +45,9 @@ public class FileDeletionException extends RuntimeException {
      * Creates an exception.
      *
      * @param message
+     *        the error message
      * @param file
+     *        the file which couldn't be deleted
      */
     public FileDeletionException(String message, File file) {
 
@@ -53,7 +58,9 @@ public class FileDeletionException extends RuntimeException {
      * Creates an exception message according to the specified paremeters.
      *
      * @param message
+     *        the error message
      * @param file
+     *        the file which couldn't be deleted
      *
      * @return an exception message
      */

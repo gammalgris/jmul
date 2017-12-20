@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ * 
+ * 
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -22,7 +25,7 @@
  * e-mail: kristian.kutin@arcor.de
  */
 
-package jmul.io;
+package jmul.io.archives;
 
 
 import java.io.FileNotFoundException;
@@ -33,6 +36,7 @@ import java.util.Collection;
 import java.util.Enumeration;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
+
 
 import static jmul.misc.checks.ParameterCheckHelper.checkFileNameParameter;
 

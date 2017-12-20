@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -36,7 +39,7 @@ import jmul.reflection.classes.AccessorHelper;
 import jmul.reflection.classes.ClassDefinition;
 import jmul.reflection.classes.ClassHelper;
 
-import jmul.string.StringConcatenator;
+import jmul.string.TextHelper;
 
 import jmul.transformation.TransformationParameters;
 import jmul.transformation.TransformationParametersImpl;
@@ -247,9 +250,9 @@ public final class TransformationHelper {
 
         } catch (ClassNotFoundException e) {
 
-            StringConcatenator message =
-                new StringConcatenator("An invalid class has been specified (", aClass.getName(), ")!");
-            throw new IllegalArgumentException(message.toString(), e);
+            String message =
+                TextHelper.concatenateStrings("An invalid class has been specified (", aClass.getName(), ")!");
+            throw new IllegalArgumentException(message, e);
         }
 
 

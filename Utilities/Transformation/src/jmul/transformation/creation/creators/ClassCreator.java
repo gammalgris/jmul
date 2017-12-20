@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -28,7 +31,7 @@ package jmul.transformation.creation.creators;
 import jmul.reflection.classes.ClassDefinition;
 import jmul.reflection.classes.ClassHelper;
 
-import jmul.string.StringConcatenator;
+import jmul.string.TextHelper;
 
 
 /**
@@ -86,8 +89,8 @@ public class ClassCreator implements ObjectCreator {
 
         } catch (ClassNotFoundException e) {
 
-            StringConcatenator message = new StringConcatenator("Unknown class (", anInitialValue, ")!");
-            throw new IllegalArgumentException(message.toString(), e);
+            String message = TextHelper.concatenateStrings("Unknown class (", anInitialValue, ")!");
+            throw new IllegalArgumentException(message, e);
         }
 
         return clazz;

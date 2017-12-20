@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -43,7 +46,7 @@ import jmul.reflection.Initializer;
 import jmul.reflection.classes.ClassDefinition;
 import jmul.reflection.classes.ClassHelper;
 
-import jmul.string.StringConcatenator;
+import jmul.string.TextHelper;
 
 import jmul.xml.query.XPathQuery;
 
@@ -139,9 +142,9 @@ public class FileLookup implements ThreadListener {
 
                 } catch (ClassNotFoundException e) {
 
-                    StringConcatenator message =
-                        new StringConcatenator("The specified thread pool (", threadPoolType, ") is invalid!");
-                    throw new RuntimeException(message.toString(), e);
+                    String message =
+                        TextHelper.concatenateStrings("The specified thread pool (", threadPoolType, ") is invalid!");
+                    throw new RuntimeException(message, e);
                 }
 
 
@@ -300,9 +303,9 @@ public class FileLookup implements ThreadListener {
 
         if (matches > 1) {
 
-            StringConcatenator message =
-                new StringConcatenator("Too many files with the name ", aFilename, " have been found!");
-            throw new IllegalArgumentException(message.toString());
+            String message =
+                TextHelper.concatenateStrings("Too many files with the name ", aFilename, " have been found!");
+            throw new IllegalArgumentException(message);
         }
 
         return result;
@@ -370,7 +373,9 @@ public class FileLookup implements ThreadListener {
      * The method returns all files which meet the specified criteria.
      *
      * @param someSearchFolders
+     *        the folders which are to be searched
      * @param someQueries
+     *        the queries which will be performed on each file
      *
      * @return a list of files which meet the specified criteria
      */

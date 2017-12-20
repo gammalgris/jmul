@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -42,7 +45,7 @@ import org.w3c.dom.Document;
 public interface XmlDocumentWriter {
 
     /**
-     * The method writes an xml document.
+     * Writes the specified document to the specified file.
      *
      * @param aFilename
      *        the name of the output file
@@ -50,12 +53,12 @@ public interface XmlDocumentWriter {
      *        a document object
      *
      * @throws IOException
-     *         This exception can be thrown if IO operations fail
+     *         is thrown if an error occurrs while trying to write to the file
      */
-    void writeDocument(String aFilename, Document aDocument) throws IOException;
+    void writeTo(String aFilename, Document aDocument) throws IOException;
 
     /**
-     * The method writes an xml document.
+     * Writes the specified document to the specified file.
      *
      * @param aFile
      *        the output file
@@ -63,8 +66,8 @@ public interface XmlDocumentWriter {
      *        a document object
      *
      * @throws IOException
-     *         This exception can be thrown if IO operations fail
+     *         is thrown if an error occurrs while trying to write to the file
      */
-    void writeDocument(File aFile, Document aDocument) throws IOException;
+    void writeTo(File aFile, Document aDocument) throws IOException;
 
 }

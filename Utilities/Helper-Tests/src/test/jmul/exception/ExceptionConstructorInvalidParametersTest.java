@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ * 
+ * 
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -34,7 +37,7 @@ import java.util.Collection;
 
 import jmul.csv.reader.CsvStructureException;
 
-import jmul.io.ArchiveException;
+import jmul.io.archives.ArchiveException;
 import jmul.io.CopyFileException;
 import jmul.io.CoupledStreamsException;
 import jmul.io.FileDeletionException;

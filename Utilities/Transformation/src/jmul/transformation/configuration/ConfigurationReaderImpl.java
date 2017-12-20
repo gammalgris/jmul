@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -32,7 +35,7 @@ import java.lang.reflect.Constructor;
 import jmul.reflection.classes.ClassDefinition;
 import jmul.reflection.classes.ClassHelper;
 
-import jmul.string.StringConcatenator;
+import jmul.string.TextHelper;
 
 import jmul.transformation.TransformationException;
 import jmul.transformation.TransformationResources;
@@ -141,9 +144,8 @@ public class ConfigurationReaderImpl implements ConfigurationReader {
 
         } catch (ClassNotFoundException e) {
 
-            StringConcatenator message =
-                new StringConcatenator("Couldn't find the class " + someData.getClassname() + "!");
-            throw new TransformationException(message.toString(), e);
+            String message = TextHelper.concatenateStrings("Couldn't find the class " + someData.getClassname() + "!");
+            throw new TransformationException(message, e);
         }
 
 
@@ -157,9 +159,9 @@ public class ConfigurationReaderImpl implements ConfigurationReader {
 
         } catch (NoSuchMethodException e) {
 
-            StringConcatenator buffer =
-                new StringConcatenator("The class ", c.getName(),
-                                       " doesn't have a constructor with the specified parameter signature {");
+            StringBuilder buffer = new StringBuilder();
+            TextHelper.append2StringBuilder(buffer, "The class ", c.getName(),
+                                            " doesn't have a constructor with the specified parameter signature {");
 
             int length = constructorParameterSignature.length;
             for (int a = 0; a < length; a++) {
@@ -185,10 +187,10 @@ public class ConfigurationReaderImpl implements ConfigurationReader {
 
         } catch (Exception e) {
 
-            StringConcatenator message =
-                new StringConcatenator("An exception was thrown while invoking the constructor ", constructor,
-                                       " of the class ", c, "!");
-            throw new TransformationException(message.toString(), e);
+            String message =
+                TextHelper.concatenateStrings("An exception was thrown while invoking the constructor ", constructor,
+                                              " of the class ", c, "!");
+            throw new TransformationException(message, e);
         }
 
         return rule;
@@ -241,7 +243,7 @@ public class ConfigurationReaderImpl implements ConfigurationReader {
          */
         ConfigurationData(String aFilename) throws SAXException, IOException {
 
-            this(TransformationResources.getXmlDocumentReader().parseDocument(aFilename));
+            this(TransformationResources.getXmlDocumentReader().readFrom(aFilename));
         }
 
         /**

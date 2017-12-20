@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -28,7 +31,7 @@ package jmul.io.filters;
 import java.io.File;
 import java.io.FileFilter;
 
-import jmul.string.StringConcatenator;
+import jmul.string.TextHelper;
 
 
 /**
@@ -80,8 +83,9 @@ public class ExactFileNameFilter implements FileFilter {
 
         if (!aFilename.equals(aFilename.trim())) {
 
-            StringConcatenator message =
-                new StringConcatenator("The file name (\"", aFilename, "\") contains leading or trailing spaces!");
+            String message =
+                TextHelper.concatenateStrings("The file name (\"", aFilename,
+                                              "\") contains leading or trailing spaces!");
             throw new IllegalArgumentException(String.valueOf(message));
         }
     }

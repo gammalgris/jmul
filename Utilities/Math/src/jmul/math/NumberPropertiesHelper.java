@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -53,6 +56,7 @@ public final class NumberPropertiesHelper {
      * Checks if the specified number is odd.
      *
      * @param b
+     *        a number (see type)
      *
      * @return <code>true</code> if the specified number is odd,
      *         else <code>false</code>
@@ -66,6 +70,7 @@ public final class NumberPropertiesHelper {
      * Checks if the specified number is odd.
      *
      * @param b
+     *        a number (see type)
      *
      * @return <code>true</code> if the specified number is odd,
      *         else <code>false</code>
@@ -84,6 +89,7 @@ public final class NumberPropertiesHelper {
      * Checks if the specified number is odd.
      *
      * @param s
+     *        a number (see type)
      *
      * @return <code>true</code> if the specified number is odd,
      *         else <code>false</code>
@@ -97,6 +103,7 @@ public final class NumberPropertiesHelper {
      * Checks if the specified number is odd.
      *
      * @param s
+     *        a number (see type)
      *
      * @return <code>true</code> if the specified number is odd,
      *         else <code>false</code>
@@ -115,6 +122,7 @@ public final class NumberPropertiesHelper {
      * Checks if the specified number is odd.
      *
      * @param i
+     *        a number (see type)
      *
      * @return <code>true</code> if the specified number is odd,
      *         else <code>false</code>
@@ -128,6 +136,7 @@ public final class NumberPropertiesHelper {
      * Checks if the specified number is odd.
      *
      * @param i
+     *        a number (see type)
      *
      * @return <code>true</code> if the specified number is odd,
      *         else <code>false</code>
@@ -146,6 +155,7 @@ public final class NumberPropertiesHelper {
      * Checks if the specified number is odd.
      *
      * @param l
+     *        a number (see type)
      *
      * @return <code>true</code> if the specified number is odd,
      *         else <code>false</code>
@@ -158,7 +168,8 @@ public final class NumberPropertiesHelper {
     /**
      * Checks if the specified number is odd.
      *
-     * @param i
+     * @param l
+     *        a number (see type)
      *
      * @return <code>true</code> if the specified number is odd,
      *         else <code>false</code>
@@ -177,6 +188,7 @@ public final class NumberPropertiesHelper {
      * Checks if the specified number is odd.
      *
      * @param f
+     *        a number (see type)
      *
      * @return <code>true</code> if the specified number is odd,
      *         else <code>false</code>
@@ -190,6 +202,7 @@ public final class NumberPropertiesHelper {
      * Checks if the specified number is odd.
      *
      * @param f
+     *        a number (see type)
      *
      * @return <code>true</code> if the specified number is odd,
      *         else <code>false</code>
@@ -208,6 +221,7 @@ public final class NumberPropertiesHelper {
      * Checks if the specified number is odd.
      *
      * @param d
+     *        a number (see type)
      *
      * @return <code>true</code> if the specified number is odd,
      *         else <code>false</code>
@@ -221,6 +235,7 @@ public final class NumberPropertiesHelper {
      * Checks if the specified number is odd.
      *
      * @param d
+     *        a number (see type)
      *
      * @return <code>true</code> if the specified number is odd,
      *         else <code>false</code>
@@ -239,6 +254,7 @@ public final class NumberPropertiesHelper {
      * Checks if the specified number is even.
      *
      * @param b
+     *        a number (see type)
      *
      * @return <code>true</code> if the specified number is even,
      *         else <code>false</code>
@@ -252,6 +268,7 @@ public final class NumberPropertiesHelper {
      * Checks if the specified number is even.
      *
      * @param b
+     *        a number (see type)
      *
      * @return <code>true</code> if the specified number is even,
      *         else <code>false</code>
@@ -270,6 +287,7 @@ public final class NumberPropertiesHelper {
      * Checks if the specified number is even.
      *
      * @param s
+     *        a number (see type)
      *
      * @return <code>true</code> if the specified number is even,
      *         else <code>false</code>
@@ -283,6 +301,7 @@ public final class NumberPropertiesHelper {
      * Checks if the specified number is even.
      *
      * @param s
+     *        a number (see type)
      *
      * @return <code>true</code> if the specified number is even,
      *         else <code>false</code>
@@ -301,6 +320,7 @@ public final class NumberPropertiesHelper {
      * Checks if the specified number is even.
      *
      * @param i
+     *        a number (see type)
      *
      * @return <code>true</code> if the specified number is even,
      *         else <code>false</code>
@@ -314,6 +334,7 @@ public final class NumberPropertiesHelper {
      * Checks if the specified number is even.
      *
      * @param i
+     *        a number (see type)
      *
      * @return <code>true</code> if the specified number is even,
      *         else <code>false</code>
@@ -332,6 +353,7 @@ public final class NumberPropertiesHelper {
      * Checks if the specified number is even.
      *
      * @param l
+     *        a number (see type)
      *
      * @return <code>true</code> if the specified number is even,
      *         else <code>false</code>
@@ -345,6 +367,7 @@ public final class NumberPropertiesHelper {
      * Checks if the specified number is even.
      *
      * @param l
+     *        a number (see type)
      *
      * @return <code>true</code> if the specified number is even,
      *         else <code>false</code>
@@ -363,6 +386,7 @@ public final class NumberPropertiesHelper {
      * Checks if the specified number is even.
      *
      * @param f
+     *        a number (see type)
      *
      * @return <code>true</code> if the specified number is even,
      *         else <code>false</code>
@@ -376,6 +400,7 @@ public final class NumberPropertiesHelper {
      * Checks if the specified number is even.
      *
      * @param f
+     *        a number (see type)
      *
      * @return <code>true</code> if the specified number is even,
      *         else <code>false</code>
@@ -394,6 +419,7 @@ public final class NumberPropertiesHelper {
      * Checks if the specified number is even.
      *
      * @param d
+     *        a number (see type)
      *
      * @return <code>true</code> if the specified number is even,
      *         else <code>false</code>
@@ -407,6 +433,7 @@ public final class NumberPropertiesHelper {
      * Checks if the specified number is even.
      *
      * @param d
+     *        a number (see type)
      *
      * @return <code>true</code> if the specified number is even,
      *         else <code>false</code>
@@ -425,6 +452,7 @@ public final class NumberPropertiesHelper {
      * Checks if the specified number is a positive number.
      *
      * @param b
+     *        a number (see type)
      *
      * @return <code>true</code> if the specified number is positive,
      *         else <code>false</code>
@@ -438,6 +466,7 @@ public final class NumberPropertiesHelper {
      * Checks if the specified number is a positive number.
      *
      * @param b
+     *        a number (see type)
      *
      * @return <code>true</code> if the specified number is positive,
      *         else <code>false</code>
@@ -451,6 +480,7 @@ public final class NumberPropertiesHelper {
      * Checks if the specified number is a positive number.
      *
      * @param s
+     *        a number (see type)
      *
      * @return <code>true</code> if the specified number is positive,
      *         else <code>false</code>
@@ -464,6 +494,7 @@ public final class NumberPropertiesHelper {
      * Checks if the specified number is a positive number.
      *
      * @param s
+     *        a number (see type)
      *
      * @return <code>true</code> if the specified number is positive,
      *         else <code>false</code>
@@ -477,6 +508,7 @@ public final class NumberPropertiesHelper {
      * Checks if the specified number is a positive number.
      *
      * @param i
+     *        a number (see type)
      *
      * @return <code>true</code> if the specified number is positive,
      *         else <code>false</code>
@@ -490,6 +522,7 @@ public final class NumberPropertiesHelper {
      * Checks if the specified number is a positive number.
      *
      * @param i
+     *        a number (see type)
      *
      * @return <code>true</code> if the specified number is positive,
      *         else <code>false</code>
@@ -503,6 +536,7 @@ public final class NumberPropertiesHelper {
      * Checks if the specified number is a positive number.
      *
      * @param l
+     *        a number (see type)
      *
      * @return <code>true</code> if the specified number is positive,
      *         else <code>false</code>
@@ -516,6 +550,7 @@ public final class NumberPropertiesHelper {
      * Checks if the specified number is a positive number.
      *
      * @param l
+     *        a number (see type)
      *
      * @return <code>true</code> if the specified number is positive,
      *         else <code>false</code>
@@ -529,6 +564,7 @@ public final class NumberPropertiesHelper {
      * Checks if the specified number is a positive number.
      *
      * @param f
+     *        a number (see type)
      *
      * @return <code>true</code> if the specified number is positive,
      *         else <code>false</code>
@@ -542,6 +578,7 @@ public final class NumberPropertiesHelper {
      * Checks if the specified number is a positive number.
      *
      * @param f
+     *        a number (see type)
      *
      * @return <code>true</code> if the specified number is positive,
      *         else <code>false</code>
@@ -555,6 +592,7 @@ public final class NumberPropertiesHelper {
      * Checks if the specified number is a positive number.
      *
      * @param d
+     *        a number (see type)
      *
      * @return <code>true</code> if the specified number is positive,
      *         else <code>false</code>
@@ -568,6 +606,7 @@ public final class NumberPropertiesHelper {
      * Checks if the specified number is a positive number.
      *
      * @param d
+     *        a number (see type)
      *
      * @return <code>true</code> if the specified number is positive,
      *         else <code>false</code>
@@ -581,6 +620,7 @@ public final class NumberPropertiesHelper {
      * Checks if the specified number is a negative number.
      *
      * @param b
+     *        a number (see type)
      *
      * @return <code>true</code> if the specified number is negative,
      *         else <code>false</code>
@@ -594,6 +634,7 @@ public final class NumberPropertiesHelper {
      * Checks if the specified number is a negative number.
      *
      * @param b
+     *        a number (see type)
      *
      * @return <code>true</code> if the specified number is negative,
      *         else <code>false</code>
@@ -607,6 +648,7 @@ public final class NumberPropertiesHelper {
      * Checks if the specified number is a negative number.
      *
      * @param s
+     *        a number (see type)
      *
      * @return <code>true</code> if the specified number is negative,
      *         else <code>false</code>
@@ -620,6 +662,7 @@ public final class NumberPropertiesHelper {
      * Checks if the specified number is a negative number.
      *
      * @param s
+     *        a number (see type)
      *
      * @return <code>true</code> if the specified number is negative,
      *         else <code>false</code>
@@ -633,6 +676,7 @@ public final class NumberPropertiesHelper {
      * Checks if the specified number is a negative number.
      *
      * @param i
+     *        a number (see type)
      *
      * @return <code>true</code> if the specified number is negative,
      *         else <code>false</code>
@@ -646,6 +690,7 @@ public final class NumberPropertiesHelper {
      * Checks if the specified number is a negative number.
      *
      * @param i
+     *        a number (see type)
      *
      * @return <code>true</code> if the specified number is negative,
      *         else <code>false</code>
@@ -659,6 +704,7 @@ public final class NumberPropertiesHelper {
      * Checks if the specified number is a negative number.
      *
      * @param l
+     *        a number (see type)
      *
      * @return <code>true</code> if the specified number is negative,
      *         else <code>false</code>
@@ -672,6 +718,7 @@ public final class NumberPropertiesHelper {
      * Checks if the specified number is a negative number.
      *
      * @param l
+     *        a number (see type)
      *
      * @return <code>true</code> if the specified number is negative,
      *         else <code>false</code>
@@ -685,6 +732,7 @@ public final class NumberPropertiesHelper {
      * Checks if the specified number is a negative number.
      *
      * @param f
+     *        a number (see type)
      *
      * @return <code>true</code> if the specified number is negative,
      *         else <code>false</code>
@@ -698,6 +746,7 @@ public final class NumberPropertiesHelper {
      * Checks if the specified number is a negative number.
      *
      * @param f
+     *        a number (see type)
      *
      * @return <code>true</code> if the specified number is negative,
      *         else <code>false</code>
@@ -711,6 +760,7 @@ public final class NumberPropertiesHelper {
      * Checks if the specified number is a negative number.
      *
      * @param d
+     *        a number (see type)
      *
      * @return <code>true</code> if the specified number is negative,
      *         else <code>false</code>
@@ -724,6 +774,7 @@ public final class NumberPropertiesHelper {
      * Checks if the specified number is a negative number.
      *
      * @param d
+     *        a number (see type)
      *
      * @return <code>true</code> if the specified number is negative,
      *         else <code>false</code>
@@ -739,6 +790,7 @@ public final class NumberPropertiesHelper {
      * equality check with zero is made.
      *
      * @param b
+     *        a number (see type)
      *
      * @return <code>true</code> if the specified number is equal to zero,
      *         else <code>false</code>
@@ -754,6 +806,7 @@ public final class NumberPropertiesHelper {
      * equality check with zero is made.
      *
      * @param b
+     *        a number (see type)
      *
      * @return <code>true</code> if the specified number is equal to zero,
      *         else <code>false</code>
@@ -769,6 +822,7 @@ public final class NumberPropertiesHelper {
      * equality check with zero is made.
      *
      * @param s
+     *        a number (see type)
      *
      * @return <code>true</code> if the specified number is equal to zero,
      *         else <code>false</code>
@@ -784,6 +838,7 @@ public final class NumberPropertiesHelper {
      * equality check with zero is made.
      *
      * @param s
+     *        a number (see type)
      *
      * @return <code>true</code> if the specified number is equal to zero,
      *         else <code>false</code>
@@ -799,6 +854,7 @@ public final class NumberPropertiesHelper {
      * equality check with zero is made.
      *
      * @param i
+     *        a number (see type)
      *
      * @return <code>true</code> if the specified number is equal to zero,
      *         else <code>false</code>
@@ -814,6 +870,7 @@ public final class NumberPropertiesHelper {
      * equality check with zero is made.
      *
      * @param i
+     *        a number (see type)
      *
      * @return <code>true</code> if the specified number is equal to zero,
      *         else <code>false</code>
@@ -829,6 +886,7 @@ public final class NumberPropertiesHelper {
      * equality check with zero is made.
      *
      * @param l
+     *        a number (see type)
      *
      * @return <code>true</code> if the specified number is equal to zero,
      *         else <code>false</code>
@@ -844,6 +902,7 @@ public final class NumberPropertiesHelper {
      * equality check with zero is made.
      *
      * @param l
+     *        a number (see type)
      *
      * @return <code>true</code> if the specified number is equal to zero,
      *         else <code>false</code>
@@ -859,6 +918,7 @@ public final class NumberPropertiesHelper {
      * specified value is within a certain range around zero is made.
      *
      * @param f
+     *        a number (see type)
      *
      * @return <code>true</code> if the specified number is equal to zero,
      *         else <code>false</code>
@@ -875,6 +935,7 @@ public final class NumberPropertiesHelper {
      * specified value is within a certain range around zero is made.
      *
      * @param f
+     *        a number (see type)
      *
      * @return <code>true</code> if the specified number is equal to zero,
      *         else <code>false</code>
@@ -891,6 +952,7 @@ public final class NumberPropertiesHelper {
      * specified value is within a certain range around zero is made.
      *
      * @param d
+     *        a number (see type)
      *
      * @return <code>true</code> if the specified number is equal to zero,
      *         else <code>false</code>
@@ -907,6 +969,7 @@ public final class NumberPropertiesHelper {
      * specified value is within a certain range around zero is made.
      *
      * @param d
+     *        a number (see type)
      *
      * @return <code>true</code> if the specified number is equal to zero,
      *         else <code>false</code>

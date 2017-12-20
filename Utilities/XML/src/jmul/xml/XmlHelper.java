@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -33,6 +36,7 @@ import java.util.Map;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
+import jmul.misc.annotations.Modified;
 import jmul.misc.exceptions.InstantiationException;
 
 import org.w3c.dom.Attr;
@@ -98,7 +102,7 @@ public final class XmlHelper {
      * @param aDocument
      *        a reference to an existing xml document
      * @param anAttribute
-     *        the name of the xml attribute
+     *        the xml attribute
      * @param anAttributeValue
      *        the value of the xml attribute
      *
@@ -120,9 +124,13 @@ public final class XmlHelper {
      * to the specified xml element.
      *
      * @param aDocument
+     *        a reference to an existing xml document
      * @param anElement
+     *        the xml element which gets the new attribut
      * @param anAttributeName
+     *        the name of the xml attribute
      * @param anAttributeValue
+     *        the value of the xml attribute
      *
      * @return an xml attribute
      */
@@ -140,9 +148,13 @@ public final class XmlHelper {
      * to the specified xml element.
      *
      * @param aDocument
+     *        a reference to an existing xml document
      * @param anElement
+     *        the xml element which gets the new attribut
      * @param anAttribute
+     *        the xml attribute
      * @param anAttributeValue
+     *        the value of the xml attribute
      *
      * @return an xml attribute
      */
@@ -216,11 +228,13 @@ public final class XmlHelper {
      * subelements.
      *
      * @param newDocument
+     *        a new xml document
      * @param theOriginalElement
+     *        a reference to an existing xml document
      *
      * @return a clone
      */
-    public static Node cloneXmlElement(Document newDocument, Node theOriginalElement) {
+    public static Node cloneXmlElement(@Modified Document newDocument, Node theOriginalElement) {
 
         String nodeName = theOriginalElement.getNodeName();
         String textContent = theOriginalElement.getTextContent();
@@ -243,11 +257,13 @@ public final class XmlHelper {
      * Clones an xml attribute.
      *
      * @param newDocument
+     *        a new xml document
      * @param theOriginalAttribute
+     *        the original xml attribute
      *
      * @return a clone
      */
-    public static Node cloneXmlAttribute(Document newDocument, Node theOriginalAttribute) {
+    public static Node cloneXmlAttribute(@Modified Document newDocument, Node theOriginalAttribute) {
 
         String attributeName = theOriginalAttribute.getNodeName();
         String attributeValue = theOriginalAttribute.getNodeValue();
@@ -260,7 +276,9 @@ public final class XmlHelper {
      * <a href='http://stackoverflow.com/questions/2651647/add-xml-stylesheet-and-get-standalone-yes'>Stack Overflow</a>.
      *
      * @param aDocument
+     *        a reference to an existing xml document
      * @param aFilename
+     *        the path of the stylesheet
      */
     public static void addStylesheet(Document aDocument, String aFilename) {
 
@@ -280,7 +298,9 @@ public final class XmlHelper {
      * be empty.
      *
      * @param oldDocument
+     *        a reference to an existing xml document
      * @param newDocument
+     *        a new xml document
      *
      * @return the new containing document
      */

@@ -70,7 +70,15 @@
    </list>
    <value n="defaultPackage" v="jmul.misc"/>
    <hash n="oracle.ide.model.DependencyConfiguration">
-      <list n="dependencyList"/>
+      <list n="dependencyList">
+         <hash>
+            <hash n="dependable">
+               <url n="sourceOwnerURL" path="../Java Miscellaneous Utilities Library.jws"/>
+               <url n="sourceURL" path="../Constants/Constants.jpr"/>
+            </hash>
+            <value n="recognizerId" v="oracle.jdeveloper.library"/>
+         </hash>
+      </list>
    </hash>
    <hash n="oracle.ide.model.TechnologyScopeConfiguration">
       <list n="technologyScope">

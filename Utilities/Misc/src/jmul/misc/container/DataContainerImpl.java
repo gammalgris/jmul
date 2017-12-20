@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -53,6 +56,7 @@ public class DataContainerImpl<K, V> implements DataContainer<K, V> {
      * key is unknown then an exception is thrown.
      *
      * @param key
+     *        the key for the requested value object
      *
      * @return the value which is associated with the specified key
      */
@@ -74,7 +78,9 @@ public class DataContainerImpl<K, V> implements DataContainer<K, V> {
      * Adds a new key-value pair or updates an existing key-value par.
      *
      * @param key
+     *        the key for the requested value object
      * @param value
+     *        the value object
      */
     @Override
     public void putValue(K key, V value) {

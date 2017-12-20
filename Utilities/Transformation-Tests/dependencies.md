@@ -4,6 +4,7 @@
 (in alphabetical order)
 
 * IO
+* Constants
 * Misc
 * Reflection
 * String

@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -43,6 +46,8 @@ public interface Deserializer {
      * @param aFilename
      *        the name of the input file
      *
+     * @return a deserialized object
+     *
      * @throws IOException
      *         the exception is thrown if an error occurs while reading from the
      *         file
@@ -54,6 +59,8 @@ public interface Deserializer {
      *
      * @param aFile
      *        the input file
+     *
+     * @return a deserialized object
      *
      * @throws IOException
      *         the exception is thrown if an error occurs while reading from the

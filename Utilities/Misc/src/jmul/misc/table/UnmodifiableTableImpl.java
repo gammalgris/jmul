@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -36,7 +39,7 @@ import static jmul.misc.checks.ParameterCheckHelper.checkIndex;
 /**
  * An implementation of an unmodifiable table.
  *
- * @param <T>
+ * @param <T> the content type of table cells
  *
  * @author Kristian Kutin
  */
@@ -71,7 +74,9 @@ public class UnmodifiableTableImpl<T> extends TableBase<T> {
      * Creates a new table according to the specified parameters.
      *
      * @param aHeader
+     *        an array with all column names
      * @param someValues
+     *        an array with all initial values
      */
     public UnmodifiableTableImpl(String[] aHeader, T[][] someValues) {
 
@@ -110,6 +115,7 @@ public class UnmodifiableTableImpl<T> extends TableBase<T> {
      * Creates a new table according to the specified parameters.
      *
      * @param aTable
+     *        a table with initial values
      */
     public UnmodifiableTableImpl(Table<T> aTable) {
 
@@ -187,6 +193,7 @@ public class UnmodifiableTableImpl<T> extends TableBase<T> {
      * Returns the name of the specified column.
      *
      * @param aColumnIndex
+     *        the column index of the requested column
      *
      * @return a column name
      */
@@ -199,10 +206,15 @@ public class UnmodifiableTableImpl<T> extends TableBase<T> {
     }
 
     /**
-     * Changes the name of the specified column.
+     * Changes the name of the specified column.<br>
+     * <br>
+     * <i>Note:<br>
+     * This operation is not supported with in implementation.</i>
      *
      * @param aColumnIndex
+     *        the column index
      * @param aColumnName
+     *        the new column name
      */
     @Override
     public void setColumnName(int aColumnIndex, String aColumnName) {

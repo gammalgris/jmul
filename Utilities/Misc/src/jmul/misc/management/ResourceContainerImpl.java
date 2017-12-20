@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -24,14 +27,15 @@
 
 package jmul.misc.management;
 
+
 import java.util.HashMap;
 import java.util.Map;
 
 
 /**
- * An implementation of a resource container.<br />
- * <br />
- * <i>Note:</br />
+ * An implementation of a resource container.<br>
+ * <br>
+ * <i>Note:<br>
  * All resource keys must be unique. Resources cannot be removed from the container nor be replaced.</i>
  *
  * @author Kristian Kutin
@@ -55,7 +59,9 @@ public class ResourceContainerImpl implements ResourceContainer {
      * Adds a new resource to the resource container.
      *
      * @param aResourceIdentifier
+     *        a identifier for a resource
      * @param aResource
+     *        a resource
      */
     @Override
     public void putResource(ResourceIdentifier aResourceIdentifier, Object aResource) {
@@ -73,6 +79,7 @@ public class ResourceContainerImpl implements ResourceContainer {
      * Returns the resource which is associated with the specified resource key.
      *
      * @param aResourceIdentifier
+     *        a identifier for a resource
      *
      * @return a resource
      */

@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -51,13 +54,13 @@ public final class MathHelper {
      * Determines the highest number among the specified numbers.
      *
      * @param someNumbers
+     *        all numbers which have to be compared
      *
      * @return the highest number
      */
     public static int max(int... someNumbers) {
 
         checkArray(someNumbers);
-
 
         int numbers = someNumbers.length;
 
@@ -71,8 +74,10 @@ public final class MathHelper {
 
             for (int a = 1; a < numbers; a++) {
 
-                int number = someNumbers[a];
-                maxNumber = Math.max(maxNumber, number);
+                if (someNumbers[a] > maxNumber) {
+
+                    maxNumber = someNumbers[a];
+                }
             }
 
             return maxNumber;
@@ -83,6 +88,7 @@ public final class MathHelper {
      * Checks the specified parameter.
      *
      * @param someNumbers
+     *        a number array
      *
      * @throws IllegalArgumentException
      *         is thrown if the specified parameter is invalid
@@ -105,6 +111,7 @@ public final class MathHelper {
      * for the specified number.
      *
      * @param n
+     *        a number
      *
      * @return all divisors
      */
@@ -138,7 +145,9 @@ public final class MathHelper {
      * the exponent.
      *
      * @param aBase
+     *        a base
      * @param anExponent
+     *        an exponent
      *
      * @return the multiple product of the specified base with itself
      */

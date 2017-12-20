@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -50,6 +53,7 @@ public class CopyFileException extends IOException {
      * Creates a new exception.
      *
      * @param aMessage
+     *        the error message
      */
     public CopyFileException(String aMessage) {
 
@@ -60,6 +64,7 @@ public class CopyFileException extends IOException {
      * Creates a new exception.
      *
      * @param aCause
+     *        the error cause
      */
     public CopyFileException(Throwable aCause) {
 
@@ -70,7 +75,9 @@ public class CopyFileException extends IOException {
      * Creates a new exception.
      *
      * @param aMessage
+     *        the error message
      * @param aCause
+     *        the error cause
      */
     public CopyFileException(String aMessage, Throwable aCause) {
 

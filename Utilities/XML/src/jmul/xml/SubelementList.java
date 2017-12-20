@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -56,6 +59,7 @@ public class SubelementList implements Iterable<Node> {
      * specified xml element.
      *
      * @param node
+     *        the xml element that is checked for subelements
      */
     public SubelementList(Node node) {
 
@@ -100,6 +104,7 @@ public class SubelementList implements Iterable<Node> {
      * Returns all subelements of the specified markup type.
      *
      * @param markup
+     *        an xml markup
      *
      * @return all subelements of the specified markup type
      */

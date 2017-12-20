@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -72,7 +75,7 @@ public class ParseXmlStructureTest {
 
         try {
 
-            document = reader.parseDocument("testdata-xml/valid.xml");
+            document = reader.readFrom("testdata-xml/valid.xml");
 
         } catch (Exception e) {
 

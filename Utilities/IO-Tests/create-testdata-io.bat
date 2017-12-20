@@ -21,11 +21,12 @@ call:initZipTool
 )
 
 
-set functionCalls.length=3
+set functionCalls.length=4
 
 set functionCalls[1]=createRootDirectory
 set functionCalls[2]=createFileFilterTestData
 set functionCalls[3]=createArchiveScanTestData
+set functionCalls[4]=createArchiveCreationTestData
 
 
 for /L %%i in (1, 1, %functionCalls.length%) do (
@@ -310,5 +311,21 @@ set functionCalls.length=
 	call:createArchive testdata-io\archive2.zip testdata-io\config1.properties
 	call:createArchive testdata-io\archive3.zip testdata-io\config2.properties
 	call:createArchive testdata-io\archive4.zip testdata-io\folder3
+
+%return%
+
+
+@rem --------------------------------------------------------------------------------
+@rem ---
+@rem ---   void createArchiveScanTestData()
+@rem ---
+@rem ---   The subroutine creates the test data required for scanning archives.
+@rem ---
+
+:createArchiveCreationTestData
+
+	echo create test data ^(archive creation tests^)...
+
+	call:createDirectory testdata-io\out %TRUE%
 
 %return%

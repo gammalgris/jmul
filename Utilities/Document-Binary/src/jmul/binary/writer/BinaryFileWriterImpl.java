@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -82,7 +85,6 @@ public class BinaryFileWriterImpl implements BinaryFileWriter {
     public void writeDocument(File aFile, BinaryFile aDocument) throws IOException {
 
         OutputStream outputStream = new FileOutputStream(aFile);
-        Throwable originalException = null;
 
         try {
 
@@ -91,19 +93,10 @@ public class BinaryFileWriterImpl implements BinaryFileWriter {
 
         } catch (IOException e) {
 
-            originalException = e;
-
-        } finally {
-
-            if (originalException == null) {
-
-                StreamsHelper.closeStream(outputStream);
-
-            } else {
-
-                StreamsHelper.closeStreamAfterException(outputStream, originalException);
-            }
+            StreamsHelper.closeStreamAfterException(outputStream, e);
         }
+
+        StreamsHelper.closeStream(outputStream);
     }
 
 }

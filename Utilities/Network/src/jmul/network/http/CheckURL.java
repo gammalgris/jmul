@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -58,7 +61,9 @@ public final class CheckURL {
      * response code.
      *
      * @param aURLString
+     *        a string cotnaining a URL
      * @param aResponseCodeValue
+     *        the expected response code
      */
     public static void checkURL(String aURLString, int aResponseCodeValue) {
 
@@ -78,7 +83,9 @@ public final class CheckURL {
      * response code.
      *
      * @param aURL
+     *        a url
      * @param aResponseCodeValue
+     *        the expected response code
      */
     public static void checkURL(URL aURL, int aResponseCodeValue) {
 
@@ -108,11 +115,14 @@ public final class CheckURL {
      * Checks the specified URL and returns a response code.
      *
      * @param aURLString
+     *        a string containing a URL
      *
      * @return a response code
      *
      * @throws MalformedURLException
+     *         is thrown if the URL is invalid
      * @throws IOException
+     *         is thrown if an error occurs while calling the URL
      */
     public static ResponseCode checkURL(String aURLString) throws IOException {
 
@@ -124,10 +134,12 @@ public final class CheckURL {
      * Checks the specified URL and returns a response code.
      *
      * @param aURL
+     *        a url
      *
      * @return a response code
      *
      * @throws IOException
+     *         is thrown if an error occurs while calling the URL
      */
     public static ResponseCode checkURL(URL aURL) throws IOException {
 
@@ -150,10 +162,12 @@ public final class CheckURL {
      * Checks the specified URL (<code>http</code>) and returns a response code.
      *
      * @param aURL
+     *        a http resource
      *
      * @return a response code
      *
      * @throws IOException
+     *         is thrown if an error occurs while calling the http resource
      */
     private static ResponseCode checkHttp(URL aURL) throws IOException {
 
@@ -183,10 +197,12 @@ public final class CheckURL {
      * Checks the specified URL (<code>https</code>) and returns a response code.
      *
      * @param aURL
+     *        a https resource
      *
      * @return a response code
      *
      * @throws IOException
+     *         is thrown if an error occurs while calling the https resource
      */
     private static ResponseCode checkHttps(URL aURL) throws IOException {
 

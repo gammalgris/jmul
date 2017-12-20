@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -48,6 +51,7 @@ public class WebServerLogger implements Logger {
      * The default constructor.
      *
      * @param aLogger
+     *        the logger which is wrapped
      */
     public WebServerLogger(Logger aLogger) {
 
@@ -78,6 +82,7 @@ public class WebServerLogger implements Logger {
      * Log a debug message.
      *
      * @param aMessage
+     *        the log message
      */
     @Override
     public void logDebug(String aMessage) {
@@ -89,6 +94,7 @@ public class WebServerLogger implements Logger {
      * Log a warning message.
      *
      * @param aMessage
+     *        the log message
      */
     @Override
     public void logWarning(String aMessage) {
@@ -100,6 +106,7 @@ public class WebServerLogger implements Logger {
      * Log an error message.
      *
      * @param aMessage
+     *        the log message
      */
     @Override
     public void logError(String aMessage) {
@@ -111,6 +118,7 @@ public class WebServerLogger implements Logger {
      * Log an exception.
      *
      * @param anException
+     *        the exception which is to be logged
      */
     @Override
     public void logError(Throwable anException) {
@@ -122,6 +130,7 @@ public class WebServerLogger implements Logger {
      * Log an info message.
      *
      * @param aMessage
+     *        the log message
      */
     @Override
     public void logInfo(String aMessage) {

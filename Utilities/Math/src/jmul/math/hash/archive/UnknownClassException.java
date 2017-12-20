@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -39,6 +42,7 @@ public class UnknownClassException extends IllegalArgumentException {
      * Creates a new exception according to the specified parameters.
      *
      * @param aClass
+     *        the class for which no entry exists
      */
     public UnknownClassException(Class aClass) {
 
@@ -49,6 +53,7 @@ public class UnknownClassException extends IllegalArgumentException {
      * Creates an error message according to the specified parameters.
      *
      * @param aClass
+     *        a class
      *
      * @return an error message
      */

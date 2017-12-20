@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -31,8 +34,7 @@ import java.util.Date;
 
 
 /**
- * This interface describes which meta data a document (see {@link Document#})
- * can provide (see also
+ * This interface describes which meta data a file can provide (see also
  * <a href="https://docs.oracle.com/javase/tutorial/essential/io/fileAttr.html">tutorial</a>).
  * The meta data is only available if the document was saved to the file
  * system at an earlier point in time.
@@ -87,6 +89,7 @@ public interface MetaData {
      * Returns the value of the specified file attribute.
      *
      * @param anAttributeName
+     *        the name of a file attribute
      *
      * @return the value of the specified attribute
      *

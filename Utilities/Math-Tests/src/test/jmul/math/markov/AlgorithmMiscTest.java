@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -32,7 +35,6 @@ import jmul.math.markov.Algorithm;
 import jmul.math.markov.Rule;
 
 import static jmul.string.Constants.NEW_LINE;
-import jmul.string.StringConcatenator;
 
 import jmul.test.classification.UnitTest;
 
@@ -99,7 +101,7 @@ public class AlgorithmMiscTest {
      */
     private static String buildExpectedRepresentation(Rule... someRules) {
 
-        StringConcatenator expectedRepresentation = new StringConcatenator();
+        StringBuilder expectedRepresentation = new StringBuilder();
         boolean first = true;
 
         for (Rule rule : someRules) {

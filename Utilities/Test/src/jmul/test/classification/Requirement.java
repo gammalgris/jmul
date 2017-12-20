@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ * 
+ * 
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -43,9 +46,9 @@ import java.lang.annotation.Target;
 public @interface Requirement {
 
     /**
-     * Returns IDs of one or more referenced requirements.<br />
-     * <br />
-     * <i>Note:<br />
+     * Returns IDs of one or more referenced requirements.<br>
+     * <br>
+     * <i>Note:<br>
      * A <a href="http://stackoverflow.com/questions/9978199/annotation-regex">validation</a> needs to be
      * implemented.</i>
      *

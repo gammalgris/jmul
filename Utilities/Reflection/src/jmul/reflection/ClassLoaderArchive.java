@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -28,7 +31,7 @@ package jmul.reflection;
 import java.util.HashMap;
 import java.util.Map;
 
-import jmul.string.StringConcatenator;
+import jmul.string.TextHelper;
 
 
 /**
@@ -63,9 +66,10 @@ class ClassLoaderArchive {
 
         boolean exists = classLoaderMap.containsKey(aKey);
         if (exists) {
-            StringConcatenator message =
-                new StringConcatenator("A class loader with the identifier \"", aKey, "\" already exists!");
-            throw new ClassLoaderException(message.toString());
+
+            String message =
+                TextHelper.concatenateStrings("A class loader with the identifier \"", aKey, "\" already exists!");
+            throw new ClassLoaderException(message);
         }
 
         classLoaderMap.put(aKey, aClassLoader);
@@ -99,9 +103,8 @@ class ClassLoaderArchive {
 
         if (classLoader == null) {
 
-            StringConcatenator message =
-                new StringConcatenator("The class loader archive has no entry for \"", aKey, "\"!");
-            throw new ClassLoaderException(message.toString());
+            String message = TextHelper.concatenateStrings("The class loader archive has no entry for \"", aKey, "\"!");
+            throw new ClassLoaderException(message);
         }
 
         return classLoader;

@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -55,6 +58,7 @@ public class SubelementMap {
      * specified xml element.
      *
      * @param node
+     *        the xml element that is checked for subelements
      */
     public SubelementMap(Node node) {
 
@@ -70,6 +74,7 @@ public class SubelementMap {
      * such subelement exists an exception is thrown.
      *
      * @param markup
+     *        an xml markup
      *
      * @return a subelement
      */
@@ -121,6 +126,7 @@ public class SubelementMap {
      * Checks if a subelement, which matches the specified markup details, exists.
      *
      * @param markup
+     *        an xml markup
      *
      * @return <code>true</code> if a subelement exists, else <code>false</code>
      */
@@ -130,6 +136,21 @@ public class SubelementMap {
         String subelementName = markup.getTagName();
 
         return subelements.containsKey(subelementName);
+    }
+
+    /**
+     * Returns the text node content of the specified subelement.
+     *
+     * @param markup
+     *        an xml markup
+     *
+     * @return a text node content
+     */
+    public String getSubelementTextValue(XmlMarkup markup) {
+
+        Node subelement = getSubelement(markup);
+
+        return subelement.getTextContent();
     }
 
 }

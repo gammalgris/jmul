@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -37,7 +40,7 @@ import java.util.ResourceBundle;
 
 import jmul.io.FileHelper;
 
-import jmul.string.StringConcatenator;
+import jmul.string.TextHelper;
 
 import jmul.xml.query.XPathQuery;
 
@@ -168,8 +171,8 @@ public class FileManagerImpl implements FileManager {
 
         if (!baseDirectory.isDirectory()) {
 
-            StringConcatenator message = new StringConcatenator(aDirectoryName, " is no directory!");
-            throw new IllegalArgumentException(message.toString());
+            String message = TextHelper.concatenateStrings(aDirectoryName, " is no directory!");
+            throw new IllegalArgumentException(message);
         }
 
 
@@ -264,8 +267,7 @@ public class FileManagerImpl implements FileManager {
      */
     private String newFileName(String aUniqueIdentifier) {
 
-        StringConcatenator filename = new StringConcatenator(aUniqueIdentifier, ".", templateFileSuffix);
-        return filename.toString();
+        return TextHelper.concatenateStrings(aUniqueIdentifier, ".", templateFileSuffix);
     }
 
     /**
@@ -302,8 +304,9 @@ public class FileManagerImpl implements FileManager {
                                                 .next();
         int vacancies = subfolderVacancies.get(firstSubfolder);
 
-        StringConcatenator filename =
-            new StringConcatenator(firstSubfolder.getAbsolutePath(), FILE_SEPARATOR, newFileName(aUniqueIdentifier));
+        String filename =
+            TextHelper.concatenateStrings(firstSubfolder.getAbsolutePath(), FILE_SEPARATOR,
+                                          newFileName(aUniqueIdentifier));
 
         vacancies--;
 
@@ -317,7 +320,7 @@ public class FileManagerImpl implements FileManager {
             subfolderVacancies.put(firstSubfolder, vacancies);
         }
 
-        return new File(filename.toString());
+        return new File(filename);
     }
 
     /**
@@ -382,8 +385,8 @@ public class FileManagerImpl implements FileManager {
 
                 String filename = aFile.getName();
 
-                StringConcatenator suffix = new StringConcatenator(".", templateFileSuffix);
-                return filename.replace(suffix.toString(), "");
+                String suffix = TextHelper.concatenateStrings(".", templateFileSuffix);
+                return filename.replace(suffix, "");
             }
         }
 
@@ -423,6 +426,7 @@ public class FileManagerImpl implements FileManager {
      * The method returns all files which meet the specified criteria.
      *
      * @param someQueries
+     *        all queries which will be performed on all files
      *
      * @return a list of files which meet the specified criteria
      */

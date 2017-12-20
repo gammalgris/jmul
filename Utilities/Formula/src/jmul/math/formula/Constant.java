@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -108,6 +111,7 @@ public class Constant implements Operand {
      * The overridden equals-method.
      *
      * @param o
+     *        an object
      *
      * @return <code>true</code> if this and the specified object represent the
      *         same value, else <code>false</code>

@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -44,7 +47,9 @@ public final class XmlMarkupHelper {
      * Checks the tag names of the specified XML markups.
      *
      * @param anXmlMarkup1
+     *        an xml markup
      * @param anXmlMarkup2
+     *        an xml markup
      *
      * @return <code>true</code> if the tag names are equal,
      *         else <code>false</code>
@@ -58,7 +63,9 @@ public final class XmlMarkupHelper {
      * Checks the specified tag names.
      *
      * @param name1
+     *        a tag name
      * @param name2
+     *        a tag name
      *
      * @return <code>true</code> if the tag names are equal,
      *         else <code>false</code>
@@ -72,7 +79,9 @@ public final class XmlMarkupHelper {
      * Checks the specified XML markups.
      *
      * @param anXmlMarkup1
+     *        an xml markup
      * @param anXmlMarkup2
+     *        an xml markup
      *
      * @return <code>true</code> if both markups are attributes of an XML element and
      *         have the same tag name, else <code>false</code>
@@ -87,7 +96,9 @@ public final class XmlMarkupHelper {
      * Checks the specified XML markups.
      *
      * @param anXmlMarkup1
+     *        an xml markup
      * @param anXmlMarkup2
+     *        an xml markup
      *
      * @return <code>true</code> if both markups are XML elements and have the same tag name,
      *         else <code>false</code>
@@ -101,7 +112,9 @@ public final class XmlMarkupHelper {
      * Checks the specified XML markups.
      *
      * @param anXmlMarkup1
+     *        an xml markup
      * @param anXmlMarkup2
+     *        an xml markup
      *
      * @return <code>true</code> if both markups are either the same XML Element or the
      *         same attribute, else <code>false</code>

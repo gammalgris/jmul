@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -72,7 +75,7 @@ public class CsvDocumentReaderTest {
 
         try {
 
-            document = reader.parseDocument(filename);
+            document = reader.readFrom(filename);
 
         } catch (IOException e) {
 
@@ -126,7 +129,7 @@ public class CsvDocumentReaderTest {
 
         try {
 
-            document = reader.parseDocument(filename);
+            document = reader.readFrom(filename);
 
         } catch (IOException e) {
 
@@ -180,7 +183,7 @@ public class CsvDocumentReaderTest {
 
         try {
 
-            document = reader.parseDocument(filename);
+            document = reader.readFrom(filename);
 
         } catch (IOException e) {
 
@@ -234,7 +237,7 @@ public class CsvDocumentReaderTest {
 
         try {
 
-            document = reader.parseDocument(filename);
+            document = reader.readFrom(filename);
 
         } catch (IOException e) {
 
@@ -288,7 +291,7 @@ public class CsvDocumentReaderTest {
 
         try {
 
-            document = reader.parseDocument(filename);
+            document = reader.readFrom(filename);
 
         } catch (IOException e) {
 
@@ -352,7 +355,7 @@ public class CsvDocumentReaderTest {
 
         try {
 
-            document = reader.parseDocument(filename);
+            document = reader.readFrom(filename);
 
         } catch (IOException e) {
 

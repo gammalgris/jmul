@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -32,7 +35,7 @@ import java.lang.reflect.InvocationTargetException;
 /**
  * This class implements the invocation of a specific constructor.
  *
- * @param <T>
+ * @param <T> the class whose constructors should be invoked
  */
 public class ConstructorInvoker<T> {
 
@@ -50,7 +53,9 @@ public class ConstructorInvoker<T> {
      * Creates a new instance according to the specified parameters.
      *
      * @param aClazz
+     *        a class
      * @param aSignature
+     *        a parameter signature
      */
     public ConstructorInvoker(Class<T> aClazz, Class... aSignature) {
 
@@ -76,13 +81,19 @@ public class ConstructorInvoker<T> {
      * Invokes a constructor with the specified parameters.
      *
      * @param someParameters
+     *        all parameters
      *
      * @return a new exception instance
      *
      * @throws NoSuchMethodException
+     *         is thrown if no constructor exists that matches a specified
+     *         signature
      * @throws InstantiationException
+     *         is thrown if the instantiation fails
      * @throws IllegalAccessException
+     *         is thrown if the constructor has restricted access
      * @throws InvocationTargetException
+     *         is thrown if an error occurs within the constructor
      */
     public T invoke(Object... someParameters) throws NoSuchMethodException, InstantiationException,
                                                      IllegalAccessException, InvocationTargetException {

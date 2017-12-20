@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ * 
+ * 
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -36,6 +39,7 @@ public class CitationImpl extends CitationBase {
      * Creates a new citation block according to the specified parameters.
      *
      * @param aText
+     *        the quoted text
      */
     public CitationImpl(String aText) {
 

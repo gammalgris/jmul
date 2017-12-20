@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -61,6 +64,7 @@ public class Message implements ConfigurableMessage {
      * The default constructor.
      *
      * @param aMessage
+     *        the message text
      */
     public Message(String aMessage) {
 
@@ -73,6 +77,7 @@ public class Message implements ConfigurableMessage {
      * Checks the specified parameter.
      *
      * @param aMessage
+     *        the message text
      *
      * @thows IllegalArgumentException
      *        is thrown if the specified parameter is invalid
@@ -91,9 +96,9 @@ public class Message implements ConfigurableMessage {
 
         if (!containsPlaceholders(aMessage)) {
 
-            StringConcatenator message =
-                new StringConcatenator("A message withouth placeholder (", aMessage, ") has been specified!");
-            throw new IllegalArgumentException(String.valueOf(message));
+            String message =
+                TextHelper.concatenateStrings("A message withouth placeholder (", aMessage, ") has been specified!");
+            throw new IllegalArgumentException(message);
         }
     }
 
@@ -124,10 +129,10 @@ public class Message implements ConfigurableMessage {
 
             if (!unresolvedMessage.contains(placeholder)) {
 
-                StringConcatenator message =
-                    new StringConcatenator("An unknown placeholder (", placeholder, ") is being processed (",
-                                           unresolvedMessage, ")!");
-                throw new UnknownPlaceholderException(String.valueOf(message));
+                String message =
+                    TextHelper.concatenateStrings("An unknown placeholder (", placeholder, ") is being processed (",
+                                                  unresolvedMessage, ")!");
+                throw new UnknownPlaceholderException(message);
             }
 
             resolvedMessage = resolvedMessage.replace(placeholder, value);
@@ -136,9 +141,9 @@ public class Message implements ConfigurableMessage {
 
         if (containsPlaceholders(resolvedMessage)) {
 
-            StringConcatenator message =
-                new StringConcatenator("There still exist some placeholders (", resolvedMessage, ")!");
-            throw new UnresolvedPlaceholderException(String.valueOf(message));
+            String message =
+                TextHelper.concatenateStrings("There still exist some placeholders (", resolvedMessage, ")!");
+            throw new UnresolvedPlaceholderException(message);
         }
 
 
@@ -149,6 +154,7 @@ public class Message implements ConfigurableMessage {
      * Checks if the specified message contains placeholders.
      *
      * @param aMessage
+     *        the message text
      *
      * @return <code>true</code> if the specified message contains placeholders,
      *         else <code>false</code>
@@ -163,6 +169,7 @@ public class Message implements ConfigurableMessage {
      * Checks the specified parameter.
      *
      * @param someParameters
+     *        all placeholders and their replacement strings
      *
      * @thows IllegalArgumentException
      *        is thrown if the specified parameter is invalid
@@ -191,6 +198,7 @@ public class Message implements ConfigurableMessage {
      * Checks the specified parameter.
      *
      * @param aPlaceholder
+     *        a placeholder string
      *
      * @thows IllegalArgumentException
      *        is thrown if the specified parameter is invalid
@@ -204,10 +212,10 @@ public class Message implements ConfigurableMessage {
 
         if (!Pattern.matches(PLACEHOLDER_REGEX, aPlaceholder)) {
 
-            StringConcatenator message =
-                new StringConcatenator("The speicifed palceholder \"", aPlaceholder,
-                                       "\" doesn't match the epxected pattern \"", PLACEHOLDER_REGEX, "\"!");
-            throw new IllegalArgumentException(String.valueOf(message));
+            String message =
+                TextHelper.concatenateStrings("The speicifed palceholder \"", aPlaceholder,
+                                              "\" doesn't match the epxected pattern \"", PLACEHOLDER_REGEX, "\"!");
+            throw new IllegalArgumentException(message);
         }
     }
 

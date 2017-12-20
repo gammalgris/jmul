@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -81,6 +84,7 @@ public class BinaryFileReaderImpl extends BinaryFileReaderBase {
      * Creates a new reader instance according to the specified parameters.
      *
      * @param aByteOrder
+     *        the assumed byte order
      */
     public BinaryFileReaderImpl(ByteOrder aByteOrder) {
 
@@ -91,6 +95,7 @@ public class BinaryFileReaderImpl extends BinaryFileReaderBase {
      * Creates a new reader instance according to the specified parameters.
      *
      * @param aWordLength
+     *        the assumed word length
      */
     public BinaryFileReaderImpl(WordLengths aWordLength) {
 
@@ -101,7 +106,9 @@ public class BinaryFileReaderImpl extends BinaryFileReaderBase {
      * Creates a new reader instance according to the specified parameters.
      *
      * @param aByteOrder
+     *        the assumed byte order
      * @param aWordLength
+     *        the assumed word length
      */
     public BinaryFileReaderImpl(ByteOrder aByteOrder, WordLengths aWordLength) {
 
@@ -109,11 +116,11 @@ public class BinaryFileReaderImpl extends BinaryFileReaderBase {
     }
 
     /**
-     * Parses the specified file and returns a document that contains the
-     * file content.
+     * Reads from the specified file and returns a document that
+     * contains the file content.
      *
      * @param aFilename
-     *        filename
+     *        the name of the input file
      *
      * @return a document object
      *
@@ -121,17 +128,17 @@ public class BinaryFileReaderImpl extends BinaryFileReaderBase {
      *         is thrown if an error occurrs while trying to read from the file
      */
     @Override
-    public BinaryFile parseDocument(String aFilename) throws IOException {
+    public BinaryFile readFrom(String aFilename) throws IOException {
 
-        return parseDocument(new File(aFilename));
+        return readFrom(new File(aFilename));
     }
 
     /**
-     * Parses the specified file and returns a document that contains the
-     * file content.
+     * Reads from the specified file and returns a document that
+     * contains the file content.
      *
      * @param aFile
-     *        the file
+     *        the input file
      *
      * @return a document object
      *
@@ -139,7 +146,7 @@ public class BinaryFileReaderImpl extends BinaryFileReaderBase {
      *         is thrown if an error occurrs while trying to read from the file
      */
     @Override
-    public BinaryFile parseDocument(File aFile) throws IOException {
+    public BinaryFile readFrom(File aFile) throws IOException {
 
         DocumentType documentType = DocumentTypes.getDocumentType(aFile.getName());
 
@@ -148,42 +155,34 @@ public class BinaryFileReaderImpl extends BinaryFileReaderBase {
 
 
         InputStream inputStream = new FileInputStream(aFile);
-        Throwable originalException = null;
 
-        try {
+        while (true) {
 
-            while (true) {
 
-                int bytes = inputStream.read(readBuffer);
+            int bytes = -1;
+            try {
 
-                if (bytes == END_OF_FILE) {
+                bytes = inputStream.read(readBuffer);
 
-                    break;
-                }
+            } catch (IOException e) {
 
-                for (int a = 0; a < bytes; a++) {
-
-                    contentBuffer.add(readBuffer[a]);
-                }
-
-                clearBuffer(readBuffer);
+                StreamsHelper.closeStreamAfterException(inputStream, e);
             }
 
-        } catch (IOException e) {
+            if (bytes == END_OF_FILE) {
 
-            originalException = e;
-
-        } finally {
-
-            if (originalException == null) {
-
-                StreamsHelper.closeStream(inputStream);
-
-            } else {
-
-                StreamsHelper.closeStreamAfterException(inputStream, originalException);
+                break;
             }
+
+            for (int a = 0; a < bytes; a++) {
+
+                contentBuffer.add(readBuffer[a]);
+            }
+
+            clearBuffer(readBuffer);
         }
+
+        StreamsHelper.closeStream(inputStream);
 
 
         int size = contentBuffer.size();
@@ -202,6 +201,7 @@ public class BinaryFileReaderImpl extends BinaryFileReaderBase {
      * Creates a new buffer for reading the file.
      *
      * @param aWordLength
+     *        the word length which determines the buffer size
      *
      * @return a buffer
      */
@@ -214,6 +214,7 @@ public class BinaryFileReaderImpl extends BinaryFileReaderBase {
      * Clears the specified buffer.
      *
      * @param aBuffer
+     *        the buffer which is to be cleared
      */
     private static void clearBuffer(@Modified byte[] aBuffer) {
 

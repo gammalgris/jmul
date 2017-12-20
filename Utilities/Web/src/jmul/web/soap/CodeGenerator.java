@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -37,6 +40,7 @@ public interface CodeGenerator {
      * details of the build target (e.g. output directory).
      *
      * @param aSource
+     *        the source which provides details about the code which is to be generated
      *
      * @return details of the build target
      */
@@ -47,7 +51,9 @@ public interface CodeGenerator {
      * details of the build target (e.g. output directory).
      *
      * @param aSource
+     *        the source which provides details about the code which is to be generated
      * @param aTarget
+     *        the place where to put the generated code
      *
      * @return details of the build target
      */

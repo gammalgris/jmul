@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -47,6 +50,7 @@ public class WebServiceProxyException extends RuntimeException {
      * Creates a new exception according to the specified parameters.
      *
      * @param aMessage
+     *        the error message
      */
     public WebServiceProxyException(String aMessage) {
 
@@ -57,6 +61,7 @@ public class WebServiceProxyException extends RuntimeException {
      * Creates a new exception according to the specified parameters.
      *
      * @param aCause
+     *        the error cause
      */
     public WebServiceProxyException(Throwable aCause) {
 
@@ -67,7 +72,9 @@ public class WebServiceProxyException extends RuntimeException {
      * Creates a new exception according to the specified parameters.
      *
      * @param aMessage
+     *        the error message
      * @param aCause
+     *        the error cause
      */
     public WebServiceProxyException(String aMessage, Throwable aCause) {
 

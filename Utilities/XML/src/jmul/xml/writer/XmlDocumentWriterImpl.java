@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -54,24 +57,24 @@ public class XmlDocumentWriterImpl implements XmlDocumentWriter {
     }
 
     /**
-     * The method writes an xml document.
+     * Writes the specified document to the specified file.
      *
      * @param aFilename
-     *        filename of the XML file
+     *        the name of the output file
      * @param aDocument
      *        a document object
      *
      * @throws IOException
-     *         This exception can be thrown if IO operations fail
+     *         is thrown if an error occurrs while trying to write to the file
      */
     @Override
-    public void writeDocument(String aFilename, Document aDocument) throws IOException {
+    public void writeTo(String aFilename, Document aDocument) throws IOException {
 
-        writeDocument(new File(aFilename), aDocument);
+        writeTo(new File(aFilename), aDocument);
     }
 
     /**
-     * The method writes an xml document.
+     * Writes the specified document to the specified file.
      *
      * @param aFile
      *        the output file
@@ -79,10 +82,10 @@ public class XmlDocumentWriterImpl implements XmlDocumentWriter {
      *        a document object
      *
      * @throws IOException
-     *         This exception can be thrown if IO operations fail
+     *         is thrown if an error occurrs while trying to write to the file
      */
     @Override
-    public void writeDocument(File aFile, Document aDocument) throws IOException {
+    public void writeTo(File aFile, Document aDocument) throws IOException {
 
         OutputFormat format = new OutputFormat(aDocument);
         format.setIndenting(true);

@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -39,31 +42,31 @@ import jmul.document.binary.BinaryFile;
 public interface BinaryFileReader {
 
     /**
-     * Parses the specified file and returns a document that contains the
-     * file content.
+     * Reads from the specified file and returns a document that
+     * contains the file content.
      *
      * @param aFilename
-     *        filename
+     *        the name of the input file
      *
      * @return a document object
      *
      * @throws IOException
      *         is thrown if an error occurrs while trying to read from the file
      */
-    BinaryFile parseDocument(String aFilename) throws IOException;
+    BinaryFile readFrom(String aFilename) throws IOException;
 
     /**
-     * Parses the specified file and returns a document that contains the
-     * file content.
+     * Reads from the specified file and returns a document that
+     * contains the file content.
      *
      * @param aFile
-     *        the file
+     *        the input file
      *
      * @return a document object
      *
      * @throws IOException
      *         is thrown if an error occurrs while trying to read from the file
      */
-    BinaryFile parseDocument(File aFile) throws IOException;
+    BinaryFile readFrom(File aFile) throws IOException;
 
 }

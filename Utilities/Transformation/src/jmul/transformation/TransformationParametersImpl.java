@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -28,7 +31,7 @@ package jmul.transformation;
 import java.util.HashMap;
 import java.util.Map;
 
-import jmul.string.StringConcatenator;
+import jmul.string.TextHelper;
 
 
 /**
@@ -199,8 +202,8 @@ public class TransformationParametersImpl implements TransformationParameters {
 
         if (!containsPrerequisite(aName)) {
 
-            StringConcatenator message = new StringConcatenator("No entry with the name \"", aName, "\" exists!");
-            throw new IllegalArgumentException(message.toString());
+            String message = TextHelper.concatenateStrings("No entry with the name \"", aName, "\" exists!");
+            throw new IllegalArgumentException(message);
         }
 
         return prerequisites.get(aName);
@@ -220,9 +223,8 @@ public class TransformationParametersImpl implements TransformationParameters {
 
         if (containsPrerequisite(aName)) {
 
-            StringConcatenator message =
-                new StringConcatenator("An entry with the name \"", aName, "\" exists already!");
-            throw new IllegalArgumentException(message.toString());
+            String message = TextHelper.concatenateStrings("An entry with the name \"", aName, "\" exists already!");
+            throw new IllegalArgumentException(message);
         }
 
         prerequisites.put(aName, aPrerequisite);

@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -60,12 +63,15 @@ public final class CheckIP {
      * Checks if the specified host is reachable.
      *
      * @param aHostName
+     *        a host name or ip address
      *
      * @return <code>true</code> if the specified host is reachable, else
      *         <code>false</code>
      *
      * @throws UnknownHostException
+     *         is thrown if the specified host cannot be found
      * @throws IOException
+     *         is thrown if an error occurs while trying to contact the specified host
      */
     public static boolean checkIP(String aHostName) throws IOException {
 
@@ -76,13 +82,17 @@ public final class CheckIP {
      * Checks if the specified host is reachable.
      *
      * @param aHostName
+     *        a host name or ip address
      * @param aTimeout
+     *        a timeout time
      *
      * @return <code>true</code> if the specified host is reachable, else
      *         <code>false</code>
      *
      * @throws UnknownHostException
+     *         is thrown if the specified host cannot be found
      * @throws IOException
+     *         is thrown if an error occurs while trying to contact the specified host
      */
     public static boolean checkIP(String aHostName, int aTimeout) throws IOException {
 
@@ -95,8 +105,10 @@ public final class CheckIP {
      * Checks if the specified parameter is valid.
      *
      * @param aHostName
+     *        a host name or ip address
      *
      * @throws IllegalArgumentException
+     *         is thrown if the specified host name or ip address are invalid
      */
     private static void checkParameter(String aHostName) {
 
@@ -117,11 +129,13 @@ public final class CheckIP {
      * Checks if the specified host is reachable.
      *
      * @param anIPAddress
+     *        an ip address
      *
      * @return <code>true</code> if the specified host is reachable, else
      *         <code>false</code>
      *
      * @throws IOException
+     *         is thrown if an error occurs while trying to contact the specified host
      */
     public static boolean checkIP(InetAddress anIPAddress) throws IOException {
 
@@ -132,12 +146,15 @@ public final class CheckIP {
      * Checks if the specified host is reachable.
      *
      * @param anIPAddress
+     *        an ip address
      * @param aTimeout
+     *        a timeout time
      *
      * @return <code>true</code> if the specified host is reachable, else
      *         <code>false</code>
      *
      * @throws IOException
+     *         is thrown if an error occurs while trying to contact the specified host
      */
     public static boolean checkIP(InetAddress anIPAddress, int aTimeout) throws IOException {
 
@@ -150,8 +167,10 @@ public final class CheckIP {
      * Checks if the specified parameter is valid.
      *
      * @param anIPAddress
+     *        an ip address
      *
      * @throws IllegalArgumentException
+     *         is thrown if an error occurs while trying to contact the specified host
      */
     private static void checkParameter(InetAddress anIPAddress) {
 

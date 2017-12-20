@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -47,6 +50,7 @@ public final class StateHelper {
      * Checks the specified parameter.
      *
      * @param aState
+     *        a state
      */
     public static void checkParameter(State aState) {
 
@@ -62,6 +66,7 @@ public final class StateHelper {
      * result.
      *
      * @param aState
+     *        a state
      *
      * @return an exception
      */
@@ -75,6 +80,7 @@ public final class StateHelper {
      * result.
      *
      * @param aStateName
+     *        a state name
      *
      * @return an exception
      */
@@ -93,7 +99,9 @@ public final class StateHelper {
      * the specified parameters.
      *
      * @param thisState
+     *        a state
      * @param destinationState
+     *        a state
      *
      * @return an exception
      */
@@ -116,6 +124,7 @@ public final class StateHelper {
      * Returns a string representation for the specified state.
      *
      * @param aState
+     *        a state
      *
      * @return a string representation
      */

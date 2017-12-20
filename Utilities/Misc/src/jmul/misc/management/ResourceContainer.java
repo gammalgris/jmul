@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -37,7 +40,9 @@ public interface ResourceContainer {
      * Adds a new resource to the resource container.
      *
      * @param aResourceIdentifier
+     *        a identifier for a resource
      * @param aResource
+     *        a resource
      */
     void putResource(ResourceIdentifier aResourceIdentifier, Object aResource);
 
@@ -45,6 +50,7 @@ public interface ResourceContainer {
      * Returns the resource which is associated with the specified resource key.
      *
      * @param aResourceIdentifier
+     *        a identifier for a resource
      *
      * @return a resource
      */

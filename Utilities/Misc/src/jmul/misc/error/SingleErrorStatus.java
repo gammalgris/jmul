@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -29,9 +32,9 @@ import java.util.Date;
 
 
 /**
- * An implementation of an error status.<br />
- * <br />
- * <i>Note:<br />
+ * An implementation of an error status.<br>
+ * <br>
+ * <i>Note:<br>
  * This implementation will only remember the latest error
  * that has occurred.</i>
  *
@@ -96,6 +99,7 @@ public class SingleErrorStatus implements ErrorStatus {
      * Reports an error and changes the error status accordingly.
      *
      * @param anError
+     *        the latest error which is to be preserved
      */
     @Override
     public void reportError(Throwable anError) {

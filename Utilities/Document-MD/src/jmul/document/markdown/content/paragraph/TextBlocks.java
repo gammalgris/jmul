@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -46,6 +49,7 @@ public interface TextBlocks extends Paragraph {
      * Adds (i.e. appends) the specified text block to this paragraph.
      *
      * @param aTextBlock
+     *        the text which is to be added
      */
     void addTextBlock(TextBlock aTextBlock);
 
@@ -53,6 +57,7 @@ public interface TextBlocks extends Paragraph {
      * Returns the text block at the specified index.
      *
      * @param anIndex
+     *        the index of the requested text block
      *
      * @return a text block
      */
@@ -62,6 +67,7 @@ public interface TextBlocks extends Paragraph {
      * Removes the text block at the specified index.
      *
      * @param anIndex
+     *        the index of the text block which is to be removed
      */
     void removeTextBlock(int anIndex);
 

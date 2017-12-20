@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -81,6 +84,8 @@ public final class IndentationHelper {
      *        a string
      * @param indentationLevel
      *        the indentation level (number of preceding tabulators)
+     *
+     * @return a formatted string
      */
     public static String format(String string, int indentationLevel) {
 

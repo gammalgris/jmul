@@ -1,10 +1,13 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
  * other public and private repositories.
  *
- * Copyright (C) 2016  Kristian Kutin
+ * Copyright (C) 2017  Kristian Kutin
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -22,32 +25,41 @@
  * e-mail: kristian.kutin@arcor.de
  */
 
-package jmul.io;
+package jmul.transformation.message.rules;
 
 
-import java.io.Closeable;
-import java.io.IOException;
+import jmul.string.TextHelper;
+
+import org.w3c.dom.Document;
 
 
 /**
- * This interface describes a reader for archives (e.g. .zip files, .jar files).
+ * A specific implementation for a message creator for XML
+ * Documents.
  *
  * @author Kristian Kutin
  */
-public interface ArchiveReader extends Closeable {
+public class DocumentMessageCreator extends MessageCreatorBase {
 
     /**
-     * Loads the specified entry from the archive.
-     *
-     * @param anEntryName
-     *
-     * @return the raw data representing the specified entry or <code>null</code>
-     *         if no such entry exists
-     *
-     * @throws ArchiveException
-     *         The exception is thrown if an error occurs while reading from the
-     *         specified archive.
+     * The default constructor.
      */
-    byte[] loadEntry(String anEntryName) throws IOException;
+    public DocumentMessageCreator() {
+
+        super(Document.class);
+    }
+
+    /**
+     * Creates a new message for the specified object.
+     *
+     * @param anObject
+     *
+     * @return a message
+     */
+    @Override
+    public String newMessage(Object anObject) {
+
+        return TextHelper.concatenateStrings(getParentClass().getName(), " (check the corresponding XML file)");
+    }
 
 }

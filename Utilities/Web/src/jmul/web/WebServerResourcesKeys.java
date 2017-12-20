@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -32,7 +35,7 @@ import jmul.misc.management.ResourceIdentifier;
 import jmul.reflection.classes.ClassDefinition;
 import jmul.reflection.classes.ClassHelper;
 
-import jmul.string.StringConcatenator;
+import jmul.string.TextHelper;
 
 
 /**
@@ -114,11 +117,11 @@ public enum WebServerResourcesKeys implements ResourceIdentifier {
 
         if (!isParent) {
 
-            StringConcatenator message =
-                new StringConcatenator("The class ", classDefinition,
-                                       " is not a parent class of the specified implementation class ",
-                                       implementationDefinition, "!");
-            throw new IllegalArgumentException(String.valueOf(message));
+            String message =
+                TextHelper.concatenateStrings("The class ", classDefinition,
+                                              " is not a parent class of the specified implementation class ",
+                                              implementationDefinition, "!");
+            throw new IllegalArgumentException(message);
         }
     }
 

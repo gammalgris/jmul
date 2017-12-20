@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -76,7 +79,9 @@ public class ClassScanner {
      * parameters.
      *
      * @param aFileType
+     *        the file type for which to look for
      * @param aPath
+     *        the base directory
      *
      * @throws ClassNotFoundException
      *         is thrown if no service class can be found
@@ -190,8 +195,11 @@ public class ClassScanner {
      * Builds a class name according to the specified parameters.
      *
      * @param aFilename
+     *        a file name
      * @param aFileSuffix
+     *        a file suffix
      * @param aPath
+     *        a base directory
      *
      * @return a class name
      */

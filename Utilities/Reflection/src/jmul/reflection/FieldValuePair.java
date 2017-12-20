@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -47,7 +50,9 @@ public class FieldValuePair {
      * Creates a new pair.
      *
      * @param aFieldName
+     *        the name of a class field
      * @param aFieldValue
+     *        the value of the field
      */
     public FieldValuePair(String aFieldName, Object aFieldValue) {
 

@@ -37,6 +37,8 @@
       <hash><url n="URL" path="Document-CSV-Tests/Document-CSV-Tests.jpr"/></hash>
       <hash><url n="URL" path="Document-MD/Document-MD.jpr"/></hash>
       <hash><url n="URL" path="Document-MD-Tests/Document-MD-Tests.jpr"/></hash>
+      <hash><url n="URL" path="Document-Text/Document-Text.jpr"/></hash>
+      <hash><url n="URL" path="Document-Text-Tests/Document-Text-Tests.jpr"/></hash>
       <hash><url n="URL" path="Formula/Formula.jpr"/></hash>
       <hash><url n="URL" path="Formula-Tests/Formula-Tests.jpr"/></hash>
       <hash><url n="URL" path="Helper-Tests/Helper-Tests.jpr"/></hash>

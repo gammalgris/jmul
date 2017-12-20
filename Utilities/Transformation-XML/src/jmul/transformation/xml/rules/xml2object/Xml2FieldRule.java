@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -30,21 +33,20 @@ import java.lang.reflect.Field;
 import jmul.misc.id.ID;
 import jmul.misc.id.IntegerID;
 
+import jmul.reflection.classes.ClassDefinition;
+import jmul.reflection.classes.ClassHelper;
+
+import jmul.string.TextHelper;
+
+import jmul.transformation.TransformationException;
+import jmul.transformation.TransformationParameters;
+import jmul.transformation.TransformationRuleBase;
 import jmul.transformation.xml.cache.Xml2ObjectCache;
 import static jmul.transformation.xml.rules.PersistenceMarkups.ID_ATTRIBUTE;
 import static jmul.transformation.xml.rules.PersistenceMarkups.OBJECT_ELEMENT;
 import static jmul.transformation.xml.rules.PersistenceMarkups.TYPE_ATTRIBUTE;
 import static jmul.transformation.xml.rules.PersistenceMarkups.VALUE_ATTRIBUTE;
 import static jmul.transformation.xml.rules.TransformationConstants.OBJECT_CACHE;
-
-import jmul.reflection.classes.ClassDefinition;
-import jmul.reflection.classes.ClassHelper;
-
-import jmul.string.StringConcatenator;
-
-import jmul.transformation.TransformationException;
-import jmul.transformation.TransformationParameters;
-import jmul.transformation.TransformationRuleBase;
 
 import jmul.xml.XmlParserHelper;
 
@@ -121,9 +123,9 @@ public class Xml2FieldRule extends TransformationRuleBase {
 
         if (!someParameters.containsPrerequisite(OBJECT_CACHE)) {
 
-            StringConcatenator message =
-                new StringConcatenator("Prerequisites for the transformation are missing (", OBJECT_CACHE, ")!");
-            throw new TransformationException(message.toString());
+            String message =
+                TextHelper.concatenateStrings("Prerequisites for the transformation are missing (", OBJECT_CACHE, ")!");
+            throw new TransformationException(message);
         }
 
 
@@ -157,8 +159,8 @@ public class Xml2FieldRule extends TransformationRuleBase {
 
         } catch (ClassNotFoundException e) {
 
-            StringConcatenator message = new StringConcatenator("An unknown class was specified (", typeString, ")!");
-            throw new TransformationException(message.toString(), e);
+            String message = TextHelper.concatenateStrings("An unknown class was specified (", typeString, ")!");
+            throw new TransformationException(message, e);
         }
 
 
@@ -170,8 +172,8 @@ public class Xml2FieldRule extends TransformationRuleBase {
 
         } catch (ClassNotFoundException e) {
 
-            StringConcatenator message = new StringConcatenator("An unknown class was specified (", valueString, ")!");
-            throw new TransformationException(message.toString(), e);
+            String message = TextHelper.concatenateStrings("An unknown class was specified (", valueString, ")!");
+            throw new TransformationException(message, e);
         }
 
 
@@ -183,9 +185,10 @@ public class Xml2FieldRule extends TransformationRuleBase {
 
         } catch (NoSuchFieldException e) {
 
-            StringConcatenator message =
-                new StringConcatenator("The class ", className, " doesn't have a field with the name ", fieldName, "!");
-            throw new TransformationException(message.toString(), e);
+            String message =
+                TextHelper.concatenateStrings("The class ", className, " doesn't have a field with the name ",
+                                              fieldName, "!");
+            throw new TransformationException(message, e);
         }
 
 

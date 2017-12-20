@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -34,7 +37,7 @@ import jmul.reflection.Initializer;
 import jmul.reflection.classes.ClassDefinition;
 import jmul.reflection.classes.ClassHelper;
 
-import jmul.string.StringConcatenator;
+import jmul.string.TextHelper;
 
 import jmul.transformation.TransformationException;
 import jmul.transformation.TransformationParameters;
@@ -122,9 +125,9 @@ public class Xml2CollectionRule extends TransformationRuleBase {
 
         if (!someParameters.containsPrerequisite(OBJECT_CACHE)) {
 
-            StringConcatenator message =
-                new StringConcatenator("Prerequisites for the transformation are missing (", OBJECT_CACHE, ")!");
-            throw new TransformationException(message.toString());
+            String message =
+                TextHelper.concatenateStrings("Prerequisites for the transformation are missing (", OBJECT_CACHE, ")!");
+            throw new TransformationException(message);
         }
 
 
@@ -153,8 +156,8 @@ public class Xml2CollectionRule extends TransformationRuleBase {
 
         } catch (ClassNotFoundException e) {
 
-            StringConcatenator message = new StringConcatenator("An unknown class was specified (", typeString, ")!");
-            throw new TransformationException(message.toString(), e);
+            String message = TextHelper.concatenateStrings("An unknown class was specified (", typeString, ")!");
+            throw new TransformationException(message, e);
         }
 
 

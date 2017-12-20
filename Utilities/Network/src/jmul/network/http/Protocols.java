@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -47,6 +50,7 @@ public enum Protocols {
      * Creates a new enumeration element.
      *
      * @param aProtocolName
+     *        the name of a protocol
      */
     private Protocols(String aProtocolName) {
 
@@ -67,6 +71,7 @@ public enum Protocols {
      * Checks if the specified name equals this protocol name.
      *
      * @param aName
+     *        the name of a protocol
      *
      * @return <code>true</code> if the specified name equals this protocol name,
      *         else <code>false</code>

@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ *
+ *
  * (J)ava (M)iscellaneous (U)tility (L)ibraries
  *
  * JMUL is a central repository for utilities which are used in my
@@ -25,20 +28,18 @@
 package jmul.transformation.xml.rules.xml2object;
 
 
-import jmul.transformation.xml.cache.Xml2ObjectCache;
-import jmul.transformation.xml.cache.Xml2ObjectCacheImpl;
-
-import jmul.transformation.xml.TransformationHelper;
-import static jmul.transformation.xml.rules.PersistenceMarkups.OBJECTS_ELEMENT;
-import static jmul.transformation.xml.rules.TransformationConstants.OBJECT_CACHE;
-
-import jmul.string.StringConcatenator;
+import jmul.string.TextHelper;
 
 import jmul.transformation.TransformationException;
 import jmul.transformation.TransformationFactory;
 import jmul.transformation.TransformationParameters;
 import jmul.transformation.TransformationResources;
 import jmul.transformation.TransformationRuleBase;
+import jmul.transformation.xml.TransformationHelper;
+import jmul.transformation.xml.cache.Xml2ObjectCache;
+import jmul.transformation.xml.cache.Xml2ObjectCacheImpl;
+import static jmul.transformation.xml.rules.PersistenceMarkups.OBJECTS_ELEMENT;
+import static jmul.transformation.xml.rules.TransformationConstants.OBJECT_CACHE;
 
 import jmul.xml.SubelementList;
 
@@ -115,8 +116,8 @@ public class Document2ObjectRule extends TransformationRuleBase {
         String rootElementName = rootElement.getNodeName();
         if (!rootElementName.equals(OBJECTS_ELEMENT.getTagName())) {
 
-            StringConcatenator message = new StringConcatenator("Invalid root element (", rootElementName, ")!");
-            throw new TransformationException(message.toString());
+            String message = TextHelper.concatenateStrings("Invalid root element (", rootElementName, ")!");
+            throw new TransformationException(message);
         }
 
 

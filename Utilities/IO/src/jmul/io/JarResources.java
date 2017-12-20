@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -30,7 +33,9 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-import jmul.string.StringConcatenator;
+import jmul.io.archives.ArchiveEntry;
+
+import jmul.string.TextHelper;
 
 
 /**
@@ -122,10 +127,10 @@ public final class JarResources {
 
             if (moreThanOneReference) {
 
-                StringConcatenator message =
-                    new StringConcatenator("The archive \"", archiveName,
-                                           "\" contains several entries with the name \"", aResourceName, "\"!");
-                throw new IllegalArgumentException(message.toString());
+                String message =
+                    TextHelper.concatenateStrings("The archive \"", archiveName,
+                                                  "\" contains several entries with the name \"", aResourceName, "\"!");
+                throw new IllegalArgumentException(message);
             }
 
             String reference = references.iterator().next();
@@ -134,10 +139,10 @@ public final class JarResources {
 
         } else {
 
-            StringConcatenator message =
-                new StringConcatenator("The archive ", archiveName, " doesn't have an entry with the name \"",
-                                       aResourceName, "\"!");
-            throw new IllegalArgumentException(message.toString());
+            String message =
+                TextHelper.concatenateStrings("The archive ", archiveName, " doesn't have an entry with the name \"",
+                                              aResourceName, "\"!");
+            throw new IllegalArgumentException(message);
         }
     }
 

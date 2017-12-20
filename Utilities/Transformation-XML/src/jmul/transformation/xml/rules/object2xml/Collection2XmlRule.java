@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -29,6 +32,11 @@ import java.util.Collection;
 
 import jmul.misc.id.ID;
 
+import jmul.string.TextHelper;
+
+import jmul.transformation.TransformationException;
+import jmul.transformation.TransformationParameters;
+import jmul.transformation.TransformationRuleBase;
 import jmul.transformation.xml.annotations.AnnotationHelper;
 import jmul.transformation.xml.annotations.ContainerInformations;
 import jmul.transformation.xml.cache.Object2XmlCache;
@@ -42,12 +50,6 @@ import static jmul.transformation.xml.rules.TransformationConstants.ROOT_ELEMENT
 import static jmul.transformation.xml.rules.TransformationConstants.XML_DOCUMENT;
 import jmul.transformation.xml.rules.object2xml.strategies.containers.CollectionHandler;
 import jmul.transformation.xml.rules.object2xml.strategies.containers.ContainerHandler;
-
-import jmul.string.StringConcatenator;
-
-import jmul.transformation.TransformationException;
-import jmul.transformation.TransformationParameters;
-import jmul.transformation.TransformationRuleBase;
 
 import jmul.xml.XmlHelper;
 
@@ -164,10 +166,10 @@ public class Collection2XmlRule extends TransformationRuleBase {
 
             if (annotation == null) {
 
-                StringConcatenator message =
-                    new StringConcatenator("Cannot determine the element type for this collection (",
-                                           someParameters.getRealType().getName(), "<?>)!");
-                throw new TransformationException(message.toString());
+                String message =
+                    TextHelper.concatenateStrings("Cannot determine the element type for this collection (",
+                                                  someParameters.getRealType().getName(), "<?>)!");
+                throw new TransformationException(message);
             }
 
             declaredElementType = annotation.declaredElementType();

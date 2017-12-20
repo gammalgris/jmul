@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -40,6 +43,7 @@ public interface NamedColumns {
      * Returns the name of the specified column.
      *
      * @param aColumnIndex
+     *        the column index of a column
      *
      * @return a column name
      */
@@ -49,7 +53,9 @@ public interface NamedColumns {
      * Changes the name of the specified column.
      *
      * @param aColumnIndex
+     *        the column index of a column
      * @param aColumnName
+     *        the new column name
      */
     void setColumnName(int aColumnIndex, String aColumnName);
 

@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -44,6 +47,7 @@ public final class RuleFactory {
      * Creates a new rule set.
      *
      * @param someRules
+     *        several rules
      *
      * @return a new rule set
      */
@@ -56,6 +60,7 @@ public final class RuleFactory {
      * Creates a new minimum value rule.
      *
      * @param aMinimumValue
+     *        a threshold value for this rule
      *
      * @return a new minimum value rule
      */
@@ -68,6 +73,7 @@ public final class RuleFactory {
      * Creates a new equal value rule.
      *
      * @param aSpecificValue
+     *        a threshold value for this rule
      *
      * @return a new equal value rule
      */
@@ -80,6 +86,7 @@ public final class RuleFactory {
      * Creates a new maximum value rule.
      *
      * @param aMaximumValue
+     *        a threshold value for this rule
      *
      * @return a new maximum value rule
      */

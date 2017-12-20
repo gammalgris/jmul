@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -30,7 +33,7 @@ import java.util.Map;
 
 import jmul.measures.rules.ConversionRule;
 
-import jmul.string.StringConcatenator;
+import jmul.string.TextHelper;
 
 
 /**
@@ -155,9 +158,10 @@ public class MeasurementUnitImpl implements MeasurementUnit {
 
         if (unit == null) {
 
-            StringConcatenator message =
-                new StringConcatenator("There exists no rule to convert ", getAbbreviation(), " to ", aTargetUnit, "!");
-            throw new IllegalArgumentException(message.toString());
+            String message =
+                TextHelper.concatenateStrings("There exists no rule to convert ", getAbbreviation(), " to ",
+                                              aTargetUnit, "!");
+            throw new IllegalArgumentException(message);
         }
 
         return convert(aQuantity, unit);
@@ -181,10 +185,10 @@ public class MeasurementUnitImpl implements MeasurementUnit {
         boolean notExistsRule = rule == null;
         if (notExistsRule) {
 
-            StringConcatenator message =
-                new StringConcatenator("There exists no rule to convert ", getAbbreviation(), " to ",
-                                       aTargetUnit.getAbbreviation(), "!");
-            throw new IllegalArgumentException(message.toString());
+            String message =
+                TextHelper.concatenateStrings("There exists no rule to convert ", getAbbreviation(), " to ",
+                                              aTargetUnit.getAbbreviation(), "!");
+            throw new IllegalArgumentException(message);
         }
 
         return rule.convert(aQuantity);

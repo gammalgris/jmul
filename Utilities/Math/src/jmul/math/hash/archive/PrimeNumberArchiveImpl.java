@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -62,7 +65,9 @@ public class PrimeNumberArchiveImpl implements PrimeNumberArchive {
      * runtime.
      *
      * @param aClass
+     *        the class for which to store the prime numbers
      * @param somePrimeNumbers
+     *        a list with prime numbers
      */
     @Override
     public void addEntry(Class aClass, List<Integer> somePrimeNumbers) {
@@ -82,6 +87,7 @@ public class PrimeNumberArchiveImpl implements PrimeNumberArchive {
      * Checks if an entry exists for for the specified class.
      *
      * @param aClass
+     *        the class for which to check the existence of a prime number list
      *
      * @return <code>true</code> if an entry exists, else <code>false</code>
      */
@@ -95,6 +101,7 @@ public class PrimeNumberArchiveImpl implements PrimeNumberArchive {
      * Returns the list which associated with the specified class.
      *
      * @param aClass
+     *        the class for which to retrieve the prime number list
      *
      * @return a list of prime numbers
      */

@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -33,7 +36,6 @@ import jmul.misc.exceptions.EmptyArrayParameterException;
 import jmul.misc.exceptions.NullArrayParameterException;
 
 import static jmul.string.Constants.NEW_LINE;
-import jmul.string.StringConcatenator;
 
 
 /**
@@ -124,7 +126,7 @@ public class Algorithm {
     @Override
     public String toString() {
 
-        StringConcatenator buffer = new StringConcatenator();
+        StringBuilder buffer = new StringBuilder();
 
         boolean first = true;
         for (Rule rule : rules) {

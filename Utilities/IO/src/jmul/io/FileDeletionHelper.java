@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -50,6 +53,7 @@ public final class FileDeletionHelper {
      * exception if the deletion was not possible.
      *
      * @param filename
+     *        a file name (i.e. file path)
      */
     public static void delete(String filename) {
 
@@ -64,6 +68,7 @@ public final class FileDeletionHelper {
      * exception if the deletion was not possible.
      *
      * @param file
+     *        a file (i.e. file path)
      */
     public static void delete(File file) {
 

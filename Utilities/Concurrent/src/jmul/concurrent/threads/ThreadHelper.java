@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -60,9 +63,9 @@ public final class ThreadHelper {
     }
 
     /**
-     * Determines the name of the invoking method.<br />
-     * <br />
-     * <i><u>Note:</u><br />
+     * Determines the name of the invoking method.<br>
+     * <br>
+     * <i><u>Note:</u><br>
      * The method looks for the method name within the current thread's stack trace. The
      * current implementation looks for the name at a fixed position.</i>
      *

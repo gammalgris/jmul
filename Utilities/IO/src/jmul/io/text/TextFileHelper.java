@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -177,6 +180,7 @@ public final class TextFileHelper {
      * Closes all input streams.
      *
      * @param someNestedStreams
+     *        all streams
      *
      * @throws IOException
      *         is thrown if an error occurs while closing the input streams

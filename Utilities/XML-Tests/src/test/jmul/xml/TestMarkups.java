@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ * 
+ * 
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -117,6 +120,7 @@ public enum TestMarkups implements XmlMarkup {
      * Checks if the specified name matches the name of this markup.
      *
      * @param aName
+     *        a markup name
      *
      * @return <code>true</code> if the specified name matches the name of this
      *         markup, else <code>false</code>
@@ -131,6 +135,7 @@ public enum TestMarkups implements XmlMarkup {
      * Checks if the specified xml markup this markup.
      *
      * @param anXmlMarkup
+     *        an xml markup
      *
      * @return <code>true</code> if the specified xml markup matches this
      *         markup, else <code>false</code>

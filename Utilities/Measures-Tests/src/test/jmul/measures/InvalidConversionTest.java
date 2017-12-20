@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -32,7 +35,7 @@ import jmul.measures.MeasurementSystem;
 import jmul.measures.MeasurementSystemImpl;
 import jmul.measures.MeasurementUnit;
 
-import jmul.string.StringConcatenator;
+import jmul.string.TextHelper;
 
 import jmul.test.classification.UnitTest;
 
@@ -145,14 +148,14 @@ public class InvalidConversionTest {
     @Test(expected = IllegalArgumentException.class)
     public void testConversion() {
 
-        StringConcatenator message =
-            new StringConcatenator("original value := ", initialValue, " ", origin, "; expected value := ",
-                                   expectedValue, " ", destination);
+        StringBuilder message = new StringBuilder();
+        TextHelper.append2StringBuilder(message, "original value := ", initialValue, " ", origin,
+                                        "; expected value := ", expectedValue, " ", destination);
 
         MeasurementUnit omu = measurementSystem.getUnit(origin);
 
         double result = omu.convert(initialValue, destination).doubleValue();
-        message.append("; actual result := ", result, " ", destination);
+        TextHelper.append2StringBuilder(message, "; actual result := ", result, " ", destination);
 
         assertEquals(message.toString(), expectedValue, result, DELTA);
     }

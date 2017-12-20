@@ -1,4 +1,7 @@
 /*
+ * SPDX-License-Identifier: GPL-3.0
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -47,7 +50,9 @@ public class PublishedPage {
      * Creates a new instance of a published web page.
      *
      * @param aPath
+     *        the path of the published file
      * @param someContent
+     *        the file content
      */
     public PublishedPage(String aPath, byte[] someContent) {
 
