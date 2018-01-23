@@ -191,6 +191,8 @@ public class HelperConstructorTest {
         parameters.add(new Object[] { jmul.math.hash.Constants.class });
         parameters.add(new Object[] { jmul.misc.checks.EqualityHelper.class });
         parameters.add(new Object[] { jmul.network.http.UploadHelper.class });
+        parameters.add(new Object[] { jmul.string.IndentationHelper.class });
+        parameters.add(new Object[] { jmul.reflection.classes.AccessorHelper.class });
 
         return parameters;
     }

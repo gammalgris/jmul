@@ -49,6 +49,8 @@ public final class AccessorHelper {
      * The default constructor.
      */
     private AccessorHelper() {
+
+        throw new UnsupportedOperationException();
     }
 
     /**

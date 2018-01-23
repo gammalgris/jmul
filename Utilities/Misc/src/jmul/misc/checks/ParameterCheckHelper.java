@@ -76,7 +76,7 @@ public final class ParameterCheckHelper {
      * @throws IllegalArgumentException
      *         is thrown if the specified parameter is invalid
      */
-    public static Class checkClass(Class aClass) {
+    public static Class checkClassParameter(Class aClass) {
 
         if (aClass == null) {
 
@@ -631,6 +631,28 @@ public final class ParameterCheckHelper {
         }
 
         return anObject;
+    }
+
+    /**
+     * Checks the specified parameter (i.e. must be 0 or greater).
+     *
+     * @param anInteger
+     *        an integer
+     *
+     * @return the specified integer
+     *
+     * @throws IllegalArgumentException
+     *         is thrown if the specified parameter is invalid
+     */
+    public static int checkPositiveIntegerParameter(int anInteger) {
+
+        if (anInteger < 0) {
+
+            String message = "A negtaive integer was specified but a positive integer is expected!";
+            throw new IllegalArgumentException(message);
+        }
+
+        return anInteger;
     }
 
 }

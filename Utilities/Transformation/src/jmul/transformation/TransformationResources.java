@@ -30,6 +30,9 @@ package jmul.transformation;
 
 import jmul.transformation.configuration.ConfigurationReader;
 import jmul.transformation.configuration.ConfigurationReaderImpl;
+import jmul.transformation.container.application.HighestPriorityRuleOnlyStrategy;
+import jmul.transformation.container.filter.HighestPriorityFilter;
+import jmul.transformation.container.initialization.RulesContainerInitializerImpl;
 import jmul.transformation.creation.ObjectFactory;
 import jmul.transformation.creation.ObjectFactoryImpl;
 import jmul.transformation.message.MessageFactory;
@@ -116,7 +119,9 @@ public final class TransformationResources {
 
         if (transformationFactorySingleton == null) {
 
-            transformationFactorySingleton = new TransformationFactoryImpl();
+            transformationFactorySingleton =
+                new TransformationFactoryImpl(RulesContainerInitializerImpl.class, HighestPriorityFilter.class,
+                                              HighestPriorityRuleOnlyStrategy.class);
         }
 
         return transformationFactorySingleton;

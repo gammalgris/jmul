@@ -1,7 +1,7 @@
 /*
  * SPDX-License-Identifier: GPL-3.0
- * 
- * 
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -26,6 +26,8 @@
  */
 
 package jmul.xml.writer;
+
+import jmul.misc.checks.ParameterCheckHelper;
 
 
 /**
@@ -52,7 +54,7 @@ public class WriterException extends RuntimeException {
      */
     public WriterException(String aMessage) {
 
-        super(aMessage);
+        super(ParameterCheckHelper.checkExceptionMessage(aMessage));
     }
 
     /**
@@ -64,7 +66,7 @@ public class WriterException extends RuntimeException {
      */
     public WriterException(Throwable aCause) {
 
-        super(aCause);
+        super(ParameterCheckHelper.checkExceptionCause(aCause));
     }
 
     /**
@@ -78,7 +80,7 @@ public class WriterException extends RuntimeException {
      */
     public WriterException(String aMessage, Throwable aCause) {
 
-        super(aMessage, aCause);
+        super(ParameterCheckHelper.checkExceptionMessage(aMessage), ParameterCheckHelper.checkExceptionCause(aCause));
     }
 
 }

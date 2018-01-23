@@ -46,7 +46,7 @@ public class UnknownClassException extends IllegalArgumentException {
      */
     public UnknownClassException(Class aClass) {
 
-        super(createMessage(ParameterCheckHelper.checkClass(aClass)));
+        super(createMessage(ParameterCheckHelper.checkClassParameter(aClass)));
     }
 
     /**

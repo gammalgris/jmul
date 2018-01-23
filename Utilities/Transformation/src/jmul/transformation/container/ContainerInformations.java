@@ -7,7 +7,7 @@
  * JMUL is a central repository for utilities which are used in my
  * other public and private repositories.
  *
- * Copyright (C) 2013  Kristian Kutin
+ * Copyright (C) 2018  Kristian Kutin
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -25,27 +25,23 @@
  * e-mail: kristian.kutin@arcor.de
  */
 
-package jmul.transformation;
+package jmul.transformation.container;
 
 
 /**
- * This interface describes an entity which manages transformation rules and
- * performs transformations.
+ * This interface describes operations to get informations about the
+ * container.
  *
  * @author Kristian Kutin
  */
-public interface TransformationFactory {
+public interface ContainerInformations {
 
     /**
-     * Performs a transformation. The specified parameters provides all
-     * necessary informations.
+     * Returns the size of this container (i.e. number of transformation
+     * rules).
      *
-     * @param someParameters
-     *        all transformation parameters, including the object which is to be
-     *        transformed
-     *
-     * @return the result of the transformation
+     * @return a container size
      */
-    Object transform(TransformationParameters someParameters);
+    int size();
 
 }

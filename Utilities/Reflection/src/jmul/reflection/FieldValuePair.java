@@ -27,6 +27,8 @@
 
 package jmul.reflection;
 
+import jmul.misc.checks.ParameterCheckHelper;
+
 
 /**
  * A utility class which contains a field name and a field's value. This information is used
@@ -55,6 +57,8 @@ public class FieldValuePair {
      *        the value of the field
      */
     public FieldValuePair(String aFieldName, Object aFieldValue) {
+
+        ParameterCheckHelper.checkStringParameter(aFieldName);
 
         fieldName = aFieldName;
         fieldValue = aFieldValue;

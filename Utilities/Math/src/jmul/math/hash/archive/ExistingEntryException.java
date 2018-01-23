@@ -47,7 +47,7 @@ public class ExistingEntryException extends IllegalArgumentException {
      */
     public ExistingEntryException(Class aClass) {
 
-        super(createMessage(ParameterCheckHelper.checkClass(aClass)));
+        super(createMessage(ParameterCheckHelper.checkClassParameter(aClass)));
     }
 
     /**

@@ -1,7 +1,7 @@
 /*
  * SPDX-License-Identifier: GPL-3.0
- * 
- * 
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -28,7 +28,7 @@
 package test.jmul.helper;
 
 
-import static jmul.misc.checks.ParameterCheckHelper.checkClass;
+import static jmul.misc.checks.ParameterCheckHelper.checkClassParameter;
 
 import static org.junit.Assert.fail;
 
@@ -55,7 +55,7 @@ public final class TestFailureHelper {
      */
     public static void failTest(Class anExpectedExceptionClass, Throwable theActualException) {
 
-        checkClass(anExpectedExceptionClass);
+        checkClassParameter(anExpectedExceptionClass);
 
         if (theActualException == null) {
 

@@ -7,7 +7,7 @@
  * JMUL is a central repository for utilities which are used in my
  * other public and private repositories.
  *
- * Copyright (C) 2013  Kristian Kutin
+ * Copyright (C) 2018  Kristian Kutin
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -25,27 +25,42 @@
  * e-mail: kristian.kutin@arcor.de
  */
 
-package jmul.transformation;
+package jmul.transformation.container;
+
+
+import java.util.Collection;
+
+import jmul.transformation.TransformationPath;
+import jmul.transformation.TransformationRule;
 
 
 /**
- * This interface describes an entity which manages transformation rules and
- * performs transformations.
+ * This interface describes a container for transformation rules.
  *
  * @author Kristian Kutin
  */
-public interface TransformationFactory {
+public interface RulesContainer extends ContainerInformations {
 
     /**
-     * Performs a transformation. The specified parameters provides all
-     * necessary informations.
+     * Returns all transformation rules for the specified transformation
+     * path.
      *
-     * @param someParameters
-     *        all transformation parameters, including the object which is to be
-     *        transformed
+     * @param aTransformationPath
+     *        a transformation path
      *
-     * @return the result of the transformation
+     * @return a container with transformation rules
      */
-    Object transform(TransformationParameters someParameters);
+    Collection<TransformationRule> getRules(TransformationPath aTransformationPath);
+
+    /**
+     * Checks if the container contains transformation rules for the specified
+     * transformation path.
+     *
+     * @param aTransformationPath
+     *        a transformation path
+     *
+     * @return <code>true</code> if rules exist, else <code>false</code>
+     */
+    boolean existsPath(TransformationPath aTransformationPath);
 
 }

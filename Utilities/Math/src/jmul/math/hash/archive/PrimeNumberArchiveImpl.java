@@ -72,7 +72,7 @@ public class PrimeNumberArchiveImpl implements PrimeNumberArchive {
     @Override
     public void addEntry(Class aClass, List<Integer> somePrimeNumbers) {
 
-        ParameterCheckHelper.checkClass(aClass);
+        ParameterCheckHelper.checkClassParameter(aClass);
         ParameterCheckHelper.checkList(somePrimeNumbers, DEFAULT_LIST_SIZE);
 
         if (entries.containsKey(aClass)) {

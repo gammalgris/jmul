@@ -28,31 +28,21 @@
 package jmul.transformation;
 
 
-import java.io.File;
-import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.ResourceBundle;
-import java.util.SortedMap;
-import java.util.TreeMap;
 
-import jmul.io.JarResources;
-import jmul.io.ResourceScanner;
-import jmul.io.ResourceType;
+import jmul.misc.checks.ParameterCheckHelper;
+import jmul.misc.exceptions.InitializationException;
+
+import jmul.reflection.constructors.ConstructorInvoker;
 
 import jmul.string.TextHelper;
 
-import jmul.transformation.configuration.ConfigurationReader;
-import jmul.transformation.message.MessageFactory;
-
-import jmul.xml.reader.XmlDocumentReader;
-
-import org.w3c.dom.Document;
-
-import org.xml.sax.SAXException;
+import jmul.transformation.container.RulesContainer;
+import jmul.transformation.container.application.RulesApplicationStrategy;
+import jmul.transformation.container.filter.RulesFilter;
+import jmul.transformation.container.initialization.RulesContainerInitializer;
 
 
 /**
@@ -68,159 +58,73 @@ public class TransformationFactoryImpl implements TransformationFactory {
     private static final String FILE_EXTENSION = "file.extension";
 
     /**
-     * The default file extension for configuration files.
-     */
-    private final String defaultFileExtension;
-
-    /**
      * The class member manages all transformation rules.
      */
-    private Map<TransformationPath, Collection<TransformationRule>> transformationRules;
+    private final RulesContainer container;
+
+    /**
+     * A filter for transformation rules.
+     */
+    private final RulesFilter filter;
+
+    /**
+     * A strategy for applying transformation rules.
+     */
+    private final RulesApplicationStrategy applicationStrategy;
 
     /**
      * The default constructor.
      */
-    public TransformationFactoryImpl() {
+    public TransformationFactoryImpl(Class anInitializerClass, Class aFilterClass, Class anApplicationStrategyClass) {
+
+        super();
+
+
+        ParameterCheckHelper.checkClassParameter(anInitializerClass);
+        ParameterCheckHelper.checkClassParameter(aFilterClass);
+        ParameterCheckHelper.checkClassParameter(anApplicationStrategyClass);
+
 
         ResourceBundle resourceBundle = ResourceBundle.getBundle(TransformationFactory.class.getName());
-
-        defaultFileExtension = resourceBundle.getString(FILE_EXTENSION);
-
-        transformationRules = new HashMap<>();
-
-        init();
-    }
-
-    /**
-     * Post-instantiation initialization.
-     */
-    private void init() {
-
-        ResourceType resourceType = new ResourceType(defaultFileExtension);
-
-        ConfigurationReader configurationReader = TransformationResources.getConfigurationReader();
-        XmlDocumentReader documentReader = TransformationResources.getXmlDocumentReader();
+        String defaultFileExtension = resourceBundle.getString(FILE_EXTENSION);
 
 
-        ResourceScanner resourceScanner = new ResourceScanner(resourceType);
+        RulesContainerInitializer initializer;
 
-        Map<String, Collection<File>> foundResources = resourceScanner.getFoundResources();
-        Map<String, JarResources> foundArchives = resourceScanner.getFoundArchives();
+        try {
 
-        boolean existResourceFiles = foundResources.size() > 0;
-        boolean existArchiveFiles = foundArchives.size() > 0;
+            initializer = newRulesContainerInitializer(anInitializerClass, defaultFileExtension);
 
-        if (existResourceFiles) {
+        } catch (IllegalAccessException | InstantiationException | InvocationTargetException |
+                 NoSuchMethodException e) {
 
-            int processedResources = 0;
-
-            for (Map.Entry<String, Collection<File>> entry : foundResources.entrySet()) {
-
-                String filename = entry.getValue()
-                                       .iterator()
-                                       .next()
-                                       .getAbsolutePath();
-
-                try {
-
-                    TransformationRule rule = configurationReader.parseConfiguration(filename);
-                    addTransformationRule(rule);
-                    processedResources++;
-
-                    System.out.println("processed rule: " + filename);
-
-                } catch (SAXException e) {
-
-                    // Ignore this exception. Continue with the next
-                    // configuration file.
-                    continue;
-
-                } catch (IOException e) {
-
-                    // Ignore this exception. Continue with the next
-                    // configuration file.
-                    continue;
-                }
-            }
-
-            if (processedResources == 0) {
-
-                String message = "No configuration files were successfully processed!";
-                throw new TransformationException(message);
-            }
-
-        } else if (existArchiveFiles) {
-
-            int processedEmbeddedResources = 0;
-
-            for (Map.Entry<String, JarResources> entry : foundArchives.entrySet()) {
-
-                String archiveName = entry.getKey();
-                JarResources jar = entry.getValue();
-
-                Collection<String> embeddedResources = jar.getResourceNamesWithSuffix(defaultFileExtension);
-
-                for (String embeddedResource : embeddedResources) {
-
-                    try {
-
-                        jar.getResource(embeddedResource);
-                        Document document = documentReader.readFrom(archiveName, embeddedResource);
-                        TransformationRule rule = configurationReader.parseConfiguration(document);
-                        addTransformationRule(rule);
-                        processedEmbeddedResources++;
-
-                    } catch (SAXException e) {
-
-                        // Ignore this exception and continbue with the next
-                        // configuration.
-                        continue;
-
-                    } catch (IOException e) {
-
-                        // Ignore this exception and continbue with the next
-                        // configuration.
-                        continue;
-                    }
-                }
-            }
-
-            if (processedEmbeddedResources == 0) {
-
-                String message = "No configuration files were successfully processed!";
-                throw new TransformationException(message);
-            }
-
-        } else {
-
-            String message = "No configuration files exist!";
-            throw new TransformationException(message);
+            String message = "The rules container initializer cannot initialized!";
+            throw new InitializationException(message, e);
         }
-    }
 
-    /**
-     * Adds a transformation rule.
-     *
-     * @param aRule
-     *        a new transformation rule
-     */
-    @Override
-    public void addTransformationRule(TransformationRule aRule) {
+        try {
 
-        TransformationPath path = aRule.getTransformationPath();
+            filter = newRulesFilter(aFilterClass);
 
-        boolean existsPath = transformationRules.containsKey(path);
-        if (existsPath) {
+        } catch (IllegalAccessException | InstantiationException | InvocationTargetException |
+                 NoSuchMethodException e) {
 
-            Collection<TransformationRule> ruleset = transformationRules.get(path);
-            ruleset.add(aRule);
-
-        } else {
-
-            Collection<TransformationRule> ruleset = new ArrayList<>();
-            transformationRules.put(path, ruleset);
-            ruleset.add(aRule);
+            String message = "The rules filter cannot be initialized!";
+            throw new InitializationException(message, e);
         }
+
+        try {
+
+            applicationStrategy = newRulesApplicationStrategy(anApplicationStrategyClass, filter);
+
+        } catch (IllegalAccessException | InstantiationException | InvocationTargetException |
+                 NoSuchMethodException e) {
+
+            String message = "The rules application strategy cannot be initialized!";
+            throw new InitializationException(message, e);
+        }
+
+        container = initializer.newContainer();
     }
 
     /**
@@ -236,69 +140,137 @@ public class TransformationFactoryImpl implements TransformationFactory {
     @Override
     public Object transform(TransformationParameters someParameters) {
 
-        TransformationPath path = someParameters.getTransformationPath();
+        return applicationStrategy.applyRules(container, someParameters);
+    }
 
-        boolean existsPath = transformationRules.containsKey(path);
-        if (!existsPath) {
+    /**
+     * Instantiates an rules container initializer according to the specified
+     * parameters.
+     *
+     * @param anInitializerClass
+     *        the rules container initalizer class
+     * @param aFileExtension
+     *        the file extension for configuration files
+     *
+     * @return an rules container initializer
+     *
+     * @throws NoSuchMethodException
+     *         is thrown if the initializer doesn't have a corresponding constructor
+     * @throws InstantiationException
+     *         is thrown if the class cannot be instantiated (e.g. it's an abstract class)
+     * @throws IllegalAccessException
+     *         is thrown if the correpsonding constructor is not public
+     * @throws InvocationTargetException
+     *         is thrown if an error occurs within the constructor
+     */
+    private static RulesContainerInitializer newRulesContainerInitializer(Class anInitializerClass,
+                                                                          String aFileExtension) throws NoSuchMethodException,
+                                                                                                        InstantiationException,
+                                                                                                        IllegalAccessException,
+                                                                                                        InvocationTargetException {
 
-            String message = TextHelper.concatenateStrings("Unknown transformation path: ", path);
-            throw new IllegalArgumentException(message);
-        }
+        ParameterCheckHelper.checkClassParameter(anInitializerClass);
 
-
-        // Find all applicable rules and sort them according to their
-        // priorities.
-        Collection<TransformationRule> ruleset = transformationRules.get(path);
-        SortedMap<Integer, Collection<TransformationRule>> sortedRules = new TreeMap<>();
-
-        for (TransformationRule rule : ruleset) {
-
-            boolean isApplicableRule = rule.isApplicable(someParameters);
-            if (isApplicableRule) {
-
-                Integer priority = rule.getPriority();
-                boolean existsPriority = sortedRules.containsKey(priority);
-                if (!existsPriority) {
-                    Collection<TransformationRule> subset = new ArrayList<>();
-                    sortedRules.put(priority, subset);
-                }
-
-                Collection<TransformationRule> subset = sortedRules.get(priority);
-                subset.add(rule);
-            }
-        }
-
-
-        MessageFactory messageFactory = TransformationResources.getMessageFactory();
-        String objectMessage = messageFactory.newMessage(someParameters.getObject());
-
-        // Get the rule with the highest priority
-        if (sortedRules.isEmpty()) {
+        Class expectedClass = RulesContainerInitializer.class;
+        if (!expectedClass.isAssignableFrom(anInitializerClass)) {
 
             String message =
-                TextHelper.concatenateStrings("The transformation path ", path,
-                                              " doesn't know a rule for objects of type ", objectMessage, "!");
+                TextHelper.concatenateStrings("The specified class (", anInitializerClass,
+                                              ") is not derived from the expected class (", expectedClass, ")!");
             throw new IllegalArgumentException(message);
         }
 
-        Integer highestPriority = sortedRules.firstKey();
+        Class[] signature = new Class[] { String.class };
+        Object[] parameters = new Object[] { aFileExtension };
 
-        Collection<TransformationRule> applicableRules = sortedRules.get(highestPriority);
+        ConstructorInvoker invoker = new ConstructorInvoker(anInitializerClass, signature);
 
-        boolean existsAmbiguity = applicableRules.size() > 1;
-        if (existsAmbiguity) {
+        return (RulesContainerInitializer) invoker.invoke(parameters);
+    }
+
+    /**
+     * Instantiates a rules filter according to the specified parameters.
+     *
+     * @param aFilterClass
+     *        the rules filter class
+     *
+     * @return a rules filter
+     *
+     * @throws NoSuchMethodException
+     *         is thrown if the initializer doesn't have a corresponding constructor
+     * @throws InstantiationException
+     *         is thrown if the class cannot be instantiated (e.g. it's an abstract class)
+     * @throws IllegalAccessException
+     *         is thrown if the correpsonding constructor is not public
+     * @throws InvocationTargetException
+     *         is thrown if an error occurs within the constructor
+     */
+    private static RulesFilter newRulesFilter(Class aFilterClass) throws NoSuchMethodException, InstantiationException,
+                                                                         IllegalAccessException,
+                                                                         InvocationTargetException {
+
+        ParameterCheckHelper.checkClassParameter(aFilterClass);
+
+        Class expectedClass = RulesFilter.class;
+        if (!expectedClass.isAssignableFrom(aFilterClass)) {
 
             String message =
-                TextHelper.concatenateStrings("The transformation path ", path,
-                                              " knows several rules with the same priority for objects of type ",
-                                              objectMessage, "!");
+                TextHelper.concatenateStrings("The specified class (", aFilterClass,
+                                              ") is not derived from the expected class (", expectedClass, ")!");
             throw new IllegalArgumentException(message);
         }
 
+        Class[] signature = new Class[] { };
+        Object[] parameters = new Object[] { };
 
-        // Apply the rule
-        TransformationRule rule = applicableRules.iterator().next();
-        return rule.transform(someParameters);
+        ConstructorInvoker invoker = new ConstructorInvoker(aFilterClass, signature);
+
+        return (RulesFilter) invoker.invoke(parameters);
+    }
+
+    /**
+     * Instantiates a rules application strategy according to the specified
+     * parameters.
+     *
+     * @param aStrategyClass
+     *        the rules application strategy
+     * @param aFilter
+     *        a rules filter
+     *
+     * @return a rules application strategy
+     *
+     * @throws NoSuchMethodException
+     *         is thrown if the initializer doesn't have a corresponding constructor
+     * @throws InstantiationException
+     *         is thrown if the class cannot be instantiated (e.g. it's an abstract class)
+     * @throws IllegalAccessException
+     *         is thrown if the correpsonding constructor is not public
+     * @throws InvocationTargetException
+     *         is thrown if an error occurs within the constructor
+     */
+    private static RulesApplicationStrategy newRulesApplicationStrategy(Class aStrategyClass,
+                                                                        RulesFilter aFilter) throws NoSuchMethodException,
+                                                                                                    InstantiationException,
+                                                                                                    IllegalAccessException,
+                                                                                                    InvocationTargetException {
+
+        ParameterCheckHelper.checkClassParameter(aStrategyClass);
+
+        Class expectedClass = RulesApplicationStrategy.class;
+        if (!expectedClass.isAssignableFrom(aStrategyClass)) {
+
+            String message =
+                TextHelper.concatenateStrings("The specified class (", aStrategyClass,
+                                              ") is not derived from the expected class (", expectedClass, ")!");
+            throw new IllegalArgumentException(message);
+        }
+
+        Class[] signature = new Class[] { RulesFilter.class };
+        Object[] parameters = new Object[] { aFilter };
+
+        ConstructorInvoker invoker = new ConstructorInvoker(aStrategyClass, signature);
+
+        return (RulesApplicationStrategy) invoker.invoke(parameters);
     }
 
 }

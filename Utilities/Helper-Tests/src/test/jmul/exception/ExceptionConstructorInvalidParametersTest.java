@@ -1,7 +1,7 @@
 /*
  * SPDX-License-Identifier: GPL-3.0
- * 
- * 
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -37,11 +37,11 @@ import java.util.Collection;
 
 import jmul.csv.reader.CsvStructureException;
 
-import jmul.io.archives.ArchiveException;
 import jmul.io.CopyFileException;
 import jmul.io.CoupledStreamsException;
 import jmul.io.FileDeletionException;
 import jmul.io.NestedStreamsException;
+import jmul.io.archives.ArchiveException;
 
 import jmul.math.formula.parser.FormulaParserException;
 import jmul.math.hash.archive.ExistingEntryException;
@@ -81,6 +81,8 @@ import jmul.web.page.PageLoaderException;
 import jmul.web.soap.CodeGeneratorException;
 import jmul.web.soap.TooManyClassesException;
 import jmul.web.soap.WebServiceProxyException;
+
+import jmul.xml.writer.WriterException;
 
 import org.junit.After;
 import static org.junit.Assert.fail;
@@ -300,6 +302,11 @@ public class ExceptionConstructorInvalidParametersTest {
         addDefaultTestCases(parameters, WebServerException.class);
         addDefaultTestCases(parameters, PageHandlerException.class);
         addDefaultTestCases(parameters, PageLoaderException.class);
+
+
+        // Exceptions from package Xml
+
+        addDefaultTestCases(parameters, WriterException.class);
 
 
         return parameters;

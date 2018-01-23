@@ -28,6 +28,8 @@
 package jmul.string;
 
 
+import jmul.misc.checks.ParameterCheckHelper;
+
 import static jmul.string.Constants.NEW_LINE;
 import static jmul.string.Constants.TABULATOR;
 
@@ -48,33 +50,40 @@ public final class IndentationHelper {
     }
 
     /**
-     * Indents the specified string, according to the specified indentation level.
+     * Indents the specified string, according to the specified indentation level.<br>
+     * <br>
+     * <i>Notes:<br>
+     * The new line character varies on different operating systems.</i>
      *
      * @param string
      *        a string
      * @param indentationLevel
      *        the indentation level (number of preceding tabulators)
-     * @param lineFeed
-     *        <code>true</code> if the string should be terminated with a line feed
+     * @param newLine
+     *        <code>true</code> if the string should be terminated with a new line
      *        character, else <code>false</code>
      *
      * @return an indented string
      */
-    public static String format(String string, int indentationLevel, boolean lineFeed) {
+    public static String indent(String string, int indentationLevel, boolean newLine) {
 
-        String result = string;
+        ParameterCheckHelper.checkObjectParameter(string);
+        ParameterCheckHelper.checkPositiveIntegerParameter(indentationLevel);
+
+
+        StringBuilder result = new StringBuilder(string);
 
         for (int a = 0; a < indentationLevel; a++) {
 
-            result = TABULATOR + result;
+            result.insert(0, TABULATOR);
         }
 
-        if (lineFeed) {
+        if (newLine) {
 
-            result = result + NEW_LINE;
+            result.append(NEW_LINE);
         }
 
-        return result;
+        return result.toString();
     }
 
     /**
@@ -87,9 +96,9 @@ public final class IndentationHelper {
      *
      * @return a formatted string
      */
-    public static String format(String string, int indentationLevel) {
+    public static String indent(String string, int indentationLevel) {
 
-        return format(string, indentationLevel, false);
+        return indent(string, indentationLevel, false);
     }
 
     /**
@@ -100,13 +109,16 @@ public final class IndentationHelper {
      *
      * @return a string with appended line feed character
      */
-    public static String appendLineFeed(String string) {
+    public static String appendNewLine(String string) {
 
-        return string + NEW_LINE;
+        return appendNewLine(string, 1);
     }
 
     /**
-     * Appends the specified number of line feed characters to the specified string.
+     * Appends the specified number of line feed characters to the specified string.<br>
+     * <br>
+     * <i>Notes:<br>
+     * The new line character varies on different operating systems.</i>
      *
      * @param string
      *        a string
@@ -115,16 +127,20 @@ public final class IndentationHelper {
      *
      * @return a string with appended line feed characters
      */
-    public static String appendLineFeed(String string, int lineFeeds) {
+    public static String appendNewLine(String string, int newLines) {
 
-        String result = string;
+        ParameterCheckHelper.checkObjectParameter(string);
+        ParameterCheckHelper.checkPositiveIntegerParameter(newLines);
 
-        for (int a = 0; a < lineFeeds; a++) {
 
-            result = result + NEW_LINE;
+        StringBuilder result = new StringBuilder(string);
+
+        for (int a = 0; a < newLines; a++) {
+
+            result.append(NEW_LINE);
         }
 
-        return result;
+        return result.toString();
     }
 
 }

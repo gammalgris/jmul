@@ -7,7 +7,7 @@
  * JMUL is a central repository for utilities which are used in my
  * other public and private repositories.
  *
- * Copyright (C) 2013  Kristian Kutin
+ * Copyright (C) 2018  Kristian Kutin
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -25,27 +25,38 @@
  * e-mail: kristian.kutin@arcor.de
  */
 
-package jmul.transformation;
+package jmul.transformation.container.filter;
+
+
+import java.util.Collection;
+import java.util.SortedMap;
+
+import jmul.transformation.TransformationParameters;
+import jmul.transformation.TransformationRule;
+import jmul.transformation.container.RulesContainer;
 
 
 /**
- * This interface describes an entity which manages transformation rules and
- * performs transformations.
+ * This interface describes a filter for transformation rules.
  *
  * @author Kristian Kutin
  */
-public interface TransformationFactory {
+public interface RulesFilter {
 
     /**
-     * Performs a transformation. The specified parameters provides all
-     * necessary informations.
+     * Filters all rules from the specified container that can process
+     * the specified transformation parameters. The rules are sorted
+     * by their priority.
      *
+     * @param aContainer
+     *        a container with transformation rules
      * @param someParameters
-     *        all transformation parameters, including the object which is to be
-     *        transformed
+     *        contains all information to perform a transformation
      *
-     * @return the result of the transformation
+     * @return all rules that can process the specified transformation
+     *         parameters
      */
-    Object transform(TransformationParameters someParameters);
+    SortedMap<Integer, Collection<TransformationRule>> filterRules(RulesContainer aContainer,
+                                                                   TransformationParameters someParameters);
 
 }

@@ -7,7 +7,7 @@
  * JMUL is a central repository for utilities which are used in my
  * other public and private repositories.
  *
- * Copyright (C) 2013  Kristian Kutin
+ * Copyright (C) 2018  Kristian Kutin
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -25,27 +25,26 @@
  * e-mail: kristian.kutin@arcor.de
  */
 
-package jmul.transformation;
+package jmul.transformation.container;
+
+
+import jmul.transformation.TransformationRule;
 
 
 /**
- * This interface describes an entity which manages transformation rules and
- * performs transformations.
+ * This interface describes a container for transformation rules
+ * which is modifiable.
  *
  * @author Kristian Kutin
  */
-public interface TransformationFactory {
+public interface ModifiableRulesContainer extends ContainerInformations {
 
     /**
-     * Performs a transformation. The specified parameters provides all
-     * necessary informations.
+     * Adds the specified transformation rule to this container.
      *
-     * @param someParameters
-     *        all transformation parameters, including the object which is to be
-     *        transformed
-     *
-     * @return the result of the transformation
+     * @param aTransformationRule
+     *        a transformation rule
      */
-    Object transform(TransformationParameters someParameters);
+    void addRule(TransformationRule aTransformationRule);
 
 }
