@@ -1,7 +1,7 @@
 /*
  * SPDX-License-Identifier: GPL-3.0
- * 
- * 
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -33,7 +33,6 @@ import java.nio.charset.Charset;
 import jmul.document.DocumentBase;
 import jmul.document.csv.structure.CsvStructure;
 import jmul.document.csv.structure.HeaderType;
-import static jmul.document.csv.structure.HeaderType.NO_HEADER;
 import jmul.document.type.DocumentType;
 
 
@@ -48,6 +47,24 @@ abstract class CsvDocumentBase extends DocumentBase<CsvStructure> implements Csv
      * Details about the document's structure.
      */
     private final CsvStructure structure;
+
+    /**
+     * Creates a new instance according to the specified parmaeters.
+     *
+     * @param aDocumentType
+     * @param aCharset
+     * @param aHeaderType
+     * @param aColumnSeparator
+     * @param aRowSeparator
+     * @param someColumnNames
+     */
+    protected CsvDocumentBase(DocumentType aDocumentType, Charset aCharset, HeaderType aHeaderType,
+                              String aColumnSeparator, String aRowSeparator, String... someColumnNames) {
+
+        super(aDocumentType);
+
+        structure = new CsvStructure(aCharset, aHeaderType, aColumnSeparator, aRowSeparator, someColumnNames);
+    }
 
     /**
      * Creates a new instance according to the specified parmaeters.
@@ -70,7 +87,23 @@ abstract class CsvDocumentBase extends DocumentBase<CsvStructure> implements Csv
     /**
      * Creates a new instance according to the specified parameters.
      *
-     * @param aFileName
+     * @param aCharset
+     * @param aDocumentType
+     * @param aColumnSeparator
+     * @param aRowSeparator
+     */
+    protected CsvDocumentBase(Charset aCharset, DocumentType aDocumentType, String aColumnSeparator,
+                              String aRowSeparator) {
+
+        super(aDocumentType);
+
+        structure = new CsvStructure(aCharset, aColumnSeparator, aRowSeparator);
+    }
+
+    /**
+     * Creates a new instance according to the specified parameters.
+     *
+     * @param aDocumentType
      * @param aColumnSeparator
      * @param aRowSeparator
      */

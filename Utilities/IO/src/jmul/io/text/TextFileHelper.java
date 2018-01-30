@@ -145,15 +145,17 @@ public final class TextFileHelper {
      *
      * @param aFileName
      *        a string containing an absolute or relative file path
+     * @param aCharset
+     *        the charset of the output file
      *
      * @return an input stream
      *
      * @throws FileNotFoundException
      *         is thrown if the specified file cannot be created
      */
-    public static NestedStreams createFile(String aFileName) throws FileNotFoundException {
+    public static NestedStreams createFile(String aFileName, Charset aCharset) throws FileNotFoundException {
 
-        return createFile(new File(aFileName));
+        return createFile(new File(aFileName), aCharset);
     }
 
     /**
@@ -161,16 +163,18 @@ public final class TextFileHelper {
      *
      * @param aFile
      *        a file object
+     * @param aCharset
+     *        the charset of the output file
      *
      * @return an output stream
      *
      * @throws FileNotFoundException
      *         is thrown if the specified file cannot be created
      */
-    public static NestedStreams createFile(File aFile) throws FileNotFoundException {
+    public static NestedStreams createFile(File aFile, Charset aCharset) throws FileNotFoundException {
 
         FileOutputStream fos = new FileOutputStream(aFile);
-        OutputStreamWriter osw = new OutputStreamWriter(fos);
+        OutputStreamWriter osw = new OutputStreamWriter(fos, aCharset);
         BufferedWriter bw = new BufferedWriter(osw);
 
         return new NestedStreamsImpl(bw, osw, fos);

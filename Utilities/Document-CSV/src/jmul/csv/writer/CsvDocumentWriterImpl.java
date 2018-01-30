@@ -31,6 +31,8 @@ package jmul.csv.writer;
 import java.io.File;
 import java.io.IOException;
 
+import java.nio.charset.Charset;
+
 import java.util.Arrays;
 import java.util.List;
 
@@ -91,7 +93,8 @@ public class CsvDocumentWriterImpl implements CsvDocumentWriter {
     @Override
     public void writeTo(File aFile, CsvDocument aDocument) throws IOException {
 
-        NestedStreams ns = TextFileHelper.createFile(aFile);
+        Charset charset = aDocument.getStructure().getCharset();
+        NestedStreams ns = TextFileHelper.createFile(aFile, charset);
 
         CsvStructure documentStructure = aDocument.getStructure();
         String columnSeparator = documentStructure.getColumnSeparator();

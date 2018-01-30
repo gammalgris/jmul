@@ -28,6 +28,8 @@
 package jmul.document.csv;
 
 
+import java.nio.charset.Charset;
+
 import java.util.List;
 
 import jmul.document.csv.structure.HeaderType;
@@ -55,6 +57,31 @@ public class CsvDocumentImpl extends CsvDocumentBase {
      *
      * @param aDocumentType
      *        the document type
+     * @param aCharset
+     *        the charset
+     * @param aHeaderType
+     *        the header type
+     * @param aColumnSeparator
+     *        the column separator
+     * @param aRowSeparator
+     *        the row separator
+     * @param aTable
+     *        the document content
+     */
+    public CsvDocumentImpl(DocumentType aDocumentType, Charset aCharset, HeaderType aHeaderType,
+                           String aColumnSeparator, String aRowSeparator, Table<String> aTable) {
+
+        super(aDocumentType, aCharset, aHeaderType, aColumnSeparator, aRowSeparator,
+              transformColumnNamesToArray(aTable));
+
+        content = new UnmodifiableTableImpl<>(aTable);
+    }
+
+    /**
+     * Creates a new document according to the specified parmaeters.
+     *
+     * @param aDocumentType
+     *        the document type
      * @param aHeaderType
      *        the header type
      * @param aColumnSeparator
@@ -68,6 +95,28 @@ public class CsvDocumentImpl extends CsvDocumentBase {
                            String aRowSeparator, Table<String> aTable) {
 
         super(aDocumentType, aHeaderType, aColumnSeparator, aRowSeparator, transformColumnNamesToArray(aTable));
+
+        content = new UnmodifiableTableImpl<>(aTable);
+    }
+
+    /**
+     * Creates a new document according to the specified parmaeters.
+     *
+     * @param aCharset
+     *        a charset
+     * @param aDocumentType
+     *        the document type
+     * @param aColumnSeparator
+     *        the column separator
+     * @param aRowSeparator
+     *        the row separator
+     * @param aTable
+     *        the document content
+     */
+    public CsvDocumentImpl(Charset aCharset, DocumentType aDocumentType, String aColumnSeparator, String aRowSeparator,
+                           Table<String> aTable) {
+
+        super(aCharset, aDocumentType, aColumnSeparator, aRowSeparator);
 
         content = new UnmodifiableTableImpl<>(aTable);
     }
