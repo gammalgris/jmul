@@ -1,7 +1,7 @@
 /*
  * SPDX-License-Identifier: GPL-3.0
- * 
- * 
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -28,6 +28,9 @@
 package test.jmul.datatypes.scenarios.scenario011;
 
 
+import jmul.test.classification.Testdata;
+
+
 /**
  * This class contains basic information about a person.<br />
  * <br />
@@ -37,6 +40,7 @@ package test.jmul.datatypes.scenarios.scenario011;
  *
  * @author Kristian Kutin
  */
+@Testdata
 public class PersonImpl extends PersonBase {
 
     /**

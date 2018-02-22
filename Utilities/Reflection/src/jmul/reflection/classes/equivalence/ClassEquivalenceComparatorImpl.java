@@ -1,7 +1,7 @@
 /*
  * SPDX-License-Identifier: GPL-3.0
- * 
- * 
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -32,48 +32,52 @@ import jmul.reflection.classes.ClassDefinition;
 
 
 /**
- * An implementation of an equivalence matcher.
+ * An implementation of a class equivalence comparator.
  *
  * @author Kristian Kutin
  */
-public class ExtendedEquivalenceCheck implements EquivalenceMatcher {
+public class ClassEquivalenceComparatorImpl implements ClassEquivalenceComparator {
 
     /**
      * The default constructor.
      */
-    public ExtendedEquivalenceCheck() {
+    public ClassEquivalenceComparatorImpl() {
 
         super();
     }
 
     /**
-     * The method checks if the specified classes are matching.
+     * The method checks if the specified classes are considered equal (i.e. the second class
+     * is equal to the first class).
      *
-     * @param expectedClass
+     * @param firstClass
      *        a class
-     * @param foundClass
+     * @param secondClass
      *        a class
      *
-     * @return true, if the classes are equivalent, else false
+     * @return <code>true</code> if the specified classes are considered equal,
+     *         else <code>false</code>
      */
     @Override
-    public boolean matchingClasses(ClassDefinition expectedClass,
-                                   ClassDefinition foundClass) {
+    public boolean compareClasses(ClassDefinition firstClass, ClassDefinition secondClass) {
+
+        ParameterCheckHelper.checkClassDefinitionParameter(firstClass);
+        ParameterCheckHelper.checkClassDefinitionParameter(secondClass);
+
 
         boolean matches = false;
 
-        EquivalenceMatcher[] matchers =
-        { new ClassEqualityCheck(), new PrimitiveWrapperCheck(),
-          new ParentClassRelationCheck(), new InterfaceRelationCheck() };
+        if (firstClass.isInterface() && secondClass.isInterface()) {
 
-        for (EquivalenceMatcher matcher : matchers) {
+            matches = firstClass.equalsInterface(secondClass);
 
-            matches = matcher.matchingClasses(expectedClass, foundClass);
+        } else if (firstClass.isClass() && secondClass.isClass()) {
 
-            if (matches) {
+            matches = firstClass.equalsClass(secondClass);
 
-                break;
-            }
+        } else if (firstClass.isPrimitiveType() && secondClass.isPrimitiveType()) {
+
+            matches = firstClass.equalsClass(secondClass);
         }
 
         return matches;

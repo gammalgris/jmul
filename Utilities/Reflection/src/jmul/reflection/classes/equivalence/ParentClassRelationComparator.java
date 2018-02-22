@@ -1,7 +1,7 @@
 /*
  * SPDX-License-Identifier: GPL-3.0
- * 
- * 
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -32,11 +32,11 @@ import jmul.reflection.classes.ClassDefinition;
 
 
 /**
- * An implementation of an equivalence matcher.
+ * An implementation of a class equivalence comparator.
  *
  * @author Kristian Kutin
  */
-public class InterfaceRelationCheck implements EquivalenceMatcher {
+public class ParentClassRelationComparator implements ClassEquivalenceComparator {
 
     /**
      * A constant value.
@@ -46,38 +46,31 @@ public class InterfaceRelationCheck implements EquivalenceMatcher {
     /**
      * The default constructor.
      */
-    public InterfaceRelationCheck() {
+    public ParentClassRelationComparator() {
 
         super();
     }
 
     /**
-     * The method checks if the specified classes are matching.
+     * The method checks if the specified classes are considered equal (i.e. checks
+     * if the specified base class is a subclass of the specified parent class).
      *
-     * @param anInterface
+     * @param parentClass
      *        a class
-     * @param aBaseClass
+     * @param baseClass
      *        a class
      *
-     * @return true, if the classes are equivalent, else false
+     * @return <code>true</code> if the specified classes are considered equal,
+     *         else <code>false</code>
      */
     @Override
-    public boolean matchingClasses(ClassDefinition anInterface, ClassDefinition aBaseClass) {
+    public boolean compareClasses(ClassDefinition parentClass, ClassDefinition baseClass) {
 
-        // Check if the specified class implements the specified interface.
-        boolean result =
-            aBaseClass.isClass() && anInterface.isInterface() && aBaseClass.implementsInterface(anInterface, RECURSE);
+        ParameterCheckHelper.checkClassParameter(parentClass);
+        ParameterCheckHelper.checkClassDefinitionParameter(baseClass);
 
-        if (!result) {
 
-            // Check if the specified class is an interface and extends the
-            // specified interface.
-            result =
-                aBaseClass.isInterface() && anInterface.isInterface() &&
-                aBaseClass.extendsInterface(anInterface, RECURSE);
-        }
-
-        return result;
+        return baseClass.isClass() && parentClass.isClass() && baseClass.extendsClass(parentClass, RECURSE);
     }
 
 }

@@ -1,7 +1,7 @@
 /*
  * SPDX-License-Identifier: GPL-3.0
- * 
- * 
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -32,40 +32,53 @@ import jmul.reflection.classes.ClassDefinition;
 
 
 /**
- * An implementation of an equivalence MATCHER_SINGLETON.
+ * An implementation of a class equivalence comparator.
  *
  * @author Kristian Kutin
  */
-public class PrimitiveWrapperCheck implements EquivalenceMatcher {
-
-    /**
-     * A MATCHER_SINGLETON.
-     */
-    private static final EquivalenceMatcher MATCHER_SINGLETON = new ClassEqualityCheck();
+public class ExtendedClassEquivalenceComparatorImpl implements ClassEquivalenceComparator {
 
     /**
      * The default constructor.
      */
-    public PrimitiveWrapperCheck() {
+    public ExtendedClassEquivalenceComparatorImpl() {
 
         super();
     }
 
     /**
-     * The method checks if the specified classes are matching.
+     * The method checks if the specified classes are considered equal (i.e. several
+     * comparison methods are applied).
      *
-     * @param aPrimitiveType
+     * @param firstClass
      *        a class
-     * @param aBaseClass
+     * @param secondClass
      *        a class
      *
-     * @return true, if the classes are equivalent, else false
+     * @return <code>true</code> if the specified classes are considered equal,
+     *         else <code>false</code>
      */
     @Override
-    public boolean matchingClasses(ClassDefinition aPrimitiveType, ClassDefinition aBaseClass) {
+    public boolean compareClasses(ClassDefinition firstClass, ClassDefinition secondClass) {
 
-        return aBaseClass.isPrimitiveWrapper() && aPrimitiveType.isPrimitiveType() &&
-               MATCHER_SINGLETON.matchingClasses(aBaseClass.getCorrespondingPrimitiveType(), aPrimitiveType);
+        boolean matches = false;
+
+        ClassEquivalenceComparator[] comparators = {
+            new ClassEquivalenceComparatorImpl(), new PrimitiveWrapperComparator(), new ParentClassRelationComparator(),
+            new InterfaceRelationComparator()
+        };
+
+        for (ClassEquivalenceComparator comparator : comparators) {
+
+            matches = comparator.compareClasses(firstClass, secondClass);
+
+            if (matches) {
+
+                break;
+            }
+        }
+
+        return matches;
     }
 
 }

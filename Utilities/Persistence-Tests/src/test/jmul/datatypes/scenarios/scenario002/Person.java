@@ -1,7 +1,7 @@
 /*
  * SPDX-License-Identifier: GPL-3.0
- * 
- * 
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -28,6 +28,8 @@
 package test.jmul.datatypes.scenarios.scenario002;
 
 
+import jmul.test.classification.Testdata;
+
 import jmul.transformation.xml.annotations.Exempted;
 import jmul.transformation.xml.annotations.RootNode;
 
@@ -41,6 +43,7 @@ import jmul.transformation.xml.annotations.RootNode;
  *
  * @author Kristian Kutin
  */
+@Testdata
 @RootNode(declaredType = Person.class)
 public class Person {
 

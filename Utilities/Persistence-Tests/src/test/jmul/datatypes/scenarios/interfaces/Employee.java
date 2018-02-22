@@ -1,7 +1,7 @@
 /*
  * SPDX-License-Identifier: GPL-3.0
- * 
- * 
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -28,6 +28,9 @@
 package test.jmul.datatypes.scenarios.interfaces;
 
 
+import jmul.test.classification.Testdata;
+
+
 /**
  * This interface describes an employee.<br>
  * <br>
@@ -35,6 +38,7 @@ package test.jmul.datatypes.scenarios.interfaces;
  *
  * @author Kristian Kutin
  */
+@Testdata
 public interface Employee extends Person {
 
     /**

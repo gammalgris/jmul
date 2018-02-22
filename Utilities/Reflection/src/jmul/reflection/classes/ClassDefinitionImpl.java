@@ -43,8 +43,8 @@ import jmul.reflection.classes.filter.MethodFilter;
 import jmul.reflection.classes.filter.MethodNameFilter;
 import jmul.reflection.classes.filter.PublicMethodFilter;
 import jmul.reflection.classes.filter.SignatureLengthFilter;
-import jmul.reflection.classes.signature.SignatureMatcher;
-import jmul.reflection.classes.signature.SignatureMatcherImpl;
+import jmul.reflection.classes.signature.SignatureComparator;
+import jmul.reflection.classes.signature.SignatureComparatorImpl;
 
 import jmul.string.TextHelper;
 
@@ -489,6 +489,12 @@ class ClassDefinitionImpl implements ClassDefinition {
         while (loop) {
 
             contemplatedClass = contemplatedClass.getSuperclass();
+
+            if (contemplatedClass == null) {
+
+                break;
+            }
+
             found = equalClasses(contemplatedClass, aParentClass);
 
             loop = recurse && !found;
@@ -565,7 +571,7 @@ class ClassDefinitionImpl implements ClassDefinition {
             // Determine which method might be a good match.
 
             boolean found = false;
-            SignatureMatcher matcher = new SignatureMatcherImpl();
+            SignatureComparator comparator = new SignatureComparatorImpl();
 
             for (Method method : filteredMethods) {
 
@@ -594,7 +600,7 @@ class ClassDefinitionImpl implements ClassDefinition {
                     throw new IllegalArgumentException(message.toString(), errorStatus.getError());
                 }
 
-                found = matcher.matchingSignatures(requiredSignature, aMethodSignature);
+                found = comparator.compareSignatures(requiredSignature, aMethodSignature);
 
                 if (found) {
 

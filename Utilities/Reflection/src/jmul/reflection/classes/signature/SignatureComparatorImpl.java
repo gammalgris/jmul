@@ -1,7 +1,7 @@
 /*
  * SPDX-License-Identifier: GPL-3.0
- * 
- * 
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -31,8 +31,8 @@ package jmul.reflection.classes.signature;
 import java.util.List;
 
 import jmul.reflection.classes.ClassDefinition;
-import jmul.reflection.classes.equivalence.EquivalenceMatcher;
-import jmul.reflection.classes.equivalence.ExtendedEquivalenceCheck;
+import jmul.reflection.classes.equivalence.ClassEquivalenceComparator;
+import jmul.reflection.classes.equivalence.ExtendedClassEquivalenceComparatorImpl;
 
 
 /**
@@ -40,28 +40,29 @@ import jmul.reflection.classes.equivalence.ExtendedEquivalenceCheck;
  *
  * @author Kristian Kutin
  */
-public class SignatureMatcherImpl implements SignatureMatcher {
+public class SignatureComparatorImpl implements SignatureComparator {
 
     /**
      * The default constructor.
      */
-    public SignatureMatcherImpl() {
+    public SignatureComparatorImpl() {
 
         super();
     }
 
     /**
-     * The method checks if two signatures are equivalent.
+     * The method checks if the specified signatures are equivalent.
      *
      * @param expectedSignature
      *        a parameter signature
      * @param foundSignature
      *        a parameter signature
      *
-     * @return true, if both signatures are equivalent, else false
+     * @return <code>true</code>, if both signatures are considered equal,
+     *         else <code>false</code>
      */
     @Override
-    public boolean matchingSignatures(List<ClassDefinition> expectedSignature, List<ClassDefinition> foundSignature) {
+    public boolean compareSignatures(List<ClassDefinition> expectedSignature, List<ClassDefinition> foundSignature) {
 
         // Check some plausibilities first.
 
@@ -80,8 +81,8 @@ public class SignatureMatcherImpl implements SignatureMatcher {
             ClassDefinition expectedParameter = expectedSignature.get(a);
             ClassDefinition foundParameter = foundSignature.get(a);
 
-            EquivalenceMatcher matcher = new ExtendedEquivalenceCheck();
-            matches = matcher.matchingClasses(expectedParameter, foundParameter);
+            ClassEquivalenceComparator comparator = new ExtendedClassEquivalenceComparatorImpl();
+            matches = comparator.compareClasses(expectedParameter, foundParameter);
 
             if (!matches) {
 

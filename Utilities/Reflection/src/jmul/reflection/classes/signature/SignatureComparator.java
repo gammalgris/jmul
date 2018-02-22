@@ -1,7 +1,7 @@
 /*
  * SPDX-License-Identifier: GPL-3.0
- * 
- * 
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -25,29 +25,33 @@
  * e-mail: kristian.kutin@arcor.de
  */
 
-package jmul.reflection.classes.equivalence;
+package jmul.reflection.classes.signature;
 
+
+import java.util.List;
 
 import jmul.reflection.classes.ClassDefinition;
 
 
 /**
- * This interface describes an entity which tests the equivalence of classes.
+ * This interface describes an entity which checks if two signatures are
+ * equivalent (see strategy pattern).
  *
  * @author Kristian Kutin
  */
-public interface EquivalenceMatcher {
+public interface SignatureComparator {
 
     /**
-     * The method checks if the specified classes are matching.
+     * The method checks if the specified signatures are equivalent.
      *
-     * @param firstClass
-     *        a class
-     * @param secondClass
-     *        a class
+     * @param expectedSignature
+     *        a parameter signature
+     * @param foundSignature
+     *        a parameter signature
      *
-     * @return true, if the classes are equivalent, else false
+     * @return <code>true</code>, if both signatures are considered equal,
+     *         else <code>false</code>
      */
-    boolean matchingClasses(ClassDefinition firstClass, ClassDefinition secondClass);
+    boolean compareSignatures(List<ClassDefinition> expectedSignature, List<ClassDefinition> foundSignature);
 
 }

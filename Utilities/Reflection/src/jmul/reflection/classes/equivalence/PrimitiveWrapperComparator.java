@@ -1,7 +1,7 @@
 /*
  * SPDX-License-Identifier: GPL-3.0
- * 
- * 
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -32,49 +32,46 @@ import jmul.reflection.classes.ClassDefinition;
 
 
 /**
- * An implementation of an equivalence matcher.
+ * An implementation of a class equivalence comparator.
  *
  * @author Kristian Kutin
  */
-public class ClassEqualityCheck implements EquivalenceMatcher {
+public class PrimitiveWrapperComparator implements ClassEquivalenceComparator {
+
+    /**
+     * A MATCHER_SINGLETON.
+     */
+    private static final ClassEquivalenceComparator COMPARATOR_SINGLETON = new ClassEquivalenceComparatorImpl();
 
     /**
      * The default constructor.
      */
-    public ClassEqualityCheck() {
+    public PrimitiveWrapperComparator() {
 
         super();
     }
 
     /**
-     * The method checks if two classes are of the same type.
+     * The method checks if the specified classes are considered equal (i.e. the specified
+     * primitive type corresponds to the specified wrapper class).
      *
-     * @param firstClass
+     * @param aPrimitiveType
      *        a class
-     * @param secondClass
+     * @param aBaseClass
      *        a class
      *
-     * @return true, if both classes are of the same type, else false
+     * @return <code>true</code> if the specified classes are considered equal,
+     *         else <code>false</code>
      */
     @Override
-    public boolean matchingClasses(ClassDefinition firstClass, ClassDefinition secondClass) {
+    public boolean compareClasses(ClassDefinition aPrimitiveType, ClassDefinition aBaseClass) {
 
-        boolean matches = false;
+        ParameterCheckHelper.checkClassDefinitionParameter(aPrimitiveType);
+        ParameterCheckHelper.checkClassDefinitionParameter(aBaseClass);
 
-        if (firstClass.isInterface() && secondClass.isInterface()) {
 
-            matches = firstClass.equalsInterface(secondClass);
-
-        } else if (firstClass.isClass() && secondClass.isClass()) {
-
-            matches = firstClass.equalsClass(secondClass);
-
-        } else if (firstClass.isPrimitiveType() && secondClass.isPrimitiveType()) {
-
-            matches = firstClass.equalsClass(secondClass);
-        }
-
-        return matches;
+        return aBaseClass.isPrimitiveWrapper() && aPrimitiveType.isPrimitiveType() &&
+               COMPARATOR_SINGLETON.compareClasses(aBaseClass.getCorrespondingPrimitiveType(), aPrimitiveType);
     }
 
 }

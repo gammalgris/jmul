@@ -7,7 +7,7 @@
  * JMUL is a central repository for utilities which are used in my
  * other public and private repositories.
  *
- * Copyright (C) 2016  Kristian Kutin
+ * Copyright (C) 2018  Kristian Kutin
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -25,38 +25,12 @@
  * e-mail: kristian.kutin@arcor.de
  */
 
-package test.jmul.datatypes.scenarios.scenario007;
+package test.jmul.reflection.classes.equivalence.classes;
 
-
-import test.jmul.datatypes.scenarios.interfaces.Employee;
-
-import java.util.ArrayList;
-import java.util.Collection;
 
 import jmul.test.classification.Testdata;
 
-import jmul.transformation.xml.annotations.ContainerInformations;
 
-
-/**
- * This class is a container for employee data.<br />
- * <br />
- * <i>Note:<br />
- * This class is used for testing purposes only.
- * </i>
- *
- * @author Kristian Kutin
- */
 @Testdata
-@ContainerInformations(declaredElementType = Employee.class)
-public class EmployeeList extends ArrayList<Employee> implements Collection<Employee> {
-
-    /**
-     * The default constructor.
-     */
-    public EmployeeList() {
-
-        super();
-    }
-
+public class C4 implements I3 {
 }

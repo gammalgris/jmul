@@ -7,7 +7,7 @@
  * JMUL is a central repository for utilities which are used in my
  * other public and private repositories.
  *
- * Copyright (C) 2016  Kristian Kutin
+ * Copyright (C) 2013  Kristian Kutin
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -25,38 +25,29 @@
  * e-mail: kristian.kutin@arcor.de
  */
 
-package test.jmul.datatypes.scenarios.scenario007;
+package jmul.reflection.classes.equivalence;
 
 
-import test.jmul.datatypes.scenarios.interfaces.Employee;
-
-import java.util.ArrayList;
-import java.util.Collection;
-
-import jmul.test.classification.Testdata;
-
-import jmul.transformation.xml.annotations.ContainerInformations;
+import jmul.reflection.classes.ClassDefinition;
 
 
 /**
- * This class is a container for employee data.<br />
- * <br />
- * <i>Note:<br />
- * This class is used for testing purposes only.
- * </i>
+ * This interface describes an entity which compares the equivalence of classes.
  *
  * @author Kristian Kutin
  */
-@Testdata
-@ContainerInformations(declaredElementType = Employee.class)
-public class EmployeeList extends ArrayList<Employee> implements Collection<Employee> {
+public interface ClassEquivalenceComparator {
 
     /**
-     * The default constructor.
+     * The method checks if the specified classes are considered equal.
+     *
+     * @param firstClass
+     *        a class
+     * @param secondClass
+     *        a class
+     *
+     * @return <code>true</code>, if the classes are equivalent, else <code>false</code>
      */
-    public EmployeeList() {
-
-        super();
-    }
+    boolean compareClasses(ClassDefinition firstClass, ClassDefinition secondClass);
 
 }
