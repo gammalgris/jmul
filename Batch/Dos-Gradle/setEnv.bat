@@ -193,7 +193,7 @@ call:cleanVariables
 
 :setJava
 
-	set JAVA_HOME=C:\Oracle\Middleware\Oracle_Home\oracle_common\jdk\
+	set JAVA_HOME=C:\Program Files\Java\jdk1.8.0_131\
 	set JAVA_BIN=%JAVA_HOME%bin\
 	set JAVA_EXE=%JAVA_BIN%java.exe
 
@@ -211,11 +211,11 @@ call:cleanVariables
 
 :setGradle
 
-	set GRADLE_HOME=D:\Programme\gradle-4.2.1\
+	set GRADLE_HOME=D:\Programme\Gradle\gradle-4.5.1\
 	set GRADLE_BIN=%GRADLE_HOME%bin\
 	set GRADLE_EXE=%GRADLE_BIN%gradle.bat
 
-	call:addApplication GRADLE GRADLE_HOME GRADLE_EXE 4.2.1
+	call:addApplication GRADLE GRADLE_HOME GRADLE_EXE 4.5.1
 
 %return%
 

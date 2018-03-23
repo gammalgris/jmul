@@ -22,9 +22,9 @@
     <loadproperties srcfile="${package.version.cfg.dir}\version.properties" />
 
 
-    <condition property="version.rcs" value="n/a">
+    <condition property="revision" value="n/a">
         <not>
-            <isset property="version.rcs" />
+            <isset property="revision" />
         </not>
     </condition>
 
@@ -37,8 +37,8 @@
         <echo message="  build java version: ${project.java.version}" />
         <echo message="     build timestamp: ${project.build.timestamp}" />
         <echo />
-        <echo message="     version library: ${version.library}" />
-        <echo message="         version rcs: ${version.rcs}" />
+        <echo message="     version library: ${version}" />
+        <echo message="         version rcs: ${revision}" />
         <echo />
         <echo />
         <echo message="  ant version ................................. ${ant.version}" />

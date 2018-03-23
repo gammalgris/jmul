@@ -44,7 +44,7 @@ exit /b 0
 
 	set projectDir=%~dp0..\..\Utilities\
 
-	set directory.length=53
+	set directory.length=55
 
 	set directory[1]=%projectDir%.data\
 	set directory[2]=%projectDir%Concurrent\classes\
@@ -101,6 +101,9 @@ exit /b 0
 	set directory[51]=%projectDir%XML-Tests\testdata-xml\
 	set directory[52]=%projectDir%Document-CSV-Tests\testdata-csv\
 	set directory[53]=%projectDir%Document-Binary-Tests\testdata-binary\
+
+	set directory[54]=%projectDir%..\Batch\Gradle-Build\.gradle\
+	set directory[55]=%projectDir%..\Batch\Gradle-Build\build\
 
 exit /b 0
 

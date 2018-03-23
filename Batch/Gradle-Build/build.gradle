@@ -1,0 +1,87 @@
+
+apply plugin: 'java'
+
+
+task printProps {
+	doLast {
+		println version
+	}
+}
+
+
+sourceCompatibility = 1.7
+targetCompatibility = 1.7
+
+sourceSets {
+	main {
+		java {
+			srcDirs = [ '../../Utilities/Component/src',
+						'../../Utilities/Concurrent/src',
+						'../../Utilities/Constants/src',
+						'../../Utilities/Document/src',
+						'../../Utilities/Document-Binary/src',
+						'../../Utilities/Document-CSV/src',
+						'../../Utilities/Document-Text/src',
+						'../../Utilities/Formula/src',
+						'../../Utilities/IO/src',
+						'../../Utilities/Logging/src',
+						'../../Utilities/Math/src',
+						'../../Utilities/Measures/src',
+						'../../Utilities/Misc/src',
+						'../../Utilities/Network/src',
+						'../../Utilities/Persistence/src',
+						'../../Utilities/Reflection/src',
+						'../../Utilities/String/src',
+						'../../Utilities/Time/src',
+						'../../Utilities/Transformation/src',
+						'../../Utilities/Transformation-XML/src',
+						'../../Utilities/Web/src',
+						'../../Utilities/XML/src'
+					]
+		}
+
+		resources {
+			srcDirs = [ '../../Utilities/Concurrent/properties',
+						'../../Utilities/Document/properties',
+						'../../Utilities/Measures/properties',
+						'../../Utilities/Network/properties',
+						'../../Utilities/Persistence/properties',
+						'../../Utilities/Reflection/properties',
+						'../../Utilities/Transformation/properties',
+						'../../Utilities/Transformation-XML/properties',
+						'../../Utilities/Version/properties',
+						'../../Utilities/Web/properties'
+					]
+		}
+	}
+}
+
+repositories {
+	flatDir {
+		dirs '../../Libraries/JUnit', '../../Libraries/Commons Lang'
+	}
+}
+
+dependencies {
+	compile fileTree(dir: '../../Libraries/JUnit', include: '*.jar')
+	compile fileTree(dir: '../../Libraries/Commons Lang', include: '*.jar')
+}
+
+
+jar.baseName = 'jmul'
+
+jar {
+	manifest {
+		attributes ( "Implementation-Title": "Java Miscellaneous Utilities Library",
+					 "Implementation-Version": version )
+	}
+}
+
+
+uploadArchives {
+	repositories {
+		flatDir {
+			dirs 'deploy'
+		}
+	}
+}

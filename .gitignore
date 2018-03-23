@@ -37,3 +37,12 @@
 # Ignore generated test data.
 #
 /**/Persistence-Tests/Test/*
+
+
+#
+# Ignore gradle build files
+#
+/**/.gradle
+/**/Gradle-Build/build/*
+/**/Gradle-Build/deploy/*
+/**/gradle.properties

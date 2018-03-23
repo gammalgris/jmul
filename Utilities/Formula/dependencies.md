@@ -8,3 +8,5 @@
 
 ## Libraries
 (in alphabetical order)
+
+* Commons Lang3
