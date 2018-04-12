@@ -9,10 +9,61 @@ task printProps {
 }
 
 
+File targetDir = getProject().getBuildDir()
+
+task copyBatchFiles(type: Copy) {
+	from '../../Utilities/Document-Binary-Tests/create-testdata-binary.bat'
+	from '../../Utilities/Document-CSV-Tests/create-testdata-csv.bat'
+	from '../../Utilities/Document-Text-Tests/create-testdata-text.bat'
+	from '../../Utilities/IO-Tests/create-testdata-io.bat'
+	from '../../Utilities/XML-Tests/create-testdata-xml.bat'
+	into targetDir
+}
+
+
+task executeBatchFile01(type: Exec) {
+	workingDir = targetDir
+	commandLine = ['cmd', '/c', 'create-testdata-binary.bat']
+}
+
+task executeBatchFile02(type: Exec) {
+	workingDir = targetDir
+	commandLine = ['cmd', '/c', 'create-testdata-csv.bat']
+}
+
+task executeBatchFile03(type: Exec) {
+	workingDir = targetDir
+	commandLine = ['cmd', '/c', 'create-testdata-text.bat']
+}
+
+task executeBatchFile04(type: Exec) {
+	workingDir = targetDir
+	commandLine = ['cmd', '/c', 'create-testdata-io.bat']
+}
+
+task executeBatchFile05(type: Exec) {
+	workingDir = targetDir
+	commandLine = ['cmd', '/c', 'create-testdata-xml.bat']
+}
+
+
+task preBuild {
+	dependsOn copyBatchFiles
+	dependsOn executeBatchFile01
+	dependsOn executeBatchFile02
+	dependsOn executeBatchFile03
+	dependsOn executeBatchFile04
+	dependsOn executeBatchFile05
+}
+
+
+build.dependsOn preBuild
+
 sourceCompatibility = 1.7
 targetCompatibility = 1.7
 
 sourceSets {
+
 	main {
 		java {
 			srcDirs = [ '../../Utilities/Component/src',
@@ -54,6 +105,41 @@ sourceSets {
 					]
 		}
 	}
+
+	test {
+		java {
+			srcDirs = [ '../../Utilities/Component-Tests/src',
+						'../../Utilities/Constants-Tests/src',
+						'../../Utilities/Document-Binary-Tests/src',
+						'../../Utilities/Document-CSV-Tests/src',
+						'../../Utilities/Document-Text-Tests/src',
+						'../../Utilities/Formula-Tests/src',
+						'../../Utilities/Helper-Tests/src',
+						'../../Utilities/IO-Tests/src',
+						'../../Utilities/Math-Tests/src',
+						'../../Utilities/Measures-Tests/src',
+						'../../Utilities/Misc-Tests/src',
+						'../../Utilities/Network-Tests/src',
+						'../../Utilities/Persistence-Tests/src',
+						'../../Utilities/Reflection-Tests/src',
+						'../../Utilities/String-Tests/src',
+						'../../Utilities/Test/src',
+						'../../Utilities/Test-Base/src',
+						'../../Utilities/Time-Tests/src',
+						'../../Utilities/Transformation-Tests/src',
+						'../../Utilities/Transformation-XML-Tests/src',
+						'../../Utilities/Web-Tests/src',
+						'../../Utilities/XML-Tests/src'
+					]
+		}
+
+		resources {
+			srcDirs = [ '../../Utilities/Persistence-Tests/properties',
+						'../../Utilities/Transformation-Tests/properties'
+					]
+		}
+	}
+
 }
 
 repositories {
@@ -63,8 +149,8 @@ repositories {
 }
 
 dependencies {
-	compile fileTree(dir: '../../Libraries/JUnit', include: '*.jar')
 	compile fileTree(dir: '../../Libraries/Commons Lang', include: '*.jar')
+	testCompile fileTree(dir: '../../Libraries/JUnit', include: '*.jar')
 }
 
 
@@ -84,4 +170,9 @@ uploadArchives {
 			dirs 'deploy'
 		}
 	}
+}
+
+
+test {
+	workingDir = targetDir
 }

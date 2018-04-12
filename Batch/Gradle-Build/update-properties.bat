@@ -19,6 +19,15 @@ copy /Y %sourcePath% %destinationPath%
 	%return% 2
 )
 
+(
+	%cprintln% buildDir=temp
+) >> %destinationPath%
+%ifError% (
+
+	%cprintln% An error occurred while trying to update %destinationFile%^!
+	%return% 3
+)
+
 
 %return%
 

@@ -43,6 +43,5 @@
 # Ignore gradle build files
 #
 /**/.gradle
-/**/Gradle-Build/build/*
-/**/Gradle-Build/deploy/*
+/**/Gradle-Build/temp/*
 /**/gradle.properties
