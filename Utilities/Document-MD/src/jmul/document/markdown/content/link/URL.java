@@ -1,13 +1,13 @@
 /*
  * SPDX-License-Identifier: GPL-3.0
- * 
- * 
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
  * other public and private repositories.
  *
- * Copyright (C) 2017  Kristian Kutin
+ * Copyright (C) 2018  Kristian Kutin
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -25,23 +25,13 @@
  * e-mail: kristian.kutin@arcor.de
  */
 
-package jmul.document.markdown.content.text;
+package jmul.document.markdown.content.link;
 
 
 /**
- * This interface describes the headline of a chapter.
+ * This interface describes a link to a URL.
  *
  * @author Kristian Kutin
  */
-public interface Headline extends TextBlock {
-
-    /**
-     * Returns the type of the headline (e.g. type 1 is a headline on the
-     * topmost level, type 2 is a headline below the topmost level, etc.)
-     * as a numeric value.
-     *
-     * @return a headline type
-     */
-    int getHeadlineType();
-
+public interface URL extends Link {
 }

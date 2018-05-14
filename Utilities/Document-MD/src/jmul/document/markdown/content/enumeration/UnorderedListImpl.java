@@ -1,13 +1,13 @@
 /*
  * SPDX-License-Identifier: GPL-3.0
- * 
- * 
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
  * other public and private repositories.
  *
- * Copyright (C) 2017  Kristian Kutin
+ * Copyright (C) 2018  Kristian Kutin
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -25,13 +25,22 @@
  * e-mail: kristian.kutin@arcor.de
  */
 
-package jmul.document.markdown.content.paragraph;
+package jmul.document.markdown.content.enumeration;
 
 
 /**
- * This interface describes a paragraph which represents a literal citation.
+ * An implementation of an ordered list.
  *
  * @author Kristian Kutin
  */
-public interface Citation extends Paragraph, CharSequence {
+public class UnorderedListImpl extends EnumerationBase {
+
+    /**
+     * The default constructor.
+     */
+    public UnorderedListImpl() {
+
+        super();
+    }
+
 }

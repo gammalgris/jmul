@@ -7,7 +7,7 @@
  * JMUL is a central repository for utilities which are used in my
  * other public and private repositories.
  *
- * Copyright (C) 2017  Kristian Kutin
+ * Copyright (C) 2018  Kristian Kutin
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -25,30 +25,52 @@
  * e-mail: kristian.kutin@arcor.de
  */
 
-package jmul.document.markdown.content.internal;
+package jmul.document.markdown.content.node;
 
 
 /**
- * This interface decsribes a node within a markdown document object.
+ * An implementation of a list item node.
  *
  * @author Kristian Kutin
  */
-public interface ContentNode {
+public class ListItemNodeImpl extends TextNodeImpl implements ListItemNode {
 
     /**
-     * Returns a reference to the parent text node.
-     *
-     * @return a reference to a parent text node or <code>null</code> if
-     *         this text node is the topmost parent node
+     * The predecessor of this list item node.
      */
-    ContentNode getParent();
+    private ListItemNode predecessor;
 
     /**
-     * Sets (i.e. updates) the parent reference of this text node.
-     *
-     * @param aParent
-     *        the new parent of this node
+     * The default constructor.
      */
-    void setParent(ContentNode aParent);
+    public ListItemNodeImpl() {
+
+        super();
+    }
+
+    /**
+     * Returns the predecessor of this list item node or <code>null</code> if no
+     * predecessor exists.
+     *
+     * @return a predecessor
+     */
+    @Override
+    public ListItemNode getPredecessor() {
+
+        return predecessor;
+    }
+
+    /**
+     * Sets the predecessor of this list item node.
+     *
+     * @param aListItemNode
+     *        a list item node or <code>null</code> if no predecessor
+     *        exists
+     */
+    @Override
+    public void setPredecessor(ListItemNode aListItemNode) {
+
+        predecessor = aListItemNode;
+    }
 
 }

@@ -25,39 +25,38 @@
  * e-mail: kristian.kutin@arcor.de
  */
 
-package jmul.document.markdown.content.link;
+package jmul.document.markdown.content.citation;
 
 
-import jmul.document.markdown.content.paragraph.Paragraph;
+import jmul.document.markdown.content.node.TextNodeImpl;
 
 
 /**
- * This interface describes a link to an external source (e.g. an image file, a
- * CSV file, a URL, etc.).
+ * An implementation of a citation.
  *
  * @author Kristian Kutin
  */
-public interface Link extends Paragraph {
+public class CitationImpl extends TextNodeImpl implements Citation {
 
     /**
-     * Sets the path or URL.
-     *
-     * @param aPath
+     * The default constructor.
      */
-    void setPath(CharSequence aPath);
+    public CitationImpl() {
+
+        super();
+    }
 
     /**
-     * Returns the underlying path or URL.
+     * Creates a new citation block according to the specified parameters.
      *
-     * @return a path
+     * @param aText
+     *        the quoted text
      */
-    String getPath();
+    public CitationImpl(CharSequence aText) {
 
-    /**
-     * Returns the actual link type.
-     *
-     * @return a link type
-     */
-    LinkTypes getLinkType();
+        this();
+
+        setText(aText);
+    }
 
 }

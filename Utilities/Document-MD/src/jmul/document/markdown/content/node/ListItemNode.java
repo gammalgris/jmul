@@ -7,7 +7,7 @@
  * JMUL is a central repository for utilities which are used in my
  * other public and private repositories.
  *
- * Copyright (C) 2017  Kristian Kutin
+ * Copyright (C) 2018  Kristian Kutin
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -25,39 +25,31 @@
  * e-mail: kristian.kutin@arcor.de
  */
 
-package jmul.document.markdown.content.link;
-
-
-import jmul.document.markdown.content.paragraph.Paragraph;
+package jmul.document.markdown.content.node;
 
 
 /**
- * This interface describes a link to an external source (e.g. an image file, a
- * CSV file, a URL, etc.).
+ * This interface describes a list item node.
  *
  * @author Kristian Kutin
  */
-public interface Link extends Paragraph {
+public interface ListItemNode {
 
     /**
-     * Sets the path or URL.
+     * Returns the predecessor of this list item node or <code>null</code> if no
+     * predecessor exists.
      *
-     * @param aPath
+     * @return a predecessor
      */
-    void setPath(CharSequence aPath);
+    ListItemNode getPredecessor();
 
     /**
-     * Returns the underlying path or URL.
+     * Sets the predecessor of this list item node.
      *
-     * @return a path
+     * @param aListItemNode
+     *        a list item node or <code>null</code> if no predecessor
+     *        exists
      */
-    String getPath();
-
-    /**
-     * Returns the actual link type.
-     *
-     * @return a link type
-     */
-    LinkTypes getLinkType();
+    void setPredecessor(ListItemNode aListItemNode);
 
 }

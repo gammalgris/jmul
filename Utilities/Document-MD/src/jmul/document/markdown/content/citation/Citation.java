@@ -25,39 +25,16 @@
  * e-mail: kristian.kutin@arcor.de
  */
 
-package jmul.document.markdown.content.link;
+package jmul.document.markdown.content.citation;
 
 
 import jmul.document.markdown.content.paragraph.Paragraph;
 
 
 /**
- * This interface describes a link to an external source (e.g. an image file, a
- * CSV file, a URL, etc.).
+ * This interface describes a paragraph which represents a literal citation.
  *
  * @author Kristian Kutin
  */
-public interface Link extends Paragraph {
-
-    /**
-     * Sets the path or URL.
-     *
-     * @param aPath
-     */
-    void setPath(CharSequence aPath);
-
-    /**
-     * Returns the underlying path or URL.
-     *
-     * @return a path
-     */
-    String getPath();
-
-    /**
-     * Returns the actual link type.
-     *
-     * @return a link type
-     */
-    LinkTypes getLinkType();
-
+public interface Citation extends Paragraph {
 }

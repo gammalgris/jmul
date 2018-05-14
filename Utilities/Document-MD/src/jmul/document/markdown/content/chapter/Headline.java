@@ -1,7 +1,7 @@
 /*
  * SPDX-License-Identifier: GPL-3.0
- * 
- * 
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -25,21 +25,23 @@
  * e-mail: kristian.kutin@arcor.de
  */
 
-package jmul.document.markdown.content.paragraph;
+package jmul.document.markdown.content.chapter;
 
 
 /**
- * This interface describes a paragraph which represents a code citation.
+ * This interface describes the headline of a chapter.
  *
  * @author Kristian Kutin
  */
-public interface CodeCitation extends Citation {
+public interface Headline extends CharSequence {
 
     /**
-     * Returns the underlying programming for the code citation.
+     * Returns the type of the headline (e.g. type 1 is a headline on the
+     * topmost level, type 2 is a headline below the topmost level, etc.)
+     * as a numeric value.
      *
-     * @return a programming language
+     * @return a headline type
      */
-    String getProgrammingLanguage();
+    int getHeadlineType();
 
 }

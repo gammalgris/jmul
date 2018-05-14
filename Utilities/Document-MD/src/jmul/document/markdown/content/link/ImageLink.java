@@ -7,7 +7,7 @@
  * JMUL is a central repository for utilities which are used in my
  * other public and private repositories.
  *
- * Copyright (C) 2017  Kristian Kutin
+ * Copyright (C) 2018  Kristian Kutin
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -25,53 +25,13 @@
  * e-mail: kristian.kutin@arcor.de
  */
 
-package jmul.document.markdown.content.internal;
+package jmul.document.markdown.content.link;
 
 
 /**
- * An implementation of a content node.
+ * This interface describes a link to an image.
  *
  * @author Kristian Kutin
  */
-public class ContentNodeImpl implements ContentNode {
-
-    /**
-     * A reference to a parent node.
-     */
-    private ContentNode parent;
-
-    /**
-     * The default constructor.
-     */
-    protected ContentNodeImpl() {
-
-        super();
-
-        parent = null;
-    }
-
-    /**
-     * Returns a reference to the parent text node.
-     *
-     * @return a reference to a parent text node or <code>null</code> if
-     *         this text node is the topmost parent node
-     */
-    @Override
-    public ContentNode getParent() {
-
-        return parent;
-    }
-
-    /**
-     * Sets (i.e. updates) the parent reference of this text node.
-     *
-     * @param aParent
-     *        the new parent of this node
-     */
-    @Override
-    public void setParent(ContentNode aParent) {
-
-        parent = aParent;
-    }
-
+public interface ImageLink extends Link {
 }

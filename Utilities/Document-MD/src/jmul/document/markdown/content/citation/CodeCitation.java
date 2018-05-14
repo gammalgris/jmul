@@ -25,39 +25,31 @@
  * e-mail: kristian.kutin@arcor.de
  */
 
-package jmul.document.markdown.content.link;
+package jmul.document.markdown.content.citation;
 
 
 import jmul.document.markdown.content.paragraph.Paragraph;
 
 
 /**
- * This interface describes a link to an external source (e.g. an image file, a
- * CSV file, a URL, etc.).
+ * This interface describes a paragraph which represents a code citation.
  *
  * @author Kristian Kutin
  */
-public interface Link extends Paragraph {
+public interface CodeCitation extends Paragraph {
 
     /**
-     * Sets the path or URL.
+     * Sets the programming language for the code citation.
      *
-     * @param aPath
+     * @param aProgrammingLanguage
      */
-    void setPath(CharSequence aPath);
+    void setProgrammingLanguage(CharSequence aProgrammingLanguage);
 
     /**
-     * Returns the underlying path or URL.
+     * Returns the programming language for the code citation.
      *
-     * @return a path
+     * @return a programming language
      */
-    String getPath();
-
-    /**
-     * Returns the actual link type.
-     *
-     * @return a link type
-     */
-    LinkTypes getLinkType();
+    String getProgrammingLanguage();
 
 }

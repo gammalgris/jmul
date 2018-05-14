@@ -1,7 +1,7 @@
 /*
  * SPDX-License-Identifier: GPL-3.0
- * 
- * 
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -28,11 +28,14 @@
 package jmul.document.markdown.content.text;
 
 
+import jmul.document.markdown.content.paragraph.Paragraph;
+
+
 /**
  * This interface describes a text block within a markdown document. Text
  * blocks are leaves within the document tree.
  *
  * @author Kristian Kutin
  */
-public interface TextBlock extends CharSequence {
+public interface TextBlock extends Paragraph {
 }

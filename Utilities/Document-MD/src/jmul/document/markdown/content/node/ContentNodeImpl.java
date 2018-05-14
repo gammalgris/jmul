@@ -25,57 +25,53 @@
  * e-mail: kristian.kutin@arcor.de
  */
 
-package jmul.document.markdown.content.paragraph;
+package jmul.document.markdown.content.node;
 
 
 /**
- * An implementation of a code citation.
+ * An implementation of a content node.
  *
  * @author Kristian Kutin
  */
-public class CodeCitationImpl extends CitationBase implements CodeCitation {
+public class ContentNodeImpl implements ContentNode {
 
     /**
-     * The actual programming language which should be considered for
-     * code highlighting.
+     * A reference to a parent node.
      */
-    private String programmingLanguage;
+    private ContentNode parent;
 
     /**
-     * Creates a new code citation block according to the specified parameters.
-     *
-     * @param aProgrammingLanguage
-     *        the programming language
-     * @param aText
-     *        the quoted text
+     * The default constructor.
      */
-    public CodeCitationImpl(String aProgrammingLanguage, String aText) {
+    protected ContentNodeImpl() {
 
-        super(aText);
+        super();
 
-        programmingLanguage = aProgrammingLanguage;
+        parent = null;
     }
 
     /**
-     * Returns the underlying programming language for the code citation.
+     * Returns a reference to the parent text node.
      *
-     * @return a programming language
+     * @return a reference to a parent text node or <code>null</code> if
+     *         this text node is the topmost parent node
      */
     @Override
-    public String getProgrammingLanguage() {
+    public ContentNode getParent() {
 
-        return programmingLanguage;
+        return parent;
     }
 
     /**
-     * A setter method.
+     * Sets (i.e. updates) the parent reference of this text node.
      *
-     * @param aProgrammingLanguage
-     *        the programming language
+     * @param aParent
+     *        the new parent of this node
      */
-    public void setProgrammingLanguage(String aProgrammingLanguage) {
+    @Override
+    public void setParent(ContentNode aParent) {
 
-        programmingLanguage = aProgrammingLanguage;
+        parent = aParent;
     }
 
 }

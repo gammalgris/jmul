@@ -7,7 +7,7 @@
  * JMUL is a central repository for utilities which are used in my
  * other public and private repositories.
  *
- * Copyright (C) 2017  Kristian Kutin
+ * Copyright (C) 2018  Kristian Kutin
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -25,50 +25,52 @@
  * e-mail: kristian.kutin@arcor.de
  */
 
-package jmul.document.markdown.content.paragraph;
-
-
-import jmul.document.markdown.content.text.TextBlock;
+package jmul.document.markdown.content.node;
 
 
 /**
- * This interface describes a parapgraph within a markdown document.
+ * An implementation of a chapter node.
  *
  * @author Kristian Kutin
  */
-public interface TextBlocks extends Paragraph {
+public class ChapterNodeImpl extends ContentNodeImpl implements ChapterNode {
 
     /**
-     * Returns the current text block count.
-     *
-     * @return a text block count
+     * The predecessor of this list item node.
      */
-    int textBlocks();
+    private ChapterNode predecessor;
 
     /**
-     * Adds (i.e. appends) the specified text block to this paragraph.
-     *
-     * @param aTextBlock
-     *        the text which is to be added
+     * The default constructor.
      */
-    void addTextBlock(TextBlock aTextBlock);
+    public ChapterNodeImpl() {
+
+        super();
+    }
 
     /**
-     * Returns the text block at the specified index.
+     * Returns the predecessor of this chapter node or <code>null</code> if no
+     * predecessor exists.
      *
-     * @param anIndex
-     *        the index of the requested text block
-     *
-     * @return a text block
+     * @return a predecessor
      */
-    TextBlock getTextBlock(int anIndex);
+    @Override
+    public ChapterNode getPredecessor() {
+
+        return predecessor;
+    }
 
     /**
-     * Removes the text block at the specified index.
+     * Sets the predecessor of this chapter node.
      *
-     * @param anIndex
-     *        the index of the text block which is to be removed
+     * @param aChapterNode
+     *        a chapter node or <code>null</code> if no predecessor
+     *        exists
      */
-    void removeTextBlock(int anIndex);
+    @Override
+    public void setPredecessor(ChapterNode aChapterNode) {
+
+        predecessor = aChapterNode;
+    }
 
 }

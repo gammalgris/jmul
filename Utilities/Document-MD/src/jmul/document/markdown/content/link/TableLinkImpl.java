@@ -7,7 +7,7 @@
  * JMUL is a central repository for utilities which are used in my
  * other public and private repositories.
  *
- * Copyright (C) 2017  Kristian Kutin
+ * Copyright (C) 2018  Kristian Kutin
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -28,36 +28,55 @@
 package jmul.document.markdown.content.link;
 
 
-import jmul.document.markdown.content.paragraph.Paragraph;
+import jmul.misc.table.Table;
 
 
 /**
- * This interface describes a link to an external source (e.g. an image file, a
- * CSV file, a URL, etc.).
+ * An implementation of a table link.
  *
  * @author Kristian Kutin
  */
-public interface Link extends Paragraph {
+public class TableLinkImpl extends LinkBase implements TableLink {
 
     /**
-     * Sets the path or URL.
+     * The default constructor.
+     */
+    public TableLinkImpl() {
+
+        super();
+    }
+
+    /**
+     * Creates a new instance according to the specified parameters.
      *
      * @param aPath
      */
-    void setPath(CharSequence aPath);
+    public TableLinkImpl(CharSequence aPath) {
 
-    /**
-     * Returns the underlying path or URL.
-     *
-     * @return a path
-     */
-    String getPath();
+        super(aPath);
+    }
 
     /**
      * Returns the actual link type.
      *
      * @return a link type
      */
-    LinkTypes getLinkType();
+    @Override
+    public LinkTypes getLinkType() {
+
+        return LinkTypes.TABLE;
+    }
+
+    /**
+     * Returns the linked table.
+     *
+     * @return a table
+     */
+    @Override
+    public Table getTable() {
+
+        // TODO Implement this method
+        return null;
+    }
 
 }

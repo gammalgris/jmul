@@ -68,7 +68,9 @@ public interface MarkdownContent {
      *
      * @param anIndex
      *        the index of the chapter which is to be removed
+     *
+     * @return the removed chapter
      */
-    void removeChapter(int anIndex);
+    Chapter removeChapter(int anIndex);
 
 }

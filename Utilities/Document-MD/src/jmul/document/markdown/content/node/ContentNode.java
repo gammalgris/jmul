@@ -25,55 +25,30 @@
  * e-mail: kristian.kutin@arcor.de
  */
 
-package jmul.document.markdown.content.text;
-
-
-import jmul.document.markdown.content.chapter.Chapter;
-import jmul.document.markdown.content.internal.ContentNode;
+package jmul.document.markdown.content.node;
 
 
 /**
- * An implementation of a headline.
+ * This interface decsribes a node within a markdown document object.
  *
  * @author Kristian Kutin
  */
-public class HeadlineImpl extends TextBlockBase implements Headline {
+public interface ContentNode {
 
     /**
-     * Creates a new headline according to the specified parameters.
+     * Returns a reference to the parent text node.
      *
-     * @param aText
-     *        the headline text
+     * @return a reference to a parent text node or <code>null</code> if
+     *         this text node is the topmost parent node
      */
-    public HeadlineImpl(String aText) {
-
-        super(aText.trim());
-    }
+    ContentNode getParent();
 
     /**
-     * Returns the type of the headline (e.g. type 1 is a headline on the
-     * topmost level, type 2 is a headline below the topmost level, etc.)
-     * as a numeric value.
+     * Sets (i.e. updates) the parent reference of this text node.
      *
-     * @return a headline type
+     * @param aParent
+     *        the new parent of this node
      */
-    @Override
-    public int getHeadlineType() {
-
-        int level = 0;
-        ContentNode parent = getParent();
-
-        while (parent != null) {
-
-            if (parent instanceof Chapter) {
-
-                level++;
-            }
-
-            parent = parent.getParent();
-        }
-
-        return level;
-    }
+    void setParent(ContentNode aParent);
 
 }

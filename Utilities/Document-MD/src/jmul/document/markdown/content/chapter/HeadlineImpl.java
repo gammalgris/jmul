@@ -25,38 +25,72 @@
  * e-mail: kristian.kutin@arcor.de
  */
 
-package jmul.document.markdown.content.text;
+package jmul.document.markdown.content.chapter;
 
 
+import jmul.document.markdown.content.node.ContentNode;
 import jmul.document.markdown.content.node.TextNodeImpl;
+import jmul.document.markdown.content.node.TreeHelper;
 
 
 /**
- * An implementation of a text block.
+ * An implementation of a headline.
  *
  * @author Kristian Kutin
  */
-public class TextBlockImpl extends TextNodeImpl implements TextBlock {
+public class HeadlineImpl extends TextNodeImpl implements Headline {
 
     /**
      * The default constructor.
      */
-    TextBlockImpl() {
+    public HeadlineImpl() {
 
         super();
     }
 
     /**
-     * Creates a new text block according to the specified parameters.
+     * Creates a new headline according to the specified parameters.
      *
      * @param aText
-     *        the text content
+     *        the headline text
      */
-    public TextBlockImpl(CharSequence aText) {
+    public HeadlineImpl(CharSequence aText) {
 
-        this();
+        super();
 
-        setText(aText);
+        setText(aText.toString());
+    }
+
+    /**
+     * Returns the type of the headline (e.g. type 1 is a headline on the
+     * topmost level, type 2 is a headline below the topmost level, etc.)
+     * as a numeric value.
+     *
+     * @return a headline type
+     */
+    @Override
+    public int getHeadlineType() {
+
+        int level = 1;
+        ContentNode node = (ContentNode) this;
+        ContentNode parent = node.getParent();
+
+        while (true) {
+
+            if (parent == null) {
+
+                break;
+            }
+
+            if (TreeHelper.isChapterNode(parent)) {
+
+                level++;
+            }
+
+            parent = parent.getParent();
+        }
+
+        return level;
     }
 
 }

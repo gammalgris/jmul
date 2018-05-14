@@ -7,7 +7,7 @@
  * JMUL is a central repository for utilities which are used in my
  * other public and private repositories.
  *
- * Copyright (C) 2017  Kristian Kutin
+ * Copyright (C) 2018  Kristian Kutin
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -28,36 +28,61 @@
 package jmul.document.markdown.content.link;
 
 
-import jmul.document.markdown.content.paragraph.Paragraph;
+import jmul.document.markdown.content.node.ContentNodeImpl;
 
 
 /**
- * This interface describes a link to an external source (e.g. an image file, a
- * CSV file, a URL, etc.).
+ * A base implementation for all link classes.
  *
  * @author Kristian Kutin
  */
-public interface Link extends Paragraph {
+abstract class LinkBase extends ContentNodeImpl implements Link {
+
+    /**
+     * A path.
+     */
+    private String path;
+
+    /**
+     * The default constructor.
+     */
+    LinkBase() {
+
+        super();
+    }
+
+    /**
+     * Creates a new instance according to the specified parameters.
+     *
+     * @param aPath
+     */
+    LinkBase(CharSequence aPath) {
+
+        this();
+
+        setPath(aPath);
+    }
 
     /**
      * Sets the path or URL.
      *
      * @param aPath
      */
-    void setPath(CharSequence aPath);
+    @Override
+    public void setPath(CharSequence aPath) {
+
+        path = aPath.toString();
+    }
 
     /**
      * Returns the underlying path or URL.
      *
      * @return a path
      */
-    String getPath();
+    @Override
+    public String getPath() {
 
-    /**
-     * Returns the actual link type.
-     *
-     * @return a link type
-     */
-    LinkTypes getLinkType();
+        return path;
+    }
 
 }

@@ -7,7 +7,7 @@
  * JMUL is a central repository for utilities which are used in my
  * other public and private repositories.
  *
- * Copyright (C) 2017  Kristian Kutin
+ * Copyright (C) 2018  Kristian Kutin
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -28,15 +28,16 @@
 package jmul.document.markdown.content.chapter;
 
 
+import jmul.document.markdown.content.node.ContentNodeImpl;
 import jmul.document.markdown.content.paragraph.Paragraph;
 
 
-/**
- * This interface describes a chapter within the markdown document.
- *
- * @author Kristian Kutin
- */
-public interface Chapter {
+public class ChapterImpl extends ContentNodeImpl implements Chapter {
+
+    public ChapterImpl() {
+
+        super();
+    }
 
     /**
      * Adds the headline for this chapter.
@@ -47,21 +48,36 @@ public interface Chapter {
      * @return the previously set headline or <code>null</code> if none was
      *         set.
      */
-    Headline setHeadline(Headline aHeadline);
+    @Override
+    public Headline setHeadline(Headline aHeadline) {
+
+        //TODO
+        return null;
+    }
 
     /**
      * Removes the headline for this chapter.
      *
      * @return the removed headline
      */
-    Headline removeHeadline();
+    @Override
+    public Headline removeHeadline() {
+
+        //TODO
+        return null;
+    }
 
     /**
      * Returns the current subchapter count.
      *
      * @return a subchapter count
      */
-    int subchapters();
+    @Override
+    public int subchapters() {
+
+        //TODO
+        return 0;
+    }
 
     /**
      * Adds (i.e. appends) the specified subchapter to this chapter.
@@ -69,7 +85,11 @@ public interface Chapter {
      * @param aChapter
      *        the subchapter which is to be added
      */
-    void addSubchapter(Chapter aChapter);
+    @Override
+    public void addSubchapter(Chapter aChapter) {
+
+        //TODO
+    }
 
     /**
      * Returns the subchapter at the specified index.
@@ -79,7 +99,12 @@ public interface Chapter {
      *
      * @return a subchapter
      */
-    Chapter getSubchapter(int anIndex);
+    @Override
+    public Chapter getSubchapter(int anIndex) {
+
+        //TODO
+        return null;
+    }
 
     /**
      * Removes the subchapter at the specified index.
@@ -89,14 +114,24 @@ public interface Chapter {
      *
      * @return the removed subchapter
      */
-    Chapter removeSubchapter(int anIndex);
+    @Override
+    public Chapter removeSubchapter(int anIndex) {
+
+        //TODO
+        return null;
+    }
 
     /**
      * Returns the current paragraph count.
      *
      * @return a paragraph count
      */
-    int paragraphs();
+    @Override
+    public int paragraphs() {
+
+        //TODO
+        return 0;
+    }
 
     /**
      * Adds (i.e. appends) the specified paragraph to this chapter.
@@ -104,7 +139,10 @@ public interface Chapter {
      * @param aParagraph
      *        the paragraph which is to be added
      */
-    void addParagraph(Paragraph aParagraph);
+    public void addParagraph(Paragraph aParagraph) {
+
+        //TODO
+    }
 
     /**
      * Returns the paragraph at the specified index.
@@ -114,7 +152,11 @@ public interface Chapter {
      *
      * @return a paragraph
      */
-    Paragraph getParagraph(int anIndex);
+    public Paragraph getParagraph(int anIndex) {
+
+        //TODO
+        return null;
+    }
 
     /**
      * Removes the paragraph at the specified index.
@@ -124,6 +166,10 @@ public interface Chapter {
      *
      * @return the removed paragraph
      */
-    Paragraph removeParagraph(int anIndex);
+    public Paragraph removeParagraph(int anIndex) {
+
+        //TODO
+        return null;
+    }
 
 }

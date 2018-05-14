@@ -25,38 +25,69 @@
  * e-mail: kristian.kutin@arcor.de
  */
 
-package jmul.document.markdown.content.text;
+package jmul.document.markdown.content.citation;
 
 
 import jmul.document.markdown.content.node.TextNodeImpl;
 
 
 /**
- * An implementation of a text block.
+ * An implementation of a code citation.
  *
  * @author Kristian Kutin
  */
-public class TextBlockImpl extends TextNodeImpl implements TextBlock {
+public class CodeCitationImpl extends TextNodeImpl implements CodeCitation {
+
+    /**
+     * The actual programming language which should be considered for
+     * code highlighting.
+     */
+    private String programmingLanguage;
 
     /**
      * The default constructor.
      */
-    TextBlockImpl() {
+    public CodeCitationImpl() {
 
         super();
     }
 
     /**
-     * Creates a new text block according to the specified parameters.
+     * Creates a new code citation block according to the specified parameters.
      *
+     * @param aProgrammingLanguage
+     *        the programming language
      * @param aText
-     *        the text content
+     *        the quoted text
      */
-    public TextBlockImpl(CharSequence aText) {
+    public CodeCitationImpl(CharSequence aProgrammingLanguage, CharSequence aText) {
 
         this();
 
         setText(aText);
+        programmingLanguage = aProgrammingLanguage.toString();
+    }
+
+    /**
+     * Sets the programming language for the code citation.
+     *
+     * @param aProgrammingLanguage
+     */
+    @Override
+    public void setProgrammingLanguage(CharSequence aProgrammingLanguage) {
+
+        programmingLanguage = aProgrammingLanguage.toString();
+    }
+
+    /**
+     * Returns the programming language for the code citation.
+     *
+     * @return a programming language
+     */
+    @Override
+    public String getProgrammingLanguage() {
+
+        return programmingLanguage;
     }
 
 }

@@ -1,13 +1,13 @@
 /*
  * SPDX-License-Identifier: GPL-3.0
- * 
- * 
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
  * other public and private repositories.
  *
- * Copyright (C) 2017  Kristian Kutin
+ * Copyright (C) 2018  Kristian Kutin
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -25,25 +25,22 @@
  * e-mail: kristian.kutin@arcor.de
  */
 
-package jmul.document.markdown.content.paragraph;
+package jmul.document.markdown.content.enumeration;
 
 
 /**
- * An implementation of a citation.
+ * An implementation of an ordered list.
  *
  * @author Kristian Kutin
  */
-public class CitationImpl extends CitationBase {
+public class OrderedListImpl extends EnumerationBase {
 
     /**
-     * Creates a new citation block according to the specified parameters.
-     *
-     * @param aText
-     *        the quoted text
+     * The default constructor.
      */
-    public CitationImpl(String aText) {
+    public OrderedListImpl() {
 
-        super(aText);
+        super();
     }
 
 }
