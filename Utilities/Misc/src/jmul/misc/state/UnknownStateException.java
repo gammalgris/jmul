@@ -28,8 +28,8 @@
 package jmul.misc.state;
 
 
-import static jmul.misc.checks.ParameterCheckHelper.checkExceptionCause;
-import static jmul.misc.checks.ParameterCheckHelper.checkExceptionMessage;
+import static jmul.checks.ParameterCheckHelper.checkExceptionCause;
+import static jmul.checks.ParameterCheckHelper.checkExceptionMessage;
 
 
 /**

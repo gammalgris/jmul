@@ -67,7 +67,7 @@ public class Scenario008PersistenceTest extends PersistenceTestBase {
     /**
      * A base directory for tests.
      */
-    private static final String BASEDIR = ".\\Test\\Persistence\\Scenario-008";
+    private static final String BASEDIR = ROOT_DIRECTORY + "Persistence\\Scenario-008";
 
     /**
      * Preparations before this test suite.

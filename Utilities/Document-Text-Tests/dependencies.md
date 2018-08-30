@@ -4,6 +4,7 @@
 (in alphabetical order)
 
 * Constants
+* Checks
 * Document
 * Document-Test
 * IO

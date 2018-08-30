@@ -33,8 +33,9 @@ import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 
-import jmul.misc.annotations.Modified;
-import jmul.misc.checks.ParameterCheckHelper;
+import jmul.metainfo.annotations.Modified;
+
+import jmul.checks.ParameterCheckHelper;
 
 import static jmul.string.Constants.APOSTROPHE;
 import static jmul.string.Constants.CARRIAGE_RETURN;

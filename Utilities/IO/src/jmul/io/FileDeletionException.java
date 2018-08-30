@@ -30,8 +30,8 @@ package jmul.io;
 
 import java.io.File;
 
-import static jmul.misc.checks.ParameterCheckHelper.checkExceptionMessage;
-import static jmul.misc.checks.ParameterCheckHelper.checkFileParameter;
+import static jmul.checks.ParameterCheckHelper.checkExceptionMessage;
+import static jmul.checks.ParameterCheckHelper.checkFileParameter;
 
 
 /**

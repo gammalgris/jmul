@@ -28,7 +28,7 @@
 package jmul.string;
 
 
-import jmul.misc.checks.ParameterCheckHelper;
+import jmul.checks.ParameterCheckHelper;
 
 
 /**

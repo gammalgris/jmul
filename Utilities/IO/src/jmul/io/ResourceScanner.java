@@ -1,7 +1,7 @@
 /*
  * SPDX-License-Identifier: GPL-3.0
- * 
- * 
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -60,6 +60,11 @@ public class ResourceScanner {
     private Map<String, JarResources> archiveCache;
 
     /**
+     * A cache for jar archives which couldn't be scanned.
+     */
+    private Map<String, Throwable> archiveIssuesCache;
+
+    /**
      * Constructs a resource scanner.
      *
      * @param aResourceType
@@ -80,7 +85,9 @@ public class ResourceScanner {
 
         // Scan the directory tree and group all entries according to their
         // names.
+
         ressourceCache = new HashMap<>();
+
         Collection<File> classpaths = PathHelper.getClasspath();
 
         for (File directory : classpaths) {
@@ -106,8 +113,12 @@ public class ResourceScanner {
             }
         }
 
-        // scan all archives
+
+        // Scan all archives.
+
         archiveCache = new HashMap<>();
+        archiveIssuesCache = new HashMap<>();
+
         Collection<File> archives = PathHelper.getArchives();
 
         for (File archive : archives) {
@@ -120,10 +131,14 @@ public class ResourceScanner {
 
             } catch (IOException e) {
 
-                // Ignore potential exceptions
+                // Exceptions are not thrown but stored in a cache. The owner of the resource
+                // scanner has to decide what to do with these informations and act accordingly.
+
+                String archiveName = archive.getAbsolutePath();
+                archiveIssuesCache.put(archiveName, e);
+
                 continue;
             }
-
         }
     }
 
@@ -155,6 +170,16 @@ public class ResourceScanner {
     public Map<String, JarResources> getFoundArchives() {
 
         return archiveCache;
+    }
+
+    /**
+     * Returns all issues encountered with scanning archive files.
+     *
+     * @return all issues with archive files
+     */
+    public Map<String, Throwable> getArchiveIssues() {
+
+        return archiveIssuesCache;
     }
 
 }

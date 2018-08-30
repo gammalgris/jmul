@@ -49,10 +49,10 @@ import static jmul.transformation.configuration.ConfigurationMarkups.PRIORITY_AT
 import static jmul.transformation.configuration.ConfigurationMarkups.RULE_ELEMENT;
 import static jmul.transformation.configuration.ConfigurationMarkups.TRANSFORMATION_PATH_ELEMENT;
 
-import jmul.xml.ParsingException;
 import jmul.xml.SubelementMap;
 import static jmul.xml.XmlParserHelper.assertHasXmlSubelements;
 import static jmul.xml.XmlParserHelper.assertMatchesXmlElement;
+import static jmul.xml.XmlParserHelper.existsXmlAttribute;
 import static jmul.xml.XmlParserHelper.getXmlAttribute;
 
 import org.w3c.dom.Document;
@@ -292,19 +292,15 @@ public class ConfigurationReaderImpl implements ConfigurationReader {
             classname = classnameAttribute.getTextContent();
 
 
-            String tmpClasspath = null;
-
-            try {
+            if (existsXmlAttribute(implementationElement, CLASSPATH_ATTRIBUTE)) {
 
                 Node classpathAttribute = getXmlAttribute(implementationElement, CLASSPATH_ATTRIBUTE);
-                tmpClasspath = classpathAttribute.getTextContent();
+                classpath = classpathAttribute.getTextContent();
 
-            } catch (ParsingException e) {
+            } else {
 
-                tmpClasspath = null;
+                classpath = null;
             }
-
-            classpath = tmpClasspath;
         }
 
         /**

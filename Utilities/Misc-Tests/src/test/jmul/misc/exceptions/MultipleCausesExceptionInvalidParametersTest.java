@@ -43,6 +43,9 @@ import org.junit.runners.Parameterized;
 
 
 /**
+ * The class contains tests to check the instantiation of {@link jmul.misc.exceptions.MultipleCausesException#}
+ * with invalid parameters.
+ * 
  * @author Kristian Kutin
  */
 @UnitTest

@@ -3,7 +3,7 @@
 ## Modules
 (in alphabetical order)
 
-* Misc
+* Checks
 
 ## Libraries
 (in alphabetical order)

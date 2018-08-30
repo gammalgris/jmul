@@ -74,6 +74,20 @@
          <hash>
             <hash n="dependable">
                <url n="sourceOwnerURL" path="../Java Miscellaneous Utilities Library.jws"/>
+               <url n="sourceURL" path="../Checks/Checks.jpr"/>
+            </hash>
+            <value n="recognizerId" v="oracle.jdeveloper.library"/>
+         </hash>
+         <hash>
+            <hash n="dependable">
+               <url n="sourceOwnerURL" path="../Java Miscellaneous Utilities Library.jws"/>
+               <url n="sourceURL" path="../Math/Math.jpr"/>
+            </hash>
+            <value n="recognizerId" v="oracle.jdeveloper.library"/>
+         </hash>
+         <hash>
+            <hash n="dependable">
+               <url n="sourceOwnerURL" path="../Java Miscellaneous Utilities Library.jws"/>
                <url n="sourceURL" path="../Misc/Misc.jpr"/>
             </hash>
             <value n="recognizerId" v="oracle.jdeveloper.library"/>
@@ -99,35 +113,11 @@
       <value n="webIANAEncoding" v="UTF-8"/>
    </hash>
    <hash n="oracle.jdevimpl.config.JProjectLibraries">
-      <list n="exportedReferences">
-         <hash>
-            <value n="id" v="Commons-lang3-3.2.1"/>
-            <value n="isJDK" v="false"/>
-         </hash>
-      </list>
+      <list n="exportedReferences"/>
       <hash n="internalDefinitions">
-         <list n="libraryDefinitions">
-            <hash>
-               <list n="classPath">
-                  <url path="../../Libraries/Commons Lang/commons-lang3-3.2.1.jar" jar-entry=""/>
-               </list>
-               <value n="description" v="Commons-lang3-3.2.1"/>
-               <list n="docPath">
-                  <url path="../../Libraries/Commons Lang/commons-lang3-3.2.1-javadoc.jar" jar-entry=""/>
-               </list>
-               <value n="id" v="Commons-lang3-3.2.1"/>
-               <list n="sourcePath">
-                  <url path="../../Libraries/Commons Lang/commons-lang3-3.2.1-sources.jar" jar-entry=""/>
-               </list>
-            </hash>
-         </list>
+         <list n="libraryDefinitions"/>
       </hash>
-      <list n="libraryReferences">
-         <hash>
-            <value n="id" v="Commons-lang3-3.2.1"/>
-            <value n="isJDK" v="false"/>
-         </hash>
-      </list>
+      <list n="libraryReferences"/>
    </hash>
    <hash n="oracle.jdevimpl.config.JProjectPaths">
       <url n="outputDirectory" path="classes/"/>

@@ -2,6 +2,9 @@
 <project xmlns="antlib:org.apache.tools.ant" name="common">
 
 
+    <property name="build.log" value="build.log" />
+
+
     <tstamp>
         <format property="project.build.timestamp" pattern="yyyy-MM-dd  HH:mm:ss" />
     </tstamp>
@@ -31,6 +34,12 @@
 
     <target name="info">
 
+        <record name="${build.log}" action="start" />
+
+        <echo />
+        <echo message="-----= common.info =-----" />
+        <echo />
+
         <echo />
         <echo message="  ${project.name}" />
         <echo />
@@ -49,6 +58,8 @@
         <echo />
         <echo message="  packages base dir ........................... ${packages.base.dir}" />
         <echo />
+        <echo message="  package checks dir .......................... ${package.checks.dir}" />
+        <echo message="  package checks src dir ...................... ${package.checks.src.dir}" />
         <echo message="  package component dir ....................... ${package.component.dir}" />
         <echo message="  package component src dir ................... ${package.component.src.dir}" />
         <echo message="  package concurrent dir ...................... ${package.concurrent.dir}" />
@@ -83,6 +94,8 @@
         <echo message="  package measures dir ........................ ${package.measures.dir}" />
         <echo message="  package measures src dir .................... ${package.measures.src.dir}" />
         <echo message="  package measures cfg dir .................... ${package.measures.cfg.dir}" />
+        <echo message="  package metainfo dir ........................ ${package.metainfo.dir}" />
+        <echo message="  package metainfo src dir .................... ${package.metainfo.src.dir}" />
         <echo message="  package misc dir ............................ ${package.network.dir}" />
         <echo message="  package misc src dir ........................ ${package.network.src.dir}" />
         <echo message="  package network dir ......................... ${package.network.dir}" />
@@ -161,6 +174,8 @@
         <echo message="  package web tests dir ....................... ${package.web-tests.dir}" />
         <echo message="  package web tests src dir ................... ${package.web-tests.src.dir}" />
         <echo />
+
+        <record name="${build.log}" action="stop" />
 
     </target>
 

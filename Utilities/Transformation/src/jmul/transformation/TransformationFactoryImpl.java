@@ -32,7 +32,8 @@ import java.lang.reflect.InvocationTargetException;
 
 import java.util.ResourceBundle;
 
-import jmul.misc.checks.ParameterCheckHelper;
+import jmul.checks.ParameterCheckHelper;
+
 import jmul.misc.exceptions.InitializationException;
 
 import jmul.reflection.constructors.ConstructorInvoker;

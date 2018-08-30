@@ -31,7 +31,7 @@ package jmul.misc.table;
 import java.util.ArrayList;
 import java.util.List;
 
-import static jmul.misc.checks.ParameterCheckHelper.checkIndex;
+import static jmul.checks.ParameterCheckHelper.checkIndex;
 
 
 /**

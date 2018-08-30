@@ -28,7 +28,7 @@
 package jmul.web.soap;
 
 
-import jmul.misc.checks.ParameterCheckHelper;
+import jmul.checks.ParameterCheckHelper;
 
 
 /**

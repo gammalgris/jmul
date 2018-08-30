@@ -3,10 +3,12 @@
 ## Modules
 (in alphabetical order)
 
+* Checks
 * Constants
 * Document
 * Document-CSV
 * IO
+* Metainfo
 * Misc
 * String
 * Test

@@ -1,7 +1,7 @@
 /*
  * SPDX-License-Identifier: GPL-3.0
- * 
- * 
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -31,15 +31,15 @@ package test.jmul.math.hash.archive;
 import java.util.ArrayList;
 import java.util.List;
 
+import jmul.checks.exceptions.NullListParameterException;
+import jmul.checks.exceptions.NullParameterException;
+import jmul.checks.exceptions.UnexpectedSizeException;
+
 import jmul.math.hash.HashHelper;
 import jmul.math.hash.archive.ExistingEntryException;
 import jmul.math.hash.archive.PrimeNumberArchive;
 import jmul.math.hash.archive.PrimeNumberArchiveImpl;
 import jmul.math.hash.archive.UnknownClassException;
-
-import jmul.misc.exceptions.NullListParameterException;
-import jmul.misc.exceptions.NullParameterException;
-import jmul.misc.exceptions.UnexpectedSizeException;
 
 import org.junit.After;
 import static org.junit.Assert.assertFalse;

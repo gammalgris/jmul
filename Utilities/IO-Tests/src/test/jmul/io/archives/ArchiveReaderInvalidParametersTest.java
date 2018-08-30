@@ -1,7 +1,7 @@
 /*
  * SPDX-License-Identifier: GPL-3.0
- * 
- * 
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -237,59 +237,45 @@ public class ArchiveReaderInvalidParametersTest {
         Collection<Object[]> parameters = new ArrayList<Object[]>();
 
 
-        parameters.add(new Object[] {
-                       ArchiveReaderImpl.class, null, "testdata-io/config1.properties",
-                       IllegalArgumentException.class });
+        parameters.add(new Object[] { ArchiveReaderImpl.class, null, "testdata-io/config1.properties",
+                                      IllegalArgumentException.class });
 
-        parameters.add(new Object[] {
-                       ArchiveReaderImpl.class, "", "testdata-io/config1.properties", IllegalArgumentException.class });
+        parameters.add(new Object[] { ArchiveReaderImpl.class, "", "testdata-io/config1.properties",
+                                      IllegalArgumentException.class });
 
-        parameters.add(new Object[] {
-                       ArchiveReaderImpl.class, " ", "testdata-io/config1.properties",
-                       IllegalArgumentException.class });
+        parameters.add(new Object[] { ArchiveReaderImpl.class, " ", "testdata-io/config1.properties",
+                                      IllegalArgumentException.class });
 
-        parameters.add(new Object[] {
-                       ArchiveReaderImpl.class, " testdata-io\\archive1.zip", "testdata-io/config1.properties",
-                       IllegalArgumentException.class
-        });
+        parameters.add(new Object[] { ArchiveReaderImpl.class, " testdata-io\\archive1.zip",
+                                      "testdata-io/config1.properties", IllegalArgumentException.class });
 
-        parameters.add(new Object[] {
-                       ArchiveReaderImpl.class, "testdata-io\\archive1.zip ", "testdata-io/config1.properties",
-                       IllegalArgumentException.class
-        });
+        parameters.add(new Object[] { ArchiveReaderImpl.class, "testdata-io\\archive1.zip ",
+                                      "testdata-io/config1.properties", IllegalArgumentException.class });
 
-        parameters.add(new Object[] {
-                       ArchiveReaderImpl.class, "testdata-io\\folder1", "testdata-io/config1.properties",
-                       FileNotFoundException.class });
+        parameters.add(new Object[] { ArchiveReaderImpl.class, "testdata-io\\folder1", "testdata-io/config1.properties",
+                                      FileNotFoundException.class });
 
-        parameters.add(new Object[] {
-                       ArchiveReaderImpl.class, "testdata-io\\file1.txt", "testdata-io/config1.properties",
-                       IllegalArgumentException.class
-        });
+        parameters.add(new Object[] { ArchiveReaderImpl.class, "testdata-io\\file1.txt",
+                                      "testdata-io/config1.properties", IOException.class });
 
 
-        parameters.add(new Object[] {
-                       ArchiveReaderImpl.class, "testdata-io\\archive1.zip", null, IllegalArgumentException.class });
+        parameters.add(new Object[] { ArchiveReaderImpl.class, "testdata-io\\archive1.zip", null,
+                                      IllegalArgumentException.class });
 
-        parameters.add(new Object[] {
-                       ArchiveReaderImpl.class, "testdata-io\\archive1.zip", "", IllegalArgumentException.class });
+        parameters.add(new Object[] { ArchiveReaderImpl.class, "testdata-io\\archive1.zip", "",
+                                      IllegalArgumentException.class });
 
-        parameters.add(new Object[] {
-                       ArchiveReaderImpl.class, "testdata-io\\archive1.zip", " ", IllegalArgumentException.class });
+        parameters.add(new Object[] { ArchiveReaderImpl.class, "testdata-io\\archive1.zip", " ",
+                                      IllegalArgumentException.class });
 
-        parameters.add(new Object[] {
-                       ArchiveReaderImpl.class, "testdata-io\\archive1.zip", " testdata-io/config1.properties",
-                       IllegalArgumentException.class
-        });
+        parameters.add(new Object[] { ArchiveReaderImpl.class, "testdata-io\\archive1.zip",
+                                      " testdata-io/config1.properties", IllegalArgumentException.class });
 
-        parameters.add(new Object[] {
-                       ArchiveReaderImpl.class, "testdata-io\\archive1.zip", "testdata-io/config1.properties ",
-                       IllegalArgumentException.class
-        });
+        parameters.add(new Object[] { ArchiveReaderImpl.class, "testdata-io\\archive1.zip",
+                                      "testdata-io/config1.properties ", IllegalArgumentException.class });
 
-        parameters.add(new Object[] {
-                       ArchiveReaderImpl.class, "testdata-io\\archive1.zip", "testdata-io/file1.txt",
-                       IllegalArgumentException.class });
+        parameters.add(new Object[] { ArchiveReaderImpl.class, "testdata-io\\archive1.zip", "testdata-io/file1.txt",
+                                      IOException.class });
 
 
         return parameters;

@@ -3,8 +3,9 @@
 ## Modules
 (in alphabetical order)
 
-* IO
 * Constants
+* Checks
+* IO
 * Misc
 * Reflection
 * String
@@ -14,3 +15,5 @@
 
 ## Libraries
 (in alphabetical order)
+
+* JUnit

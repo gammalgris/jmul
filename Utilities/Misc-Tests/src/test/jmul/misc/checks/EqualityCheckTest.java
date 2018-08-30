@@ -28,7 +28,7 @@
 package test.jmul.misc.checks;
 
 
-import jmul.misc.checks.EqualityHelper;
+import jmul.misc.equality.EqualityHelper;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;

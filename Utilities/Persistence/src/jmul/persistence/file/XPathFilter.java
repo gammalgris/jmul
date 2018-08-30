@@ -77,7 +77,7 @@ public class XPathFilter implements FileFilter {
      *        a file or directory
      *
      * @return <code>true</code> if the specified file matches the expected
-     *         filename, else false
+     *         filtering criteria, else <code>false</code>
      */
     @Override
     public boolean accept(File pathname) {
@@ -92,9 +92,16 @@ public class XPathFilter implements FileFilter {
 
             } catch (SAXException e) {
 
+                // If the XML structure is malformed the file cannot be parsed thus the
+                // file cannot be processed. By definition the file is not accepted and
+                // the exception is ignored.
+
                 return false;
 
             } catch (IOException e) {
+
+                // The file cannot be read thus the file cannot be processed. By
+                // definition the file is not accepted and the exception is ignored.
 
                 return false;
             }

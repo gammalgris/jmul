@@ -41,7 +41,8 @@ import jmul.io.NestedStreams;
 import jmul.io.text.ReadBuffer;
 import jmul.io.text.TextFileHelper;
 
-import jmul.misc.annotations.Modified;
+import jmul.metainfo.annotations.Modified;
+
 import jmul.misc.table.ModifiableTable;
 
 import static jmul.string.Constants.NEW_LINE_WINDOWS;

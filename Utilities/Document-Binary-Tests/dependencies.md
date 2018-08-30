@@ -7,6 +7,7 @@
 * Document
 * Document-Binary
 * IO
+* Metainfo
 * Misc
 * String
 * Test

@@ -1,7 +1,7 @@
 /*
  * SPDX-License-Identifier: GPL-3.0
- * 
- * 
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -28,7 +28,7 @@
 package jmul.math.formula.parser;
 
 
-import jmul.misc.checks.ParameterCheckHelper;
+import jmul.checks.ParameterCheckHelper;
 
 
 /**

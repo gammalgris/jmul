@@ -53,7 +53,6 @@
       <pathelement location="${project.lib.junit.file}" />
       <pathelement location="${project.lib.hamcrest.file}" />
       <pathelement location="${project.lib.commons-lang.file}" />
-      <pathelement location="${project.lib.db4o.file}" />
     </path>
 
     <pathconvert property="jmul-tests.execution.classpath.string" refid="jmul-tests.execution.classpath" pathsep="${line.separator}" />
@@ -62,7 +61,6 @@
       <pathelement location="${project.tmp.build.dir}" />
       <pathelement location="${project.lib.junit.file}" />
       <pathelement location="${project.lib.hamcrest.file}" />
-      <pathelement location="${project.lib.db4o.file}" />
     </path>
 
     <pathconvert property="jmul-tests.build.classpath.string" refid="jmul-tests.build.classpath" pathsep="${line.separator}" />
@@ -79,6 +77,12 @@
 
 
     <target name="info">
+
+        <record name="${build.log}" action="start" />
+
+        <echo />
+        <echo message="-----= classpath.info =-----" />
+        <echo />
 
         <echo />
         <echo message="  project dir ....................... ${project.dir}" />
@@ -122,6 +126,8 @@
         <echo message="cobertura classpath:" />
         <echo message="${cobertura.execution.classpath.string}" />
         <echo />
+
+        <record name="${build.log}" action="stop" />
 
     </target>
 

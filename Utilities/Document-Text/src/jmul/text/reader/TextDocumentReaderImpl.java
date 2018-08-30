@@ -36,6 +36,8 @@ import java.io.InputStreamReader;
 
 import java.nio.charset.Charset;
 
+import jmul.checks.ParameterCheckHelper;
+
 import jmul.document.text.TextDocument;
 import jmul.document.text.TextDocumentImpl;
 import jmul.document.type.DocumentType;
@@ -46,7 +48,6 @@ import jmul.io.NestedStreams;
 import jmul.io.NestedStreamsImpl;
 import jmul.io.StreamsHelper;
 
-import jmul.misc.checks.ParameterCheckHelper;
 import jmul.misc.text.ModifiableText;
 import jmul.misc.text.ModifiableTextImpl;
 

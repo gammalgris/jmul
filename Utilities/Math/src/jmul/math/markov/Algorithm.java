@@ -32,8 +32,8 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 
-import jmul.misc.exceptions.EmptyArrayParameterException;
-import jmul.misc.exceptions.NullArrayParameterException;
+import jmul.checks.exceptions.EmptyArrayParameterException;
+import jmul.checks.exceptions.NullArrayParameterException;
 
 import static jmul.string.Constants.NEW_LINE;
 

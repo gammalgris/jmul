@@ -28,10 +28,10 @@
 package jmul.math;
 
 
+import jmul.checks.exceptions.NullNumberException;
+
 import static jmul.math.Constants.getEpsilon;
 import static jmul.math.Constants.getZero;
-
-import jmul.misc.exceptions.NullNumberException;
 
 
 /**

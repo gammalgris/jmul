@@ -61,7 +61,7 @@ public final class HashHelper {
     }
 
     /**
-     * The efault constructor.
+     * The default constructor.
      */
     private HashHelper() {
 

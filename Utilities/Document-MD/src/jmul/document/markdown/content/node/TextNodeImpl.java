@@ -147,6 +147,7 @@ public class TextNodeImpl implements TextNode {
      *
      * @return this text node
      */
+    @Override
     public TextNode append(CharSequence charSequence, int i, int i2) {
 
         buffer.append(charSequence, i, i2);
@@ -161,6 +162,7 @@ public class TextNodeImpl implements TextNode {
      *
      * @return this text node
      */
+    @Override
     public TextNode append(char c) {
 
         buffer.append(c);

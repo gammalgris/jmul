@@ -30,6 +30,8 @@ package jmul.persistence.file;
 
 import java.io.File;
 
+import java.io.IOException;
+
 import java.util.Collection;
 
 import jmul.xml.query.XPathQuery;
@@ -92,8 +94,11 @@ public interface FileManager {
      *
      * @return a unique identifier which is associated with a file or
      *         <code>null</code> if no such association exists
+     *
+     * @throws IOException
+     *         can be thrown if canonical file paths cannot be obtained
      */
-    String getUniqueIdentifier(File aFile);
+    String getUniqueIdentifier(File aFile) throws IOException;
 
     /**
      * The method returns a list of folders which contain all managed files.

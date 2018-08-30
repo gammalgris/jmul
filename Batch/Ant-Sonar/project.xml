@@ -46,6 +46,12 @@
 
     <target name="info">
 
+        <record name="${build.log}" action="start" />
+
+        <echo />
+        <echo message="-----= project.info =-----" />
+        <echo />
+
         <echo />
         <echo message="  project dir ....................... ${project.dir}" />
         <echo />
@@ -65,6 +71,8 @@
         <echo message="  sonar project base dir ............ ${sonar.projectBaseDir}" />
         <echo message="  sonar junit reports dir ........... ${sonar.junit.reportsPath}" />
         <echo />
+
+        <record name="${build.log}" action="stop" />
 
     </target>
 

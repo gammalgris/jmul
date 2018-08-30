@@ -43,7 +43,8 @@ import jmul.io.NestedStreams;
 import static jmul.io.text.TextFileHelper.closeFile;
 import static jmul.io.text.TextFileHelper.openFile;
 
-import jmul.misc.annotations.Modified;
+import jmul.metainfo.annotations.Modified;
+
 import jmul.misc.exceptions.MultipleCausesException;
 import jmul.misc.table.ModifiableTable;
 import jmul.misc.table.ModifiableTableImpl;

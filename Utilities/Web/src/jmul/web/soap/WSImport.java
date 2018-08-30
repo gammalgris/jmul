@@ -38,7 +38,7 @@ import java.util.ResourceBundle;
 
 import jmul.io.FileHelper;
 
-import jmul.misc.checks.ParameterCheckHelper;
+import jmul.checks.ParameterCheckHelper;
 
 import static jmul.string.Constants.NEW_LINE;
 

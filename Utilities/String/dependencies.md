@@ -3,8 +3,9 @@
 ## Modules
 (in alphabetical order)
 
+* Checks
 * Constants
-* Misc
+* Metainfo
 
 ## Libraries
 (in alphabetical order)

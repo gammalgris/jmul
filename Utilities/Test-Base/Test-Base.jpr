@@ -68,13 +68,13 @@
       <string v="oracle.bm.commonIde.data.project.ModelerProjectSettings/modelersContentSet"/>
       <string v="oracle.toplink.workbench.addin/toplinkContentSet"/>
    </list>
-   <value n="defaultPackage" v="test.jmul"/>
+   <value n="defaultPackage" v="test.jmul.helper"/>
    <hash n="oracle.ide.model.DependencyConfiguration">
       <list n="dependencyList">
          <hash>
             <hash n="dependable">
                <url n="sourceOwnerURL" path="../Java Miscellaneous Utilities Library.jws"/>
-               <url n="sourceURL" path="../Misc/Misc.jpr"/>
+               <url n="sourceURL" path="../Checks/Checks.jpr"/>
             </hash>
             <value n="recognizerId" v="oracle.jdeveloper.library"/>
          </hash>

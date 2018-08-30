@@ -1,7 +1,7 @@
 /*
  * SPDX-License-Identifier: GPL-3.0
- * 
- * 
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -28,10 +28,8 @@
 package jmul.math.formula.operations;
 
 
-import org.apache.commons.lang3.builder.EqualsBuilder;
-import org.apache.commons.lang3.builder.HashCodeBuilder;
-
 import jmul.math.formula.Operand;
+import static jmul.math.hash.HashHelper.calculateHashCode;
 
 
 /**
@@ -63,6 +61,11 @@ abstract class OperatorBase implements Operator {
     private final Position position;
 
     /**
+     * The hash code for this object.
+     */
+    private final int hashCode;
+
+    /**
      * The default constructor.
      *
      * @param aSymbol
@@ -80,6 +83,8 @@ abstract class OperatorBase implements Operator {
         priority = aPriority;
         arity = anArity;
         position = aPosition;
+
+        hashCode = calculateHashCode(OperatorBase.class, aSymbol, anArity);
     }
 
     /**
@@ -175,12 +180,7 @@ abstract class OperatorBase implements Operator {
 
             Operator other = (Operator) o;
 
-            EqualsBuilder builder = new EqualsBuilder();
-
-            builder.append(this.getSymbol(), other.getSymbol());
-            builder.append(this.getArity(), other.getArity());
-
-            return builder.isEquals();
+            return (this.getSymbol().equals(other.getSymbol())) && (this.getArity().equals(other.getArity()));
         }
 
         return false;
@@ -194,12 +194,7 @@ abstract class OperatorBase implements Operator {
     @Override
     public int hashCode() {
 
-        HashCodeBuilder builder = new HashCodeBuilder();
-
-        builder.append(getSymbol());
-        builder.append(getArity());
-
-        return builder.toHashCode();
+        return hashCode;
     }
 
     /**

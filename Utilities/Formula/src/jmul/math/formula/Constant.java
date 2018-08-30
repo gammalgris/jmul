@@ -28,8 +28,7 @@
 package jmul.math.formula;
 
 
-import org.apache.commons.lang3.builder.EqualsBuilder;
-import org.apache.commons.lang3.builder.HashCodeBuilder;
+import static jmul.math.hash.HashHelper.calculateHashCode;
 
 
 /**
@@ -43,6 +42,11 @@ public class Constant implements Operand {
      * The class member contains a numerical value.
      */
     private final int value;
+
+    /**
+     * The hash code for this object.
+     */
+    private final int hashCode;
 
     /**
      * The default constructor.
@@ -61,6 +65,7 @@ public class Constant implements Operand {
     public Constant(int aValue) {
 
         value = aValue;
+        hashCode = calculateHashCode(Constant.class, aValue);
     }
 
     /**
@@ -133,11 +138,7 @@ public class Constant implements Operand {
 
             Operand other = (Operand) o;
 
-            EqualsBuilder builder = new EqualsBuilder();
-
-            builder.append(this.getValue(), other.getValue());
-
-            return builder.isEquals();
+            return this.getValue() == other.getValue();
         }
 
         return false;
@@ -151,11 +152,7 @@ public class Constant implements Operand {
     @Override
     public int hashCode() {
 
-        HashCodeBuilder builder = new HashCodeBuilder();
-
-        builder.append(getValue());
-
-        return builder.toHashCode();
+        return hashCode;
     }
 
 }

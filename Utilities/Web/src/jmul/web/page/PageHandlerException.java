@@ -1,7 +1,7 @@
 /*
  * SPDX-License-Identifier: GPL-3.0
- * 
- * 
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -28,8 +28,8 @@
 package jmul.web.page;
 
 
-import static jmul.misc.checks.ParameterCheckHelper.checkExceptionCause;
-import static jmul.misc.checks.ParameterCheckHelper.checkExceptionMessage;
+import static jmul.checks.ParameterCheckHelper.checkExceptionCause;
+import static jmul.checks.ParameterCheckHelper.checkExceptionMessage;
 
 
 /**

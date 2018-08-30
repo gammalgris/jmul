@@ -10,6 +10,12 @@
 
     <target name="copySources">
 
+        <record name="${build.log}" action="start" />
+
+        <echo />
+        <echo message="-----= build-tests.copySources =-----" />
+        <echo />
+
         <copy todir="${project.tmp.tests-src.dir}" overwrite="true">
             <fileset dir="${package.component-tests.src.dir}">
                 <include name="**/*.java" />
@@ -76,10 +82,18 @@
             </fileset>
         </copy>
 
+        <record name="${build.log}" action="stop" />
+
     </target>
 
 
     <target name="copyCreators">
+
+        <record name="${build.log}" action="start" />
+
+        <echo />
+        <echo message="-----= build-tests.copyCreators =-----" />
+        <echo />
 
         <copy todir="${project.tmp.dir}" overwrite="true">
             <file file="${package.document-binary-tests.testdata.creator}" />
@@ -97,10 +111,18 @@
             <file file="${package.xml-tests.testdata.creator}" />
         </copy>
 
+        <record name="${build.log}" action="stop" />
+
     </target>
 
 
     <target name="buildTestData">
+
+        <record name="${build.log}" action="start" />
+
+        <echo />
+        <echo message="-----= build-tests.buildTestData =-----" />
+        <echo />
 
         <exec executable="cmd" dir="${project.tmp.dir}">
             <arg value="/C" />
@@ -112,7 +134,7 @@
         </exec>
         <exec executable="cmd" dir="${project.tmp.dir}">
             <arg value="/C" />
-            <arg value="${package.document-text-tests.testdata.creator}" />
+            <arg value="${package.tmp.document-text-tests.testdata.creator}" />
         </exec>
         <exec executable="cmd" dir="${project.tmp.dir}">
             <arg value="/C" />
@@ -123,10 +145,18 @@
             <arg value="${project.tmp.xml-tests.testdata.creator}" />
         </exec>
 
+        <record name="${build.log}" action="stop" />
+
     </target>
 
 
     <target name="copyResources">
+
+        <record name="${build.log}" action="start" />
+
+        <echo />
+        <echo message="-----= build-tests.copyResources =-----" />
+        <echo />
 
         <copy todir="${project.tmp.tests-cfg.dir}" overwrite="true">
             <fileset dir="${package.persistence-tests.cfg.dir}">
@@ -134,12 +164,22 @@
             </fileset>
         </copy>
 
+        <record name="${build.log}" action="stop" />
+
     </target>
 
 
     <target name="build" depends="build.build, copySources, copyCreators, buildTestData, copyResources">
 
+        <record name="${build.log}" action="start" />
+
+        <echo />
+        <echo message="-----= build-tests.build =-----" />
+        <echo />
+
         <javac target="${project.java.version}" srcdir="${project.tmp.tests-src.dir}" destdir="${project.tmp.tests-build.dir}" verbose="true" classpathref="jmul-tests.build.classpath" debug="on" />
+
+        <record name="${build.log}" action="stop" />
 
     </target>
 

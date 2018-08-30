@@ -1,7 +1,7 @@
 /*
  * SPDX-License-Identifier: GPL-3.0
- * 
- * 
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -65,7 +65,7 @@ public class Scenario006SerializationTest extends SerializationTestBase {
     /**
      * A base directory for tests.
      */
-    private static final String BASEDIR = ".\\Test\\Serialization\\Scenario-006";
+    private static final String BASEDIR = ROOT_DIRECTORY + "Serialization\\Scenario-006";
 
     /**
      * The file where the generated IDs are persisted.

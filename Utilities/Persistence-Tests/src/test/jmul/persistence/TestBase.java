@@ -1,7 +1,7 @@
 /*
  * SPDX-License-Identifier: GPL-3.0
- * 
- * 
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -43,6 +43,11 @@ import static jmul.math.Constants.SECOND;
  * @author Kristian Kutin
  */
 abstract class TestBase {
+
+    /**
+     * A root directory for files and directories which are created during test execution.
+     */
+    public static final String ROOT_DIRECTORY = ".\\testdata-persistence\\";
 
     /**
      * Initializes the specified base directory (i.e. cleans all the content).

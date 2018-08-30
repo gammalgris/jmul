@@ -139,6 +139,7 @@ public class GetAllPersistableFieldsValidParametersTest {
         parameters.add(new Object[] { BClassD.class, BSuperclassA.class, new String[] { "textB" } });
         parameters.add(new Object[] { BClassD.class, null, new String[] { "textB", "supertextA" } });
         parameters.add(new Object[] { BClassE.class, null, new String[] { } });
+        parameters.add(new Object[] { BClassA.class, BClassA.class, new String[] { } });
 
         return parameters;
     }

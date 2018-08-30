@@ -33,7 +33,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import static jmul.misc.checks.ParameterCheckHelper.checkIndex;
+import static jmul.checks.ParameterCheckHelper.checkIndex;
 
 
 /**

@@ -72,6 +72,7 @@ abstract class MessageCreatorBase implements MessageCreator {
      * @return <code>true</code> if this creator can handle the specified
      *         object, else <code>false</code>
      */
+    @Override
     public boolean isApplicable(Object anObject) {
 
         if (anObject == null) {

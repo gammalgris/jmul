@@ -27,7 +27,8 @@
 
 package jmul.reflection;
 
-import jmul.misc.checks.ParameterCheckHelper;
+
+import jmul.checks.ParameterCheckHelper;
 
 
 /**

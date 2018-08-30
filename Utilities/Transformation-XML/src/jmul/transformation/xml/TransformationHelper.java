@@ -125,7 +125,8 @@ public final class TransformationHelper {
      *        the class which is to be examined
      * @param anExemptedSuperclass
      *        the specified class is examined only up to the specified
-     *        superclass (excluding the superclass)
+     *        superclass (excluding the superclass). If the class itself is specified
+     *        then the examination stops.
      *
      * @return all declared fields
      */
@@ -219,7 +220,8 @@ public final class TransformationHelper {
      *        the class which is to be examined
      * @param anExemptedSuperclass
      *        the specified class is examined only up to the specified
-     *        superclass (excluding the superclass)
+     *        superclass (excluding the superclass). If the class itself is specified
+     *        then the examination stops.
      *
      * @return <code>true</code> if this class represents a composite type, else
      *         <code>false</code>
@@ -236,6 +238,14 @@ public final class TransformationHelper {
         if (aClass.isInterface()) {
 
             String message = "The specified class is an interface (" + aClass + ")!";
+            throw new IllegalArgumentException(message);
+        }
+
+        if ((anExemptedSuperclass != null) && !anExemptedSuperclass.isAssignableFrom(aClass)) {
+
+            String message =
+                "The specified exempted superclass " + anExemptedSuperclass.getName() +
+                " is not related to the specified class " + aClass.getName() + "!";
             throw new IllegalArgumentException(message);
         }
 

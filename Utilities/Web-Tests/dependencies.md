@@ -3,7 +3,10 @@
 ## Modules
 (in alphabetical order)
 
+* Checks
+* Constants
 * IO
+* Logging
 * Misc
 * Network
 * Reflection

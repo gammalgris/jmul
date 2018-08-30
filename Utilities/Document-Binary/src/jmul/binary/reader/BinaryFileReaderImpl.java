@@ -47,7 +47,7 @@ import jmul.document.type.DocumentTypes;
 import static jmul.io.Constants.END_OF_FILE;
 import jmul.io.StreamsHelper;
 
-import jmul.misc.annotations.Modified;
+import jmul.metainfo.annotations.Modified;
 
 
 /**

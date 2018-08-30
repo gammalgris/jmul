@@ -16,7 +16,17 @@
     <taskdef name="sonar" classname="org.sonarsource.scanner.ant.SonarQubeTask" classpath="${sonar.ant.task.lib}" />
 
     <target name="sonar" depends="run-instrumented-tests.coverage, project.info">
+
+        <record name="${build.log}" action="start" />
+
+        <echo />
+        <echo message="-----= analysis-instrumented.sonar =-----" />
+        <echo />
+
         <sonar />
+
+        <record name="${build.log}" action="stop" />
+
     </target>
 
 </project>

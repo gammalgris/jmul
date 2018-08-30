@@ -31,7 +31,7 @@ package jmul.transformation.container.application;
 import java.util.Collection;
 import java.util.SortedMap;
 
-import jmul.misc.checks.ParameterCheckHelper;
+import jmul.checks.ParameterCheckHelper;
 
 import jmul.string.TextHelper;
 

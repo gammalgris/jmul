@@ -139,6 +139,7 @@ public class ChapterImpl extends ContentNodeImpl implements Chapter {
      * @param aParagraph
      *        the paragraph which is to be added
      */
+    @Override
     public void addParagraph(Paragraph aParagraph) {
 
         //TODO
@@ -152,6 +153,7 @@ public class ChapterImpl extends ContentNodeImpl implements Chapter {
      *
      * @return a paragraph
      */
+    @Override
     public Paragraph getParagraph(int anIndex) {
 
         //TODO
@@ -166,6 +168,7 @@ public class ChapterImpl extends ContentNodeImpl implements Chapter {
      *
      * @return the removed paragraph
      */
+    @Override
     public Paragraph removeParagraph(int anIndex) {
 
         //TODO

@@ -25,6 +25,7 @@
    </list>
    <list n="listOfChildren">
       <hash><url n="URL" path="../Batch/Batch.jpr"/></hash>
+      <hash><url n="URL" path="Checks/Checks.jpr"/></hash>
       <hash><url n="URL" path="Component/Component.jpr"/></hash>
       <hash><url n="URL" path="Component-Tests/Component-Tests.jpr"/></hash>
       <hash><url n="URL" path="Concurrent/Concurrent.jpr"/></hash>
@@ -39,6 +40,8 @@
       <hash><url n="URL" path="Document-MD-Tests/Document-MD-Tests.jpr"/></hash>
       <hash><url n="URL" path="Document-Text/Document-Text.jpr"/></hash>
       <hash><url n="URL" path="Document-Text-Tests/Document-Text-Tests.jpr"/></hash>
+      <hash><url n="URL" path="External/External.jpr"/></hash>
+      <hash><url n="URL" path="External-Tests/External-Tests.jpr"/></hash>
       <hash><url n="URL" path="Formula/Formula.jpr"/></hash>
       <hash><url n="URL" path="Formula-Tests/Formula-Tests.jpr"/></hash>
       <hash><url n="URL" path="Helper-Tests/Helper-Tests.jpr"/></hash>
@@ -50,6 +53,7 @@
       <hash><url n="URL" path="Math-Tests/Math-Tests.jpr"/></hash>
       <hash><url n="URL" path="Measures/Measures.jpr"/></hash>
       <hash><url n="URL" path="Measures-Tests/Measures-Tests.jpr"/></hash>
+      <hash><url n="URL" path="Metainfo/Metainfo.jpr"/></hash>
       <hash><url n="URL" path="Misc/Misc.jpr"/></hash>
       <hash><url n="URL" path="Misc-Tests/Misc-Tests.jpr"/></hash>
       <hash><url n="URL" path="Network/Network.jpr"/></hash>

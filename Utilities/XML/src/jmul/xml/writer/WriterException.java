@@ -27,7 +27,8 @@
 
 package jmul.xml.writer;
 
-import jmul.misc.checks.ParameterCheckHelper;
+
+import jmul.checks.ParameterCheckHelper;
 
 
 /**

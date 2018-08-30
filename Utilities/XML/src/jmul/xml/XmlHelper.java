@@ -36,7 +36,8 @@ import java.util.Map;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
-import jmul.misc.annotations.Modified;
+import jmul.metainfo.annotations.Modified;
+
 import jmul.misc.exceptions.InstantiationException;
 
 import org.w3c.dom.Attr;

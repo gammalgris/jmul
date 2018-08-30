@@ -30,7 +30,7 @@ package test.jmul.math.hash;
 
 import jmul.math.hash.HashHelper;
 
-import static jmul.misc.checks.EqualityHelper.equalObjects;
+import static jmul.misc.equality.EqualityHelper.equalObjects;
 
 import jmul.test.classification.UnitTest;
 

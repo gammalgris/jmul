@@ -11,6 +11,12 @@
 
     <target name="runTests" depends="build-tests.build">
 
+        <record name="${build.log}" action="start" />
+
+        <echo />
+        <echo message="-----= run-tests.runTests =-----" />
+        <echo />
+
         <junit printsummary="yes" showoutput="true" fork="yes" dir="${project.tmp.dir}">
 
             <classpath refid="jmul-tests.execution.classpath" />
@@ -32,6 +38,8 @@
             </fileset>
             <report format="frames" todir="${project.tmp.tests-report.dir}\html" />
         </junitreport>
+
+        <record name="${build.log}" action="stop" />
 
     </target>
 

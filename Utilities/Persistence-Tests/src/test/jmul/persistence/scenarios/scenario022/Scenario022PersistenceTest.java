@@ -1,7 +1,7 @@
 /*
  * SPDX-License-Identifier: GPL-3.0
- * 
- * 
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -40,6 +40,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import test.jmul.datatypes.scenarios.interfaces.Person;
+import test.jmul.persistence.PersistenceTestBase;
 
 
 /**
@@ -51,20 +52,35 @@ import test.jmul.datatypes.scenarios.interfaces.Person;
 @ModuleTest
 public class Scenario022PersistenceTest {
 
+    /**
+     * A base directory for files and directories created during a test run.
+     */
     private String baseDirectory;
 
+    /**
+     * A persistence container.
+     */
     private volatile PersistenceContainer<Person> container;
 
+    /**
+     * A container for task results.
+     */
     private volatile TaskResultCollector collector;
 
+    /**
+     * Preparations before the test.
+     */
     @Before
     public void setUp() {
 
-        baseDirectory = ".";
+        baseDirectory = PersistenceTestBase.ROOT_DIRECTORY + "Persistence\\Scenario-022";
         container = new PersistenceContainerImpl<Person>(Person.class, baseDirectory);
         collector = new TaskResultCollector();
     }
 
+    /**
+     * Clean up after the test.
+     */
     @After
     public void tearDown() {
 
@@ -77,8 +93,6 @@ public class Scenario022PersistenceTest {
     @Test
     void testConcurrentReadWriteOperations() {
 
-        /*long testDuration = MINUTE * 5;
-        int maxObjectsCount = 500;*/
         long testDuration = MINUTE * 5;
         int maxObjectsCount = 1;
 

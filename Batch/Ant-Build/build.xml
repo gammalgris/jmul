@@ -9,7 +9,16 @@
 
     <target name="copySources">
 
+        <record name="${build.log}" action="start" />
+
+        <echo />
+        <echo message="-----= build.copySources =-----" />
+        <echo />
+
         <copy todir="${project.tmp.src.dir}" overwrite="true">
+            <fileset dir="${package.checks.src.dir}">
+                <include name="**/*.java" />
+            </fileset>
             <fileset dir="${package.component.src.dir}">
                 <include name="**/*.java" />
             </fileset>
@@ -49,6 +58,9 @@
             <fileset dir="${package.measures.src.dir}">
                 <include name="**/*.java" />
             </fileset>
+            <fileset dir="${package.metainfo.src.dir}">
+                <include name="**/*.java" />
+            </fileset>
             <fileset dir="${package.misc.src.dir}">
                 <include name="**/*.java" />
             </fileset>
@@ -84,10 +96,18 @@
             </fileset>
         </copy>
 
+        <record name="${build.log}" action="stop" />
+
     </target>
 
 
     <target name="copyResources">
+
+        <record name="${build.log}" action="start" />
+
+        <echo />
+        <echo message="-----= build.copyResources =-----" />
+        <echo />
 
         <copy todir="${project.tmp.cfg.dir}" overwrite="true">
             <fileset dir="${package.concurrent.cfg.dir}">
@@ -125,13 +145,22 @@
                 <include name="**/*.properties" />
             </fileset>
         </copy>
+        <record name="${build.log}" action="stop" />
 
     </target>
 
 
     <target name="build" depends="common.info, classpath.info, temp.info, temp.initTmp, copySources, copyResources">
 
+        <record name="${build.log}" action="start" />
+
+        <echo />
+        <echo message="-----= build.build=-----" />
+        <echo />
+
         <javac target="${project.java.version}" srcdir="${project.tmp.src.dir}" destdir="${project.tmp.build.dir}" verbose="true" classpathref="jmul.build.classpath" debug="on" />
+
+        <record name="${build.log}" action="stop" />
 
     </target>
 

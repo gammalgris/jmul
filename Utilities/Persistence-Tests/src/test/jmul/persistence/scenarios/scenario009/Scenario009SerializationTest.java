@@ -1,7 +1,7 @@
 /*
  * SPDX-License-Identifier: GPL-3.0
- * 
- * 
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -65,7 +65,7 @@ public class Scenario009SerializationTest extends SerializationTestBase {
     /**
      * A base directory for tests.
      */
-    private static final String BASEDIR = ".\\Test\\Serialization\\Scenario-009";
+    private static final String BASEDIR = ROOT_DIRECTORY + "Serialization\\Scenario-009";
 
     /**
      * The file where the generated IDs are persisted.
@@ -203,8 +203,12 @@ public class Scenario009SerializationTest extends SerializationTestBase {
 
         assertEquals("The companies' names don't match!", c1.getCompanyName(), c2.getCompanyName());
 
-        Iterator<Employee> i1 = c1.getEmployees().values().iterator();
-        Iterator<Employee> i2 = c2.getEmployees().values().iterator();
+        Iterator<Employee> i1 = c1.getEmployees()
+                                  .values()
+                                  .iterator();
+        Iterator<Employee> i2 = c2.getEmployees()
+                                  .values()
+                                  .iterator();
 
         while (i1.hasNext() && i2.hasNext()) {
 

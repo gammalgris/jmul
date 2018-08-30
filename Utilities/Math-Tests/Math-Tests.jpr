@@ -80,8 +80,8 @@
          </hash>
          <hash>
             <hash n="dependable">
-               <url n="sourceOwnerURL" path="../Java Miscellaneous Utility Libraries.jws"/>
-               <url n="sourceURL" path="../Math/Math.jpr"/>
+               <url n="sourceOwnerURL" path="../Java Miscellaneous Utilities Library.jws"/>
+               <url n="sourceURL" path="../Checks/Checks.jpr"/>
             </hash>
             <value n="recognizerId" v="oracle.jdeveloper.library"/>
          </hash>
@@ -96,6 +96,13 @@
             <hash n="dependable">
                <url n="sourceOwnerURL" path="../Java Miscellaneous Utility Libraries.jws"/>
                <url n="sourceURL" path="../String/String.jpr"/>
+            </hash>
+            <value n="recognizerId" v="oracle.jdeveloper.library"/>
+         </hash>
+         <hash>
+            <hash n="dependable">
+               <url n="sourceOwnerURL" path="../Java Miscellaneous Utility Libraries.jws"/>
+               <url n="sourceURL" path="../Math/Math.jpr"/>
             </hash>
             <value n="recognizerId" v="oracle.jdeveloper.library"/>
          </hash>

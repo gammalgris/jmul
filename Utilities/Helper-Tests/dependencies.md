@@ -3,10 +3,14 @@
 ## Modules
 (in alphabetical order)
 
+* Checks
 * Constants
+* Document
+* Document-CSV
 * Formula
 * IO
 * Math
+* Metainfo
 * Misc
 * Network
 * Persistence
@@ -23,4 +27,3 @@
 (in alphabetical order)
 
 * JUnit
-* Commons Lang3

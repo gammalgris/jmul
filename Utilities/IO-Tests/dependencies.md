@@ -3,8 +3,10 @@
 ## Modules
 (in alphabetical order)
 
+* Checks
 * Constants
 * IO
+* Metainfo
 * Misc
 * Reflection
 * String

@@ -1,7 +1,7 @@
 /*
  * SPDX-License-Identifier: GPL-3.0
- * 
- * 
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -48,8 +48,11 @@ import org.junit.runners.Parameterized;
 /**
  * This class contains several tests for the CheckIP utility class.
  *
+ * @deprecated This test needs to be reworked in order to pass the IP directly as string.
+ *
  * @author Kristian Kutin
  */
+@Deprecated
 @UnitTest
 @RunWith(Parameterized.class)
 public class CheckInvalidIPTest {
@@ -64,7 +67,7 @@ public class CheckInvalidIPTest {
 
         Collection<Object[]> parameters = new ArrayList<Object[]>();
 
-        //parameters.add(new Object[] { "1.2.3.4", IOException.class });
+        //parameters.add(new Object[] { "1.0.0.255", IOException.class });
 
         return parameters;
     }

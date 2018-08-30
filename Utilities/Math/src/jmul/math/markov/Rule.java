@@ -28,8 +28,8 @@
 package jmul.math.markov;
 
 
-import jmul.misc.exceptions.EmptyStringParameterException;
-import jmul.misc.exceptions.NullParameterException;
+import jmul.checks.exceptions.EmptyStringParameterException;
+import jmul.checks.exceptions.NullParameterException;
 
 import jmul.string.TextHelper;
 

@@ -3,10 +3,11 @@
 ## Modules
 (in alphabetical order)
 
+* Checks
 * Constants
-* Misc
 * Network
 * Test
+* IO
 
 ## Libraries
 (in alphabetical order)

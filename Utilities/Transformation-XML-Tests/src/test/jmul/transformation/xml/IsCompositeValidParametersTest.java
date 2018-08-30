@@ -119,7 +119,7 @@ public class IsCompositeValidParametersTest {
 
         parameters.add(new Object[] { DClassB.class, DSuperclassA.class, true });
         parameters.add(new Object[] { DClassC.class, DSuperclassA.class, false });
-
+        parameters.add(new Object[] { DClassA.class, DClassA.class, false });
         return parameters;
     }
 

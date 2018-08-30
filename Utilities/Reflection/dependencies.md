@@ -3,6 +3,7 @@
 ## Modules
 (in alphabetical order)
 
+* Checks
 * Constants
 * Misc
 * String

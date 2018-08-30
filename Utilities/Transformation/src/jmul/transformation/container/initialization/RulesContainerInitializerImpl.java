@@ -34,18 +34,16 @@ import java.io.IOException;
 import java.util.Collection;
 import java.util.Map;
 
+import jmul.checks.ParameterCheckHelper;
+
 import jmul.io.JarResources;
 import jmul.io.ResourceScanner;
 import jmul.io.ResourceType;
-
-import jmul.misc.checks.ParameterCheckHelper;
 
 import jmul.transformation.TransformationException;
 import jmul.transformation.TransformationResources;
 import jmul.transformation.TransformationRule;
 import jmul.transformation.configuration.ConfigurationReader;
-
-
 import jmul.transformation.container.ModifiableRulesContainer;
 import jmul.transformation.container.RulesContainer;
 import jmul.transformation.container.RulesContainerImpl;

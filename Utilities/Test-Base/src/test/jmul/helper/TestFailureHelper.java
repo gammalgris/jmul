@@ -28,7 +28,7 @@
 package test.jmul.helper;
 
 
-import static jmul.misc.checks.ParameterCheckHelper.checkClassParameter;
+import static jmul.checks.ParameterCheckHelper.checkClassParameter;
 
 import static org.junit.Assert.fail;
 

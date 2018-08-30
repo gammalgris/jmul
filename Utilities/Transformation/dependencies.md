@@ -3,8 +3,9 @@
 ## Modules
 (in alphabetical order)
 
-* IO
+* Checks
 * Constants
+* IO
 * Misc
 * Reflection
 * String

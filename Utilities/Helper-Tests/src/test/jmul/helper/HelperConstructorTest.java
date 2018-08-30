@@ -165,7 +165,7 @@ public class HelperConstructorTest {
         parameters.add(new Object[] { jmul.math.MathHelper.class });
         parameters.add(new Object[] { jmul.math.bool.BooleanHelper.class });
         parameters.add(new Object[] { jmul.string.Constants.class });
-        parameters.add(new Object[] { jmul.misc.checks.ParameterCheckHelper.class });
+        parameters.add(new Object[] { jmul.checks.ParameterCheckHelper.class });
         parameters.add(new Object[] { jmul.misc.state.StateHelper.class });
         parameters.add(new Object[] { jmul.network.http.CheckURL.class });
         parameters.add(new Object[] { jmul.network.ip.CheckIP.class });
@@ -189,7 +189,7 @@ public class HelperConstructorTest {
         parameters.add(new Object[] { jmul.io.StreamsHelper.class });
         parameters.add(new Object[] { jmul.xml.XmlMarkupHelper.class });
         parameters.add(new Object[] { jmul.math.hash.Constants.class });
-        parameters.add(new Object[] { jmul.misc.checks.EqualityHelper.class });
+        parameters.add(new Object[] { jmul.misc.equality.EqualityHelper.class });
         parameters.add(new Object[] { jmul.network.http.UploadHelper.class });
         parameters.add(new Object[] { jmul.string.IndentationHelper.class });
         parameters.add(new Object[] { jmul.reflection.classes.AccessorHelper.class });

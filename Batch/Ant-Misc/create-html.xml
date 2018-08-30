@@ -42,6 +42,7 @@
             input="${project.manual.tmp.file}"
             output="${project.manual.final.file}">
         </java>
+
     </target>
 
 </project>

@@ -47,7 +47,8 @@ import jmul.math.formula.parser.FormulaParserException;
 import jmul.math.hash.archive.ExistingEntryException;
 import jmul.math.hash.archive.UnknownClassException;
 
-import jmul.misc.annotations.Modified;
+import jmul.metainfo.annotations.Modified;
+
 import jmul.misc.exceptions.InitializationException;
 import jmul.misc.generators.GeneratorException;
 import jmul.misc.state.IllegalStateTransitionException;

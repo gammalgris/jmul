@@ -13,11 +13,19 @@
 
     <target name="build">
 
+        <record name="${build.log}" action="start" />
+
+        <echo />
+        <echo message="-----= build-javadoc.build =-----" />
+        <echo />
+
         <javadoc sourcepath="${project.tmp.src.dir}" destdir="${project.tmp.javadoc.dir}" access="public"  classpathref="jmul.build.classpath">
             <doctitle>${project.name}</doctitle>
             <header>${status.line}</header>
             <footer>${status.line}</footer>
         </javadoc>
+
+        <record name="${build.log}" action="stop" />
 
     </target>
 

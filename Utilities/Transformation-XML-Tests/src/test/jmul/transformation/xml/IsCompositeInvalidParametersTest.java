@@ -1,7 +1,7 @@
 /*
  * SPDX-License-Identifier: GPL-3.0
- * 
- * 
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -111,7 +111,6 @@ public class IsCompositeInvalidParametersTest {
         parameters.add(new Object[] { null, null });
         parameters.add(new Object[] { null, CSuperclassA.class });
         parameters.add(new Object[] { CClassA.class, CSuperclassA.class });
-        parameters.add(new Object[] { CClassA.class, CClassA.class });
 
         return parameters;
     }

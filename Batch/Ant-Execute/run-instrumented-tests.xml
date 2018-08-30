@@ -13,6 +13,12 @@
 
     <target name="runTests" depends="build-tests.build, build-instrumented.instrument">
 
+        <record name="${build.log}" action="start" />
+
+        <echo />
+        <echo message="-----= run-instrumented-tests.runTests =-----" />
+        <echo />
+
         <junit printsummary="yes" showoutput="true" fork="yes" dir="${project.tmp.dir}">
 
             <sysproperty key="net.sourceforge.cobertura.datafile" file="${project.tmp.coverage.file}" />
@@ -39,6 +45,8 @@
             <report format="frames" todir="${project.tmp.tests-report.dir}\html" />
         </junitreport>
 
+        <record name="${build.log}" action="stop" />
+
     </target>
 
 
@@ -51,31 +59,44 @@
 
     <target name="coverage-report">
 
+        <record name="${build.log}" action="start" />
+
+        <echo />
+        <echo message="-----= run-instrumented-tests.coverage-report =-----" />
+        <echo />
+
         <cobertura-report srcdir="${project.tmp.src.dir}" destdir="${project.tmp.coverage-report.dir}" format="xml" datafile="${project.tmp.coverage.file}" />
+
+        <record name="${build.log}" action="stop" />
 
     </target>
 
 
     <target name="summary-coverage-report">
 
+        <record name="${build.log}" action="start" />
         <cobertura-report srcdir="${project.tmp.src.dir}" destdir="${project.tmp.coverage-summary-report.dir}" format="summaryXml" datafile="${project.tmp.coverage.file}" />
+        <record name="${build.log}" action="stop" />
 
     </target>
 
 
     <target name="alternate-coverage-report">
 
+        <record name="${build.log}" action="start" />
         <cobertura-report destdir="${project.tmp.coverage-alternate-report.dir}" datafile="${project.tmp.coverage.file}">
             <fileset dir="${project.tmp.src.dir}">
                 <include name="**/*.java"/>
             </fileset>
         </cobertura-report>
+        <record name="${build.log}" action="stop" />
 
     </target>
 
 
     <target name="copyReportsAndDocumentation" depends="build-javadoc.build">
 
+        <record name="${build.log}" action="start" />
         <copy todir="${project.tmp.web-content.coverage-report.dir}">
             <fileset dir="${project.tmp.coverage-alternate-report.dir}">
                 <include name="**/*.*" />
@@ -125,6 +146,7 @@
                 <include name="**/*.*" />
             </fileset>
         </copy>
+        <record name="${build.log}" action="stop" />
 
     </target>
 

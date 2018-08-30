@@ -28,7 +28,7 @@
 package jmul.string;
 
 
-import jmul.misc.checks.ParameterCheckHelper;
+import jmul.checks.ParameterCheckHelper;
 
 import static jmul.string.Constants.NEW_LINE;
 import static jmul.string.Constants.TABULATOR;

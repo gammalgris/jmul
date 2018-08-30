@@ -1,7 +1,7 @@
 /*
  * SPDX-License-Identifier: GPL-3.0
- * 
- * 
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -37,8 +37,7 @@ import java.util.Enumeration;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
-
-import static jmul.misc.checks.ParameterCheckHelper.checkFileNameParameter;
+import static jmul.checks.ParameterCheckHelper.checkFileNameParameter;
 
 import static jmul.string.Constants.FILE_SEPARATOR;
 import static jmul.string.Constants.SLASH;

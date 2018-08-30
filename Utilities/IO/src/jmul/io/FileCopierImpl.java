@@ -36,8 +36,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-import static jmul.misc.checks.ParameterCheckHelper.checkFileNameParameter;
-import static jmul.misc.checks.ParameterCheckHelper.checkFileParameter;
+import static jmul.checks.ParameterCheckHelper.checkFileNameParameter;
+import static jmul.checks.ParameterCheckHelper.checkFileParameter;
+
 import jmul.misc.exceptions.MultipleCausesException;
 
 

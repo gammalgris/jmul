@@ -476,7 +476,31 @@ public class PersistenceContainerImpl<T> implements PersistenceContainer<T> {
 
         for (File file : foundFiles) {
 
-            String uniqueIdentifier = fileManager.getUniqueIdentifier(file);
+            String uniqueIdentifier;
+
+            try {
+
+                uniqueIdentifier = fileManager.getUniqueIdentifier(file);
+
+            } catch (IOException e) {
+
+                // Throwing this exception is not possible. Actually the query
+                // and all associated exceptions shuld be logged.
+
+                // TODO
+                // Log the query and all associated exceptions.
+
+                continue;
+            }
+
+            if (uniqueIdentifier == null) {
+
+                // TODO
+                // Log the query and all files without a unique identifier.
+
+                continue;
+            }
+
             ID id = new StringID(uniqueIdentifier);
 
             results.add(id);

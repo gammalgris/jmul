@@ -283,6 +283,11 @@ public final class FileHelper {
 
         } catch (FileNotFoundException e) {
 
+            // This method checks the existence of a file. If trying to open
+            // an input stream fails with this exception then the file doesn't exist.
+            // Preserving this exception is not needed nor possible as the method
+            // will only return a boolean value.
+
             if (fis != null) {
 
                 closeStreamIgnoreException(fis);
@@ -296,6 +301,11 @@ public final class FileHelper {
             fis.read();
 
         } catch (IOException e) {
+
+            // If reading from the file s not possible then the file is
+            // considered as not existing.
+            // Preserving this exception is not needed nor possible as the method
+            // will only return a boolean value.
 
             closeStreamIgnoreException(fis);
             return false;
@@ -318,6 +328,10 @@ public final class FileHelper {
 
         } catch (IOException e) {
 
+            // If there should be an issue in closing the stream then the cause
+            // must be another thread or process.
+            // The exception is ignored intentionally. In this context there is
+            // no point in preserving or logging the exception.
         }
     }
 

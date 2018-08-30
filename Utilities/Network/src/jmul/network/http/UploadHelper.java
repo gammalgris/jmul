@@ -43,13 +43,13 @@ import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 
+import static jmul.checks.ParameterCheckHelper.checkFileNameParameter;
+import static jmul.checks.ParameterCheckHelper.checkFileParameter;
+import static jmul.checks.ParameterCheckHelper.checkStringParameter;
+
 import jmul.io.NestedStreams;
 import jmul.io.NestedStreamsImpl;
 import jmul.io.StreamsHelper;
-
-import static jmul.misc.checks.ParameterCheckHelper.checkFileNameParameter;
-import static jmul.misc.checks.ParameterCheckHelper.checkFileParameter;
-import static jmul.misc.checks.ParameterCheckHelper.checkStringParameter;
 
 import jmul.network.NetworkException;
 import static jmul.network.http.Protocols.HTTP;

@@ -16,6 +16,12 @@
 
     <target name="info">
 
+        <record name="${build.log}" action="start" />
+
+        <echo />
+        <echo message="-----=deploy-webserver.info =-----" />
+        <echo />
+
         <echo />
         <echo message="  project tmp deploy dir ...................... ${project.tmp.deploy.dir}" />
         <echo />
@@ -27,38 +33,69 @@
         <echo message="  jar sources file ............................ ${jar.sources.file}" />
         <echo message="  jar javadoc file ............................ ${jar.javadoc.file}" />
         <echo />
+        <record name="${build.log}" action="stop" />
 
     </target>
 
 
     <target name="jarClasses">
 
+        <record name="${build.log}" action="start" />
+
+        <echo />
+        <echo message="-----= deploy-webserver.jarClasses =-----" />
+        <echo />
+
         <jar destfile="${jar.classes.file}" compress="true">
             <fileset dir="${project.tmp.build.dir}" />
         </jar>
+
+        <record name="${build.log}" action="stop" />
 
     </target>
 
 
     <target name="jarSources">
 
+        <record name="${build.log}" action="start" />
+
+        <echo />
+        <echo message="-----= deploy-webserver.jarSources =-----" />
+        <echo />
+
         <jar destfile="${jar.sources.file}" compress="true">
             <fileset dir="${project.tmp.src.dir}" />
         </jar>
+
+        <record name="${build.log}" action="stop" />
 
     </target>
 
 
     <target name="jarJavadoc">
 
+        <record name="${build.log}" action="start" />
+
+        <echo />
+        <echo message="-----= deploy-webserver.jarJavadoc =-----" />
+        <echo />
+
         <jar destfile="${jar.javadoc.file}" compress="true">
             <fileset dir="${project.tmp.javadoc.dir}" />
         </jar>
+
+        <record name="${build.log}" action="stop" />
 
     </target>
 
 
     <target name="copyBatchFiles">
+
+        <record name="${build.log}" action="start" />
+
+        <echo />
+        <echo message="-----= build-webserver.copyBatchFiles =-----" />
+        <echo />
 
         <copy todir="${project.tmp.deploy.dir}" overwrite="true">
             <fileset dir="${project.dir}\Batch\Dos-WebServer">
@@ -66,10 +103,18 @@
             </fileset>
         </copy>
 
+        <record name="${build.log}" action="stop" />
+
     </target>
 
 
     <target name="copyMiscFiles">
+
+        <record name="${build.log}" action="start" />
+
+        <echo />
+        <echo message="-----= build-webserver.copyMiscFiles =-----" />
+        <echo />
 
         <copy todir="${project.tmp.deploy.dir}" overwrite="true">
             <fileset dir="${project.dir}\Batch\Dos-WebServer">
@@ -84,12 +129,22 @@
             token="jmul-webserver-0.0.0.jar"
             value="jmul-webserver-${version.library}.jar" />
 
+        <record name="${build.log}" action="stop" />
+
     </target>
 
 
     <target name="renameDeployDir">
 
+        <record name="${build.log}" action="start" />
+
+        <echo />
+        <echo message="-----= deploy-webserver.renameDeployDir =-----" />
+        <echo />
+
         <move file="${project.tmp.deploy.dir}" tofile="${project.tmp.web-server.dir}" />
+
+        <record name="${build.log}" action="stop" />
 
     </target>
 

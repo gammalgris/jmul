@@ -31,7 +31,8 @@ package jmul.io;
 import java.io.Closeable;
 import java.io.IOException;
 
-import jmul.misc.annotations.Modified;
+import jmul.metainfo.annotations.Modified;
+
 import jmul.misc.exceptions.MultipleCausesException;
 
 import static jmul.string.Constants.NEW_LINE;

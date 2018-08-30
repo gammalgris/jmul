@@ -1,7 +1,7 @@
 /*
  * SPDX-License-Identifier: GPL-3.0
- * 
- * 
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -31,11 +31,11 @@ package jmul.network.ftp;
 /**
  * A utility class which provides methods to perform checks on an FTP server.
  *
- * TODO
- * Missing functionality!
+ * @deprecated Class is not implementd. Remove or add implementation.
  *
  * @author Kristian Kutin
  */
+@Deprecated
 public final class CheckFTP {
 
     /**

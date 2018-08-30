@@ -38,7 +38,7 @@ import java.util.regex.Pattern;
 
 import jmul.io.ResourceType;
 
-import jmul.misc.checks.ParameterCheckHelper;
+import jmul.checks.ParameterCheckHelper;
 
 
 /**

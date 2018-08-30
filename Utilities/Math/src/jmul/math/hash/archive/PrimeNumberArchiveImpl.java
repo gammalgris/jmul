@@ -32,9 +32,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static jmul.math.hash.Constants.DEFAULT_LIST_SIZE;
+import jmul.checks.ParameterCheckHelper;
 
-import jmul.misc.checks.ParameterCheckHelper;
+import static jmul.math.hash.Constants.DEFAULT_LIST_SIZE;
 
 
 /**

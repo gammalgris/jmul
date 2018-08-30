@@ -30,10 +30,10 @@ package jmul.string;
 
 import java.util.regex.Pattern;
 
-import jmul.misc.exceptions.EmptyArrayParameterException;
-import jmul.misc.exceptions.EmptyStringParameterException;
-import jmul.misc.exceptions.NullArrayParameterException;
-import jmul.misc.exceptions.NullParameterException;
+import static jmul.checks.ParameterCheckHelper.checkStringArrayParameter;
+import static jmul.checks.ParameterCheckHelper.checkStringParameter;
+import jmul.checks.exceptions.EmptyArrayParameterException;
+import jmul.checks.exceptions.NullParameterException;
 
 import static jmul.string.Constants.EMPTY_STRING;
 
@@ -84,15 +84,7 @@ public class Message implements ConfigurableMessage {
      */
     private static void checkParameter(String aMessage) {
 
-        if (aMessage == null) {
-
-            throw new NullParameterException();
-        }
-
-        if (aMessage.trim().isEmpty()) {
-
-            throw new EmptyStringParameterException();
-        }
+        checkStringParameter(aMessage);
 
         if (!containsPlaceholders(aMessage)) {
 
@@ -176,10 +168,7 @@ public class Message implements ConfigurableMessage {
      */
     private static void checkParameter(String... someParameters) {
 
-        if (someParameters == null) {
-
-            throw new NullArrayParameterException();
-        }
+        checkStringArrayParameter(someParameters);
 
         if (someParameters.length == 0) {
 

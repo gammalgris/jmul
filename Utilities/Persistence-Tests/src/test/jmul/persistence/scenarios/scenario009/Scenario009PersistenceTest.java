@@ -1,7 +1,7 @@
 /*
  * SPDX-License-Identifier: GPL-3.0
- * 
- * 
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -67,7 +67,7 @@ public class Scenario009PersistenceTest extends PersistenceTestBase {
     /**
      * A base directory for tests.
      */
-    private static final String BASEDIR = ".\\Test\\Persistence\\Scenario-009";
+    private static final String BASEDIR = ROOT_DIRECTORY + "Persistence\\Scenario-009";
 
     /**
      * Preparations before this test suite.
@@ -195,8 +195,12 @@ public class Scenario009PersistenceTest extends PersistenceTestBase {
 
         assertEquals("The companies' names don't match!", c1.getCompanyName(), c2.getCompanyName());
 
-        Iterator<Employee> i1 = c1.getEmployees().values().iterator();
-        Iterator<Employee> i2 = c2.getEmployees().values().iterator();
+        Iterator<Employee> i1 = c1.getEmployees()
+                                  .values()
+                                  .iterator();
+        Iterator<Employee> i2 = c2.getEmployees()
+                                  .values()
+                                  .iterator();
 
         while (i1.hasNext() && i2.hasNext()) {
 

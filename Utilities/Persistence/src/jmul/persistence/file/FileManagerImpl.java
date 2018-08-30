@@ -348,9 +348,12 @@ public class FileManagerImpl implements FileManager {
      *
      * @return a unique identifier which is associated with a file or
      *         <code>null</code> if no such association exists
+     *
+     * @throws IOException
+     *         can be thrown if canonical file paths cannot be obtained
      */
     @Override
-    public String getUniqueIdentifier(File aFile) {
+    public String getUniqueIdentifier(File aFile) throws IOException {
 
         // Following checks are required to determine an association (the order
         // in which to perform these checks is not important):
@@ -366,22 +369,14 @@ public class FileManagerImpl implements FileManager {
 
         if (aFile.isFile()) {
 
-            String expectedPath = null;
-            String specifiedPath = null;
+            String expectedBaseDirectoryPath = null;
+            String specifiedFilePath = null;
 
-            try {
+            expectedBaseDirectoryPath = baseDirectory.getCanonicalPath();
+            specifiedFilePath = aFile.getCanonicalPath();
 
-                expectedPath = baseDirectory.getCanonicalPath();
-                specifiedPath = aFile.getCanonicalPath();
-
-            } catch (IOException e) {
-
-                // Ignore this exception.
-                return null;
-            }
-
-            if (specifiedPath.startsWith(expectedPath) && aFile.getName().endsWith(templateFileSuffix) &&
-                aFile.exists()) {
+            if (specifiedFilePath.startsWith(expectedBaseDirectoryPath) &&
+                aFile.getName().endsWith(templateFileSuffix) && aFile.exists()) {
 
                 String filename = aFile.getName();
 

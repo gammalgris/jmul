@@ -6,6 +6,7 @@
 * Constants
 * Document
 * IO
+* Metainfo
 * Misc
 * String
 

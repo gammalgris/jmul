@@ -1,7 +1,7 @@
 /*
  * SPDX-License-Identifier: GPL-3.0
- * 
- * 
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -67,7 +67,7 @@ public class Scenario006PersistenceTest extends PersistenceTestBase {
     /**
      * A base directory for tests.
      */
-    private static final String BASEDIR = ".\\Test\\Persistence\\Scenario-006";
+    private static final String BASEDIR = ROOT_DIRECTORY + "Persistence\\Scenario-006";
 
     /**
      * Preparations before this test suite.

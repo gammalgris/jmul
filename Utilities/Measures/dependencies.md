@@ -4,6 +4,7 @@
 (in alphabetical order)
 
 * IO
+* Checks
 * Misc
 * String
 * XML

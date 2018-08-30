@@ -3,7 +3,9 @@
 ## Modules
 (in alphabetical order)
 
+* Checks
 * Formula
+* Math
 * Misc
 * String
 * Test
@@ -12,4 +14,3 @@
 (in alphabetical order)
 
 * JUnit
-* Commons Lang3

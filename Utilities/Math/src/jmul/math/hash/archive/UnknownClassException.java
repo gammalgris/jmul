@@ -28,7 +28,7 @@
 package jmul.math.hash.archive;
 
 
-import jmul.misc.checks.ParameterCheckHelper;
+import jmul.checks.ParameterCheckHelper;
 
 
 /**

@@ -3,8 +3,9 @@
 ## Modules
 (in alphabetical order)
 
+* Checks
 * Constants
-* Misc
+* IO
 
 ## Libraries
 (in alphabetical order)

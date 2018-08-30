@@ -1,7 +1,7 @@
 /*
  * SPDX-License-Identifier: GPL-3.0
- * 
- * 
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -110,7 +110,6 @@ public class GetAllPersistableFieldsInvalidParametersTest {
 
         parameters.add(new Object[] { null, null });
         parameters.add(new Object[] { null, ASuperclassA.class });
-        parameters.add(new Object[] { AClassA.class, AClassA.class });
         parameters.add(new Object[] { AClassA.class, ASuperclassA.class });
 
         return parameters;

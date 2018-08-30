@@ -43,7 +43,7 @@ import jmul.io.NestedStreams;
 import jmul.io.NestedStreamsImpl;
 import jmul.io.StreamsHelper;
 
-import jmul.misc.checks.ParameterCheckHelper;
+import jmul.checks.ParameterCheckHelper;
 
 import jmul.string.TextHelper;
 

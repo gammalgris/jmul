@@ -31,8 +31,8 @@ package jmul.math;
 import java.util.Set;
 import java.util.TreeSet;
 
-import jmul.misc.exceptions.EmptyArrayParameterException;
-import jmul.misc.exceptions.NullArrayParameterException;
+import jmul.checks.exceptions.EmptyArrayParameterException;
+import jmul.checks.exceptions.NullArrayParameterException;
 
 
 /**

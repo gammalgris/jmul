@@ -9,6 +9,12 @@
 
     <target name="copySources">
 
+        <record name="${build.log}" action="start" />
+
+        <echo />
+        <echo message="-----= build-servicetester-libs.copySources =-----" />
+        <echo />
+
         <copy todir="${project.tmp.src.dir}" overwrite="true">
             <fileset dir="${package.constants.src.dir}">
                 <include name="**/*.java" />
@@ -48,10 +54,18 @@
             </fileset>
         </copy>
 
+        <record name="${build.log}" action="stop" />
+
     </target>
 
 
     <target name="copyResources">
+
+        <record name="${build.log}" action="start" />
+
+        <echo />
+        <echo message="-----= build-servicetester-libs.copyResources =-----" />
+        <echo />
 
         <copy todir="${project.tmp.cfg.dir}" overwrite="true">
             <fileset dir="${package.document.cfg.dir}">
@@ -83,12 +97,22 @@
             </fileset>
         </copy>
 
+        <record name="${build.log}" action="stop" />
+
     </target>
 
 
     <target name="build" depends="common.info, classpath.info, temp.initTmp, copySources, copyResources">
 
+        <record name="${build.log}" action="start" />
+
+        <echo />
+        <echo message="-----= build-servicetester-libs.build =-----" />
+        <echo />
+
         <javac target="${project.java.version}" srcdir="${project.tmp.src.dir}" destdir="${project.tmp.build.dir}" verbose="true" classpathref="jmul.build.classpath" debug="on" />
+
+        <record name="${build.log}" action="stop" />
 
     </target>
 

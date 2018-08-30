@@ -66,7 +66,8 @@ sourceSets {
 
 	main {
 		java {
-			srcDirs = [ '../../Utilities/Component/src',
+			srcDirs = [ '../../Utilities/Checks/src',
+						'../../Utilities/Component/src',
 						'../../Utilities/Concurrent/src',
 						'../../Utilities/Constants/src',
 						'../../Utilities/Document/src',
@@ -78,6 +79,7 @@ sourceSets {
 						'../../Utilities/Logging/src',
 						'../../Utilities/Math/src',
 						'../../Utilities/Measures/src',
+						'../../Utilities/Metainfo/src',
 						'../../Utilities/Misc/src',
 						'../../Utilities/Network/src',
 						'../../Utilities/Persistence/src',

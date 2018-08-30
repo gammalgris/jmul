@@ -1,7 +1,7 @@
 /*
  * SPDX-License-Identifier: GPL-3.0
- * 
- * 
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -55,7 +55,7 @@ public class FileManagerBigDatapoolTest extends FileManagerTestBase {
     /**
      * A base directory for tests.
      */
-    private static final String BASEDIR = ".\\Test\\File-Manager4";
+    private static final String BASEDIR = ROOT_DIRECTORY + "File-Manager4";
 
     /**
      * The file where the generated IDs are persisted.

@@ -28,7 +28,7 @@
 package test.jmul.reflection.classes.equivalence;
 
 
-import jmul.misc.exceptions.NullParameterException;
+import jmul.checks.exceptions.NullParameterException;
 
 import jmul.reflection.classes.ClassDefinition;
 import jmul.reflection.classes.ClassHelper;

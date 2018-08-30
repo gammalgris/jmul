@@ -3,9 +3,9 @@
 ## Modules
 (in alphabetical order)
 
+* Checks
 * Constants
-* Misc
-* String
+* Metainfo
 * Test
 
 ## Libraries

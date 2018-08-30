@@ -81,6 +81,20 @@
          <hash>
             <hash n="dependable">
                <url n="sourceOwnerURL" path="../Java Miscellaneous Utilities Library.jws"/>
+               <url n="sourceURL" path="../Checks/Checks.jpr"/>
+            </hash>
+            <value n="recognizerId" v="oracle.jdeveloper.library"/>
+         </hash>
+         <hash>
+            <hash n="dependable">
+               <url n="sourceOwnerURL" path="../Java Miscellaneous Utilities Library.jws"/>
+               <url n="sourceURL" path="../Metainfo/Metainfo.jpr"/>
+            </hash>
+            <value n="recognizerId" v="oracle.jdeveloper.library"/>
+         </hash>
+         <hash>
+            <hash n="dependable">
+               <url n="sourceOwnerURL" path="../Java Miscellaneous Utilities Library.jws"/>
                <url n="sourceURL" path="../IO/IO.jpr"/>
             </hash>
             <value n="recognizerId" v="oracle.jdeveloper.library"/>
@@ -154,10 +168,6 @@
             <value n="id" v="Junit-4.11"/>
             <value n="isJDK" v="false"/>
          </hash>
-         <hash>
-            <value n="id" v="Derby"/>
-            <value n="isJDK" v="false"/>
-         </hash>
       </list>
       <hash n="internalDefinitions">
          <list n="libraryDefinitions">
@@ -177,22 +187,11 @@
                   <url path="../../Libraries/JUnit/hamcrest-core-1.3-sources.jar" jar-entry=""/>
                </list>
             </hash>
-            <hash>
-               <list n="classPath">
-                  <url path="../../../../Programme/jdk1.7.0_80/db/lib/derby.jar" jar-entry=""/>
-               </list>
-               <value n="description" v="Derby"/>
-               <value n="id" v="Derby"/>
-            </hash>
          </list>
       </hash>
       <list n="libraryReferences">
          <hash>
             <value n="id" v="Junit-4.11"/>
-            <value n="isJDK" v="false"/>
-         </hash>
-         <hash>
-            <value n="id" v="Derby"/>
             <value n="isJDK" v="false"/>
          </hash>
       </list>

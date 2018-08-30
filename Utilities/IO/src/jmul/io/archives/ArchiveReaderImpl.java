@@ -38,11 +38,10 @@ import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
+import static jmul.checks.ParameterCheckHelper.checkFileNameParameter;
 
 import jmul.io.NestedStreams;
 import jmul.io.NestedStreamsImpl;
-
-import static jmul.misc.checks.ParameterCheckHelper.checkFileNameParameter;
 
 
 /**
@@ -114,6 +113,7 @@ public class ArchiveReaderImpl implements ArchiveReader {
         ZipInputStream zis = (ZipInputStream) nestedStreams.getOuterStream();
 
 
+        boolean firstIteration = true;
         boolean endOfArchive = false;
         Exception exception = null;
 
@@ -136,6 +136,11 @@ public class ArchiveReaderImpl implements ArchiveReader {
             if (endOfArchive) {
 
                 break;
+            }
+
+            if (firstIteration) {
+
+                firstIteration = false;
             }
 
             if (zipEntry.isDirectory()) {
@@ -175,6 +180,12 @@ public class ArchiveReaderImpl implements ArchiveReader {
             }
         }
 
+
+        if (firstIteration && endOfArchive) {
+
+            String message = "The specified archive (" + archiveName + ") may not be an archive file or is empty!";
+            throw new IOException(message);
+        }
 
         String message = "Unknown resource: " + anEntryName + "!";
         throw new IOException(message, exception);

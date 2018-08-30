@@ -41,7 +41,8 @@ import jmul.io.NestedStreams;
 import jmul.io.text.ReadBuffer;
 import jmul.io.text.TextFileHelper;
 
-import jmul.misc.annotations.Modified;
+import jmul.metainfo.annotations.Modified;
+
 import jmul.misc.table.ModifiableTable;
 
 import static jmul.string.Constants.NEW_LINE_WINDOWS;
@@ -271,6 +272,12 @@ public class CsvDocumentReaderImpl2 extends CsvDocumentReaderBase {
 
                 } catch (QuoteNotClosedException e) {
 
+                    // This exception indicates that the processed line is not complete because the
+                    // content of a table cell is quoted but the quote closing character is not
+                    // reached yet. This exception should not be preserved. It is assumed that the
+                    // table row is spread over several text lines.
+                    // If there is an issue with the table structure (i.e. number of identified
+                    // columns) then an exception will be thrown.
                     continue;
                 }
 
