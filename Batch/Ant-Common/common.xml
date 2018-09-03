@@ -129,6 +129,8 @@
         <echo message="  package xml dir ............................. ${package.xml.dir}" />
         <echo message="  package xml src dir ......................... ${package.xml.src.dir}" />
         <echo />
+        <echo message="  package checks tests dir .................... ${package.checks-tests.dir}" />
+        <echo message="  package checks tests src dir ................ ${package.checks-tests.src.dir}" />
         <echo message="  package component tests dir ................. ${package.component-tests.dir}" />
         <echo message="  package component tests src dir ............. ${package.component-tests.src.dir}" />
         <echo message="  package constants tests dir ................. ${package.constants-tests.dir}" />

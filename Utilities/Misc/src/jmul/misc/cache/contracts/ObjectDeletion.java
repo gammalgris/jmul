@@ -7,7 +7,7 @@
  * JMUL is a central repository for utilities which are used in my
  * other public and private repositories.
  *
- * Copyright (C) 2013  Kristian Kutin
+ * Copyright (C) 2018  Kristian Kutin
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -25,25 +25,25 @@
  * e-mail: kristian.kutin@arcor.de
  */
 
-package jmul.persistence.cache;
+package jmul.misc.cache.contracts;
 
 
-import jmul.misc.cache.contracts.Clearable;
-import jmul.misc.cache.contracts.ExplicitIDAppender;
-import jmul.misc.cache.contracts.IDQueries;
-import jmul.misc.cache.contracts.ObjectDeletion;
-import jmul.misc.cache.contracts.ObjectQueries;
+import jmul.misc.id.ID;
 
 
 /**
- * This interface describes an entity which caches objects and their assigned
- * ids.
- *
- * @param <T>
- *        the specified type which this cache handles
+ * This interface declares deletion operations for an object container.
  *
  * @author Kristian Kutin
  */
-public interface ObjectCache<T> extends ObjectQueries<T>, IDQueries<T>, ExplicitIDAppender<T>, ObjectDeletion,
-                                        Clearable {
+public interface ObjectDeletion {
+
+    /**
+     * Removes the object as specified by the ID from the object cache.
+     *
+     * @param anID
+     *        an ID
+     */
+    void removeObject(ID anID);
+
 }

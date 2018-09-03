@@ -17,6 +17,9 @@
         <echo />
 
         <copy todir="${project.tmp.tests-src.dir}" overwrite="true">
+            <fileset dir="${package.checks-tests.src.dir}">
+                <include name="**/*.java" />
+            </fileset>
             <fileset dir="${package.component-tests.src.dir}">
                 <include name="**/*.java" />
             </fileset>
@@ -134,7 +137,7 @@
         </exec>
         <exec executable="cmd" dir="${project.tmp.dir}">
             <arg value="/C" />
-            <arg value="${package.tmp.document-text-tests.testdata.creator}" />
+            <arg value="${project.tmp.document-text-tests.testdata.creator}" />
         </exec>
         <exec executable="cmd" dir="${project.tmp.dir}">
             <arg value="/C" />

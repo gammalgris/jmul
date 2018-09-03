@@ -99,17 +99,7 @@ public final class ParameterCheckHelper {
      */
     public static String checkExceptionMessage(String aMessage) {
 
-        if (aMessage == null) {
-
-            throw new NullParameterException();
-        }
-
-        if (aMessage.trim().isEmpty()) {
-
-            throw new EmptyStringParameterException();
-        }
-
-        return aMessage;
+        return checkStringParameter(aMessage);
     }
 
     /**
@@ -130,7 +120,8 @@ public final class ParameterCheckHelper {
             throw new NullParameterException();
         }
 
-        if (aString.trim().isEmpty()) {
+        String aTrimmedString = aString.trim();
+        if (aTrimmedString.isEmpty()) {
 
             throw new EmptyStringParameterException();
         }
@@ -226,6 +217,12 @@ public final class ParameterCheckHelper {
             throw new NullArrayParameterException();
         }
 
+        if (aMinimumSize < 0) {
+
+            String message = "A negative size (" + aMinimumSize + ") has been specified!";
+            throw new IllegalArgumentException(message);
+        }
+
         int actualSize = someCauses.length;
         if (actualSize == 0) {
 
@@ -282,13 +279,14 @@ public final class ParameterCheckHelper {
             throw new NullFileNameParameterException();
         }
 
-        if (aFileName.trim().isEmpty()) {
+        String aTrimmedFileName = aFileName.trim();
+        if (aTrimmedFileName.isEmpty()) {
 
             String message = "No file name (empty string) has been specified!";
             throw new IllegalArgumentException(message);
         }
 
-        if (!aFileName.equals(aFileName.trim())) {
+        if (!aFileName.equals(aTrimmedFileName)) {
 
             String message = "The file name (\"" + aFileName + "\") contains leading or trailing spaces!";
             throw new IllegalArgumentException(message);
@@ -336,13 +334,14 @@ public final class ParameterCheckHelper {
             throw new NullFileNameParameterException();
         }
 
-        if (aDirectoryName.trim().isEmpty()) {
+        String aTrimmedDirectoryName = aDirectoryName.trim();
+        if (aTrimmedDirectoryName.isEmpty()) {
 
             String message = "No directory name (empty string) has been specified!";
             throw new IllegalArgumentException(message);
         }
 
-        if (!aDirectoryName.equals(aDirectoryName.trim())) {
+        if (!aDirectoryName.equals(aTrimmedDirectoryName)) {
 
             String message = "The directory name (\"" + aDirectoryName + "\") contains leading or trailing spaces!";
             throw new IllegalArgumentException(message);
@@ -509,6 +508,12 @@ public final class ParameterCheckHelper {
 
         checkList(aList);
 
+        if (anExpectedSize < 0) {
+
+            String message = "A negative list size (" + anExpectedSize + ") was specified!";
+            throw new IllegalArgumentException(message);
+        }
+
         if (anExpectedSize != aList.size()) {
 
             throw new UnexpectedSizeException(anExpectedSize, aList.size());
@@ -526,13 +531,14 @@ public final class ParameterCheckHelper {
      * @throws IllegalArgumentException
      *         is thrown if the parameter has an invalid value
      */
-    public static void checkStringBuilderParameter(StringBuilder aParameter) {
+    public static StringBuilder checkStringBuilderParameter(StringBuilder aParameter) {
 
         if (aParameter == null) {
 
-            String message = "No argument (null) has been specified!";
-            throw new IllegalArgumentException(message);
+            throw new NullParameterException();
         }
+
+        return aParameter;
     }
 
     /**
@@ -550,8 +556,7 @@ public final class ParameterCheckHelper {
 
         if (aParameter == null) {
 
-            String message = "No argument (null) has been specified!";
-            throw new IllegalArgumentException(message);
+            throw new NullParameterException();
         }
 
         return aParameter;
@@ -572,8 +577,7 @@ public final class ParameterCheckHelper {
 
         if (aParameter == null) {
 
-            String message = "No argument (null) has been specified!";
-            throw new IllegalArgumentException(message);
+            throw new NullParameterException();
         }
 
         return aParameter;
@@ -594,9 +598,11 @@ public final class ParameterCheckHelper {
      */
     public static String[] checkStringArrayParameter(String[] aParameter, int aMinimumSize) {
 
-        if (aParameter == null) {
+        checkStringArrayParameter(aParameter);
 
-            String message = "No argument (null) has been specified!";
+        if (aMinimumSize < 0) {
+
+            String message = "A negative minimum size (" + aMinimumSize + ") was specified!";
             throw new IllegalArgumentException(message);
         }
 
@@ -627,8 +633,7 @@ public final class ParameterCheckHelper {
 
         if (aParameter == null) {
 
-            String message = "No argument (null) has been specified!";
-            throw new IllegalArgumentException(message);
+            throw new NullListParameterException();
         }
 
         return aParameter;
@@ -649,8 +654,7 @@ public final class ParameterCheckHelper {
 
         if (aParameter == null) {
 
-            String message = "No argument (null) has been specified!";
-            throw new IllegalArgumentException(message);
+            throw new NullParameterException();
         }
 
         return aParameter;

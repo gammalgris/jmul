@@ -91,7 +91,7 @@ public class Scenario022PersistenceTest {
      * Tests concurrent read write oprations during an objcetc's lifecycle.
      */
     @Test
-    void testConcurrentReadWriteOperations() {
+    public void testConcurrentReadWriteOperations() {
 
         long testDuration = MINUTE * 5;
         int maxObjectsCount = 1;

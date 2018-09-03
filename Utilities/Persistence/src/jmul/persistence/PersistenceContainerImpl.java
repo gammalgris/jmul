@@ -349,20 +349,21 @@ public class PersistenceContainerImpl<T> implements PersistenceContainer<T> {
 
         if (fileManager.existsFile(anID.toString())) {
 
+            // It may happen that a concurring deletion already deleted the file.
+
             File file = fileManager.getFile(anID.toString());
             FileHelper.delete(file);
         }
 
 
-        // The cache will dispose of the specified object if it is not longer
-        // requested. There remains a small time frame where the object could be
-        // restored again, though.
+        // Delete the object from the cache
 
-        //TODO
-        // Check if the cache must be able to immediately delete an object. This
-        // may be required to avoid having deleted files being restored and
-        // resulting in orphaned files which is a waste of disk space and has a
-        // negative effect on the systems performance.
+        if (cache.existsID(anID)) {
+
+            // It may happen that a concurring deletion already cleaned the cache.
+
+            cache.removeObject(anID);
+        }
     }
 
     /**

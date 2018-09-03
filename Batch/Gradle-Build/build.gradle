@@ -110,7 +110,8 @@ sourceSets {
 
 	test {
 		java {
-			srcDirs = [ '../../Utilities/Component-Tests/src',
+			srcDirs = [ '../../Utilities/Checks-Tests/src',
+						'../../Utilities/Component-Tests/src',
 						'../../Utilities/Constants-Tests/src',
 						'../../Utilities/Document-Binary-Tests/src',
 						'../../Utilities/Document-CSV-Tests/src',

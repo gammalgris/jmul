@@ -1,7 +1,7 @@
 /*
  * SPDX-License-Identifier: GPL-3.0
- * 
- * 
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -338,6 +338,24 @@ public class ObjectCacheImpl<T> implements ExpirationListener, ObjectCache<T> {
 
                 monitor.stop();
             }
+        }
+    }
+
+    /**
+     * Removes the object as specified by the ID from the object cache.
+     *
+     * @param anID
+     *        an ID
+     */
+    @Override
+    public void removeObject(ID anID) {
+
+        synchronized (this) {
+
+            T object = id2Object.get(anID);
+
+            id2Object.remove(anID);
+            object2ID.remove(object);
         }
     }
 

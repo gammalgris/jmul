@@ -7,7 +7,7 @@
  * JMUL is a central repository for utilities which are used in my
  * other public and private repositories.
  *
- * Copyright (C) 2013  Kristian Kutin
+ * Copyright (C) 2018  Kristian Kutin
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -25,25 +25,45 @@
  * e-mail: kristian.kutin@arcor.de
  */
 
-package jmul.persistence.cache;
+package test.jmul.checks;
 
 
-import jmul.misc.cache.contracts.Clearable;
-import jmul.misc.cache.contracts.ExplicitIDAppender;
-import jmul.misc.cache.contracts.IDQueries;
-import jmul.misc.cache.contracts.ObjectDeletion;
-import jmul.misc.cache.contracts.ObjectQueries;
+import static jmul.checks.ParameterCheckHelper.checkObjectParameter;
+import jmul.checks.exceptions.NullParameterException;
+
+import jmul.test.classification.UnitTest;
+
+import static org.junit.Assert.assertEquals;
+import org.junit.Test;
 
 
 /**
- * This interface describes an entity which caches objects and their assigned
- * ids.
- *
- * @param <T>
- *        the specified type which this cache handles
+ * This class contains tests to check object parameter check methods.
  *
  * @author Kristian Kutin
  */
-public interface ObjectCache<T> extends ObjectQueries<T>, IDQueries<T>, ExplicitIDAppender<T>, ObjectDeletion,
-                                        Clearable {
+@UnitTest
+public class ObjectParameterTest {
+
+    /**
+     * Tests the check method with a <code>null</code> parameter.
+     */
+    @Test(expected = NullParameterException.class)
+    public void testNullParameter() {
+
+        Object input = null;
+        checkObjectParameter(input);
+    }
+
+    /**
+     * Tests the check method with a valid parameter.
+     */
+    @Test
+    public void testValidParameter() {
+
+        Object input = new Object();
+        Object output = checkObjectParameter(input);
+        assertEquals(input, output);
+    }
+
 }

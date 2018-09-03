@@ -26,6 +26,7 @@
    <list n="listOfChildren">
       <hash><url n="URL" path="../Batch/Batch.jpr"/></hash>
       <hash><url n="URL" path="Checks/Checks.jpr"/></hash>
+      <hash><url n="URL" path="Checks-Tests/Checks-Tests.jpr"/></hash>
       <hash><url n="URL" path="Component/Component.jpr"/></hash>
       <hash><url n="URL" path="Component-Tests/Component-Tests.jpr"/></hash>
       <hash><url n="URL" path="Concurrent/Concurrent.jpr"/></hash>
