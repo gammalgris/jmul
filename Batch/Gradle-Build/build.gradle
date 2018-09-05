@@ -15,6 +15,7 @@ task copyBatchFiles(type: Copy) {
 	from '../../Utilities/Document-Binary-Tests/create-testdata-binary.bat'
 	from '../../Utilities/Document-CSV-Tests/create-testdata-csv.bat'
 	from '../../Utilities/Document-Text-Tests/create-testdata-text.bat'
+	from '../../Utilities/External-Tests/create-testdata-external.bat'
 	from '../../Utilities/IO-Tests/create-testdata-io.bat'
 	from '../../Utilities/XML-Tests/create-testdata-xml.bat'
 	into targetDir
@@ -74,6 +75,7 @@ sourceSets {
 						'../../Utilities/Document-Binary/src',
 						'../../Utilities/Document-CSV/src',
 						'../../Utilities/Document-Text/src',
+						'../../Utilities/External/src',
 						'../../Utilities/Formula/src',
 						'../../Utilities/IO/src',
 						'../../Utilities/Logging/src',
@@ -116,6 +118,7 @@ sourceSets {
 						'../../Utilities/Document-Binary-Tests/src',
 						'../../Utilities/Document-CSV-Tests/src',
 						'../../Utilities/Document-Text-Tests/src',
+						'../../Utilities/External-Tests/src',
 						'../../Utilities/Formula-Tests/src',
 						'../../Utilities/Helper-Tests/src',
 						'../../Utilities/IO-Tests/src',

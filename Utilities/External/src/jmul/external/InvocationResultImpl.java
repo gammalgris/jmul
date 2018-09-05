@@ -29,32 +29,78 @@ package jmul.external;
 
 
 /**
- * This interface describes the result of an external command invocation.
+ * An implementation of an invocation result.
  *
  * @author Kristian Kutin
  */
-public interface InvocationResult {
+public class InvocationResultImpl implements InvocationResult {
+
+    /**
+     * The exit value of the invoked command.
+     */
+    private final int exitValue;
+
+    /**
+     * The standard output of the invoked command.
+     */
+    private final String standardOutput;
+
+    /**
+     * The error output of the invoked command.
+     */
+    private final String errorOutput;
+
+    /**
+     * Creates a new invocation result according to the specified parameters.
+     *
+     * @param anExitValue
+     *        an exit value
+     * @param theStandardOutput
+     *        the standard outout
+     * @param theErrorOutput
+     *        the error output
+     */
+    public InvocationResultImpl(int anExitValue, String theStandardOutput, String theErrorOutput) {
+
+        super();
+
+        exitValue = anExitValue;
+        standardOutput = theStandardOutput;
+        errorOutput = theErrorOutput;
+    }
 
     /**
      * Returns the exit value of the invoked command.
      *
      * @return the exit value
      */
-    int getExitValue();
+    @Override
+    public int getExitValue() {
+
+        return exitValue;
+    }
 
     /**
      * Returns the standard output of the invoked command.
      *
      * @return the standard output
      */
-    String getStandardOutput();
+    @Override
+    public String getStandardOutput() {
+
+        return standardOutput;
+    }
 
     /**
      * Returns the error output of the invoked command.
      *
      * @return the error output
      */
-    String getErrorOutput();
+    @Override
+    public String getErrorOutput() {
+
+        return errorOutput;
+    }
 
     /**
      * Checks the exit value for a successful execution.
@@ -62,7 +108,11 @@ public interface InvocationResult {
      * @return <code>true</code> if the command was successfully executed,
      *         else <code>false</code>
      */
-    boolean wasSuccessful();
+    @Override
+    public boolean wasSuccessful() {
+
+        return exitValue == 0;
+    }
 
     /**
      * Checks the exit value for a failed execution.
@@ -70,6 +120,10 @@ public interface InvocationResult {
      * @return <code>true</code> if the command execution failed,
      *         else <code>false</code>
      */
-    boolean hasFailed();
+    @Override
+    public boolean hasFailed() {
+
+        return !wasSuccessful();
+    }
 
 }

@@ -43,6 +43,9 @@
             <fileset dir="${package.document-text.src.dir}">
                 <include name="**/*.java" />
             </fileset>
+            <fileset dir="${package.external.src.dir}">
+                <include name="**/*.java" />
+            </fileset>
             <fileset dir="${package.formula.src.dir}">
                 <include name="**/*.java" />
             </fileset>

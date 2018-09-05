@@ -28,48 +28,29 @@
 package jmul.external;
 
 
+import static jmul.checks.ParameterCheckHelper.checkExceptionCause;
+import static jmul.checks.ParameterCheckHelper.checkExceptionMessage;
+
+
 /**
- * This interface describes the result of an external command invocation.
+ * The exception is thrown if an error occurs during the execution of an external
+ * process.
  *
  * @author Kristian Kutin
  */
-public interface InvocationResult {
+public class ExternalProcessExecutionException extends RuntimeException {
 
     /**
-     * Returns the exit value of the invoked command.
+     * Creates a new exception according to the specified parameters.
      *
-     * @return the exit value
+     * @param aMessage
+     *        an exception message
+     * @param aCause
+     *        the actual exception
      */
-    int getExitValue();
+    public ExternalProcessExecutionException(String aMessage, Throwable aCause) {
 
-    /**
-     * Returns the standard output of the invoked command.
-     *
-     * @return the standard output
-     */
-    String getStandardOutput();
-
-    /**
-     * Returns the error output of the invoked command.
-     *
-     * @return the error output
-     */
-    String getErrorOutput();
-
-    /**
-     * Checks the exit value for a successful execution.
-     *
-     * @return <code>true</code> if the command was successfully executed,
-     *         else <code>false</code>
-     */
-    boolean wasSuccessful();
-
-    /**
-     * Checks the exit value for a failed execution.
-     *
-     * @return <code>true</code> if the command execution failed,
-     *         else <code>false</code>
-     */
-    boolean hasFailed();
+        super(checkExceptionMessage(aMessage), checkExceptionCause(aCause));
+    }
 
 }

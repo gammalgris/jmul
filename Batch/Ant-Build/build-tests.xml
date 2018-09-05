@@ -38,6 +38,9 @@
             <fileset dir="${package.document-text-tests.src.dir}">
                 <include name="**/*.java" />
             </fileset>
+            <fileset dir="${package.external-tests.src.dir}">
+                <include name="**/*.java" />
+            </fileset>
             <fileset dir="${package.formula-tests.src.dir}">
                 <include name="**/*.java" />
             </fileset>
@@ -108,6 +111,9 @@
             <file file="${package.document-text-tests.testdata.creator}" />
         </copy>
         <copy todir="${project.tmp.dir}" overwrite="true">
+            <file file="${package.external-tests.testdata.creator}" />
+        </copy>
+        <copy todir="${project.tmp.dir}" overwrite="true">
             <file file="${package.io-tests.testdata.creator}" />
         </copy>
         <copy todir="${project.tmp.dir}" overwrite="true">
@@ -138,6 +144,10 @@
         <exec executable="cmd" dir="${project.tmp.dir}">
             <arg value="/C" />
             <arg value="${project.tmp.document-text-tests.testdata.creator}" />
+        </exec>
+        <exec executable="cmd" dir="${project.tmp.dir}">
+            <arg value="/C" />
+            <arg value="${project.tmp.external-tests.testdata.creator}" />
         </exec>
         <exec executable="cmd" dir="${project.tmp.dir}">
             <arg value="/C" />

@@ -3,7 +3,9 @@
 ## Modules
 (in alphabetical order)
 
+* Checks
 * Constants
+* External
 * Test
 
 ## Libraries

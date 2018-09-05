@@ -80,6 +80,8 @@
         <echo message="  package document-md src dir ................. ${package.document-md.src.dir}" />
         <echo message="  package document-text dir ................... ${package.document-text.dir}" />
         <echo message="  package document-text src dir ............... ${package.document-text.src.dir}" />
+        <echo message="  package external dir ........................ ${package.external.dir}" />
+        <echo message="  package external src dir .................... ${package.external.src.dir}" />
         <echo message="  package formula dir ......................... ${package.formula.dir}" />
         <echo message="  package formula src dir ..................... ${package.formula.src.dir}" />
         <echo message="  package io dir .............................. ${package.io.dir}" />
@@ -143,6 +145,8 @@
         <echo message="  package document-md tests src dir ........... ${package.document-md-tests.src.dir}" />
         <echo message="  package document-text tests dir ............. ${package.document-text-tests.dir}" />
         <echo message="  package document-text tests src dir ......... ${package.document-text-tests.src.dir}" />
+        <echo message="  package external tests dir .................. ${package.external-tests.dir}" />
+        <echo message="  package external tests src dir .............. ${package.external-tests.src.dir}" />
         <echo message="  package formula tests dir ................... ${package.formula-tests.dir}" />
         <echo message="  package formula tests src dir ............... ${package.formula-tests.src.dir}" />
         <echo message="  package helper tests dir .................... ${package.helper-tests.dir}" />

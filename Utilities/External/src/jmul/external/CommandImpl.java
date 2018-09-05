@@ -33,6 +33,8 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
+import static jmul.checks.ParameterCheckHelper.checkStringArrayParameter;
+
 import static jmul.string.Constants.SPACE;
 
 
@@ -62,6 +64,8 @@ public class CommandImpl implements Command {
      *        the command and all its parameters
      */
     public CommandImpl(String... allCommandComponents) {
+
+        checkStringArrayParameter(allCommandComponents, 1);
 
         List<String> tmp = Arrays.asList(allCommandComponents);
         tmp = new ArrayList<>(tmp);

@@ -9,9 +9,9 @@
     <include file="${basedir}\..\Ant-Build\build-javadoc.xml" />
 
 
-    <property name="jar.classes.file" location="${project.tmp.deploy.dir}\jmul-webserver-${version.library}.jar" />
-    <property name="jar.sources.file" location="${project.tmp.deploy.dir}\jmul-webserver-${version.library}-sources.jar" />
-    <property name="jar.javadoc.file" location="${project.tmp.deploy.dir}\jmul-webserver-${version.library}-javadoc.jar" />
+    <property name="jar.classes.file" location="${project.tmp.deploy.dir}\jmul-webserver-${version}.jar" />
+    <property name="jar.sources.file" location="${project.tmp.deploy.dir}\jmul-webserver-${version}-sources.jar" />
+    <property name="jar.javadoc.file" location="${project.tmp.deploy.dir}\jmul-webserver-${version}-javadoc.jar" />
 
 
     <target name="info">
@@ -127,7 +127,7 @@
         <replace
             file="${project.tmp.deploy.dir}\startWebServer.properties"
             token="jmul-webserver-0.0.0.jar"
-            value="jmul-webserver-${version.library}.jar" />
+            value="jmul-webserver-${version}.jar" />
 
         <record name="${build.log}" action="stop" />
 

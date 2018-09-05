@@ -16,6 +16,9 @@
         <echo />
 
         <copy todir="${project.tmp.src.dir}" overwrite="true">
+            <fileset dir="${package.checks.src.dir}">
+                <include name="**/*.java" />
+            </fileset>
             <fileset dir="${package.constants.src.dir}">
                 <include name="**/*.java" />
             </fileset>
@@ -32,6 +35,9 @@
                 <include name="**/*.java" />
             </fileset>
             <fileset dir="${package.math.src.dir}">
+                <include name="**/*.java" />
+            </fileset>
+            <fileset dir="${package.metainfo.src.dir}">
                 <include name="**/*.java" />
             </fileset>
             <fileset dir="${package.misc.src.dir}">

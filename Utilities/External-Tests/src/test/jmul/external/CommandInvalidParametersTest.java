@@ -35,13 +35,32 @@ import jmul.test.classification.UnitTest;
 import org.junit.Test;
 
 
+/**
+ * This class contains tests for instantiating commands with invalid parameters.
+ *
+ * @author Kristian Kutin
+ */
 @UnitTest
 public class CommandInvalidParametersTest {
 
+    /**
+     * Tests instantiation of a command with a <code>null</code> parameter.
+     */
     @Test(expected = IllegalArgumentException.class)
-    public void testCommand() {
+    public void testNullParameter() {
 
-        new CommandImpl();
+        String[] input = null;
+        new CommandImpl(input);
+    }
+
+    /**
+     * Tests instantiation of a command with an empty string array parameter.
+     */
+    @Test(expected = IllegalArgumentException.class)
+    public void testEmptyParameter() {
+
+        String[] input = new String[] { };
+        new CommandImpl(input);
     }
 
 }
