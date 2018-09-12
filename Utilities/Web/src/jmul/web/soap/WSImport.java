@@ -62,10 +62,8 @@ import static jmul.string.Constants.SPACE;
 public class WSImport implements CodeGenerator {
 
     /**
-     * An exit code.
+     * An entity for invoking external commands.
      */
-    private static final int EXECUTION_OK = 0;
-
     private CommandInvoker invoker;
 
     /**
@@ -179,8 +177,7 @@ public class WSImport implements CodeGenerator {
         commandLine = commandLine.replace(ConfigurationReader.GENERATOR_INPUT_PLACEHOLDER, aSource);
         commandLine = commandLine.replace(ConfigurationReader.GENERATOR_TARGET_PLACEHOLDER, aTarget);
 
-        Command command = new CommandImpl(commandLine.split(SPACE));
-        return command;
+        return new CommandImpl(commandLine.split(SPACE));
     }
 
 }

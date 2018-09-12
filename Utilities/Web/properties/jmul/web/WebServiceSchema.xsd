@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+
+<xsd:schema
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xmlns="http://www.webservice-template.org"
+    targetNamespace="http://www.webservice-template.org"
+    elementFormDefault="qualified">
+
+    <xsd:simpleType name="ScriptPathAttribute">
+        <xsd:restriction base="xsd:string" />
+    </xsd:simpleType>
+
+    <xsd:simpleType name="WebPathAttribute">
+        <xsd:restriction base="xsd:string" />
+    </xsd:simpleType>
+
+    <xsd:complexType name="ScriptInvocationElement">
+        <xsd:attribute name="script-path" type="ScriptPathAttribute" />
+    </xsd:complexType>
+
+    <xsd:complexType name="WebServiceElement">
+        <xsd:choice minOccurs="1" maxOccurs="1">
+            <xsd:element name="script-invocation" type="ScriptInvocationElement" />
+            <!-- currently there are no other variants of web service configurations -->
+        </xsd:choice>
+        <xsd:attribute name="web-path" type="WebPathAttribute" />
+    </xsd:complexType>
+
+    <xsd:element name="webservice" type="WebServiceElement" />
+
+</xsd:schema>

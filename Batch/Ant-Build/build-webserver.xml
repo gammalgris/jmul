@@ -49,6 +49,9 @@
             <fileset dir="${package.web.src.dir}">
                 <include name="**/*.java" />
             </fileset>
+            <fileset dir="${package.xml.src.dir}">
+                <include name="**/*.java" />
+            </fileset>
         </copy>
 
         <record name="${build.log}" action="stop" />

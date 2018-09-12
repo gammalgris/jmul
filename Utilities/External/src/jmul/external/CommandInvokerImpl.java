@@ -33,8 +33,16 @@ import java.io.IOException;
 import static jmul.string.Constants.NEW_LINE;
 
 
+/**
+ * An implementation of an external command ivoker.
+ *
+ * @author Kristian Kutin
+ */
 public class CommandInvokerImpl implements CommandInvoker {
 
+    /**
+     * The default constructor.
+     */
     public CommandInvokerImpl() {
 
         super();
@@ -68,10 +76,6 @@ public class CommandInvokerImpl implements CommandInvoker {
 
         ProcessMonitor monitor = new ProcessMonitor(process);
 
-        //StringBuilder consoleOutput = new StringBuilder();
-        //StringBuilder errorOutput = new StringBuilder();
-
-
         int exitValue = Integer.MIN_VALUE;
 
         try {
@@ -80,9 +84,6 @@ public class CommandInvokerImpl implements CommandInvoker {
             // outputs are stored.
 
             exitValue = process.exitValue();
-
-            //consoleOutput.append(monitor.getOutputMessage());
-            //errorOutput.append(monitor.getErrorMessage());
 
         } catch (IllegalThreadStateException e) {
 
@@ -93,9 +94,6 @@ public class CommandInvokerImpl implements CommandInvoker {
 
                 exitValue = process.waitFor();
 
-                //consoleOutput.append(monitor.getOutputMessage());
-                //errorOutput.append(monitor.getErrorMessage());
-
             } catch (InterruptedException f) {
 
                 String message =
@@ -104,9 +102,7 @@ public class CommandInvokerImpl implements CommandInvoker {
             }
         }
 
-        InvocationResult result =
-            new InvocationResultImpl(exitValue, monitor.getOutputMessage(), monitor.getErrorMessage());
-        return result;
+        return new InvocationResultImpl(exitValue, monitor.getOutputMessage(), monitor.getErrorMessage());
     }
 
 }

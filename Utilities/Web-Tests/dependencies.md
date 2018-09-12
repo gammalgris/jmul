@@ -5,6 +5,7 @@
 
 * Checks
 * Constants
+* External
 * IO
 * Logging
 * Misc
@@ -13,6 +14,7 @@
 * String
 * Test
 * Web
+* Xml
 
 ## Libraries
 (in alphabetical order)

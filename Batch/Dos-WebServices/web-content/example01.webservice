@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<webservice
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.webservice-template.org properties/jmul/web/WebServiceSchema.xsd"
+    xmlns="http://www.webservice-template.org"
+    web-path="example01">
+
+    <script-invocation script-path="./test.bat" />
+
+</webservice>

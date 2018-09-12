@@ -311,6 +311,31 @@ public final class XmlParserHelper {
     }
 
     /**
+     * Checks if specified container contains subelements.
+     *
+     * @param subelements
+     *        the subelement container which is checked
+     * @param expectedCount
+     *        the expected subelement count
+     */
+    public static void assertHasXmlSubelements(SubelementList subelements, int expectedCount) {
+
+        assertHasXmlSubelements(subelements);
+
+        if (expectedCount < 0) {
+
+            String message = "A negative element count was specified!";
+            throw new IllegalArgumentException(message);
+        }
+
+        int actualCount = subelements.size();
+        if (actualCount != expectedCount) {
+
+            throw createNoMatchingSubelementCountException(subelements.getParentName(), expectedCount, actualCount);
+        }
+    }
+
+    /**
      * Checks if the specified container contains subelements of the specified
      * type.
      *
@@ -369,6 +394,8 @@ public final class XmlParserHelper {
      *
      * @param anElementName
      *        the name of an xml element
+     * @param markup
+     *        the missing markup element
      *
      * @return an exception
      */
@@ -381,6 +408,35 @@ public final class XmlParserHelper {
         message.append("\" has no subelements of the type \"");
         message.append(markup);
         message.append("\"!");
+
+        return new ParsingException(message);
+    }
+
+    /**
+     * Creates a new exception according to the specified parameters.
+     *
+     * @param anElementName
+     *        the name of an xml element
+     * @param theExpdctedSubelementCount
+     *        the expected subelement count
+     * @param theActualSubelementCount
+     *        the actual subelement count
+     *
+     * @return an exception
+     */
+    private static ParsingException createNoMatchingSubelementCountException(String anElementName,
+                                                                             int theExpdctedSubelementCount,
+                                                                             int theActualSubelementCount) {
+
+        StringBuilder message = new StringBuilder();
+
+        message.append("The element \"");
+        message.append(anElementName);
+        message.append("\" doesn't have the expected number of subelements (expected=");
+        message.append(theExpdctedSubelementCount);
+        message.append("; actual=");
+        message.append(theActualSubelementCount);
+        message.append(")!");
 
         return new ParsingException(message);
     }

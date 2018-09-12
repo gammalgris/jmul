@@ -180,7 +180,11 @@ public final class WebServerRunner {
      * @param aClass
      *
      * @return a web server instance
+     * 
+     * @deprecated This way doesn't work since the implementation classes don't have a default
+     *             constructor.
      */
+    @Deprecated
     private static Object instantiateWithDefaultConfiguration(Class aClass) {
 
         Object instance = null;

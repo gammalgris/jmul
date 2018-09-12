@@ -7,7 +7,7 @@
  * JMUL is a central repository for utilities which are used in my
  * other public and private repositories.
  *
- * Copyright (C) 2013  Kristian Kutin
+ * Copyright (C) 2018  Kristian Kutin
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -25,26 +25,23 @@
  * e-mail: kristian.kutin@arcor.de
  */
 
-package jmul.measures.definitions.reader;
+package jmul.web.service;
 
 
 import java.io.File;
 import java.io.IOException;
 
-import java.util.ArrayList;
-import java.util.List;
+import static jmul.web.service.WebServiceConfigurationMarkups.SCRIPT_INVOCATION_ELEMENT;
+import static jmul.web.service.WebServiceConfigurationMarkups.SCRIPT_PATH_ATTRIBUTE;
+import static jmul.web.service.WebServiceConfigurationMarkups.WEB_PATH_ATTRIBUTE;
+import static jmul.web.service.WebServiceConfigurationMarkups.WEB_SERVICE_ELEMENT;
 
-import static jmul.measures.definitions.reader.DefinitionMarkups.ABBREVIATION_ATTRIBUTE;
-import static jmul.measures.definitions.reader.DefinitionMarkups.CATEGORY_ATTRIBUTE;
-import static jmul.measures.definitions.reader.DefinitionMarkups.DEFINITION_ELEMENT;
-import static jmul.measures.definitions.reader.DefinitionMarkups.NAME_ATTRIBUTE;
-import static jmul.measures.definitions.reader.DefinitionMarkups.NORMALIZED_VALUE_ATTRIBUTE;
-import static jmul.measures.definitions.reader.DefinitionMarkups.UNIT_ELEMENT;
-
+import jmul.xml.ParsingException;
 import jmul.xml.SubelementList;
 import static jmul.xml.XmlParserHelper.assertHasXmlSubelements;
 import static jmul.xml.XmlParserHelper.assertMatchesXmlElement;
 import static jmul.xml.XmlParserHelper.getXmlAttribute;
+import static jmul.xml.XmlParserHelper.matchesXmlElement;
 import jmul.xml.reader.XmlDocumentReader;
 import jmul.xml.reader.XmlDocumentReaderImpl;
 
@@ -55,11 +52,11 @@ import org.xml.sax.SAXException;
 
 
 /**
- * An implementation of DefinitionReader.
+ * An implementation of a web service confiugration reader.
  *
  * @author Kristian Kutin
  */
-public class DefinitionReaderImpl implements DefinitionReader {
+public class WebServiceConfigurationReaderImpl implements WebServiceConfigurationReader {
 
     /**
      * The class member contains a reader for xml documents.
@@ -69,7 +66,7 @@ public class DefinitionReaderImpl implements DefinitionReader {
     /**
      * The default constructor.
      */
-    public DefinitionReaderImpl() {
+    public WebServiceConfigurationReaderImpl() {
 
         super();
 
@@ -77,13 +74,12 @@ public class DefinitionReaderImpl implements DefinitionReader {
     }
 
     /**
-     * The method reads the definitions from a definition file and updates a
-     * system of measurement accordingly.
+     * The method reads the web service configuration from a configuration file.
      *
      * @param aFilename
      *        the filename of a definition file
      *
-     * @return a reference to the updated system of measurement
+     * @return the web service configuration
      *
      * @throws SAXException
      *         This exception is thrown if the xml structure is invalid
@@ -91,20 +87,19 @@ public class DefinitionReaderImpl implements DefinitionReader {
      *         This exception is thrown if the IO operation couldn't be executed
      */
     @Override
-    public Definition readDefinition(String aFilename) throws SAXException, IOException {
+    public WebServiceConfiguration readConfiguration(String aFilename) throws SAXException, IOException {
 
         Document document = loadDocument(aFilename);
         return parseDocument(document);
     }
 
     /**
-     * The method reads the definitions from a definition file and updates a
-     * system of measurement accordingly.
+     * The method reads the web service configuration from a configuration file.
      *
      * @param aFile
      *        a definition file
      *
-     * @return a reference to the updated system of measurement
+     * @return the web service configuration
      *
      * @throws SAXException
      *         This exception is thrown if the xml structure is invalid
@@ -112,7 +107,7 @@ public class DefinitionReaderImpl implements DefinitionReader {
      *         This exception is thrown if the IO operation couldn't be executed
      */
     @Override
-    public Definition readDefinition(File aFile) throws SAXException, IOException {
+    public WebServiceConfiguration readConfiguration(File aFile) throws SAXException, IOException {
 
         Document document = loadDocument(aFile);
         return parseDocument(document);
@@ -153,51 +148,40 @@ public class DefinitionReaderImpl implements DefinitionReader {
     }
 
     /**
-     * Parses the content of a definition file.
+     * Parses the content of a web service configuration file.
      *
      * @param aDocument
      *
      * @return a definition of units of measurement
      */
-    private static Definition parseDocument(Document aDocument) {
+    private static WebServiceConfiguration parseDocument(Document aDocument) {
 
         Node rootNode = aDocument.getDocumentElement();
-        assertMatchesXmlElement(rootNode, DEFINITION_ELEMENT);
+        assertMatchesXmlElement(rootNode, WEB_SERVICE_ELEMENT);
 
-
-        Node categoryAttribute = getXmlAttribute(rootNode, CATEGORY_ATTRIBUTE);
-        String category = categoryAttribute.getTextContent();
+        Node webPathAttribute = getXmlAttribute(rootNode, WEB_PATH_ATTRIBUTE);
+        String webPath = webPathAttribute.getTextContent();
 
 
         SubelementList rootSubelements = new SubelementList(rootNode);
-        assertHasXmlSubelements(rootSubelements);
+        assertHasXmlSubelements(rootSubelements, 1);
 
-        for (Node unitElement : rootSubelements) {
 
-            assertMatchesXmlElement(unitElement, UNIT_ELEMENT);
+        Node subelement = rootSubelements.iterator().next();
+
+
+        if (matchesXmlElement(subelement, SCRIPT_INVOCATION_ELEMENT)) {
+
+            Node scriptPathAttribute = getXmlAttribute(subelement, SCRIPT_PATH_ATTRIBUTE);
+            String scriptPath = scriptPathAttribute.getTextContent();
+
+            return new WebServiceConfigurationImpl(webPath, scriptPath);
+
+        } else {
+
+            String message = "An unexpected XML element (" + subelement.getNodeName() + ") was encountered!";
+            throw new ParsingException(message);
         }
-
-
-        List<Unit> unitEntries = new ArrayList<>();
-
-        for (Node unitElement : rootSubelements) {
-
-            Node nameAttribute = getXmlAttribute(unitElement, NAME_ATTRIBUTE);
-            String unitName = nameAttribute.getTextContent();
-
-            Node abbreviationAttribute = getXmlAttribute(unitElement, ABBREVIATION_ATTRIBUTE);
-            String unitAbbreviation = abbreviationAttribute.getTextContent();
-
-            Node normalizedValueAttribute = getXmlAttribute(unitElement, NORMALIZED_VALUE_ATTRIBUTE);
-            double normalizedValue = Double.parseDouble(normalizedValueAttribute.getTextContent());
-
-            Unit unit = new Unit(unitName, unitAbbreviation, normalizedValue);
-
-            unitEntries.add(unit);
-        }
-
-
-        return new Definition(category, unitEntries);
     }
 
 }

@@ -8,7 +8,7 @@
     <include file="${basedir}\..\Ant-Build\build.xml" />
 
 
-    <property name="status.line" value="version: ${version.library} (${version.rcs})&lt;br /&gt;build timestamp: ${project.build.timestamp}" />
+    <property name="status.line" value="version: ${version} (${revision})&lt;br /&gt;build timestamp: ${project.build.timestamp}" />
 
 
     <target name="build">

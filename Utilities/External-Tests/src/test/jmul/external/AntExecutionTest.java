@@ -38,7 +38,6 @@ import jmul.external.CommandInvokerImpl;
 import jmul.external.InvocationResult;
 
 import static jmul.string.Constants.NEW_LINE;
-import static jmul.string.Constants.SPACE;
 
 import jmul.test.classification.UnitTest;
 import jmul.test.exceptions.FailedTestException;
@@ -51,12 +50,12 @@ import org.junit.Test;
 
 
 /**
- * This class contains tests to check the execution of powershell skripts with a batch runner.
+ * This class contains tests to check the execution of ant skripts.
  *
  * @author Kristian Kutin
  */
 @UnitTest
-public class PowershellExecutionTest {
+public class AntExecutionTest {
 
     /**
      * The command invoker.
@@ -82,14 +81,14 @@ public class PowershellExecutionTest {
     }
 
     /**
-     * Invokes a simple powershell script which prints "Hello World!" to the console.
+     * Invokes a simple ant script which prints "Hello World!" to the console.
      */
     @Test
-    public void testPowershellExample01() {
+    public void testAntExample01() {
 
-        String baseDirectoryPath = "testdata-external\\powershell\\";
+        String baseDirectoryPath = "testdata-external\\ant\\";
         String runnerPath = baseDirectoryPath + "runner.bat";
-        String scriptPath = "example01.ps1";
+        String scriptPath = "example01.xml";
         String scriptPath2 = baseDirectoryPath + scriptPath;
 
         Command command = new CommandImpl(runnerPath, scriptPath);
@@ -108,11 +107,18 @@ public class PowershellExecutionTest {
 
 
         StringBuilder buffer = new StringBuilder();
-        buffer.append("running ");
+        buffer.append("Buildfile: ");
         buffer.append(fullScriptPath);
-        buffer.append("...");
         buffer.append(NEW_LINE);
-        buffer.append("Hello World!");
+        buffer.append(NEW_LINE);
+        buffer.append("test:");
+        buffer.append(NEW_LINE);
+        buffer.append("     [echo] Hello World!");
+        buffer.append(NEW_LINE);
+        buffer.append(NEW_LINE);
+        buffer.append("BUILD SUCCESSFUL");
+        buffer.append(NEW_LINE);
+        buffer.append("Total time: 0 seconds");
 
         String expectedOutput = buffer.toString();
         String actualOutput = result.getStandardOutput();
@@ -129,14 +135,14 @@ public class PowershellExecutionTest {
     }
 
     /**
-     * Invokes a simple powershell script which terminates with an exit code of 1.
+     * Invokes a simple ant script which fails.
      */
     @Test
-    public void testPowershellExample02() {
+    public void testAntExample02() {
 
-        String baseDirectoryPath = "testdata-external\\powershell\\";
+        String baseDirectoryPath = "testdata-external\\ant\\";
         String runnerPath = baseDirectoryPath + "runner.bat";
-        String scriptPath = "example02.ps1";
+        String scriptPath = "example02.xml";
         String scriptPath2 = baseDirectoryPath + scriptPath;
 
         Command command = new CommandImpl(runnerPath, scriptPath);
@@ -155,57 +161,11 @@ public class PowershellExecutionTest {
 
 
         StringBuilder buffer = new StringBuilder();
-        buffer.append("running ");
+        buffer.append("Buildfile: ");
         buffer.append(fullScriptPath);
-        buffer.append("...");
         buffer.append(NEW_LINE);
-        buffer.append("An error occurred!");
-
-        String expectedOutput = buffer.toString();
-        String actualOutput = result.getStandardOutput();
-
-        printString(expectedOutput);
-        printString(actualOutput);
-
-
-        assertEquals(4, result.getExitValue());
-        assertTrue(result.hasFailed());
-        assertEquals(expectedOutput.length(), actualOutput.length());
-        assertEquals(expectedOutput, actualOutput);
-        assertEquals("", result.getErrorOutput());
-    }
-
-    /**
-     * Invokes a simple powershell script which throws an exception.
-     */
-    @Test
-    public void testPowershellExample03() {
-
-        String baseDirectoryPath = "testdata-external\\powershell\\";
-        String runnerPath = baseDirectoryPath + "runner.bat";
-        String scriptPath = "example03.ps1";
-        String scriptPath2 = baseDirectoryPath + scriptPath;
-
-        Command command = new CommandImpl(runnerPath, scriptPath);
-        InvocationResult result = invoker.invoke(command);
-
-
-        String fullScriptPath = null;
-        try {
-
-            File f = new File(scriptPath2);
-            fullScriptPath = f.getCanonicalPath();
-
-        } catch (IOException e) {
-
-            throw new FailedTestException("Unable to resolve path!", e);
-        }
-
-
-        StringBuilder buffer = new StringBuilder();
-        buffer.append("running ");
-        buffer.append(fullScriptPath);
-        buffer.append("...");
+        buffer.append(NEW_LINE);
+        buffer.append("test:");
 
         String expectedOutput = buffer.toString();
         String actualOutput = result.getStandardOutput();
@@ -215,33 +175,27 @@ public class PowershellExecutionTest {
 
 
         buffer = new StringBuilder();
-        buffer.append("Oops!");
         buffer.append(NEW_LINE);
-        buffer.append("At ");
+        buffer.append("BUILD FAILED");
+        buffer.append(NEW_LINE);
         buffer.append(fullScriptPath);
-        buffer.append(":1 char:1");
+        buffer.append(":5: Oops!");
         buffer.append(NEW_LINE);
-        buffer.append("+ throw \"Oops!\"");
         buffer.append(NEW_LINE);
-        buffer.append("+ ~~~~~~~~~~~~~");
-        buffer.append(NEW_LINE);
-        buffer.append("    + CategoryInfo          : OperationStopped: (Oops!:String) [], RuntimeException");
-        buffer.append(NEW_LINE);
-        buffer.append("    + FullyQualifiedErrorId : Oops!");
-        buffer.append(NEW_LINE);
-        buffer.append(SPACE);
+        buffer.append("Total time: 0 seconds");
 
         String expectedErrorOutput = buffer.toString();
         String actualErrorOutput = result.getErrorOutput();
 
-        printString(expectedErrorOutput);
-        printString(actualErrorOutput);
+        printString(expectedOutput);
+        printString(actualOutput);
 
 
-        assertEquals(4, result.getExitValue());
+        assertEquals(1, result.getExitValue());
         assertTrue(result.hasFailed());
         assertEquals(expectedOutput.length(), actualOutput.length());
         assertEquals(expectedOutput, actualOutput);
+        assertEquals(expectedErrorOutput.length(), actualErrorOutput.length());
         assertEquals(expectedErrorOutput, actualErrorOutput);
     }
 

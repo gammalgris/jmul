@@ -1,13 +1,13 @@
 /*
  * SPDX-License-Identifier: GPL-3.0
- * 
- * 
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
  * other public and private repositories.
  *
- * Copyright (C) 2013  Kristian Kutin
+ * Copyright (C) 2018  Kristian Kutin
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -25,7 +25,7 @@
  * e-mail: kristian.kutin@arcor.de
  */
 
-package jmul.measures.definitions.reader;
+package jmul.web.service;
 
 
 import java.io.File;
@@ -35,42 +35,40 @@ import org.xml.sax.SAXException;
 
 
 /**
- * The interface describes an entity which reads a definition file.
+ * The interface describes an entity which reads a web service confiugration file.
  *
  * @author Kristian Kutin
  */
-public interface DefinitionReader {
+public interface WebServiceConfigurationReader {
 
     /**
-     * The method reads the definitions from a definition file and updates a
-     * system of measurement accordingly.
+     * The method reads the web service configuration from a configuration file.
      *
      * @param aFilename
      *        the filename of a definition file
      *
-     * @return a reference to the updated system of measurement
+     * @return the web service configuration
      *
      * @throws SAXException
      *         This exception is thrown if the xml structure is invalid
      * @throws IOException
      *         This exception is thrown if the IO operation couldn't be executed
      */
-    Definition readDefinition(String aFilename) throws SAXException, IOException;
+    WebServiceConfiguration readConfiguration(String aFilename) throws SAXException, IOException;
 
     /**
-     * The method reads the definitions from a definition file and updates a
-     * system of measurement accordingly.
+     * The method reads the web service configuration from a configuration file.
      *
      * @param aFile
      *        a definition file
      *
-     * @return a reference to the updated system of measurement
+     * @return the web service configuration
      *
      * @throws SAXException
      *         This exception is thrown if the xml structure is invalid
      * @throws IOException
      *         This exception is thrown if the IO operation couldn't be executed
      */
-    Definition readDefinition(File aFile) throws SAXException, IOException;
+    WebServiceConfiguration readConfiguration(File aFile) throws SAXException, IOException;
 
 }
