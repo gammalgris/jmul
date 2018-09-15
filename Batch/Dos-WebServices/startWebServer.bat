@@ -14,7 +14,7 @@ call:defineMacros
 
 set "initializerPath=%~dp0"
 
-call:loadProperties %initializerPath%startWebServer.properties
+call:loadProperties "%initializerPath%startWebServer.properties"
 %ifError% (
 
 	echo ERROR %ERRORLEVEL%: The properties couldn't be loaded! >&2
@@ -29,7 +29,7 @@ title %windowTitle%
 
 cd /D "%initializerPath%"
 
-call %initializerRunner% 2>nul
+call "%initializerRunner%" 2>nul
 if %ERRORLEVEL%==0 (
 
 	rem OK
@@ -42,7 +42,7 @@ if %ERRORLEVEL%==0 (
 )
 
 
-call %environmentCheck% 2>nul
+call "%environmentCheck%" 2>nul
 if %ERRORLEVEL%==0 (
 
 	rem OK
@@ -55,7 +55,7 @@ if %ERRORLEVEL%==0 (
 )
 
 
-if exist %webServerLibraryPath% (
+if exist "%webServerLibraryPath%" (
 
 	rem OK
 
@@ -169,7 +169,7 @@ exit /b 0
 	set "_fileName=%_fileName:"=%"
 
 
-	if not exist %_fileName% (
+	if not exist "%_fileName%" (
 
 		echo ERROR ^(%0^): The specified file '%_fileName%' doesn't exist! >&2
 		%return% 3

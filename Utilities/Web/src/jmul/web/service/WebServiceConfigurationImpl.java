@@ -28,6 +28,9 @@
 package jmul.web.service;
 
 
+import java.util.Collections;
+import java.util.List;
+
 import static jmul.checks.ParameterCheckHelper.checkFileNameParameter;
 import static jmul.checks.ParameterCheckHelper.checkStringParameter;
 
@@ -50,19 +53,27 @@ public class WebServiceConfigurationImpl implements WebServiceConfiguration {
     private final String scriptPath;
 
     /**
+     * Contains all parameters.
+     */
+    private final List<String> parameters;
+
+    /**
      * Creates a new web service configuration according to the specified parameters.
      *
      * @param aWebPath
      *        a web path for invoking the web service
      * @param aScriptPath
      *        a relative or absolute file path to invoke a script file
+     * @param someParameters
+     *        all parameters which are needed to invoke the script
      */
-    public WebServiceConfigurationImpl(String aWebPath, String aScriptPath) {
+    public WebServiceConfigurationImpl(String aWebPath, String aScriptPath, List<String> someParameters) {
 
         super();
 
         webPath = checkStringParameter(aWebPath);
         scriptPath = checkFileNameParameter(aScriptPath);
+        parameters = Collections.unmodifiableList(someParameters);
     }
 
     /**
@@ -77,7 +88,7 @@ public class WebServiceConfigurationImpl implements WebServiceConfiguration {
     }
 
     /**
-     * The script which generates a the response to the web service call.
+     * Returns the path to the script which generates the response to the web service call.
      *
      * @return a relative or absolute script path
      */
@@ -85,6 +96,17 @@ public class WebServiceConfigurationImpl implements WebServiceConfiguration {
     public String getScriptPath() {
 
         return scriptPath;
+    }
+
+    /**
+     * Returns all parameters with which to invoke the script.
+     *
+     * @return all parameters
+     */
+    @Override
+    public String[] getParameters() {
+
+        return parameters.toArray(new String[] { });
     }
 
 }

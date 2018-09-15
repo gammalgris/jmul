@@ -43,10 +43,17 @@ public interface WebServiceConfiguration {
     String getWebPath();
 
     /**
-     * The script which generates a the response to the web service call.
+     * Returns the path to the script which generates the response to the web service call.
      *
      * @return a relative or absolute script path
      */
     String getScriptPath();
+
+    /**
+     * Returns all parameters with which to invoke the script.
+     *
+     * @return all parameters
+     */
+    String[] getParameters();
 
 }

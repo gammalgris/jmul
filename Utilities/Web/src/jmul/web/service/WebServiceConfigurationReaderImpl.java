@@ -31,6 +31,11 @@ package jmul.web.service;
 import java.io.File;
 import java.io.IOException;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import static jmul.web.service.WebServiceConfigurationMarkups.PARAMETERS_ELEMENT;
+import static jmul.web.service.WebServiceConfigurationMarkups.PARAMETER_ELEMENT;
 import static jmul.web.service.WebServiceConfigurationMarkups.SCRIPT_INVOCATION_ELEMENT;
 import static jmul.web.service.WebServiceConfigurationMarkups.SCRIPT_PATH_ATTRIBUTE;
 import static jmul.web.service.WebServiceConfigurationMarkups.WEB_PATH_ATTRIBUTE;
@@ -38,9 +43,11 @@ import static jmul.web.service.WebServiceConfigurationMarkups.WEB_SERVICE_ELEMEN
 
 import jmul.xml.ParsingException;
 import jmul.xml.SubelementList;
+import jmul.xml.SubelementMap;
 import static jmul.xml.XmlParserHelper.assertHasXmlSubelements;
 import static jmul.xml.XmlParserHelper.assertMatchesXmlElement;
 import static jmul.xml.XmlParserHelper.getXmlAttribute;
+import static jmul.xml.XmlParserHelper.hasXmlSubelement;
 import static jmul.xml.XmlParserHelper.matchesXmlElement;
 import jmul.xml.reader.XmlDocumentReader;
 import jmul.xml.reader.XmlDocumentReaderImpl;
@@ -175,13 +182,53 @@ public class WebServiceConfigurationReaderImpl implements WebServiceConfiguratio
             Node scriptPathAttribute = getXmlAttribute(subelement, SCRIPT_PATH_ATTRIBUTE);
             String scriptPath = scriptPathAttribute.getTextContent();
 
-            return new WebServiceConfigurationImpl(webPath, scriptPath);
+            List<String> parameters;
+            SubelementMap scriptInvocationSubelements = new SubelementMap(subelement);
+
+            if (hasXmlSubelement(scriptInvocationSubelements, PARAMETERS_ELEMENT)) {
+
+                Node parametersNode = scriptInvocationSubelements.getSubelement(PARAMETERS_ELEMENT);
+                parameters = parseParameters(parametersNode);
+
+            } else {
+
+                parameters = new ArrayList<>();
+            }
+
+            return new WebServiceConfigurationImpl(webPath, scriptPath, parameters);
 
         } else {
 
             String message = "An unexpected XML element (" + subelement.getNodeName() + ") was encountered!";
             throw new ParsingException(message);
         }
+    }
+
+    /**
+     * Parses the parameters as specified in the configuration file.
+     *
+     * @param aNode
+     *        the local root node for parameter informations
+     *
+     * @return a parameter list
+     */
+    private static List<String> parseParameters(Node aNode) {
+
+        assertMatchesXmlElement(aNode, PARAMETERS_ELEMENT);
+
+        SubelementList rootSubelements = new SubelementList(aNode);
+
+        List<Node> parameterNodes = rootSubelements.getSubelements(PARAMETER_ELEMENT);
+        List<String> parameters = new ArrayList<>();
+
+        for (Node parameterNode : parameterNodes) {
+
+            String parameter = parameterNode.getTextContent();
+
+            parameters.add(parameter);
+        }
+
+        return parameters;
     }
 
 }

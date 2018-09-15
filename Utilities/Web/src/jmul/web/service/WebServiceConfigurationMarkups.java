@@ -47,6 +47,8 @@ public enum WebServiceConfigurationMarkups implements XmlMarkup {
     SCRIPT_PATH_ATTRIBUTE("script-path", XML_ATTRIBUTE),
     WEB_PATH_ATTRIBUTE("web-path", XML_ATTRIBUTE),
 
+    PARAMETER_ELEMENT("parameter", XML_ELEMENT),
+    PARAMETERS_ELEMENT("parameters", XML_ELEMENT),
     SCRIPT_INVOCATION_ELEMENT("script-invocation", XML_ELEMENT),
     WEB_SERVICE_ELEMENT("webservice", XML_ELEMENT), ;
 

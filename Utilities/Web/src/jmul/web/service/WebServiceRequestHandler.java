@@ -34,6 +34,9 @@ import com.sun.net.httpserver.HttpHandler;
 import java.io.IOException;
 import java.io.OutputStream;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import jmul.external.Command;
 import jmul.external.CommandImpl;
 import jmul.external.CommandInvoker;
@@ -114,7 +117,15 @@ public class WebServiceRequestHandler implements HttpHandler {
      */
     public Command getCommand() {
 
-        return new CommandImpl(configuration.getScriptPath());
+        List<String> allComponents = new ArrayList<>();
+        allComponents.add(configuration.getScriptPath());
+
+        for (String s : configuration.getParameters()) {
+
+            allComponents.add(s);
+        }
+
+        return new CommandImpl(allComponents.toArray(new String[] { }));
     }
 
     /**
