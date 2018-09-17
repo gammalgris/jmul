@@ -1,7 +1,7 @@
 /*
  * SPDX-License-Identifier: GPL-3.0
- * 
- * 
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -26,6 +26,8 @@
  */
 
 package jmul.math.formula.operations;
+
+import jmul.math.MathHelper;
 
 
 /**
@@ -62,14 +64,14 @@ class Division extends BinaryOperatorBase implements Operator {
         checkOperands(someOperands);
 
         int length = someOperands.length;
-        int product = someOperands[0];
+        float product = someOperands[0];
 
         for (int a = 1; a < length; a++) {
 
             product /= someOperands[a];
         }
 
-        return product;
+        return MathHelper.round2Int(product);
     }
 
 }

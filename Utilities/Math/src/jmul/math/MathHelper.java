@@ -178,4 +178,48 @@ public final class MathHelper {
         return total;
     }
 
+    /**
+     * The function emulates mathematical rounding. Digits 5, 6, 7, 8 and 9 are rounded up.
+     * Digits 1, 2, 3, 4 are rounded down. For negative numbers the absolute value is rounded according to the
+     * specified algorithm. After rounding the sign is reapplied.
+     *
+     * @param f
+     *        a floating point number
+     *
+     * @return a rounded number
+     */
+    public static long round2Long(float f) {
+
+        long sign;
+        float absolute;
+
+        if (f < 0) {
+
+            sign = -1L;
+            absolute = -f;
+
+        } else {
+
+            sign = 1L;
+            absolute = f;
+        }
+
+        return (sign * Math.round(absolute));
+    }
+
+    /**
+     * The function emulates mathematical rounding. Digits 5, 6, 7, 8 and 9 are rounded up.
+     * Digits 1, 2, 3, 4 are rounded down. For negative numbers the absolute value is rounded according to the
+     * specified algorithm. After rounding the sign is reapplied.
+     *
+     * @param f
+     *        a floating point number
+     *
+     * @return a rounded number
+     */
+    public static int round2Int(float f) {
+
+        return (int) round2Long(f);
+    }
+
 }

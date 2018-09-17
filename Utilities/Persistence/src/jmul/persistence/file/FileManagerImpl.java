@@ -369,11 +369,8 @@ public class FileManagerImpl implements FileManager {
 
         if (aFile.isFile()) {
 
-            String expectedBaseDirectoryPath = null;
-            String specifiedFilePath = null;
-
-            expectedBaseDirectoryPath = baseDirectory.getCanonicalPath();
-            specifiedFilePath = aFile.getCanonicalPath();
+            String expectedBaseDirectoryPath = baseDirectory.getCanonicalPath();
+            String specifiedFilePath = aFile.getCanonicalPath();
 
             if (specifiedFilePath.startsWith(expectedBaseDirectoryPath) &&
                 aFile.getName().endsWith(templateFileSuffix) && aFile.exists()) {
