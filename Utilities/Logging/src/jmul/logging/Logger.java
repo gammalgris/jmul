@@ -36,7 +36,10 @@ package jmul.logging;
  * to the actual logging mechanism.</i>
  *
  * @author Kristian Kutin
+ *
+ * @deprecated This package causes various naming issues. Use the new package messaging instead.
  */
+@Deprecated
 public interface Logger {
 
     /**

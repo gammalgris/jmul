@@ -54,6 +54,7 @@
       <hash><url n="URL" path="Math-Tests/Math-Tests.jpr"/></hash>
       <hash><url n="URL" path="Measures/Measures.jpr"/></hash>
       <hash><url n="URL" path="Measures-Tests/Measures-Tests.jpr"/></hash>
+      <hash><url n="URL" path="Messaging/Messaging.jpr"/></hash>
       <hash><url n="URL" path="Metainfo/Metainfo.jpr"/></hash>
       <hash><url n="URL" path="Misc/Misc.jpr"/></hash>
       <hash><url n="URL" path="Misc-Tests/Misc-Tests.jpr"/></hash>

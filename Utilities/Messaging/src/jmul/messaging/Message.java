@@ -7,7 +7,7 @@
  * JMUL is a central repository for utilities which are used in my
  * other public and private repositories.
  *
- * Copyright (C) 2016  Kristian Kutin
+ * Copyright (C) 2018  Kristian Kutin
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -25,22 +25,21 @@
  * e-mail: kristian.kutin@arcor.de
  */
 
-package jmul.logging;
+package jmul.messaging;
 
 
 /**
- * The enumeration contains all supported log levels.
+ * This interface describes an entity which represents a message.
  *
  * @author Kristian Kutin
- *
- * @deprecated This package causes various naming issues. Use the new package messaging instead.
  */
-@Deprecated
-public enum LogLevels {
+public interface Message {
 
-    DEBUG,
-    WARNING,
-    ERROR,
-    INFO, ;
+    /**
+     * Returns the category of this message.
+     *
+     * @return a category
+     */
+    MessageCategory getMessageCategory();
 
 }

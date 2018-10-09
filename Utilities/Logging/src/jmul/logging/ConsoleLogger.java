@@ -38,7 +38,10 @@ import static jmul.string.Constants.TABULATOR;
  * A simple implementation of a console logger.
  *
  * @author Kristian Kutin
+ *
+ * @deprecated This package causes various naming issues. Use the new package messaging instead.
  */
+@Deprecated
 public class ConsoleLogger extends BaseLogger implements Logger {
 
     /**

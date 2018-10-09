@@ -114,7 +114,6 @@ public class NestedStreamsImpl implements NestedStreams {
         } catch (IOException e) {
 
             nestedExceptions.add(e);
-            int exceptionCount = 1;
 
             for (int a = 1; a < innerStreamIndex; a++) {
 
@@ -128,7 +127,6 @@ public class NestedStreamsImpl implements NestedStreams {
                 } catch (IOException t) {
 
                     nestedExceptions.add(t);
-                    exceptionCount++;
                 }
             }
 

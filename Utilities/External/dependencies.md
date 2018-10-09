@@ -5,6 +5,7 @@
 
 * Checks
 * Constants
+* Logging
 
 ## Libraries
 (in alphabetical order)

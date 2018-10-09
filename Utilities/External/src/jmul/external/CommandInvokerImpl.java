@@ -30,6 +30,8 @@ package jmul.external;
 
 import java.io.IOException;
 
+import jmul.logging.Logger;
+
 import static jmul.string.Constants.NEW_LINE;
 
 
@@ -41,11 +43,29 @@ import static jmul.string.Constants.NEW_LINE;
 public class CommandInvokerImpl implements CommandInvoker {
 
     /**
+     * A reference to a logger.
+     */
+    private Logger logger;
+
+    /**
      * The default constructor.
      */
     public CommandInvokerImpl() {
 
+        this(null);
+    }
+
+    /**
+     * Creates a new instance according to the specified parameters.
+     *
+     * @param aLogger
+     *        a reference to a logger
+     */
+    public CommandInvokerImpl(Logger aLogger) {
+
         super();
+
+        logger = aLogger;
     }
 
     /**
@@ -74,7 +94,7 @@ public class CommandInvokerImpl implements CommandInvoker {
         }
 
 
-        ProcessMonitor monitor = new ProcessMonitor(process);
+        ProcessMonitor monitor = new ProcessMonitor(process, logger);
 
         int exitValue = Integer.MIN_VALUE;
 
@@ -102,7 +122,8 @@ public class CommandInvokerImpl implements CommandInvoker {
             }
         }
 
-        return new InvocationResultImpl(exitValue, monitor.getOutputMessage(), monitor.getErrorMessage());
+        return new InvocationResultImpl(exitValue, monitor.getOutputMessage(), monitor.getErrorMessage(),
+                                        monitor.isCompleteOutput());
     }
 
 }

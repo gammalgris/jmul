@@ -13,6 +13,7 @@ call:resetErrorlevel
 call:defineMacros
 
 set "initializerPath=%~dp0"
+set "LOGFILE=%~n0.log"
 
 call:loadProperties "%initializerPath%startWebServer.properties"
 %ifError% (
@@ -70,10 +71,13 @@ if exist "%webServerLibraryPath%" (
 echo.
 echo.
 
-echo java.exe -cp %webServerClasspath% %webServerRunner% %webServerParameters%
+echo java.exe -cp "%webServerClasspath%" %webServerRunner% %webServerParameters%
 echo.
 
-java.exe -cp %webServerClasspath% %webServerRunner% %webServerParameters%
+
+(
+	start /B java -cp "%webServerClasspath%" %webServerRunner% %webServerParameters%
+) >> "%LOGFILE%"
 if %ERRORLEVEL%==0 (
 
 	rem OK
@@ -175,7 +179,7 @@ exit /b 0
 		%return% 3
 	)
 
-	for /F "tokens=*" %%a in (%_fileName%) do (
+	for /F "tokens=*" %%a in ('type "%_fileName%"') do (
 
 		call:setProperty "%%a"
 		%ifError% (

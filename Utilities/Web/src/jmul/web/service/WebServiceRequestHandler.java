@@ -48,12 +48,12 @@ import jmul.external.InvocationResultImpl;
 import jmul.logging.Logger;
 
 import static jmul.network.http.ResponseCodes.RC200;
+import static jmul.network.http.ResponseCodes.RC500;
 import static jmul.network.http.ResponseCodes.RC503;
 
 import static jmul.string.Constants.FILE_SEPARATOR;
 import static jmul.string.Constants.NEW_LINE;
 import static jmul.string.Constants.SLASH;
-import static jmul.string.Constants.TABULATOR;
 
 
 /**
@@ -136,14 +136,32 @@ public class WebServiceRequestHandler implements HttpHandler {
      *
      * @return the output of a command invocation
      */
-    private static byte[] getContent(InvocationResult aResult) {
+    private static String getOutput(InvocationResult aResult) {
+
+        String standardOutput = aResult.getStandardOutput();
+        String errorOutput = aResult.getErrorOutput();
+
+        // There is a chance that due to timing issues the output which is
+        // supposed to be captured, is missing.
 
         StringBuilder buffer = new StringBuilder();
-        buffer.append(aResult.getStandardOutput());
-        buffer.append(NEW_LINE);
-        buffer.append(aResult.getErrorOutput());
 
-        return buffer.toString().getBytes();
+        if (standardOutput != null) {
+
+            buffer.append(standardOutput);
+        }
+
+        if (errorOutput != null) {
+
+            if (standardOutput != null) {
+
+                buffer.append(NEW_LINE);
+            }
+
+            buffer.append(errorOutput);
+        }
+
+        return buffer.toString();
     }
 
     /**
@@ -166,7 +184,7 @@ public class WebServiceRequestHandler implements HttpHandler {
         logger.logInfo("invoked script: " + command);
 
 
-        CommandInvoker invoker = new CommandInvokerImpl();
+        CommandInvoker invoker = new CommandInvokerImpl(logger);
         InvocationResult result;
 
         try {
@@ -175,55 +193,47 @@ public class WebServiceRequestHandler implements HttpHandler {
 
         } catch (ExternalProcessExecutionException e) {
 
-            result = new InvocationResultImpl(1, "", toString(e));
+            logger.logError(e);
+
+            String message = e.getMessage();
+
+            logger.logError(message);
+            logger.logError(e);
+
+            result = new InvocationResultImpl(1, "", message, true);
         }
 
-        byte[] content = getContent(result);
+
+        String output = getOutput(result);
+        byte[] content = output.getBytes();
 
         if (result.wasSuccessful()) {
 
-            httpExchange.sendResponseHeaders(RC200.getValue(), content.length);
+            if (result.hasIncompleteOutput()) {
+
+                httpExchange.sendResponseHeaders(RC500.getValue(), content.length);
+
+            } else {
+
+                httpExchange.sendResponseHeaders(RC200.getValue(), content.length);
+            }
 
         } else {
 
-            httpExchange.sendResponseHeaders(RC503.getValue(), content.length);
+            if (result.hasIncompleteOutput()) {
+
+                httpExchange.sendResponseHeaders(RC500.getValue(), content.length);
+
+            } else {
+
+                httpExchange.sendResponseHeaders(RC503.getValue(), content.length);
+            }
         }
+
 
         OutputStream os = httpExchange.getResponseBody();
         os.write(content);
         os.close();
-    }
-
-    /**
-     * Returns a string representation of the specified parameter.
-     *
-     * @param anException
-     *        an exception
-     *
-     * @return a string representation
-     */
-    private static String toString(Throwable anException) {
-
-        StringBuilder buffer = new StringBuilder();
-
-        Throwable t = anException;
-        int identation = 0;
-        do {
-
-            for (int a = 0; a < identation; a++) {
-
-                buffer.append(TABULATOR);
-            }
-
-            buffer.append(t.getMessage());
-            buffer.append(NEW_LINE);
-
-            t = t.getCause();
-            identation++;
-
-        } while (t != null);
-
-        return buffer.toString();
     }
 
 }

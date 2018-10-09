@@ -72,4 +72,29 @@ public interface InvocationResult {
      */
     boolean hasFailed();
 
+    /**
+     * Checks if the command has produced some console output (i.e. standard output and error output).
+     *
+     * @return <code>true</code> if the command has produced some console output,
+     *         else <code>false</code>
+     */
+    boolean hasOutput();
+
+    /**
+     * Checks if the command has produced no console output (i.e. no standard output and no error output).
+     *
+     * @return <code>true</code> if the command has produced no console output,
+     *         else <code>false</code>
+     */
+    boolean hasNoOutput();
+
+    /**
+     * Checks if the command has produced incomplete console output (i.e. either the
+     * standard output or error output couldn't be captured completely).
+     *
+     * @return <code>true</code> if the command has produced incomplete console output,
+     *         else <code>false</code>
+     */
+    boolean hasIncompleteOutput();
+
 }

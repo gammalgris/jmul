@@ -33,6 +33,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 
+import jmul.logging.Logger;
+
 import static jmul.string.Constants.NEW_LINE;
 
 
@@ -59,6 +61,11 @@ public class InputStreamMonitor implements Runnable {
     private volatile boolean endOfStream;
 
     /**
+     * A reference to a logger.
+     */
+    private Logger logger;
+
+    /**
      * Creates a new instance according to the specified parameters.
      *
      * @param anInputStream
@@ -66,8 +73,25 @@ public class InputStreamMonitor implements Runnable {
      */
     InputStreamMonitor(InputStream anInputStream) {
 
+        this(anInputStream, null);
+    }
+
+    /**
+     * Creates a new instance according to the specified parameters.
+     *
+     * @param anInputStream
+     *        an input stream
+     * @param aLogger
+     *        a reference to a logger
+     */
+    InputStreamMonitor(InputStream anInputStream, Logger aLogger) {
+
+        super();
+
         InputStreamReader isr = new InputStreamReader(anInputStream);
         reader = new BufferedReader(isr);
+
+        logger = aLogger;
 
         streamContent = new StringBuffer();
 
@@ -82,33 +106,57 @@ public class InputStreamMonitor implements Runnable {
 
         boolean firstLine = true;
 
-        try {
+        while (!endOfStream) {
 
-            while (!endOfStream) {
+            String line;
 
-                String line = reader.readLine();
+            try {
 
-                endOfStream = line == null;
-                if (!endOfStream) {
+                line = reader.readLine();
 
-                    if (firstLine) {
+            } catch (IOException e) {
 
-                        firstLine = !firstLine;
-
-                    } else {
-
-                        streamContent.append(NEW_LINE);
-                    }
-
-                    streamContent.append(line);
-                }
+                logException(e);
+                break;
             }
+
+            endOfStream = line == null;
+            if (!endOfStream) {
+
+                if (firstLine) {
+
+                    firstLine = !firstLine;
+
+                } else {
+
+                    streamContent.append(NEW_LINE);
+                }
+
+                streamContent.append(line);
+            }
+        }
+
+        try {
 
             reader.close();
 
         } catch (IOException e) {
 
-            endOfStream = true;
+            logException(e);
+        }
+    }
+
+    /**
+     * Logs the specified exception.
+     *
+     * @param e
+     *        an exception
+     */
+    private void logException(Throwable e) {
+
+        if (logger != null) {
+
+            logger.logError(e);
         }
     }
 
@@ -131,14 +179,7 @@ public class InputStreamMonitor implements Runnable {
      */
     public String getStreamContent() {
 
-        if (endOfStream) {
-
-            return streamContent.toString();
-
-        } else {
-
-            return null;
-        }
+        return streamContent.toString();
     }
 
 }

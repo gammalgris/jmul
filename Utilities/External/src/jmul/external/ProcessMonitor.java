@@ -28,6 +28,9 @@
 package jmul.external;
 
 
+import jmul.logging.Logger;
+
+
 /**
  * This class monitors an external process.
  *
@@ -39,6 +42,11 @@ public class ProcessMonitor {
      * A reference to an external process.
      */
     private Process process;
+
+    /**
+     * A reference to a logger.
+     */
+    private Logger logger;
 
     /**
      * A monitor for the standard output of the process.
@@ -58,18 +66,33 @@ public class ProcessMonitor {
      */
     ProcessMonitor(Process aProcess) {
 
+        this(aProcess, null);
+    }
+
+    /**
+     * Creates a new instance according to the specified parameters.
+     *
+     * @param aProcess
+     *        an external process
+     * @param aLogger
+     *        a reference to a logger
+     */
+    ProcessMonitor(Process aProcess, Logger aLogger) {
+
+        super();
+
         process = aProcess;
+        logger = aLogger;
 
-        outputStreamMonitor = new InputStreamMonitor(process.getInputStream());
-        errorStreamMonitor = new InputStreamMonitor(process.getErrorStream());
+        outputStreamMonitor = new InputStreamMonitor(process.getInputStream(), logger);
+        errorStreamMonitor = new InputStreamMonitor(process.getErrorStream(), logger);
 
 
-        Thread t = null;
+        Thread t1 = new Thread(outputStreamMonitor);
+        Thread t2 = new Thread(errorStreamMonitor);
 
-        t = new Thread(outputStreamMonitor);
-        t.start();
-        t = new Thread(errorStreamMonitor);
-        t.start();
+        t1.start();
+        t2.start();
     }
 
     /**
@@ -90,6 +113,17 @@ public class ProcessMonitor {
     public String getErrorMessage() {
 
         return errorStreamMonitor.getStreamContent();
+    }
+
+    /**
+     * Checks if the console output (i.e. standard output and error output) is
+     * complete.
+     *
+     * @return <code>true</code> if both streams could be read, else <code>false</code>
+     */
+    public boolean isCompleteOutput() {
+
+        return outputStreamMonitor.reachedEndOfStream() && errorStreamMonitor.reachedEndOfStream();
     }
 
 }

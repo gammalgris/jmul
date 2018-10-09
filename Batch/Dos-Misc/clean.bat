@@ -44,7 +44,7 @@ exit /b 0
 
 	set projectDir=%~dp0..\..\Utilities\
 
-	set directory.length=60
+	set directory.length=61
 
 	set directory[1]=%projectDir%.data\
 	set directory[2]=%projectDir%Checks\classes\
@@ -73,42 +73,43 @@ exit /b 0
 	set directory[25]=%projectDir%Math-Tests\classes\
 	set directory[26]=%projectDir%Measures\classes\
 	set directory[27]=%projectDir%Measures-Tests\classes\
-	set directory[28]=%projectDir%Metainfo\classes\
-	set directory[29]=%projectDir%Misc\classes\
-	set directory[30]=%projectDir%Misc-Tests\classes\
-	set directory[31]=%projectDir%Network\classes\
-	set directory[32]=%projectDir%Network-Tests\classes\
-	set directory[33]=%projectDir%Persistence\classes\
-	set directory[34]=%projectDir%Persistence-Tests\classes\
-	set directory[35]=%projectDir%Reflection\classes\
-	set directory[36]=%projectDir%Reflection-Tests\classes\
-	set directory[37]=%projectDir%String\classes\
-	set directory[38]=%projectDir%String-Tests\classes\
-	set directory[39]=%projectDir%Test\classes\
-	set directory[40]=%projectDir%Test-Base\classes\
-	set directory[41]=%projectDir%Time\classes\
-	set directory[42]=%projectDir%Time-Tests\classes\
-	set directory[43]=%projectDir%Transformation\classes\
-	set directory[44]=%projectDir%Transformation-Tests\classes\
-	set directory[45]=%projectDir%Transformation-XML\classes\
-	set directory[46]=%projectDir%Version\classes\
-	set directory[47]=%projectDir%Web\classes\
-	set directory[48]=%projectDir%Web-Tests\classes\
-	set directory[49]=%projectDir%XML\classes\
-	set directory[50]=%projectDir%XML-Tests\classes\
+	set directory[28]=%projectDir%Messaging\classes\
+	set directory[29]=%projectDir%Metainfo\classes\
+	set directory[30]=%projectDir%Misc\classes\
+	set directory[31]=%projectDir%Misc-Tests\classes\
+	set directory[32]=%projectDir%Network\classes\
+	set directory[33]=%projectDir%Network-Tests\classes\
+	set directory[34]=%projectDir%Persistence\classes\
+	set directory[35]=%projectDir%Persistence-Tests\classes\
+	set directory[36]=%projectDir%Reflection\classes\
+	set directory[37]=%projectDir%Reflection-Tests\classes\
+	set directory[38]=%projectDir%String\classes\
+	set directory[39]=%projectDir%String-Tests\classes\
+	set directory[40]=%projectDir%Test\classes\
+	set directory[41]=%projectDir%Test-Base\classes\
+	set directory[42]=%projectDir%Time\classes\
+	set directory[43]=%projectDir%Time-Tests\classes\
+	set directory[44]=%projectDir%Transformation\classes\
+	set directory[45]=%projectDir%Transformation-Tests\classes\
+	set directory[46]=%projectDir%Transformation-XML\classes\
+	set directory[47]=%projectDir%Version\classes\
+	set directory[48]=%projectDir%Web\classes\
+	set directory[49]=%projectDir%Web-Tests\classes\
+	set directory[50]=%projectDir%XML\classes\
+	set directory[51]=%projectDir%XML-Tests\classes\
 
-	set directory[51]=%projectDir%..\Batch\classes\
-	set directory[52]=%projectDir%..\Batch\Ant-Sonar\.sonar\
-	set directory[53]=%projectDir%..\tmp\
+	set directory[52]=%projectDir%..\Batch\classes\
+	set directory[53]=%projectDir%..\Batch\Ant-Sonar\.sonar\
+	set directory[54]=%projectDir%..\tmp\
 
-	set directory[54]=%projectDir%IO-Tests\testdata-io\
-	set directory[55]=%projectDir%XML-Tests\testdata-xml\
-	set directory[56]=%projectDir%Document-CSV-Tests\testdata-csv\
-	set directory[57]=%projectDir%Document-Binary-Tests\testdata-binary\
-	set directory[58]=%projectDir%Persistence-Tests\testdata-persistence\
+	set directory[55]=%projectDir%IO-Tests\testdata-io\
+	set directory[56]=%projectDir%XML-Tests\testdata-xml\
+	set directory[57]=%projectDir%Document-CSV-Tests\testdata-csv\
+	set directory[58]=%projectDir%Document-Binary-Tests\testdata-binary\
+	set directory[59]=%projectDir%Persistence-Tests\testdata-persistence\
 
-	set directory[59]=%projectDir%..\Batch\Gradle-Build\.gradle\
-	set directory[60]=%projectDir%..\Batch\Gradle-Build\build\
+	set directory[60]=%projectDir%..\Batch\Gradle-Build\.gradle\
+	set directory[61]=%projectDir%..\Batch\Gradle-Build\build\
 
 exit /b 0
 

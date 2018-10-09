@@ -38,6 +38,7 @@ import java.net.InetSocketAddress;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.concurrent.Executors;
 
 import jmul.io.FileHelper;
 
@@ -92,6 +93,10 @@ public class WebServicesContainer extends WebServerBase {
 
         InetSocketAddress address = new InetSocketAddress(configurationReader.getPort());
         HttpServer server = HttpServer.create(address, configurationReader.getBacklogSize());
+
+        // Change due to https://stackoverflow.com/questions/14729475/can-i-make-a-java-httpserver-threaded-process-requests-in-parallel
+        server.setExecutor(Executors.newCachedThreadPool());
+
         resourceContainer.putResource(WebServerResourcesKeys.SERVER, server);
 
 

@@ -1,7 +1,7 @@
 /*
  * SPDX-License-Identifier: GPL-3.0
- * 
- * 
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -35,7 +35,10 @@ import java.io.PrintStream;
  * A base implementation for loggers.
  *
  * @author Kristian Kutin
+ *
+ * @deprecated This package causes various naming issues. Use the new package messaging instead.
  */
+@Deprecated
 abstract class BaseLogger implements Logger {
 
     /**

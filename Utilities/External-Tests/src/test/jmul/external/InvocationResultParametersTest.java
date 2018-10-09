@@ -54,7 +54,7 @@ public class InvocationResultParametersTest {
         String standardOutput = null;
         String errorOutput = null;
 
-        new InvocationResultImpl(exitCode, standardOutput, errorOutput);
+        new InvocationResultImpl(exitCode, standardOutput, errorOutput, true);
     }
 
     /**
@@ -67,7 +67,7 @@ public class InvocationResultParametersTest {
         String standardOutput = null;
         String errorOutput = null;
 
-        InvocationResult result = new InvocationResultImpl(exitCode, standardOutput, errorOutput);
+        InvocationResult result = new InvocationResultImpl(exitCode, standardOutput, errorOutput, true);
 
         assertEquals(exitCode, result.getExitValue());
         assertEquals(standardOutput, result.getStandardOutput());
@@ -86,7 +86,7 @@ public class InvocationResultParametersTest {
         String standardOutput = "Test";
         String errorOutput = null;
 
-        InvocationResult result = new InvocationResultImpl(exitCode, standardOutput, errorOutput);
+        InvocationResult result = new InvocationResultImpl(exitCode, standardOutput, errorOutput, true);
 
         assertEquals(exitCode, result.getExitValue());
         assertEquals(standardOutput, result.getStandardOutput());
@@ -105,7 +105,7 @@ public class InvocationResultParametersTest {
         String standardOutput = null;
         String errorOutput = null;
 
-        InvocationResult result = new InvocationResultImpl(exitCode, standardOutput, errorOutput);
+        InvocationResult result = new InvocationResultImpl(exitCode, standardOutput, errorOutput, true);
 
         assertEquals(exitCode, result.getExitValue());
         assertEquals(standardOutput, result.getStandardOutput());
@@ -124,7 +124,7 @@ public class InvocationResultParametersTest {
         String standardOutput = "Test";
         String errorOutput = "Doh";
 
-        InvocationResult result = new InvocationResultImpl(exitCode, standardOutput, errorOutput);
+        InvocationResult result = new InvocationResultImpl(exitCode, standardOutput, errorOutput, true);
 
         assertEquals(exitCode, result.getExitValue());
         assertEquals(standardOutput, result.getStandardOutput());

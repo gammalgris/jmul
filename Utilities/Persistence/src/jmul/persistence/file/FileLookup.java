@@ -173,24 +173,6 @@ public class FileLookup implements ThreadListener {
     }
 
     /**
-     * Checks if the threadpool is curretnly active.
-     *
-     * @return <code>true</code> if the threadpool is currently aczive, else
-     *         <code>false</code>
-     */
-    private static boolean isActiveThreadPool() {
-
-        boolean result;
-
-        synchronized (threadPoolSynchronizer) {
-
-            result = threadPoolSingleton != null;
-        }
-
-        return result;
-    }
-
-    /**
      * Returns a reference to the currently used thread pool.
      *
      * @return a reference to the currently used thread pool
