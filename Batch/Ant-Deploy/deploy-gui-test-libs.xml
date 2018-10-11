@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project xmlns="antlib:org.apache.tools.ant" name="deploy-gui-test" default="deploy">
+
+
+    <include file="${basedir}\..\Ant-Common\common.xml" />
+    <include file="${basedir}\..\Ant-Common\temp.xml" />
+    <include file="${basedir}\..\Ant-Common\classpath.xml" />
+    <include file="${basedir}\..\Ant-Build\build-gui-test-libs.xml" />
+    <include file="${basedir}\..\Ant-Build\build-javadoc.xml" />
+
+
+    <property name="jar.classes.file" location="${project.tmp.deploy.dir}\jmul-gui-test-${version}.jar" />
+    <property name="jar.sources.file" location="${project.tmp.deploy.dir}\jmul-gui-test-${version}-sources.jar" />
+    <property name="jar.javadoc.file" location="${project.tmp.deploy.dir}\jmul-gui-test-${version}-javadoc.jar" />
+
+
+    <target name="info">
+
+        <record name="${build.log}" action="start" />
+
+        <echo />
+        <echo message="-----= deploy-gui-test-libs.info =-----" />
+        <echo />
+
+        <echo />
+        <echo message="  project tmp deploy dir ...................... ${project.tmp.deploy.dir}" />
+        <echo />
+        <echo message="  project tmp build dir ....................... ${project.tmp.build.dir}" />
+        <echo message="  project tmp src dir ......................... ${project.tmp.src.dir}" />
+        <echo message="  project tmp javadoc dir ..................... ${project.tmp.javadoc.dir}" />
+        <echo />
+        <echo message="  jar classes file ............................ ${jar.classes.file}" />
+        <echo message="  jar sources file ............................ ${jar.sources.file}" />
+        <echo message="  jar javadoc file ............................ ${jar.javadoc.file}" />
+        <echo />
+
+        <record name="${build.log}" action="stop" />
+
+    </target>
+
+
+    <target name="jarClasses">
+
+        <record name="${build.log}" action="start" />
+
+        <echo />
+        <echo message="-----= deploy-gui-test-libs.jarClasses =-----" />
+        <echo />
+
+        <jar destfile="${jar.classes.file}" compress="true">
+            <fileset dir="${project.tmp.build.dir}" />
+        </jar>
+
+        <record name="${build.log}" action="stop" />
+
+    </target>
+
+
+    <target name="jarSources">
+
+        <record name="${build.log}" action="start" />
+
+        <echo />
+        <echo message="-----= deploy-gui-test-libs.jarSources =-----" />
+        <echo />
+
+        <jar destfile="${jar.sources.file}" compress="true">
+            <fileset dir="${project.tmp.src.dir}" />
+        </jar>
+
+        <record name="${build.log}" action="stop" />
+
+    </target>
+
+
+    <target name="jarJavadoc">
+
+        <record name="${build.log}" action="start" />
+
+        <echo />
+        <echo message="-----= deploy-gui-test-libs.jarJavadoc =-----" />
+        <echo />
+
+        <jar destfile="${jar.javadoc.file}" compress="true">
+            <fileset dir="${project.tmp.javadoc.dir}" />
+        </jar>
+
+        <record name="${build.log}" action="stop" />
+
+    </target>
+
+
+    <target name="deploy" depends="build-gui-test-libs.build, build-javadoc.build, info, jarClasses, jarSources, jarJavadoc" />
+
+
+</project>

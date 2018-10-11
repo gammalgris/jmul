@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project xmlns="antlib:org.apache.tools.ant" name="build-gui-test-libs" default="build">
+
+
+    <include file="${basedir}\..\Ant-Common\common.xml" />
+    <include file="${basedir}\..\Ant-Common\temp.xml" />
+    <include file="${basedir}\..\Ant-Common\classpath.xml" />
+
+
+    <target name="copySources">
+
+        <record name="${build.log}" action="start" />
+
+        <echo />
+        <echo message="-----= build-gui-test-libs.copySources =-----" />
+        <echo />
+
+        <copy todir="${project.tmp.src.dir}" overwrite="true">
+            <fileset dir="${package.checks.src.dir}">
+                <include name="**/*.java" />
+            </fileset>
+            <fileset dir="${package.concurrent.src.dir}">
+                <include name="**/*.java" />
+            </fileset>
+            <fileset dir="${package.constants.src.dir}">
+                <include name="**/*.java" />
+            </fileset>
+            <fileset dir="${package.logging.src.dir}">
+                <include name="**/*.java" />
+            </fileset>
+            <fileset dir="${package.math.src.dir}">
+                <include name="**/*.java" />
+            </fileset>
+            <fileset dir="${package.metainfo.src.dir}">
+                <include name="**/*.java" />
+            </fileset>
+            <fileset dir="${package.misc.src.dir}">
+                <include name="**/*.java" />
+            </fileset>
+            <fileset dir="${package.guitest.src.dir}">
+                <include name="**/*.java" />
+            </fileset>
+            <fileset dir="${package.string.src.dir}">
+                <include name="**/*.java" />
+            </fileset>
+            <fileset dir="${package.test.src.dir}">
+                <include name="**/*.java" />
+            </fileset>
+        </copy>
+
+        <record name="${build.log}" action="stop" />
+
+    </target>
+
+
+    <target name="copyResources">
+
+        <record name="${build.log}" action="start" />
+
+        <echo />
+        <echo message="-----= build-servicetester-libs.copyResources =-----" />
+        <echo />
+
+        <copy todir="${project.tmp.cfg.dir}" overwrite="true">
+            <fileset dir="${package.guitest.cfg.dir}">
+                <include name="**/*.properties" />
+            </fileset>
+            <fileset dir="${package.version.cfg.dir}">
+                <include name="**/*.properties" />
+            </fileset>
+        </copy>
+
+        <copy todir="${project.tmp.build.dir}" overwrite="true">
+            <fileset dir="${package.guitest.cfg.dir}">
+                <include name="**/*.properties" />
+            </fileset>
+            <fileset dir="${package.version.cfg.dir}">
+                <include name="**/*.properties" />
+            </fileset>
+        </copy>
+
+        <record name="${build.log}" action="stop" />
+
+    </target>
+
+
+    <target name="build" depends="common.info, classpath.info, temp.initTmp, copySources, copyResources">
+
+        <record name="${build.log}" action="start" />
+
+        <echo />
+        <echo message="-----= build-gui-test-libs.build =-----" />
+        <echo />
+
+        <javac target="${project.java.version}" srcdir="${project.tmp.src.dir}" destdir="${project.tmp.build.dir}" verbose="true" classpathref="jmul-guitest.build.classpath" debug="on" />
+
+        <record name="${build.log}" action="stop" />
+
+    </target>
+
+
+</project>

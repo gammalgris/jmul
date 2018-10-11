@@ -122,7 +122,7 @@ public final class IndentationHelper {
      *
      * @param string
      *        a string
-     * @param lineFeeds
+     * @param newLines
      *        the number of line feeds
      *
      * @return a string with appended line feed characters

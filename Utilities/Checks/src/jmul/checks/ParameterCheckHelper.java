@@ -530,6 +530,8 @@ public final class ParameterCheckHelper {
      *
      * @throws IllegalArgumentException
      *         is thrown if the parameter has an invalid value
+     * 
+     * @return the parameter
      */
     public static StringBuilder checkStringBuilderParameter(StringBuilder aParameter) {
 
