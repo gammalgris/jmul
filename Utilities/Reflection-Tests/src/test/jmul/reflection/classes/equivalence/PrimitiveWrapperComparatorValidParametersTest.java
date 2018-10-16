@@ -144,61 +144,61 @@ public class PrimitiveWrapperComparatorValidParametersTest {
 
         Collection<Object[]> parameters = new ArrayList<Object[]>();
 
-        parameters.add(new Object[] { Byte.TYPE, Byte.class, true });
-        parameters.add(new Object[] { Byte.TYPE, Short.class, false });
-        parameters.add(new Object[] { Byte.TYPE, Integer.class, false });
-        parameters.add(new Object[] { Byte.TYPE, Long.class, false });
-        parameters.add(new Object[] { Byte.TYPE, Float.class, false });
-        parameters.add(new Object[] { Byte.TYPE, Double.class, false });
-        parameters.add(new Object[] { Byte.TYPE, Boolean.class, false });
+        parameters.add(new Object[] { Byte.class, Byte.TYPE, true });
+        parameters.add(new Object[] { Byte.class, Short.TYPE, false });
+        parameters.add(new Object[] { Byte.class, Integer.TYPE, false });
+        parameters.add(new Object[] { Byte.class, Long.TYPE, false });
+        parameters.add(new Object[] { Byte.class, Float.TYPE, false });
+        parameters.add(new Object[] { Byte.class, Double.TYPE, false });
+        parameters.add(new Object[] { Byte.class, Boolean.TYPE, false });
 
-        parameters.add(new Object[] { Short.TYPE, Byte.class, false });
-        parameters.add(new Object[] { Short.TYPE, Short.class, true });
-        parameters.add(new Object[] { Short.TYPE, Integer.class, false });
-        parameters.add(new Object[] { Short.TYPE, Long.class, false });
-        parameters.add(new Object[] { Short.TYPE, Float.class, false });
-        parameters.add(new Object[] { Short.TYPE, Double.class, false });
-        parameters.add(new Object[] { Short.TYPE, Boolean.class, false });
+        parameters.add(new Object[] { Short.class, Byte.TYPE, false });
+        parameters.add(new Object[] { Short.class, Short.TYPE, true });
+        parameters.add(new Object[] { Short.class, Integer.TYPE, false });
+        parameters.add(new Object[] { Short.class, Long.TYPE, false });
+        parameters.add(new Object[] { Short.class, Float.TYPE, false });
+        parameters.add(new Object[] { Short.class, Double.TYPE, false });
+        parameters.add(new Object[] { Short.class, Boolean.TYPE, false });
 
-        parameters.add(new Object[] { Integer.TYPE, Byte.class, false });
-        parameters.add(new Object[] { Integer.TYPE, Short.class, false });
-        parameters.add(new Object[] { Integer.TYPE, Integer.class, true });
-        parameters.add(new Object[] { Integer.TYPE, Long.class, false });
-        parameters.add(new Object[] { Integer.TYPE, Float.class, false });
-        parameters.add(new Object[] { Integer.TYPE, Double.class, false });
-        parameters.add(new Object[] { Integer.TYPE, Boolean.class, false });
+        parameters.add(new Object[] { Integer.class, Byte.TYPE, false });
+        parameters.add(new Object[] { Integer.class, Short.TYPE, false });
+        parameters.add(new Object[] { Integer.class, Integer.TYPE, true });
+        parameters.add(new Object[] { Integer.class, Long.TYPE, false });
+        parameters.add(new Object[] { Integer.class, Float.TYPE, false });
+        parameters.add(new Object[] { Integer.class, Double.TYPE, false });
+        parameters.add(new Object[] { Integer.class, Boolean.TYPE, false });
 
-        parameters.add(new Object[] { Long.TYPE, Byte.class, false });
-        parameters.add(new Object[] { Long.TYPE, Short.class, false });
-        parameters.add(new Object[] { Long.TYPE, Integer.class, false });
-        parameters.add(new Object[] { Long.TYPE, Long.class, true });
-        parameters.add(new Object[] { Long.TYPE, Float.class, false });
-        parameters.add(new Object[] { Long.TYPE, Double.class, false });
-        parameters.add(new Object[] { Long.TYPE, Boolean.class, false });
+        parameters.add(new Object[] { Long.class, Byte.TYPE, false });
+        parameters.add(new Object[] { Long.class, Short.TYPE, false });
+        parameters.add(new Object[] { Long.class, Integer.TYPE, false });
+        parameters.add(new Object[] { Long.class, Long.TYPE, true });
+        parameters.add(new Object[] { Long.class, Float.TYPE, false });
+        parameters.add(new Object[] { Long.class, Double.TYPE, false });
+        parameters.add(new Object[] { Long.class, Boolean.TYPE, false });
 
-        parameters.add(new Object[] { Float.TYPE, Byte.class, false });
-        parameters.add(new Object[] { Float.TYPE, Short.class, false });
-        parameters.add(new Object[] { Float.TYPE, Integer.class, false });
-        parameters.add(new Object[] { Float.TYPE, Long.class, false });
-        parameters.add(new Object[] { Float.TYPE, Float.class, true });
-        parameters.add(new Object[] { Float.TYPE, Double.class, false });
-        parameters.add(new Object[] { Float.TYPE, Boolean.class, false });
+        parameters.add(new Object[] { Float.class, Byte.TYPE, false });
+        parameters.add(new Object[] { Float.class, Short.TYPE, false });
+        parameters.add(new Object[] { Float.class, Integer.TYPE, false });
+        parameters.add(new Object[] { Float.class, Long.TYPE, false });
+        parameters.add(new Object[] { Float.class, Float.TYPE, true });
+        parameters.add(new Object[] { Float.class, Double.TYPE, false });
+        parameters.add(new Object[] { Float.class, Boolean.TYPE, false });
 
-        parameters.add(new Object[] { Double.TYPE, Byte.class, false });
-        parameters.add(new Object[] { Double.TYPE, Short.class, false });
-        parameters.add(new Object[] { Double.TYPE, Integer.class, false });
-        parameters.add(new Object[] { Double.TYPE, Long.class, false });
-        parameters.add(new Object[] { Double.TYPE, Float.class, false });
-        parameters.add(new Object[] { Double.TYPE, Double.class, true });
-        parameters.add(new Object[] { Double.TYPE, Boolean.class, false });
+        parameters.add(new Object[] { Double.class, Byte.TYPE, false });
+        parameters.add(new Object[] { Double.class, Short.TYPE, false });
+        parameters.add(new Object[] { Double.class, Integer.TYPE, false });
+        parameters.add(new Object[] { Double.class, Long.TYPE, false });
+        parameters.add(new Object[] { Double.class, Float.TYPE, false });
+        parameters.add(new Object[] { Double.class, Double.TYPE, true });
+        parameters.add(new Object[] { Double.class, Boolean.TYPE, false });
 
-        parameters.add(new Object[] { Boolean.TYPE, Byte.class, false });
-        parameters.add(new Object[] { Boolean.TYPE, Short.class, false });
-        parameters.add(new Object[] { Boolean.TYPE, Integer.class, false });
-        parameters.add(new Object[] { Boolean.TYPE, Long.class, false });
-        parameters.add(new Object[] { Boolean.TYPE, Float.class, false });
-        parameters.add(new Object[] { Boolean.TYPE, Double.class, false });
-        parameters.add(new Object[] { Boolean.TYPE, Boolean.class, true });
+        parameters.add(new Object[] { Boolean.class, Byte.TYPE, false });
+        parameters.add(new Object[] { Boolean.class, Short.TYPE, false });
+        parameters.add(new Object[] { Boolean.class, Integer.TYPE, false });
+        parameters.add(new Object[] { Boolean.class, Long.TYPE, false });
+        parameters.add(new Object[] { Boolean.class, Float.TYPE, false });
+        parameters.add(new Object[] { Boolean.class, Double.TYPE, false });
+        parameters.add(new Object[] { Boolean.class, Boolean.TYPE, true });
 
         parameters.add(new Object[] { String.class, Number.class, false });
 

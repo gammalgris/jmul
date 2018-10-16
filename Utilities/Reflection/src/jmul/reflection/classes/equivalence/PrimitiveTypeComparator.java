@@ -7,7 +7,7 @@
  * JMUL is a central repository for utilities which are used in my
  * other public and private repositories.
  *
- * Copyright (C) 2018  Kristian Kutin
+ * Copyright (C) 2013  Kristian Kutin
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -36,7 +36,7 @@ import jmul.reflection.classes.ClassDefinition;
  *
  * @author Kristian Kutin
  */
-public class PrimitiveWrapperComparator implements ClassEquivalenceComparator {
+public class PrimitiveTypeComparator implements ClassEquivalenceComparator {
 
     /**
      * A MATCHER_SINGLETON.
@@ -46,7 +46,7 @@ public class PrimitiveWrapperComparator implements ClassEquivalenceComparator {
     /**
      * The default constructor.
      */
-    public PrimitiveWrapperComparator() {
+    public PrimitiveTypeComparator() {
 
         super();
     }
@@ -55,7 +55,7 @@ public class PrimitiveWrapperComparator implements ClassEquivalenceComparator {
      * The method checks if the specified classes are considered equal (i.e. the specified
      * primitive type corresponds to the specified wrapper class).
      *
-     * @param aPrimitiveWrapper
+     * @param aPrimitiveType
      *        a class
      * @param aBaseClass
      *        a class
@@ -64,14 +64,14 @@ public class PrimitiveWrapperComparator implements ClassEquivalenceComparator {
      *         else <code>false</code>
      */
     @Override
-    public boolean compareClasses(ClassDefinition aPrimitiveWrapper, ClassDefinition aBaseClass) {
+    public boolean compareClasses(ClassDefinition aPrimitiveType, ClassDefinition aBaseClass) {
 
-        ParameterCheckHelper.checkClassDefinitionParameter(aPrimitiveWrapper);
+        ParameterCheckHelper.checkClassDefinitionParameter(aPrimitiveType);
         ParameterCheckHelper.checkClassDefinitionParameter(aBaseClass);
 
 
-        return aBaseClass.isPrimitiveType() && aPrimitiveWrapper.isPrimitiveWrapper() &&
-               COMPARATOR_SINGLETON.compareClasses(aBaseClass, aPrimitiveWrapper.getCorrespondingPrimitiveType());
+        return aBaseClass.isPrimitiveWrapper() && aPrimitiveType.isPrimitiveType() &&
+               COMPARATOR_SINGLETON.compareClasses(aBaseClass.getCorrespondingPrimitiveType(), aPrimitiveType);
     }
 
 }

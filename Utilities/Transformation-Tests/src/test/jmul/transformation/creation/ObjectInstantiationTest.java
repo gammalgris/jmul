@@ -1,7 +1,7 @@
 /*
  * SPDX-License-Identifier: GPL-3.0
- * 
- * 
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -28,21 +28,20 @@
 package test.jmul.transformation.creation;
 
 
-import java.text.SimpleDateFormat;
-
-import java.util.Date;
+import jmul.checks.exceptions.NullParameterException;
 
 import jmul.reflection.classes.ClassDefinition;
 import jmul.reflection.classes.ClassHelper;
 
 import jmul.test.classification.UnitTest;
+import jmul.test.exceptions.FailedTestException;
 
 import jmul.transformation.creation.ObjectFactory;
 import jmul.transformation.creation.ObjectFactoryImpl;
 
 import org.junit.After;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.fail;
+import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -79,108 +78,65 @@ public class ObjectInstantiationTest {
     }
 
     /**
-     * Tests the instantiation and initialization of an integer.
+     * Tests the creation with an invalid class definition.
      */
-    @Test
-    public void testIntegerInstantiation() {
-
-        ClassDefinition integerType = null;
-
-        try {
-
-            integerType = ClassHelper.getClass(Integer.TYPE.getName());
-
-        } catch (ClassNotFoundException e) {
-
-            fail(e.getMessage());
-        }
-
-        String input = "1";
-        Object o = objectFactory.newInstance(integerType, input);
-        assertEquals(input, o.toString());
-    }
-
-    /**
-     * Tests the instantiation and initialization of a float.
-     */
-    @Test
-    public void testFloatInstantiation() {
-
-        ClassDefinition floatType = null;
-
-        try {
-
-            floatType = ClassHelper.getClass(Float.TYPE.getName());
-
-        } catch (ClassNotFoundException e) {
-
-            fail(e.getMessage());
-        }
-
-        String input = "1.5";
-        Object o = objectFactory.newInstance(floatType, input);
-        assertEquals(input, o.toString());
-    }
-
-    /**
-     * Tests the instantiation and initialization of a character.
-     */
-    @Test
-    public void testCharacterInstantiation() {
-
-        ClassDefinition characterType = null;
-
-        try {
-
-            characterType = ClassHelper.getClass(Character.TYPE.getName());
-
-        } catch (ClassNotFoundException e) {
-
-            fail(e.getMessage());
-        }
-
-
-        String input = "c";
-        Object o = objectFactory.newInstance(characterType, input);
-        assertEquals(input, o.toString());
-    }
-
-    /**
-     * Tests the instantiation and initialization of a date.
-     */
-    @Test
-    public void testDateInstantiation() {
+    @Test(expected = NullParameterException.class)
+    public void testInvalidInstantiation() {
 
         ClassDefinition dateType = null;
 
-        try {
-
-            dateType = ClassHelper.getClass(Date.class.getName());
-
-        } catch (ClassNotFoundException e) {
-
-            fail(e.getMessage());
-        }
-
-        String input = "31.03.2010";
-        String inputPattern = "dd.MM.yyyy";
-        Object o = objectFactory.newInstance(dateType, input, inputPattern);
-        assertEquals(input, toString((Date) o, inputPattern));
+        objectFactory.newInstance(dateType);
     }
 
     /**
-     * Returns a string according to the specified date and date pattern.
-     *
-     * @param aDate
-     * @param aPattern
-     *
-     * @return a string
+     * Tests the creation with an invalid class definition.
      */
-    private static String toString(Date aDate, String aPattern) {
+    @Test(expected = NullParameterException.class)
+    public void testInvalidInstantiation2() {
 
-        SimpleDateFormat sdf = new SimpleDateFormat(aPattern);
+        ClassDefinition dateType = null;
+        String input = "Test";
 
-        return sdf.format(aDate);
+        objectFactory.newInstance(dateType, input);
+    }
+
+    /**
+     * Tests the creation with an invalid class definition.
+     */
+    @Test(expected = NullParameterException.class)
+    public void testInvalidInstantiation3() {
+
+        ClassDefinition dateType = null;
+        String input = "31.03.2010";
+        String inputPattern = "dd.MM.yyyy";
+
+        objectFactory.newInstance(dateType, input, inputPattern);
+    }
+
+    /**
+     * Tests the creation with a valid class name.
+     */
+    @Test
+    public void testClassInstantiation() {
+
+        ClassDefinition type;
+
+        try {
+
+            type = ClassHelper.getClass("java.lang.Class");
+
+        } catch (ClassNotFoundException e) {
+
+            throw new FailedTestException(e);
+        }
+
+        String input = "java.lang.String";
+
+        Object o = objectFactory.newInstance(type, input);
+        assertTrue(o instanceof Class);
+
+        Class c = (Class) o;
+        assertEquals(input, c.getCanonicalName());
     }
 
 }

@@ -33,6 +33,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
 
+import jmul.checks.ParameterCheckHelper;
+
 import jmul.reflection.Initializer;
 import jmul.reflection.classes.ClassDefinition;
 import jmul.reflection.classes.ClassHelper;
@@ -111,6 +113,8 @@ public class ObjectFactoryImpl implements ObjectFactory {
     @Override
     public Object newInstance(ClassDefinition someClassInformations) {
 
+        ParameterCheckHelper.checkObjectParameter(someClassInformations);
+
         Class clazz = someClassInformations.getType();
         String className = clazz.getName();
         boolean existsRule = objectMap.containsKey(className);
@@ -157,6 +161,8 @@ public class ObjectFactoryImpl implements ObjectFactory {
     @Override
     public Object newInstance(ClassDefinition someClassInformations, String anInitialValue) {
 
+        ParameterCheckHelper.checkObjectParameter(someClassInformations);
+
         Class clazz = someClassInformations.getType();
         String className = clazz.getName();
         boolean existsRule = objectMap.containsKey(className);
@@ -195,6 +201,7 @@ public class ObjectFactoryImpl implements ObjectFactory {
     @Override
     public Object newInstance(ClassDefinition someClassInformations, String anInitialValue, String aPattern) {
 
+        ParameterCheckHelper.checkObjectParameter(someClassInformations);
 
         Class clazz = someClassInformations.getType();
         String className = clazz.getName();

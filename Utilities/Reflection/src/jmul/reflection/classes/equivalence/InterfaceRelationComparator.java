@@ -66,7 +66,7 @@ public class InterfaceRelationComparator implements ClassEquivalenceComparator {
     @Override
     public boolean compareClasses(ClassDefinition anInterface, ClassDefinition aBaseClass) {
 
-        ParameterCheckHelper.checkInterfaceParameter(anInterface);
+        ParameterCheckHelper.checkClassDefinitionParameter(anInterface);
         ParameterCheckHelper.checkClassDefinitionParameter(aBaseClass);
 
 

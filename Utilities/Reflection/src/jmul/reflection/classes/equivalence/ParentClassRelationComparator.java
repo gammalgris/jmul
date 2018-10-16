@@ -66,7 +66,7 @@ public class ParentClassRelationComparator implements ClassEquivalenceComparator
     @Override
     public boolean compareClasses(ClassDefinition parentClass, ClassDefinition baseClass) {
 
-        ParameterCheckHelper.checkClassParameter(parentClass);
+        ParameterCheckHelper.checkClassDefinitionParameter(parentClass);
         ParameterCheckHelper.checkClassDefinitionParameter(baseClass);
 
 

@@ -64,8 +64,8 @@ public class ExtendedClassEquivalenceComparatorImpl implements ClassEquivalenceC
         boolean matches = false;
 
         ClassEquivalenceComparator[] comparators = {
-            new ClassEquivalenceComparatorImpl(), new PrimitiveWrapperComparator(), new ParentClassRelationComparator(),
-            new InterfaceRelationComparator()
+            new ClassEquivalenceComparatorImpl(), new PrimitiveTypeComparator(), new PrimitiveWrapperComparator(),
+            new InterfaceRelationComparator(), new ParentClassRelationComparator()
         };
 
         for (ClassEquivalenceComparator comparator : comparators) {
