@@ -161,6 +161,7 @@ public class HelperConstructorTest {
 
         Collection<Object[]> parameters = new ArrayList<Object[]>();
 
+        parameters.add(new Object[] { jmul.concurrent.threads.ThreadHelper.class });
         parameters.add(new Object[] { jmul.math.Constants.class });
         parameters.add(new Object[] { jmul.math.MathHelper.class });
         parameters.add(new Object[] { jmul.math.bool.BooleanHelper.class });

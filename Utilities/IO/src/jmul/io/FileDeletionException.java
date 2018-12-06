@@ -55,6 +55,21 @@ public class FileDeletionException extends RuntimeException {
     }
 
     /**
+     * Creates an exception.
+     *
+     * @param message
+     *        the error message
+     * @param file
+     *        the file which couldn't be deleted
+     * @param cause
+     *        the cause of this exception
+     */
+    public FileDeletionException(String message, File file, Throwable cause) {
+
+        super(createMessage(message, file), cause);
+    }
+
+    /**
      * Creates an exception message according to the specified paremeters.
      *
      * @param message

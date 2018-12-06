@@ -21,12 +21,13 @@ call:initZipTool
 )
 
 
-set functionCalls.length=4
+set functionCalls.length=5
 
 set functionCalls[1]=createRootDirectory
 set functionCalls[2]=createFileFilterTestData
 set functionCalls[3]=createArchiveScanTestData
 set functionCalls[4]=createArchiveCreationTestData
+set functionCalls[5]=createDeletionTestData
 
 
 for /L %%i in (1, 1, %functionCalls.length%) do (
@@ -327,5 +328,55 @@ set functionCalls.length=
 	echo create test data ^(archive creation tests^)...
 
 	call:createDirectory testdata-io\out %TRUE%
+
+%return%
+
+
+@rem --------------------------------------------------------------------------------
+@rem ---
+@rem ---   void createFileFilterTestData()
+@rem ---
+@rem ---   The subroutine creates the test data required for testing the various
+@rem ---   file filters.
+@rem ---
+
+:createDeletionTestData
+
+	echo create test data ^(deletion tests^)...
+
+	call:createDirectory testdata-io\deletion\folder1 %TRUE%
+
+	call:createFile testdata-io\deletion\file1.txt "Hello World"
+	call:createFile testdata-io\deletion\file2.txt "Hello World"
+
+	call:createDirectory testdata-io\deletion\folder2 %TRUE%
+	call:createDirectory testdata-io\deletion\folder2\folder3 %TRUE%
+	call:createFile testdata-io\deletion\folder2\file3.txt "Hello World"
+	call:createFile testdata-io\deletion\folder2\folder3\file4.bat "@Echo Hello World"
+
+	call:createDirectory testdata-io\deletion\folder4 %TRUE%
+	call:createDirectory testdata-io\deletion\folder4\folder5 %TRUE%
+	call:createFile testdata-io\deletion\folder4\file5.txt "Hello World"
+	call:createFile testdata-io\deletion\folder4\folder5\file6.bat "@Echo Hello World"
+
+	call:createFile testdata-io\deletion\protected.txt "Hello World"
+	attrib +R testdata-io\deletion\protected.txt
+
+	call:createFile testdata-io\deletion\archivable.txt "Hello World"
+	attrib +A testdata-io\deletion\archivable.txt
+
+	call:createFile testdata-io\deletion\sysfile.txt "Hello World"
+	attrib +S testdata-io\deletion\sysfile.txt
+
+	call:createFile testdata-io\deletion\hidden.txt "Hello World"
+	attrib +H testdata-io\deletion\hidden.txt
+
+	call:createFile testdata-io\deletion\notindexed.txt "Hello World"
+	attrib +I testdata-io\deletion\notindexed.txt
+
+	call:createDirectory testdata-io\deletion\folder6 %TRUE%
+	call:createDirectory testdata-io\deletion\folder6\folder7 %TRUE%
+	call:createFile testdata-io\deletion\folder6\file7.txt "Hello World"
+	mklink testdata-io\deletion\folder6\folder7\link.txt testdata-io\deletion\folder6\file7.txt
 
 %return%

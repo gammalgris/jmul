@@ -7,7 +7,7 @@
  * JMUL is a central repository for utilities which are used in my
  * other public and private repositories.
  *
- * Copyright (C) 2016  Kristian Kutin
+ * Copyright (C) 2018  Kristian Kutin
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -25,48 +25,55 @@
  * e-mail: kristian.kutin@arcor.de
  */
 
-package test.jmul.persistence;
+package test.jmul.concurrent.threads;
 
 
-import java.io.File;
-
+import jmul.concurrent.threads.StoppableRunnable;
 import jmul.concurrent.threads.ThreadHelper;
-
-import jmul.io.FileDeletionHelper;
-import jmul.io.FileHelper;
-
-import static jmul.math.Constants.SECOND;
 
 
 /**
- * A base implementation for tests.
+ * This class is an implementation of a thread which will send a stop signal to another
+ * thread after s specified amount of time.
  *
  * @author Kristian Kutin
  */
-abstract class TestBase {
+public class ThreadStopperThread implements Runnable {
 
     /**
-     * A root directory for files and directories which are created during test execution.
+     * A handle on another thread.
      */
-    public static final String ROOT_DIRECTORY = ".\\testdata-persistence\\";
+    private StoppableRunnable handle;
 
     /**
-     * Initializes the specified base directory (i.e. cleans all the content).
+     * A sleep time.
+     */
+    private long sleepTime;
+
+    /**
+     * Creates a new thread according to the specified parameters.
      *
-     * @param aBaseDirectory
+     * @param aHandle
+     *        a handle on another thread
+     * @param aSleepTime
+     *        a sleep time
      */
-    protected static void initBaseDirectory(String aBaseDirectory) {
+    public ThreadStopperThread(StoppableRunnable aHandle, long aSleepTime) {
 
-        ThreadHelper.sleep(SECOND);
+        handle = aHandle;
+        sleepTime = aSleepTime;
+    }
 
-        File baseDirectory = new File(aBaseDirectory);
+    /**
+     * The actual thread body. Waits for a specified amount of time and sends a stop
+     * signal to a specified thread.
+     */
+    @Override
+    public void run() {
 
-        if (baseDirectory.exists()) {
+        ThreadHelper.sleep(sleepTime);
 
-            FileDeletionHelper.delete(baseDirectory, true);
-        }
-
-        baseDirectory.mkdirs();
+        handle.stop();
     }
 
 }

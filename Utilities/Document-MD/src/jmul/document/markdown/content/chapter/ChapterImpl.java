@@ -28,15 +28,57 @@
 package jmul.document.markdown.content.chapter;
 
 
+import java.util.ArrayList;
+import java.util.List;
+
 import jmul.document.markdown.content.node.ContentNodeImpl;
 import jmul.document.markdown.content.paragraph.Paragraph;
 
 
+/**
+ * An implementation of a chapter.
+ *
+ * @author Kristian Kutin
+ */
 public class ChapterImpl extends ContentNodeImpl implements Chapter {
 
+    /**
+     * This chapter's headline.
+     */
+    private Headline headline;
+
+    /**
+     * This chapter's subchapters.
+     */
+    private List<Chapter> allSubchapters;
+
+    /**
+     * This chapter's paragraphs.
+     */
+    private List<Paragraph> allParagraphs;
+
+    /**
+     * The default constructor.
+     */
     public ChapterImpl() {
 
         super();
+
+        headline = null;
+
+        allSubchapters = new ArrayList<>();
+        allParagraphs = new ArrayList<>();
+    }
+
+    /**
+     * Returns the headline for this chapter.
+     *
+     * @return the chapter's headline
+     */
+    @Override
+    public Headline getHeadline() {
+
+        return headline;
     }
 
     /**
@@ -51,8 +93,10 @@ public class ChapterImpl extends ContentNodeImpl implements Chapter {
     @Override
     public Headline setHeadline(Headline aHeadline) {
 
-        //TODO
-        return null;
+        Headline previousHeadline = headline;
+        headline = aHeadline;
+
+        return previousHeadline;
     }
 
     /**
@@ -63,8 +107,18 @@ public class ChapterImpl extends ContentNodeImpl implements Chapter {
     @Override
     public Headline removeHeadline() {
 
-        //TODO
-        return null;
+        return setHeadline(null);
+    }
+
+    /**
+     * Checks if this chapter has a headline or not.
+     *
+     * @return <code>true</code> if this chapter has a headline, else <code>false</code>
+     */
+    @Override
+    public boolean hasHeadline() {
+
+        return headline != null;
     }
 
     /**
@@ -75,8 +129,7 @@ public class ChapterImpl extends ContentNodeImpl implements Chapter {
     @Override
     public int subchapters() {
 
-        //TODO
-        return 0;
+        return allSubchapters.size();
     }
 
     /**
@@ -88,7 +141,21 @@ public class ChapterImpl extends ContentNodeImpl implements Chapter {
     @Override
     public void addSubchapter(Chapter aChapter) {
 
-        //TODO
+        allSubchapters.add(aChapter);
+    }
+
+    /**
+     * Inserts the specifies subchapter at the specified index.
+     *
+     * @param aChapter
+     *        the subchapter which is to be inserted
+     * @param anIndex
+     *        the index of the inserted subchapter
+     */
+    @Override
+    public void insertSubchapter(Chapter aChapter, int anIndex) {
+
+        allSubchapters.add(anIndex, aChapter);
     }
 
     /**
@@ -102,8 +169,7 @@ public class ChapterImpl extends ContentNodeImpl implements Chapter {
     @Override
     public Chapter getSubchapter(int anIndex) {
 
-        //TODO
-        return null;
+        return allSubchapters.get(anIndex);
     }
 
     /**
@@ -117,8 +183,7 @@ public class ChapterImpl extends ContentNodeImpl implements Chapter {
     @Override
     public Chapter removeSubchapter(int anIndex) {
 
-        //TODO
-        return null;
+        return allSubchapters.remove(anIndex);
     }
 
     /**
@@ -129,8 +194,7 @@ public class ChapterImpl extends ContentNodeImpl implements Chapter {
     @Override
     public int paragraphs() {
 
-        //TODO
-        return 0;
+        return allParagraphs.size();
     }
 
     /**
@@ -142,7 +206,22 @@ public class ChapterImpl extends ContentNodeImpl implements Chapter {
     @Override
     public void addParagraph(Paragraph aParagraph) {
 
-        //TODO
+        allParagraphs.add(aParagraph);
+    }
+
+    /**
+     * Inserts the specified paragraph at the specified index. Existing
+     * paragraphs (i.e. following paragraphs) will be indexed accordingly.
+     *
+     * @param aParagraph
+     *        the paragraph which is to be inserted
+     * @param anIndex
+     *        the index of the inserted paragraph
+     */
+    @Override
+    public void insertParagraph(Paragraph aParagraph, int anIndex) {
+
+        allParagraphs.add(anIndex, aParagraph);
     }
 
     /**
@@ -156,8 +235,7 @@ public class ChapterImpl extends ContentNodeImpl implements Chapter {
     @Override
     public Paragraph getParagraph(int anIndex) {
 
-        //TODO
-        return null;
+        return allParagraphs.get(anIndex);
     }
 
     /**
@@ -171,8 +249,7 @@ public class ChapterImpl extends ContentNodeImpl implements Chapter {
     @Override
     public Paragraph removeParagraph(int anIndex) {
 
-        //TODO
-        return null;
+        return allParagraphs.remove(anIndex);
     }
 
 }

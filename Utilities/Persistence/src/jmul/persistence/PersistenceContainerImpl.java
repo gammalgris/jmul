@@ -34,7 +34,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import jmul.io.FileHelper;
+import jmul.io.FileDeletionHelper;
 import jmul.io.deserialization.Deserializer;
 import jmul.io.serialization.Serializer;
 
@@ -352,7 +352,7 @@ public class PersistenceContainerImpl<T> implements PersistenceContainer<T> {
             // It may happen that a concurring deletion already deleted the file.
 
             File file = fileManager.getFile(anID.toString());
-            FileHelper.delete(file);
+            FileDeletionHelper.delete(file);
         }
 
 

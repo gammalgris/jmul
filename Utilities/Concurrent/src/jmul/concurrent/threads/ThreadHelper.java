@@ -28,17 +28,28 @@
 package jmul.concurrent.threads;
 
 
+import java.util.Map;
+
+
 /**
- * This utility class provides various methods for threads.
+ * This helper class provides various utility methods for threads. Some methods
+ * handle checked exceptions and may rethrow unchecked exceptions.
  *
  * @author Kristian Kutin
  */
 public final class ThreadHelper {
 
     /**
+     * A constant value for looking up the invoking method in a stacktrace.
+     */
+    private static final int INVOKING_METHOD_INDEX = 3;
+
+    /**
      * The default constructor.
      */
     private ThreadHelper() {
+
+        throw new UnsupportedOperationException();
     }
 
     /**
@@ -63,31 +74,112 @@ public final class ThreadHelper {
     }
 
     /**
+     * Determines the name of the invoking method.
+     *
+     * @return a simple method name
+     */
+    public static String getInvokingMethodName() {
+
+        return getInvokingMethodName(NameTypes.SIMPLE_NAME, false);
+    }
+
+    /**
+     * Determines the name of the invoking method.
+     *
+     * @param aNameType
+     *        specifies what kind of method name is returned
+     *
+     * @return a canonical or simple method name
+     */
+    public static String getInvokingMethodName(NameTypes aNameType) {
+
+        return getInvokingMethodName(aNameType, false);
+    }
+
+    /**
      * Determines the name of the invoking method.<br>
      * <br>
      * <i><u>Note:</u><br>
      * The method looks for the method name within the current thread's stack trace. The
      * current implementation looks for the name at a fixed position.</i>
      *
-     * @return a method name
+     * @param aNameType
+     *        specifies what kind of method name is returned
+     * @param directInvocation
+     *        indicates a direct or indirect invocation which is considered when looking at the
+     *        stack trace
+     *
+     * @return a canonical or simple method name
      */
-    public static String getMethodName() {
+    private static String getInvokingMethodName(NameTypes aNameType, boolean directInvocation) {
 
         Thread currentThread = Thread.currentThread();
         StackTraceElement[] stackTrace = currentThread.getStackTrace();
 
-        int elements = stackTrace.length;
-        int expectedIndex = 3;
+        int elementCount = stackTrace.length;
+        int index;
 
-        if (expectedIndex < elements) {
+        if (directInvocation) {
 
-            StackTraceElement element = stackTrace[expectedIndex];
+            index = INVOKING_METHOD_INDEX;
 
-            String[] substrings = element.toString().split("\\(");
-            return substrings[0];
+        } else {
+
+            index = INVOKING_METHOD_INDEX + 1;
         }
 
-        return "unknown method";
+        if (INVOKING_METHOD_INDEX < elementCount) {
+
+            StackTraceElement element = stackTrace[INVOKING_METHOD_INDEX];
+
+            String methodName = removeLineInformation(element.toString());
+
+            if (NameTypes.SIMPLE_NAME == aNameType) {
+
+                return removePath(methodName);
+
+            } else if (NameTypes.CANONICAL_NAME == aNameType) {
+
+                return methodName;
+
+            } else {
+
+                throw new UnsupportedOperationException();
+            }
+        }
+
+        throw new UnsupportedOperationException();
+    }
+
+    /**
+     * Removes the line informations from the stacktrace element string.
+     *
+     * @param aString
+     *        a string representing a stacktrace element
+     *
+     * @return a canonical method name
+     */
+    private static String removeLineInformation(String aString) {
+
+        String[] substrings = aString.split("\\(");
+
+        return substrings[0];
+    }
+
+    /**
+     * Removes the path and class information from the specified method name string.
+     *
+     * @param aString
+     *        a string containing a canonical method name
+     *
+     * @return a simple method name
+     */
+    private static String removePath(String aString) {
+
+        String[] substrings = aString.split("\\.");
+        int lastIndex = substrings.length - 1;
+
+        return substrings[lastIndex];
     }
 
     /**
@@ -102,6 +194,53 @@ public final class ThreadHelper {
         for (StackTraceElement element : stackTrace) {
 
             System.out.println("\t" + element);
+        }
+    }
+
+    /**
+     * Find a thread with the specified name. If no such thread exists then
+     * an exception is thrown.
+     *
+     * @param aName
+     *        a name
+     *
+     * @return a thread
+     */
+    public static Thread getThreadByName(String aName) {
+
+        Map<Thread, StackTraceElement[]> allThreads = Thread.getAllStackTraces();
+        for (Thread thread : allThreads.keySet()) {
+
+            String actualName = thread.getName();
+
+            if (actualName.equals(aName)) {
+
+                return thread;
+            }
+        }
+
+        String message = "No thread with the name \"" + aName + "\" exists!";
+        throw new IllegalArgumentException(message);
+    }
+
+    /**
+     * The current thread waits for the specified thread to end.
+     *
+     * @param t
+     *        a thread
+     */
+    public static void waitForThreadToEnd(Thread t) {
+
+        Thread currentThread = Thread.currentThread();
+
+        try {
+
+            t.join();
+
+        } catch (InterruptedException e) {
+
+            e.printStackTrace();
+            currentThread.interrupt();
         }
     }
 

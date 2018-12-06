@@ -40,7 +40,7 @@ import jmul.external.CommandInvoker;
 import jmul.external.CommandInvokerImpl;
 import jmul.external.InvocationResult;
 
-import jmul.io.FileHelper;
+import jmul.io.FileDeletionHelper;
 
 import static jmul.string.Constants.SPACE;
 
@@ -150,7 +150,7 @@ public class WSImport implements CodeGenerator {
 
         if (directory.exists()) {
 
-            FileHelper.delete(directory);
+            FileDeletionHelper.delete(directory, true);
         }
 
         directory.mkdirs();

@@ -168,38 +168,6 @@ public final class FileHelper {
     }
 
     /**
-     * The method recursively deletes the specified file or directory.
-     *
-     * @param aFile
-     *        a file or directory
-     *
-     * @deprecated Consolidate with helper class {@link jmul.io.FileDeletionHelper}.
-     */
-    @Deprecated
-    public static void delete(File aFile) {
-
-        if (!aFile.exists()) {
-
-            String message =
-                TextHelper.concatenateStrings("The specified file or directory doesn't exist (", aFile, "!");
-            throw new IllegalArgumentException(message);
-        }
-
-        if (aFile.isDirectory()) {
-
-            for (File f : aFile.listFiles()) {
-
-                delete(f);
-            }
-        }
-
-        if (!aFile.delete()) {
-
-            throw new FileDeletionException("Failed to delete file!", aFile);
-        }
-    }
-
-    /**
      * Copies the specified source file to the specified destiantion file.
      *
      * @param aSourceFileName

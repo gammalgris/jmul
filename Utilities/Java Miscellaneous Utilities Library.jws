@@ -30,6 +30,7 @@
       <hash><url n="URL" path="Component/Component.jpr"/></hash>
       <hash><url n="URL" path="Component-Tests/Component-Tests.jpr"/></hash>
       <hash><url n="URL" path="Concurrent/Concurrent.jpr"/></hash>
+      <hash><url n="URL" path="Concurrent-Tests/Concurrent-Tests.jpr"/></hash>
       <hash><url n="URL" path="Constants/Constants.jpr"/></hash>
       <hash><url n="URL" path="Constants-Tests/Constants-Tests.jpr"/></hash>
       <hash><url n="URL" path="Document/Document.jpr"/></hash>

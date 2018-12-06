@@ -39,6 +39,13 @@ import jmul.document.markdown.content.paragraph.Paragraph;
 public interface Chapter {
 
     /**
+     * Returns the headline for this chapter.
+     *
+     * @return the chapter's headline
+     */
+    Headline getHeadline();
+
+    /**
      * Adds the headline for this chapter.
      *
      * @param aHeadline
@@ -57,6 +64,13 @@ public interface Chapter {
     Headline removeHeadline();
 
     /**
+     * Checks if this chapter has a headline or not.
+     *
+     * @return <code>true</code> if this chapter has a headline, else <code>false</code>
+     */
+    boolean hasHeadline();
+
+    /**
      * Returns the current subchapter count.
      *
      * @return a subchapter count
@@ -70,6 +84,16 @@ public interface Chapter {
      *        the subchapter which is to be added
      */
     void addSubchapter(Chapter aChapter);
+
+    /**
+     * Inserts the specifies subchapter at the specified index.
+     *
+     * @param aChapter
+     *        the subchapter which is to be inserted
+     * @param anIndex
+     *        the index of the inserted subchapter
+     */
+    void insertSubchapter(Chapter aChapter, int anIndex);
 
     /**
      * Returns the subchapter at the specified index.
@@ -105,6 +129,17 @@ public interface Chapter {
      *        the paragraph which is to be added
      */
     void addParagraph(Paragraph aParagraph);
+
+    /**
+     * Inserts the specified paragraph at the specified index. Existing
+     * paragraphs (i.e. following paragraphs) will be indexed accordingly.
+     *
+     * @param aParagraph
+     *        the paragraph which is to be inserted
+     * @param anIndex
+     *        the index of the inserted paragraph
+     */
+    void insertParagraph(Paragraph aParagraph, int anIndex);
 
     /**
      * Returns the paragraph at the specified index.

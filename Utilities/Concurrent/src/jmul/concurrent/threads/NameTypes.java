@@ -7,7 +7,7 @@
  * JMUL is a central repository for utilities which are used in my
  * other public and private repositories.
  *
- * Copyright (C) 2016  Kristian Kutin
+ * Copyright (C) 2018  Kristian Kutin
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -24,49 +24,17 @@
  *
  * e-mail: kristian.kutin@arcor.de
  */
-
-package test.jmul.persistence;
-
-
-import java.io.File;
-
-import jmul.concurrent.threads.ThreadHelper;
-
-import jmul.io.FileDeletionHelper;
-import jmul.io.FileHelper;
-
-import static jmul.math.Constants.SECOND;
+package jmul.concurrent.threads;
 
 
 /**
- * A base implementation for tests.
+ * The enumeration contains name types.
  *
  * @author Kristian Kutin
  */
-abstract class TestBase {
+public enum NameTypes {
 
-    /**
-     * A root directory for files and directories which are created during test execution.
-     */
-    public static final String ROOT_DIRECTORY = ".\\testdata-persistence\\";
-
-    /**
-     * Initializes the specified base directory (i.e. cleans all the content).
-     *
-     * @param aBaseDirectory
-     */
-    protected static void initBaseDirectory(String aBaseDirectory) {
-
-        ThreadHelper.sleep(SECOND);
-
-        File baseDirectory = new File(aBaseDirectory);
-
-        if (baseDirectory.exists()) {
-
-            FileDeletionHelper.delete(baseDirectory, true);
-        }
-
-        baseDirectory.mkdirs();
-    }
+    SIMPLE_NAME,
+    CANONICAL_NAME;
 
 }

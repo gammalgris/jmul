@@ -23,6 +23,9 @@
             <fileset dir="${package.component-tests.src.dir}">
                 <include name="**/*.java" />
             </fileset>
+            <fileset dir="${package.concurrent-tests.src.dir}">
+                <include name="**/*.java" />
+            </fileset>
             <fileset dir="${package.constants-tests.src.dir}">
                 <include name="**/*.java" />
             </fileset>
