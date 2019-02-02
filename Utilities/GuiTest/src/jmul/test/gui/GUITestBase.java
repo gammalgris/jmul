@@ -34,7 +34,7 @@ import java.awt.Robot;
 import java.util.ResourceBundle;
 
 import jmul.test.exceptions.SetUpException;
-import static jmul.test.gui.TestLogger.getLogger;
+import static jmul.test.gui.logging.TestLogger.getLogger;
 
 import org.junit.After;
 import org.junit.Before;

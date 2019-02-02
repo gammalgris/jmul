@@ -29,25 +29,18 @@ package jmul.test.gui;
 
 
 import java.awt.Component;
-import java.awt.KeyboardFocusManager;
 
 import javax.swing.JDialog;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
-
-import jmul.concurrent.threads.ThreadHelper;
 
 
 /**
- * This helper class contains utility functions regarding GUI environments.
+ * This helper class contains utility functions regarding GUI object trees.
  *
  * @author Kristian Kutin
  */
-public final class GuiHelper {
-
-    /**
-     * A sleep time.
-     */
-    private static final long DEFAULT_SLEEP_DURATION = 500L;
+public final class GuiTreeHelper {
 
     /**
      * A utility class which looks for a specific parent.
@@ -59,6 +52,11 @@ public final class GuiHelper {
      */
     private final static ComponentParentFinder<JPanel> parentPanelFinder;
 
+    /**
+     * A utility class which looks for a specific parent.
+     */
+    private final static ComponentParentFinder<JFrame> parentFrameFinder;
+
     /*
      * The static initializer.
      */
@@ -66,28 +64,19 @@ public final class GuiHelper {
 
         parentDialogFinder = new ComponentParentFinder<JDialog>(JDialog.class);
         parentPanelFinder = new ComponentParentFinder<JPanel>(JPanel.class);
+        parentFrameFinder = new ComponentParentFinder<JFrame>(JFrame.class);
     }
 
     /**
      * The default constructor.
      */
-    private GuiHelper() {
+    private GuiTreeHelper() {
 
         throw new UnsupportedOperationException();
     }
 
     /**
-     * Returns the GUI component which currently has the focus for keyboard inputs.
-     *
-     * @return a component or <code>null</code> if no component has the focus
-     */
-    public static Component getComponentWithFocus() {
-
-        return KeyboardFocusManager.getCurrentKeyboardFocusManager().getFocusOwner();
-    }
-
-    /**
-     * Returns the owning dialog of a GUI component.
+     * Returns the parent dialog of a GUI component.
      *
      * @param component
      *        a GUI component
@@ -100,7 +89,7 @@ public final class GuiHelper {
     }
 
     /**
-     * Returns the owning panel of a GUI component.
+     * Returns the parent panel of a GUI component.
      *
      * @param component
      *        a GUI component
@@ -110,6 +99,19 @@ public final class GuiHelper {
     public static JPanel getOwningPanel(Component component) {
 
         return parentPanelFinder.findParent(component);
+    }
+
+    /**
+     * Returns the parent frame of a GUI component.
+     *
+     * @param component
+     *        a GUI component
+     *
+     * @return a frame or <code>null</code> if no dialog can be found
+     */
+    public static JFrame getOwningFrame(Component component) {
+
+        return parentFrameFinder.findParent(component);
     }
 
     /**
@@ -138,32 +140,4 @@ public final class GuiHelper {
         return "" + getParentRelationsAsString(parent) + "->" + s;
     }
 
-    /**
-     * Waits until a window or dialog appears and a GUI component can be identified which
-     * has the focus for keyboard inputs.
-     *
-     * @return the amount of time waited (in milliseconds)
-     */
-    public static long waitForComponentWithFocus() {
-
-        long before = System.currentTimeMillis();
-
-        while (true) {
-
-            ThreadHelper.sleep(DEFAULT_SLEEP_DURATION);
-
-            Component component = getComponentWithFocus();
-
-            if (component != null) {
-
-                break;
-            }
-        }
-
-        long after = System.currentTimeMillis();
-
-        return after - before;
-    }
-
 }
-

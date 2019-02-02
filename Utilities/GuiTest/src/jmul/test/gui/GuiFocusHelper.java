@@ -28,46 +28,53 @@
 package jmul.test.gui;
 
 
-import jmul.logging.ConsoleLogger;
-import jmul.logging.Logger;
+import java.awt.Component;
+import java.awt.KeyboardFocusManager;
+
+import static jmul.test.gui.logging.TestLogger.getLogger;
 
 
 /**
- * This class contains references to a logger instances.
+ * A utility class for determining the focus of the GUI.
  *
  * @author Kristian Kutin
  */
-public final class TestLogger {
-
-    /**
-     * A logger instance.
-     */
-    private final static Logger logger;
-
-    /*
-     * The static initializer.
-     */
-    static {
-
-        logger = new ConsoleLogger();
-    }
+public final class GuiFocusHelper {
 
     /**
      * The default constructor.
      */
-    private TestLogger() {
+    private GuiFocusHelper() {
 
         throw new UnsupportedOperationException();
     }
 
     /**
-     * Returns a reference to a logger.
+     * Tries to identify a GUI component with the current keyboard focus and returns it.
      *
-     * @return a logger
+     * @return a GUI element
      */
-    public static Logger getLogger() {
+    public static Component getComponentWithFocus() {
 
-        return logger;
+        return KeyboardFocusManager.getCurrentKeyboardFocusManager().getFocusOwner();
+    }
+
+    /**
+     * Logs the name of the GUI component with the current keyboard focus.
+     */
+    public static void logElementWithFocus() {
+
+        Component component = getComponentWithFocus();
+
+        if (component == null) {
+
+        } else {
+
+            String name = component.getName();
+            String simpleName = component.getClass().getSimpleName();
+
+            getLogger().logDebug("has focus: " + "(" + simpleName + "):" + name);
+        }
     }
 
 }

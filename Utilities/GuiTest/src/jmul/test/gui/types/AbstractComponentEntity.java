@@ -25,60 +25,46 @@
  * e-mail: kristian.kutin@arcor.de
  */
 
-package jmul.test.gui;
+package jmul.test.gui.types;
 
 
 import java.awt.Component;
 
 
 /**
- * A utility class which encapsules the functionality of finding a parent of
- * a GUI component which belongs to a specific type.
- *
- * @param <T> the owner type
+ * A base implementation for a specific data type which contains a
+ * GUI component.
  *
  * @author Kristian Kutin
  */
-public class ComponentParentFinder<T> {
+abstract class AbstractComponentEntity {
 
     /**
-     * A class object representing the parent type.
+     * A GUI component.
      */
-    private Class<T> parentClass;
+    private final Component component;
 
     /**
-     * Creates a new instance according to the specified parameters.
+     * Creates a new instance of this data structure according to the specified parameters.
      *
-     * @param aParentClass
-     *
+     * @param aComponent
+     *        a GUI component
      */
-    public ComponentParentFinder(Class<T> aParentClass) {
+    protected AbstractComponentEntity(Component aComponent) {
 
-        parentClass = aParentClass;
+        super();
+
+        component = aComponent;
     }
 
     /**
-     * Looks for a parent of a specific type.
+     * A getter method.
      *
-     * @param component
-     *        a GUI component
-     *
-     * @return a matching parent or <code>null</code> if no such parent exists
+     * @return the GUI component or <code>null</code> if none was specified
      */
-    public T findParent(Component component) {
+    public Component getComponent() {
 
-        if (component == null) {
-
-            return null;
-
-        } else if (parentClass.isInstance(component)) {
-
-            return (T) component;
-
-        } else {
-
-            return findParent(component.getParent());
-        }
+        return component;
     }
 
 }

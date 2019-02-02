@@ -1,7 +1,7 @@
 /*
  * SPDX-License-Identifier: GPL-3.0
- * 
- * 
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -25,8 +25,10 @@
  * e-mail: kristian.kutin@arcor.de
  */
 
-package jmul.math;
+package test.jmul.math;
 
+
+import jmul.math.Constants;
 
 import jmul.test.classification.UnitTest;
 

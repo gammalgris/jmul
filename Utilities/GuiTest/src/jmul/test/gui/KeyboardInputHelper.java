@@ -28,25 +28,22 @@
 package jmul.test.gui;
 
 
-import java.awt.Component;
-import java.awt.KeyboardFocusManager;
+import java.awt.Robot;
 import java.awt.event.KeyEvent;
 
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
-import static jmul.concurrent.threads.ThreadHelper.sleep;
-
-import static jmul.test.gui.TestLogger.getLogger;
+import static jmul.test.gui.logging.TestLogger.getLogger;
 
 
 /**
- * This implementation of a GUI test adds additional convenience features.
+ * A utility class for keyboard inputs in automated GUI tests.
  *
  * @author Kristian Kutin
  */
-public abstract class ExtendedGUITestBase extends GUITestBase {
+public final class KeyboardInputHelper {
 
     /**
      * A charcater to key code mapping for most commonly used characters.<br>
@@ -116,46 +113,50 @@ public abstract class ExtendedGUITestBase extends GUITestBase {
     }
 
     /**
-     * Creates a new GUI test according to the specified parameters.
-     *
-     * @param aStarter
-     *        an entity that starts the GUI based application
+     * The default constructor.
      */
-    protected ExtendedGUITestBase(GuiApplicationStarter aStarter) {
+    private KeyboardInputHelper() {
 
-        super(aStarter);
-    }
-
-    /**
-     * Waits for the specified amount of time.
-     *
-     * @param seconds
-     *        a sleep time (in seconds)
-     */
-    protected void sleepSeconds(int seconds) {
-
-        getLogger().logDebug("sleeping: " + seconds + "s");
-        sleep(seconds * 1000L);
+        throw new UnsupportedOperationException();
     }
 
     /**
      * Produces the specified key event.
      *
+     * @param aRobot
+     *        a robot that executes GUI actions
      * @param anEventName
      *        a name for the key event
      * @param aKeyCode
      *        a key code
      */
-    protected void pressKey(String anEventName, int aKeyCode) {
+    public static void pressKey(Robot aRobot, String anEventName, int aKeyCode) {
 
         getLogger().logDebug("key event: " + anEventName);
-        getRobot().keyPress(aKeyCode);
-        getRobot().keyRelease(aKeyCode);
+        aRobot.keyPress(aKeyCode);
+        aRobot.keyRelease(aKeyCode);
+    }
+
+    /**
+     * Produces the specified key event.
+     *
+     * @param aTest
+     *        a reference to the test and all its resources
+     * @param anEventName
+     *        a name for the key event
+     * @param aKeyCode
+     *        a key code
+     */
+    public static void pressKey(GUITestBase aTest, String anEventName, int aKeyCode) {
+
+        pressKey(aTest.getRobot(), anEventName, aKeyCode);
     }
 
     /**
      * Produces the specified key event (i.e. two keys pressed simultaneously).
      *
+     * @param aRobot
+     *        a robot that executes GUI actions
      * @param anEventName
      *        a name for the key event
      * @param a1stKeyCode
@@ -163,22 +164,41 @@ public abstract class ExtendedGUITestBase extends GUITestBase {
      * @param a2ndKeyCode
      *        a key code
      */
-    protected void pressKey(String anEventName, int a1stKeyCode, int a2ndKeyCode) {
+    public static void pressKey(Robot aRobot, String anEventName, int a1stKeyCode, int a2ndKeyCode) {
 
         getLogger().logDebug("key event: " + anEventName);
-        getRobot().keyPress(a1stKeyCode);
-        getRobot().keyPress(a2ndKeyCode);
-        getRobot().keyRelease(a2ndKeyCode);
-        getRobot().keyRelease(a1stKeyCode);
+        aRobot.keyPress(a1stKeyCode);
+        aRobot.keyPress(a2ndKeyCode);
+        aRobot.keyRelease(a2ndKeyCode);
+        aRobot.keyRelease(a1stKeyCode);
+    }
+
+    /**
+     * Produces the specified key event (i.e. two keys pressed simultaneously).
+     *
+     * @param aTest
+     *        a reference to the test and all its resources
+     * @param anEventName
+     *        a name for the key event
+     * @param a1stKeyCode
+     *        a key code
+     * @param a2ndKeyCode
+     *        a key code
+     */
+    public static void pressKey(GUITestBase aTest, String anEventName, int a1stKeyCode, int a2ndKeyCode) {
+
+        pressKey(aTest.getRobot(), anEventName, a1stKeyCode, a2ndKeyCode);
     }
 
     /**
      * Triggers several sequential key events that correspond to the specified string.
      *
+     * @param aRobot
+     *        a robot that executes GUI actions
      * @param aString
      *        a string
      */
-    protected void enterString(String aString) {
+    public static void enterString(Robot aRobot, String aString) {
 
         for (char c : aString.toCharArray()) {
 
@@ -189,39 +209,33 @@ public abstract class ExtendedGUITestBase extends GUITestBase {
 
                 if (Character.isLowerCase(c)) {
 
-                    pressKey("" + c, value);
+                    pressKey(aRobot, "" + c, value);
 
                 } else {
 
-                    pressKey("" + c, KeyEvent.VK_SHIFT, value);
+                    pressKey(aRobot, "" + c, KeyEvent.VK_SHIFT, value);
                 }
 
             } else {
 
                 int value = keyMapping.get(c);
 
-                pressKey("" + c, value);
+                pressKey(aRobot, "" + c, value);
             }
         }
     }
 
     /**
-     * Tries to identify a GUI element with the current keyboard focus and returns it.
+     * Triggers several sequential key events that correspond to the specified string.
      *
-     * @return a GUI element
+     * @param aTest
+     *        a reference to the test and all its resources
+     * @param aString
+     *        a string
      */
-    protected Component getElementWithFocus() {
+    public static void enterString(GUITestBase aTest, String aString) {
 
-        return KeyboardFocusManager.getCurrentKeyboardFocusManager().getFocusOwner();
-    }
-
-    /**
-     * Logs the name of the GUI element with the current keyboard focus.
-     */
-    protected void logElementWithFocus() {
-
-        Component component = getElementWithFocus();
-        getLogger().logDebug("has focus: " + component.getName());
+        enterString(aTest.getRobot(), aString);
     }
 
 }

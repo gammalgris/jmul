@@ -25,60 +25,49 @@
  * e-mail: kristian.kutin@arcor.de
  */
 
-package jmul.test.gui;
+package jmul.test.gui.logging;
 
 
-import java.awt.Component;
+import jmul.logging.ConsoleLogger;
+import jmul.logging.Logger;
 
 
 /**
- * A utility class which encapsules the functionality of finding a parent of
- * a GUI component which belongs to a specific type.
- *
- * @param <T> the owner type
+ * This class contains references to a logger instances.
  *
  * @author Kristian Kutin
  */
-public class ComponentParentFinder<T> {
+public final class TestLogger {
 
     /**
-     * A class object representing the parent type.
+     * A logger instance.
      */
-    private Class<T> parentClass;
+    private final static Logger logger;
 
-    /**
-     * Creates a new instance according to the specified parameters.
-     *
-     * @param aParentClass
-     *
+    /*
+     * The static initializer.
      */
-    public ComponentParentFinder(Class<T> aParentClass) {
+    static {
 
-        parentClass = aParentClass;
+        logger = new ConsoleLogger();
     }
 
     /**
-     * Looks for a parent of a specific type.
-     *
-     * @param component
-     *        a GUI component
-     *
-     * @return a matching parent or <code>null</code> if no such parent exists
+     * The default constructor.
      */
-    public T findParent(Component component) {
+    private TestLogger() {
 
-        if (component == null) {
+        throw new UnsupportedOperationException();
+    }
 
-            return null;
+    /**
+     * Returns a reference to a logger.
+     *
+     * @return a logger
+     */
+    public static Logger getLogger() {
 
-        } else if (parentClass.isInstance(component)) {
-
-            return (T) component;
-
-        } else {
-
-            return findParent(component.getParent());
-        }
+        return logger;
     }
 
 }
