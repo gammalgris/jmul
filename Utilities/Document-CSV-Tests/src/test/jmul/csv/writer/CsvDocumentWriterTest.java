@@ -36,6 +36,7 @@ import jmul.csv.writer.CsvDocumentWriterImpl;
 import jmul.document.csv.CsvDocument;
 import jmul.document.csv.CsvDocumentImpl;
 import jmul.document.csv.structure.HeaderType;
+import jmul.document.csv.structure.StructureType;
 import jmul.document.type.DocumentType;
 import jmul.document.type.DocumentTypes;
 
@@ -66,7 +67,8 @@ public class CsvDocumentWriterTest {
     public void testWritingDocument() {
 
         DocumentType documentType = DocumentTypes.CSV;
-        HeaderType headerType = HeaderType.RIGID;
+        HeaderType headerType = HeaderType.FIRST_LINE_IS_HEADER;
+        StructureType structureType = StructureType.RIGID;
         String columnSeparator = SEMICOLON;
         String rowSeparator = NEW_LINE_WINDOWS;
 
@@ -74,6 +76,7 @@ public class CsvDocumentWriterTest {
         table.addColumn();
         table.addColumn();
         table.addColumn();
+        table.addRow();
 
         table.setColumnName(0, "A");
         table.setColumnName(1, "B");
@@ -83,7 +86,8 @@ public class CsvDocumentWriterTest {
         table.updateCell(1, 0, "2");
         table.updateCell(2, 0, "3");
 
-        CsvDocument document = new CsvDocumentImpl(documentType, headerType, columnSeparator, rowSeparator, table);
+        CsvDocument document =
+            new CsvDocumentImpl(documentType, headerType, structureType, columnSeparator, rowSeparator, table);
 
         CsvDocumentWriter writer = new CsvDocumentWriterImpl();
 

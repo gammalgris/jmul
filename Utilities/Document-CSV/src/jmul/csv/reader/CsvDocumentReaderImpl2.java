@@ -35,7 +35,11 @@ import java.nio.charset.Charset;
 import java.util.List;
 
 import jmul.document.csv.structure.HeaderType;
+import static jmul.document.csv.structure.HeaderType.FIRST_LINE_IS_HEADER;
 import static jmul.document.csv.structure.HeaderType.NO_HEADER;
+import jmul.document.csv.structure.StructureType;
+import static jmul.document.csv.structure.StructureType.FLEXIBLE;
+import static jmul.document.csv.structure.StructureType.RIGID;
 
 import jmul.io.NestedStreams;
 import jmul.io.text.ReadBuffer;
@@ -45,8 +49,6 @@ import jmul.metainfo.annotations.Modified;
 
 import jmul.misc.table.ModifiableTable;
 
-import static jmul.string.Constants.NEW_LINE_WINDOWS;
-import static jmul.string.Constants.SEMICOLON;
 import jmul.string.QuoteNotClosedException;
 import jmul.string.TextHelper;
 
@@ -66,31 +68,12 @@ import jmul.string.TextHelper;
 public class CsvDocumentReaderImpl2 extends CsvDocumentReaderBase {
 
     /**
-     * The default charset.
-     */
-    private static final Charset DEFAULT_CHARSET = Charset.defaultCharset();
-
-    /**
-     * The default column separator.
-     */
-    private static final String DEFAULT_COLUMN_SEPARATOR = SEMICOLON;
-
-    /**
-     * The default row separator.
-     */
-    private static final String DEFAULT_ROW_SEPARATOR = NEW_LINE_WINDOWS;
-
-    /**
-     * The default header type.
-     */
-    private static final HeaderType DEFAULT_HEADER_TYPE = HeaderType.RIGID;
-
-    /**
      * The default constructor.
      */
     public CsvDocumentReaderImpl2() {
 
-        super(DEFAULT_CHARSET, DEFAULT_HEADER_TYPE, DEFAULT_COLUMN_SEPARATOR, DEFAULT_ROW_SEPARATOR);
+        super(DEFAULT_CHARSET, DEFAULT_HEADER_TYPE, DEFAULT_STRUCTURE_TYPE, DEFAULT_COLUMN_SEPARATOR,
+              DEFAULT_ROW_SEPARATOR);
     }
 
     /**
@@ -101,7 +84,7 @@ public class CsvDocumentReaderImpl2 extends CsvDocumentReaderBase {
      */
     public CsvDocumentReaderImpl2(Charset aCharset) {
 
-        super(aCharset, DEFAULT_HEADER_TYPE, DEFAULT_COLUMN_SEPARATOR, DEFAULT_ROW_SEPARATOR);
+        super(aCharset, DEFAULT_HEADER_TYPE, DEFAULT_STRUCTURE_TYPE, DEFAULT_COLUMN_SEPARATOR, DEFAULT_ROW_SEPARATOR);
     }
 
     /**
@@ -112,7 +95,7 @@ public class CsvDocumentReaderImpl2 extends CsvDocumentReaderBase {
      */
     public CsvDocumentReaderImpl2(String aColumnSeparator) {
 
-        super(DEFAULT_CHARSET, DEFAULT_HEADER_TYPE, aColumnSeparator, DEFAULT_ROW_SEPARATOR);
+        super(DEFAULT_CHARSET, DEFAULT_HEADER_TYPE, DEFAULT_STRUCTURE_TYPE, aColumnSeparator, DEFAULT_ROW_SEPARATOR);
     }
 
     /**
@@ -125,7 +108,7 @@ public class CsvDocumentReaderImpl2 extends CsvDocumentReaderBase {
      */
     public CsvDocumentReaderImpl2(Charset aCharset, String aColumnSeparator) {
 
-        super(aCharset, DEFAULT_HEADER_TYPE, aColumnSeparator, DEFAULT_ROW_SEPARATOR);
+        super(aCharset, DEFAULT_HEADER_TYPE, DEFAULT_STRUCTURE_TYPE, aColumnSeparator, DEFAULT_ROW_SEPARATOR);
     }
 
     /**
@@ -138,7 +121,20 @@ public class CsvDocumentReaderImpl2 extends CsvDocumentReaderBase {
      */
     public CsvDocumentReaderImpl2(String aColumnSeparator, String aRowSeparator) {
 
-        super(DEFAULT_CHARSET, DEFAULT_HEADER_TYPE, aColumnSeparator, aRowSeparator);
+        super(DEFAULT_CHARSET, DEFAULT_HEADER_TYPE, DEFAULT_STRUCTURE_TYPE, aColumnSeparator, aRowSeparator);
+    }
+
+    /**
+     * Creates a new document reader according to the specified parameters.
+     *
+     * @param aHeaderType
+     *        the assumed header type
+     * @param aStructureType
+     *        the assumed structure type
+     */
+    public CsvDocumentReaderImpl2(HeaderType aHeaderType, StructureType aStructureType) {
+
+        super(DEFAULT_CHARSET, aHeaderType, aStructureType, DEFAULT_COLUMN_SEPARATOR, DEFAULT_ROW_SEPARATOR);
     }
 
     /**
@@ -153,7 +149,7 @@ public class CsvDocumentReaderImpl2 extends CsvDocumentReaderBase {
      */
     public CsvDocumentReaderImpl2(Charset aCharset, String aColumnSeparator, String aRowSeparator) {
 
-        super(aCharset, DEFAULT_HEADER_TYPE, aColumnSeparator, aRowSeparator);
+        super(aCharset, DEFAULT_HEADER_TYPE, DEFAULT_STRUCTURE_TYPE, aColumnSeparator, aRowSeparator);
     }
 
     /**
@@ -168,7 +164,7 @@ public class CsvDocumentReaderImpl2 extends CsvDocumentReaderBase {
      */
     public CsvDocumentReaderImpl2(HeaderType aHeaderType, String aColumnSeparator, String aRowSeparator) {
 
-        super(DEFAULT_CHARSET, aHeaderType, aColumnSeparator, aRowSeparator);
+        super(DEFAULT_CHARSET, aHeaderType, DEFAULT_STRUCTURE_TYPE, aColumnSeparator, aRowSeparator);
     }
 
     /**
@@ -178,144 +174,189 @@ public class CsvDocumentReaderImpl2 extends CsvDocumentReaderBase {
      *        the assumed charset
      * @param aHeaderType
      *        the assumed header type
+     * @param aStructureType
+     *        the assumed structure type
      * @param aColumnSeparator
      *        the assumed column separator
      * @param aRowSeparator
      *        the assumed row separator
      */
-    public CsvDocumentReaderImpl2(Charset aCharset, HeaderType aHeaderType, String aColumnSeparator,
-                                  String aRowSeparator) {
+    public CsvDocumentReaderImpl2(Charset aCharset, HeaderType aHeaderType, StructureType aStructureType,
+                                  String aColumnSeparator, String aRowSeparator) {
 
-        super(aCharset, aHeaderType, aColumnSeparator, aRowSeparator);
+        super(aCharset, aHeaderType, aStructureType, aColumnSeparator, aRowSeparator);
     }
 
     /**
-     * The header of a CSV file is parsed and the specified table is updated accordingly.
+     * The first line is parsed for identifying the number of columns in a CSV file. Additionally the first line
+     * may contain data or a header line. The specified table is updated accordingly.
      *
      * @param someStreams
-     *        the input streams
+     *        a handle on the actual file
      * @param aTable
-     *        the table which is filled with the file content
+     *        a modifiable table
      *
      * @throws IOException
      *         is thrown if an error occurrs while trying to read from the CSV file
      */
     @Override
-    protected void parseHeader(NestedStreams someStreams, @Modified ModifiableTable<String> aTable) throws IOException {
+    protected void parseFirstLine(NestedStreams someStreams,
+                                  @Modified ModifiableTable<String> aTable) throws IOException {
 
-        if (getHeaderType() == NO_HEADER) {
-
-            return;
-        }
-
-
-        ReadBuffer result = TextFileHelper.readLine(getCharset(), someStreams, getRowSeparator());
-
-        if (result.isEndOfFile()) {
-
-            return;
-        }
-
-
-        String line = result.getLine();
-        List<String> substrings = TextHelper.splitLine(line, getColumnSeparator());
-
-
-        int minColumns = aTable.columns();
-        int maxColumns = substrings.size();
-
-        for (int a = minColumns; a < maxColumns; a++) {
-
-            aTable.addColumn();
-            aTable.setColumnName(a, substrings.get(a));
-        }
-    }
-
-    /**
-     * The content of a CSV file is parsed and the specified table is updated accordingly.
-     *
-     * @param someStreams
-     *        the input streams
-     * @param aTable
-     *        the table which is filled with the file content
-     *
-     * @throws IOException
-     *         is thrown if an error occurrs while trying to read from the CSV file
-     */
-    @Override
-    protected void parseContent(NestedStreams someStreams,
-                                @Modified ModifiableTable<String> aTable) throws IOException {
-
-        int currentRow = 0;
+        StringBuilder buffer = new StringBuilder();
+        List<String> substrings;
 
         while (true) {
 
-            StringBuilder buffer = new StringBuilder();
-            int expectedColumns = aTable.columns();
-            List<String> substrings;
+            ReadBuffer result = TextFileHelper.readLine(getCharset(), someStreams, getRowSeparator());
 
-            while (true) {
+            if (result.isEndOfFile() && result.isEmpty()) {
 
-                ReadBuffer result = TextFileHelper.readLine(getCharset(), someStreams, getRowSeparator());
+                return;
+            }
 
-                if (result.isEndOfFile() && result.isEmpty()) {
+            String line = result.getLine();
+            buffer.append(line);
 
-                    return;
-                }
+            try {
 
-                String line = result.getLine();
-                buffer.append(line);
+                substrings = TextHelper.splitLine(buffer.toString(), getColumnSeparator());
+                break;
 
-                try {
+            } catch (QuoteNotClosedException e) {
 
-                    substrings = TextHelper.splitLine(buffer.toString(), getColumnSeparator());
+                // This exception indicates that the processed line is not complete because the
+                // content of a table cell is quoted but the quote closing character is not
+                // reached yet. This exception should not be preserved. It is assumed that the
+                // table row is spread over several text lines.
+                // If there is an issue with the table structure (i.e. number of identified
+                // columns) then an exception will be thrown.
+                continue;
+            }
+        }
 
-                } catch (QuoteNotClosedException e) {
 
-                    // This exception indicates that the processed line is not complete because the
-                    // content of a table cell is quoted but the quote closing character is not
-                    // reached yet. This exception should not be preserved. It is assumed that the
-                    // table row is spread over several text lines.
-                    // If there is an issue with the table structure (i.e. number of identified
-                    // columns) then an exception will be thrown.
+        int maxColumns = substrings.size();
+        HeaderType actualHeaderType = getHeaderType();
+
+        if (actualHeaderType == FIRST_LINE_IS_HEADER) {
+
+            resizeTable(aTable, maxColumns, 0);
+
+            for (int a = 0; a < maxColumns; a++) {
+
+                aTable.setColumnName(a, substrings.get(a));
+            }
+
+        } else if (actualHeaderType == NO_HEADER) {
+
+            resizeTable(aTable, maxColumns, 1);
+
+            for (int a = 0; a < maxColumns; a++) {
+
+                aTable.updateCell(a, 0, substrings.get(a));
+            }
+
+        } else {
+
+            throw new UnsupportedOperationException();
+        }
+    }
+
+    /**
+     * The remaining content of a CSV file is parsed and the specified table is updated accordingly.
+     *
+     * @param someStreams
+     *        a handle on the actual file
+     * @param aTable
+     *        a modifiable table
+     *
+     * @throws IOException
+     *         is thrown if an error occurrs while trying to read from the CSV file
+     */
+    @Override
+    protected void parseRemainingContent(NestedStreams someStreams,
+                                         @Modified ModifiableTable<String> aTable) throws IOException {
+
+        int currentRow = aTable.rows();
+        int expectedColumns = aTable.columns();
+
+        StringBuilder buffer = new StringBuilder();
+        List<String> substrings;
+
+        while (true) {
+
+            ReadBuffer result = TextFileHelper.readLine(getCharset(), someStreams, getRowSeparator());
+
+            if (result.isEndOfFile() && result.isEmpty()) {
+
+                return;
+            }
+
+            String line = result.getLine();
+            buffer.append(line);
+
+            try {
+
+                substrings = TextHelper.splitLine(buffer.toString(), getColumnSeparator());
+
+                if (substrings.size() < expectedColumns) {
+
                     continue;
                 }
 
-                int actualColumns = substrings.size();
+                buffer = new StringBuilder();
 
-                if (actualColumns == expectedColumns) {
+            } catch (QuoteNotClosedException e) {
 
-                    break;
-
-                } else if (actualColumns > expectedColumns) {
-
-                    String message =
-                        "The table structure is invalid (current row=" + currentRow + "; expected columns=" +
-                        expectedColumns + "; actual columns=" + actualColumns + ")!";
-                    throw new CsvStructureException(message);
-                }
+                // This exception indicates that the processed line is not complete because the
+                // content of a table cell is quoted but the quote closing character is not
+                // reached yet. This exception should not be preserved. It is assumed that the
+                // table row is spread over several text lines.
+                // If there is an issue with the table structure (i.e. number of identified
+                // columns) then an exception will be thrown.
+                continue;
             }
+
 
             currentRow++;
 
-            if (currentRow > 1) {
+            int nextRowIndex = aTable.rows();
+            int actualColumns = substrings.size();
 
-                aTable.addRow();
-            }
+            StructureType actualStructureType = getStructureType();
 
-            int newRowIndex = currentRow - 1;
-            int columns = substrings.size();
+            if (actualStructureType == RIGID) {
 
-            for (int a = 0; a < columns; a++) {
+                if (actualColumns != expectedColumns) {
 
-                String newValue = substrings.get(a);
+                    String message =
+                        "The table structure is invalid (current row=" + nextRowIndex + "; expected columns=" +
+                        expectedColumns + "; actual columns=" + actualColumns + ")!";
+                    throw new CsvStructureException(message);
 
-                if (newValue.isEmpty()) {
+                } else {
 
-                    newValue = null;
+                    resizeTable(aTable, actualColumns, currentRow);
+
+                    for (int a = 0; a < actualColumns; a++) {
+
+                        aTable.updateCell(a, nextRowIndex, substrings.get(a));
+                    }
                 }
 
-                aTable.updateCell(a, newRowIndex, newValue);
+            } else if (actualStructureType == FLEXIBLE) {
+
+                resizeTable(aTable, actualColumns, currentRow);
+
+                for (int a = 0; a < actualColumns; a++) {
+
+                    aTable.updateCell(a, nextRowIndex, substrings.get(a));
+                }
+
+            } else {
+
+                throw new UnsupportedOperationException();
             }
         }
     }

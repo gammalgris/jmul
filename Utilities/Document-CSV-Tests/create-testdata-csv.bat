@@ -234,6 +234,20 @@ set functionCalls.length=
 		echo 7;8;9
 	) > testdata-csv\example06.csv
 
+
+	(
+		echo 1;2;3
+		echo 4;5;6
+		echo 7;8;9
+	) > testdata-csv\example07.csv
+
+
+	(
+		echo 1;2
+		echo 3;4;5
+		echo 6;7;8;9
+	) > testdata-csv\example08.csv
+
 %return%
 
 

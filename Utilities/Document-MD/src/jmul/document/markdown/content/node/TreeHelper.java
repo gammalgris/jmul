@@ -58,7 +58,7 @@ public final class TreeHelper {
      */
     public static boolean isTextNode(Object o) {
 
-        return (o instanceof TextNode);
+        return o instanceof TextNode;
     }
 
     /**
@@ -72,7 +72,7 @@ public final class TreeHelper {
      */
     public static boolean isContentNode(Object o) {
 
-        return (o instanceof ContentNode);
+        return o instanceof ContentNode;
     }
 
     /**
@@ -86,7 +86,7 @@ public final class TreeHelper {
      */
     public static boolean isChapterNode(Object o) {
 
-        return (o instanceof ChapterNode);
+        return o instanceof ChapterNode;
     }
 
     /**
@@ -100,7 +100,7 @@ public final class TreeHelper {
      */
     public static boolean isListItemNode(Object o) {
 
-        return (o instanceof ListItemNode);
+        return o instanceof ListItemNode;
     }
 
     /**
@@ -114,7 +114,7 @@ public final class TreeHelper {
      */
     public static boolean isOrderedList(Object o) {
 
-        return (o instanceof OrderedList);
+        return o instanceof OrderedList;
     }
 
     /**
@@ -128,7 +128,7 @@ public final class TreeHelper {
      */
     public static boolean isUnorderedList(Object o) {
 
-        return (o instanceof UnorderedList);
+        return o instanceof UnorderedList;
     }
 
     /**

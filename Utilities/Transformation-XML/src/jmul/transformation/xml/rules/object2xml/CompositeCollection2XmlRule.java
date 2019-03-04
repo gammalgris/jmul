@@ -194,7 +194,8 @@ public class CompositeCollection2XmlRule extends TransformationRuleBase {
             // A field declaration was marked with an annotation where the
             // element type for this collection was specified.
 
-            Class declaredElementType = (Class) someParameters.getPrerequisite(DECLARED_ELEMENT_TYPE);
+            //Class declaredElementType = (Class) someParameters.getPrerequisite(DECLARED_ELEMENT_TYPE);
+            ;
 
         } else {
 

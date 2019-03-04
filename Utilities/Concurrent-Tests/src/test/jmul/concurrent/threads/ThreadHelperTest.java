@@ -35,6 +35,7 @@ import jmul.test.classification.UnitTest;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 import org.junit.Test;
 
 
@@ -60,7 +61,7 @@ public class ThreadHelperTest {
     }
 
     /**
-     * Tests getting the name of the invoking method.
+     * Tests getting the name of the invoking method. A canical name is expected.
      */
     @Test
     public void testGetInvokingMethodName2() {
@@ -72,13 +73,39 @@ public class ThreadHelperTest {
     }
 
     /**
-     * Tests getting the name of the invoking method.
+     * Tests getting the name of the invoking method. A short name is expected.
      */
     @Test
     public void testGetInvokingMethodName3() {
 
         String expectedMethodName = "testGetInvokingMethodName3";
         String actualMethodName = ThreadHelper.getInvokingMethodName(NameTypes.SIMPLE_NAME);
+
+        assertEquals(expectedMethodName, actualMethodName);
+    }
+
+    /**
+     * Tests getting the name of the invoking method. The invocation occurs within a side thread.
+     */
+    @Test
+    public void testGetInvokingMethodName4() {
+
+        String expectedMethodName = "doSomething";
+        String actualMethodName;
+
+        TestThread t = new TestThread();
+        t.start();
+
+        try {
+
+            t.join();
+
+        } catch (InterruptedException e) {
+
+            fail(e.getMessage());
+        }
+
+        actualMethodName = t.getActualMethodName();
 
         assertEquals(expectedMethodName, actualMethodName);
     }
@@ -126,6 +153,48 @@ public class ThreadHelperTest {
         long duration = -1L;
 
         ThreadHelper.sleep(duration);
+    }
+
+}
+
+
+/**
+ * A test thread for testing a helper method in a side thread.
+ *
+ * @author Kristian Kutin
+ */
+class TestThread extends Thread {
+
+    /**
+     * A method name.
+     */
+    private volatile String actualMethodName;
+
+    /**
+     * A getter method.
+     *
+     * @return a method name
+     */
+    public String getActualMethodName() {
+
+        return actualMethodName;
+    }
+
+    /**
+     * The overriden run method.
+     */
+    @Override
+    public void run() {
+
+        doSomething();
+    }
+
+    /**
+     * A method which invokes a helper method.
+     */
+    public void doSomething() {
+
+        actualMethodName = ThreadHelper.getInvokingMethodName(NameTypes.SIMPLE_NAME, true);
     }
 
 }

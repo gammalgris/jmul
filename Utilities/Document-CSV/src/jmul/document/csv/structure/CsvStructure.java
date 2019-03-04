@@ -32,6 +32,7 @@ import java.nio.charset.Charset;
 
 import jmul.document.structure.Structure;
 import static jmul.document.csv.structure.HeaderType.NO_HEADER;
+import static jmul.document.csv.structure.StructureType.RIGID;
 
 
 /**
@@ -50,6 +51,11 @@ public class CsvStructure implements Structure {
      * The header type.
      */
     private final HeaderType headerType;
+
+    /**
+     * The structure type.
+     */
+    private final StructureType structureType;
 
     /**
      * The header (including all column names).
@@ -73,6 +79,8 @@ public class CsvStructure implements Structure {
      *        the charset
      * @param aHeaderType
      *        the header type
+     * @param aStructureType
+     *        the structure type
      * @param aColumnSeparator
      *        the column separator
      * @param aRowSeparator
@@ -80,11 +88,12 @@ public class CsvStructure implements Structure {
      * @param someColumnNames
      *        the column names
      */
-    public CsvStructure(Charset aCharset, HeaderType aHeaderType, String aColumnSeparator, String aRowSeparator,
-                        String... someColumnNames) {
+    public CsvStructure(Charset aCharset, HeaderType aHeaderType, StructureType aStructureType, String aColumnSeparator,
+                        String aRowSeparator, String... someColumnNames) {
 
         charset = aCharset;
         headerType = aHeaderType;
+        structureType = aStructureType;
         columnSeparator = aColumnSeparator;
         rowSeparator = aRowSeparator;
         header = someColumnNames;
@@ -102,11 +111,7 @@ public class CsvStructure implements Structure {
      */
     public CsvStructure(Charset aCharset, String aColumnSeparator, String aRowSeparator) {
 
-        charset = aCharset;
-        headerType = NO_HEADER;
-        columnSeparator = aColumnSeparator;
-        rowSeparator = aRowSeparator;
-        header = null;
+        this(aCharset, NO_HEADER, RIGID, aColumnSeparator, aRowSeparator, newNullStringArray());
     }
 
     /**
@@ -127,6 +132,16 @@ public class CsvStructure implements Structure {
     public HeaderType getHeaderType() {
 
         return headerType;
+    }
+
+    /**
+     * Returns the structure type for the csv file.
+     *
+     * @return a structure type
+     */
+    public StructureType getStructureType() {
+
+        return structureType;
     }
 
     /**
@@ -167,6 +182,17 @@ public class CsvStructure implements Structure {
     public String getRowSeparator() {
 
         return rowSeparator;
+    }
+
+    /**
+     * Creates a <code>null</code> string array.
+     *
+     * @return <code>null</code>
+     */
+    private static String[] newNullStringArray() {
+
+        String[] header = null;
+        return header;
     }
 
 }

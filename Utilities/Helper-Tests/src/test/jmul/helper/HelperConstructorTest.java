@@ -37,6 +37,8 @@ import java.util.Collection;
 
 import jmul.test.classification.CodingStyleCheck;
 
+import jmul.transformation.xml.rules.xml2object.RuleHelper;
+
 import org.junit.After;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -194,6 +196,7 @@ public class HelperConstructorTest {
         parameters.add(new Object[] { jmul.network.http.UploadHelper.class });
         parameters.add(new Object[] { jmul.string.IndentationHelper.class });
         parameters.add(new Object[] { jmul.reflection.classes.AccessorHelper.class });
+        parameters.add(new Object[] { jmul.transformation.xml.rules.xml2object.RuleHelper.class });
 
         return parameters;
     }

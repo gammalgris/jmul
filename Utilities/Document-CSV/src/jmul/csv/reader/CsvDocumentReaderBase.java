@@ -36,6 +36,7 @@ import java.nio.charset.Charset;
 import jmul.document.csv.CsvDocument;
 import jmul.document.csv.CsvDocumentImpl;
 import jmul.document.csv.structure.HeaderType;
+import jmul.document.csv.structure.StructureType;
 import jmul.document.type.DocumentType;
 import jmul.document.type.DocumentTypes;
 
@@ -49,6 +50,9 @@ import jmul.misc.exceptions.MultipleCausesException;
 import jmul.misc.table.ModifiableTable;
 import jmul.misc.table.ModifiableTableImpl;
 
+import static jmul.string.Constants.NEW_LINE_WINDOWS;
+import static jmul.string.Constants.SEMICOLON;
+
 
 /**
  * A base implementation of a document reader.
@@ -56,6 +60,31 @@ import jmul.misc.table.ModifiableTableImpl;
  * @author Kristian Kutin
  */
 abstract class CsvDocumentReaderBase implements CsvDocumentReader {
+
+    /**
+     * The default charset.
+     */
+    protected static final Charset DEFAULT_CHARSET = Charset.defaultCharset();
+
+    /**
+     * The default column separator.
+     */
+    protected static final String DEFAULT_COLUMN_SEPARATOR = SEMICOLON;
+
+    /**
+     * The default row separator.
+     */
+    protected static final String DEFAULT_ROW_SEPARATOR = NEW_LINE_WINDOWS;
+
+    /**
+     * The default header type.
+     */
+    protected static final HeaderType DEFAULT_HEADER_TYPE = HeaderType.FIRST_LINE_IS_HEADER;
+
+    /**
+     * The default structure type.
+     */
+    protected static final StructureType DEFAULT_STRUCTURE_TYPE = StructureType.RIGID;
 
     /**
      * The charset which will be used to read from files.
@@ -78,20 +107,32 @@ abstract class CsvDocumentReaderBase implements CsvDocumentReader {
     private final HeaderType headerType;
 
     /**
+     * The structure type which is expected.
+     */
+    private final StructureType structureType;
+
+    /**
      * Creates a new document reader according to the specified parameters.
      *
      * @param aCharset
+     *        the expected charset
      * @param aHeaderType
+     *        the expected header type
+     * @param aStructureType
+     *        the expected structure type
      * @param aColumnSeparator
+     *        the expected column separator
      * @param aRowSeparator
+     *        the expected row separator
      */
-    protected CsvDocumentReaderBase(Charset aCharset, HeaderType aHeaderType, String aColumnSeparator,
-                                    String aRowSeparator) {
+    protected CsvDocumentReaderBase(Charset aCharset, HeaderType aHeaderType, StructureType aStructureType,
+                                    String aColumnSeparator, String aRowSeparator) {
 
         super();
 
         charset = aCharset;
         headerType = aHeaderType;
+        structureType = aStructureType;
         columnSeparator = aColumnSeparator;
         rowSeparator = aRowSeparator;
     }
@@ -137,8 +178,8 @@ abstract class CsvDocumentReaderBase implements CsvDocumentReader {
 
         try {
 
-            parseHeader(ns, table);
-            parseContent(ns, table);
+            parseFirstLine(ns, table);
+            parseRemainingContent(ns, table);
 
         } catch (IOException e) {
 
@@ -154,7 +195,7 @@ abstract class CsvDocumentReaderBase implements CsvDocumentReader {
 
         closeFile(ns);
 
-        return new CsvDocumentImpl(documentType, headerType, columnSeparator, rowSeparator, table);
+        return new CsvDocumentImpl(documentType, headerType, structureType, columnSeparator, rowSeparator, table);
     }
 
     /**
@@ -198,27 +239,69 @@ abstract class CsvDocumentReaderBase implements CsvDocumentReader {
     }
 
     /**
-     * The header of a CSV file is parsed and the specified table is updated accordingly.
+     * A getter method.
      *
-     * @param someStreams
-     * @param aTable
-     *
-     * @throws IOException
-     *         is thrown if an error occurrs while trying to read from the CSV file
+     * @return the assumed structure type
      */
-    protected abstract void parseHeader(NestedStreams someStreams,
-                                        @Modified ModifiableTable<String> aTable) throws IOException;
+    public StructureType getStructureType() {
+
+        return structureType;
+    }
 
     /**
-     * The content of a CSV file is parsed and the specified table is updated accordingly.
+     * The first line is parsed for identifying the number of columns in a CSV file. Additionally the first line
+     * may contain data or a header line. The specified table is updated accordingly.
      *
      * @param someStreams
+     *        a handle on the actual file
      * @param aTable
+     *        a modifiable table
      *
      * @throws IOException
      *         is thrown if an error occurrs while trying to read from the CSV file
      */
-    protected abstract void parseContent(NestedStreams someStreams,
-                                         @Modified ModifiableTable<String> aTable) throws IOException;
+    protected abstract void parseFirstLine(NestedStreams someStreams,
+                                           @Modified ModifiableTable<String> aTable) throws IOException;
+
+    /**
+     * The remaining content of a CSV file is parsed and the specified table is updated accordingly.
+     *
+     * @param someStreams
+     *        a handle on the actual file
+     * @param aTable
+     *        a modifiable table
+     *
+     * @throws IOException
+     *         is thrown if an error occurrs while trying to read from the CSV file
+     */
+    protected abstract void parseRemainingContent(NestedStreams someStreams,
+                                                  @Modified ModifiableTable<String> aTable) throws IOException;
+
+    /**
+     * Resizes the specified table according to the specified column and row numbers. If the table should be
+     * larger than the specified column and row count then the table won't be changed.
+     *
+     * @param aTable
+     *        a modifiable table
+     * @param newColumns
+     *        the new number of columns
+     * @param newRows
+     *        the new number of rows
+     */
+    protected static void resizeTable(@Modified ModifiableTable<String> aTable, int newColumns, int newRows) {
+
+        int columns = aTable.columns();
+        int rows = aTable.rows();
+
+        for (int a = columns; a < newColumns; a++) {
+
+            aTable.addColumn();
+        }
+
+        for (int a = rows; a < newRows; a++) {
+
+            aTable.addRow();
+        }
+    }
 
 }

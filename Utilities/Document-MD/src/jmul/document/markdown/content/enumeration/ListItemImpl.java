@@ -97,7 +97,7 @@ public class ListItemImpl extends ListItemNodeImpl implements ListItem {
                 predecessors++;
             }
 
-            return "" + predecessors + ".";
+            return Integer.toString(predecessors) + ".";
 
         } else {
 

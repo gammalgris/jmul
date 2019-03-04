@@ -35,7 +35,11 @@ import java.nio.charset.Charset;
 import java.util.List;
 
 import jmul.document.csv.structure.HeaderType;
+import static jmul.document.csv.structure.HeaderType.FIRST_LINE_IS_HEADER;
 import static jmul.document.csv.structure.HeaderType.NO_HEADER;
+import jmul.document.csv.structure.StructureType;
+import static jmul.document.csv.structure.StructureType.FLEXIBLE;
+import static jmul.document.csv.structure.StructureType.RIGID;
 
 import jmul.io.NestedStreams;
 import jmul.io.text.ReadBuffer;
@@ -45,8 +49,6 @@ import jmul.metainfo.annotations.Modified;
 
 import jmul.misc.table.ModifiableTable;
 
-import static jmul.string.Constants.NEW_LINE_WINDOWS;
-import static jmul.string.Constants.SEMICOLON;
 import jmul.string.TextHelper;
 
 
@@ -58,37 +60,21 @@ import jmul.string.TextHelper;
  * <li>a defined column separator</li>
  * <li>and in each line exists the same number of columns as indicated by the header line</li>
  * </ul>
+ * <br>
+ * <i>Note:<br>
+ * Freely add additional constructors if some parameter variations are missing.</i>
  *
  * @author Kristian Kutin
  */
 public class CsvDocumentReaderImpl extends CsvDocumentReaderBase {
 
     /**
-     * The default charset.
-     */
-    private static final Charset DEFAULT_CHARSET = Charset.defaultCharset();
-
-    /**
-     * The default column separator.
-     */
-    private static final String DEFAULT_COLUMN_SEPARATOR = SEMICOLON;
-
-    /**
-     * The default row separator.
-     */
-    private static final String DEFAULT_ROW_SEPARATOR = NEW_LINE_WINDOWS;
-
-    /**
-     * The default header type.
-     */
-    private static final HeaderType DEFAULT_HEADER_TYPE = HeaderType.RIGID;
-
-    /**
      * The default constructor.
      */
     public CsvDocumentReaderImpl() {
 
-        super(DEFAULT_CHARSET, DEFAULT_HEADER_TYPE, DEFAULT_COLUMN_SEPARATOR, DEFAULT_ROW_SEPARATOR);
+        super(DEFAULT_CHARSET, DEFAULT_HEADER_TYPE, DEFAULT_STRUCTURE_TYPE, DEFAULT_COLUMN_SEPARATOR,
+              DEFAULT_ROW_SEPARATOR);
     }
 
     /**
@@ -99,7 +85,7 @@ public class CsvDocumentReaderImpl extends CsvDocumentReaderBase {
      */
     public CsvDocumentReaderImpl(Charset aCharset) {
 
-        super(aCharset, DEFAULT_HEADER_TYPE, DEFAULT_COLUMN_SEPARATOR, DEFAULT_ROW_SEPARATOR);
+        super(aCharset, DEFAULT_HEADER_TYPE, DEFAULT_STRUCTURE_TYPE, DEFAULT_COLUMN_SEPARATOR, DEFAULT_ROW_SEPARATOR);
     }
 
     /**
@@ -110,7 +96,7 @@ public class CsvDocumentReaderImpl extends CsvDocumentReaderBase {
      */
     public CsvDocumentReaderImpl(String aColumnSeparator) {
 
-        super(DEFAULT_CHARSET, DEFAULT_HEADER_TYPE, aColumnSeparator, DEFAULT_ROW_SEPARATOR);
+        super(DEFAULT_CHARSET, DEFAULT_HEADER_TYPE, DEFAULT_STRUCTURE_TYPE, aColumnSeparator, DEFAULT_ROW_SEPARATOR);
     }
 
     /**
@@ -123,7 +109,7 @@ public class CsvDocumentReaderImpl extends CsvDocumentReaderBase {
      */
     public CsvDocumentReaderImpl(Charset aCharset, String aColumnSeparator) {
 
-        super(aCharset, DEFAULT_HEADER_TYPE, aColumnSeparator, DEFAULT_ROW_SEPARATOR);
+        super(aCharset, DEFAULT_HEADER_TYPE, DEFAULT_STRUCTURE_TYPE, aColumnSeparator, DEFAULT_ROW_SEPARATOR);
     }
 
     /**
@@ -136,7 +122,20 @@ public class CsvDocumentReaderImpl extends CsvDocumentReaderBase {
      */
     public CsvDocumentReaderImpl(String aColumnSeparator, String aRowSeparator) {
 
-        super(DEFAULT_CHARSET, DEFAULT_HEADER_TYPE, aColumnSeparator, aRowSeparator);
+        super(DEFAULT_CHARSET, DEFAULT_HEADER_TYPE, DEFAULT_STRUCTURE_TYPE, aColumnSeparator, aRowSeparator);
+    }
+
+    /**
+     * Creates a new document reader according to the specified parameters.
+     *
+     * @param aHeaderType
+     *        the assumed header type
+     * @param aStructureType
+     *        the assumed structure type
+     */
+    public CsvDocumentReaderImpl(HeaderType aHeaderType, StructureType aStructureType) {
+
+        super(DEFAULT_CHARSET, aHeaderType, aStructureType, DEFAULT_COLUMN_SEPARATOR, DEFAULT_ROW_SEPARATOR);
     }
 
     /**
@@ -151,7 +150,7 @@ public class CsvDocumentReaderImpl extends CsvDocumentReaderBase {
      */
     public CsvDocumentReaderImpl(Charset aCharset, String aColumnSeparator, String aRowSeparator) {
 
-        super(aCharset, DEFAULT_HEADER_TYPE, aColumnSeparator, aRowSeparator);
+        super(aCharset, DEFAULT_HEADER_TYPE, DEFAULT_STRUCTURE_TYPE, aColumnSeparator, aRowSeparator);
     }
 
     /**
@@ -166,7 +165,7 @@ public class CsvDocumentReaderImpl extends CsvDocumentReaderBase {
      */
     public CsvDocumentReaderImpl(HeaderType aHeaderType, String aColumnSeparator, String aRowSeparator) {
 
-        super(DEFAULT_CHARSET, aHeaderType, aColumnSeparator, aRowSeparator);
+        super(DEFAULT_CHARSET, aHeaderType, DEFAULT_STRUCTURE_TYPE, aColumnSeparator, aRowSeparator);
     }
 
     /**
@@ -176,36 +175,34 @@ public class CsvDocumentReaderImpl extends CsvDocumentReaderBase {
      *        the assumed charset
      * @param aHeaderType
      *        the assumed header type
+     * @param aStructureType
+     *        the assumed structure type
      * @param aColumnSeparator
      *        the assumed column separator
      * @param aRowSeparator
      *        the assumed row separator
      */
-    public CsvDocumentReaderImpl(Charset aCharset, HeaderType aHeaderType, String aColumnSeparator,
-                                 String aRowSeparator) {
+    public CsvDocumentReaderImpl(Charset aCharset, HeaderType aHeaderType, StructureType aStructureType,
+                                 String aColumnSeparator, String aRowSeparator) {
 
-        super(aCharset, aHeaderType, aColumnSeparator, aRowSeparator);
+        super(aCharset, aHeaderType, aStructureType, aColumnSeparator, aRowSeparator);
     }
 
     /**
-     * The header of a CSV file is parsed and the specified table is updated accordingly.
+     * The first line is parsed for identifying the number of columns in a CSV file. Additionally the first line
+     * may contain data or a header line. The specified table is updated accordingly.
      *
      * @param someStreams
-     *        the input streams
+     *        a handle on the actual file
      * @param aTable
-     *        the table which is filled with the file content
+     *        a modifiable table
      *
      * @throws IOException
      *         is thrown if an error occurrs while trying to read from the CSV file
      */
     @Override
-    protected void parseHeader(NestedStreams someStreams, @Modified ModifiableTable<String> aTable) throws IOException {
-
-        if (getHeaderType() == NO_HEADER) {
-
-            return;
-        }
-
+    protected void parseFirstLine(NestedStreams someStreams,
+                                  @Modified ModifiableTable<String> aTable) throws IOException {
 
         ReadBuffer result = TextFileHelper.readLine(getCharset(), someStreams, getRowSeparator());
 
@@ -219,32 +216,49 @@ public class CsvDocumentReaderImpl extends CsvDocumentReaderBase {
         List<String> substrings = TextHelper.splitLine(line, getColumnSeparator());
 
 
-        int minColumns = aTable.columns();
         int maxColumns = substrings.size();
+        HeaderType actualHeaderType = getHeaderType();
 
-        for (int a = minColumns; a < maxColumns; a++) {
+        if (actualHeaderType == FIRST_LINE_IS_HEADER) {
 
-            aTable.addColumn();
-            aTable.setColumnName(a, substrings.get(a));
+            resizeTable(aTable, maxColumns, 0);
+
+            for (int a = 0; a < maxColumns; a++) {
+
+                aTable.setColumnName(a, substrings.get(a));
+            }
+
+        } else if (actualHeaderType == NO_HEADER) {
+
+            resizeTable(aTable, maxColumns, 1);
+
+            for (int a = 0; a < maxColumns; a++) {
+
+                aTable.updateCell(a, 0, substrings.get(a));
+            }
+
+        } else {
+
+            throw new UnsupportedOperationException();
         }
     }
 
     /**
-     * The content of a CSV file is parsed and the specified table is updated accordingly.
+     * The remaining content of a CSV file is parsed and the specified table is updated accordingly.
      *
      * @param someStreams
-     *        the input streams
+     *        a handle on the actual file
      * @param aTable
-     *        the table which is filled with the file content
+     *        a modifiable table
      *
      * @throws IOException
      *         is thrown if an error occurrs while trying to read from the CSV file
      */
     @Override
-    protected void parseContent(NestedStreams someStreams,
-                                @Modified ModifiableTable<String> aTable) throws IOException {
+    protected void parseRemainingContent(NestedStreams someStreams,
+                                         @Modified ModifiableTable<String> aTable) throws IOException {
 
-        int currentRow = 0;
+        int currentRow = aTable.rows();
 
         while (true) {
 
@@ -259,17 +273,38 @@ public class CsvDocumentReaderImpl extends CsvDocumentReaderBase {
             String line = result.getLine();
             List<String> substrings = TextHelper.splitLine(line, getColumnSeparator());
 
+
+            int actualColumns = substrings.size();
+
             currentRow++;
 
-            if (currentRow > 1) {
 
-                aTable.addRow();
+            StructureType actualStructureType = getStructureType();
+            if (actualStructureType == RIGID) {
+
+                int previousColumns = aTable.columns();
+
+                if (previousColumns != actualColumns) {
+
+                    String message = "A rigid structure is expected but a flexible structure was encountered!";
+                    throw new CsvStructureException(message);
+                }
+
+                resizeTable(aTable, previousColumns, currentRow);
+
+            } else if (actualStructureType == FLEXIBLE) {
+
+                resizeTable(aTable, actualColumns, currentRow);
+
+            } else {
+
+                throw new UnsupportedOperationException();
             }
 
-            int newRowIndex = currentRow - 1;
-            int columns = substrings.size();
 
-            for (int a = 0; a < columns; a++) {
+            int newRowIndex = currentRow - 1;
+
+            for (int a = 0; a < actualColumns; a++) {
 
                 String newValue = substrings.get(a);
 

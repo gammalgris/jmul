@@ -1,7 +1,7 @@
 /*
  * SPDX-License-Identifier: GPL-3.0
- * 
- * 
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -117,33 +117,10 @@ public class ModifiableTable2Test {
     /**
      * Tests the behaviour on adding a new row on an empty table.
      */
-    @Test
+    @Test(expected = IllegalArgumentException.class)
     public void testAddRow() {
 
         table.addRow();
-        assertTrue(1 == table.rows());
-        assertTrue(1 == table.columns());
-        assertTrue(1 == table.cells());
-        assertEquals(null, table.getCell(0, 0));
-
-        for (int a = 0; a < 1; a++) {
-
-            for (int b = 0; b < 1; b++) {
-
-                if ((a == 0) && (b == 0)) {
-
-                    continue;
-                }
-
-                try {
-
-                    table.getCell(a, b);
-                    fail();
-
-                } catch (IndexOutOfBoundsException e) {
-                }
-            }
-        }
     }
 
     /**
@@ -153,29 +130,23 @@ public class ModifiableTable2Test {
     public void testAddColumn() {
 
         table.addColumn();
-        assertTrue(1 == table.rows());
-        assertTrue(1 == table.columns());
-        assertTrue(1 == table.cells());
-        assertEquals(null, table.getCell(0, 0));
+        assertTrue("The table has rows but none are expected!", 0 == table.rows());
+        assertTrue("The table is expected to have 1 column!", 1 == table.columns());
+        assertTrue("The table is expected to have no cells!", 0 == table.cells());
+    }
 
-        for (int a = 0; a < 1; a++) {
+    /**
+     * Tests the behaviour on adding a new column on an empty table.
+     */
+    @Test(expected = IndexOutOfBoundsException.class)
+    public void testAddColumn2() {
 
-            for (int b = 0; b < 1; b++) {
+        table.addColumn();
+        assertTrue("The table has rows but none are expected!", 0 == table.rows());
+        assertTrue("The table is expected to have 1 column!", 1 == table.columns());
+        assertTrue("The table is expected to have no cells!", 0 == table.cells());
 
-                if ((a == 0) && (b == 0)) {
-
-                    continue;
-                }
-
-                try {
-
-                    table.getCell(a, b);
-                    fail();
-
-                } catch (IndexOutOfBoundsException e) {
-                }
-            }
-        }
+        table.getCell(0, 0);
     }
 
     /**

@@ -43,11 +43,11 @@ import jmul.misc.exceptions.MultipleCausesException;
 
 
 /**
- * An implementation of a file copier. {@link java.lang.Object#}
+ * An implementation of a file copier (see {@link jmul.io.FileCopier}).
  *
  * @author Kristian Kutin
  *
- * @deprecated use {@link java.nio.file.Files#} instead.
+ * @deprecated use {@link java.nio.file.Files} instead.
  */
 @Deprecated
 public class FileCopierImpl implements FileCopier {

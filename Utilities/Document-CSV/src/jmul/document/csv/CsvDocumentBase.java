@@ -33,6 +33,7 @@ import java.nio.charset.Charset;
 import jmul.document.DocumentBase;
 import jmul.document.csv.structure.CsvStructure;
 import jmul.document.csv.structure.HeaderType;
+import jmul.document.csv.structure.StructureType;
 import jmul.document.type.DocumentType;
 
 
@@ -52,45 +53,64 @@ abstract class CsvDocumentBase extends DocumentBase<CsvStructure> implements Csv
      * Creates a new instance according to the specified parmaeters.
      *
      * @param aDocumentType
+     *        the document type
      * @param aCharset
+     *        the charset
      * @param aHeaderType
+     *        the header type
+     * @param aStructureType
+     *        the structure type
      * @param aColumnSeparator
+     *        the column separator
      * @param aRowSeparator
+     *        the row separator
      * @param someColumnNames
+     *        the column names
      */
     protected CsvDocumentBase(DocumentType aDocumentType, Charset aCharset, HeaderType aHeaderType,
-                              String aColumnSeparator, String aRowSeparator, String... someColumnNames) {
+                              StructureType aStructureType, String aColumnSeparator, String aRowSeparator,
+                              String... someColumnNames) {
 
         super(aDocumentType);
 
-        structure = new CsvStructure(aCharset, aHeaderType, aColumnSeparator, aRowSeparator, someColumnNames);
+        structure =
+            new CsvStructure(aCharset, aHeaderType, aStructureType, aColumnSeparator, aRowSeparator, someColumnNames);
     }
 
     /**
      * Creates a new instance according to the specified parmaeters.
      *
      * @param aDocumentType
+     *        the document type
      * @param aHeaderType
+     *        the header type
+     * @param aStructureType
+     *        the structure type
      * @param aColumnSeparator
+     *        the column separator
      * @param aRowSeparator
+     *        the row separator
      * @param someColumnNames
+     *        the column names
      */
-    protected CsvDocumentBase(DocumentType aDocumentType, HeaderType aHeaderType, String aColumnSeparator,
-                              String aRowSeparator, String... someColumnNames) {
+    protected CsvDocumentBase(DocumentType aDocumentType, HeaderType aHeaderType, StructureType aStructureType,
+                              String aColumnSeparator, String aRowSeparator, String... someColumnNames) {
 
-        super(aDocumentType);
-
-        structure =
-            new CsvStructure(Charset.defaultCharset(), aHeaderType, aColumnSeparator, aRowSeparator, someColumnNames);
+        this(aDocumentType, Charset.defaultCharset(), aHeaderType, aStructureType, aColumnSeparator, aRowSeparator,
+             someColumnNames);
     }
 
     /**
      * Creates a new instance according to the specified parameters.
      *
      * @param aCharset
+     *        the assumed charset
      * @param aDocumentType
+     *        the document type
      * @param aColumnSeparator
+     *        the column separator
      * @param aRowSeparator
+     *        the row separator
      */
     protected CsvDocumentBase(Charset aCharset, DocumentType aDocumentType, String aColumnSeparator,
                               String aRowSeparator) {
@@ -104,14 +124,15 @@ abstract class CsvDocumentBase extends DocumentBase<CsvStructure> implements Csv
      * Creates a new instance according to the specified parameters.
      *
      * @param aDocumentType
+     *        the document type
      * @param aColumnSeparator
+     *        the column separator
      * @param aRowSeparator
+     *        the row separator
      */
     protected CsvDocumentBase(DocumentType aDocumentType, String aColumnSeparator, String aRowSeparator) {
 
-        super(aDocumentType);
-
-        structure = new CsvStructure(Charset.defaultCharset(), aColumnSeparator, aRowSeparator);
+        this(Charset.defaultCharset(), aDocumentType, aColumnSeparator, aRowSeparator);
     }
 
     /**

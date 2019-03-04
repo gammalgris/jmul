@@ -51,9 +51,13 @@ public class TextDocumentImpl extends TextDocumentBase {
      * Creates a new document according to the specified parmaeters.
      *
      * @param aDocumentType
+     *        the document type
      * @param aCharset
+     *        the charset of the document
      * @param aLineSeparator
+     *        the line separator within the document
      * @param aText
+     *        the document text
      */
     public TextDocumentImpl(DocumentType aDocumentType, Charset aCharset, String aLineSeparator, Text aText) {
 

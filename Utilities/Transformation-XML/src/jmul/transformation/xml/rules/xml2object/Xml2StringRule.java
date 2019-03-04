@@ -50,7 +50,6 @@ import static jmul.transformation.xml.rules.TransformationConstants.OBJECT_CACHE
 
 import jmul.xml.XmlParserHelper;
 
-import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 
 
@@ -60,6 +59,11 @@ import org.w3c.dom.Node;
  * @author Kristian Kutin
  */
 public class Xml2StringRule extends TransformationRuleBase {
+
+    /**
+     * A class name.
+     */
+    private static final String EXPECTED_TYPE_NAME = String.class.getName();
 
     /**
      * Constructs a transformation rule.
@@ -90,21 +94,7 @@ public class Xml2StringRule extends TransformationRuleBase {
     @Override
     public boolean isApplicable(TransformationParameters someParameters) {
 
-        Object target = someParameters.getObject();
-
-        if (!Document.class.isInstance(target) && Node.class.isInstance(target)) {
-
-            Node objectElement = (Node) target;
-
-            if (XmlParserHelper.matchesXmlElement(objectElement, OBJECT_ELEMENT) &&
-                XmlParserHelper.existsXmlAttribute(objectElement, TYPE_ATTRIBUTE)) {
-
-                String type = XmlParserHelper.getXmlAttributeValue(objectElement, TYPE_ATTRIBUTE);
-                return type.equals(String.class.getName());
-            }
-        }
-
-        return false;
+        return RuleHelper.isApplicable(someParameters, EXPECTED_TYPE_NAME);
     }
 
     /**

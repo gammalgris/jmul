@@ -7,7 +7,7 @@
  * JMUL is a central repository for utilities which are used in my
  * other public and private repositories.
  *
- * Copyright (C) 2017  Kristian Kutin
+ * Copyright (C) 2019  Kristian Kutin
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -29,20 +29,20 @@ package jmul.document.csv.structure;
 
 
 /**
- * This enumeration contains CSV header types.
+ * This enumeration contains CSV structure types.
  *
  * @author Kristian Kutin
  */
-public enum HeaderType {
+public enum StructureType {
 
     /**
-     * The first line of the CSV file represents a header line.
+     * The CSV file can contain more or less columns than the first line indicates.
      */
-    FIRST_LINE_IS_HEADER,
+    FLEXIBLE,
 
     /**
-     * The CSV file doesn't have a header line.
+     * The CSV file consists of a constant number of columns as indicated by the first line.
      */
-    NO_HEADER, ;
+    RIGID, ;
 
 }

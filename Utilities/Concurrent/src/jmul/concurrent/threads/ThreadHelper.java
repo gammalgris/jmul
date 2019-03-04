@@ -105,13 +105,13 @@ public final class ThreadHelper {
      *
      * @param aNameType
      *        specifies what kind of method name is returned
-     * @param directInvocation
-     *        indicates a direct or indirect invocation which is considered when looking at the
-     *        stack trace
+     * @param sideThread
+     *        indicates that the invocation occurs within a side thread and not the main thread. The
+     *        stacktrace is different.
      *
      * @return a canonical or simple method name
      */
-    private static String getInvokingMethodName(NameTypes aNameType, boolean directInvocation) {
+    public static String getInvokingMethodName(NameTypes aNameType, boolean sideThread) {
 
         Thread currentThread = Thread.currentThread();
         StackTraceElement[] stackTrace = currentThread.getStackTrace();
@@ -119,18 +119,18 @@ public final class ThreadHelper {
         int elementCount = stackTrace.length;
         int index;
 
-        if (directInvocation) {
+        if (sideThread) {
 
-            index = INVOKING_METHOD_INDEX;
+            index = INVOKING_METHOD_INDEX - 1;
 
         } else {
 
-            index = INVOKING_METHOD_INDEX + 1;
+            index = INVOKING_METHOD_INDEX;
         }
 
         if (INVOKING_METHOD_INDEX < elementCount) {
 
-            StackTraceElement element = stackTrace[INVOKING_METHOD_INDEX];
+            StackTraceElement element = stackTrace[index];
 
             String methodName = removeLineInformation(element.toString());
 

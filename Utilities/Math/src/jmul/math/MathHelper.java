@@ -204,7 +204,7 @@ public final class MathHelper {
             absolute = f;
         }
 
-        return (sign * Math.round(absolute));
+        return sign * Math.round(absolute);
     }
 
     /**

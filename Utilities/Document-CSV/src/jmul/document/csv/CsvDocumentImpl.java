@@ -33,6 +33,7 @@ import java.nio.charset.Charset;
 import java.util.List;
 
 import jmul.document.csv.structure.HeaderType;
+import jmul.document.csv.structure.StructureType;
 import jmul.document.type.DocumentType;
 
 import jmul.misc.table.Table;
@@ -61,6 +62,8 @@ public class CsvDocumentImpl extends CsvDocumentBase {
      *        the charset
      * @param aHeaderType
      *        the header type
+     * @param aStructureType
+     *        the structure type
      * @param aColumnSeparator
      *        the column separator
      * @param aRowSeparator
@@ -69,9 +72,10 @@ public class CsvDocumentImpl extends CsvDocumentBase {
      *        the document content
      */
     public CsvDocumentImpl(DocumentType aDocumentType, Charset aCharset, HeaderType aHeaderType,
-                           String aColumnSeparator, String aRowSeparator, Table<String> aTable) {
+                           StructureType aStructureType, String aColumnSeparator, String aRowSeparator,
+                           Table<String> aTable) {
 
-        super(aDocumentType, aCharset, aHeaderType, aColumnSeparator, aRowSeparator,
+        super(aDocumentType, aCharset, aHeaderType, aStructureType, aColumnSeparator, aRowSeparator,
               transformColumnNamesToArray(aTable));
 
         content = new UnmodifiableTableImpl<>(aTable);
@@ -84,6 +88,8 @@ public class CsvDocumentImpl extends CsvDocumentBase {
      *        the document type
      * @param aHeaderType
      *        the header type
+     * @param aStructureType
+     *        the structure type
      * @param aColumnSeparator
      *        the column separator
      * @param aRowSeparator
@@ -91,10 +97,11 @@ public class CsvDocumentImpl extends CsvDocumentBase {
      * @param aTable
      *        the document content
      */
-    public CsvDocumentImpl(DocumentType aDocumentType, HeaderType aHeaderType, String aColumnSeparator,
-                           String aRowSeparator, Table<String> aTable) {
+    public CsvDocumentImpl(DocumentType aDocumentType, HeaderType aHeaderType, StructureType aStructureType,
+                           String aColumnSeparator, String aRowSeparator, Table<String> aTable) {
 
-        super(aDocumentType, aHeaderType, aColumnSeparator, aRowSeparator, transformColumnNamesToArray(aTable));
+        super(aDocumentType, aHeaderType, aStructureType, aColumnSeparator, aRowSeparator,
+              transformColumnNamesToArray(aTable));
 
         content = new UnmodifiableTableImpl<>(aTable);
     }

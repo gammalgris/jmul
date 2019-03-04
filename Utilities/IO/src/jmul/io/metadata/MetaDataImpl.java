@@ -1,7 +1,7 @@
 /*
  * SPDX-License-Identifier: GPL-3.0
- * 
- * 
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -45,7 +45,7 @@ import static jmul.string.Constants.POINT;
  *
  * @author Kristian Kutin
  */
-class MetaDataImpl implements MetaData {
+public class MetaDataImpl implements MetaData {
 
     /**
      * The canonical file name.

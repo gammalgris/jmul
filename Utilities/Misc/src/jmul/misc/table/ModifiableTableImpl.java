@@ -245,23 +245,13 @@ public class ModifiableTableImpl<T> extends TableBase<T> implements ModifiableTa
     @Override
     public void addColumn() {
 
-        if ((columns == 0) && (rows == 0)) {
+        header.add(newColumnName(columns));
+        columns++;
 
-            header.add(newColumnName(columns));
+        for (int a = 0; a < rows; a++) {
 
-            columns++;
-            table.add(newRow(columns));
-            rows++;
-
-        } else {
-
-            for (List<T> inner : table) {
-
-                inner.add(newEmptyCell());
-            }
-
-            header.add(newColumnName(columns));
-            columns++;
+            List<T> row = table.get(a);
+            row.add(newEmptyCell());
         }
 
         updateCells();
@@ -273,11 +263,10 @@ public class ModifiableTableImpl<T> extends TableBase<T> implements ModifiableTa
     @Override
     public void addRow() {
 
-        if ((columns == 0) && (rows == 0)) {
+        if (columns == 0) {
 
-            header.add(newColumnName(columns));
-            columns++;
-
+            String message = "Add some columns first, before adding rows!";
+            throw new IllegalArgumentException(message);
         }
 
         table.add(newRow(columns));
