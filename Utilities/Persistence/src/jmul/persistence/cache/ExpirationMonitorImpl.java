@@ -1,7 +1,7 @@
 /*
  * SPDX-License-Identifier: GPL-3.0
- * 
- * 
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -182,7 +182,6 @@ public class ExpirationMonitorImpl implements ExpirationMonitor {
 
             } catch (InterruptedException e) {
 
-                e.printStackTrace();
                 currentThread.interrupt();
 
                 // leave the loop and let the monitored object expire

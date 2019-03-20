@@ -14,7 +14,6 @@
 
     <property name="project.dir" location="${basedir}\..\.." />
     <property name="batch.base.dir" location="${project.dir}\Batch" />
-    <property name="packages.base.dir" location="${project.dir}\Utilities" />
 
 
     <property name="project.java.version" value="1.7" />

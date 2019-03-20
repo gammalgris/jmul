@@ -39,6 +39,11 @@ import jmul.checks.ParameterCheckHelper;
 public class StopwatchException extends RuntimeException {
 
     /**
+     * The serial UID as required by java's serialization mechanism.
+     */
+    private static final long serialVersionUID = 1L;
+
+    /**
      * The default constructor.
      */
     public StopwatchException() {

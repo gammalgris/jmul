@@ -42,6 +42,11 @@ import static jmul.checks.ParameterCheckHelper.checkFileParameter;
 public class FileDeletionException extends RuntimeException {
 
     /**
+     * The serial UID as required by java's serialization mechanism.
+     */
+    private static final long serialVersionUID = 1L;
+
+    /**
      * Creates an exception.
      *
      * @param message

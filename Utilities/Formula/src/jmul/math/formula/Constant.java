@@ -97,16 +97,16 @@ public class Constant implements Operand {
 
         StringBuilder representation = new StringBuilder();
 
-        int value = getValue();
-        if (value < 0) {
+        int i = getValue();
+        if (i < 0) {
 
             representation.append("(");
-            representation.append(value);
+            representation.append(i);
             representation.append(")");
 
         } else {
 
-            representation.append(value);
+            representation.append(i);
         }
 
         return representation.toString();

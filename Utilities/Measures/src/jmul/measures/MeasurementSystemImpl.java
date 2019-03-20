@@ -151,9 +151,6 @@ public class MeasurementSystemImpl implements MeasurementSystem {
         }
 
 
-        // update the system of measurement
-        //TODO check for duplicates
-
         // updates the set which contains all units of measurement
         units.addAll(newUnits);
 

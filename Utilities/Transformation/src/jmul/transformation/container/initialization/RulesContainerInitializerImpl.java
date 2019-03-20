@@ -89,6 +89,14 @@ public class RulesContainerInitializerImpl implements RulesContainerInitializer 
     @Override
     public RulesContainer newContainer() {
 
+        // TODO
+        // An entity is needed which keeps track of all rules and which rules couldn't be loaded. The invoker
+        // has to decide if an exception has to be thrown or not. This way it is not necessary to use a logger
+        // or print to the console in this section of the code.
+        // Additionally filter parameters (e.g. classpath only, archives only, classpath and archives) should
+        // be provided which decide where to look for configuration files. The current implementation is
+        // insufficient.
+
         RulesContainer container = new RulesContainerImpl();
         ModifiableRulesContainer modifiableContainer = (ModifiableRulesContainer) container;
 

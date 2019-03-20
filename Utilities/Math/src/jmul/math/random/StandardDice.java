@@ -39,6 +39,7 @@ import static jmul.math.random.DiceFactory.createDie;
 public enum StandardDice implements Die {
 
 
+    D2(createDie(2)),
     D4(createDie(4)),
     D6(createDie(6)),
     D8(createDie(8)),

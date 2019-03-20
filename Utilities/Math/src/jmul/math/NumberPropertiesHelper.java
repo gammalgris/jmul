@@ -195,7 +195,8 @@ public final class NumberPropertiesHelper {
      */
     public static boolean isOdd(float f) {
 
-        return f % 2F != 0F;
+        float result = f % 2F;
+        return !isZero(result);
     }
 
     /**
@@ -228,7 +229,8 @@ public final class NumberPropertiesHelper {
      */
     public static boolean isOdd(double d) {
 
-        return d % 2D != 0D;
+        double result = d % 2D;
+        return !isZero(result);
     }
 
     /**
@@ -393,7 +395,8 @@ public final class NumberPropertiesHelper {
      */
     public static boolean isEven(float f) {
 
-        return f % 2F == 0F;
+        float result = f % 2F;
+        return isZero(result);
     }
 
     /**
@@ -426,7 +429,8 @@ public final class NumberPropertiesHelper {
      */
     public static boolean isEven(double d) {
 
-        return d % 2D == 0D;
+        double result = d % 2D;
+        return isZero(result);
     }
 
     /**

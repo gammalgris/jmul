@@ -41,6 +41,11 @@ import jmul.math.rules.RuleSet;
 public class DieImpl implements Die {
 
     /**
+     * The serial UID which is required by java's serialization mechanism.
+     */
+    private static final long serialVersionUID = 1L;
+
+    /**
      * A rule set which contains details about the allowed value range for the number of sides of a die.
      */
     private static final RuleSet ALLOWED_VALUE_RANGE;

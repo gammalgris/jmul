@@ -28,6 +28,8 @@
 package jmul.math.types;
 
 
+import java.io.Serializable;
+
 import java.nio.ByteOrder;
 import static java.nio.ByteOrder.BIG_ENDIAN;
 import static java.nio.ByteOrder.LITTLE_ENDIAN;
@@ -45,7 +47,12 @@ import jmul.math.MathHelper;
  *
  * @author Kristian Kutin
  */
-public class HexadecimalNumber extends Number implements Comparable<HexadecimalNumber> {
+public class HexadecimalNumber extends Number implements Comparable<HexadecimalNumber>, Serializable {
+
+    /**
+     * The serial UID which is required by java's serialization mechanism.
+     */
+    private static final long serialVersionUID = 1L;
 
     /**
      * A constant message.

@@ -1,7 +1,7 @@
 /*
  * SPDX-License-Identifier: GPL-3.0
- * 
- * 
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -34,6 +34,11 @@ package jmul.xml.reader;
  * @author Kristian Kutin
  */
 public class ReaderException extends RuntimeException {
+
+    /**
+     * The serial UID as required by java's serialization mechanism.
+     */
+    private static final long serialVersionUID = 1L;
 
     /**
      * The default constructor with no parameters.

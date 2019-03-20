@@ -41,9 +41,6 @@ import org.w3c.dom.Document;
 /**
  * An implementation of an xml document writer.
  *
- * //TODO
- * Check if the specified file names are indeed file names and no directories.
- *
  * @author Kristian Kutin
  */
 public class XmlDocumentWriterImpl implements XmlDocumentWriter {

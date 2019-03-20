@@ -40,6 +40,11 @@ import jmul.checks.ParameterCheckHelper;
 public class QuoteNotClosedException extends RuntimeException {
 
     /**
+     * The serial UID as required by java's serialization mechanism.
+     */
+    private static final long serialVersionUID = 1L;
+
+    /**
      * The default constructor.
      */
     public QuoteNotClosedException() {

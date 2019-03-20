@@ -1097,11 +1097,7 @@ class ClassDefinitionImpl implements ClassDefinition {
 
             for (Field field : probedClass.getDeclaredFields()) {
 
-                if (Modifier.isStatic(field.getModifiers())) {
-
-                    continue;
-
-                } else if (Modifier.isFinal(field.getModifiers())) {
+                if (Modifier.isStatic(field.getModifiers()) || Modifier.isFinal(field.getModifiers())) {
 
                     continue;
                 }

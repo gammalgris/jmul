@@ -42,6 +42,11 @@ import static jmul.checks.ParameterCheckHelper.checkExceptionMessage;
 public class CoupledStreamsException extends IOException {
 
     /**
+     * The serial UID as required by java's serialization mechanism.
+     */
+    private static final long serialVersionUID = 1L;
+
+    /**
      * Creates a new exception.
      */
     public CoupledStreamsException() {

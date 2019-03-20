@@ -40,6 +40,11 @@ import jmul.checks.ParameterCheckHelper;
 public class FormulaParserException extends RuntimeException {
 
     /**
+     * The serial UID as required by java's serialization mechanism.
+     */
+    private static final long serialVersionUID = 1L;
+
+    /**
      * The default constructor with no parameters.
      */
     public FormulaParserException() {

@@ -28,6 +28,8 @@
 package jmul.xml.validation;
 
 
+import java.io.Serializable;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,7 +41,12 @@ import static jmul.string.Constants.NEW_LINE;
  *
  * @author Kristian Kutin
  */
-public class XmlValidationResult {
+public class XmlValidationResult implements Serializable {
+
+    /**
+     * The serial UID as required by java's serialization mechanism.
+     */
+    private static final long serialVersionUID = 1L;
 
     /**
      * The name of the XML file which was validated.

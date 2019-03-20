@@ -40,6 +40,11 @@ import static jmul.checks.ParameterCheckHelper.checkExceptionMessage;
 public class UnknownStateException extends IllegalArgumentException {
 
     /**
+     * The serial UID as required by java's serialization mechanism.
+     */
+    private static final long serialVersionUID = 1L;
+
+    /**
      * The default constructor.
      */
     public UnknownStateException() {

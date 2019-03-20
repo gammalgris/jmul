@@ -1,7 +1,7 @@
 /*
  * SPDX-License-Identifier: GPL-3.0
- * 
- * 
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -28,12 +28,15 @@
 package jmul.math.random;
 
 
+import java.io.Serializable;
+
+
 /**
  * This interface describes a die.
  *
  * @author Kristian Kutin
  */
-public interface Die extends DieRoll {
+public interface Die extends DieRoll, Serializable {
 
     /**
      * A getter method.

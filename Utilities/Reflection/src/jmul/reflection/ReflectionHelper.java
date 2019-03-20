@@ -85,6 +85,60 @@ public final class ReflectionHelper {
     }
 
     /**
+     * Identfies a class definition according to the specified class.
+     *
+     * @param aClass
+     *        a class
+     *
+     * @return a class definition
+     */
+    private static ClassDefinition identifyClassDefinition(Class aClass) {
+
+        try {
+
+            return ClassHelper.getClass(aClass);
+
+        } catch (ClassNotFoundException f) {
+
+            String message =
+                TextHelper.concatenateStrings("The target's class couldn't be determined (", aClass.getName(), ")!");
+            throw new IllegalArgumentException(message, f);
+        }
+    }
+
+    /**
+     * Evaluates the specified error status and may throw a corresponding exception.
+     *
+     * @param anErrorStatus
+     *        an error status
+     *
+     * @throws NoSuchMethodException
+     *         is thrown if no method can be identified
+     * @throws IllegalAccessException
+     *         is thrown if the method has restricted access
+     * @throws InvocationTargetException
+     *         is thrown if an error occurs while the method is executed
+     */
+    private static void evaluateError(ErrorStatus anErrorStatus) throws NoSuchMethodException, IllegalAccessException,
+                                                                        InvocationTargetException {
+
+        Throwable cause = anErrorStatus.getError();
+
+        if (cause instanceof NoSuchMethodException) {
+
+            throw (NoSuchMethodException) cause;
+
+        } else if (cause instanceof IllegalAccessException) {
+
+            throw (IllegalAccessException) cause;
+
+        } else if (cause instanceof InvocationTargetException) {
+
+            throw (InvocationTargetException) cause;
+        }
+    }
+
+    /**
      * The method calls a setter method to set a class member.
      *
      * @param target
@@ -114,19 +168,7 @@ public final class ReflectionHelper {
         Class[] parameterSignature = { fieldValue.getClass() };
 
         Class probedClass = target.getClass();
-        ClassDefinition probedClassDefinition = null;
-
-        try {
-
-            probedClassDefinition = ClassHelper.getClass(probedClass);
-
-        } catch (ClassNotFoundException f) {
-
-            String message =
-                TextHelper.concatenateStrings("The target's class couldn't be determined (", probedClass.getName(),
-                                              ")!");
-            throw new IllegalArgumentException(message, f);
-        }
+        ClassDefinition probedClassDefinition = identifyClassDefinition(probedClass);
 
 
         // Use the regular way first to identify the setter method. This is the
@@ -201,21 +243,7 @@ public final class ReflectionHelper {
 
 
         // Now throw the exception!
-
-        Throwable cause = status.getError();
-
-        if (cause instanceof NoSuchMethodException) {
-
-            throw (NoSuchMethodException) cause;
-
-        } else if (cause instanceof IllegalAccessException) {
-
-            throw (IllegalAccessException) cause;
-
-        } else if (cause instanceof InvocationTargetException) {
-
-            throw (InvocationTargetException) cause;
-        }
+        evaluateError(status);
     }
 
     /**
@@ -250,19 +278,7 @@ public final class ReflectionHelper {
         Class[] parameterSignature = { };
 
         Class probedClass = target.getClass();
-        ClassDefinition probedClassDefinition = null;
-
-        try {
-
-            probedClassDefinition = ClassHelper.getClass(probedClass);
-
-        } catch (ClassNotFoundException f) {
-
-            String message =
-                TextHelper.concatenateStrings("The target's class couldn't be determined (", probedClass.getName(),
-                                              ")!");
-            throw new IllegalArgumentException(message, f);
-        }
+        ClassDefinition probedClassDefinition = identifyClassDefinition(probedClass);
 
 
         // Use the regular way first to identify the getter method. This is the
@@ -354,22 +370,7 @@ public final class ReflectionHelper {
 
 
         // Now throw the exception!
-
-        Throwable cause = status.getError();
-
-        if (cause instanceof NoSuchMethodException) {
-
-            throw (NoSuchMethodException) cause;
-
-        } else if (cause instanceof IllegalAccessException) {
-
-            throw (IllegalAccessException) cause;
-
-        } else if (cause instanceof InvocationTargetException) {
-
-            throw (InvocationTargetException) cause;
-        }
-
+        evaluateError(status);
 
         String message = "The getter method didn't return anything!";
         throw new InvalidGetterException(message);

@@ -40,6 +40,11 @@ import static jmul.checks.ParameterCheckHelper.checkExceptionMessage;
 public class InvalidRegularExpressionParameterException extends IllegalArgumentException {
 
     /**
+     * The serial UID as required by java's serialization mechanism.
+     */
+    private static final long serialVersionUID = 1L;
+
+    /**
      * The default message for this kind of exception.
      */
     private static final String DEFAULT_MESSAGE = "No regular expression (null) has been specified!";

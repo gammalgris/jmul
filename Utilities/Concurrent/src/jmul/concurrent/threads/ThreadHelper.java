@@ -68,7 +68,6 @@ public final class ThreadHelper {
 
         } catch (InterruptedException e) {
 
-            e.printStackTrace();
             currentThread.interrupt();
         }
     }
@@ -184,7 +183,10 @@ public final class ThreadHelper {
 
     /**
      * Prints the current thread's details to the console.
+     *
+     * @deprecated The method is going to be removed.
      */
+    @Deprecated
     public static void printCurrentThreadDetails() {
 
         Thread currentThread = Thread.currentThread();
@@ -195,6 +197,29 @@ public final class ThreadHelper {
 
             System.out.println("\t" + element);
         }
+    }
+
+    /**
+     * Returns a string containing the current stack trace.
+     *
+     * @return a string
+     */
+    public static String getCurrentStackTrace() {
+
+        StringBuilder buffer = new StringBuilder();
+
+        Thread currentThread = Thread.currentThread();
+
+        StackTraceElement[] stackTrace = currentThread.getStackTrace();
+
+        for (StackTraceElement element : stackTrace) {
+
+            buffer.append("\t");
+            buffer.append(element);
+            buffer.append("\r\n");
+        }
+
+        return buffer.toString();
     }
 
     /**
@@ -239,7 +264,6 @@ public final class ThreadHelper {
 
         } catch (InterruptedException e) {
 
-            e.printStackTrace();
             currentThread.interrupt();
         }
     }

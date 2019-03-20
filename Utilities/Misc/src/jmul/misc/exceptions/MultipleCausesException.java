@@ -45,6 +45,11 @@ import static jmul.checks.ParameterCheckHelper.checkExceptionMessage;
 public class MultipleCausesException extends Exception implements Iterable<Throwable> {
 
     /**
+     * The serial UID as required by java's serialization mechanism.
+     */
+    private static final long serialVersionUID = 1L;
+
+    /**
      * The index of the first exception.
      */
     private static final int FIRST_EXCEPTION_INDEX = 0;

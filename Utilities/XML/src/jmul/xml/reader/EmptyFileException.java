@@ -38,6 +38,11 @@ import java.io.File;
 public class EmptyFileException extends RuntimeException {
 
     /**
+     * The serial UID as required by java's serialization mechanism.
+     */
+    private static final long serialVersionUID = 1L;
+
+    /**
      * Creates a new eception.
      *
      * @param aFile

@@ -43,6 +43,11 @@ import static jmul.document.csv.structure.StructureType.RIGID;
 public class CsvStructure implements Structure {
 
     /**
+     * A <code>null</code> string array.
+     */
+    private static final String[] NULL_STRING_ARRAY = null;
+
+    /**
      * The actual char set.
      */
     private final Charset charset;
@@ -111,7 +116,7 @@ public class CsvStructure implements Structure {
      */
     public CsvStructure(Charset aCharset, String aColumnSeparator, String aRowSeparator) {
 
-        this(aCharset, NO_HEADER, RIGID, aColumnSeparator, aRowSeparator, newNullStringArray());
+        this(aCharset, NO_HEADER, RIGID, aColumnSeparator, aRowSeparator, NULL_STRING_ARRAY);
     }
 
     /**
@@ -182,17 +187,6 @@ public class CsvStructure implements Structure {
     public String getRowSeparator() {
 
         return rowSeparator;
-    }
-
-    /**
-     * Creates a <code>null</code> string array.
-     *
-     * @return <code>null</code>
-     */
-    private static String[] newNullStringArray() {
-
-        String[] header = null;
-        return header;
     }
 
 }

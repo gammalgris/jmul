@@ -43,6 +43,11 @@ import static jmul.string.Constants.NEW_LINE;
 public class XmlValidationException extends RuntimeException {
 
     /**
+     * The serial UID as required by java's serialization mechanism.
+     */
+    private static final long serialVersionUID = 1L;
+
+    /**
      * The results of all validations.
      */
     private final Collection<XmlValidationResult> validationResults;

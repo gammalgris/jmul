@@ -42,6 +42,8 @@ import jmul.concurrent.threads.ThreadHelper;
 import jmul.concurrent.threads.ThreadListener;
 import jmul.concurrent.threads.ThreadPool;
 
+import jmul.misc.exceptions.InitializationException;
+
 import jmul.reflection.Initializer;
 import jmul.reflection.classes.ClassDefinition;
 import jmul.reflection.classes.ClassHelper;
@@ -144,7 +146,7 @@ public class FileLookup implements ThreadListener {
 
                     String message =
                         TextHelper.concatenateStrings("The specified thread pool (", threadPoolType, ") is invalid!");
-                    throw new RuntimeException(message, e);
+                    throw new InitializationException(message, e);
                 }
 
 

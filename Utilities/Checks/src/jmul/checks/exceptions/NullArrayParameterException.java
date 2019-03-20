@@ -1,7 +1,7 @@
 /*
  * SPDX-License-Identifier: GPL-3.0
- * 
- * 
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -34,6 +34,11 @@ package jmul.checks.exceptions;
  * @author Kristian Kutin
  */
 public class NullArrayParameterException extends IllegalArgumentException {
+
+    /**
+     * The serial UID as required by java's serialization mechanism.
+     */
+    private static final long serialVersionUID = 1L;
 
     /**
      * The default message for this kind of exception.
