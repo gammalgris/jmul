@@ -34,6 +34,7 @@ import java.nio.charset.Charset;
 
 import java.util.List;
 
+import static jmul.document.csv.CsvHelper.normalizeValue;
 import jmul.document.csv.structure.HeaderType;
 import static jmul.document.csv.structure.HeaderType.FIRST_LINE_IS_HEADER;
 import static jmul.document.csv.structure.HeaderType.NO_HEADER;
@@ -254,7 +255,7 @@ public class CsvDocumentReaderImpl2 extends CsvDocumentReaderBase {
 
             for (int a = 0; a < maxColumns; a++) {
 
-                aTable.updateCell(a, 0, substrings.get(a));
+                aTable.updateCell(a, 0, normalizeValue(substrings.get(a)));
             }
 
         } else {
@@ -341,7 +342,7 @@ public class CsvDocumentReaderImpl2 extends CsvDocumentReaderBase {
 
                     for (int a = 0; a < actualColumns; a++) {
 
-                        aTable.updateCell(a, nextRowIndex, substrings.get(a));
+                        aTable.updateCell(a, nextRowIndex, normalizeValue(substrings.get(a)));
                     }
                 }
 
@@ -351,7 +352,7 @@ public class CsvDocumentReaderImpl2 extends CsvDocumentReaderBase {
 
                 for (int a = 0; a < actualColumns; a++) {
 
-                    aTable.updateCell(a, nextRowIndex, substrings.get(a));
+                    aTable.updateCell(a, nextRowIndex, normalizeValue(substrings.get(a)));
                 }
 
             } else {

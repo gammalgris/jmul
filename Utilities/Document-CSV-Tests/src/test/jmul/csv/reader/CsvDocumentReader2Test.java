@@ -54,6 +54,7 @@ import jmul.test.classification.ModuleTest;
 import jmul.test.exceptions.FailedTestException;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 
@@ -527,6 +528,66 @@ public class CsvDocumentReader2Test {
                     "expected: " + expectedString + "; row=" + b + "; column=" + a + "; actual=" + actualString;
 
                 assertEquals(message, expectedString, actualString);
+            }
+        }
+    }
+
+    /**
+     * Tests parsing a CSV file. The file doesn't have a header and contains
+     * 3 data lines. The column separator is a semicolon. The row separator is
+     * a windows style line break.
+     */
+    @Test
+    public void testParseDocument9() {
+
+        String filename = "testdata-csv\\example09.csv";
+        CsvDocumentReader reader = new CsvDocumentReaderImpl2(NO_HEADER, RIGID);
+
+        CsvDocument document;
+
+        try {
+
+            document = reader.readFrom(filename);
+
+        } catch (IOException e) {
+
+            throw new FailedTestException(e);
+        }
+
+
+        assertEquals(DocumentTypes.CSV, document.getDocumentType());
+        assertEquals(SEMICOLON, document.getStructure().getColumnSeparator());
+        assertEquals(NEW_LINE_WINDOWS, document.getStructure().getRowSeparator());
+        assertEquals(HeaderType.NO_HEADER, document.getStructure().getHeaderType());
+        assertEquals(StructureType.RIGID, document.getStructure().getStructureType());
+
+        String[] header1 = document.getStructure().getHeader();
+        List<String> header2 = document.getContent().getColumnNames();
+
+        Table<String> table = document.getContent();
+        int columns = table.columns();
+        int rows = table.rows();
+
+        for (int a = 0; a < columns; a++) {
+
+            assertEquals(header1[a], header2.get(a));
+        }
+
+
+        assertEquals(3, columns);
+        assertEquals(3, rows);
+
+        for (int a = 0; a < columns; a++) {
+
+            for (int b = 0; b < rows; b++) {
+
+                String expectedString = null;
+                String actualString = table.getCell(a, b);
+                String message =
+                    "expected: " + expectedString + "; row=" + b + "; column=" + a + "; actual=" + actualString;
+
+                assertEquals(message, expectedString, actualString);
+                assertTrue("The cell is not empty as expected!", table.isEmptyCell(a, b));
             }
         }
     }

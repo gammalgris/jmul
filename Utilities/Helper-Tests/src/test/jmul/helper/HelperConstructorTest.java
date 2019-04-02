@@ -198,6 +198,7 @@ public class HelperConstructorTest {
         parameters.add(new Object[] { jmul.reflection.classes.AccessorHelper.class });
         parameters.add(new Object[] { jmul.transformation.xml.rules.xml2object.RuleHelper.class });
         parameters.add(new Object[] { jmul.math.notation.NotationHelper.class });
+        parameters.add(new Object[] { jmul.document.csv.CsvHelper.class });
 
         return parameters;
     }
