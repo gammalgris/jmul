@@ -29,6 +29,9 @@
             <fileset dir="${package.constants-tests.src.dir}">
                 <include name="**/*.java" />
             </fileset>
+            <fileset dir="${package.document-tests.src.dir}">
+                <include name="**/*.java" />
+            </fileset>
             <fileset dir="${package.document-binary-tests.src.dir}">
                 <include name="**/*.java" />
             </fileset>
@@ -111,7 +114,13 @@
             <file file="${package.document-csv-tests.testdata.creator}" />
         </copy>
         <copy todir="${project.tmp.dir}" overwrite="true">
+            <file file="${package.document-csv-tests.testdata2.creator}" />
+        </copy>
+        <copy todir="${project.tmp.dir}" overwrite="true">
             <file file="${package.document-text-tests.testdata.creator}" />
+        </copy>
+        <copy todir="${project.tmp.dir}" overwrite="true">
+            <file file="${package.document-text-tests.testdata2.creator}" />
         </copy>
         <copy todir="${project.tmp.dir}" overwrite="true">
             <file file="${package.external-tests.testdata.creator}" />
@@ -146,7 +155,15 @@
         </exec>
         <exec executable="cmd" dir="${project.tmp.dir}">
             <arg value="/C" />
+            <arg value="${project.tmp.document-csv-tests.testdata2.creator}" />
+        </exec>
+        <exec executable="cmd" dir="${project.tmp.dir}">
+            <arg value="/C" />
             <arg value="${project.tmp.document-text-tests.testdata.creator}" />
+        </exec>
+        <exec executable="cmd" dir="${project.tmp.dir}">
+            <arg value="/C" />
+            <arg value="${project.tmp.document-text-tests.testdata2.creator}" />
         </exec>
         <exec executable="cmd" dir="${project.tmp.dir}">
             <arg value="/C" />

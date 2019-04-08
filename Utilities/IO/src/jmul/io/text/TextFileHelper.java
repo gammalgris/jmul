@@ -198,8 +198,6 @@ public final class TextFileHelper {
      * Reads a line from the specified input stream according to the specified line
      * separator.
      *
-     * @param aCharset
-     *        the assumed charset of the file
      * @param someNestedStreams
      *        the input stream
      * @param aLineSeparator
@@ -210,8 +208,7 @@ public final class TextFileHelper {
      * @throws IOException
      *         is thrown if an error occurs while reading from the input stream
      */
-    public static ReadBuffer readLine(Charset aCharset, NestedStreams someNestedStreams,
-                                      String aLineSeparator) throws IOException {
+    public static ReadBuffer readLine(NestedStreams someNestedStreams, String aLineSeparator) throws IOException {
 
         BufferedReader br = (BufferedReader) someNestedStreams.getOuterStream();
 
@@ -230,7 +227,7 @@ public final class TextFileHelper {
             }
 
             baos.write(i);
-            String line = baos.toString(aCharset.name());
+            String line = baos.toString();
 
             if (line.endsWith(aLineSeparator)) {
 
@@ -238,7 +235,7 @@ public final class TextFileHelper {
             }
         }
 
-        String line = baos.toString(aCharset.name());
+        String line = baos.toString();
         line = line.replace(aLineSeparator, EMPTY_STRING);
 
         return new ReadBuffer(line, endOfFile);

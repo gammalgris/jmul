@@ -33,6 +33,9 @@ import java.util.Collections;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import jmul.checks.ParameterCheckHelper;
+
+import static jmul.string.Constants.COMMA;
 import static jmul.string.Constants.SEMICOLON;
 
 
@@ -137,9 +140,14 @@ public enum DocumentTypes implements DocumentType {
     private static List<String> getList(ResourceBundle aBundle, String anEntryName, String aSuffix) {
 
         String value = getString(aBundle, anEntryName, aSuffix);
-
-        String[] array = value.trim().split(SEMICOLON);
         List<String> list = new ArrayList<>();
+
+        if (value.trim().isEmpty()) {
+
+            return list;
+        }
+
+        String[] array = value.trim().split(COMMA);
 
         for (String s : array) {
 
@@ -240,6 +248,8 @@ public enum DocumentTypes implements DocumentType {
      * @return a document type
      */
     public static DocumentType getDocumentType(String aFileName) {
+
+        ParameterCheckHelper.checkFileNameParameter(aFileName);
 
         for (DocumentType documentType : DocumentTypes.values()) {
 

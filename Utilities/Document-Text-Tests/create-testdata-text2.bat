@@ -17,7 +17,7 @@ call:defineConstants
 set functionCalls.length=2
 
 set functionCalls[1]=createRootDirectory
-set functionCalls[2]=createCsvFiles
+set functionCalls[2]=createTextFiles
 
 
 for /L %%i in (1, 1, %functionCalls.length%) do (
@@ -168,7 +168,7 @@ set functionCalls.length=
 
 	echo create root directory...
 
-	call:createDirectory testdata-csv %TRUE%
+	call:createDirectory testdata-text %FALSE%
 
 %return%
 
@@ -180,85 +180,13 @@ set functionCalls.length=
 @rem ---   The subroutine creates CSV files.
 @rem ---
 
-:createCsvFiles
+:createTextFiles
 
-	echo create CSV files...
-
-	(
-		echo A;B;C
-		echo 1;2;3
-		echo 4;5;6
-		echo 7;8;9
-	) > testdata-csv\example01.csv
-
+	echo create Text files...
 
 	(
-		echo A,B,C
-		echo 1,2,3
-		echo 4,5,6
-		echo 7,8,9
-	) > testdata-csv\example02.csv
-
-
-	<NUL set /P=A;B;C^%LF%%LF%> testdata-csv\example03.csv
-	<NUL set /P=1;2;3^%LF%%LF%>> testdata-csv\example03.csv
-	<NUL set /P=4;5;6^%LF%%LF%>> testdata-csv\example03.csv
-	<NUL set /P=7;8;9^%LF%%LF%>> testdata-csv\example03.csv
-
-
-	call:resetErrorlevel
-
-
-	(
-		echo A;B;C
-		echo "1";"2";"3"
-		echo "4";"5";"6"
-		echo "7";"8";"9"
-	) > testdata-csv\example04.csv
-
-
-	(
-		echo A;B;C
-		echo 1;2;3
-		echo 4;Hallo
-		echo Welt;6
-		echo 7;8;9
-	) > testdata-csv\example05.csv
-
-
-	(
-		echo A;B;C
-		echo 1;2;3
-		echo 4;5;"Hallo
-		echo Welt"
-		echo 7;8;9
-	) > testdata-csv\example06.csv
-
-
-	(
-		echo 1;2;3
-		echo 4;5;6
-		echo 7;8;9
-	) > testdata-csv\example07.csv
-
-
-	(
-		echo 1;2
-		echo 3;4;5
-		echo 6;7;8;9
-	) > testdata-csv\example08.csv
-
-
-	(
-		echo ;;
-		echo ;;
-		echo ;;
-	) > testdata-csv\example09.csv
-
-
-	(
-		echo Ã„Ã¤Ã–Ã¶ÃœÃ¼ÃŸ
-	) > testdata-csv\example10.csv
+		echo ÄäÖöÜüß
+	) > testdata-text\example04.txt
 
 %return%
 

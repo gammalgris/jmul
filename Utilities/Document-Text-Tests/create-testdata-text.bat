@@ -196,6 +196,11 @@ set functionCalls.length=
 	) > testdata-text\example02.txt
 
 
+	(
+		echo ÄäÖöÜüß
+	) > testdata-text\example03.txt
+
+
 %return%
 
 

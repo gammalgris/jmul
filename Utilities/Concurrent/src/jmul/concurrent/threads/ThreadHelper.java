@@ -203,7 +203,10 @@ public final class ThreadHelper {
      * Returns a string containing the current stack trace.
      *
      * @return a string
+     *
+     * @deprecated The method is going to be removed.
      */
+    @Deprecated
     public static String getCurrentStackTrace() {
 
         StringBuilder buffer = new StringBuilder();

@@ -31,6 +31,8 @@ package jmul.reflection;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
+import jmul.checks.ParameterCheckHelper;
+
 import jmul.misc.error.ErrorStatus;
 import jmul.misc.error.SingleErrorStatus;
 
@@ -82,6 +84,8 @@ public final class ReflectionHelper {
      * The default constructor.
      */
     private ReflectionHelper() {
+
+        throw new UnsupportedOperationException();
     }
 
     /**
@@ -158,6 +162,10 @@ public final class ReflectionHelper {
     public static void invokeSetter(Object target, String fieldName, Object fieldValue) throws NoSuchMethodException,
                                                                                                IllegalAccessException,
                                                                                                InvocationTargetException {
+
+        ParameterCheckHelper.checkObjectParameter(target);
+        ParameterCheckHelper.checkStringParameter(fieldName);
+
 
         // Prepare the method invocation.
 
@@ -266,6 +274,9 @@ public final class ReflectionHelper {
     public static Object invokeGetter(Object target, String fieldName) throws NoSuchMethodException,
                                                                               IllegalAccessException,
                                                                               InvocationTargetException {
+
+        ParameterCheckHelper.checkObjectParameter(target);
+        ParameterCheckHelper.checkStringParameter(fieldName);
 
 
         // Prepare the method invocation.

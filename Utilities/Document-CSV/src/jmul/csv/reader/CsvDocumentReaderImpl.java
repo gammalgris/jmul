@@ -144,6 +144,21 @@ public class CsvDocumentReaderImpl extends CsvDocumentReaderBase {
      *
      * @param aCharset
      *        the assumed charset
+     * @param aHeaderType
+     *        the assumed header type
+     * @param aStructureType
+     *        the assumed structure type
+     */
+    public CsvDocumentReaderImpl(Charset aCharset, HeaderType aHeaderType, StructureType aStructureType) {
+
+        super(aCharset, aHeaderType, aStructureType, DEFAULT_COLUMN_SEPARATOR, DEFAULT_ROW_SEPARATOR);
+    }
+
+    /**
+     * Creates a new document reader according to the specified parameters.
+     *
+     * @param aCharset
+     *        the assumed charset
      * @param aColumnSeparator
      *        the assumed column separator
      * @param aRowSeparator
@@ -205,7 +220,7 @@ public class CsvDocumentReaderImpl extends CsvDocumentReaderBase {
     protected void parseFirstLine(NestedStreams someStreams,
                                   @Modified ModifiableTable<String> aTable) throws IOException {
 
-        ReadBuffer result = TextFileHelper.readLine(getCharset(), someStreams, getRowSeparator());
+        ReadBuffer result = TextFileHelper.readLine(someStreams, getRowSeparator());
 
         if (result.isEndOfFile()) {
 
@@ -263,7 +278,7 @@ public class CsvDocumentReaderImpl extends CsvDocumentReaderBase {
 
         while (true) {
 
-            ReadBuffer result = TextFileHelper.readLine(getCharset(), someStreams, getRowSeparator());
+            ReadBuffer result = TextFileHelper.readLine(someStreams, getRowSeparator());
 
             if (result.isEndOfFile() && result.isEmpty()) {
 

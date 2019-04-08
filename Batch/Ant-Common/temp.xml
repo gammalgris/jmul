@@ -28,7 +28,9 @@
         <echo />
         <echo message="  project tmp document-binary testdata creator ... ${project.tmp.document-binary-tests.testdata.creator}" />
         <echo message="  project tmp document-csv io testdata creator ... ${project.tmp.document-csv-tests.testdata.creator}" />
+        <echo message="  project tmp document-csv io testdata2 creator .. ${project.tmp.document-csv-tests.testdata2.creator}" />
         <echo message="  project tmp document-text testdata creator ..... ${project.tmp.document-text-tests.testdata.creator}" />
+        <echo message="  project tmp document-text testdata2 creator .... ${project.tmp.document-text-tests.testdata2.creator}" />
         <echo message="  project tmp external testdata creator .......... ${project.tmp.external-tests.testdata.creator}" />
         <echo message="  project tmp io testdata creator ................ ${project.tmp.io-tests.testdata.creator}" />
         <echo message="  project tmp xml testdata creator ............... ${project.tmp.xml-tests.testdata.creator}" />

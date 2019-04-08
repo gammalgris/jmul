@@ -143,6 +143,21 @@ public class CsvDocumentReaderImpl2 extends CsvDocumentReaderBase {
      *
      * @param aCharset
      *        the assumed charset
+     * @param aHeaderType
+     *        the assumed header type
+     * @param aStructureType
+     *        the assumed structure type
+     */
+    public CsvDocumentReaderImpl2(Charset aCharset, HeaderType aHeaderType, StructureType aStructureType) {
+
+        super(aCharset, aHeaderType, aStructureType, DEFAULT_COLUMN_SEPARATOR, DEFAULT_ROW_SEPARATOR);
+    }
+
+    /**
+     * Creates a new document reader according to the specified parameters.
+     *
+     * @param aCharset
+     *        the assumed charset
      * @param aColumnSeparator
      *        the assumed column separator
      * @param aRowSeparator
@@ -209,7 +224,7 @@ public class CsvDocumentReaderImpl2 extends CsvDocumentReaderBase {
 
         while (true) {
 
-            ReadBuffer result = TextFileHelper.readLine(getCharset(), someStreams, getRowSeparator());
+            ReadBuffer result = TextFileHelper.readLine(someStreams, getRowSeparator());
 
             if (result.isEndOfFile() && result.isEmpty()) {
 
@@ -287,7 +302,7 @@ public class CsvDocumentReaderImpl2 extends CsvDocumentReaderBase {
 
         while (true) {
 
-            ReadBuffer result = TextFileHelper.readLine(getCharset(), someStreams, getRowSeparator());
+            ReadBuffer result = TextFileHelper.readLine(someStreams, getRowSeparator());
 
             if (result.isEndOfFile() && result.isEmpty()) {
 

@@ -30,6 +30,8 @@ package test.jmul.csv.reader;
 
 import java.io.IOException;
 
+import java.nio.charset.StandardCharsets;
+
 import java.util.List;
 
 import jmul.csv.reader.CsvDocumentReader;
@@ -54,6 +56,7 @@ import jmul.test.classification.ModuleTest;
 import jmul.test.exceptions.FailedTestException;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
@@ -590,6 +593,172 @@ public class CsvDocumentReader2Test {
                 assertTrue("The cell is not empty as expected!", table.isEmptyCell(a, b));
             }
         }
+    }
+
+    /**
+     * Tests parsing a CSV file. The file doesn't have a header and contains
+     * 1 data line with a single column. The row separator is a windows style
+     * line break. The cell contains several special characters.
+     */
+    @Test
+    public void testParseDocument10() {
+
+        String filename = "testdata-csv\\example10.csv";
+        CsvDocumentReader reader = new CsvDocumentReaderImpl2(StandardCharsets.UTF_8, NO_HEADER, RIGID);
+
+        CsvDocument document;
+
+        try {
+
+            document = reader.readFrom(filename);
+
+        } catch (IOException e) {
+
+            throw new FailedTestException(e);
+        }
+
+
+        assertEquals(DocumentTypes.CSV, document.getDocumentType());
+        assertEquals(SEMICOLON, document.getStructure().getColumnSeparator());
+        assertEquals(NEW_LINE_WINDOWS, document.getStructure().getRowSeparator());
+        assertEquals(HeaderType.NO_HEADER, document.getStructure().getHeaderType());
+        assertEquals(StructureType.RIGID, document.getStructure().getStructureType());
+
+        String[] header1 = document.getStructure().getHeader();
+        List<String> header2 = document.getContent().getColumnNames();
+
+        Table<String> table = document.getContent();
+        int columns = table.columns();
+        int rows = table.rows();
+
+        for (int a = 0; a < columns; a++) {
+
+            assertEquals(header1[a], header2.get(a));
+        }
+
+
+        assertEquals(1, columns);
+        assertEquals(1, rows);
+
+        int a = 0;
+        int b = 0;
+
+        String expectedString = "\u00c4\u00e4\u00d6\u00f6\u00dc\u00fc\u00df";
+        String actualString = table.getCell(a, b);
+        String message = "expected: " + expectedString + "; row=" + b + "; column=" + a + "; actual=" + actualString;
+
+        assertEquals(message, expectedString, actualString);
+    }
+
+    /**
+     * Tests parsing a CSV file. The file doesn't have a header and contains
+     * 1 data line with a single column. The row separator is a windows style
+     * line break. The cell contains several special characters.
+     */
+    @Test
+    public void testParseDocument11() {
+
+        String filename = "testdata-csv\\example11.csv";
+        CsvDocumentReader reader = new CsvDocumentReaderImpl2(StandardCharsets.ISO_8859_1, NO_HEADER, RIGID);
+
+        CsvDocument document;
+
+        try {
+
+            document = reader.readFrom(filename);
+
+        } catch (IOException e) {
+
+            throw new FailedTestException(e);
+        }
+
+
+        assertEquals(DocumentTypes.CSV, document.getDocumentType());
+        assertEquals(SEMICOLON, document.getStructure().getColumnSeparator());
+        assertEquals(NEW_LINE_WINDOWS, document.getStructure().getRowSeparator());
+        assertEquals(HeaderType.NO_HEADER, document.getStructure().getHeaderType());
+        assertEquals(StructureType.RIGID, document.getStructure().getStructureType());
+
+        String[] header1 = document.getStructure().getHeader();
+        List<String> header2 = document.getContent().getColumnNames();
+
+        Table<String> table = document.getContent();
+        int columns = table.columns();
+        int rows = table.rows();
+
+        for (int a = 0; a < columns; a++) {
+
+            assertEquals(header1[a], header2.get(a));
+        }
+
+
+        assertEquals(1, columns);
+        assertEquals(1, rows);
+
+        int a = 0;
+        int b = 0;
+
+        String expectedString = "\u00c4\u00e4\u00d6\u00f6\u00dc\u00fc\u00df";
+        String actualString = table.getCell(a, b);
+        String message = "expected: " + expectedString + "; row=" + b + "; column=" + a + "; actual=" + actualString;
+
+        assertEquals(message, expectedString, actualString);
+    }
+
+    /**
+     * Tests parsing a CSV file. The file doesn't have a header and contains
+     * 1 data line with a single column. The row separator is a windows style
+     * line break. The cell contains several special characters. The reader
+     * assumes a wrong encoding.
+     */
+    @Test
+    public void testParseDocument12() {
+
+        String filename = "testdata-csv\\example11.csv";
+        CsvDocumentReader reader = new CsvDocumentReaderImpl2(StandardCharsets.UTF_8, NO_HEADER, RIGID);
+
+        CsvDocument document;
+
+        try {
+
+            document = reader.readFrom(filename);
+
+        } catch (IOException e) {
+
+            throw new FailedTestException(e);
+        }
+
+
+        assertEquals(DocumentTypes.CSV, document.getDocumentType());
+        assertEquals(SEMICOLON, document.getStructure().getColumnSeparator());
+        assertEquals(NEW_LINE_WINDOWS, document.getStructure().getRowSeparator());
+        assertEquals(HeaderType.NO_HEADER, document.getStructure().getHeaderType());
+        assertEquals(StructureType.RIGID, document.getStructure().getStructureType());
+
+        String[] header1 = document.getStructure().getHeader();
+        List<String> header2 = document.getContent().getColumnNames();
+
+        Table<String> table = document.getContent();
+        int columns = table.columns();
+        int rows = table.rows();
+
+        for (int a = 0; a < columns; a++) {
+
+            assertEquals(header1[a], header2.get(a));
+        }
+
+
+        assertEquals(1, columns);
+        assertEquals(1, rows);
+
+        int a = 0;
+        int b = 0;
+
+        String expectedString = "\u00c4\u00e4\u00d6\u00f6\u00dc\u00fc\u00df";
+        String actualString = table.getCell(a, b);
+        String message = "expected: " + expectedString + "; row=" + b + "; column=" + a + "; actual=" + actualString;
+
+        assertNotEquals(message, expectedString, actualString);
     }
 
 }

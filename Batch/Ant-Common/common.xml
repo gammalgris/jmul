@@ -141,6 +141,8 @@
         <echo message="  package concurrent tests src dir ............ ${package.concurrent-tests.src.dir}" />
         <echo message="  package constants tests dir ................. ${package.constants-tests.dir}" />
         <echo message="  package constants tests src dir ............. ${package.constants-tests.src.dir}" />
+        <echo message="  package document tests dir .................. ${package.document-tests.dir}" />
+        <echo message="  package document tests src dir .............. ${package.document-tests.src.dir}" />
         <echo message="  package document-binary tests dir ........... ${package.document-binary-tests.dir}" />
         <echo message="  package document-binary tests src dir ....... ${package.document-binary-tests.src.dir}" />
         <echo message="  package document-csv tests dir .............. ${package.document-csv-tests.dir}" />

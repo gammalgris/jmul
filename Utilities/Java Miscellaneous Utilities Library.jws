@@ -40,6 +40,7 @@
       <hash><url n="URL" path="Document-CSV-Tests/Document-CSV-Tests.jpr"/></hash>
       <hash><url n="URL" path="Document-MD/Document-MD.jpr"/></hash>
       <hash><url n="URL" path="Document-MD-Tests/Document-MD-Tests.jpr"/></hash>
+      <hash><url n="URL" path="Document-Tests/Document-Tests.jpr"/></hash>
       <hash><url n="URL" path="Document-Text/Document-Text.jpr"/></hash>
       <hash><url n="URL" path="Document-Text-Tests/Document-Text-Tests.jpr"/></hash>
       <hash><url n="URL" path="External/External.jpr"/></hash>

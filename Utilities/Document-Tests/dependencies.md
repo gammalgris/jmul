@@ -5,6 +5,10 @@
 
 * Checks
 * Constants
+* Document
+* Test
 
 ## Libraries
 (in alphabetical order)
+
+* JUnit
