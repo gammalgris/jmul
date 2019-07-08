@@ -37,4 +37,51 @@ import jmul.document.markdown.content.paragraph.Paragraph;
  * @author Kristian Kutin
  */
 public interface Citation extends Paragraph {
+
+    /**
+     * Returns the current paragraph count.
+     *
+     * @return a paragraph count
+     */
+    int paragraphs();
+
+    /**
+     * Adds (i.e. appends) the specified paragraph to this chapter.
+     *
+     * @param aParagraph
+     *        the paragraph which is to be added
+     */
+    void addParagraph(Paragraph aParagraph);
+
+    /**
+     * Inserts the specified paragraph at the specified index. Existing
+     * paragraphs (i.e. following paragraphs) will be indexed accordingly.
+     *
+     * @param aParagraph
+     *        the paragraph which is to be inserted
+     * @param anIndex
+     *        the index of the inserted paragraph
+     */
+    void insertParagraph(Paragraph aParagraph, int anIndex);
+
+    /**
+     * Returns the paragraph at the specified index.
+     *
+     * @param anIndex
+     *        the index of the requested paragraph
+     *
+     * @return a paragraph
+     */
+    Paragraph getParagraph(int anIndex);
+
+    /**
+     * Removes the paragraph at the specified index.
+     *
+     * @param anIndex
+     *        the index of the pragraph which is to be removed
+     *
+     * @return the removed paragraph
+     */
+    Paragraph removeParagraph(int anIndex);
+
 }

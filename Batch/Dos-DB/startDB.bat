@@ -18,7 +18,7 @@ call:setUpEnvironment
 	%return%
 )
 
-start /B cmd.exe
+start /B %POSTGRESQL_BIN%
 %ifError% (
 
 	pause

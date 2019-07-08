@@ -34,7 +34,7 @@ for /L %%i in (1,1,%subroutineCalls.length%) do (
 )
 
 
-call:changeConsoleTitle "Java 8"
+call:changeConsoleTitle "Sonar Environment"
 
 
 for /L %%i in (1,1,%subroutineCalls.length%) do (
@@ -185,6 +185,42 @@ call:cleanVariables
 
 @rem --------------------------------------------------------------------------------
 @rem ---
+@rem ---   void loadProperties(String aFilename)
+@rem ---
+@rem ---   The subroutine loads the properties defined in the specified file.
+@rem ---
+@rem ---
+@rem ---   @param aFilename
+@rem ---          the name of the application
+@rem ---
+
+:loadProperties
+
+	set "_filename=%1"
+	if '%_filename%'=='' (
+
+		%cprintln% Error^(%0^): No file name has been specified! >&2
+		%return% 2
+	)
+	set "_filename=%_filename:"=%"
+
+
+	if not exist "%_filename%" (
+
+		%cprintln% Error^(%0^): The properties file %_filename% doesn't exist! >&2
+		%return% 2
+	)
+
+	call %_filename%
+
+
+	set _filename=
+
+%return%
+
+
+@rem --------------------------------------------------------------------------------
+@rem ---
 @rem ---   void setJava()
 @rem ---
 @rem ---   The subroutine defines several environment variables for java.
@@ -192,11 +228,23 @@ call:cleanVariables
 
 :setJava
 
-	set JAVA_HOME=C:\Oracle\Middleware\Oracle_Home\oracle_common\jdk\
-	set JAVA_BIN=%JAVA_HOME%bin\
-	set JAVA_EXE=%JAVA_BIN%java.exe
+	set _settingsFile=%~dp0properties-java.bat
 
-	call:addApplication JAVA JAVA_HOME JAVA_EXE 1.8.0
+	call:loadProperties "%_settingsFile%"
+	%ifError% (
+
+		%cprintln% Error^(%0^): Unable to load properties! >&2
+		%return% 2
+	)
+
+	call:addApplication JAVA JAVA_HOME JAVA_EXE %JAVA_VERSION%
+	%ifError% (
+
+		%cprintln% Error^(%0^): Unable to register application! >&2
+		%return% 2
+	)
+
+	set _settingsFile=
 
 %return%
 
@@ -216,7 +264,7 @@ call:cleanVariables
 	set NEW_PATH=C:\WINDOWS\system32
 	set NEW_PATH=C:\WINDOWS;%NEW_PATH%
 
-	set NEW_PATH=%JAVA_BIN%;%NEW_PATH%
+	set NEW_PATH=%JAVA_BIN%bin;%NEW_PATH%
 	set NEW_PATH=.;%NEW_PATH%
 
 

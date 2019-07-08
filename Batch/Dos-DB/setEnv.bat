@@ -17,12 +17,11 @@ call:defineMacros
 call:defineVariables
 
 
-set subroutineCalls.length=5
-set subroutineCalls[1]=setJava
-set subroutineCalls[2]=setDB
-set subroutineCalls[3]=printInfo
-set subroutineCalls[4]=checkEnvironment
-set subroutineCalls[5]=setPath
+set subroutineCalls.length=4
+set subroutineCalls[1]=setDB
+set subroutineCalls[2]=printInfo
+set subroutineCalls[3]=checkEnvironment
+set subroutineCalls[4]=setPath
 
 
 for /L %%i in (1,1,%subroutineCalls.length%) do (
@@ -35,7 +34,7 @@ for /L %%i in (1,1,%subroutineCalls.length%) do (
 )
 
 
-call:changeConsoleTitle "Java 7"
+call:changeConsoleTitle "DB Environment"
 
 
 for /L %%i in (1,1,%subroutineCalls.length%) do (
@@ -186,24 +185,6 @@ call:cleanVariables
 
 @rem --------------------------------------------------------------------------------
 @rem ---
-@rem ---   void setJava()
-@rem ---
-@rem ---   The subroutine defines several environment variables for java.
-@rem ---
-
-:setJava
-
-	set JAVA_HOME=D:\Programme\jdk1.7.0_80\
-	set JAVA_BIN=%JAVA_HOME%bin\
-	set JAVA_EXE=%JAVA_BIN%java.exe
-
-	call:addApplication JAVA JAVA_HOME JAVA_EXE 1.7.0
-
-%return%
-
-
-@rem --------------------------------------------------------------------------------
-@rem ---
 @rem ---   void setDB()
 @rem ---
 @rem ---   The subroutine defines several environment variables for an embedded
@@ -212,8 +193,8 @@ call:cleanVariables
 
 :setDB
 
-	set DERBY_HOME=%JAVA_HOME%db\
-	set DERBY_BIN=%DERBY_HOME%bin\
+	set POSTGRESQL_HOME=D:\Programme\PostgreSQL\PostgreSQLPortable-10.1.1\
+	set POSTGRESQL_BIN=%POSTGRESQL_HOME%PostgreSQLPortable.exe
 
 %return%
 

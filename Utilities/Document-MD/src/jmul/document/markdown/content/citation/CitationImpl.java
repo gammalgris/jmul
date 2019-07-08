@@ -28,7 +28,11 @@
 package jmul.document.markdown.content.citation;
 
 
-import jmul.document.markdown.content.node.TextNodeImpl;
+import java.util.ArrayList;
+import java.util.List;
+
+import jmul.document.markdown.content.node.ContentNodeImpl;
+import jmul.document.markdown.content.paragraph.Paragraph;
 
 
 /**
@@ -36,14 +40,21 @@ import jmul.document.markdown.content.node.TextNodeImpl;
  *
  * @author Kristian Kutin
  */
-public class CitationImpl extends TextNodeImpl implements Citation {
+public class CitationImpl extends ContentNodeImpl implements Citation {
+
+    /**
+     * This chapter's paragraphs.
+     */
+    private List<Paragraph> allParagraphs;
 
     /**
      * The default constructor.
      */
-    public CitationImpl() {
+    private CitationImpl() {
 
         super();
+
+        allParagraphs = new ArrayList<>();
     }
 
     /**
@@ -52,11 +63,77 @@ public class CitationImpl extends TextNodeImpl implements Citation {
      * @param aText
      *        the quoted text
      */
-    public CitationImpl(CharSequence aText) {
+    public CitationImpl(Paragraph aParagraph) {
 
         this();
 
-        setText(aText);
+        addParagraph(aParagraph);
+    }
+
+    /**
+     * Returns the current paragraph count.
+     *
+     * @return a paragraph count
+     */
+    @Override
+    public int paragraphs() {
+
+        return allParagraphs.size();
+    }
+
+    /**
+     * Adds (i.e. appends) the specified paragraph to this chapter.
+     *
+     * @param aParagraph
+     *        the paragraph which is to be added
+     */
+    @Override
+    public void addParagraph(Paragraph aParagraph) {
+
+        allParagraphs.add(aParagraph);
+    }
+
+    /**
+     * Inserts the specified paragraph at the specified index. Existing
+     * paragraphs (i.e. following paragraphs) will be indexed accordingly.
+     *
+     * @param aParagraph
+     *        the paragraph which is to be inserted
+     * @param anIndex
+     *        the index of the inserted paragraph
+     */
+    @Override
+    public void insertParagraph(Paragraph aParagraph, int anIndex) {
+
+        allParagraphs.add(anIndex, aParagraph);
+    }
+
+    /**
+     * Returns the paragraph at the specified index.
+     *
+     * @param anIndex
+     *        the index of the requested paragraph
+     *
+     * @return a paragraph
+     */
+    @Override
+    public Paragraph getParagraph(int anIndex) {
+
+        return allParagraphs.get(anIndex);
+    }
+
+    /**
+     * Removes the paragraph at the specified index.
+     *
+     * @param anIndex
+     *        the index of the pragraph which is to be removed
+     *
+     * @return the removed paragraph
+     */
+    @Override
+    public Paragraph removeParagraph(int anIndex) {
+
+        return allParagraphs.remove(anIndex);
     }
 
 }
