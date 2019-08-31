@@ -1,7 +1,7 @@
 /*
  * SPDX-License-Identifier: GPL-3.0
- * 
- * 
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -39,6 +39,7 @@ import jmul.test.classification.UnitTest;
 
 import org.junit.After;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -118,6 +119,12 @@ public class FileCopierInvalidParametersTest {
         } catch (Exception e) {
 
             assertTrue(expectedException.isAssignableFrom(e.getClass()));
+            return;
+        }
+
+        {
+            String message = "Copying (\"" + sourceFile + "\" -> \"" + destinationFile + "\") failed!";
+            fail(message);
         }
     }
 
@@ -131,23 +138,22 @@ public class FileCopierInvalidParametersTest {
 
         Collection<Object[]> parameters = new ArrayList<Object[]>();
 
-        parameters.add(new Object[] {
-                       new FileCopierImpl(), "testdata-io\\folder1", "testdata-io\\copy.txt",
-                       CopyFileException.class });
-        parameters.add(new Object[] {
-                       new FileCopierImpl(), null, "testdata-io\\copy.txt", IllegalArgumentException.class });
-        parameters.add(new Object[] {
-                       new FileCopierImpl(), "", "testdata-io\\copy.txt", IllegalArgumentException.class });
-        parameters.add(new Object[] {
-                       new FileCopierImpl(), " ", "testdata-io\\copy.txt", IllegalArgumentException.class });
+        parameters.add(new Object[] { new FileCopierImpl(), "testdata-io\\folder1", "testdata-io\\copy.txt",
+                                      CopyFileException.class });
+        parameters.add(new Object[] { new FileCopierImpl(), null, "testdata-io\\copy.txt",
+                                      IllegalArgumentException.class });
+        parameters.add(new Object[] { new FileCopierImpl(), "", "testdata-io\\copy.txt",
+                                      IllegalArgumentException.class });
+        parameters.add(new Object[] { new FileCopierImpl(), " ", "testdata-io\\copy.txt",
+                                      IllegalArgumentException.class });
 
-        parameters.add(new Object[] {
-                       new FileCopierImpl(), "testdata-io\\file1", "testdata-io\\folder1", CopyFileException.class });
-        parameters.add(new Object[] {
-                       new FileCopierImpl(), "testdata-io\\file1", null, IllegalArgumentException.class });
+        parameters.add(new Object[] { new FileCopierImpl(), "testdata-io\\file1", "testdata-io\\folder1",
+                                      CopyFileException.class });
+        parameters.add(new Object[] { new FileCopierImpl(), "testdata-io\\file1", null,
+                                      IllegalArgumentException.class });
         parameters.add(new Object[] { new FileCopierImpl(), "testdata-io\\file1", "", IllegalArgumentException.class });
-        parameters.add(new Object[] {
-                       new FileCopierImpl(), "testdata-io\\file1", " ", IllegalArgumentException.class });
+        parameters.add(new Object[] { new FileCopierImpl(), "testdata-io\\file1", " ",
+                                      IllegalArgumentException.class });
 
         return parameters;
     }

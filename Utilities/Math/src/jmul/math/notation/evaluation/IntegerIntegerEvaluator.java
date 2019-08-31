@@ -70,10 +70,15 @@ public class IntegerIntegerEvaluator extends ExpressionEvaluatorBase {
      * Evaluates the specified expression.
      *
      * @param firstNumber
+     *        the first number as string
      * @param firstProperties
+     *        the properties of the first number
      * @param aComparator
+     *        a comparator to compare both numbers
      * @param secondNumber
+     *        the second number as string
      * @param secondProperties
+     *        the properties of the second number
      *
      * @return <code>true</code> if the statement is true, else <code>false</code>
      */

@@ -87,7 +87,7 @@ public class ReadTextFileWithInvalidParametersTest {
     }
 
     /**
-     * Tests the instantiation of a reader with valid input parameters.
+     * Tests the instantiation of a reader with invalid input parameters.
      */
     @Test(expected = IllegalArgumentException.class)
     public void testReadDocument() throws IOException {

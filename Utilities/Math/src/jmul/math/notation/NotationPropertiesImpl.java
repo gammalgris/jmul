@@ -63,8 +63,11 @@ public class NotationPropertiesImpl implements NotationProperties {
      * Creates a new instance according to the specified parameters.
      *
      * @param aDecimalSeparator
+     *        the decimal separator which is used
      * @param aNotationType
+     *        the notation type which is used
      * @param aSign
+     *        the sign of this number
      */
     public NotationPropertiesImpl(String aDecimalSeparator, NotationTypes aNotationType, Signs aSign) {
 
@@ -75,9 +78,13 @@ public class NotationPropertiesImpl implements NotationProperties {
      * Creates a new instance according to the specified parameters.
      *
      * @param aDecimalSeparator
+     *        the decimal separator which is used
      * @param aNotationType
+     *        the notation type which is used
      * @param aSign
+     *        the sign of this number
      * @param anExponentSign
+     *        the sign of the exponent of this number
      */
     public NotationPropertiesImpl(String aDecimalSeparator, NotationTypes aNotationType, Signs aSign,
                                   Signs anExponentSign) {
@@ -160,7 +167,7 @@ public class NotationPropertiesImpl implements NotationProperties {
     /**
      * Checks the exponent sign of the given string.
      *
-     * @return  <code>true</code> for a positive exponent, else <code>false</code>
+     * @return <code>true</code> for a positive exponent, else <code>false</code>
      */
     @Override
     public boolean hasPositiveExponent() {
@@ -171,7 +178,7 @@ public class NotationPropertiesImpl implements NotationProperties {
     /**
      * Checks the exponent sign of the given string.
      *
-     * @return  <code>true</code> for a negative exponent, else <code>false</code>
+     * @return <code>true</code> for a negative exponent, else <code>false</code>
      */
     @Override
     public boolean hasNegativeExponent() {

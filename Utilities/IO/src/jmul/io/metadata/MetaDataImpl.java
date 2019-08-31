@@ -86,8 +86,10 @@ public class MetaDataImpl implements MetaData {
      * Creates a new instance according to the specified parameters.
      *
      * @param aFileName
+     *        an absolute or relative path to a file
      *
      * @throws IOException
+     *         is thrown if there is an error while trying to read the file's metadata
      */
     public MetaDataImpl(String aFileName) throws IOException {
 
@@ -178,6 +180,7 @@ public class MetaDataImpl implements MetaData {
      * Returns the value of the specified file attribute.
      *
      * @param anAttributeName
+     *        the name of a file attribute
      *
      * @return the value of the specified attribute
      *

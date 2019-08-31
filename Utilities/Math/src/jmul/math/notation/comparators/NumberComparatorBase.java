@@ -51,7 +51,9 @@ abstract class NumberComparatorBase implements NumberComparator {
      * A comparison according to the specified parameters is made.
      *
      * @param firstNumber
+     *        the first number as string
      * @param secondNumber
+     *        the second number as string
      *
      * @return <code>true</code> if the statement is true, else <code>false</code>
      */

@@ -73,7 +73,7 @@ public class TextBlock2MarkdownRule extends TransformationRuleBase {
 
         Object object = someParameters.getObject();
 
-        return ((object != null) && (object instanceof TextBlock));
+        return (object != null) && (object instanceof TextBlock);
     }
 
     /**

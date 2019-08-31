@@ -63,9 +63,7 @@ public final class ParameterHelper {
      */
     public static TransformationParameters newTransformationParameters(Chapter aChapter) {
 
-        TransformationParameters newParameters = new TransformationParametersImpl(OBJECT_TO_MARKDOWN, aChapter);
-
-        return newParameters;
+        return new TransformationParametersImpl(OBJECT_TO_MARKDOWN, aChapter);
     }
 
     /**
@@ -78,9 +76,7 @@ public final class ParameterHelper {
      */
     public static TransformationParameters newTransformationParameters(Paragraph aParagraph) {
 
-        TransformationParameters newParameters = new TransformationParametersImpl(OBJECT_TO_MARKDOWN, aParagraph);
-
-        return newParameters;
+        return new TransformationParametersImpl(OBJECT_TO_MARKDOWN, aParagraph);
     }
 
 }

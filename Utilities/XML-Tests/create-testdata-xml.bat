@@ -325,6 +325,9 @@ set functionCalls.length=
 	(
 		echo ^<?xml version="1.0" encoding="UTF-8" ?^>
 		echo ^<root
+		echo 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		echo 	xsi:schemaLocation="http://www.test.org"
+		echo 	xmlns="http://www.test.org"
 		echo 	info1=^"1^"^ info2=^"2^"^ info3=^"3^"^>
 		echo 	^<level1^>
 		echo 		^<level2^>Text^</level2^>
@@ -339,6 +342,27 @@ set functionCalls.length=
 		echo 	^</sub1^>
 		echo ^</root^>
 	) > testdata-xml\test-valid2.xml
+
+	(
+		echo ^<?xml version="1.0" encoding="UTF-8" ?^>
+		echo ^<root
+		echo 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		echo 	xsi:schemaLocation="http://www.test.org TestSchema.xsd"
+		echo 	xmlns="http://www.test.org"
+		echo 	info1=^"1^"^ info2=^"2^"^ info3=^"3^"^>
+		echo 	^<level1^>
+		echo 		^<level2^>Text^</level2^>
+		echo 		^<level2^>Text^</level2^>
+		echo 	^</level1^>
+		echo 	^<level1^>
+		echo 		^<level2^>Text^</level2^>
+		echo 		^<level2^>Text^</level2^>
+		echo 	^</level1^>
+		echo 	^<sub1^>
+		echo 		^<sub2^>Text^</sub2^>
+		echo 	^</sub1^>
+		echo ^</root^>
+	) > testdata-xml\test-valid3.xml
 
 	(
 		echo ^<?xml version="1.0" encoding="UTF-8" ?^>
@@ -372,5 +396,23 @@ set functionCalls.length=
 		echo 	^</level1^>
 		echo ^</root^>
 	) > testdata-xml\test-invalid2.xml
+
+	(
+		echo ^<?xml version="1.0" encoding="UTF-8" ?^>
+		echo ^<root
+		echo 	info1=^"1^"^ info2=^"2^"^ info3=^"3^"^>
+		echo 	^<level1^>
+		echo 		^<level2^>Text^</level2^>
+		echo 		^<level2^>Text^</level2^>
+		echo 	^</level1^>
+		echo 	^<level1^>
+		echo 		^<level2^>Text^</level2^>
+		echo 		^<level2^>Text^</level2^>
+		echo 	^</level1^>
+		echo 	^<sub1^>
+		echo 		^<sub2^>Text^</sub2^>
+		echo 	^</sub1^>
+		echo ^</root^>
+	) > testdata-xml\test-invalid3.xml
 
 %return%

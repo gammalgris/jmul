@@ -148,7 +148,11 @@ public class MetaDataTest {
     }
 
     /**
-     * Tests if the owner is correct.
+     * Tests if the owner is correct.<br>
+     * <br>
+     * <i><b>Note:</b><br>
+     * This test will fail if the user that creates the testdata and the user that executes
+     * the unit tests are not the same. The metadata of created test files will reflect that.</i>
      */
     @Test
     public void testOwner() {

@@ -82,14 +82,14 @@ public interface NotationProperties {
     /**
      * Checks the exponent sign of the given string.
      *
-     * @return  <code>true</code> for a positive exponent, else <code>false</code>
+     * @return <code>true</code> for a positive exponent, else <code>false</code>
      */
     boolean hasPositiveExponent();
 
     /**
      * Checks the exponent sign of the given string.
      *
-     * @return  <code>true</code> for a negative exponent, else <code>false</code>
+     * @return <code>true</code> for a negative exponent, else <code>false</code>
      */
     boolean hasNegativeExponent();
 

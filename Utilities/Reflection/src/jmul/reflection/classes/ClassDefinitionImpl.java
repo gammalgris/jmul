@@ -1034,6 +1034,7 @@ class ClassDefinitionImpl implements ClassDefinition {
         Field foundField = null;
         boolean loop = true;
         Class probedType = getType();
+        List<Class> probedClasses = new ArrayList<>();
 
         while (loop) {
 
@@ -1048,9 +1049,12 @@ class ClassDefinitionImpl implements ClassDefinition {
 
             } catch (NoSuchFieldException e) {
 
-                // Ignore this exception, because we may still be walking
-                // through the inheritance structure.
-                ;
+                // We may still be walking through the inheritance structure thus
+                // this exception is redundant.
+                // The class or interface that was probed will be noted. If no attribute
+                // can be found then below will be thrown the corresponding exception with
+                // the collected informations.
+                probedClasses.add(probedType);
             }
 
             probedType = probedType.getSuperclass();
@@ -1060,7 +1064,8 @@ class ClassDefinitionImpl implements ClassDefinition {
         if (foundField == null) {
 
             String message =
-                "The class " + getType().getCanonicalName() + " doesn't have a field with the name " + aFieldname + "!";
+                "The class " + getType().getCanonicalName() + " doesn't have a field with the name " + aFieldname +
+                "(checked inheritance structure: " + probedClasses.toString() + ")!";
             throw new NoSuchFieldException(message);
         }
 

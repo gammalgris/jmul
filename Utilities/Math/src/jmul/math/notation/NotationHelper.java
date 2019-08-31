@@ -275,6 +275,7 @@ public final class NotationHelper {
      * Normalize the specified number string (i.e. replace the decimal separator).
      *
      * @param aString
+     *        a string containing a number
      *
      * @return the normalized number string
      */
@@ -328,8 +329,11 @@ public final class NotationHelper {
      * Evaluates the specified number strings according to the specified comparator.
      *
      * @param firstNumber
+     *        the first number as string
      * @param aComparator
+     *        a comparator for both numbers
      * @param secondNumber
+     *        the second number as string
      *
      * @return <code>true</code> if the statement is true, else <code>false</code>
      */
@@ -345,10 +349,15 @@ public final class NotationHelper {
      * Evaluates the specified number strings according to the specified comparator.
      *
      * @param firstNumber
+     *        the first number as string
      * @param firstProperties
+     *        the properties of the first number
      * @param aComparator
+     *        a comparator for both numbers
      * @param secondNumber
+     *        the second number as string
      * @param secondProperties
+     *        the properties of the second number
      *
      * @return <code>true</code> if the statement is true, else <code>false</code>
      */

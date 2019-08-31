@@ -110,7 +110,7 @@
         <echo message="-----= build-webserver.build =-----" />
         <echo />
 
-        <javac target="${project.java.version}" srcdir="${project.tmp.src.dir}" destdir="${project.tmp.build.dir}" verbose="true" classpathref="jmul.build.classpath" debug="on" />
+        <javac includeantruntime="false" target="${project.java.version}" srcdir="${project.tmp.src.dir}" destdir="${project.tmp.build.dir}" verbose="true" classpathref="jmul.build.classpath" debug="on" />
 
         <record name="${build.log}" action="stop" />
 

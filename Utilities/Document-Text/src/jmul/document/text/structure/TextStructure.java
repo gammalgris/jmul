@@ -54,7 +54,9 @@ public class TextStructure implements Structure {
      * Creates a new instance according to the specified parameters.
      *
      * @param aCharset
+     *        the charset of the text document
      * @param aLineSeparator
+     *        the line separator which is used within the text document
      */
     public TextStructure(Charset aCharset, String aLineSeparator) {
 

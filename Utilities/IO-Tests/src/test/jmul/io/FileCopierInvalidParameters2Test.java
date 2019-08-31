@@ -1,7 +1,7 @@
 /*
  * SPDX-License-Identifier: GPL-3.0
- * 
- * 
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -41,6 +41,7 @@ import jmul.test.classification.UnitTest;
 
 import org.junit.After;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -120,6 +121,12 @@ public class FileCopierInvalidParameters2Test {
         } catch (Exception e) {
 
             assertTrue(expectedException.isAssignableFrom(e.getClass()));
+            return;
+        }
+
+        {
+            String message = "Copying (\"" + sourceFile + "\" -> \"" + destinationFile + "\") failed!";
+            fail(message);
         }
     }
 
@@ -133,29 +140,23 @@ public class FileCopierInvalidParameters2Test {
 
         Collection<Object[]> parameters = new ArrayList<Object[]>();
 
-        parameters.add(new Object[] {
-                       new FileCopierImpl(), new File("testdata-io\\folder1"), new File("testdata-io\\copy.txt"),
-                       CopyFileException.class
-        });
-        parameters.add(new Object[] {
-                       new FileCopierImpl(), null, new File("testdata-io\\copy.txt"), IllegalArgumentException.class });
-        parameters.add(new Object[] {
-                       new FileCopierImpl(), new File(""), new File("testdata-io\\copy.txt"),
-                       CopyFileException.class });
-        parameters.add(new Object[] {
-                       new FileCopierImpl(), new File(" "), new File("testdata-io\\copy.txt"),
-                       CopyFileException.class });
+        parameters.add(new Object[] { new FileCopierImpl(), new File("testdata-io\\folder1"),
+                                      new File("testdata-io\\copy.txt"), CopyFileException.class });
+        parameters.add(new Object[] { new FileCopierImpl(), null, new File("testdata-io\\copy.txt"),
+                                      IllegalArgumentException.class });
+        parameters.add(new Object[] { new FileCopierImpl(), new File(""), new File("testdata-io\\copy.txt"),
+                                      CopyFileException.class });
+        parameters.add(new Object[] { new FileCopierImpl(), new File(" "), new File("testdata-io\\copy.txt"),
+                                      CopyFileException.class });
 
-        parameters.add(new Object[] {
-                       new FileCopierImpl(), new File("testdata-io\\file1"), new File("testdata-io\\folder1"),
-                       CopyFileException.class
-        });
-        parameters.add(new Object[] {
-                       new FileCopierImpl(), new File("testdata-io\\file1"), null, IllegalArgumentException.class });
-        parameters.add(new Object[] {
-                       new FileCopierImpl(), new File("testdata-io\\file1"), new File(""), CopyFileException.class });
-        parameters.add(new Object[] {
-                       new FileCopierImpl(), new File("testdata-io\\file1"), new File(" "), CopyFileException.class });
+        parameters.add(new Object[] { new FileCopierImpl(), new File("testdata-io\\file1"),
+                                      new File("testdata-io\\folder1"), CopyFileException.class });
+        parameters.add(new Object[] { new FileCopierImpl(), new File("testdata-io\\file1"), null,
+                                      IllegalArgumentException.class });
+        parameters.add(new Object[] { new FileCopierImpl(), new File("testdata-io\\file1"), new File(""),
+                                      CopyFileException.class });
+        parameters.add(new Object[] { new FileCopierImpl(), new File("testdata-io\\file1"), new File(" "),
+                                      CopyFileException.class });
 
         return parameters;
     }

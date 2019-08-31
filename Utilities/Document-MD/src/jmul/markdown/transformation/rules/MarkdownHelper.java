@@ -83,7 +83,7 @@ public final class MarkdownHelper {
      */
     private static String determineHeaderPrefix(ContentNode aNode) {
 
-        StringBuffer buffer = new StringBuffer();
+        StringBuilder buffer = new StringBuilder();
 
         if (aNode == null) {
 
@@ -122,7 +122,7 @@ public final class MarkdownHelper {
      */
     private static String determineCitationPrefix(ContentNode aNode) {
 
-        StringBuffer buffer = new StringBuffer();
+        StringBuilder buffer = new StringBuilder();
 
         if (aNode == null) {
 

@@ -1,7 +1,7 @@
 /*
  * SPDX-License-Identifier: GPL-3.0
- * 
- * 
+ *
+ *
  * (J)ava (M)iscellaneous (U)tility (L)ibraries
  *
  * JMUL is a central repository for utilities which are used in my
@@ -66,6 +66,7 @@ public class XmlValidatorValidInputTest {
 
         parameters.add(new Object[] { "testdata-xml", "testdata-xml/test-valid.xml" });
         parameters.add(new Object[] { "testdata-xml", "testdata-xml/test-valid2.xml" });
+        parameters.add(new Object[] { "testdata-xml", "testdata-xml/test-valid3.xml" });
 
         return parameters;
     }

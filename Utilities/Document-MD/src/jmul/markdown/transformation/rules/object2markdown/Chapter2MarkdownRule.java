@@ -79,7 +79,7 @@ public class Chapter2MarkdownRule extends TransformationRuleBase {
 
         Object object = someParameters.getObject();
 
-        return ((object != null) && (object instanceof Chapter));
+        return (object != null) && (object instanceof Chapter);
     }
 
     /**
@@ -97,7 +97,7 @@ public class Chapter2MarkdownRule extends TransformationRuleBase {
         Object object = someParameters.getObject();
         Chapter chapter = (Chapter) object;
 
-        StringBuffer buffer = new StringBuffer();
+        StringBuilder buffer = new StringBuilder();
 
 
         if (chapter.hasHeadline()) {

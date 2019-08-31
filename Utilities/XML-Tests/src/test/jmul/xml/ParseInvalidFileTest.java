@@ -41,6 +41,7 @@ import jmul.xml.reader.XmlDocumentReaderImpl;
 
 import org.junit.After;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -117,9 +118,17 @@ public class ParseInvalidFileTest {
 
             Class actualExceptionType = e.getClass();
             String message =
-                "expected exception type: " + expectedExceptionType + "; actual exception type: " +
-                actualExceptionType + "; error message=\"" + e.getMessage() + "\"";
+                "fileName: \"" + fileName + "\"; " + "expected exception type: " + expectedExceptionType +
+                "; actual exception type: " + actualExceptionType + "; error message=\"" + e.getMessage() + "\"";
             assertTrue(message, expectedExceptionType.isAssignableFrom(actualExceptionType));
+            return;
+        }
+
+        {
+            String message =
+                "fileName: \"" + fileName + "\"; " + "expected exception type: " + expectedExceptionType +
+                "; actual exception type: none";
+            fail(message);
         }
     }
 

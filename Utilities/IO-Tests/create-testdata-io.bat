@@ -21,13 +21,14 @@ call:initZipTool
 )
 
 
-set functionCalls.length=5
+set functionCalls.length=6
 
 set functionCalls[1]=createRootDirectory
 set functionCalls[2]=createFileFilterTestData
 set functionCalls[3]=createArchiveScanTestData
 set functionCalls[4]=createArchiveCreationTestData
 set functionCalls[5]=createDeletionTestData
+set functionCalls[6]=createLinks
 
 
 for /L %%i in (1, 1, %functionCalls.length%) do (
@@ -377,6 +378,22 @@ set functionCalls.length=
 	call:createDirectory testdata-io\deletion\folder6 %TRUE%
 	call:createDirectory testdata-io\deletion\folder6\folder7 %TRUE%
 	call:createFile testdata-io\deletion\folder6\file7.txt "Hello World"
+
+%return%
+
+
+@rem --------------------------------------------------------------------------------
+@rem ---
+@rem ---   void createLinks()
+@rem ---
+@rem ---   The subroutine creates links in the file system. For this action
+@rem ---   administrative rights are required.
+@rem ---
+
+:createLinks
+
+	echo create test data ^(links^)...
+
 	mklink testdata-io\deletion\folder6\folder7\link.txt testdata-io\deletion\folder6\file7.txt
 
 %return%

@@ -210,7 +210,7 @@
         <echo message="-----= build-tests.build =-----" />
         <echo />
 
-        <javac target="${project.java.version}" srcdir="${project.tmp.tests-src.dir}" destdir="${project.tmp.tests-build.dir}" verbose="true" classpathref="jmul-tests.build.classpath" debug="on" />
+        <javac includeantruntime="false" target="${project.java.version}" srcdir="${project.tmp.tests-src.dir}" destdir="${project.tmp.tests-build.dir}" verbose="true" classpathref="jmul-tests.build.classpath" debug="on" />
 
         <record name="${build.log}" action="stop" />
 

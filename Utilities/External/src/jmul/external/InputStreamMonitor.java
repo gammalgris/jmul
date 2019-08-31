@@ -53,7 +53,7 @@ public class InputStreamMonitor implements Runnable {
     /**
      * The content of the input stream.
      */
-    private StringBuffer streamContent;
+    private StringBuilder streamContent;
 
     /**
      * A flag to indicate the end of the stream.
@@ -93,7 +93,7 @@ public class InputStreamMonitor implements Runnable {
 
         logger = aLogger;
 
-        streamContent = new StringBuffer();
+        streamContent = new StringBuilder();
 
         endOfStream = false;
     }

@@ -129,7 +129,10 @@ public class WriteTextFileWithInvalidParameters2Test {
 
                 fail(e.getMessage());
             }
+            return;
         }
+
+        fail("An exception is excepted but no exception was thrown!");
     }
 
     /**

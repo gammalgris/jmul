@@ -71,7 +71,7 @@ public class Citation2MarkdownRule extends TransformationRuleBase {
 
         Object object = someParameters.getObject();
 
-        return ((object != null) && (object instanceof Citation));
+        return (object != null) && (object instanceof Citation);
     }
 
     /**
@@ -89,7 +89,7 @@ public class Citation2MarkdownRule extends TransformationRuleBase {
         Object object = someParameters.getObject();
         Citation citation = (Citation) object;
 
-        StringBuffer buffer = new StringBuffer();
+        StringBuilder buffer = new StringBuilder();
 
 
         for (int a = 0; a < citation.paragraphs(); a++) {

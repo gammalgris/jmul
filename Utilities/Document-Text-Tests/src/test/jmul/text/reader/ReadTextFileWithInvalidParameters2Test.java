@@ -97,7 +97,7 @@ public class ReadTextFileWithInvalidParameters2Test {
     }
 
     /**
-     * Tests the instantiation of a reader with valid input parameters.
+     * Tests the instantiation of a reader with invalid input parameters.
      */
     @Test
     public void testReadDocument() throws IOException {
@@ -112,7 +112,11 @@ public class ReadTextFileWithInvalidParameters2Test {
 
                 fail(e.getMessage());
             }
+
+            return;
         }
+
+        fail("An exception is excepted but no exception was thrown!");
     }
 
     /**

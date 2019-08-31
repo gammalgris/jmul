@@ -92,7 +92,7 @@
         <echo message="-----= build-gui-test-libs.build =-----" />
         <echo />
 
-        <javac target="${project.java.version}" srcdir="${project.tmp.src.dir}" destdir="${project.tmp.build.dir}" verbose="true" classpathref="jmul-guitest.build.classpath" debug="on" />
+        <javac includeantruntime="false" target="${project.java.version}" srcdir="${project.tmp.src.dir}" destdir="${project.tmp.build.dir}" verbose="true" classpathref="jmul-guitest.build.classpath" debug="on" />
 
         <record name="${build.log}" action="stop" />
 

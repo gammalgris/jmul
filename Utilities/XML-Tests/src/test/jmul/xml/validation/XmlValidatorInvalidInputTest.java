@@ -1,7 +1,7 @@
 /*
  * SPDX-License-Identifier: GPL-3.0
- * 
- * 
+ *
+ *
  * (J)ava (M)iscellaneous (U)tility (L)ibraries
  *
  * JMUL is a central repository for utilities which are used in my
@@ -82,6 +82,8 @@ public class XmlValidatorInvalidInputTest {
                                       SAXException.class });
         parameters.add(new Object[] { "testdata-xml", "testdata-xml/test-invalid2.xml", XmlValidationException.class,
                                       SAXException.class });
+        parameters.add(new Object[] { "testdata-xml", "testdata-xml/test-invalid3.xml", XmlValidationException.class,
+                                      SAXException.class });
         parameters.add(new Object[] { "testdata-xml", "testdata-xml/doesnt-exist.xml", XmlValidationException.class,
                                       IOException.class });
         parameters.add(new Object[] { "testdata-xml", "", IllegalArgumentException.class, NO_INNER_EXCEPTION });
@@ -161,12 +163,12 @@ public class XmlValidatorInvalidInputTest {
         try {
 
             validator.validate(xmlFile);
-            fail();
 
         } catch (Exception e) {
 
             String message =
-                "An exception of type " + expectedExceptionType + " was expected but " + e.getClass() + " was thrown!";
+                "fileName: \"" + xmlFile + "\"; " + "An exception of type " + expectedExceptionType +
+                " was expected but " + e.getClass() + " was thrown!";
             assertTrue(message, expectedExceptionType.isAssignableFrom(e.getClass()));
 
             if ((e instanceof XmlValidationException) && (innerException != NO_INNER_EXCEPTION)) {
@@ -180,6 +182,15 @@ public class XmlValidatorInvalidInputTest {
                 assertTrue(result.existErrorDetails());
                 assertTrue(innerException.isAssignableFrom(result.getError().getClass()));
             }
+
+            return;
+        }
+
+        {
+            String message =
+                "fileName: \"" + xmlFile + "\"; " + "An exception of type " + expectedExceptionType +
+                " was expected but none was thrown!";
+            fail(message);
         }
     }
 
