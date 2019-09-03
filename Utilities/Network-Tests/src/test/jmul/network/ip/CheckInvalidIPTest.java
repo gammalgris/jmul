@@ -80,27 +80,23 @@ public class CheckInvalidIPTest {
     /**
      * The expected exception.
      */
-    private final Class expectedException;
+    private final Class expectedExceptionType;
 
     /**
-     * Creates a new test.
+     * Creates a new test according to the specified parameters.
      *
      * @param aHostName
-     * @param anExpectedException
+     *        a host name or IP address
+     * @param anExpectedExceptionType
+     *        the expected exception type
+     *
+     * @throws UnknownHostException
+     *         is thrown if the specified host or IP address is unknown
      */
-    public CheckInvalidIPTest(String aHostName, Class anExpectedException) {
+    public CheckInvalidIPTest(String aHostName, Class anExpectedExceptionType) throws UnknownHostException {
 
-        try {
-
-            inetAddress = InetAddress.getByName(aHostName);
-
-        } catch (UnknownHostException e) {
-
-            String message = "Test couldn't be set up!";
-            throw new RuntimeException(message, e);
-        }
-
-        expectedException = anExpectedException;
+        inetAddress = InetAddress.getByName(aHostName);
+        expectedExceptionType = anExpectedExceptionType;
     }
 
     /**
@@ -113,13 +109,14 @@ public class CheckInvalidIPTest {
 
             CheckIP.checkIP(inetAddress);
 
-            String message = "An exception (" + expectedException + ") was expected but none was thrown!";
-            fail(message);
-
         } catch (Exception e) {
 
-            assertTrue(expectedException.isInstance(e));
+            assertTrue(expectedExceptionType.isAssignableFrom(e.getClass()));
+            return;
         }
+
+        String message = "An exception (" + expectedExceptionType + ") was expected but none was thrown!";
+        fail(message);
     }
 
 }

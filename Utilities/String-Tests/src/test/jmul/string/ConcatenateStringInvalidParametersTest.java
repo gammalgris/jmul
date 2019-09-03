@@ -35,7 +35,8 @@ import jmul.string.TextHelper;
 
 import jmul.test.classification.UnitTest;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -52,9 +53,9 @@ import org.junit.runners.Parameterized;
 public class ConcatenateStringInvalidParametersTest {
 
     /**
-     * The expected exception.
+     * The expected exception type.
      */
-    private Class expectedException;
+    private Class expectedExceptionType;
 
     /**
      * All strings that have to be concatenated.
@@ -64,12 +65,14 @@ public class ConcatenateStringInvalidParametersTest {
     /**
      * Creates a new test according to the specified parameters.
      *
-     * @param anExpectedException
+     * @param anExpectedExceptionType
+     *        the expected exception type
      * @param someObjects
+     *        an array of objects
      */
-    public ConcatenateStringInvalidParametersTest(Class anExpectedException, Object... someObjects) {
+    public ConcatenateStringInvalidParametersTest(Class anExpectedExceptionType, Object... someObjects) {
 
-        expectedException = anExpectedException;
+        expectedExceptionType = anExpectedExceptionType;
         objects = someObjects;
     }
 
@@ -97,10 +100,12 @@ public class ConcatenateStringInvalidParametersTest {
         try {
 
             TextHelper.concatenateStrings(objects);
+            fail("An exception was expected (" + expectedExceptionType + ") but non was thrown!");
 
         } catch (Exception e) {
 
-            assertEquals(expectedException, e.getClass());
+            assertTrue(expectedExceptionType.isAssignableFrom(e.getClass()));
         }
     }
+
 }

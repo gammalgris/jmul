@@ -75,8 +75,11 @@ public class InvokeGetterNegativeTest {
      * Creates a test case according to the specified parameters.
      *
      * @param aTarget
+     *        the target object
      * @param aFieldName
+     *        a field name
      * @param anExpectedExceptionType
+     *        the expected exception type
      */
     public InvokeGetterNegativeTest(Object aTarget, String aFieldName, Class anExpectedExceptionType) {
 
@@ -91,8 +94,11 @@ public class InvokeGetterNegativeTest {
      * Tests invoking a getter method via reflection mechanisms.
      *
      * @throws NoSuchMethodException
+     *         is thrown if no suitable getter method exists.
      * @throws IllegalAccessException
+     *         is thrown if the getter method cannot be accessed.
      * @throws InvocationTargetException
+     *         is thrown if an error occurs within the getter method.
      */
     @Test
     public void testInvokeGetter() throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {

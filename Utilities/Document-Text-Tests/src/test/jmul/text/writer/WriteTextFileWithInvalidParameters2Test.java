@@ -73,17 +73,17 @@ public class WriteTextFileWithInvalidParameters2Test {
     private TextDocumentWriter writer;
 
     /**
-     * An input parameter.
+     * A file path.
      */
     private File file;
 
     /**
-     * An input parameter.
+     * A document object.
      */
     private TextDocument document;
 
     /**
-     * An input parameter.
+     * The expected exception type.
      */
     private Class expectedException;
 
@@ -91,8 +91,11 @@ public class WriteTextFileWithInvalidParameters2Test {
      * Creates a new test according to the specified parameters.
      *
      * @param aFileName
+     *        a file path
      * @param aDocument
+     *        a document object
      * @param anExpectedException
+     *        the expected exception
      */
     public WriteTextFileWithInvalidParameters2Test(File aFile, TextDocument aDocument, Class anExpectedException) {
 
@@ -101,12 +104,18 @@ public class WriteTextFileWithInvalidParameters2Test {
         document = aDocument;
     }
 
+    /**
+     * Steps before the actual test.
+     */
     @Before
     public void setUp() {
 
         writer = new TextDocumentWriterImpl();
     }
 
+    /**
+     * Steps after the actual test.
+     */
     @After
     public void tearDown() {
 

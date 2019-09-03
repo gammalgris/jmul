@@ -79,25 +79,29 @@ public class ArchiveReaderInvalidParametersTest {
     private String entryName;
 
     /**
-     *  An expected exception.
+     *  The expected exception type.
      */
-    private Class expectedException;
+    private Class expectedExceptionType;
 
     /**
      * Creates a test according to the specified parameters.
      *
      * @param aReaderClass
+     *        a reader for archives
      * @param anArchiveName
+     *        the name of an archive file
      * @param anEntryName
-     * @param anExpectedException
+     *        the name of the entry within the archive
+     * @param anExpectedExceptionType
+     *        the excpected exception type
      */
     public ArchiveReaderInvalidParametersTest(Class aReaderClass, String anArchiveName, String anEntryName,
-                                              Class anExpectedException) {
+                                              Class anExpectedExceptionType) {
 
         readerClass = aReaderClass;
         archiveName = anArchiveName;
         entryName = anEntryName;
-        expectedException = anExpectedException;
+        expectedExceptionType = anExpectedExceptionType;
     }
 
     /**
@@ -116,9 +120,12 @@ public class ArchiveReaderInvalidParametersTest {
 
     /**
      * Tries reading a resource from an archive.
+     *
+     * @throws IOException
+     *         is thrown if an error occurs while trying to access an archive file
      */
     @Test
-    public void testLoadResource() {
+    public void testLoadResource() throws IOException {
 
         Class[] signature = ConstructorSignatures.getFileNameConstructorSignature();
 
@@ -158,7 +165,7 @@ public class ArchiveReaderInvalidParametersTest {
 
             } else {
 
-                failTest(expectedException, actualException);
+                failTest(expectedExceptionType, actualException);
             }
         }
 
@@ -185,31 +192,16 @@ public class ArchiveReaderInvalidParametersTest {
 
             if (isExpectedException(actualException)) {
 
-                try {
-
-                    reader.close();
-
-                } catch (IOException e) {
-
-                    // ignore exception
-                }
+                reader.close();
 
                 return;
             }
         }
 
 
-        try {
+        reader.close();
 
-            reader.close();
-
-        } catch (IOException e) {
-
-            // ignore exception
-        }
-
-
-        failTest(expectedException, actualException);
+        failTest(expectedExceptionType, actualException);
     }
 
     /**
@@ -223,7 +215,7 @@ public class ArchiveReaderInvalidParametersTest {
     private boolean isExpectedException(Throwable anException) {
 
         Class exceptionClass = anException.getClass();
-        return expectedException.isAssignableFrom(exceptionClass);
+        return expectedExceptionType.isAssignableFrom(exceptionClass);
     }
 
     /**

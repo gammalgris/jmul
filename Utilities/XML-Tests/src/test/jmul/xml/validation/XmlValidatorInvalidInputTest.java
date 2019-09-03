@@ -121,9 +121,13 @@ public class XmlValidatorInvalidInputTest {
      * Creates a new test according to the specified parameters.
      *
      * @param aSchemaDirectory
+     *        a directory path which contains schema files
      * @param anXmlFile
+     *        an xml file
      * @param anExpectedExceptionType
+     *        the expected exception type
      * @param anInnerException
+     *        the expected inner exception type (optional, may be <code>null</code>)
      */
     public XmlValidatorInvalidInputTest(String aSchemaDirectory, String anXmlFile, Class anExpectedExceptionType,
                                         Class anInnerException) {

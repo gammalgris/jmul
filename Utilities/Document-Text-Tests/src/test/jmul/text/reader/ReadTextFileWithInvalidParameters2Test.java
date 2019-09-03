@@ -63,12 +63,12 @@ public class ReadTextFileWithInvalidParameters2Test {
     private TextDocumentReader reader;
 
     /**
-     * An input parameter.
+     * A file path.
      */
     private File file;
 
     /**
-     * An input parameter.
+     * The expected exception type.
      */
     private Class expectedException;
 
@@ -76,7 +76,9 @@ public class ReadTextFileWithInvalidParameters2Test {
      * Creates a new test according to the specified parameters.
      *
      * @param aFileName
+     *        a file path
      * @param anExpectedException
+     *        the expected exception type
      */
     public ReadTextFileWithInvalidParameters2Test(File aFile, Class anExpectedException) {
 
@@ -84,12 +86,18 @@ public class ReadTextFileWithInvalidParameters2Test {
         expectedException = anExpectedException;
     }
 
+    /**
+     * Steps before the actual test.
+     */
     @Before
     public void setUp() {
 
         reader = new TextDocumentReaderImpl();
     }
 
+    /**
+     * Steps after the actual test.
+     */
     @After
     public void tearDown() {
 

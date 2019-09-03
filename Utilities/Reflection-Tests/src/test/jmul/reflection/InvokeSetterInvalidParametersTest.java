@@ -30,9 +30,6 @@ package test.jmul.reflection;
 
 import java.lang.reflect.InvocationTargetException;
 
-import static org.junit.Assert.fail;
-import static org.junit.Assert.assertEquals;
-
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -40,11 +37,12 @@ import jmul.checks.exceptions.EmptyStringParameterException;
 import jmul.checks.exceptions.NullParameterException;
 
 import jmul.reflection.ReflectionHelper;
-
 import jmul.reflection.classes.MissingAccessorException;
 
 import jmul.test.classification.UnitTest;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -81,11 +79,15 @@ public class InvokeSetterInvalidParametersTest {
 
     /**
      * Creates a test case according to the specified parameters.
-     * 
+     *
      * @param aTarget
+     *        the target object
      * @param aFieldName
+     *        a field name
      * @param aFieldValue
+     *        the new field value
      * @param anExpectedExceptionType
+     *        the expected exception type
      */
     public InvokeSetterInvalidParametersTest(Object aTarget, String aFieldName, Object aFieldValue,
                                              Class anExpectedExceptionType) {
@@ -102,8 +104,11 @@ public class InvokeSetterInvalidParametersTest {
      * Tests invoking a setter method via reflection mechanisms. Invalid parameters are used.
      *
      * @throws NoSuchMethodException
+     *         is thrown if no suitable setter method exists
      * @throws IllegalAccessException
+     *         is thrown if the setter method cannot be accessed.
      * @throws InvocationTargetException
+     *         is thrown if an error occurs within the setter method.
      */
     @Test
     public void testInvokeSetter() throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
@@ -140,7 +145,8 @@ public class InvokeSetterInvalidParametersTest {
         parameters.add(new Object[] { new ClassWithAccessors(), "number4", 2, MissingAccessorException.class });
         parameters.add(new Object[] { new ClassWithAccessors(), "number5", 2, MissingAccessorException.class });
         parameters.add(new Object[] { new ClassWithAccessors(), "number6", 2, MissingAccessorException.class });
-        parameters.add(new Object[] { new ClassWithAccessors(), "number", "Hello World!", IllegalArgumentException.class });
+        parameters.add(new Object[] { new ClassWithAccessors(), "number", "Hello World!",
+                                      IllegalArgumentException.class });
 
         return parameters;
     }

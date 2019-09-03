@@ -1,7 +1,7 @@
 /*
  * SPDX-License-Identifier: GPL-3.0
- * 
- * 
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -79,29 +79,25 @@ public class CheckInvalidURLTest {
     private final URL url;
 
     /**
-     * The expected exception.
+     * The expected exception type.
      */
-    private final Class expectedException;
+    private final Class expectedExceptionType;
 
     /**
-     * Creates a new test.
+     * Creates a new test according to the specified parameters.
      *
      * @param aURLString
-     * @param anExpectedException
+     *        a string containing a URL
+     * @param anExpectedExceptionType
+     *        the expected exception type
+     *
+     * @throws MalformedURLException
+     *         is thrown if the specified URL is malformed
      */
-    public CheckInvalidURLTest(String aURLString, Class anExpectedException) {
+    public CheckInvalidURLTest(String aURLString, Class anExpectedExceptionType) throws MalformedURLException {
 
-        try {
-
-            url = new URL(aURLString);
-
-        } catch (MalformedURLException e) {
-
-            String message = "Test couldn't be set up!";
-            throw new RuntimeException(message, e);
-        }
-
-        expectedException = anExpectedException;
+        url = new URL(aURLString);
+        expectedExceptionType = anExpectedExceptionType;
     }
 
     /**
@@ -114,13 +110,14 @@ public class CheckInvalidURLTest {
 
             CheckURL.checkURL(url);
 
-            String message = "An exception (" + expectedException + ") was expected but none was thrown!";
-            fail(message);
-
         } catch (Exception e) {
 
-            assertTrue(expectedException.isInstance(e));
+            assertTrue(expectedExceptionType.isAssignableFrom(e.getClass()));
+            return;
         }
+
+        String message = "An exception (" + expectedExceptionType + ") was expected but none was thrown!";
+        fail(message);
     }
 
 }

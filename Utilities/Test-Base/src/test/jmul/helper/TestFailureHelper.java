@@ -51,21 +51,39 @@ public final class TestFailureHelper {
     /**
      * Fails the test with an apropriate message.
      *
-     * @param anException
+     * @param anExpectedExceptionType
+     *        the expected exception type
+     * @param theActualException
+     *        the actual exception
      */
-    public static void failTest(Class anExpectedExceptionClass, Throwable theActualException) {
+    public static void failTest(Class anExpectedExceptionType, Throwable theActualException) {
 
-        checkClassParameter(anExpectedExceptionClass);
+        checkClassParameter(anExpectedExceptionType);
 
         if (theActualException == null) {
 
             fail("An exception was expected but none was thrown!");
-
-        } else {
-
-            fail("expected exception: " + anExpectedExceptionClass.getClass() + "; actual exception: " +
-                 theActualException.getClass());
         }
+
+        Class actualExceptionType = theActualException.getClass();
+
+        failTest(anExpectedExceptionType, actualExceptionType);
+    }
+
+    /**
+     * Fails the test with an apropriate message.
+     *
+     * @param anExpectedExceptionType
+     *        the expected exception type
+     * @param theActualExceptionType
+     *        the actual exception type
+     */
+    public static void failTest(Class anExpectedExceptionType, Class theActualExceptionType) {
+
+        checkClassParameter(anExpectedExceptionType);
+        checkClassParameter(theActualExceptionType);
+
+        fail("expected exception: " + anExpectedExceptionType + "; actual exception: " + theActualExceptionType);
     }
 
 }

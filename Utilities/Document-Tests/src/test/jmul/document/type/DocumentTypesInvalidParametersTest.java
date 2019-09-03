@@ -63,6 +63,14 @@ public class DocumentTypesInvalidParametersTest {
      */
     private Class expectedExceptionType;
 
+    /**
+     * Creates a new test case according to the specified parameters.
+     *
+     * @param aFileName
+     *        a file name
+     * @param anExpectedExceptionType
+     *        the expected exception type
+     */
     public DocumentTypesInvalidParametersTest(String aFileName, Class anExpectedExceptionType) {
 
         fileName = aFileName;
@@ -78,14 +86,16 @@ public class DocumentTypesInvalidParametersTest {
         try {
 
             DocumentTypes.getDocumentType(fileName);
-            fail();
 
         } catch (Exception e) {
 
             Class actualExceptionType = e.getClass();
 
             assertEquals(expectedExceptionType, actualExceptionType);
+            return;
         }
+
+        fail("An exception is excepted but no exception was thrown!");
     }
 
     /**

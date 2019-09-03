@@ -296,7 +296,7 @@ call:cleanVariables
 	set NEW_PATH=C:\WINDOWS;%NEW_PATH%
 
 	set NEW_PATH=%ANT_BIN%;%NEW_PATH%
-	set NEW_PATH=%JAVA_BIN%bin;%NEW_PATH%
+	set NEW_PATH=%JAVA_BIN%;%NEW_PATH%
 	set NEW_PATH=.;%NEW_PATH%
 
 

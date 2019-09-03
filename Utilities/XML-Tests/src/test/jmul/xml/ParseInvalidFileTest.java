@@ -78,7 +78,9 @@ public class ParseInvalidFileTest {
      * Creates a new test according to the specified parameters.
      *
      * @param aFileName
+     *        a file name
      * @param anExpectedException
+     *        the expected exception type
      */
     public ParseInvalidFileTest(String aFileName, Class anExpectedExceptionType) {
 
