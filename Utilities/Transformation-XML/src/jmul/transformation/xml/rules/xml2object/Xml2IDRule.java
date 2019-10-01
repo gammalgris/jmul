@@ -199,15 +199,7 @@ public class Xml2IDRule extends TransformationRuleBase {
 
             object = constructor.newInstance(parameters);
 
-        } catch (InstantiationException e) {
-
-            throw createCannotInstantiateIdException(e, type, valueString);
-
-        } catch (IllegalAccessException e) {
-
-            throw createCannotInstantiateIdException(e, type, valueString);
-
-        } catch (InvocationTargetException e) {
+        } catch (InstantiationException | IllegalAccessException | InvocationTargetException e) {
 
             throw createCannotInstantiateIdException(e, type, valueString);
         }

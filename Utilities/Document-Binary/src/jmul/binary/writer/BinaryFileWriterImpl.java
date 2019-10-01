@@ -35,8 +35,6 @@ import java.io.OutputStream;
 
 import jmul.document.binary.BinaryFile;
 
-import jmul.io.StreamsHelper;
-
 
 /**
  * An implementation of a document writer.
@@ -84,19 +82,11 @@ public class BinaryFileWriterImpl implements BinaryFileWriter {
     @Override
     public void writeDocument(File aFile, BinaryFile aDocument) throws IOException {
 
-        OutputStream outputStream = new FileOutputStream(aFile);
-
-        try {
+        try (OutputStream outputStream = new FileOutputStream(aFile)) {
 
             outputStream.write(aDocument.getContent());
             outputStream.flush();
-
-        } catch (IOException e) {
-
-            StreamsHelper.closeStreamAfterException(outputStream, e);
         }
-
-        StreamsHelper.closeStream(outputStream);
     }
 
 }

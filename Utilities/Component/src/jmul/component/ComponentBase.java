@@ -1,7 +1,7 @@
 /*
  * SPDX-License-Identifier: GPL-3.0
- * 
- * 
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -45,12 +45,12 @@ public abstract class ComponentBase implements Component {
     /**
      * The component state.
      */
-    private volatile State componentState;
+    private State componentState;
 
     /**
      * An error.
      */
-    private volatile Throwable error;
+    private Throwable error;
 
     /**
      * The default constructor.
@@ -70,17 +70,24 @@ public abstract class ComponentBase implements Component {
     @Override
     public State getComponentState() {
 
-        return componentState;
+        synchronized (this) {
+
+            return componentState;
+        }
     }
 
     /**
      * The component state is set to the specified new state.
      *
      * @param newState
+     *        the component's new state
      */
     protected void transitionTo(State newState) {
 
-        componentState = componentState.transitionTo(newState);
+        synchronized (this) {
+
+            componentState = componentState.transitionTo(newState);
+        }
     }
 
     /**
@@ -153,7 +160,10 @@ public abstract class ComponentBase implements Component {
     @Override
     public Throwable getError() {
 
-        return error;
+        synchronized (this) {
+
+            return error;
+        }
     }
 
     /**
@@ -163,7 +173,10 @@ public abstract class ComponentBase implements Component {
      */
     protected void setError(Throwable anError) {
 
-        error = anError;
+        synchronized (this) {
+
+            error = anError;
+        }
     }
 
 }

@@ -1,0 +1,561 @@
+IO\src\jmul\io\archives\ArchiveReaderImpl.java:import java.io.BufferedInputStream;
+IO\src\jmul\io\archives\ArchiveReaderImpl.java:import java.io.FileInputStream;
+IO\src\jmul\io\archives\ArchiveReaderImpl.java:import java.util.zip.ZipInputStream;
+IO\src\jmul\io\archives\ArchiveReaderImpl.java:import jmul.io.NestedStreams;
+IO\src\jmul\io\archives\ArchiveReaderImpl.java:import jmul.io.NestedStreamsImpl;
+IO\src\jmul\io\archives\ArchiveReaderImpl.java:    private final NestedStreams nestedStreams;
+IO\src\jmul\io\archives\ArchiveReaderImpl.java:        FileInputStream fis = new FileInputStream(anArchiveName);
+IO\src\jmul\io\archives\ArchiveReaderImpl.java:        BufferedInputStream bis = new BufferedInputStream(fis);
+IO\src\jmul\io\archives\ArchiveReaderImpl.java:        ZipInputStream zis = new ZipInputStream(bis);
+IO\src\jmul\io\archives\ArchiveReaderImpl.java:        nestedStreams = new NestedStreamsImpl(zis, bis, fis);
+IO\src\jmul\io\archives\ArchiveReaderImpl.java:        ZipInputStream zis = (ZipInputStream) nestedStreams.getOuterStream();
+IO\src\jmul\io\archives\ArchiveReaderImpl.java:    private static byte[] loadResource(ZipInputStream zis) throws IOException {
+IO\src\jmul\io\archives\ArchiveReaderImpl.java:    private static byte[] loadResource(ZipInputStream zis, long size) throws IOException {
+IO\src\jmul\io\archives\ArchiveReaderImpl.java:            nestedStreams.close();
+IO\src\jmul\io\CoupledStreams.java:public interface CoupledStreams extends Closeable {
+IO\src\jmul\io\CoupledStreams.java:    Closeable getStream(String aName);
+IO\src\jmul\io\CoupledStreams.java:    int getCoupledStreamCount();
+IO\src\jmul\io\CoupledStreamsException.java:public class CoupledStreamsException extends IOException {
+IO\src\jmul\io\CoupledStreamsException.java:    public CoupledStreamsException() {
+IO\src\jmul\io\CoupledStreamsException.java:    public CoupledStreamsException(String aMessage) {
+IO\src\jmul\io\CoupledStreamsException.java:    public CoupledStreamsException(Throwable aCause) {
+IO\src\jmul\io\CoupledStreamsException.java:    public CoupledStreamsException(String aMessage, Throwable aCause) {
+IO\src\jmul\io\CoupledStreamsImpl.java: * An implementation of {@link jmul.io.CoupledStreams}.
+IO\src\jmul\io\CoupledStreamsImpl.java:public class CoupledStreamsImpl implements CoupledStreams {
+IO\src\jmul\io\CoupledStreamsImpl.java:    private final Map<String, Closeable> coupledStreams;
+IO\src\jmul\io\CoupledStreamsImpl.java:    public CoupledStreamsImpl(StreamEntry... someEntries) {
+IO\src\jmul\io\CoupledStreamsImpl.java:        for (StreamEntry entry : someEntries) {
+IO\src\jmul\io\CoupledStreamsImpl.java:            tmp.put(entry.getName(), entry.getStream());
+IO\src\jmul\io\CoupledStreamsImpl.java:        coupledStreams = Collections.unmodifiableMap(tmp);
+IO\src\jmul\io\CoupledStreamsImpl.java:    public Closeable getStream(String aName) {
+IO\src\jmul\io\CoupledStreamsImpl.java:        return coupledStreams.get(aName);
+IO\src\jmul\io\CoupledStreamsImpl.java:    public int getCoupledStreamCount() {
+IO\src\jmul\io\CoupledStreamsImpl.java:        return coupledStreams.size();
+IO\src\jmul\io\CoupledStreamsImpl.java:        for (String name : coupledStreams.keySet()) {
+IO\src\jmul\io\CoupledStreamsImpl.java:            Closeable stream = getStream(name);
+IO\src\jmul\io\CoupledStreamsImpl.java:        for (String name : coupledStreams.keySet()) {
+IO\src\jmul\io\CoupledStreamsImpl.java:            Closeable stream = getStream(name);
+IO\src\jmul\io\CoupledStreamsImpl.java:    private CoupledStreamsException createException(Map<String, Throwable> someCoupledExceptions) {
+IO\src\jmul\io\CoupledStreamsImpl.java:        return new CoupledStreamsException(createExceptionMessage(someCoupledExceptions));
+IO\src\jmul\io\CoupledStreamsImpl.java:            Closeable stream = getStream(entry.getKey());
+IO\src\jmul\io\CoupledStreamsImpl.java:            StreamsHelper.addStreamEntry(buffer, stream.getClass().getName(), exception);
+IO\src\jmul\io\FileCopierImpl.java:import java.io.FileInputStream;
+IO\src\jmul\io\FileCopierImpl.java:import java.io.FileOutputStream;
+IO\src\jmul\io\FileCopierImpl.java:import java.io.InputStream;
+IO\src\jmul\io\FileCopierImpl.java:import java.io.OutputStream;
+IO\src\jmul\io\FileCopierImpl.java:        CoupledStreams coupledStreams = createStreams(aSourceFile, aDestinationFile);
+IO\src\jmul\io\FileCopierImpl.java:        InputStream in = (InputStream) coupledStreams.getStream(IN);
+IO\src\jmul\io\FileCopierImpl.java:        OutputStream out = (OutputStream) coupledStreams.getStream(OUT);
+IO\src\jmul\io\FileCopierImpl.java:        String faultyStreamName = null;
+IO\src\jmul\io\FileCopierImpl.java:                faultyStreamName = IN;
+IO\src\jmul\io\FileCopierImpl.java:                faultyStreamName = OUT;
+IO\src\jmul\io\FileCopierImpl.java:                coupledStreams.closeOnError(faultyStreamName);
+IO\src\jmul\io\FileCopierImpl.java:                coupledStreams.close();
+IO\src\jmul\io\FileCopierImpl.java:    private static CoupledStreams createStreams(File aSourceFile, File aDestinationFile) throws CopyFileException {
+IO\src\jmul\io\FileCopierImpl.java:        InputStream in = null;
+IO\src\jmul\io\FileCopierImpl.java:            in = new FileInputStream(aSourceFile);
+IO\src\jmul\io\FileCopierImpl.java:        OutputStream out = null;
+IO\src\jmul\io\FileCopierImpl.java:            out = new FileOutputStream(aDestinationFile);
+IO\src\jmul\io\FileCopierImpl.java:        return new CoupledStreamsImpl(new StreamEntry(IN, in), new StreamEntry(OUT, out));
+IO\src\jmul\io\FileHelper.java:import java.io.FileInputStream;
+IO\src\jmul\io\FileHelper.java:        FileInputStream fis = null;
+IO\src\jmul\io\FileHelper.java:            fis = new FileInputStream(aFile);
+IO\src\jmul\io\FileHelper.java:            closeStreamIgnoreException(fis);
+IO\src\jmul\io\FileHelper.java:     * @param aStream
+IO\src\jmul\io\FileHelper.java:    private static void closeStreamIgnoreException(Closeable aStream) {
+IO\src\jmul\io\FileHelper.java:            aStream.close();
+IO\src\jmul\io\NestedStreams.java:public interface NestedStreams extends Closeable {
+IO\src\jmul\io\NestedStreams.java:    Closeable getStream(int anIndex);
+IO\src\jmul\io\NestedStreams.java:    Closeable getOuterStream();
+IO\src\jmul\io\NestedStreams.java:    int getNestedStreamCount();
+IO\src\jmul\io\NestedStreamsException.java:public class NestedStreamsException extends IOException {
+IO\src\jmul\io\NestedStreamsException.java:    public NestedStreamsException() {
+IO\src\jmul\io\NestedStreamsException.java:    public NestedStreamsException(String aMessage) {
+IO\src\jmul\io\NestedStreamsException.java:    public NestedStreamsException(Throwable aCause) {
+IO\src\jmul\io\NestedStreamsException.java:    public NestedStreamsException(String aMessage, Throwable aCause) {
+IO\src\jmul\io\NestedStreamsImpl.java:public class NestedStreamsImpl implements NestedStreams {
+IO\src\jmul\io\NestedStreamsImpl.java:    private final List<Closeable> nestedStreams;
+IO\src\jmul\io\NestedStreamsImpl.java:    private final int innerStreamIndex;
+IO\src\jmul\io\NestedStreamsImpl.java:     * @param someStreams
+IO\src\jmul\io\NestedStreamsImpl.java:    public NestedStreamsImpl(Closeable... someStreams) {
+IO\src\jmul\io\NestedStreamsImpl.java:        nestedStreams = Arrays.asList(someStreams);
+IO\src\jmul\io\NestedStreamsImpl.java:        innerStreamIndex = nestedStreams.size() - 1;
+IO\src\jmul\io\NestedStreamsImpl.java:    public Closeable getStream(int anIndex) {
+IO\src\jmul\io\NestedStreamsImpl.java:        return nestedStreams.get(anIndex);
+IO\src\jmul\io\NestedStreamsImpl.java:    public Closeable getOuterStream() {
+IO\src\jmul\io\NestedStreamsImpl.java:        return getStream(OUTER_STREAM_INDEX);
+IO\src\jmul\io\NestedStreamsImpl.java:        Closeable outerStream = getOuterStream();
+IO\src\jmul\io\NestedStreamsImpl.java:            outerStream.close();
+IO\src\jmul\io\NestedStreamsImpl.java:            for (int a = 1; a < innerStreamIndex; a++) {
+IO\src\jmul\io\NestedStreamsImpl.java:                Closeable innerStream = getStream(a);
+IO\src\jmul\io\NestedStreamsImpl.java:                    innerStream.close();
+IO\src\jmul\io\NestedStreamsImpl.java:    private NestedStreamsException createException(List<Throwable> someNestedExceptions) {
+IO\src\jmul\io\NestedStreamsImpl.java:        return new NestedStreamsException(createExceptionMessage(someNestedExceptions),
+IO\src\jmul\io\NestedStreamsImpl.java:            Closeable stream = getStream(a);
+IO\src\jmul\io\NestedStreamsImpl.java:            StreamsHelper.addStreamEntry(buffer, stream.getClass().getName(), exception);
+IO\src\jmul\io\NestedStreamsImpl.java:    public int getNestedStreamCount() {
+IO\src\jmul\io\NestedStreamsImpl.java:        return nestedStreams.size();
+IO\src\jmul\io\StreamEntry.java:public final class StreamEntry {
+IO\src\jmul\io\StreamEntry.java:     * @param aStream
+IO\src\jmul\io\StreamEntry.java:    public StreamEntry(String aName, Closeable aStream) {
+IO\src\jmul\io\StreamEntry.java:        checkParameter(aStream);
+IO\src\jmul\io\StreamEntry.java:        stream = aStream;
+IO\src\jmul\io\StreamEntry.java:     * @param aStream
+IO\src\jmul\io\StreamEntry.java:    private static void checkParameter(Closeable aStream) {
+IO\src\jmul\io\StreamEntry.java:        if (aStream == null) {
+IO\src\jmul\io\StreamEntry.java:    public Closeable getStream() {
+IO\src\jmul\io\StreamsHelper.java:public final class StreamsHelper {
+IO\src\jmul\io\StreamsHelper.java:    private StreamsHelper() {
+IO\src\jmul\io\StreamsHelper.java:     * @param aStreamType
+IO\src\jmul\io\StreamsHelper.java:    public static void addStreamEntry(@Modified StringBuilder aBuffer, String aStreamType, Throwable anException) {
+IO\src\jmul\io\StreamsHelper.java:        aBuffer.append(aStreamType);
+IO\src\jmul\io\StreamsHelper.java:     * @param aStream
+IO\src\jmul\io\StreamsHelper.java:    public static void closeStream(Closeable aStream) throws IOException {
+IO\src\jmul\io\StreamsHelper.java:        aStream.close();
+IO\src\jmul\io\StreamsHelper.java:     * @param aStream
+IO\src\jmul\io\StreamsHelper.java:    public static void closeStreamAfterException(Closeable aStream, IOException aPreviousException) throws IOException {
+IO\src\jmul\io\StreamsHelper.java:            aStream.close();
+IO\src\jmul\io\text\TextFileHelper.java:import java.io.ByteArrayOutputStream;
+IO\src\jmul\io\text\TextFileHelper.java:import java.io.FileInputStream;
+IO\src\jmul\io\text\TextFileHelper.java:import java.io.FileOutputStream;
+IO\src\jmul\io\text\TextFileHelper.java:import java.io.InputStreamReader;
+IO\src\jmul\io\text\TextFileHelper.java:import java.io.OutputStreamWriter;
+IO\src\jmul\io\text\TextFileHelper.java:import jmul.io.NestedStreams;
+IO\src\jmul\io\text\TextFileHelper.java:import jmul.io.NestedStreamsImpl;
+IO\src\jmul\io\text\TextFileHelper.java:    public static NestedStreams openFile(String aFileName) throws FileNotFoundException {
+IO\src\jmul\io\text\TextFileHelper.java:    public static NestedStreams openFile(File aFile) throws FileNotFoundException {
+IO\src\jmul\io\text\TextFileHelper.java:        FileInputStream fis = new FileInputStream(aFile);
+IO\src\jmul\io\text\TextFileHelper.java:        InputStreamReader isr = new InputStreamReader(fis);
+IO\src\jmul\io\text\TextFileHelper.java:        return new NestedStreamsImpl(br, isr, fis);
+IO\src\jmul\io\text\TextFileHelper.java:    public static NestedStreams openFile(String aFileName, Charset aCharset) throws FileNotFoundException {
+IO\src\jmul\io\text\TextFileHelper.java:    public static NestedStreams openFile(File aFile, Charset aCharset) throws FileNotFoundException {
+IO\src\jmul\io\text\TextFileHelper.java:        FileInputStream fis = new FileInputStream(aFile);
+IO\src\jmul\io\text\TextFileHelper.java:        InputStreamReader isr = new InputStreamReader(fis, aCharset);
+IO\src\jmul\io\text\TextFileHelper.java:        return new NestedStreamsImpl(br, isr, fis);
+IO\src\jmul\io\text\TextFileHelper.java:    public static NestedStreams createFile(String aFileName, Charset aCharset) throws FileNotFoundException {
+IO\src\jmul\io\text\TextFileHelper.java:    public static NestedStreams createFile(File aFile, Charset aCharset) throws FileNotFoundException {
+IO\src\jmul\io\text\TextFileHelper.java:        FileOutputStream fos = new FileOutputStream(aFile);
+IO\src\jmul\io\text\TextFileHelper.java:        OutputStreamWriter osw = new OutputStreamWriter(fos, aCharset);
+IO\src\jmul\io\text\TextFileHelper.java:        return new NestedStreamsImpl(bw, osw, fos);
+IO\src\jmul\io\text\TextFileHelper.java:     * @param someNestedStreams
+IO\src\jmul\io\text\TextFileHelper.java:    public static void closeFile(NestedStreams someNestedStreams) throws IOException {
+IO\src\jmul\io\text\TextFileHelper.java:        someNestedStreams.close();
+IO\src\jmul\io\text\TextFileHelper.java:     * @param someNestedStreams
+IO\src\jmul\io\text\TextFileHelper.java:    public static ReadBuffer readLine(NestedStreams someNestedStreams, String aLineSeparator) throws IOException {
+IO\src\jmul\io\text\TextFileHelper.java:        BufferedReader br = (BufferedReader) someNestedStreams.getOuterStream();
+IO\src\jmul\io\text\TextFileHelper.java:        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+IO\src\jmul\io\text\TextFileHelper.java:     * @param someNestedStreams
+IO\src\jmul\io\text\TextFileHelper.java:    public static void writeLine(NestedStreams someNestedStreams, String aString,
+IO\src\jmul\io\text\TextFileHelper.java:        BufferedWriter bw = (BufferedWriter) someNestedStreams.getOuterStream();
+IO-Tests\src\test\jmul\io\CoupledStreamsTest.java:public class CoupledStreamsTest {
+IO-Tests\src\test\jmul\io\CoupledStreamsTest.java:    public CoupledStreamsTest() {
+Logging\src\jmul\logging\BaseLogger.java:import java.io.PrintStream;
+Logging\src\jmul\logging\BaseLogger.java:    private PrintStream standard;
+Logging\src\jmul\logging\BaseLogger.java:    private PrintStream error;
+Logging\src\jmul\logging\BaseLogger.java:    protected BaseLogger(PrintStream aStandardOutput, PrintStream anErrorOutput) {
+Logging\src\jmul\logging\ConsoleLogger.java:import java.io.PrintStream;
+Logging\src\jmul\logging\ConsoleLogger.java:    public ConsoleLogger(PrintStream aStandardOutput, PrintStream anErrorOutput) {
+Measures-Docs\misc\java-code-examples\google-code-prettify\lang-matlab.js:a.registerLangHandler(a.createSimpleLexer([],[[a.PR_KEYWORD,/^\b(?:break|case|catch|classdef|continue|else|elseif|end|for|function|global|if|otherwise|parfor|persistent|return|spmd|switch|try|while)\b/,null],["const",/^\b(?:true|false|inf|Inf|nan|NaN|eps|pi|ans|nargin|nargout|varargin|varargout)\b/,null],[a.PR_TYPE,/^\b(?:cell|struct|char|double|single|logical|u?int(?:8|16|32|64)|sparse)\b/,null],["fun",/^\b(?:abs|accumarray|acos(?:d|h)?|acot(?:d|h)?|acsc(?:d|h)?|actxcontrol(?:list|select)?|actxGetRunningServer|actxserver|addlistener|addpath|addpref|addtodate|airy|align|alim|all|allchild|alpha|alphamap|amd|ancestor|and|angle|annotation|any|area|arrayfun|asec(?:d|h)?|asin(?:d|h)?|assert|assignin|atan(?:2|d|h)?|audiodevinfo|audioplayer|audiorecorder|aufinfo|auread|autumn|auwrite|avifile|aviinfo|aviread|axes|axis|balance|bar(?:3|3h|h)?|base2dec|beep|BeginInvoke|bench|bessel(?:h|i|j|k|y)|beta|betainc|betaincinv|betaln|bicg|bicgstab|bicgstabl|bin2dec|bitand|bitcmp|bitget|bitmax|bitnot|bitor|bitset|bitshift|bitxor|blanks|blkdiag|bone|box|brighten|brush|bsxfun|builddocsearchdb|builtin|bvp4c|bvp5c|bvpget|bvpinit|bvpset|bvpxtend|calendar|calllib|callSoapService|camdolly|cameratoolbar|camlight|camlookat|camorbit|campan|campos|camproj|camroll|camtarget|camup|camva|camzoom|cart2pol|cart2sph|cast|cat|caxis|cd|cdf2rdf|cdfepoch|cdfinfo|cdflib(?:.(?:close|closeVar|computeEpoch|computeEpoch16|create|createAttr|createVar|delete|deleteAttr|deleteAttrEntry|deleteAttrgEntry|deleteVar|deleteVarRecords|epoch16Breakdown|epochBreakdown|getAttrEntry|getAttrgEntry|getAttrMaxEntry|getAttrMaxgEntry|getAttrName|getAttrNum|getAttrScope|getCacheSize|getChecksum|getCompression|getCompressionCacheSize|getConstantNames|getConstantValue|getCopyright|getFileBackward|getFormat|getLibraryCopyright|getLibraryVersion|getMajority|getName|getNumAttrEntries|getNumAttrgEntries|getNumAttributes|getNumgAttributes|getReadOnlyMode|getStageCacheSize|getValidate|getVarAllocRecords|getVarBlockingFactor|getVarCacheSize|getVarCompression|getVarData|getVarMaxAllocRecNum|getVarMaxWrittenRecNum|getVarName|getVarNum|getVarNumRecsWritten|getVarPadValue|getVarRecordData|getVarReservePercent|getVarsMaxWrittenRecNum|getVarSparseRecords|getVersion|hyperGetVarData|hyperPutVarData|inquire|inquireAttr|inquireAttrEntry|inquireAttrgEntry|inquireVar|open|putAttrEntry|putAttrgEntry|putVarData|putVarRecordData|renameAttr|renameVar|setCacheSize|setChecksum|setCompression|setCompressionCacheSize|setFileBackward|setFormat|setMajority|setReadOnlyMode|setStageCacheSize|setValidate|setVarAllocBlockRecords|setVarBlockingFactor|setVarCacheSize|setVarCompression|setVarInitialRecs|setVarPadValue|SetVarReservePercent|setVarsCacheSize|setVarSparseRecords))?|cdfread|cdfwrite|ceil|cell2mat|cell2struct|celldisp|cellfun|cellplot|cellstr|cgs|checkcode|checkin|checkout|chol|cholinc|cholupdate|circshift|cla|clabel|class|clc|clear|clearvars|clf|clipboard|clock|close|closereq|cmopts|cmpermute|cmunique|colamd|colon|colorbar|colordef|colormap|colormapeditor|colperm|Combine|comet|comet3|commandhistory|commandwindow|compan|compass|complex|computer|cond|condeig|condest|coneplot|conj|containers.Map|contour(?:3|c|f|slice)?|contrast|conv|conv2|convhull|convhulln|convn|cool|copper|copyfile|copyobj|corrcoef|cos(?:d|h)?|cot(?:d|h)?|cov|cplxpair|cputime|createClassFromWsdl|createSoapMessage|cross|csc(?:d|h)?|csvread|csvwrite|ctranspose|cumprod|cumsum|cumtrapz|curl|customverctrl|cylinder|daqread|daspect|datacursormode|datatipinfo|date|datenum|datestr|datetick|datevec|dbclear|dbcont|dbdown|dblquad|dbmex|dbquit|dbstack|dbstatus|dbstep|dbstop|dbtype|dbup|dde23|ddeget|ddesd|ddeset|deal|deblank|dec2base|dec2bin|dec2hex|decic|deconv|del2|delaunay|delaunay3|delaunayn|DelaunayTri|delete|demo|depdir|depfun|det|detrend|deval|diag|dialog|diary|diff|diffuse|dir|disp|display|dither|divergence|dlmread|dlmwrite|dmperm|doc|docsearch|dos|dot|dragrect|drawnow|dsearch|dsearchn|dynamicprops|echo|echodemo|edit|eig|eigs|ellipj|ellipke|ellipsoid|empty|enableNETfromNetworkDrive|enableservice|EndInvoke|enumeration|eomday|eq|erf|erfc|erfcinv|erfcx|erfinv|error|errorbar|errordlg|etime|etree|etreeplot|eval|evalc|evalin|event.(?:EventData|listener|PropertyEvent|proplistener)|exifread|exist|exit|exp|expint|expm|expm1|export2wsdlg|eye|ezcontour|ezcontourf|ezmesh|ezmeshc|ezplot|ezplot3|ezpolar|ezsurf|ezsurfc|factor|factorial|fclose|feather|feature|feof|ferror|feval|fft|fft2|fftn|fftshift|fftw|fgetl|fgets|fieldnames|figure|figurepalette|fileattrib|filebrowser|filemarker|fileparts|fileread|filesep|fill|fill3|filter|filter2|find|findall|findfigs|findobj|findstr|finish|fitsdisp|fitsinfo|fitsread|fitswrite|fix|flag|flipdim|fliplr|flipud|floor|flow|fminbnd|fminsearch|fopen|format|fplot|fprintf|frame2im|fread|freqspace|frewind|fscanf|fseek|ftell|FTP|full|fullfile|func2str|functions|funm|fwrite|fzero|gallery|gamma|gammainc|gammaincinv|gammaln|gca|gcbf|gcbo|gcd|gcf|gco|ge|genpath|genvarname|get|getappdata|getenv|getfield|getframe|getpixelposition|getpref|ginput|gmres|gplot|grabcode|gradient|gray|graymon|grid|griddata(?:3|n)?|griddedInterpolant|gsvd|gt|gtext|guidata|guide|guihandles|gunzip|gzip|h5create|h5disp|h5info|h5read|h5readatt|h5write|h5writeatt|hadamard|handle|hankel|hdf|hdf5|hdf5info|hdf5read|hdf5write|hdfinfo|hdfread|hdftool|help|helpbrowser|helpdesk|helpdlg|helpwin|hess|hex2dec|hex2num|hgexport|hggroup|hgload|hgsave|hgsetget|hgtransform|hidden|hilb|hist|histc|hold|home|horzcat|hostid|hot|hsv|hsv2rgb|hypot|ichol|idivide|ifft|ifft2|ifftn|ifftshift|ilu|im2frame|im2java|imag|image|imagesc|imapprox|imfinfo|imformats|import|importdata|imread|imwrite|ind2rgb|ind2sub|inferiorto|info|inline|inmem|inpolygon|input|inputdlg|inputname|inputParser|inspect|instrcallback|instrfind|instrfindall|int2str|integral(?:2|3)?|interp(?:1|1q|2|3|ft|n)|interpstreamspeed|intersect|intmax|intmin|inv|invhilb|ipermute|isa|isappdata|iscell|iscellstr|ischar|iscolumn|isdir|isempty|isequal|isequaln|isequalwithequalnans|isfield|isfinite|isfloat|isglobal|ishandle|ishghandle|ishold|isinf|isinteger|isjava|iskeyword|isletter|islogical|ismac|ismatrix|ismember|ismethod|isnan|isnumeric|isobject|isocaps|isocolors|isonormals|isosurface|ispc|ispref|isprime|isprop|isreal|isrow|isscalar|issorted|isspace|issparse|isstr|isstrprop|isstruct|isstudent|isunix|isvarname|isvector|javaaddpath|javaArray|javachk|javaclasspath|javacomponent|javaMethod|javaMethodEDT|javaObject|javaObjectEDT|javarmpath|jet|keyboard|kron|lasterr|lasterror|lastwarn|lcm|ldivide|ldl|le|legend|legendre|length|libfunctions|libfunctionsview|libisloaded|libpointer|libstruct|license|light|lightangle|lighting|lin2mu|line|lines|linkaxes|linkdata|linkprop|linsolve|linspace|listdlg|listfonts|load|loadlibrary|loadobj|log|log10|log1p|log2|loglog|logm|logspace|lookfor|lower|ls|lscov|lsqnonneg|lsqr|lt|lu|luinc|magic|makehgtform|mat2cell|mat2str|material|matfile|matlab.io.MatFile|matlab.mixin.(?:Copyable|Heterogeneous(?:.getDefaultScalarElement)?)|matlabrc|matlabroot|max|maxNumCompThreads|mean|median|membrane|memmapfile|memory|menu|mesh|meshc|meshgrid|meshz|meta.(?:class(?:.fromName)?|DynamicProperty|EnumeratedValue|event|MetaData|method|package(?:.(?:fromName|getAllPackages))?|property)|metaclass|methods|methodsview|mex(?:.getCompilerConfigurations)?|MException|mexext|mfilename|min|minres|minus|mislocked|mkdir|mkpp|mldivide|mlint|mlintrpt|mlock|mmfileinfo|mmreader|mod|mode|more|move|movefile|movegui|movie|movie2avi|mpower|mrdivide|msgbox|mtimes|mu2lin|multibandread|multibandwrite|munlock|namelengthmax|nargchk|narginchk|nargoutchk|native2unicode|nccreate|ncdisp|nchoosek|ncinfo|ncread|ncreadatt|ncwrite|ncwriteatt|ncwriteschema|ndgrid|ndims|ne|NET(?:.(?:addAssembly|Assembly|convertArray|createArray|createGeneric|disableAutoRelease|enableAutoRelease|GenericClass|invokeGenericMethod|NetException|setStaticProperty))?|netcdf.(?:abort|close|copyAtt|create|defDim|defGrp|defVar|defVarChunking|defVarDeflate|defVarFill|defVarFletcher32|delAtt|endDef|getAtt|getChunkCache|getConstant|getConstantNames|getVar|inq|inqAtt|inqAttID|inqAttName|inqDim|inqDimID|inqDimIDs|inqFormat|inqGrpName|inqGrpNameFull|inqGrpParent|inqGrps|inqLibVers|inqNcid|inqUnlimDims|inqVar|inqVarChunking|inqVarDeflate|inqVarFill|inqVarFletcher32|inqVarID|inqVarIDs|open|putAtt|putVar|reDef|renameAtt|renameDim|renameVar|setChunkCache|setDefaultFormat|setFill|sync)|newplot|nextpow2|nnz|noanimate|nonzeros|norm|normest|not|notebook|now|nthroot|null|num2cell|num2hex|num2str|numel|nzmax|ode(?:113|15i|15s|23|23s|23t|23tb|45)|odeget|odeset|odextend|onCleanup|ones|open|openfig|opengl|openvar|optimget|optimset|or|ordeig|orderfields|ordqz|ordschur|orient|orth|pack|padecoef|pagesetupdlg|pan|pareto|parseSoapResponse|pascal|patch|path|path2rc|pathsep|pathtool|pause|pbaspect|pcg|pchip|pcode|pcolor|pdepe|pdeval|peaks|perl|perms|permute|pie|pink|pinv|planerot|playshow|plot|plot3|plotbrowser|plotedit|plotmatrix|plottools|plotyy|plus|pol2cart|polar|poly|polyarea|polyder|polyeig|polyfit|polyint|polyval|polyvalm|pow2|power|ppval|prefdir|preferences|primes|print|printdlg|printopt|printpreview|prod|profile|profsave|propedit|propertyeditor|psi|publish|PutCharArray|PutFullMatrix|PutWorkspaceData|pwd|qhull|qmr|qr|qrdelete|qrinsert|qrupdate|quad|quad2d|quadgk|quadl|quadv|questdlg|quit|quiver|quiver3|qz|rand|randi|randn|randperm|RandStream(?:.(?:create|getDefaultStream|getGlobalStream|list|setDefaultStream|setGlobalStream))?|rank|rat|rats|rbbox|rcond|rdivide|readasync|real|reallog|realmax|realmin|realpow|realsqrt|record|rectangle|rectint|recycle|reducepatch|reducevolume|refresh|refreshdata|regexp|regexpi|regexprep|regexptranslate|rehash|rem|Remove|RemoveAll|repmat|reset|reshape|residue|restoredefaultpath|rethrow|rgb2hsv|rgb2ind|rgbplot|ribbon|rmappdata|rmdir|rmfield|rmpath|rmpref|rng|roots|rose|rosser|rot90|rotate|rotate3d|round|rref|rsf2csf|run|save|saveas|saveobj|savepath|scatter|scatter3|schur|sec|secd|sech|selectmoveresize|semilogx|semilogy|sendmail|serial|set|setappdata|setdiff|setenv|setfield|setpixelposition|setpref|setstr|setxor|shading|shg|shiftdim|showplottool|shrinkfaces|sign|sin(?:d|h)?|size|slice|smooth3|snapnow|sort|sortrows|sound|soundsc|spalloc|spaugment|spconvert|spdiags|specular|speye|spfun|sph2cart|sphere|spinmap|spline|spones|spparms|sprand|sprandn|sprandsym|sprank|spring|sprintf|spy|sqrt|sqrtm|squeeze|ss2tf|sscanf|stairs|startup|std|stem|stem3|stopasync|str2double|str2func|str2mat|str2num|strcat|strcmp|strcmpi|stream2|stream3|streamline|streamparticles|streamribbon|streamslice|streamtube|strfind|strjust|strmatch|strncmp|strncmpi|strread|strrep|strtok|strtrim|struct2cell|structfun|strvcat|sub2ind|subplot|subsasgn|subsindex|subspace|subsref|substruct|subvolume|sum|summer|superclasses|superiorto|support|surf|surf2patch|surface|surfc|surfl|surfnorm|svd|svds|swapbytes|symamd|symbfact|symmlq|symrcm|symvar|system|tan(?:d|h)?|tar|tempdir|tempname|tetramesh|texlabel|text|textread|textscan|textwrap|tfqmr|throw|tic|Tiff(?:.(?:getTagNames|getVersion))?|timer|timerfind|timerfindall|times|timeseries|title|toc|todatenum|toeplitz|toolboxdir|trace|transpose|trapz|treelayout|treeplot|tril|trimesh|triplequad|triplot|TriRep|TriScatteredInterp|trisurf|triu|tscollection|tsearch|tsearchn|tstool|type|typecast|uibuttongroup|uicontextmenu|uicontrol|uigetdir|uigetfile|uigetpref|uiimport|uimenu|uiopen|uipanel|uipushtool|uiputfile|uiresume|uisave|uisetcolor|uisetfont|uisetpref|uistack|uitable|uitoggletool|uitoolbar|uiwait|uminus|undocheckout|unicode2native|union|unique|unix|unloadlibrary|unmesh|unmkpp|untar|unwrap|unzip|uplus|upper|urlread|urlwrite|usejava|userpath|validateattributes|validatestring|vander|var|vectorize|ver|verctrl|verLessThan|version|vertcat|VideoReader(?:.isPlatformSupported)?|VideoWriter(?:.getProfiles)?|view|viewmtx|visdiff|volumebounds|voronoi|voronoin|wait|waitbar|waitfor|waitforbuttonpress|warndlg|warning|waterfall|wavfinfo|wavplay|wavread|wavrecord|wavwrite|web|weekday|what|whatsnew|which|whitebg|who|whos|wilkinson|winopen|winqueryreg|winter|wk1finfo|wk1read|wk1write|workspace|xlabel|xlim|xlsfinfo|xlsread|xlswrite|xmlread|xmlwrite|xor|xslt|ylabel|ylim|zeros|zip|zlabel|zlim|zoom)\b/,null],
+Network\src\jmul\network\http\UploadHelper.java:import java.io.OutputStream;
+Network\src\jmul\network\http\UploadHelper.java:import java.io.OutputStreamWriter;
+Network\src\jmul\network\http\UploadHelper.java:import jmul.io.NestedStreams;
+Network\src\jmul\network\http\UploadHelper.java:import jmul.io.NestedStreamsImpl;
+Network\src\jmul\network\http\UploadHelper.java:import jmul.io.StreamsHelper;
+Network\src\jmul\network\http\UploadHelper.java:        NestedStreams nestedStreams = openStream(connection);
+Network\src\jmul\network\http\UploadHelper.java:        Writer writer = (Writer) nestedStreams.getOuterStream();
+Network\src\jmul\network\http\UploadHelper.java:        OutputStream outputStream = (OutputStream) nestedStreams.getStream(1);
+Network\src\jmul\network\http\UploadHelper.java:            Files.copy(aFile.toPath(), outputStream);
+Network\src\jmul\network\http\UploadHelper.java:            StreamsHelper.closeStreamAfterException(nestedStreams, e);
+Network\src\jmul\network\http\UploadHelper.java:            StreamsHelper.closeStreamAfterException(nestedStreams, e);
+Network\src\jmul\network\http\UploadHelper.java:        StreamsHelper.closeStream(nestedStreams);
+Network\src\jmul\network\http\UploadHelper.java:    private static NestedStreams openStream(URLConnection aConnection) throws IOException {
+Network\src\jmul\network\http\UploadHelper.java:        OutputStream os = aConnection.getOutputStream();
+Network\src\jmul\network\http\UploadHelper.java:        OutputStreamWriter osw = new OutputStreamWriter(os, DEFAULT_CHARSET);
+Network\src\jmul\network\http\UploadHelper.java:        return new NestedStreamsImpl(w, osw, os);
+Persistence\src\jmul\persistence\id\StringIDGenerator.java:     * @param aStream
+Persistence\src\jmul\persistence\id\StringIDGenerator.java:    private IOException closeIgnoreException(Closeable aStream) {
+Persistence\src\jmul\persistence\id\StringIDGenerator.java:            aStream.close();
+Persistence-Docs\misc\java-code-examples\google-code-prettify\lang-matlab.js:a.registerLangHandler(a.createSimpleLexer([],[[a.PR_KEYWORD,/^\b(?:break|case|catch|classdef|continue|else|elseif|end|for|function|global|if|otherwise|parfor|persistent|return|spmd|switch|try|while)\b/,null],["const",/^\b(?:true|false|inf|Inf|nan|NaN|eps|pi|ans|nargin|nargout|varargin|varargout)\b/,null],[a.PR_TYPE,/^\b(?:cell|struct|char|double|single|logical|u?int(?:8|16|32|64)|sparse)\b/,null],["fun",/^\b(?:abs|accumarray|acos(?:d|h)?|acot(?:d|h)?|acsc(?:d|h)?|actxcontrol(?:list|select)?|actxGetRunningServer|actxserver|addlistener|addpath|addpref|addtodate|airy|align|alim|all|allchild|alpha|alphamap|amd|ancestor|and|angle|annotation|any|area|arrayfun|asec(?:d|h)?|asin(?:d|h)?|assert|assignin|atan(?:2|d|h)?|audiodevinfo|audioplayer|audiorecorder|aufinfo|auread|autumn|auwrite|avifile|aviinfo|aviread|axes|axis|balance|bar(?:3|3h|h)?|base2dec|beep|BeginInvoke|bench|bessel(?:h|i|j|k|y)|beta|betainc|betaincinv|betaln|bicg|bicgstab|bicgstabl|bin2dec|bitand|bitcmp|bitget|bitmax|bitnot|bitor|bitset|bitshift|bitxor|blanks|blkdiag|bone|box|brighten|brush|bsxfun|builddocsearchdb|builtin|bvp4c|bvp5c|bvpget|bvpinit|bvpset|bvpxtend|calendar|calllib|callSoapService|camdolly|cameratoolbar|camlight|camlookat|camorbit|campan|campos|camproj|camroll|camtarget|camup|camva|camzoom|cart2pol|cart2sph|cast|cat|caxis|cd|cdf2rdf|cdfepoch|cdfinfo|cdflib(?:.(?:close|closeVar|computeEpoch|computeEpoch16|create|createAttr|createVar|delete|deleteAttr|deleteAttrEntry|deleteAttrgEntry|deleteVar|deleteVarRecords|epoch16Breakdown|epochBreakdown|getAttrEntry|getAttrgEntry|getAttrMaxEntry|getAttrMaxgEntry|getAttrName|getAttrNum|getAttrScope|getCacheSize|getChecksum|getCompression|getCompressionCacheSize|getConstantNames|getConstantValue|getCopyright|getFileBackward|getFormat|getLibraryCopyright|getLibraryVersion|getMajority|getName|getNumAttrEntries|getNumAttrgEntries|getNumAttributes|getNumgAttributes|getReadOnlyMode|getStageCacheSize|getValidate|getVarAllocRecords|getVarBlockingFactor|getVarCacheSize|getVarCompression|getVarData|getVarMaxAllocRecNum|getVarMaxWrittenRecNum|getVarName|getVarNum|getVarNumRecsWritten|getVarPadValue|getVarRecordData|getVarReservePercent|getVarsMaxWrittenRecNum|getVarSparseRecords|getVersion|hyperGetVarData|hyperPutVarData|inquire|inquireAttr|inquireAttrEntry|inquireAttrgEntry|inquireVar|open|putAttrEntry|putAttrgEntry|putVarData|putVarRecordData|renameAttr|renameVar|setCacheSize|setChecksum|setCompression|setCompressionCacheSize|setFileBackward|setFormat|setMajority|setReadOnlyMode|setStageCacheSize|setValidate|setVarAllocBlockRecords|setVarBlockingFactor|setVarCacheSize|setVarCompression|setVarInitialRecs|setVarPadValue|SetVarReservePercent|setVarsCacheSize|setVarSparseRecords))?|cdfread|cdfwrite|ceil|cell2mat|cell2struct|celldisp|cellfun|cellplot|cellstr|cgs|checkcode|checkin|checkout|chol|cholinc|cholupdate|circshift|cla|clabel|class|clc|clear|clearvars|clf|clipboard|clock|close|closereq|cmopts|cmpermute|cmunique|colamd|colon|colorbar|colordef|colormap|colormapeditor|colperm|Combine|comet|comet3|commandhistory|commandwindow|compan|compass|complex|computer|cond|condeig|condest|coneplot|conj|containers.Map|contour(?:3|c|f|slice)?|contrast|conv|conv2|convhull|convhulln|convn|cool|copper|copyfile|copyobj|corrcoef|cos(?:d|h)?|cot(?:d|h)?|cov|cplxpair|cputime|createClassFromWsdl|createSoapMessage|cross|csc(?:d|h)?|csvread|csvwrite|ctranspose|cumprod|cumsum|cumtrapz|curl|customverctrl|cylinder|daqread|daspect|datacursormode|datatipinfo|date|datenum|datestr|datetick|datevec|dbclear|dbcont|dbdown|dblquad|dbmex|dbquit|dbstack|dbstatus|dbstep|dbstop|dbtype|dbup|dde23|ddeget|ddesd|ddeset|deal|deblank|dec2base|dec2bin|dec2hex|decic|deconv|del2|delaunay|delaunay3|delaunayn|DelaunayTri|delete|demo|depdir|depfun|det|detrend|deval|diag|dialog|diary|diff|diffuse|dir|disp|display|dither|divergence|dlmread|dlmwrite|dmperm|doc|docsearch|dos|dot|dragrect|drawnow|dsearch|dsearchn|dynamicprops|echo|echodemo|edit|eig|eigs|ellipj|ellipke|ellipsoid|empty|enableNETfromNetworkDrive|enableservice|EndInvoke|enumeration|eomday|eq|erf|erfc|erfcinv|erfcx|erfinv|error|errorbar|errordlg|etime|etree|etreeplot|eval|evalc|evalin|event.(?:EventData|listener|PropertyEvent|proplistener)|exifread|exist|exit|exp|expint|expm|expm1|export2wsdlg|eye|ezcontour|ezcontourf|ezmesh|ezmeshc|ezplot|ezplot3|ezpolar|ezsurf|ezsurfc|factor|factorial|fclose|feather|feature|feof|ferror|feval|fft|fft2|fftn|fftshift|fftw|fgetl|fgets|fieldnames|figure|figurepalette|fileattrib|filebrowser|filemarker|fileparts|fileread|filesep|fill|fill3|filter|filter2|find|findall|findfigs|findobj|findstr|finish|fitsdisp|fitsinfo|fitsread|fitswrite|fix|flag|flipdim|fliplr|flipud|floor|flow|fminbnd|fminsearch|fopen|format|fplot|fprintf|frame2im|fread|freqspace|frewind|fscanf|fseek|ftell|FTP|full|fullfile|func2str|functions|funm|fwrite|fzero|gallery|gamma|gammainc|gammaincinv|gammaln|gca|gcbf|gcbo|gcd|gcf|gco|ge|genpath|genvarname|get|getappdata|getenv|getfield|getframe|getpixelposition|getpref|ginput|gmres|gplot|grabcode|gradient|gray|graymon|grid|griddata(?:3|n)?|griddedInterpolant|gsvd|gt|gtext|guidata|guide|guihandles|gunzip|gzip|h5create|h5disp|h5info|h5read|h5readatt|h5write|h5writeatt|hadamard|handle|hankel|hdf|hdf5|hdf5info|hdf5read|hdf5write|hdfinfo|hdfread|hdftool|help|helpbrowser|helpdesk|helpdlg|helpwin|hess|hex2dec|hex2num|hgexport|hggroup|hgload|hgsave|hgsetget|hgtransform|hidden|hilb|hist|histc|hold|home|horzcat|hostid|hot|hsv|hsv2rgb|hypot|ichol|idivide|ifft|ifft2|ifftn|ifftshift|ilu|im2frame|im2java|imag|image|imagesc|imapprox|imfinfo|imformats|import|importdata|imread|imwrite|ind2rgb|ind2sub|inferiorto|info|inline|inmem|inpolygon|input|inputdlg|inputname|inputParser|inspect|instrcallback|instrfind|instrfindall|int2str|integral(?:2|3)?|interp(?:1|1q|2|3|ft|n)|interpstreamspeed|intersect|intmax|intmin|inv|invhilb|ipermute|isa|isappdata|iscell|iscellstr|ischar|iscolumn|isdir|isempty|isequal|isequaln|isequalwithequalnans|isfield|isfinite|isfloat|isglobal|ishandle|ishghandle|ishold|isinf|isinteger|isjava|iskeyword|isletter|islogical|ismac|ismatrix|ismember|ismethod|isnan|isnumeric|isobject|isocaps|isocolors|isonormals|isosurface|ispc|ispref|isprime|isprop|isreal|isrow|isscalar|issorted|isspace|issparse|isstr|isstrprop|isstruct|isstudent|isunix|isvarname|isvector|javaaddpath|javaArray|javachk|javaclasspath|javacomponent|javaMethod|javaMethodEDT|javaObject|javaObjectEDT|javarmpath|jet|keyboard|kron|lasterr|lasterror|lastwarn|lcm|ldivide|ldl|le|legend|legendre|length|libfunctions|libfunctionsview|libisloaded|libpointer|libstruct|license|light|lightangle|lighting|lin2mu|line|lines|linkaxes|linkdata|linkprop|linsolve|linspace|listdlg|listfonts|load|loadlibrary|loadobj|log|log10|log1p|log2|loglog|logm|logspace|lookfor|lower|ls|lscov|lsqnonneg|lsqr|lt|lu|luinc|magic|makehgtform|mat2cell|mat2str|material|matfile|matlab.io.MatFile|matlab.mixin.(?:Copyable|Heterogeneous(?:.getDefaultScalarElement)?)|matlabrc|matlabroot|max|maxNumCompThreads|mean|median|membrane|memmapfile|memory|menu|mesh|meshc|meshgrid|meshz|meta.(?:class(?:.fromName)?|DynamicProperty|EnumeratedValue|event|MetaData|method|package(?:.(?:fromName|getAllPackages))?|property)|metaclass|methods|methodsview|mex(?:.getCompilerConfigurations)?|MException|mexext|mfilename|min|minres|minus|mislocked|mkdir|mkpp|mldivide|mlint|mlintrpt|mlock|mmfileinfo|mmreader|mod|mode|more|move|movefile|movegui|movie|movie2avi|mpower|mrdivide|msgbox|mtimes|mu2lin|multibandread|multibandwrite|munlock|namelengthmax|nargchk|narginchk|nargoutchk|native2unicode|nccreate|ncdisp|nchoosek|ncinfo|ncread|ncreadatt|ncwrite|ncwriteatt|ncwriteschema|ndgrid|ndims|ne|NET(?:.(?:addAssembly|Assembly|convertArray|createArray|createGeneric|disableAutoRelease|enableAutoRelease|GenericClass|invokeGenericMethod|NetException|setStaticProperty))?|netcdf.(?:abort|close|copyAtt|create|defDim|defGrp|defVar|defVarChunking|defVarDeflate|defVarFill|defVarFletcher32|delAtt|endDef|getAtt|getChunkCache|getConstant|getConstantNames|getVar|inq|inqAtt|inqAttID|inqAttName|inqDim|inqDimID|inqDimIDs|inqFormat|inqGrpName|inqGrpNameFull|inqGrpParent|inqGrps|inqLibVers|inqNcid|inqUnlimDims|inqVar|inqVarChunking|inqVarDeflate|inqVarFill|inqVarFletcher32|inqVarID|inqVarIDs|open|putAtt|putVar|reDef|renameAtt|renameDim|renameVar|setChunkCache|setDefaultFormat|setFill|sync)|newplot|nextpow2|nnz|noanimate|nonzeros|norm|normest|not|notebook|now|nthroot|null|num2cell|num2hex|num2str|numel|nzmax|ode(?:113|15i|15s|23|23s|23t|23tb|45)|odeget|odeset|odextend|onCleanup|ones|open|openfig|opengl|openvar|optimget|optimset|or|ordeig|orderfields|ordqz|ordschur|orient|orth|pack|padecoef|pagesetupdlg|pan|pareto|parseSoapResponse|pascal|patch|path|path2rc|pathsep|pathtool|pause|pbaspect|pcg|pchip|pcode|pcolor|pdepe|pdeval|peaks|perl|perms|permute|pie|pink|pinv|planerot|playshow|plot|plot3|plotbrowser|plotedit|plotmatrix|plottools|plotyy|plus|pol2cart|polar|poly|polyarea|polyder|polyeig|polyfit|polyint|polyval|polyvalm|pow2|power|ppval|prefdir|preferences|primes|print|printdlg|printopt|printpreview|prod|profile|profsave|propedit|propertyeditor|psi|publish|PutCharArray|PutFullMatrix|PutWorkspaceData|pwd|qhull|qmr|qr|qrdelete|qrinsert|qrupdate|quad|quad2d|quadgk|quadl|quadv|questdlg|quit|quiver|quiver3|qz|rand|randi|randn|randperm|RandStream(?:.(?:create|getDefaultStream|getGlobalStream|list|setDefaultStream|setGlobalStream))?|rank|rat|rats|rbbox|rcond|rdivide|readasync|real|reallog|realmax|realmin|realpow|realsqrt|record|rectangle|rectint|recycle|reducepatch|reducevolume|refresh|refreshdata|regexp|regexpi|regexprep|regexptranslate|rehash|rem|Remove|RemoveAll|repmat|reset|reshape|residue|restoredefaultpath|rethrow|rgb2hsv|rgb2ind|rgbplot|ribbon|rmappdata|rmdir|rmfield|rmpath|rmpref|rng|roots|rose|rosser|rot90|rotate|rotate3d|round|rref|rsf2csf|run|save|saveas|saveobj|savepath|scatter|scatter3|schur|sec|secd|sech|selectmoveresize|semilogx|semilogy|sendmail|serial|set|setappdata|setdiff|setenv|setfield|setpixelposition|setpref|setstr|setxor|shading|shg|shiftdim|showplottool|shrinkfaces|sign|sin(?:d|h)?|size|slice|smooth3|snapnow|sort|sortrows|sound|soundsc|spalloc|spaugment|spconvert|spdiags|specular|speye|spfun|sph2cart|sphere|spinmap|spline|spones|spparms|sprand|sprandn|sprandsym|sprank|spring|sprintf|spy|sqrt|sqrtm|squeeze|ss2tf|sscanf|stairs|startup|std|stem|stem3|stopasync|str2double|str2func|str2mat|str2num|strcat|strcmp|strcmpi|stream2|stream3|streamline|streamparticles|streamribbon|streamslice|streamtube|strfind|strjust|strmatch|strncmp|strncmpi|strread|strrep|strtok|strtrim|struct2cell|structfun|strvcat|sub2ind|subplot|subsasgn|subsindex|subspace|subsref|substruct|subvolume|sum|summer|superclasses|superiorto|support|surf|surf2patch|surface|surfc|surfl|surfnorm|svd|svds|swapbytes|symamd|symbfact|symmlq|symrcm|symvar|system|tan(?:d|h)?|tar|tempdir|tempname|tetramesh|texlabel|text|textread|textscan|textwrap|tfqmr|throw|tic|Tiff(?:.(?:getTagNames|getVersion))?|timer|timerfind|timerfindall|times|timeseries|title|toc|todatenum|toeplitz|toolboxdir|trace|transpose|trapz|treelayout|treeplot|tril|trimesh|triplequad|triplot|TriRep|TriScatteredInterp|trisurf|triu|tscollection|tsearch|tsearchn|tstool|type|typecast|uibuttongroup|uicontextmenu|uicontrol|uigetdir|uigetfile|uigetpref|uiimport|uimenu|uiopen|uipanel|uipushtool|uiputfile|uiresume|uisave|uisetcolor|uisetfont|uisetpref|uistack|uitable|uitoggletool|uitoolbar|uiwait|uminus|undocheckout|unicode2native|union|unique|unix|unloadlibrary|unmesh|unmkpp|untar|unwrap|unzip|uplus|upper|urlread|urlwrite|usejava|userpath|validateattributes|validatestring|vander|var|vectorize|ver|verctrl|verLessThan|version|vertcat|VideoReader(?:.isPlatformSupported)?|VideoWriter(?:.getProfiles)?|view|viewmtx|visdiff|volumebounds|voronoi|voronoin|wait|waitbar|waitfor|waitforbuttonpress|warndlg|warning|waterfall|wavfinfo|wavplay|wavread|wavrecord|wavwrite|web|weekday|what|whatsnew|which|whitebg|who|whos|wilkinson|winopen|winqueryreg|winter|wk1finfo|wk1read|wk1write|workspace|xlabel|xlim|xlsfinfo|xlsread|xlswrite|xmlread|xmlwrite|xor|xslt|ylabel|ylim|zeros|zip|zlabel|zlim|zoom)\b/,null],
+results.txt:search expression: Stream
+results.txt:Document-Binary\src\jmul\binary\reader\BinaryFileReaderImpl.java:import java.io.FileInputStream;
+results.txt:Document-Binary\src\jmul\binary\reader\BinaryFileReaderImpl.java:import java.io.InputStream;
+results.txt:Document-Binary\src\jmul\binary\reader\BinaryFileReaderImpl.java:import jmul.io.StreamsHelper;
+results.txt:Document-Binary\src\jmul\binary\reader\BinaryFileReaderImpl.java:        InputStream inputStream = new FileInputStream(aFile);
+results.txt:Document-Binary\src\jmul\binary\reader\BinaryFileReaderImpl.java:                bytes = inputStream.read(readBuffer);
+results.txt:Document-Binary\src\jmul\binary\reader\BinaryFileReaderImpl.java:                StreamsHelper.closeStreamAfterException(inputStream, e);
+results.txt:Document-Binary\src\jmul\binary\reader\BinaryFileReaderImpl.java:        StreamsHelper.closeStream(inputStream);
+results.txt:Document-Binary\src\jmul\binary\writer\BinaryFileWriterImpl.java:import java.io.FileOutputStream;
+results.txt:Document-Binary\src\jmul\binary\writer\BinaryFileWriterImpl.java:import java.io.OutputStream;
+results.txt:Document-Binary\src\jmul\binary\writer\BinaryFileWriterImpl.java:import jmul.io.StreamsHelper;
+results.txt:Document-Binary\src\jmul\binary\writer\BinaryFileWriterImpl.java:        OutputStream outputStream = new FileOutputStream(aFile);
+results.txt:Document-Binary\src\jmul\binary\writer\BinaryFileWriterImpl.java:            outputStream.write(aDocument.getContent());
+results.txt:Document-Binary\src\jmul\binary\writer\BinaryFileWriterImpl.java:            outputStream.flush();
+results.txt:Document-Binary\src\jmul\binary\writer\BinaryFileWriterImpl.java:            StreamsHelper.closeStreamAfterException(outputStream, e);
+results.txt:Document-Binary\src\jmul\binary\writer\BinaryFileWriterImpl.java:        StreamsHelper.closeStream(outputStream);
+results.txt:Document-CSV\src\jmul\csv\reader\CsvDocumentReaderBase.java:import jmul.io.NestedStreams;
+results.txt:Document-CSV\src\jmul\csv\reader\CsvDocumentReaderBase.java:        NestedStreams ns = openFile(aFile, charset);
+results.txt:Document-CSV\src\jmul\csv\reader\CsvDocumentReaderBase.java:     * @param someStreams
+results.txt:Document-CSV\src\jmul\csv\reader\CsvDocumentReaderBase.java:    protected abstract void parseFirstLine(NestedStreams someStreams,
+results.txt:Document-CSV\src\jmul\csv\reader\CsvDocumentReaderBase.java:     * @param someStreams
+results.txt:Document-CSV\src\jmul\csv\reader\CsvDocumentReaderBase.java:    protected abstract void parseRemainingContent(NestedStreams someStreams,
+results.txt:Document-CSV\src\jmul\csv\reader\CsvDocumentReaderImpl.java:import jmul.io.NestedStreams;
+results.txt:Document-CSV\src\jmul\csv\reader\CsvDocumentReaderImpl.java:     * @param someStreams
+results.txt:Document-CSV\src\jmul\csv\reader\CsvDocumentReaderImpl.java:    protected void parseFirstLine(NestedStreams someStreams,
+results.txt:Document-CSV\src\jmul\csv\reader\CsvDocumentReaderImpl.java:        ReadBuffer result = TextFileHelper.readLine(someStreams, getRowSeparator());
+results.txt:Document-CSV\src\jmul\csv\reader\CsvDocumentReaderImpl.java:     * @param someStreams
+results.txt:Document-CSV\src\jmul\csv\reader\CsvDocumentReaderImpl.java:    protected void parseRemainingContent(NestedStreams someStreams,
+results.txt:Document-CSV\src\jmul\csv\reader\CsvDocumentReaderImpl.java:            ReadBuffer result = TextFileHelper.readLine(someStreams, getRowSeparator());
+results.txt:Document-CSV\src\jmul\csv\reader\CsvDocumentReaderImpl2.java:import jmul.io.NestedStreams;
+results.txt:Document-CSV\src\jmul\csv\reader\CsvDocumentReaderImpl2.java:     * @param someStreams
+results.txt:Document-CSV\src\jmul\csv\reader\CsvDocumentReaderImpl2.java:    protected void parseFirstLine(NestedStreams someStreams,
+results.txt:Document-CSV\src\jmul\csv\reader\CsvDocumentReaderImpl2.java:            ReadBuffer result = TextFileHelper.readLine(someStreams, getRowSeparator());
+results.txt:Document-CSV\src\jmul\csv\reader\CsvDocumentReaderImpl2.java:     * @param someStreams
+results.txt:Document-CSV\src\jmul\csv\reader\CsvDocumentReaderImpl2.java:    protected void parseRemainingContent(NestedStreams someStreams,
+results.txt:Document-CSV\src\jmul\csv\reader\CsvDocumentReaderImpl2.java:            ReadBuffer result = TextFileHelper.readLine(someStreams, getRowSeparator());
+results.txt:Document-CSV\src\jmul\csv\writer\CsvDocumentWriterImpl.java:import jmul.io.NestedStreams;
+results.txt:Document-CSV\src\jmul\csv\writer\CsvDocumentWriterImpl.java:        NestedStreams ns = TextFileHelper.createFile(aFile, charset);
+results.txt:Document-MD\legacy-src\jmul\markdown\converter\Markdown2HtmlConverter.java:import jmul.io.CoupledStreams;
+results.txt:Document-MD\legacy-src\jmul\markdown\converter\Markdown2HtmlConverter.java:import jmul.markdown.StreamsHelper;
+results.txt:Document-MD\legacy-src\jmul\markdown\converter\Markdown2HtmlConverter.java:import jmul.markdown.processor.StreamProcessor;
+results.txt:Document-MD\legacy-src\jmul\markdown\converter\Markdown2HtmlConverter.java:        CoupledStreams coupledStreams = null;
+results.txt:Document-MD\legacy-src\jmul\markdown\converter\Markdown2HtmlConverter.java:            coupledStreams = StreamsHelper.openStreams(aSourceFile, anOutputFile);
+results.txt:Document-MD\legacy-src\jmul\markdown\converter\Markdown2HtmlConverter.java:        StreamProcessor processor = new MarkdownFileProcessor(patternMatchers);
+results.txt:Document-MD\legacy-src\jmul\markdown\converter\Markdown2HtmlConverter.java:        processor.processFile(coupledStreams); //TODO error handling for closing streams
+results.txt:Document-MD\legacy-src\jmul\markdown\processor\MarkdownFileProcessor.java:import jmul.io.CoupledStreams;
+results.txt:Document-MD\legacy-src\jmul\markdown\processor\MarkdownFileProcessor.java:import static jmul.markdown.StreamsHelper.INPUT_STREAM;
+results.txt:Document-MD\legacy-src\jmul\markdown\processor\MarkdownFileProcessor.java:import static jmul.markdown.StreamsHelper.OUTPUT_STREAM;
+results.txt:Document-MD\legacy-src\jmul\markdown\processor\MarkdownFileProcessor.java: * An implementation of {@link jmul.markdown.processor.StreamProcessor} which processes
+results.txt:Document-MD\legacy-src\jmul\markdown\processor\MarkdownFileProcessor.java:public class MarkdownFileProcessor implements StreamProcessor {
+results.txt:Document-MD\legacy-src\jmul\markdown\processor\MarkdownFileProcessor.java:     * @param someCoupledStream
+results.txt:Document-MD\legacy-src\jmul\markdown\processor\MarkdownFileProcessor.java:    public void processFile(CoupledStreams someCoupledStream) {
+results.txt:Document-MD\legacy-src\jmul\markdown\processor\MarkdownFileProcessor.java:        BufferedReader reader = (BufferedReader) someCoupledStream.getStream(INPUT_STREAM);
+results.txt:Document-MD\legacy-src\jmul\markdown\processor\MarkdownFileProcessor.java:        BufferedWriter writer = (BufferedWriter) someCoupledStream.getStream(OUTPUT_STREAM);
+results.txt:Document-MD\legacy-src\jmul\markdown\processor\StreamProcessor.java:import jmul.io.CoupledStreams;
+results.txt:Document-MD\legacy-src\jmul\markdown\processor\StreamProcessor.java:public interface StreamProcessor extends PatternMatchListener {
+results.txt:Document-MD\legacy-src\jmul\markdown\processor\StreamProcessor.java:     * @param someCoupledStream
+results.txt:Document-MD\legacy-src\jmul\markdown\processor\StreamProcessor.java:    void processFile(CoupledStreams someCoupledStream);
+results.txt:Document-MD\legacy-src\jmul\markdown\StreamsHelper.java:import jmul.io.CoupledStreams;
+results.txt:Document-MD\legacy-src\jmul\markdown\StreamsHelper.java:import jmul.io.CoupledStreamsImpl;
+results.txt:Document-MD\legacy-src\jmul\markdown\StreamsHelper.java:import jmul.io.StreamEntry;
+results.txt:Document-MD\legacy-src\jmul\markdown\StreamsHelper.java:public final class StreamsHelper {
+results.txt:Document-MD\legacy-src\jmul\markdown\StreamsHelper.java:    private StreamsHelper() {
+results.txt:Document-MD\legacy-src\jmul\markdown\StreamsHelper.java:    public static CoupledStreams openStreams(File aSourceFile, File anOutputFile) throws IOException {
+results.txt:Document-MD\legacy-src\jmul\markdown\StreamsHelper.java:        StreamEntry in = new StreamEntry(INPUT_STREAM, r);
+results.txt:Document-MD\legacy-src\jmul\markdown\StreamsHelper.java:        StreamEntry out = new StreamEntry(OUTPUT_STREAM, w);
+results.txt:Document-MD\legacy-src\jmul\markdown\StreamsHelper.java:        return new CoupledStreamsImpl(in, out);
+results.txt:Document-Text\src\jmul\text\reader\TextDocumentReaderImpl.java:import java.io.FileInputStream;
+results.txt:Document-Text\src\jmul\text\reader\TextDocumentReaderImpl.java:import java.io.InputStreamReader;
+results.txt:Document-Text\src\jmul\text\reader\TextDocumentReaderImpl.java:import jmul.io.NestedStreams;
+results.txt:Document-Text\src\jmul\text\reader\TextDocumentReaderImpl.java:import jmul.io.NestedStreamsImpl;
+results.txt:Document-Text\src\jmul\text\reader\TextDocumentReaderImpl.java:import jmul.io.StreamsHelper;
+results.txt:Document-Text\src\jmul\text\reader\TextDocumentReaderImpl.java:        NestedStreams ns = openFile(aFile, charset);
+results.txt:Document-Text\src\jmul\text\reader\TextDocumentReaderImpl.java:        InputStreamReader is = (InputStreamReader) ns.getOuterStream();
+results.txt:Document-Text\src\jmul\text\reader\TextDocumentReaderImpl.java:                StreamsHelper.closeStreamAfterException(ns, e);
+results.txt:Document-Text\src\jmul\text\reader\TextDocumentReaderImpl.java:        StreamsHelper.closeStream(ns);
+results.txt:Document-Text\src\jmul\text\reader\TextDocumentReaderImpl.java:    private static NestedStreams openFile(File aFile, Charset aCharset) throws FileNotFoundException {
+results.txt:Document-Text\src\jmul\text\reader\TextDocumentReaderImpl.java:        FileInputStream fis = new FileInputStream(aFile);
+results.txt:Document-Text\src\jmul\text\reader\TextDocumentReaderImpl.java:        InputStreamReader isr = new InputStreamReader(fis, aCharset);
+results.txt:Document-Text\src\jmul\text\reader\TextDocumentReaderImpl.java:        return new NestedStreamsImpl(isr, fis);
+results.txt:Document-Text\src\jmul\text\writer\TextDocumentWriterImpl.java:import java.io.FileOutputStream;
+results.txt:Document-Text\src\jmul\text\writer\TextDocumentWriterImpl.java:import java.io.OutputStreamWriter;
+results.txt:Document-Text\src\jmul\text\writer\TextDocumentWriterImpl.java:import jmul.io.NestedStreams;
+results.txt:Document-Text\src\jmul\text\writer\TextDocumentWriterImpl.java:import jmul.io.NestedStreamsImpl;
+results.txt:Document-Text\src\jmul\text\writer\TextDocumentWriterImpl.java:import jmul.io.StreamsHelper;
+results.txt:Document-Text\src\jmul\text\writer\TextDocumentWriterImpl.java:        NestedStreams ns = openFile(aFile, charset);
+results.txt:Document-Text\src\jmul\text\writer\TextDocumentWriterImpl.java:        OutputStreamWriter os = (OutputStreamWriter) ns.getOuterStream();
+results.txt:Document-Text\src\jmul\text\writer\TextDocumentWriterImpl.java:                StreamsHelper.closeStreamAfterException(ns, e);
+results.txt:Document-Text\src\jmul\text\writer\TextDocumentWriterImpl.java:        StreamsHelper.closeStream(ns);
+results.txt:Document-Text\src\jmul\text\writer\TextDocumentWriterImpl.java:    private static NestedStreams openFile(File aFile, Charset aCharset) throws FileNotFoundException {
+results.txt:Document-Text\src\jmul\text\writer\TextDocumentWriterImpl.java:        FileOutputStream fos = new FileOutputStream(aFile);
+results.txt:Document-Text\src\jmul\text\writer\TextDocumentWriterImpl.java:        OutputStreamWriter osw = new OutputStreamWriter(fos, aCharset);
+results.txt:Document-Text\src\jmul\text\writer\TextDocumentWriterImpl.java:        return new NestedStreamsImpl(osw, fos);
+results.txt:External\src\jmul\external\InputStreamMonitor.java:import java.io.InputStream;
+results.txt:External\src\jmul\external\InputStreamMonitor.java:import java.io.InputStreamReader;
+results.txt:External\src\jmul\external\InputStreamMonitor.java:public class InputStreamMonitor implements Runnable {
+results.txt:External\src\jmul\external\InputStreamMonitor.java:    private volatile boolean endOfStream;
+results.txt:External\src\jmul\external\InputStreamMonitor.java:     * @param anInputStream
+results.txt:External\src\jmul\external\InputStreamMonitor.java:    InputStreamMonitor(InputStream anInputStream) {
+results.txt:External\src\jmul\external\InputStreamMonitor.java:        this(anInputStream, null);
+results.txt:External\src\jmul\external\InputStreamMonitor.java:     * @param anInputStream
+results.txt:External\src\jmul\external\InputStreamMonitor.java:    InputStreamMonitor(InputStream anInputStream, Logger aLogger) {
+results.txt:External\src\jmul\external\InputStreamMonitor.java:        InputStreamReader isr = new InputStreamReader(anInputStream);
+results.txt:External\src\jmul\external\InputStreamMonitor.java:        endOfStream = false;
+results.txt:External\src\jmul\external\InputStreamMonitor.java:        while (!endOfStream) {
+results.txt:External\src\jmul\external\InputStreamMonitor.java:            endOfStream = line == null;
+results.txt:External\src\jmul\external\InputStreamMonitor.java:            if (!endOfStream) {
+results.txt:External\src\jmul\external\InputStreamMonitor.java:    public boolean reachedEndOfStream() {
+results.txt:External\src\jmul\external\InputStreamMonitor.java:        return endOfStream;
+results.txt:External\src\jmul\external\InputStreamMonitor.java:    public String getStreamContent() {
+results.txt:External\src\jmul\external\ProcessMonitor.java:    private InputStreamMonitor outputStreamMonitor;
+results.txt:External\src\jmul\external\ProcessMonitor.java:    private InputStreamMonitor errorStreamMonitor;
+results.txt:External\src\jmul\external\ProcessMonitor.java:        outputStreamMonitor = new InputStreamMonitor(process.getInputStream(), logger);
+results.txt:External\src\jmul\external\ProcessMonitor.java:        errorStreamMonitor = new InputStreamMonitor(process.getErrorStream(), logger);
+results.txt:External\src\jmul\external\ProcessMonitor.java:        Thread t1 = new Thread(outputStreamMonitor);
+results.txt:External\src\jmul\external\ProcessMonitor.java:        Thread t2 = new Thread(errorStreamMonitor);
+results.txt:External\src\jmul\external\ProcessMonitor.java:        return outputStreamMonitor.getStreamContent();
+results.txt:External\src\jmul\external\ProcessMonitor.java:        return errorStreamMonitor.getStreamContent();
+results.txt:External\src\jmul\external\ProcessMonitor.java:        return outputStreamMonitor.reachedEndOfStream() && errorStreamMonitor.reachedEndOfStream();
+results.txt:Helper-Tests\src\test\jmul\exception\ExceptionConstructorInvalidParametersTest.java:import jmul.io.CoupledStreamsException;
+results.txt:Helper-Tests\src\test\jmul\exception\ExceptionConstructorInvalidParametersTest.java:import jmul.io.NestedStreamsException;
+results.txt:Helper-Tests\src\test\jmul\exception\ExceptionConstructorInvalidParametersTest.java:        addDefaultTestCases(parameters, CoupledStreamsException.class);
+results.txt:Helper-Tests\src\test\jmul\exception\ExceptionConstructorInvalidParametersTest.java:        addDefaultTestCases(parameters, NestedStreamsException.class);
+results.txt:Helper-Tests\src\test\jmul\exception\ExceptionConstructorValidParametersTest.java:import jmul.io.CoupledStreamsException;
+results.txt:Helper-Tests\src\test\jmul\exception\ExceptionConstructorValidParametersTest.java:import jmul.io.NestedStreamsException;
+results.txt:Helper-Tests\src\test\jmul\exception\ExceptionConstructorValidParametersTest.java:        addDefaultTestCases(parameters, CoupledStreamsException.class);
+results.txt:Helper-Tests\src\test\jmul\exception\ExceptionConstructorValidParametersTest.java:        addDefaultTestCases(parameters, NestedStreamsException.class);
+results.txt:Helper-Tests\src\test\jmul\helper\HelperConstructorTest.java:        parameters.add(new Object[] { jmul.io.StreamsHelper.class });
+results.txt:IO\src\jmul\io\archives\ArchiveHelper.java:import java.io.FileInputStream;
+results.txt:IO\src\jmul\io\archives\ArchiveHelper.java:import java.io.FileOutputStream;
+results.txt:IO\src\jmul\io\archives\ArchiveHelper.java:import java.util.zip.ZipOutputStream;
+results.txt:IO\src\jmul\io\archives\ArchiveHelper.java:import jmul.io.CoupledStreams;
+results.txt:IO\src\jmul\io\archives\ArchiveHelper.java:import jmul.io.CoupledStreamsImpl;
+results.txt:IO\src\jmul\io\archives\ArchiveHelper.java:import jmul.io.NestedStreams;
+results.txt:IO\src\jmul\io\archives\ArchiveHelper.java:import jmul.io.NestedStreamsImpl;
+results.txt:IO\src\jmul\io\archives\ArchiveHelper.java:import jmul.io.StreamEntry;
+results.txt:IO\src\jmul\io\archives\ArchiveHelper.java:        NestedStreams out = createArchive(anArchiveName);
+results.txt:IO\src\jmul\io\archives\ArchiveHelper.java:        StreamEntry archiveEntry = new StreamEntry(anArchiveName, out);
+results.txt:IO\src\jmul\io\archives\ArchiveHelper.java:            StreamEntry fileEntry = null;
+results.txt:IO\src\jmul\io\archives\ArchiveHelper.java:            CoupledStreams streams = new CoupledStreamsImpl(archiveEntry, fileEntry);
+results.txt:IO\src\jmul\io\archives\ArchiveHelper.java:            } catch (StreamWrapperException e) {
+results.txt:IO\src\jmul\io\archives\ArchiveHelper.java:                closeStreamsOnError(e.getStreamName(), streams, e);
+results.txt:IO\src\jmul\io\archives\ArchiveHelper.java:    private static NestedStreams createArchive(String anArchiveName) throws FileNotFoundException {
+results.txt:IO\src\jmul\io\archives\ArchiveHelper.java:        FileOutputStream fos = new FileOutputStream(anArchiveName);
+results.txt:IO\src\jmul\io\archives\ArchiveHelper.java:        ZipOutputStream zos = new ZipOutputStream(fos);
+results.txt:IO\src\jmul\io\archives\ArchiveHelper.java:        return new NestedStreamsImpl(zos, fos);
+results.txt:IO\src\jmul\io\archives\ArchiveHelper.java:     * @param anArchiveStream
+results.txt:IO\src\jmul\io\archives\ArchiveHelper.java:    private static void closeArchive(Closeable anArchiveStream) throws IOException {
+results.txt:IO\src\jmul\io\archives\ArchiveHelper.java:        anArchiveStream.close();
+results.txt:IO\src\jmul\io\archives\ArchiveHelper.java:     * @param anArchiveStream
+results.txt:IO\src\jmul\io\archives\ArchiveHelper.java:    private static void closeArchiveOnError(IOException aCause, Closeable anArchiveStream) throws IOException {
+results.txt:IO\src\jmul\io\archives\ArchiveHelper.java:            anArchiveStream.close();
+results.txt:IO\src\jmul\io\archives\ArchiveHelper.java:     * @param aStreamName
+results.txt:IO\src\jmul\io\archives\ArchiveHelper.java:     * @param someCoupledStreams
+results.txt:IO\src\jmul\io\archives\ArchiveHelper.java:    private static void closeStreamsOnError(String aStreamName, CoupledStreams someCoupledStreams,
+results.txt:IO\src\jmul\io\archives\ArchiveHelper.java:            someCoupledStreams.closeOnError(aStreamName);
+results.txt:IO\src\jmul\io\archives\ArchiveHelper.java:    private static StreamEntry openFile(String anEntryName, String aFileName) throws FileNotFoundException {
+results.txt:IO\src\jmul\io\archives\ArchiveHelper.java:        FileInputStream fis = new FileInputStream(aFileName);
+results.txt:IO\src\jmul\io\archives\ArchiveHelper.java:        return new StreamEntry(anEntryName, fis);
+results.txt:IO\src\jmul\io\archives\ArchiveHelper.java:     * @param aFileStream
+results.txt:IO\src\jmul\io\archives\ArchiveHelper.java:    private static void closeFile(StreamEntry aFileStream) throws IOException {
+results.txt:IO\src\jmul\io\archives\ArchiveHelper.java:        aFileStream.getStream().close();
+results.txt:IO\src\jmul\io\archives\ArchiveHelper.java:     * @param anArchiveStreamReference
+results.txt:IO\src\jmul\io\archives\ArchiveHelper.java:     * @param aFileStreamReference
+results.txt:IO\src\jmul\io\archives\ArchiveHelper.java:     * @param someCoupledStreams
+results.txt:IO\src\jmul\io\archives\ArchiveHelper.java:     * @throws StreamWrapperException
+results.txt:IO\src\jmul\io\archives\ArchiveHelper.java:    private static void addFile(String anArchiveStreamReference, String aFileStreamReference,
+results.txt:IO\src\jmul\io\archives\ArchiveHelper.java:                                CoupledStreams someCoupledStreams) throws StreamWrapperException {
+results.txt:IO\src\jmul\io\archives\ArchiveHelper.java:        NestedStreams outWrapper = (NestedStreams) someCoupledStreams.getStream(anArchiveStreamReference);
+results.txt:IO\src\jmul\io\archives\ArchiveHelper.java:        ZipOutputStream out = (ZipOutputStream) outWrapper.getOuterStream();
+results.txt:IO\src\jmul\io\archives\ArchiveHelper.java:        FileInputStream in = (FileInputStream) someCoupledStreams.getStream(aFileStreamReference);
+results.txt:IO\src\jmul\io\archives\ArchiveHelper.java:        ZipEntry entry = new ZipEntry(aFileStreamReference);
+results.txt:IO\src\jmul\io\archives\ArchiveHelper.java:            handleIOException(anArchiveStreamReference, e);
+results.txt:IO\src\jmul\io\archives\ArchiveHelper.java:                handleIOException(aFileStreamReference, e);
+results.txt:IO\src\jmul\io\archives\ArchiveHelper.java:                handleIOException(anArchiveStreamReference, e);
+results.txt:IO\src\jmul\io\archives\ArchiveHelper.java:            handleIOException(anArchiveStreamReference, e);
+results.txt:IO\src\jmul\io\archives\ArchiveHelper.java:     * @param aStreamName
+results.txt:IO\src\jmul\io\archives\ArchiveHelper.java:     * @throws StreamWrapperException
+results.txt:IO\src\jmul\io\archives\ArchiveHelper.java:    private static void handleIOException(String aStreamName, Throwable aCause) throws StreamWrapperException {
+results.txt:IO\src\jmul\io\archives\ArchiveHelper.java:        throw new StreamWrapperException(aStreamName, aCause);
+results.txt:IO\src\jmul\io\archives\ArchiveHelper.java:class StreamWrapperException extends IOException {
+results.txt:IO\src\jmul\io\archives\ArchiveHelper.java:     * @param aStreamName
+results.txt:IO\src\jmul\io\archives\ArchiveHelper.java:    public StreamWrapperException(String aStreamName, Throwable aCause) {
+results.txt:IO\src\jmul\io\archives\ArchiveHelper.java:        streamName = aStreamName;
+results.txt:IO\src\jmul\io\archives\ArchiveHelper.java:    public String getStreamName() {
+results.txt:IO\src\jmul\io\archives\ArchiveReaderImpl.java:import java.io.BufferedInputStream;
+results.txt:IO\src\jmul\io\archives\ArchiveReaderImpl.java:import java.io.FileInputStream;
+results.txt:IO\src\jmul\io\archives\ArchiveReaderImpl.java:import java.util.zip.ZipInputStream;
+results.txt:IO\src\jmul\io\archives\ArchiveReaderImpl.java:import jmul.io.NestedStreams;
+results.txt:IO\src\jmul\io\archives\ArchiveReaderImpl.java:import jmul.io.NestedStreamsImpl;
+results.txt:IO\src\jmul\io\archives\ArchiveReaderImpl.java:    private final NestedStreams nestedStreams;
+results.txt:IO\src\jmul\io\archives\ArchiveReaderImpl.java:        FileInputStream fis = new FileInputStream(anArchiveName);
+results.txt:IO\src\jmul\io\archives\ArchiveReaderImpl.java:        BufferedInputStream bis = new BufferedInputStream(fis);
+results.txt:IO\src\jmul\io\archives\ArchiveReaderImpl.java:        ZipInputStream zis = new ZipInputStream(bis);
+results.txt:IO\src\jmul\io\archives\ArchiveReaderImpl.java:        nestedStreams = new NestedStreamsImpl(zis, bis, fis);
+results.txt:IO\src\jmul\io\archives\ArchiveReaderImpl.java:        ZipInputStream zis = (ZipInputStream) nestedStreams.getOuterStream();
+results.txt:IO\src\jmul\io\archives\ArchiveReaderImpl.java:    private static byte[] loadResource(ZipInputStream zis) throws IOException {
+results.txt:IO\src\jmul\io\archives\ArchiveReaderImpl.java:    private static byte[] loadResource(ZipInputStream zis, long size) throws IOException {
+results.txt:IO\src\jmul\io\archives\ArchiveReaderImpl.java:            nestedStreams.close();
+results.txt:IO\src\jmul\io\CoupledStreams.java:public interface CoupledStreams extends Closeable {
+results.txt:IO\src\jmul\io\CoupledStreams.java:    Closeable getStream(String aName);
+results.txt:IO\src\jmul\io\CoupledStreams.java:    int getCoupledStreamCount();
+results.txt:IO\src\jmul\io\CoupledStreamsException.java:public class CoupledStreamsException extends IOException {
+results.txt:IO\src\jmul\io\CoupledStreamsException.java:    public CoupledStreamsException() {
+results.txt:IO\src\jmul\io\CoupledStreamsException.java:    public CoupledStreamsException(String aMessage) {
+results.txt:IO\src\jmul\io\CoupledStreamsException.java:    public CoupledStreamsException(Throwable aCause) {
+results.txt:IO\src\jmul\io\CoupledStreamsException.java:    public CoupledStreamsException(String aMessage, Throwable aCause) {
+results.txt:IO\src\jmul\io\CoupledStreamsImpl.java: * An implementation of {@link jmul.io.CoupledStreams}.
+results.txt:IO\src\jmul\io\CoupledStreamsImpl.java:public class CoupledStreamsImpl implements CoupledStreams {
+results.txt:IO\src\jmul\io\CoupledStreamsImpl.java:    private final Map<String, Closeable> coupledStreams;
+results.txt:IO\src\jmul\io\CoupledStreamsImpl.java:    public CoupledStreamsImpl(StreamEntry... someEntries) {
+results.txt:IO\src\jmul\io\CoupledStreamsImpl.java:        for (StreamEntry entry : someEntries) {
+results.txt:IO\src\jmul\io\CoupledStreamsImpl.java:            tmp.put(entry.getName(), entry.getStream());
+results.txt:IO\src\jmul\io\CoupledStreamsImpl.java:        coupledStreams = Collections.unmodifiableMap(tmp);
+results.txt:IO\src\jmul\io\CoupledStreamsImpl.java:    public Closeable getStream(String aName) {
+results.txt:IO\src\jmul\io\CoupledStreamsImpl.java:        return coupledStreams.get(aName);
+results.txt:IO\src\jmul\io\CoupledStreamsImpl.java:    public int getCoupledStreamCount() {
+results.txt:IO\src\jmul\io\CoupledStreamsImpl.java:        return coupledStreams.size();
+results.txt:IO\src\jmul\io\CoupledStreamsImpl.java:        for (String name : coupledStreams.keySet()) {
+results.txt:IO\src\jmul\io\CoupledStreamsImpl.java:            Closeable stream = getStream(name);
+results.txt:IO\src\jmul\io\CoupledStreamsImpl.java:        for (String name : coupledStreams.keySet()) {
+results.txt:IO\src\jmul\io\CoupledStreamsImpl.java:            Closeable stream = getStream(name);
+results.txt:IO\src\jmul\io\CoupledStreamsImpl.java:    private CoupledStreamsException createException(Map<String, Throwable> someCoupledExceptions) {
+results.txt:IO\src\jmul\io\CoupledStreamsImpl.java:        return new CoupledStreamsException(createExceptionMessage(someCoupledExceptions));
+results.txt:IO\src\jmul\io\CoupledStreamsImpl.java:            Closeable stream = getStream(entry.getKey());
+results.txt:IO\src\jmul\io\CoupledStreamsImpl.java:            StreamsHelper.addStreamEntry(buffer, stream.getClass().getName(), exception);
+results.txt:IO\src\jmul\io\FileCopierImpl.java:import java.io.FileInputStream;
+results.txt:IO\src\jmul\io\FileCopierImpl.java:import java.io.FileOutputStream;
+results.txt:IO\src\jmul\io\FileCopierImpl.java:import java.io.InputStream;
+results.txt:IO\src\jmul\io\FileCopierImpl.java:import java.io.OutputStream;
+results.txt:IO\src\jmul\io\FileCopierImpl.java:        CoupledStreams coupledStreams = createStreams(aSourceFile, aDestinationFile);
+results.txt:IO\src\jmul\io\FileCopierImpl.java:        InputStream in = (InputStream) coupledStreams.getStream(IN);
+results.txt:IO\src\jmul\io\FileCopierImpl.java:        OutputStream out = (OutputStream) coupledStreams.getStream(OUT);
+results.txt:IO\src\jmul\io\FileCopierImpl.java:        String faultyStreamName = null;
+results.txt:IO\src\jmul\io\FileCopierImpl.java:                faultyStreamName = IN;
+results.txt:IO\src\jmul\io\FileCopierImpl.java:                faultyStreamName = OUT;
+results.txt:IO\src\jmul\io\FileCopierImpl.java:                coupledStreams.closeOnError(faultyStreamName);
+results.txt:IO\src\jmul\io\FileCopierImpl.java:                coupledStreams.close();
+results.txt:IO\src\jmul\io\FileCopierImpl.java:    private static CoupledStreams createStreams(File aSourceFile, File aDestinationFile) throws CopyFileException {
+results.txt:IO\src\jmul\io\FileCopierImpl.java:        InputStream in = null;
+results.txt:IO\src\jmul\io\FileCopierImpl.java:            in = new FileInputStream(aSourceFile);
+results.txt:IO\src\jmul\io\FileCopierImpl.java:        OutputStream out = null;
+results.txt:IO\src\jmul\io\FileCopierImpl.java:            out = new FileOutputStream(aDestinationFile);
+results.txt:IO\src\jmul\io\FileCopierImpl.java:        return new CoupledStreamsImpl(new StreamEntry(IN, in), new StreamEntry(OUT, out));
+results.txt:IO\src\jmul\io\FileHelper.java:import java.io.FileInputStream;
+results.txt:IO\src\jmul\io\FileHelper.java:        FileInputStream fis = null;
+results.txt:IO\src\jmul\io\FileHelper.java:            fis = new FileInputStream(aFile);
+results.txt:IO\src\jmul\io\FileHelper.java:            closeStreamIgnoreException(fis);
+results.txt:IO\src\jmul\io\FileHelper.java:     * @param aStream
+results.txt:IO\src\jmul\io\FileHelper.java:    private static void closeStreamIgnoreException(Closeable aStream) {
+results.txt:IO\src\jmul\io\FileHelper.java:            aStream.close();
+results.txt:IO\src\jmul\io\NestedStreams.java:public interface NestedStreams extends Closeable {
+results.txt:IO\src\jmul\io\NestedStreams.java:    Closeable getStream(int anIndex);
+results.txt:IO\src\jmul\io\NestedStreams.java:    Closeable getOuterStream();
+results.txt:IO\src\jmul\io\NestedStreams.java:    int getNestedStreamCount();
+results.txt:IO\src\jmul\io\NestedStreamsException.java:public class NestedStreamsException extends IOException {
+results.txt:IO\src\jmul\io\NestedStreamsException.java:    public NestedStreamsException() {
+results.txt:IO\src\jmul\io\NestedStreamsException.java:    public NestedStreamsException(String aMessage) {
+results.txt:IO\src\jmul\io\NestedStreamsException.java:    public NestedStreamsException(Throwable aCause) {
+results.txt:IO\src\jmul\io\NestedStreamsException.java:    public NestedStreamsException(String aMessage, Throwable aCause) {
+results.txt:IO\src\jmul\io\NestedStreamsImpl.java:public class NestedStreamsImpl implements NestedStreams {
+results.txt:IO\src\jmul\io\NestedStreamsImpl.java:    private final List<Closeable> nestedStreams;
+results.txt:IO\src\jmul\io\NestedStreamsImpl.java:    private final int innerStreamIndex;
+results.txt:IO\src\jmul\io\NestedStreamsImpl.java:     * @param someStreams
+results.txt:IO\src\jmul\io\NestedStreamsImpl.java:    public NestedStreamsImpl(Closeable... someStreams) {
+results.txt:IO\src\jmul\io\NestedStreamsImpl.java:        nestedStreams = Arrays.asList(someStreams);
+results.txt:IO\src\jmul\io\NestedStreamsImpl.java:        innerStreamIndex = nestedStreams.size() - 1;
+results.txt:IO\src\jmul\io\NestedStreamsImpl.java:    public Closeable getStream(int anIndex) {
+results.txt:IO\src\jmul\io\NestedStreamsImpl.java:        return nestedStreams.get(anIndex);
+results.txt:IO\src\jmul\io\NestedStreamsImpl.java:    public Closeable getOuterStream() {
+results.txt:IO\src\jmul\io\NestedStreamsImpl.java:        return getStream(OUTER_STREAM_INDEX);
+results.txt:IO\src\jmul\io\NestedStreamsImpl.java:        Closeable outerStream = getOuterStream();
+results.txt:IO\src\jmul\io\NestedStreamsImpl.java:            outerStream.close();
+results.txt:IO\src\jmul\io\NestedStreamsImpl.java:            for (int a = 1; a < innerStreamIndex; a++) {
+results.txt:IO\src\jmul\io\NestedStreamsImpl.java:                Closeable innerStream = getStream(a);
+results.txt:IO\src\jmul\io\NestedStreamsImpl.java:                    innerStream.close();
+results.txt:IO\src\jmul\io\NestedStreamsImpl.java:    private NestedStreamsException createException(List<Throwable> someNestedExceptions) {
+results.txt:IO\src\jmul\io\NestedStreamsImpl.java:        return new NestedStreamsException(createExceptionMessage(someNestedExceptions),
+results.txt:IO\src\jmul\io\NestedStreamsImpl.java:            Closeable stream = getStream(a);
+results.txt:IO\src\jmul\io\NestedStreamsImpl.java:            StreamsHelper.addStreamEntry(buffer, stream.getClass().getName(), exception);
+results.txt:IO\src\jmul\io\NestedStreamsImpl.java:    public int getNestedStreamCount() {
+results.txt:IO\src\jmul\io\NestedStreamsImpl.java:        return nestedStreams.size();
+results.txt:IO\src\jmul\io\StreamEntry.java:public final class StreamEntry {
+results.txt:IO\src\jmul\io\StreamEntry.java:     * @param aStream
+results.txt:IO\src\jmul\io\StreamEntry.java:    public StreamEntry(String aName, Closeable aStream) {
+results.txt:IO\src\jmul\io\StreamEntry.java:        checkParameter(aStream);
+results.txt:IO\src\jmul\io\StreamEntry.java:        stream = aStream;
+results.txt:IO\src\jmul\io\StreamEntry.java:     * @param aStream
+results.txt:IO\src\jmul\io\StreamEntry.java:    private static void checkParameter(Closeable aStream) {
+results.txt:IO\src\jmul\io\StreamEntry.java:        if (aStream == null) {
+results.txt:IO\src\jmul\io\StreamEntry.java:    public Closeable getStream() {
+results.txt:IO\src\jmul\io\StreamsHelper.java:public final class StreamsHelper {
+results.txt:IO\src\jmul\io\StreamsHelper.java:    private StreamsHelper() {
+results.txt:IO\src\jmul\io\StreamsHelper.java:     * @param aStreamType
+results.txt:IO\src\jmul\io\StreamsHelper.java:    public static void addStreamEntry(@Modified StringBuilder aBuffer, String aStreamType, Throwable anException) {
+results.txt:IO\src\jmul\io\StreamsHelper.java:        aBuffer.append(aStreamType);
+results.txt:IO\src\jmul\io\StreamsHelper.java:     * @param aStream
+results.txt:IO\src\jmul\io\StreamsHelper.java:    public static void closeStream(Closeable aStream) throws IOException {
+results.txt:IO\src\jmul\io\StreamsHelper.java:        aStream.close();
+results.txt:IO\src\jmul\io\StreamsHelper.java:     * @param aStream
+results.txt:IO\src\jmul\io\StreamsHelper.java:    public static void closeStreamAfterException(Closeable aStream, IOException aPreviousException) throws IOException {
+results.txt:IO\src\jmul\io\StreamsHelper.java:            aStream.close();
+results.txt:IO\src\jmul\io\text\TextFileHelper.java:import java.io.ByteArrayOutputStream;
+results.txt:IO\src\jmul\io\text\TextFileHelper.java:import java.io.FileInputStream;
+results.txt:IO\src\jmul\io\text\TextFileHelper.java:import java.io.FileOutputStream;
+results.txt:IO\src\jmul\io\text\TextFileHelper.java:import java.io.InputStreamReader;
+results.txt:IO\src\jmul\io\text\TextFileHelper.java:import java.io.OutputStreamWriter;
+results.txt:IO\src\jmul\io\text\TextFileHelper.java:import jmul.io.NestedStreams;
+results.txt:IO\src\jmul\io\text\TextFileHelper.java:import jmul.io.NestedStreamsImpl;
+results.txt:IO\src\jmul\io\text\TextFileHelper.java:    public static NestedStreams openFile(String aFileName) throws FileNotFoundException {
+results.txt:IO\src\jmul\io\text\TextFileHelper.java:    public static NestedStreams openFile(File aFile) throws FileNotFoundException {
+results.txt:IO\src\jmul\io\text\TextFileHelper.java:        FileInputStream fis = new FileInputStream(aFile);
+results.txt:IO\src\jmul\io\text\TextFileHelper.java:        InputStreamReader isr = new InputStreamReader(fis);
+results.txt:IO\src\jmul\io\text\TextFileHelper.java:        return new NestedStreamsImpl(br, isr, fis);
+results.txt:IO\src\jmul\io\text\TextFileHelper.java:    public static NestedStreams openFile(String aFileName, Charset aCharset) throws FileNotFoundException {
+results.txt:IO\src\jmul\io\text\TextFileHelper.java:    public static NestedStreams openFile(File aFile, Charset aCharset) throws FileNotFoundException {
+results.txt:IO\src\jmul\io\text\TextFileHelper.java:        FileInputStream fis = new FileInputStream(aFile);
+results.txt:IO\src\jmul\io\text\TextFileHelper.java:        InputStreamReader isr = new InputStreamReader(fis, aCharset);
+results.txt:IO\src\jmul\io\text\TextFileHelper.java:        return new NestedStreamsImpl(br, isr, fis);
+results.txt:IO\src\jmul\io\text\TextFileHelper.java:    public static NestedStreams createFile(String aFileName, Charset aCharset) throws FileNotFoundException {
+results.txt:IO\src\jmul\io\text\TextFileHelper.java:    public static NestedStreams createFile(File aFile, Charset aCharset) throws FileNotFoundException {
+results.txt:IO\src\jmul\io\text\TextFileHelper.java:        FileOutputStream fos = new FileOutputStream(aFile);
+results.txt:IO\src\jmul\io\text\TextFileHelper.java:        OutputStreamWriter osw = new OutputStreamWriter(fos, aCharset);
+results.txt:IO\src\jmul\io\text\TextFileHelper.java:        return new NestedStreamsImpl(bw, osw, fos);
+results.txt:IO\src\jmul\io\text\TextFileHelper.java:     * @param someNestedStreams
+results.txt:IO\src\jmul\io\text\TextFileHelper.java:    public static void closeFile(NestedStreams someNestedStreams) throws IOException {
+results.txt:IO\src\jmul\io\text\TextFileHelper.java:        someNestedStreams.close();
+results.txt:IO\src\jmul\io\text\TextFileHelper.java:     * @param someNestedStreams
+results.txt:IO\src\jmul\io\text\TextFileHelper.java:    public static ReadBuffer readLine(NestedStreams someNestedStreams, String aLineSeparator) throws IOException {
+results.txt:IO\src\jmul\io\text\TextFileHelper.java:        BufferedReader br = (BufferedReader) someNestedStreams.getOuterStream();
+results.txt:IO\src\jmul\io\text\TextFileHelper.java:        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+results.txt:IO\src\jmul\io\text\TextFileHelper.java:     * @param someNestedStreams
+results.txt:IO\src\jmul\io\text\TextFileHelper.java:    public static void writeLine(NestedStreams someNestedStreams, String aString,
+results.txt:IO\src\jmul\io\text\TextFileHelper.java:        BufferedWriter bw = (BufferedWriter) someNestedStreams.getOuterStream();
+results.txt:IO-Tests\src\test\jmul\io\CoupledStreamsTest.java:public class CoupledStreamsTest {
+results.txt:IO-Tests\src\test\jmul\io\CoupledStreamsTest.java:    public CoupledStreamsTest() {
+results.txt:Logging\src\jmul\logging\BaseLogger.java:import java.io.PrintStream;
+results.txt:Logging\src\jmul\logging\BaseLogger.java:    private PrintStream standard;
+results.txt:Logging\src\jmul\logging\BaseLogger.java:    private PrintStream error;
+results.txt:Logging\src\jmul\logging\BaseLogger.java:    protected BaseLogger(PrintStream aStandardOutput, PrintStream anErrorOutput) {
+results.txt:Logging\src\jmul\logging\ConsoleLogger.java:import java.io.PrintStream;
+results.txt:Logging\src\jmul\logging\ConsoleLogger.java:    public ConsoleLogger(PrintStream aStandardOutput, PrintStream anErrorOutput) {
+results.txt:Measures-Docs\misc\java-code-examples\google-code-prettify\lang-matlab.js:a.registerLangHandler(a.createSimpleLexer([],[[a.PR_KEYWORD,/^\b(?:break|case|catch|classdef|continue|else|elseif|end|for|function|global|if|otherwise|parfor|persistent|return|spmd|switch|try|while)\b/,null],["const",/^\b(?:true|false|inf|Inf|nan|NaN|eps|pi|ans|nargin|nargout|varargin|varargout)\b/,null],[a.PR_TYPE,/^\b(?:cell|struct|char|double|single|logical|u?int(?:8|16|32|64)|sparse)\b/,null],["fun",/^\b(?:abs|accumarray|acos(?:d|h)?|acot(?:d|h)?|acsc(?:d|h)?|actxcontrol(?:list|select)?|actxGetRunningServer|actxserver|addlistener|addpath|addpref|addtodate|airy|align|alim|all|allchild|alpha|alphamap|amd|ancestor|and|angle|annotation|any|area|arrayfun|asec(?:d|h)?|asin(?:d|h)?|assert|assignin|atan(?:2|d|h)?|audiodevinfo|audioplayer|audiorecorder|aufinfo|auread|autumn|auwrite|avifile|aviinfo|aviread|axes|axis|balance|bar(?:3|3h|h)?|base2dec|beep|BeginInvoke|bench|bessel(?:h|i|j|k|y)|beta|betainc|betaincinv|betaln|bicg|bicgstab|bicgstabl|bin2dec|bitand|bitcmp|bitget|bitmax|bitnot|bitor|bitset|bitshift|bitxor|blanks|blkdiag|bone|box|brighten|brush|bsxfun|builddocsearchdb|builtin|bvp4c|bvp5c|bvpget|bvpinit|bvpset|bvpxtend|calendar|calllib|callSoapService|camdolly|cameratoolbar|camlight|camlookat|camorbit|campan|campos|camproj|camroll|camtarget|camup|camva|camzoom|cart2pol|cart2sph|cast|cat|caxis|cd|cdf2rdf|cdfepoch|cdfinfo|cdflib(?:.(?:close|closeVar|computeEpoch|computeEpoch16|create|createAttr|createVar|delete|deleteAttr|deleteAttrEntry|deleteAttrgEntry|deleteVar|deleteVarRecords|epoch16Breakdown|epochBreakdown|getAttrEntry|getAttrgEntry|getAttrMaxEntry|getAttrMaxgEntry|getAttrName|getAttrNum|getAttrScope|getCacheSize|getChecksum|getCompression|getCompressionCacheSize|getConstantNames|getConstantValue|getCopyright|getFileBackward|getFormat|getLibraryCopyright|getLibraryVersion|getMajority|getName|getNumAttrEntries|getNumAttrgEntries|getNumAttributes|getNumgAttributes|getReadOnlyMode|getStageCacheSize|getValidate|getVarAllocRecords|getVarBlockingFactor|getVarCacheSize|getVarCompression|getVarData|getVarMaxAllocRecNum|getVarMaxWrittenRecNum|getVarName|getVarNum|getVarNumRecsWritten|getVarPadValue|getVarRecordData|getVarReservePercent|getVarsMaxWrittenRecNum|getVarSparseRecords|getVersion|hyperGetVarData|hyperPutVarData|inquire|inquireAttr|inquireAttrEntry|inquireAttrgEntry|inquireVar|open|putAttrEntry|putAttrgEntry|putVarData|putVarRecordData|renameAttr|renameVar|setCacheSize|setChecksum|setCompression|setCompressionCacheSize|setFileBackward|setFormat|setMajority|setReadOnlyMode|setStageCacheSize|setValidate|setVarAllocBlockRecords|setVarBlockingFactor|setVarCacheSize|setVarCompression|setVarInitialRecs|setVarPadValue|SetVarReservePercent|setVarsCacheSize|setVarSparseRecords))?|cdfread|cdfwrite|ceil|cell2mat|cell2struct|celldisp|cellfun|cellplot|cellstr|cgs|checkcode|checkin|checkout|chol|cholinc|cholupdate|circshift|cla|clabel|class|clc|clear|clearvars|clf|clipboard|clock|close|closereq|cmopts|cmpermute|cmunique|colamd|colon|colorbar|colordef|colormap|colormapeditor|colperm|Combine|comet|comet3|commandhistory|commandwindow|compan|compass|complex|computer|cond|condeig|condest|coneplot|conj|containers.Map|contour(?:3|c|f|slice)?|contrast|conv|conv2|convhull|convhulln|convn|cool|copper|copyfile|copyobj|corrcoef|cos(?:d|h)?|cot(?:d|h)?|cov|cplxpair|cputime|createClassFromWsdl|createSoapMessage|cross|csc(?:d|h)?|csvread|csvwrite|ctranspose|cumprod|cumsum|cumtrapz|curl|customverctrl|cylinder|daqread|daspect|datacursormode|datatipinfo|date|datenum|datestr|datetick|datevec|dbclear|dbcont|dbdown|dblquad|dbmex|dbquit|dbstack|dbstatus|dbstep|dbstop|dbtype|dbup|dde23|ddeget|ddesd|ddeset|deal|deblank|dec2base|dec2bin|dec2hex|decic|deconv|del2|delaunay|delaunay3|delaunayn|DelaunayTri|delete|demo|depdir|depfun|det|detrend|deval|diag|dialog|diary|diff|diffuse|dir|disp|display|dither|divergence|dlmread|dlmwrite|dmperm|doc|docsearch|dos|dot|dragrect|drawnow|dsearch|dsearchn|dynamicprops|echo|echodemo|edit|eig|eigs|ellipj|ellipke|ellipsoid|empty|enableNETfromNetworkDrive|enableservice|EndInvoke|enumeration|eomday|eq|erf|erfc|erfcinv|erfcx|erfinv|error|errorbar|errordlg|etime|etree|etreeplot|eval|evalc|evalin|event.(?:EventData|listener|PropertyEvent|proplistener)|exifread|exist|exit|exp|expint|expm|expm1|export2wsdlg|eye|ezcontour|ezcontourf|ezmesh|ezmeshc|ezplot|ezplot3|ezpolar|ezsurf|ezsurfc|factor|factorial|fclose|feather|feature|feof|ferror|feval|fft|fft2|fftn|fftshift|fftw|fgetl|fgets|fieldnames|figure|figurepalette|fileattrib|filebrowser|filemarker|fileparts|fileread|filesep|fill|fill3|filter|filter2|find|findall|findfigs|findobj|findstr|finish|fitsdisp|fitsinfo|fitsread|fitswrite|fix|flag|flipdim|fliplr|flipud|floor|flow|fminbnd|fminsearch|fopen|format|fplot|fprintf|frame2im|fread|freqspace|frewind|fscanf|fseek|ftell|FTP|full|fullfile|func2str|functions|funm|fwrite|fzero|gallery|gamma|gammainc|gammaincinv|gammaln|gca|gcbf|gcbo|gcd|gcf|gco|ge|genpath|genvarname|get|getappdata|getenv|getfield|getframe|getpixelposition|getpref|ginput|gmres|gplot|grabcode|gradient|gray|graymon|grid|griddata(?:3|n)?|griddedInterpolant|gsvd|gt|gtext|guidata|guide|guihandles|gunzip|gzip|h5create|h5disp|h5info|h5read|h5readatt|h5write|h5writeatt|hadamard|handle|hankel|hdf|hdf5|hdf5info|hdf5read|hdf5write|hdfinfo|hdfread|hdftool|help|helpbrowser|helpdesk|helpdlg|helpwin|hess|hex2dec|hex2num|hgexport|hggroup|hgload|hgsave|hgsetget|hgtransform|hidden|hilb|hist|histc|hold|home|horzcat|hostid|hot|hsv|hsv2rgb|hypot|ichol|idivide|ifft|ifft2|ifftn|ifftshift|ilu|im2frame|im2java|imag|image|imagesc|imapprox|imfinfo|imformats|import|importdata|imread|imwrite|ind2rgb|ind2sub|inferiorto|info|inline|inmem|inpolygon|input|inputdlg|inputname|inputParser|inspect|instrcallback|instrfind|instrfindall|int2str|integral(?:2|3)?|interp(?:1|1q|2|3|ft|n)|interpstreamspeed|intersect|intmax|intmin|inv|invhilb|ipermute|isa|isappdata|iscell|iscellstr|ischar|iscolumn|isdir|isempty|isequal|isequaln|isequalwithequalnans|isfield|isfinite|isfloat|isglobal|ishandle|ishghandle|ishold|isinf|isinteger|isjava|iskeyword|isletter|islogical|ismac|ismatrix|ismember|ismethod|isnan|isnumeric|isobject|isocaps|isocolors|isonormals|isosurface|ispc|ispref|isprime|isprop|isreal|isrow|isscalar|issorted|isspace|issparse|isstr|isstrprop|isstruct|isstudent|isunix|isvarname|isvector|javaaddpath|javaArray|javachk|javaclasspath|javacomponent|javaMethod|javaMethodEDT|javaObject|javaObjectEDT|javarmpath|jet|keyboard|kron|lasterr|lasterror|lastwarn|lcm|ldivide|ldl|le|legend|legendre|length|libfunctions|libfunctionsview|libisloaded|libpointer|libstruct|license|light|lightangle|lighting|lin2mu|line|lines|linkaxes|linkdata|linkprop|linsolve|linspace|listdlg|listfonts|load|loadlibrary|loadobj|log|log10|log1p|log2|loglog|logm|logspace|lookfor|lower|ls|lscov|lsqnonneg|lsqr|lt|lu|luinc|magic|makehgtform|mat2cell|mat2str|material|matfile|matlab.io.MatFile|matlab.mixin.(?:Copyable|Heterogeneous(?:.getDefaultScalarElement)?)|matlabrc|matlabroot|max|maxNumCompThreads|mean|median|membrane|memmapfile|memory|menu|mesh|meshc|meshgrid|meshz|meta.(?:class(?:.fromName)?|DynamicProperty|EnumeratedValue|event|MetaData|method|package(?:.(?:fromName|getAllPackages))?|property)|metaclass|methods|methodsview|mex(?:.getCompilerConfigurations)?|MException|mexext|mfilename|min|minres|minus|mislocked|mkdir|mkpp|mldivide|mlint|mlintrpt|mlock|mmfileinfo|mmreader|mod|mode|more|move|movefile|movegui|movie|movie2avi|mpower|mrdivide|msgbox|mtimes|mu2lin|multibandread|multibandwrite|munlock|namelengthmax|nargchk|narginchk|nargoutchk|native2unicode|nccreate|ncdisp|nchoosek|ncinfo|ncread|ncreadatt|ncwrite|ncwriteatt|ncwriteschema|ndgrid|ndims|ne|NET(?:.(?:addAssembly|Assembly|convertArray|createArray|createGeneric|disableAutoRelease|enableAutoRelease|GenericClass|invokeGenericMethod|NetException|setStaticProperty))?|netcdf.(?:abort|close|copyAtt|create|defDim|defGrp|defVar|defVarChunking|defVarDeflate|defVarFill|defVarFletcher32|delAtt|endDef|getAtt|getChunkCache|getConstant|getConstantNames|getVar|inq|inqAtt|inqAttID|inqAttName|inqDim|inqDimID|inqDimIDs|inqFormat|inqGrpName|inqGrpNameFull|inqGrpParent|inqGrps|inqLibVers|inqNcid|inqUnlimDims|inqVar|inqVarChunking|inqVarDeflate|inqVarFill|inqVarFletcher32|inqVarID|inqVarIDs|open|putAtt|putVar|reDef|renameAtt|renameDim|renameVar|setChunkCache|setDefaultFormat|setFill|sync)|newplot|nextpow2|nnz|noanimate|nonzeros|norm|normest|not|notebook|now|nthroot|null|num2cell|num2hex|num2str|numel|nzmax|ode(?:113|15i|15s|23|23s|23t|23tb|45)|odeget|odeset|odextend|onCleanup|ones|open|openfig|opengl|openvar|optimget|optimset|or|ordeig|orderfields|ordqz|ordschur|orient|orth|pack|padecoef|pagesetupdlg|pan|pareto|parseSoapResponse|pascal|patch|path|path2rc|pathsep|pathtool|pause|pbaspect|pcg|pchip|pcode|pcolor|pdepe|pdeval|peaks|perl|perms|permute|pie|pink|pinv|planerot|playshow|plot|plot3|plotbrowser|plotedit|plotmatrix|plottools|plotyy|plus|pol2cart|polar|poly|polyarea|polyder|polyeig|polyfit|polyint|polyval|polyvalm|pow2|power|ppval|prefdir|preferences|primes|print|printdlg|printopt|printpreview|prod|profile|profsave|propedit|propertyeditor|psi|publish|PutCharArray|PutFullMatrix|PutWorkspaceData|pwd|qhull|qmr|qr|qrdelete|qrinsert|qrupdate|quad|quad2d|quadgk|quadl|quadv|questdlg|quit|quiver|quiver3|qz|rand|randi|randn|randperm|RandStream(?:.(?:create|getDefaultStream|getGlobalStream|list|setDefaultStream|setGlobalStream))?|rank|rat|rats|rbbox|rcond|rdivide|readasync|real|reallog|realmax|realmin|realpow|realsqrt|record|rectangle|rectint|recycle|reducepatch|reducevolume|refresh|refreshdata|regexp|regexpi|regexprep|regexptranslate|rehash|rem|Remove|RemoveAll|repmat|reset|reshape|residue|restoredefaultpath|rethrow|rgb2hsv|rgb2ind|rgbplot|ribbon|rmappdata|rmdir|rmfield|rmpath|rmpref|rng|roots|rose|rosser|rot90|rotate|rotate3d|round|rref|rsf2csf|run|save|saveas|saveobj|savepath|scatter|scatter3|schur|sec|secd|sech|selectmoveresize|semilogx|semilogy|sendmail|serial|set|setappdata|setdiff|setenv|setfield|setpixelposition|setpref|setstr|setxor|shading|shg|shiftdim|showplottool|shrinkfaces|sign|sin(?:d|h)?|size|slice|smooth3|snapnow|sort|sortrows|sound|soundsc|spalloc|spaugment|spconvert|spdiags|specular|speye|spfun|sph2cart|sphere|spinmap|spline|spones|spparms|sprand|sprandn|sprandsym|sprank|spring|sprintf|spy|sqrt|sqrtm|squeeze|ss2tf|sscanf|stairs|startup|std|stem|stem3|stopasync|str2double|str2func|str2mat|str2num|strcat|strcmp|strcmpi|stream2|stream3|streamline|streamparticles|streamribbon|streamslice|streamtube|strfind|strjust|strmatch|strncmp|strncmpi|strread|strrep|strtok|strtrim|struct2cell|structfun|strvcat|sub2ind|subplot|subsasgn|subsindex|subspace|subsref|substruct|subvolume|sum|summer|superclasses|superiorto|support|surf|surf2patch|surface|surfc|surfl|surfnorm|svd|svds|swapbytes|symamd|symbfact|symmlq|symrcm|symvar|system|tan(?:d|h)?|tar|tempdir|tempname|tetramesh|texlabel|text|textread|textscan|textwrap|tfqmr|throw|tic|Tiff(?:.(?:getTagNames|getVersion))?|timer|timerfind|timerfindall|times|timeseries|title|toc|todatenum|toeplitz|toolboxdir|trace|transpose|trapz|treelayout|treeplot|tril|trimesh|triplequad|triplot|TriRep|TriScatteredInterp|trisurf|triu|tscollection|tsearch|tsearchn|tstool|type|typecast|uibuttongroup|uicontextmenu|uicontrol|uigetdir|uigetfile|uigetpref|uiimport|uimenu|uiopen|uipanel|uipushtool|uiputfile|uiresume|uisave|uisetcolor|uisetfont|uisetpref|uistack|uitable|uitoggletool|uitoolbar|uiwait|uminus|undocheckout|unicode2native|union|unique|unix|unloadlibrary|unmesh|unmkpp|untar|unwrap|unzip|uplus|upper|urlread|urlwrite|usejava|userpath|validateattributes|validatestring|vander|var|vectorize|ver|verctrl|verLessThan|version|vertcat|VideoReader(?:.isPlatformSupported)?|VideoWriter(?:.getProfiles)?|view|viewmtx|visdiff|volumebounds|voronoi|voronoin|wait|waitbar|waitfor|waitforbuttonpress|warndlg|warning|waterfall|wavfinfo|wavplay|wavread|wavrecord|wavwrite|web|weekday|what|whatsnew|which|whitebg|who|whos|wilkinson|winopen|winqueryreg|winter|wk1finfo|wk1read|wk1write|workspace|xlabel|xlim|xlsfinfo|xlsread|xlswrite|xmlread|xmlwrite|xor|xslt|ylabel|ylim|zeros|zip|zlabel|zlim|zoom)\b/,null],
+results.txt:Network\src\jmul\network\http\UploadHelper.java:import java.io.OutputStream;
+results.txt:Network\src\jmul\network\http\UploadHelper.java:import java.io.OutputStreamWriter;
+results.txt:Network\src\jmul\network\http\UploadHelper.java:import jmul.io.NestedStreams;
+results.txt:Network\src\jmul\network\http\UploadHelper.java:import jmul.io.NestedStreamsImpl;
+results.txt:Network\src\jmul\network\http\UploadHelper.java:import jmul.io.StreamsHelper;
+results.txt:Network\src\jmul\network\http\UploadHelper.java:        NestedStreams nestedStreams = openStream(connection);
+results.txt:Network\src\jmul\network\http\UploadHelper.java:        Writer writer = (Writer) nestedStreams.getOuterStream();
+results.txt:Network\src\jmul\network\http\UploadHelper.java:        OutputStream outputStream = (OutputStream) nestedStreams.getStream(1);
+results.txt:Network\src\jmul\network\http\UploadHelper.java:            Files.copy(aFile.toPath(), outputStream);
+results.txt:Network\src\jmul\network\http\UploadHelper.java:            StreamsHelper.closeStreamAfterException(nestedStreams, e);
+results.txt:Network\src\jmul\network\http\UploadHelper.java:            StreamsHelper.closeStreamAfterException(nestedStreams, e);
+results.txt:Network\src\jmul\network\http\UploadHelper.java:        StreamsHelper.closeStream(nestedStreams);
+results.txt:Network\src\jmul\network\http\UploadHelper.java:    private static NestedStreams openStream(URLConnection aConnection) throws IOException {
+results.txt:Network\src\jmul\network\http\UploadHelper.java:        OutputStream os = aConnection.getOutputStream();
+results.txt:Network\src\jmul\network\http\UploadHelper.java:        OutputStreamWriter osw = new OutputStreamWriter(os, DEFAULT_CHARSET);
+results.txt:Network\src\jmul\network\http\UploadHelper.java:        return new NestedStreamsImpl(w, osw, os);
+results.txt:Persistence\src\jmul\persistence\id\StringIDGenerator.java:     * @param aStream
+results.txt:Persistence\src\jmul\persistence\id\StringIDGenerator.java:    private IOException closeIgnoreException(Closeable aStream) {
+results.txt:Persistence\src\jmul\persistence\id\StringIDGenerator.java:            aStream.close();
+Transformation-Docs\misc\java-code-examples\google-code-prettify\lang-matlab.js:a.registerLangHandler(a.createSimpleLexer([],[[a.PR_KEYWORD,/^\b(?:break|case|catch|classdef|continue|else|elseif|end|for|function|global|if|otherwise|parfor|persistent|return|spmd|switch|try|while)\b/,null],["const",/^\b(?:true|false|inf|Inf|nan|NaN|eps|pi|ans|nargin|nargout|varargin|varargout)\b/,null],[a.PR_TYPE,/^\b(?:cell|struct|char|double|single|logical|u?int(?:8|16|32|64)|sparse)\b/,null],["fun",/^\b(?:abs|accumarray|acos(?:d|h)?|acot(?:d|h)?|acsc(?:d|h)?|actxcontrol(?:list|select)?|actxGetRunningServer|actxserver|addlistener|addpath|addpref|addtodate|airy|align|alim|all|allchild|alpha|alphamap|amd|ancestor|and|angle|annotation|any|area|arrayfun|asec(?:d|h)?|asin(?:d|h)?|assert|assignin|atan(?:2|d|h)?|audiodevinfo|audioplayer|audiorecorder|aufinfo|auread|autumn|auwrite|avifile|aviinfo|aviread|axes|axis|balance|bar(?:3|3h|h)?|base2dec|beep|BeginInvoke|bench|bessel(?:h|i|j|k|y)|beta|betainc|betaincinv|betaln|bicg|bicgstab|bicgstabl|bin2dec|bitand|bitcmp|bitget|bitmax|bitnot|bitor|bitset|bitshift|bitxor|blanks|blkdiag|bone|box|brighten|brush|bsxfun|builddocsearchdb|builtin|bvp4c|bvp5c|bvpget|bvpinit|bvpset|bvpxtend|calendar|calllib|callSoapService|camdolly|cameratoolbar|camlight|camlookat|camorbit|campan|campos|camproj|camroll|camtarget|camup|camva|camzoom|cart2pol|cart2sph|cast|cat|caxis|cd|cdf2rdf|cdfepoch|cdfinfo|cdflib(?:.(?:close|closeVar|computeEpoch|computeEpoch16|create|createAttr|createVar|delete|deleteAttr|deleteAttrEntry|deleteAttrgEntry|deleteVar|deleteVarRecords|epoch16Breakdown|epochBreakdown|getAttrEntry|getAttrgEntry|getAttrMaxEntry|getAttrMaxgEntry|getAttrName|getAttrNum|getAttrScope|getCacheSize|getChecksum|getCompression|getCompressionCacheSize|getConstantNames|getConstantValue|getCopyright|getFileBackward|getFormat|getLibraryCopyright|getLibraryVersion|getMajority|getName|getNumAttrEntries|getNumAttrgEntries|getNumAttributes|getNumgAttributes|getReadOnlyMode|getStageCacheSize|getValidate|getVarAllocRecords|getVarBlockingFactor|getVarCacheSize|getVarCompression|getVarData|getVarMaxAllocRecNum|getVarMaxWrittenRecNum|getVarName|getVarNum|getVarNumRecsWritten|getVarPadValue|getVarRecordData|getVarReservePercent|getVarsMaxWrittenRecNum|getVarSparseRecords|getVersion|hyperGetVarData|hyperPutVarData|inquire|inquireAttr|inquireAttrEntry|inquireAttrgEntry|inquireVar|open|putAttrEntry|putAttrgEntry|putVarData|putVarRecordData|renameAttr|renameVar|setCacheSize|setChecksum|setCompression|setCompressionCacheSize|setFileBackward|setFormat|setMajority|setReadOnlyMode|setStageCacheSize|setValidate|setVarAllocBlockRecords|setVarBlockingFactor|setVarCacheSize|setVarCompression|setVarInitialRecs|setVarPadValue|SetVarReservePercent|setVarsCacheSize|setVarSparseRecords))?|cdfread|cdfwrite|ceil|cell2mat|cell2struct|celldisp|cellfun|cellplot|cellstr|cgs|checkcode|checkin|checkout|chol|cholinc|cholupdate|circshift|cla|clabel|class|clc|clear|clearvars|clf|clipboard|clock|close|closereq|cmopts|cmpermute|cmunique|colamd|colon|colorbar|colordef|colormap|colormapeditor|colperm|Combine|comet|comet3|commandhistory|commandwindow|compan|compass|complex|computer|cond|condeig|condest|coneplot|conj|containers.Map|contour(?:3|c|f|slice)?|contrast|conv|conv2|convhull|convhulln|convn|cool|copper|copyfile|copyobj|corrcoef|cos(?:d|h)?|cot(?:d|h)?|cov|cplxpair|cputime|createClassFromWsdl|createSoapMessage|cross|csc(?:d|h)?|csvread|csvwrite|ctranspose|cumprod|cumsum|cumtrapz|curl|customverctrl|cylinder|daqread|daspect|datacursormode|datatipinfo|date|datenum|datestr|datetick|datevec|dbclear|dbcont|dbdown|dblquad|dbmex|dbquit|dbstack|dbstatus|dbstep|dbstop|dbtype|dbup|dde23|ddeget|ddesd|ddeset|deal|deblank|dec2base|dec2bin|dec2hex|decic|deconv|del2|delaunay|delaunay3|delaunayn|DelaunayTri|delete|demo|depdir|depfun|det|detrend|deval|diag|dialog|diary|diff|diffuse|dir|disp|display|dither|divergence|dlmread|dlmwrite|dmperm|doc|docsearch|dos|dot|dragrect|drawnow|dsearch|dsearchn|dynamicprops|echo|echodemo|edit|eig|eigs|ellipj|ellipke|ellipsoid|empty|enableNETfromNetworkDrive|enableservice|EndInvoke|enumeration|eomday|eq|erf|erfc|erfcinv|erfcx|erfinv|error|errorbar|errordlg|etime|etree|etreeplot|eval|evalc|evalin|event.(?:EventData|listener|PropertyEvent|proplistener)|exifread|exist|exit|exp|expint|expm|expm1|export2wsdlg|eye|ezcontour|ezcontourf|ezmesh|ezmeshc|ezplot|ezplot3|ezpolar|ezsurf|ezsurfc|factor|factorial|fclose|feather|feature|feof|ferror|feval|fft|fft2|fftn|fftshift|fftw|fgetl|fgets|fieldnames|figure|figurepalette|fileattrib|filebrowser|filemarker|fileparts|fileread|filesep|fill|fill3|filter|filter2|find|findall|findfigs|findobj|findstr|finish|fitsdisp|fitsinfo|fitsread|fitswrite|fix|flag|flipdim|fliplr|flipud|floor|flow|fminbnd|fminsearch|fopen|format|fplot|fprintf|frame2im|fread|freqspace|frewind|fscanf|fseek|ftell|FTP|full|fullfile|func2str|functions|funm|fwrite|fzero|gallery|gamma|gammainc|gammaincinv|gammaln|gca|gcbf|gcbo|gcd|gcf|gco|ge|genpath|genvarname|get|getappdata|getenv|getfield|getframe|getpixelposition|getpref|ginput|gmres|gplot|grabcode|gradient|gray|graymon|grid|griddata(?:3|n)?|griddedInterpolant|gsvd|gt|gtext|guidata|guide|guihandles|gunzip|gzip|h5create|h5disp|h5info|h5read|h5readatt|h5write|h5writeatt|hadamard|handle|hankel|hdf|hdf5|hdf5info|hdf5read|hdf5write|hdfinfo|hdfread|hdftool|help|helpbrowser|helpdesk|helpdlg|helpwin|hess|hex2dec|hex2num|hgexport|hggroup|hgload|hgsave|hgsetget|hgtransform|hidden|hilb|hist|histc|hold|home|horzcat|hostid|hot|hsv|hsv2rgb|hypot|ichol|idivide|ifft|ifft2|ifftn|ifftshift|ilu|im2frame|im2java|imag|image|imagesc|imapprox|imfinfo|imformats|import|importdata|imread|imwrite|ind2rgb|ind2sub|inferiorto|info|inline|inmem|inpolygon|input|inputdlg|inputname|inputParser|inspect|instrcallback|instrfind|instrfindall|int2str|integral(?:2|3)?|interp(?:1|1q|2|3|ft|n)|interpstreamspeed|intersect|intmax|intmin|inv|invhilb|ipermute|isa|isappdata|iscell|iscellstr|ischar|iscolumn|isdir|isempty|isequal|isequaln|isequalwithequalnans|isfield|isfinite|isfloat|isglobal|ishandle|ishghandle|ishold|isinf|isinteger|isjava|iskeyword|isletter|islogical|ismac|ismatrix|ismember|ismethod|isnan|isnumeric|isobject|isocaps|isocolors|isonormals|isosurface|ispc|ispref|isprime|isprop|isreal|isrow|isscalar|issorted|isspace|issparse|isstr|isstrprop|isstruct|isstudent|isunix|isvarname|isvector|javaaddpath|javaArray|javachk|javaclasspath|javacomponent|javaMethod|javaMethodEDT|javaObject|javaObjectEDT|javarmpath|jet|keyboard|kron|lasterr|lasterror|lastwarn|lcm|ldivide|ldl|le|legend|legendre|length|libfunctions|libfunctionsview|libisloaded|libpointer|libstruct|license|light|lightangle|lighting|lin2mu|line|lines|linkaxes|linkdata|linkprop|linsolve|linspace|listdlg|listfonts|load|loadlibrary|loadobj|log|log10|log1p|log2|loglog|logm|logspace|lookfor|lower|ls|lscov|lsqnonneg|lsqr|lt|lu|luinc|magic|makehgtform|mat2cell|mat2str|material|matfile|matlab.io.MatFile|matlab.mixin.(?:Copyable|Heterogeneous(?:.getDefaultScalarElement)?)|matlabrc|matlabroot|max|maxNumCompThreads|mean|median|membrane|memmapfile|memory|menu|mesh|meshc|meshgrid|meshz|meta.(?:class(?:.fromName)?|DynamicProperty|EnumeratedValue|event|MetaData|method|package(?:.(?:fromName|getAllPackages))?|property)|metaclass|methods|methodsview|mex(?:.getCompilerConfigurations)?|MException|mexext|mfilename|min|minres|minus|mislocked|mkdir|mkpp|mldivide|mlint|mlintrpt|mlock|mmfileinfo|mmreader|mod|mode|more|move|movefile|movegui|movie|movie2avi|mpower|mrdivide|msgbox|mtimes|mu2lin|multibandread|multibandwrite|munlock|namelengthmax|nargchk|narginchk|nargoutchk|native2unicode|nccreate|ncdisp|nchoosek|ncinfo|ncread|ncreadatt|ncwrite|ncwriteatt|ncwriteschema|ndgrid|ndims|ne|NET(?:.(?:addAssembly|Assembly|convertArray|createArray|createGeneric|disableAutoRelease|enableAutoRelease|GenericClass|invokeGenericMethod|NetException|setStaticProperty))?|netcdf.(?:abort|close|copyAtt|create|defDim|defGrp|defVar|defVarChunking|defVarDeflate|defVarFill|defVarFletcher32|delAtt|endDef|getAtt|getChunkCache|getConstant|getConstantNames|getVar|inq|inqAtt|inqAttID|inqAttName|inqDim|inqDimID|inqDimIDs|inqFormat|inqGrpName|inqGrpNameFull|inqGrpParent|inqGrps|inqLibVers|inqNcid|inqUnlimDims|inqVar|inqVarChunking|inqVarDeflate|inqVarFill|inqVarFletcher32|inqVarID|inqVarIDs|open|putAtt|putVar|reDef|renameAtt|renameDim|renameVar|setChunkCache|setDefaultFormat|setFill|sync)|newplot|nextpow2|nnz|noanimate|nonzeros|norm|normest|not|notebook|now|nthroot|null|num2cell|num2hex|num2str|numel|nzmax|ode(?:113|15i|15s|23|23s|23t|23tb|45)|odeget|odeset|odextend|onCleanup|ones|open|openfig|opengl|openvar|optimget|optimset|or|ordeig|orderfields|ordqz|ordschur|orient|orth|pack|padecoef|pagesetupdlg|pan|pareto|parseSoapResponse|pascal|patch|path|path2rc|pathsep|pathtool|pause|pbaspect|pcg|pchip|pcode|pcolor|pdepe|pdeval|peaks|perl|perms|permute|pie|pink|pinv|planerot|playshow|plot|plot3|plotbrowser|plotedit|plotmatrix|plottools|plotyy|plus|pol2cart|polar|poly|polyarea|polyder|polyeig|polyfit|polyint|polyval|polyvalm|pow2|power|ppval|prefdir|preferences|primes|print|printdlg|printopt|printpreview|prod|profile|profsave|propedit|propertyeditor|psi|publish|PutCharArray|PutFullMatrix|PutWorkspaceData|pwd|qhull|qmr|qr|qrdelete|qrinsert|qrupdate|quad|quad2d|quadgk|quadl|quadv|questdlg|quit|quiver|quiver3|qz|rand|randi|randn|randperm|RandStream(?:.(?:create|getDefaultStream|getGlobalStream|list|setDefaultStream|setGlobalStream))?|rank|rat|rats|rbbox|rcond|rdivide|readasync|real|reallog|realmax|realmin|realpow|realsqrt|record|rectangle|rectint|recycle|reducepatch|reducevolume|refresh|refreshdata|regexp|regexpi|regexprep|regexptranslate|rehash|rem|Remove|RemoveAll|repmat|reset|reshape|residue|restoredefaultpath|rethrow|rgb2hsv|rgb2ind|rgbplot|ribbon|rmappdata|rmdir|rmfield|rmpath|rmpref|rng|roots|rose|rosser|rot90|rotate|rotate3d|round|rref|rsf2csf|run|save|saveas|saveobj|savepath|scatter|scatter3|schur|sec|secd|sech|selectmoveresize|semilogx|semilogy|sendmail|serial|set|setappdata|setdiff|setenv|setfield|setpixelposition|setpref|setstr|setxor|shading|shg|shiftdim|showplottool|shrinkfaces|sign|sin(?:d|h)?|size|slice|smooth3|snapnow|sort|sortrows|sound|soundsc|spalloc|spaugment|spconvert|spdiags|specular|speye|spfun|sph2cart|sphere|spinmap|spline|spones|spparms|sprand|sprandn|sprandsym|sprank|spring|sprintf|spy|sqrt|sqrtm|squeeze|ss2tf|sscanf|stairs|startup|std|stem|stem3|stopasync|str2double|str2func|str2mat|str2num|strcat|strcmp|strcmpi|stream2|stream3|streamline|streamparticles|streamribbon|streamslice|streamtube|strfind|strjust|strmatch|strncmp|strncmpi|strread|strrep|strtok|strtrim|struct2cell|structfun|strvcat|sub2ind|subplot|subsasgn|subsindex|subspace|subsref|substruct|subvolume|sum|summer|superclasses|superiorto|support|surf|surf2patch|surface|surfc|surfl|surfnorm|svd|svds|swapbytes|symamd|symbfact|symmlq|symrcm|symvar|system|tan(?:d|h)?|tar|tempdir|tempname|tetramesh|texlabel|text|textread|textscan|textwrap|tfqmr|throw|tic|Tiff(?:.(?:getTagNames|getVersion))?|timer|timerfind|timerfindall|times|timeseries|title|toc|todatenum|toeplitz|toolboxdir|trace|transpose|trapz|treelayout|treeplot|tril|trimesh|triplequad|triplot|TriRep|TriScatteredInterp|trisurf|triu|tscollection|tsearch|tsearchn|tstool|type|typecast|uibuttongroup|uicontextmenu|uicontrol|uigetdir|uigetfile|uigetpref|uiimport|uimenu|uiopen|uipanel|uipushtool|uiputfile|uiresume|uisave|uisetcolor|uisetfont|uisetpref|uistack|uitable|uitoggletool|uitoolbar|uiwait|uminus|undocheckout|unicode2native|union|unique|unix|unloadlibrary|unmesh|unmkpp|untar|unwrap|unzip|uplus|upper|urlread|urlwrite|usejava|userpath|validateattributes|validatestring|vander|var|vectorize|ver|verctrl|verLessThan|version|vertcat|VideoReader(?:.isPlatformSupported)?|VideoWriter(?:.getProfiles)?|view|viewmtx|visdiff|volumebounds|voronoi|voronoin|wait|waitbar|waitfor|waitforbuttonpress|warndlg|warning|waterfall|wavfinfo|wavplay|wavread|wavrecord|wavwrite|web|weekday|what|whatsnew|which|whitebg|who|whos|wilkinson|winopen|winqueryreg|winter|wk1finfo|wk1read|wk1write|workspace|xlabel|xlim|xlsfinfo|xlsread|xlswrite|xmlread|xmlwrite|xor|xslt|ylabel|ylim|zeros|zip|zlabel|zlim|zoom)\b/,null],
+Web\src\jmul\web\page\PageHandler.java:import java.io.OutputStream;
+Web\src\jmul\web\page\PageHandler.java:        OutputStream os = httpExchange.getResponseBody();
+Web\src\jmul\web\page\PageLoader.java:import java.io.FileInputStream;
+Web\src\jmul\web\page\PageLoader.java:import java.io.InputStream;
+Web\src\jmul\web\page\PageLoader.java:import jmul.io.NestedStreams;
+Web\src\jmul\web\page\PageLoader.java:import jmul.io.NestedStreamsImpl;
+Web\src\jmul\web\page\PageLoader.java:        NestedStreams nestedStreams = null;
+Web\src\jmul\web\page\PageLoader.java:            nestedStreams = openStreams(file);
+Web\src\jmul\web\page\PageLoader.java:            content = loadContent(nestedStreams);
+Web\src\jmul\web\page\PageLoader.java:                nestedStreams.close();
+Web\src\jmul\web\page\PageLoader.java:    private static NestedStreams openStreams(File aFile) throws FileNotFoundException {
+Web\src\jmul\web\page\PageLoader.java:        InputStream reader = new FileInputStream(aFile);
+Web\src\jmul\web\page\PageLoader.java:        return new NestedStreamsImpl(reader);
+Web\src\jmul\web\page\PageLoader.java:     * @param someNestedStreams
+Web\src\jmul\web\page\PageLoader.java:    private static byte[] loadContent(NestedStreams someNestedStreams) throws IOException {
+Web\src\jmul\web\page\PageLoader.java:        InputStream reader = (InputStream) someNestedStreams.getOuterStream();
+Web\src\jmul\web\page\StatusCodeResponseHandler.java:import java.io.OutputStream;
+Web\src\jmul\web\page\StatusCodeResponseHandler.java:        OutputStream os = httpExchange.getResponseBody();
+Web\src\jmul\web\service\WebServiceRequestHandler.java:import java.io.OutputStream;
+Web\src\jmul\web\service\WebServiceRequestHandler.java:        OutputStream os = httpExchange.getResponseBody();

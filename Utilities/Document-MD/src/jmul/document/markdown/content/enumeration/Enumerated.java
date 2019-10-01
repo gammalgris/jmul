@@ -36,7 +36,7 @@ import jmul.document.markdown.content.paragraph.Paragraph;
  *
  * @author Kristian Kutin
  */
-public interface Enumeration extends Paragraph {
+public interface Enumerated extends Paragraph {
 
     /**
      * Adds the specified list item to this enumeration (i.e. appends the list

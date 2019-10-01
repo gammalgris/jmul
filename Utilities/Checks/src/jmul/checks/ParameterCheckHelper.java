@@ -264,6 +264,48 @@ public final class ParameterCheckHelper {
     /**
      * Checks the specified parameter.
      *
+     * @param aPath
+     *        a relative or absolute path to a file or directory
+     *
+     * @return the specified path
+     *
+     * @throws IllegalArgumentException
+     *         if the specified parameter is invalid
+     */
+    public static String checkPathParameter(String aPath) {
+
+        if (aPath == null) {
+
+            throw new NullParameterException();
+        }
+
+        return aPath;
+    }
+
+    /**
+     * Checks the specified parameter.
+     *
+     * @param aPath
+     *        a relative or absolute path to a file or directory
+     *
+     * @return the specified path
+     *
+     * @throws IllegalArgumentException
+     *         if the specified parameter is invalid
+     */
+    public static File checkPathParameter(File aPath) {
+
+        if (aPath == null) {
+
+            throw new NullParameterException();
+        }
+
+        return aPath;
+    }
+
+    /**
+     * Checks the specified parameter.
+     *
      * @param aFileName
      *        a string parameter
      *
@@ -530,7 +572,7 @@ public final class ParameterCheckHelper {
      *
      * @throws IllegalArgumentException
      *         is thrown if the parameter has an invalid value
-     * 
+     *
      * @return the parameter
      */
     public static StringBuilder checkStringBuilderParameter(StringBuilder aParameter) {

@@ -45,7 +45,6 @@ import jmul.document.type.DocumentType;
 import jmul.document.type.DocumentTypes;
 
 import static jmul.io.Constants.END_OF_FILE;
-import jmul.io.StreamsHelper;
 
 import jmul.metainfo.annotations.Modified;
 
@@ -151,38 +150,29 @@ public class BinaryFileReaderImpl extends BinaryFileReaderBase {
         DocumentType documentType = DocumentTypes.getDocumentType(aFile.getName());
 
         byte[] readBuffer = newBuffer(getWordLength());
-        List<Byte> contentBuffer = new ArrayList<Byte>();
+        List<Byte> contentBuffer = new ArrayList<>();
 
 
-        InputStream inputStream = new FileInputStream(aFile);
+        try (InputStream inputStream = new FileInputStream(aFile)) {
 
-        while (true) {
+            while (true) {
 
-
-            int bytes = -1;
-            try {
-
+                int bytes = END_OF_FILE;
                 bytes = inputStream.read(readBuffer);
 
-            } catch (IOException e) {
+                if (bytes == END_OF_FILE) {
 
-                StreamsHelper.closeStreamAfterException(inputStream, e);
+                    break;
+                }
+
+                for (int a = 0; a < bytes; a++) {
+
+                    contentBuffer.add(readBuffer[a]);
+                }
+
+                clearBuffer(readBuffer);
             }
-
-            if (bytes == END_OF_FILE) {
-
-                break;
-            }
-
-            for (int a = 0; a < bytes; a++) {
-
-                contentBuffer.add(readBuffer[a]);
-            }
-
-            clearBuffer(readBuffer);
         }
-
-        StreamsHelper.closeStream(inputStream);
 
 
         int size = contentBuffer.size();

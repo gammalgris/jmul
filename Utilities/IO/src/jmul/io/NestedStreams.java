@@ -35,7 +35,11 @@ import java.io.Closeable;
  * This interface describes an entity that handles nested streams.
  *
  * @author Kristian Kutin
+ * 
+ * @deprecated Stream handling is being reviewed and where possible the try-with-resources
+ *             statement will be used. This may make some utility functions obsolete.
  */
+@Deprecated
 public interface NestedStreams extends Closeable {
 
     /**

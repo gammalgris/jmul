@@ -207,25 +207,16 @@ public final class ArchiveEntry {
      */
     private static byte[] loadResource(String anArchiveFilename, String aResourceName) throws IOException {
 
-        ArchiveReader reader = null;
         byte[] rawData = null;
 
-        try {
+        try (ArchiveReader reader = new ArchiveReaderImpl(anArchiveFilename)) {
 
-            reader = new ArchiveReaderImpl(anArchiveFilename);
             rawData = reader.loadEntry(aResourceName);
 
         } catch (FileNotFoundException e) {
 
             String message = "The specified archive \"" + anArchiveFilename + "\" doesn't exist!";
             throw new ArchiveException(message, e);
-
-        } finally {
-
-            if (reader != null) {
-
-                reader.close();
-            }
         }
 
         return rawData;
@@ -243,27 +234,38 @@ public final class ArchiveEntry {
 
         checkFileNameParameter(anArchiveName);
 
+        ZipFile zipFile;
+
         try {
 
-            Collection<ArchiveEntry> archiveEntries = new ArrayList<>();
-            ZipFile zipFile = new ZipFile(anArchiveName);
-            Enumeration e = zipFile.entries();
-
-            while (e.hasMoreElements()) {
-
-                ZipEntry zipEntry = (ZipEntry) e.nextElement();
-                archiveEntries.add(new ArchiveEntry(anArchiveName, zipEntry));
-            }
-
-            zipFile.close();
-
-            return archiveEntries;
+            zipFile = new ZipFile(anArchiveName);
 
         } catch (IOException e) {
 
-            String message = "Invalid zip file: " + anArchiveName + "!";
+            String message = "Unable to open the specified archive (" + anArchiveName + ")!";
+            throw new IllegalArgumentException(message);
+        }
+
+        Collection<ArchiveEntry> archiveEntries = new ArrayList<>();
+        Enumeration enumeration = zipFile.entries();
+
+        while (enumeration.hasMoreElements()) {
+
+            ZipEntry zipEntry = (ZipEntry) enumeration.nextElement();
+            archiveEntries.add(new ArchiveEntry(anArchiveName, zipEntry));
+        }
+
+        try {
+
+            zipFile.close();
+
+        } catch (IOException e) {
+
+            String message = "Unable to close the specified archive (" + anArchiveName + ") properly!";
             throw new IllegalArgumentException(message, e);
         }
+
+        return archiveEntries;
     }
 
 }

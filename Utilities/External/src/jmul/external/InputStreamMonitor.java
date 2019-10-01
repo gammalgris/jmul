@@ -46,14 +46,14 @@ import static jmul.string.Constants.NEW_LINE;
 public class InputStreamMonitor implements Runnable {
 
     /**
-     * A reader for the input stream.
+     * The input stream which is to be captured and stored in the content.
      */
-    private BufferedReader reader;
+    private final InputStream inputStream;
 
     /**
      * The content of the input stream.
      */
-    private StringBuilder streamContent;
+    private final StringBuilder streamContent;
 
     /**
      * A flag to indicate the end of the stream.
@@ -63,7 +63,7 @@ public class InputStreamMonitor implements Runnable {
     /**
      * A reference to a logger.
      */
-    private Logger logger;
+    private final Logger logger;
 
     /**
      * Creates a new instance according to the specified parameters.
@@ -88,13 +88,9 @@ public class InputStreamMonitor implements Runnable {
 
         super();
 
-        InputStreamReader isr = new InputStreamReader(anInputStream);
-        reader = new BufferedReader(isr);
-
+        inputStream = anInputStream;
         logger = aLogger;
-
         streamContent = new StringBuilder();
-
         endOfStream = false;
     }
 
@@ -104,24 +100,19 @@ public class InputStreamMonitor implements Runnable {
     @Override
     public void run() {
 
-        boolean firstLine = true;
+        try (BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream))) {
 
-        while (!endOfStream) {
+            boolean firstLine = true;
 
-            String line;
+            while (true) {
 
-            try {
+                String line = reader.readLine();
 
-                line = reader.readLine();
+                endOfStream = line == null;
+                if (endOfStream) {
 
-            } catch (IOException e) {
-
-                logException(e);
-                break;
-            }
-
-            endOfStream = line == null;
-            if (!endOfStream) {
+                    break;
+                }
 
                 if (firstLine) {
 
@@ -134,11 +125,6 @@ public class InputStreamMonitor implements Runnable {
 
                 streamContent.append(line);
             }
-        }
-
-        try {
-
-            reader.close();
 
         } catch (IOException e) {
 

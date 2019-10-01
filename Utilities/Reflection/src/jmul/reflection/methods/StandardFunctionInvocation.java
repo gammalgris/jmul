@@ -1,7 +1,7 @@
 /*
  * SPDX-License-Identifier: GPL-3.0
- * 
- * 
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -70,11 +70,7 @@ public class StandardFunctionInvocation implements OperationInvoker {
             Object functionResult = operation.invoke(invocationTarget, parameters);
             result = new FunctionInvocationResult(functionResult);
 
-        } catch (IllegalAccessException e) {
-
-            result = new FunctionInvocationResult(e);
-
-        } catch (InvocationTargetException e) {
+        } catch (IllegalAccessException | InvocationTargetException e) {
 
             result = new FunctionInvocationResult(e);
         }

@@ -30,7 +30,6 @@ package jmul.text.reader;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
@@ -44,9 +43,6 @@ import jmul.document.type.DocumentType;
 import jmul.document.type.DocumentTypes;
 
 import static jmul.io.Constants.END_OF_FILE;
-import jmul.io.NestedStreams;
-import jmul.io.NestedStreamsImpl;
-import jmul.io.StreamsHelper;
 
 import jmul.misc.text.ModifiableText;
 import jmul.misc.text.ModifiableTextImpl;
@@ -154,66 +150,35 @@ public class TextDocumentReaderImpl implements TextDocumentReader {
         ModifiableText content = new ModifiableTextImpl();
         StringBuilder buffer = new StringBuilder();
 
-        NestedStreams ns = openFile(aFile, charset);
-        InputStreamReader is = (InputStreamReader) ns.getOuterStream();
+        try (InputStreamReader isr = new InputStreamReader(new FileInputStream(aFile), charset)) {
 
-        while (true) {
+            while (true) {
 
-            int result = 0;
+                int result = END_OF_FILE;
+                result = isr.read();
 
-            try {
+                if (result == END_OF_FILE) {
 
-                result = is.read();
+                    content.addLine(buffer.toString());
+                    break;
+                }
 
-            } catch (IOException e) {
+                char b = (char) result;
 
-                StreamsHelper.closeStreamAfterException(ns, e);
-            }
+                buffer.append(b);
+                String line = buffer.toString();
 
-            if (result == END_OF_FILE) {
+                if (line.endsWith(lineSeparator)) {
 
-                content.addLine(buffer.toString());
-                break;
-            }
-
-            char b = (char) result;
-
-            buffer.append(b);
-            String line = buffer.toString();
-
-            if (line.endsWith(lineSeparator)) {
-
-                line = line.replace(lineSeparator, "");
-                content.addLine(line);
-                buffer = new StringBuilder();
+                    line = line.replace(lineSeparator, "");
+                    content.addLine(line);
+                    buffer = new StringBuilder();
+                }
             }
         }
 
-        StreamsHelper.closeStream(ns);
-
         DocumentType documentType = DocumentTypes.getDocumentType(aFile.getAbsolutePath());
         return new TextDocumentImpl(documentType, charset, lineSeparator, content);
-    }
-
-    /**
-     * Opens a stream to the specified file.
-     *
-     * @param aFile
-     *        a file
-     * @param aCharset
-     *        the assumed charset
-     *
-     * @return all streams
-     *
-     * @throws FileNotFoundException
-     *         is thrown if the specified file doesn't exist
-     */
-    private static NestedStreams openFile(File aFile, Charset aCharset) throws FileNotFoundException {
-
-        FileInputStream fis = new FileInputStream(aFile);
-        InputStreamReader isr = new InputStreamReader(fis, aCharset);
-
-        return new NestedStreamsImpl(isr, fis);
     }
 
 }

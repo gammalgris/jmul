@@ -136,15 +136,12 @@ public class XmlDocumentReaderImpl extends XmlDocumentReaderBase {
     public Document readFrom(String archiveName, String filename) throws SAXException, IOException {
 
         DocumentBuilder builder = newDocumentBuilder();
-
         JarResources resources = new JarResources(archiveName);
 
-        ByteArrayInputStream byteStream = new ByteArrayInputStream(resources.getResource(filename));
-        Document xmlDocument = builder.parse(byteStream);
+        try (ByteArrayInputStream byteStream = new ByteArrayInputStream(resources.getResource(filename))) {
 
-        byteStream.close();
-
-        return xmlDocument;
+            return builder.parse(byteStream);
+        }
     }
 
 }

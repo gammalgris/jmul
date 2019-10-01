@@ -1,7 +1,7 @@
 /*
  * SPDX-License-Identifier: GPL-3.0
- * 
- * 
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -111,7 +111,7 @@ public class DirectoryFilterTest extends FileFilterTestBase {
         File basedir = new File("testdata-io");
         File[] results = basedir.listFiles(filter);
 
-        assertEquals(4, results.length);
+        assertEquals(5, results.length);
     }
 
 }

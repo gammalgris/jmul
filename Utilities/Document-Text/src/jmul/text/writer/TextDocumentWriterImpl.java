@@ -29,21 +29,16 @@ package jmul.text.writer;
 
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
 
 import java.nio.charset.Charset;
 
+import jmul.checks.ParameterCheckHelper;
+
 import jmul.document.text.TextDocument;
 import jmul.document.text.structure.TextStructure;
-
-import jmul.io.NestedStreams;
-import jmul.io.NestedStreamsImpl;
-import jmul.io.StreamsHelper;
-
-import jmul.checks.ParameterCheckHelper;
 
 import jmul.string.TextHelper;
 
@@ -101,58 +96,26 @@ public class TextDocumentWriterImpl implements TextDocumentWriter {
         Charset charset = structure.getCharset();
         String lineSeparator = structure.getLineSeparator();
 
-        NestedStreams ns = openFile(aFile, charset);
-        OutputStreamWriter os = (OutputStreamWriter) ns.getOuterStream();
+        try (OutputStreamWriter osw = new OutputStreamWriter(new FileOutputStream(aFile), charset)) {
 
+            boolean firstLine = true;
 
-        boolean firstLine = true;
+            for (String line : aDocument.getContent().getContent()) {
 
-        for (String line : aDocument.getContent().getContent()) {
+                String nextLine;
+                if (firstLine) {
 
-            String nextLine;
-            if (firstLine) {
+                    firstLine = false;
+                    nextLine = line;
 
-                firstLine = false;
-                nextLine = line;
+                } else {
 
-            } else {
+                    nextLine = TextHelper.concatenateStrings(lineSeparator, line);
+                }
 
-                nextLine = TextHelper.concatenateStrings(lineSeparator, line);
-            }
-
-
-            try {
-
-                os.write(nextLine);
-
-            } catch (IOException e) {
-
-                StreamsHelper.closeStreamAfterException(ns, e);
+                osw.write(nextLine);
             }
         }
-
-        StreamsHelper.closeStream(ns);
-    }
-
-    /**
-     * Opens a stream to the specified file.
-     *
-     * @param aFile
-     *        a file
-     * @param aCharset
-     *        the assumed charset
-     *
-     * @return all streams
-     *
-     * @throws FileNotFoundException
-     *         is thrown if the specified file doesn't exist
-     */
-    private static NestedStreams openFile(File aFile, Charset aCharset) throws FileNotFoundException {
-
-        FileOutputStream fos = new FileOutputStream(aFile);
-        OutputStreamWriter osw = new OutputStreamWriter(fos, aCharset);
-
-        return new NestedStreamsImpl(osw, fos);
     }
 
 }

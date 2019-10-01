@@ -29,48 +29,24 @@ package jmul.io;
 
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
+
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 
 import static jmul.checks.ParameterCheckHelper.checkFileNameParameter;
 import static jmul.checks.ParameterCheckHelper.checkFileParameter;
 
-import jmul.misc.exceptions.MultipleCausesException;
-
 
 /**
- * An implementation of a file copier (see {@link jmul.io.FileCopier}).
+ * An implementation of a file copier (see {@link jmul.io.FileCopier}).<br>
+ * <br>
+ * <i>Note:<br>
+ * This file copy implementation relies on {@link java.nio.file.Files}.</i>
  *
  * @author Kristian Kutin
- *
- * @deprecated use {@link java.nio.file.Files} instead.
  */
-@Deprecated
 public class FileCopierImpl implements FileCopier {
-
-    /**
-     * Represents the end of a file.
-     */
-    private static final int END_OF_FILE = -1;
-
-    /**
-     * A buffer size.
-     */
-    private static final int DEFAULT_BUFFER_SIZE = 1024;
-
-    /**
-     * The name of a stream.
-     */
-    private static final String IN = "in";
-
-    /**
-     * The name of a stream.
-     */
-    private static final String OUT = "out";
 
     /**
      * Creates a new file copier.
@@ -119,147 +95,45 @@ public class FileCopierImpl implements FileCopier {
         checkFileParameter(aSourceFile);
         checkFileParameter(aDestinationFile);
 
-        CoupledStreams coupledStreams = createStreams(aSourceFile, aDestinationFile);
+        if (aSourceFile.isDirectory()) {
 
-        InputStream in = (InputStream) coupledStreams.getStream(IN);
-        OutputStream out = (OutputStream) coupledStreams.getStream(OUT);
-
-
-        byte[] buffer = new byte[DEFAULT_BUFFER_SIZE];
-        boolean endOfFile = false;
-        Throwable exception = null;
-        String faultyStreamName = null;
-
-        while (!endOfFile) {
-
-            int bytesRead = 0;
-
-            try {
-
-                bytesRead = in.read(buffer);
-
-            } catch (IOException e) {
-
-                String message = "Unable to read from source file " + aSourceFile + "!";
-                exception = new CopyFileException(message, e);
-                faultyStreamName = IN;
-                break;
-            }
-
-            endOfFile = bytesRead == END_OF_FILE;
-            if (endOfFile) {
-
-                break;
-            }
-
-            try {
-
-                out.write(buffer, 0, bytesRead);
-                out.flush();
-
-            } catch (IOException e) {
-
-                String message = "Unable to write to destination file " + aDestinationFile + "!";
-                exception = new CopyFileException(message, e);
-                faultyStreamName = OUT;
-                break;
-            }
+            String message = "The specified source file is a directory (" + aSourceFile + ")!";
+            throw new CopyFileException(message);
         }
 
+        if (aSourceFile.getName()
+                       .trim()
+                       .isEmpty()) {
 
-        if (exception != null) {
-
-            try {
-
-                coupledStreams.closeOnError(faultyStreamName);
-
-            } catch (IOException e) {
-
-                String message =
-                    "An error occurred while closing streams (" + aSourceFile + " -> " + aDestinationFile + ")!";
-                throw new CopyFileException(message, new MultipleCausesException(exception, e));
-            }
-
-        } else {
-
-            try {
-
-                coupledStreams.close();
-
-            } catch (IOException e) {
-
-                String message =
-                    "An error occurred while closing streams (" + aSourceFile + " -> " + aDestinationFile + ")!";
-                throw new CopyFileException(message, e);
-            }
+            String message = "The specified source file is invalid (" + aDestinationFile + ")!";
+            throw new CopyFileException(message);
         }
-    }
 
-    /**
-     * Opens an input and an output stream which are required for copying the file.
-     *
-     * @param aSourceFile
-     *        a file (i.e. file path)
-     * @param aDestinationFile
-     *        a file (i.e. file path)
-     *
-     * @return an input and output stream
-     *
-     * @throws CopyFileException
-     */
-    private static CoupledStreams createStreams(File aSourceFile, File aDestinationFile) throws CopyFileException {
+        if (aDestinationFile.isDirectory()) {
 
-        InputStream in = null;
+            String message = "The specified destination file is a directory (" + aDestinationFile + ")!";
+            throw new CopyFileException(message);
+        }
+
+        if (aDestinationFile.getName()
+                            .trim()
+                            .isEmpty()) {
+
+            String message = "The specified destination file is invalid (" + aDestinationFile + ")!";
+            throw new CopyFileException(message);
+        }
 
 
         try {
 
-            in = new FileInputStream(aSourceFile);
+            Files.copy(aSourceFile.toPath(), aDestinationFile.toPath(), StandardCopyOption.REPLACE_EXISTING,
+                       StandardCopyOption.COPY_ATTRIBUTES);
 
-        } catch (FileNotFoundException e) {
+        } catch (IOException e) {
 
-            String message = "The specified source file " + aSourceFile + " doesn't exist!";
+            String message = "Unable to copy file \"" + aSourceFile + "\" to \"" + aDestinationFile + "\"!";
             throw new CopyFileException(message, e);
         }
-
-
-        OutputStream out = null;
-        Throwable failure = null;
-
-        try {
-
-            out = new FileOutputStream(aDestinationFile);
-
-        } catch (FileNotFoundException e) {
-
-            String message = "Unable to create the destination file " + aDestinationFile + "!";
-            failure = new CopyFileException(message, e);
-        }
-
-
-        if (failure != null) {
-
-            try {
-
-                in.close();
-
-            } catch (IOException e) {
-
-                String message = "Unable to close streams after an error!";
-
-                if (failure == null) {
-
-                    throw new CopyFileException(message, e);
-
-                } else {
-
-                    throw new CopyFileException(message, new MultipleCausesException(failure, e));
-                }
-            }
-        }
-
-
-        return new CoupledStreamsImpl(new StreamEntry(IN, in), new StreamEntry(OUT, out));
     }
 
 }

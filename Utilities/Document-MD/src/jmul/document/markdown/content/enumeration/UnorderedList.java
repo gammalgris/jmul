@@ -33,5 +33,5 @@ package jmul.document.markdown.content.enumeration;
  *
  * @author Kristian Kutin
  */
-public interface UnorderedList extends Enumeration {
+public interface UnorderedList extends Enumerated {
 }

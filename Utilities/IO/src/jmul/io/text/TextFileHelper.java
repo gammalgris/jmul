@@ -31,26 +31,19 @@ package jmul.io.text;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-
-import java.nio.charset.Charset;
 
 import static jmul.io.Constants.END_OF_FILE;
-import jmul.io.NestedStreams;
-import jmul.io.NestedStreamsImpl;
 
 import static jmul.string.Constants.EMPTY_STRING;
 import static jmul.string.Constants.STARTING_INDEX;
 
 
 /**
- * A utility class for handling text based files.
+ * A utility class for handling text based files.<br>
+ * <br>
+ * <i>Note:<br>
+ * Consider merging this utility class with another utility class.</i>
  *
  * @author Kristian kutin
  */
@@ -65,140 +58,10 @@ public final class TextFileHelper {
     }
 
     /**
-     * Opens the specified file for subsequent reading operations.
-     *
-     * @param aFileName
-     *        a string containing an absolute or relative file path
-     *
-     * @return an input stream
-     *
-     * @throws FileNotFoundException
-     *         is thrown if the specified file doesn't exist
-     */
-    public static NestedStreams openFile(String aFileName) throws FileNotFoundException {
-
-        return openFile(new File(aFileName));
-    }
-
-    /**
-     * Opens the specified file for subsequent reading operations.
-     *
-     * @param aFile
-     *        a file object
-     *
-     * @return an input stream
-     *
-     * @throws FileNotFoundException
-     *         is thrown if the specified file doesn't exist
-     */
-    public static NestedStreams openFile(File aFile) throws FileNotFoundException {
-
-        FileInputStream fis = new FileInputStream(aFile);
-        InputStreamReader isr = new InputStreamReader(fis);
-        BufferedReader br = new BufferedReader(isr);
-
-        return new NestedStreamsImpl(br, isr, fis);
-    }
-
-    /**
-     * Opens the specified file for subsequent reading operations.
-     *
-     * @param aFileName
-     *        a string containing an absolute or relative file path
-     * @param aCharset
-     *        the assumed charset of the file
-     *
-     * @return an input stream
-     *
-     * @throws FileNotFoundException
-     *         is thrown if the specified file doesn't exist
-     */
-    public static NestedStreams openFile(String aFileName, Charset aCharset) throws FileNotFoundException {
-
-        return openFile(new File(aFileName), aCharset);
-    }
-
-    /**
-     * Opens the specified file for subsequent reading operations.
-     *
-     * @param aFile
-     *        a file object
-     * @param aCharset
-     *        the assumed charset of the file
-     *
-     * @return an input stream
-     *
-     * @throws FileNotFoundException
-     *         is thrown if the specified file doesn't exist
-     */
-    public static NestedStreams openFile(File aFile, Charset aCharset) throws FileNotFoundException {
-
-        FileInputStream fis = new FileInputStream(aFile);
-        InputStreamReader isr = new InputStreamReader(fis, aCharset);
-        BufferedReader br = new BufferedReader(isr);
-
-        return new NestedStreamsImpl(br, isr, fis);
-    }
-
-    /**
-     * Creates the specified file for subsequent writing operations.
-     *
-     * @param aFileName
-     *        a string containing an absolute or relative file path
-     * @param aCharset
-     *        the charset of the output file
-     *
-     * @return an input stream
-     *
-     * @throws FileNotFoundException
-     *         is thrown if the specified file cannot be created
-     */
-    public static NestedStreams createFile(String aFileName, Charset aCharset) throws FileNotFoundException {
-
-        return createFile(new File(aFileName), aCharset);
-    }
-
-    /**
-     * Creates the specified file for subsequent writing operations.
-     *
-     * @param aFile
-     *        a file object
-     * @param aCharset
-     *        the charset of the output file
-     *
-     * @return an output stream
-     *
-     * @throws FileNotFoundException
-     *         is thrown if the specified file cannot be created
-     */
-    public static NestedStreams createFile(File aFile, Charset aCharset) throws FileNotFoundException {
-
-        FileOutputStream fos = new FileOutputStream(aFile);
-        OutputStreamWriter osw = new OutputStreamWriter(fos, aCharset);
-        BufferedWriter bw = new BufferedWriter(osw);
-
-        return new NestedStreamsImpl(bw, osw, fos);
-    }
-
-    /**
-     * Closes all input streams.
-     *
-     * @param someNestedStreams
-     *        all streams
-     *
-     * @throws IOException
-     *         is thrown if an error occurs while closing the input streams
-     */
-    public static void closeFile(NestedStreams someNestedStreams) throws IOException {
-
-        someNestedStreams.close();
-    }
-
-    /**
      * Reads a line from the specified input stream according to the specified line
      * separator.
      *
-     * @param someNestedStreams
+     * @param aReader
      *        the input stream
      * @param aLineSeparator
      *        the assumed line separator
@@ -208,17 +71,14 @@ public final class TextFileHelper {
      * @throws IOException
      *         is thrown if an error occurs while reading from the input stream
      */
-    public static ReadBuffer readLine(NestedStreams someNestedStreams, String aLineSeparator) throws IOException {
-
-        BufferedReader br = (BufferedReader) someNestedStreams.getOuterStream();
-
+    public static ReadBuffer readLine(BufferedReader aReader, String aLineSeparator) throws IOException {
 
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         boolean endOfFile = false;
 
         while (true) {
 
-            int i = br.read();
+            int i = aReader.read();
 
             if (i == END_OF_FILE) {
 
@@ -245,7 +105,7 @@ public final class TextFileHelper {
      * Writes a line to the specified output stream according to the specified line
      * separator.
      *
-     * @param someNestedStreams
+     * @param aWriter
      *        the output stream
      * @param aString
      *        a string
@@ -255,13 +115,10 @@ public final class TextFileHelper {
      * @throws IOException
      *         is thrown if an error occurs while writing to the output stream
      */
-    public static void writeLine(NestedStreams someNestedStreams, String aString,
-                                 String aLineSeparator) throws IOException {
+    public static void writeLine(BufferedWriter aWriter, String aString, String aLineSeparator) throws IOException {
 
-        BufferedWriter bw = (BufferedWriter) someNestedStreams.getOuterStream();
-
-        bw.write(aString, STARTING_INDEX, aString.length());
-        bw.write(aLineSeparator, STARTING_INDEX, aLineSeparator.length());
+        aWriter.write(aString, STARTING_INDEX, aString.length());
+        aWriter.write(aLineSeparator, STARTING_INDEX, aLineSeparator.length());
     }
 
 }

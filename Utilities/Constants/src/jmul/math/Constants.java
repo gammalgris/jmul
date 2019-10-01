@@ -85,11 +85,11 @@ public final class Constants {
 
         f = 0.001F;
         tmp.put(Float.TYPE, f);
-        tmp.put(Float.class, new Float(f));
+        tmp.put(Float.class, Float.valueOf(f));
 
         d = 0.001D;
         tmp.put(Double.TYPE, d);
-        tmp.put(Double.class, new Double(d));
+        tmp.put(Double.class, Double.valueOf(d));
 
         EPSILONS = Collections.unmodifiableMap(tmp);
 
@@ -98,27 +98,27 @@ public final class Constants {
 
         b = 0;
         tmp.put(Byte.TYPE, b);
-        tmp.put(Byte.class, new Byte(b));
+        tmp.put(Byte.class, Byte.valueOf(b));
 
         s = 0;
         tmp.put(Short.TYPE, s);
-        tmp.put(Short.class, new Short(s));
+        tmp.put(Short.class, Short.valueOf(s));
 
         i = 0;
         tmp.put(Integer.TYPE, i);
-        tmp.put(Integer.class, new Integer(i));
+        tmp.put(Integer.class, Integer.valueOf(i));
 
         l = 0L;
         tmp.put(Long.TYPE, l);
-        tmp.put(Long.class, new Long(l));
+        tmp.put(Long.class, Long.valueOf(l));
 
         f = 0.0F;
         tmp.put(Float.TYPE, f);
-        tmp.put(Float.class, new Float(f));
+        tmp.put(Float.class, Float.valueOf(f));
 
         d = 0.0D;
         tmp.put(Double.TYPE, d);
-        tmp.put(Double.class, new Double(d));
+        tmp.put(Double.class, Double.valueOf(d));
 
         ZEROS = Collections.unmodifiableMap(tmp);
     }

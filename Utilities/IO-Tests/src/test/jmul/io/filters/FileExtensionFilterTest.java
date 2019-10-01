@@ -126,7 +126,7 @@ public class FileExtensionFilterTest extends FileFilterTestBase {
         File basedir = new File("testdata-io");
         File[] results = basedir.listFiles(filter);
 
-        assertEquals(3, results.length);
+        assertEquals(2, results.length);
     }
 
 }

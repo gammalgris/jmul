@@ -1,7 +1,7 @@
 /*
  * SPDX-License-Identifier: GPL-3.0
- * 
- * 
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -45,6 +45,16 @@ public final class WebServerRunner {
     private static final String PARAMETER_SIGNATURE_STRING = "(String)";
 
     /**
+     * A parameter index.
+     */
+    private static final int CLASS_PARAMETER_INDEX = 0;
+
+    /**
+     * A parameter index.
+     */
+    private static final int CONFIGURATION_PARAMETER_INDEX = 1;
+
+    /**
      * The default constructor.
      */
     private WebServerRunner() {
@@ -72,17 +82,18 @@ public final class WebServerRunner {
     /**
      * Checks the specified parameter.
      *
-     * @param args
+     * @param allCommandLineParameters
+     *        all command line parameters
      */
-    private static void checkCommandLineParameters(String[] args) {
+    private static void checkCommandLineParameters(String[] allCommandLineParameters) {
 
-        if (args == null) {
+        if (allCommandLineParameters == null) {
 
             String message = "No command line parameters were specified (null)!";
             throw new IllegalArgumentException(message);
         }
 
-        if (args.length == 0) {
+        if (allCommandLineParameters.length == 0) {
 
             String message = "No command line parameters were specified (empty array)!";
             throw new IllegalArgumentException(message);
@@ -90,18 +101,55 @@ public final class WebServerRunner {
     }
 
     /**
+     * Checks if a parameter at the specified index exists.
+     *
+     * @param allCommandLineParameters
+     *        all command line parameters
+     * @param anIndex
+     *        the index of a particular parameter
+     *
+     * @return <code>true</code> if a parameter exists at the specified index,
+     *         else <code>false</code>
+     */
+    private static boolean existsParameterAtIndex(String[] allCommandLineParameters, int anIndex) {
+
+        checkCommandLineParameters(allCommandLineParameters);
+
+        return anIndex < allCommandLineParameters.length;
+    }
+
+    /**
+     * Checks the existence of a particlar parameter.
+     *
+     * @param allCommandLineParameters
+     *        all command line parameters
+     * @param anIndex
+     *        the index of a particular parameter
+     */
+    private static void checkCommandLineParameter(String[] allCommandLineParameters, int anIndex) {
+
+        int parameterNumber = anIndex + 1;
+
+        if (!existsParameterAtIndex(allCommandLineParameters, anIndex)) {
+
+            String message = "Parameter " + parameterNumber + " is missing! No class has been specified (null).";
+            throw new IllegalArgumentException(message);
+        }
+    }
+
+    /**
      * Extracts a class from the specified command line parameters.
      *
-     * @param args
+     * @param allCommandLineParameters
+     *        all command line parameters
      *
      * @return a class
      */
-    private static Class extractClass(String[] args) {
+    private static Class extractClass(String[] allCommandLineParameters) {
 
-        checkCommandLineParameters(args);
+        checkCommandLineParameter(allCommandLineParameters, CLASS_PARAMETER_INDEX);
 
-
-        String className = args[0];
+        String className = allCommandLineParameters[CLASS_PARAMETER_INDEX];
         Class clazz = null;
 
         try {
@@ -120,22 +168,22 @@ public final class WebServerRunner {
     /**
      * Extracts a configuration name from the specified command line parameters.
      *
-     * @param args
+     * @param allCommandLineParameters
+     *        all command line parameters
      *
      * @return the name of a configuration or <code>null</code> if no configuration
      *         was specified
      */
-    private static String extractConfiguration(String[] args) {
+    private static String extractConfiguration(String[] allCommandLineParameters) {
 
-        checkCommandLineParameters(args);
+        if (existsParameterAtIndex(allCommandLineParameters, CONFIGURATION_PARAMETER_INDEX)) {
 
+            return allCommandLineParameters[CONFIGURATION_PARAMETER_INDEX];
 
-        if (args.length == 2) {
+        } else {
 
-            return args[1];
+            return null;
         }
-
-        return null;
     }
 
     /**
@@ -180,7 +228,7 @@ public final class WebServerRunner {
      * @param aClass
      *
      * @return a web server instance
-     * 
+     *
      * @deprecated This way doesn't work since the implementation classes don't have a default
      *             constructor.
      */

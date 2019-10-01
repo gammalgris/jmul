@@ -90,17 +90,15 @@ public class XPathFilter implements FileFilter {
 
                 document = reader.readFrom(pathname);
 
-            } catch (SAXException e) {
+            } catch (SAXException | IOException e) {
 
-                // If the XML structure is malformed the file cannot be parsed thus the
+                // Following cases are considered:
+                //
+                // 1) If the XML structure is malformed the file cannot be parsed thus the
                 // file cannot be processed. By definition the file is not accepted and
                 // the exception is ignored.
-
-                return false;
-
-            } catch (IOException e) {
-
-                // The file cannot be read thus the file cannot be processed. By
+                //
+                // 2) The file cannot be read thus the file cannot be processed. By
                 // definition the file is not accepted and the exception is ignored.
 
                 return false;

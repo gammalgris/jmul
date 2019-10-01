@@ -1,7 +1,7 @@
 /*
  * SPDX-License-Identifier: GPL-3.0
- * 
- * 
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -56,14 +56,10 @@ public class ThreadExecutionStatus {
      */
     public boolean isObsoleteExecution() {
 
-        boolean result;
-
         synchronized (this) {
 
-            result = obsoleteExecution;
+            return obsoleteExecution;
         }
-
-        return result;
     }
 
     /**

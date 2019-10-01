@@ -42,7 +42,11 @@ import static jmul.string.Constants.NEW_LINE;
  * A base class for custom stream implementations.
  *
  * @author Kristian Kutin
+ *
+ * @deprecated Stream handling is being reviewed and where possible the try-with-resources
+ *             statement will be used. This may make some utility functions obsolete.
  */
+@Deprecated
 public final class StreamsHelper {
 
     /**

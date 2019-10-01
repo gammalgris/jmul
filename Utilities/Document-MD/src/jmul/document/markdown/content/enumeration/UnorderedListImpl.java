@@ -33,7 +33,7 @@ package jmul.document.markdown.content.enumeration;
  *
  * @author Kristian Kutin
  */
-public class UnorderedListImpl extends EnumerationBase {
+public class UnorderedListImpl extends EnumeratedBase {
 
     /**
      * The default constructor.

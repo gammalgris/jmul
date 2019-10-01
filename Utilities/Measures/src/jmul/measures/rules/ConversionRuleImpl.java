@@ -1,7 +1,7 @@
 /*
  * SPDX-License-Identifier: GPL-3.0
- * 
- * 
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -84,7 +84,7 @@ public class ConversionRuleImpl implements ConversionRule {
     @Override
     public Number convert(Number aQuantity) {
 
-        return new Double(aQuantity.doubleValue() * ratio.doubleValue());
+        return Double.valueOf(aQuantity.doubleValue() * ratio.doubleValue());
     }
 
 }

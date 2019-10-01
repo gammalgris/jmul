@@ -6,7 +6,7 @@
 
 
     <property name="project.lib.dir" location="${project.dir}\Libraries" />
-    <property name="sonar.ant.task.lib" location="${project.lib.dir}\SonarAntTask\sonarqube-ant-task-2.4.jar" />
+    <property name="sonar.ant.task.lib" location="${project.lib.dir}\SonarAntTask\sonarqube-ant-task-2.6.0.1426.jar" />
 
     <property name="project.tmp.dir" location="${project.dir}\tmp" />
     <property name="project.tmp.src.dir" location="${project.tmp.dir}\src" />
@@ -23,7 +23,10 @@
     <property name="sonar.java.binaries" value="${project.tmp.build.dir}" />
     <property name="sonar.projectBaseDir" value="${project.tmp.dir}" />
     <property name="sonar.junit.reportsPath" value="${project.tmp.tests-results.dir}" />
+    <property name="sonar.surefire.reportsPath" value="${project.tmp.tests-results.dir}" />
     <property name="sonar.tests" value="${project.tmp.tests-src.dir}" />
+    <property name="sonar.verbose" value="true" />
+    <property name="sonar.scm.exclusions.disabled" value="true" />
 
 
     <!-- TODO - replace this section with the following comment section -->

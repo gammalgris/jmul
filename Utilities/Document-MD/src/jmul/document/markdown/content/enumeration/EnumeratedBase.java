@@ -39,7 +39,7 @@ import jmul.document.markdown.content.node.ListItemNode;
  *
  * @author Kristian Kutin
  */
-abstract class EnumerationBase extends ContentNodeImpl implements Enumeration {
+abstract class EnumeratedBase extends ContentNodeImpl implements Enumerated {
 
     /**
      * The container contains all list items.
@@ -49,7 +49,7 @@ abstract class EnumerationBase extends ContentNodeImpl implements Enumeration {
     /**
      * The default constructor.
      */
-    EnumerationBase() {
+    EnumeratedBase() {
 
         super();
     }

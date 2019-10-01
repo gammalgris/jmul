@@ -106,11 +106,7 @@ public class XmlValidatorImpl implements XmlValidator {
                 validator.validate(new SAXSource(new InputSource(aFileName)));
                 return new XmlValidationResult(aFileName, schemaKey);
 
-            } catch (SAXException e) {
-
-                cause = e;
-
-            } catch (IOException e) {
+            } catch (SAXException | IOException e) {
 
                 cause = e;
             }

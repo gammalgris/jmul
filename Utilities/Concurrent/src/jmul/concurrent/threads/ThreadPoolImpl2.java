@@ -1,7 +1,7 @@
 /*
  * SPDX-License-Identifier: GPL-3.0
- * 
- * 
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -159,7 +159,7 @@ public class ThreadPoolImpl2 implements ThreadPool {
             } else if (delta > 0) {
 
                 String digits = String.valueOf(MathHelper.max(nextWorkerThreadId, activeThreads, delta));
-                String patternString = digits.replaceAll(".", "0");
+                String patternString = digits.replaceAll("[1-9]", "0");
                 DecimalFormat pattern = new DecimalFormat(patternString);
 
                 // Too few threads are running. Start some.

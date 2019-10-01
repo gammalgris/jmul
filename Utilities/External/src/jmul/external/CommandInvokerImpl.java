@@ -96,14 +96,14 @@ public class CommandInvokerImpl implements CommandInvoker {
 
         ProcessMonitor monitor = new ProcessMonitor(process, logger);
 
-        int exitValue = Integer.MIN_VALUE;
-
         try {
 
             // Assuming that the process ended, the exit code and console
             // outputs are stored.
 
-            exitValue = process.exitValue();
+            int exitValue = process.exitValue();
+            return new InvocationResultImpl(exitValue, monitor.getOutputMessage(), monitor.getErrorMessage(),
+                                            monitor.isCompleteOutput());
 
         } catch (IllegalThreadStateException e) {
 
@@ -112,18 +112,19 @@ public class CommandInvokerImpl implements CommandInvoker {
 
             try {
 
-                exitValue = process.waitFor();
+                int alternativeExitValue = process.waitFor();
+                return new InvocationResultImpl(alternativeExitValue, monitor.getOutputMessage(),
+                                                monitor.getErrorMessage(), monitor.isCompleteOutput());
 
             } catch (InterruptedException f) {
 
-                String message =
-                    "The external process has exited with an error!" + NEW_LINE + monitor.getErrorMessage();
-                throw new ExternalProcessExecutionException(message, e);
+                logger.logWarning(f.getMessage());
+                Thread.currentThread().interrupt();
             }
-        }
 
-        return new InvocationResultImpl(exitValue, monitor.getOutputMessage(), monitor.getErrorMessage(),
-                                        monitor.isCompleteOutput());
+            String message = "The external process has exited with an error!" + NEW_LINE + monitor.getErrorMessage();
+            throw new ExternalProcessExecutionException(message, e);
+        }
     }
 
 }

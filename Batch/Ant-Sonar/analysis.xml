@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<project xmlns="antlib:org.apache.tools.ant" name="analysis">
+<project xmlns="antlib:org.apache.tools.ant" xmlns:sonar="antlib:org.sonar.ant" name="analysis">
 
 
     <include file="${basedir}\..\Ant-Common\common.xml" />
@@ -11,8 +11,6 @@
     <include file="${basedir}\..\Ant-Sonar\project.xml" />
 
 
-    <taskdef name="sonar" classname="org.sonarsource.scanner.ant.SonarQubeTask" classpath="${sonar.ant.task.lib}" />
-
     <target name="sonar" depends="run-tests.runTests, project.info">
 
         <record name="${build.log}" action="start" />
@@ -21,7 +19,11 @@
         <echo message="-----= analysis.sonar =-----" />
         <echo />
 
-        <sonar />
+        <taskdef uri="antlib:org.sonar.ant" resource="org/sonar/ant/antlib.xml">
+            <classpath path="${sonar.ant.task.lib}" />
+        </taskdef>
+
+        <sonar:sonar />
 
         <record name="${build.log}" action="stop" />
 

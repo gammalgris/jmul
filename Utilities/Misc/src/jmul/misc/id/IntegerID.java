@@ -1,7 +1,7 @@
 /*
  * SPDX-License-Identifier: GPL-3.0
- * 
- * 
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -65,7 +65,7 @@ public class IntegerID implements ID {
      */
     public IntegerID(String anID) {
 
-        this(Integer.parseInt(anID));
+        this(Integer.valueOf(anID));
     }
 
     /**

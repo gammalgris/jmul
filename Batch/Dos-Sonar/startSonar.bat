@@ -13,8 +13,8 @@ set initializerRunner=setEnv.bat
 set environmentCheck=checkEnv.bat
 
 
-set sonarVersion=5.3
-set "sonarPath=D:\Programme\sonarqube-5.3\bin\windows-x86-64"
+set sonarVersion=7.9.1
+set "sonarPath=D:\Programme\SonarQube\sonarqube-7.9.1\bin\windows-x86-64"
 set sonarRunner=StartSonar.bat
 
 

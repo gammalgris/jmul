@@ -28,8 +28,11 @@
 package jmul.csv.writer;
 
 
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
 
 import java.nio.charset.Charset;
 
@@ -41,7 +44,6 @@ import jmul.document.csv.structure.CsvStructure;
 import jmul.document.csv.structure.HeaderType;
 import static jmul.document.csv.structure.HeaderType.NO_HEADER;
 
-import jmul.io.NestedStreams;
 import jmul.io.text.TextFileHelper;
 
 import jmul.misc.table.Table;
@@ -94,28 +96,27 @@ public class CsvDocumentWriterImpl implements CsvDocumentWriter {
     public void writeTo(File aFile, CsvDocument aDocument) throws IOException {
 
         Charset charset = aDocument.getStructure().getCharset();
-        NestedStreams ns = TextFileHelper.createFile(aFile, charset);
-
         CsvStructure documentStructure = aDocument.getStructure();
         String columnSeparator = documentStructure.getColumnSeparator();
         String rowSeparator = documentStructure.getRowSeparator();
         HeaderType headerType = documentStructure.getHeaderType();
 
-        if (!NO_HEADER.equals(headerType)) {
+        try (BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(aFile), charset))) {
 
-            String line = row2String(documentStructure.getHeader(), columnSeparator);
-            TextFileHelper.writeLine(ns, line, rowSeparator);
+            if (!NO_HEADER.equals(headerType)) {
+
+                String line = row2String(documentStructure.getHeader(), columnSeparator);
+                TextFileHelper.writeLine(bw, line, rowSeparator);
+            }
+
+            Table<String> content = aDocument.getContent();
+
+            for (int a = 0; a < content.rows(); a++) {
+
+                String line = row2String(content.getRow(a), columnSeparator);
+                TextFileHelper.writeLine(bw, line, rowSeparator);
+            }
         }
-
-        Table<String> content = aDocument.getContent();
-
-        for (int a = 0; a < content.rows(); a++) {
-
-            String line = row2String(content.getRow(a), columnSeparator);
-            TextFileHelper.writeLine(ns, line, rowSeparator);
-        }
-
-        TextFileHelper.closeFile(ns);
     }
 
     /**
@@ -144,6 +145,7 @@ public class CsvDocumentWriterImpl implements CsvDocumentWriter {
      * @return a string
      */
     private static String row2String(List<String> someStrings, String aColumnSeparator) {
+
         StringBuilder buffer = new StringBuilder();
 
         boolean first = true;

@@ -1,7 +1,7 @@
 /*
  * SPDX-License-Identifier: GPL-3.0
- * 
- * 
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -29,6 +29,7 @@ package jmul.math.formula.parser.tokens;
 
 
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
@@ -392,6 +393,12 @@ public class TokenGroup implements Iterable<Token> {
          */
         @Override
         public Token next() {
+
+            if (!hasNext()) {
+
+                String message = "The token group has no more tokens!";
+                throw new NoSuchElementException(message);
+            }
 
             Token token = sequence.get(index);
             index++;

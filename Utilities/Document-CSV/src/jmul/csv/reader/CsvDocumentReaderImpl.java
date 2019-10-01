@@ -28,6 +28,7 @@
 package jmul.csv.reader;
 
 
+import java.io.BufferedReader;
 import java.io.IOException;
 
 import java.nio.charset.Charset;
@@ -42,7 +43,6 @@ import jmul.document.csv.structure.StructureType;
 import static jmul.document.csv.structure.StructureType.FLEXIBLE;
 import static jmul.document.csv.structure.StructureType.RIGID;
 
-import jmul.io.NestedStreams;
 import jmul.io.text.ReadBuffer;
 import jmul.io.text.TextFileHelper;
 
@@ -208,7 +208,7 @@ public class CsvDocumentReaderImpl extends CsvDocumentReaderBase {
      * The first line is parsed for identifying the number of columns in a CSV file. Additionally the first line
      * may contain data or a header line. The specified table is updated accordingly.
      *
-     * @param someStreams
+     * @param aReader
      *        a handle on the actual file
      * @param aTable
      *        a modifiable table
@@ -217,10 +217,9 @@ public class CsvDocumentReaderImpl extends CsvDocumentReaderBase {
      *         is thrown if an error occurrs while trying to read from the CSV file
      */
     @Override
-    protected void parseFirstLine(NestedStreams someStreams,
-                                  @Modified ModifiableTable<String> aTable) throws IOException {
+    protected void parseFirstLine(BufferedReader aReader, @Modified ModifiableTable<String> aTable) throws IOException {
 
-        ReadBuffer result = TextFileHelper.readLine(someStreams, getRowSeparator());
+        ReadBuffer result = TextFileHelper.readLine(aReader, getRowSeparator());
 
         if (result.isEndOfFile()) {
 
@@ -262,7 +261,7 @@ public class CsvDocumentReaderImpl extends CsvDocumentReaderBase {
     /**
      * The remaining content of a CSV file is parsed and the specified table is updated accordingly.
      *
-     * @param someStreams
+     * @param aReader
      *        a handle on the actual file
      * @param aTable
      *        a modifiable table
@@ -271,14 +270,14 @@ public class CsvDocumentReaderImpl extends CsvDocumentReaderBase {
      *         is thrown if an error occurrs while trying to read from the CSV file
      */
     @Override
-    protected void parseRemainingContent(NestedStreams someStreams,
+    protected void parseRemainingContent(BufferedReader aReader,
                                          @Modified ModifiableTable<String> aTable) throws IOException {
 
         int currentRow = aTable.rows();
 
         while (true) {
 
-            ReadBuffer result = TextFileHelper.readLine(someStreams, getRowSeparator());
+            ReadBuffer result = TextFileHelper.readLine(aReader, getRowSeparator());
 
             if (result.isEndOfFile() && result.isEmpty()) {
 

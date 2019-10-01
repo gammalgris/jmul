@@ -134,13 +134,7 @@ public class RulesContainerInitializerImpl implements RulesContainerInitializer 
 
                     System.out.println("processed rule: " + filename);
 
-                } catch (SAXException e) {
-
-                    // Ignore this exception. Continue with the next
-                    // configuration file.
-                    continue;
-
-                } catch (IOException e) {
+                } catch (SAXException | IOException e) {
 
                     // Ignore this exception. Continue with the next
                     // configuration file.
@@ -175,13 +169,7 @@ public class RulesContainerInitializerImpl implements RulesContainerInitializer 
                         modifiableContainer.addRule(rule);
                         processedEmbeddedResources++;
 
-                    } catch (SAXException e) {
-
-                        // Ignore this exception and continbue with the next
-                        // configuration.
-                        continue;
-
-                    } catch (IOException e) {
+                    } catch (SAXException | IOException e) {
 
                         // Ignore this exception and continbue with the next
                         // configuration.

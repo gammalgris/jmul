@@ -1,7 +1,7 @@
 /*
  * SPDX-License-Identifier: GPL-3.0
- * 
- * 
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -32,6 +32,10 @@ import java.util.Map;
 
 import jmul.misc.id.ID;
 
+import jmul.transformation.TransformationFactory;
+import jmul.transformation.TransformationParameters;
+import jmul.transformation.TransformationPath;
+import jmul.transformation.TransformationResources;
 import jmul.transformation.xml.TransformationHelper;
 import jmul.transformation.xml.cache.Object2XmlCache;
 import static jmul.transformation.xml.rules.PersistenceMarkups.ENTRY_ELEMENT;
@@ -42,11 +46,6 @@ import static jmul.transformation.xml.rules.TransformationConstants.DECLARED_VAL
 import static jmul.transformation.xml.rules.TransformationConstants.OBJECT_CACHE;
 import static jmul.transformation.xml.rules.TransformationConstants.ROOT_ELEMENT;
 import static jmul.transformation.xml.rules.TransformationConstants.XML_DOCUMENT;
-
-import jmul.transformation.TransformationFactory;
-import jmul.transformation.TransformationParameters;
-import jmul.transformation.TransformationPath;
-import jmul.transformation.TransformationResources;
 
 import jmul.xml.XmlHelper;
 
@@ -124,7 +123,6 @@ public class MapHandler implements ContainerHandler {
         // provided with the annotation @MapInformations.
 
         for (Object key : map.keySet()) {
-
 
             Object value = map.get(key);
 

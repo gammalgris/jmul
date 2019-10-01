@@ -1,7 +1,7 @@
 /*
  * SPDX-License-Identifier: GPL-3.0
- * 
- * 
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -85,11 +85,7 @@ public class AlternativeFunctionInvocation implements OperationInvoker {
                 result = new FunctionInvocationResult(cause);
             }
 
-        } catch (IllegalAccessException e) {
-
-            result = new FunctionInvocationResult(e);
-
-        } catch (InvocationTargetException e) {
+        } catch (IllegalAccessException | InvocationTargetException e) {
 
             result = new FunctionInvocationResult(e);
 

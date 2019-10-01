@@ -28,8 +28,11 @@
 package jmul.csv.reader;
 
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 
 import java.nio.charset.Charset;
 
@@ -40,13 +43,8 @@ import jmul.document.csv.structure.StructureType;
 import jmul.document.type.DocumentType;
 import jmul.document.type.DocumentTypes;
 
-import jmul.io.NestedStreams;
-import static jmul.io.text.TextFileHelper.closeFile;
-import static jmul.io.text.TextFileHelper.openFile;
-
 import jmul.metainfo.annotations.Modified;
 
-import jmul.misc.exceptions.MultipleCausesException;
 import jmul.misc.table.ModifiableTable;
 import jmul.misc.table.ModifiableTableImpl;
 
@@ -171,29 +169,13 @@ abstract class CsvDocumentReaderBase implements CsvDocumentReader {
     public CsvDocument readFrom(File aFile) throws IOException {
 
         DocumentType documentType = DocumentTypes.getDocumentType(aFile.getName());
-
         ModifiableTable<String> table = new ModifiableTableImpl<>();
 
-        NestedStreams ns = openFile(aFile, charset);
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(aFile), charset))) {
 
-        try {
-
-            parseFirstLine(ns, table);
-            parseRemainingContent(ns, table);
-
-        } catch (IOException e) {
-
-            try {
-
-                closeFile(ns);
-
-            } catch (IOException f) {
-
-                throw new IOException(new MultipleCausesException(e, f));
-            }
+            parseFirstLine(br, table);
+            parseRemainingContent(br, table);
         }
-
-        closeFile(ns);
 
         return new CsvDocumentImpl(documentType, headerType, structureType, columnSeparator, rowSeparator, table);
     }
@@ -252,7 +234,7 @@ abstract class CsvDocumentReaderBase implements CsvDocumentReader {
      * The first line is parsed for identifying the number of columns in a CSV file. Additionally the first line
      * may contain data or a header line. The specified table is updated accordingly.
      *
-     * @param someStreams
+     * @param aReader
      *        a handle on the actual file
      * @param aTable
      *        a modifiable table
@@ -260,13 +242,13 @@ abstract class CsvDocumentReaderBase implements CsvDocumentReader {
      * @throws IOException
      *         is thrown if an error occurrs while trying to read from the CSV file
      */
-    protected abstract void parseFirstLine(NestedStreams someStreams,
+    protected abstract void parseFirstLine(BufferedReader aReader,
                                            @Modified ModifiableTable<String> aTable) throws IOException;
 
     /**
      * The remaining content of a CSV file is parsed and the specified table is updated accordingly.
      *
-     * @param someStreams
+     * @param aReader
      *        a handle on the actual file
      * @param aTable
      *        a modifiable table
@@ -274,7 +256,7 @@ abstract class CsvDocumentReaderBase implements CsvDocumentReader {
      * @throws IOException
      *         is thrown if an error occurrs while trying to read from the CSV file
      */
-    protected abstract void parseRemainingContent(NestedStreams someStreams,
+    protected abstract void parseRemainingContent(BufferedReader aReader,
                                                   @Modified ModifiableTable<String> aTable) throws IOException;
 
     /**

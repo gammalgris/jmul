@@ -28,7 +28,6 @@
 package jmul.io;
 
 
-import java.io.Closeable;
 import java.io.File;
 import java.io.FileFilter;
 import java.io.FileInputStream;
@@ -41,6 +40,8 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+
+import jmul.checks.ParameterCheckHelper;
 
 import jmul.io.filters.DirectoryFilter;
 import jmul.io.filters.FileExtensionFilter;
@@ -226,6 +227,8 @@ public final class FileHelper {
      */
     public static boolean existsFile(String aFileName) {
 
+        ParameterCheckHelper.checkPathParameter(aFileName);
+
         return existsFile(new File(aFileName));
     }
 
@@ -239,15 +242,17 @@ public final class FileHelper {
      */
     public static boolean existsFile(File aFile) {
 
+        ParameterCheckHelper.checkPathParameter(aFile);
+
         if (aFile.isDirectory()) {
 
             return false;
         }
 
-        FileInputStream fis = null;
-        try {
 
-            fis = new FileInputStream(aFile);
+        try (FileInputStream fis = new FileInputStream(aFile)) {
+
+            fis.read();
 
         } catch (FileNotFoundException e) {
 
@@ -256,51 +261,19 @@ public final class FileHelper {
             // Preserving this exception is not needed nor possible as the method
             // will only return a boolean value.
 
-            if (fis != null) {
-
-                closeStreamIgnoreException(fis);
-            }
-
             return false;
-        }
-
-        try {
-
-            fis.read();
 
         } catch (IOException e) {
 
-            // If reading from the file s not possible then the file is
+            // If reading from the file is not possible then the file is
             // considered as not existing.
             // Preserving this exception is not needed nor possible as the method
             // will only return a boolean value.
 
-            closeStreamIgnoreException(fis);
             return false;
         }
 
         return true;
-    }
-
-    /**
-     * Tries to close the specified stream and ignores potential exceptions.
-     *
-     * @param aStream
-     *        a stream
-     */
-    private static void closeStreamIgnoreException(Closeable aStream) {
-
-        try {
-
-            aStream.close();
-
-        } catch (IOException e) {
-
-            // If there should be an issue in closing the stream then the cause
-            // must be another thread or process.
-            // The exception is ignored intentionally. In this context there is
-            // no point in preserving or logging the exception.
-        }
     }
 
 }

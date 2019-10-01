@@ -70,11 +70,7 @@ public class StandardMethodInvocation implements OperationInvoker {
             operation.invoke(invocationTarget, parameters);
             result = new MethodInvocationResult();
 
-        } catch (IllegalAccessException e) {
-
-            result = new MethodInvocationResult(e);
-
-        } catch (InvocationTargetException e) {
+        } catch (IllegalAccessException | InvocationTargetException e) {
 
             result = new MethodInvocationResult(e);
         }

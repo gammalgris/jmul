@@ -172,7 +172,7 @@ public class ObjectCacheImpl<T> implements ExpirationListener, ObjectCache<T> {
                 monitors.put(anID, monitor);
 
                 String digits = String.valueOf(nextExpirationMonitorId);
-                String patternString = digits.replaceAll(".", "0");
+                String patternString = digits.replaceAll("[1-9]", "0");
                 DecimalFormat pattern = new DecimalFormat(patternString);
 
                 Thread thread = new Thread(monitor);
