@@ -36,9 +36,14 @@ import java.io.InputStreamReader;
 
 import java.nio.charset.Charset;
 
+import java.util.List;
+
 import jmul.document.csv.CsvDocument;
 import jmul.document.csv.CsvDocumentImpl;
+import static jmul.document.csv.CsvHelper.normalizeValue;
 import jmul.document.csv.structure.HeaderType;
+import static jmul.document.csv.structure.HeaderType.FIRST_LINE_IS_HEADER;
+import static jmul.document.csv.structure.HeaderType.NO_HEADER;
 import jmul.document.csv.structure.StructureType;
 import jmul.document.type.DocumentType;
 import jmul.document.type.DocumentTypes;
@@ -283,6 +288,43 @@ abstract class CsvDocumentReaderBase implements CsvDocumentReader {
         for (int a = rows; a < newRows; a++) {
 
             aTable.addRow();
+        }
+    }
+
+    /**
+     * Parses a line. The caller has to make sure that the line is complete.
+     *
+     * @param aTable
+     *        the table which is filled
+     * @param allSubstrings
+     *        the line (i.e. its components) which is to be parsed
+     */
+    protected void parseLine(@Modified ModifiableTable<String> aTable, List<String> allSubstrings) {
+
+        int maxColumns = allSubstrings.size();
+        HeaderType actualHeaderType = getHeaderType();
+
+        if (actualHeaderType == FIRST_LINE_IS_HEADER) {
+
+            resizeTable(aTable, maxColumns, 0);
+
+            for (int a = 0; a < maxColumns; a++) {
+
+                aTable.setColumnName(a, allSubstrings.get(a));
+            }
+
+        } else if (actualHeaderType == NO_HEADER) {
+
+            resizeTable(aTable, maxColumns, 1);
+
+            for (int a = 0; a < maxColumns; a++) {
+
+                aTable.updateCell(a, 0, normalizeValue(allSubstrings.get(a)));
+            }
+
+        } else {
+
+            throw new UnsupportedOperationException();
         }
     }
 

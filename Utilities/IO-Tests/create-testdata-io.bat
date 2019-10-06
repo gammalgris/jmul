@@ -286,9 +286,12 @@ set functionCalls.length=
 	echo create test data ^(file filter tests^)...
 
 	call:createDirectory testdata-io\folder1 %TRUE%
+	call:createDirectory testdata-io\folder4 %TRUE%
 	call:createFile testdata-io\file1.txt "Hello World"
 	call:createFile testdata-io\file2.txt "Hello World"
 	call:createFile testdata-io\file3.bat "@Echo Hello World"
+	call:createFile testdata-io\folder4\file1.txt "Hello World"
+	call:createFile testdata-io\folder4\file2.txt "Hello World"
 
 %return%
 

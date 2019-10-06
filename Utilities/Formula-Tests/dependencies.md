@@ -4,6 +4,7 @@
 (in alphabetical order)
 
 * Checks
+* Constants
 * Formula
 * Math
 * Misc

@@ -1,7 +1,7 @@
 /*
  * SPDX-License-Identifier: GPL-3.0
- * 
- * 
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -49,7 +49,7 @@ public final class PatternFactory {
     }
 
     /**
-     * The method creates a token pattern.
+     * Returns a new token pattern according to the specified parameters.
      *
      * @param aString
      *        a string containing the pattern
@@ -70,7 +70,7 @@ public final class PatternFactory {
     }
 
     /**
-     * The method creates a token pattern.
+     * Returns a new token pattern according to the specified parameters.
      *
      * @param anOperator
      *        the operator representing the token
@@ -80,6 +80,16 @@ public final class PatternFactory {
     public static TokenPattern newTokenPattern(Operator anOperator) {
 
         return new OperatorTokenPatternImpl(anOperator);
+    }
+
+    /**
+     * Returns a new token pattern according.
+     *
+     * @return a token pattern
+     */
+    public static TokenPattern newTermTokenPattern() {
+
+        return new TermTokenPatternImpl();
     }
 
 }

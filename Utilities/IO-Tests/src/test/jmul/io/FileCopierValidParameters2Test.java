@@ -7,7 +7,7 @@
  * JMUL is a central repository for utilities which are used in my
  * other public and private repositories.
  *
- * Copyright (C) 2016  Kristian Kutin
+ * Copyright (C) 2019  Kristian Kutin
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -61,7 +61,7 @@ import org.junit.runners.Parameterized;
  */
 @UnitTest
 @RunWith(Parameterized.class)
-public class FileCopierValidParametersTest {
+public class FileCopierValidParameters2Test {
 
     /**
      * The actual algorithm which does the copying.
@@ -71,12 +71,12 @@ public class FileCopierValidParametersTest {
     /**
      * The path to a source file.
      */
-    private String sourceFile;
+    private File sourceFile;
 
     /**
      * The path to a source file.
      */
-    private String destinationFile;
+    private File destinationFile;
 
     /**
      * The expected content of the copied file.
@@ -91,8 +91,10 @@ public class FileCopierValidParametersTest {
      * @param aDestinationFile
      * @param anExpectedLine
      */
-    public FileCopierValidParametersTest(FileCopier aFileCopier, String aSourceFile, String aDestinationFile,
-                                         String anExpectedLine) {
+    public FileCopierValidParameters2Test(FileCopier aFileCopier, File aSourceFile, File aDestinationFile,
+                                          String anExpectedLine) {
+
+        super();
 
         fileCopier = aFileCopier;
         sourceFile = aSourceFile;
@@ -106,11 +108,9 @@ public class FileCopierValidParametersTest {
     @Before
     public void setUp() {
 
-        File file = new File(destinationFile);
+        if (destinationFile.exists()) {
 
-        if (file.exists()) {
-
-            file.delete();
+            destinationFile.delete();
         }
     }
 
@@ -127,12 +127,11 @@ public class FileCopierValidParametersTest {
     @Test
     public void testCopying() throws CopyFileException {
 
-        File file = new File(destinationFile);
-        assertFalse(file.exists());
+        assertFalse(destinationFile.exists());
 
         fileCopier.copyFile(sourceFile, destinationFile);
 
-        assertTrue(file.exists());
+        assertTrue(destinationFile.exists());
 
 
         try {
@@ -153,7 +152,7 @@ public class FileCopierValidParametersTest {
     /**
      * Reads the first line from the specified file.
      *
-     * @param aFileName
+     * @param aFile
      *
      * @return the first line
      *
@@ -162,11 +161,11 @@ public class FileCopierValidParametersTest {
      * @throws IOException
      *         is thrown when an error occcurs when reading from the file.
      */
-    private static String readFirstLine(String aFileName) throws FileNotFoundException, IOException {
+    private static String readFirstLine(File aFile) throws FileNotFoundException, IOException {
 
         String firstLine = null;
 
-        try (BufferedReader reader = new BufferedReader(new FileReader(aFileName))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(aFile))) {
 
             firstLine = reader.readLine();
         }
@@ -184,8 +183,8 @@ public class FileCopierValidParametersTest {
 
         Collection<Object[]> parameters = new ArrayList<Object[]>();
 
-        parameters.add(new Object[] { new FileCopierImpl(), "testdata-io\\file1.txt", "testdata-io\\copy.txt",
-                                      "Hello World" });
+        parameters.add(new Object[] { new FileCopierImpl(), new File("testdata-io\\file1.txt"),
+                                      new File("testdata-io\\copy.txt"), "Hello World" });
 
         return parameters;
     }

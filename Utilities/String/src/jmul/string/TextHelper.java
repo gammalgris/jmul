@@ -52,6 +52,11 @@ import static jmul.string.Constants.SPACE;
 public final class TextHelper {
 
     /**
+     * A constant for an empty string.
+     */
+    private static final String EMPTY_STRING = "";
+
+    /**
      * A numeric value indicating that there was no occurrence of a specific
      * string within a string.
      */
@@ -257,6 +262,24 @@ public final class TextHelper {
     public static Charset getDefaultCharset() {
 
         return Charset.defaultCharset();
+    }
+
+    /**
+     * Removes all occurrences of the specified substring.
+     *
+     * @param aString
+     *        a string
+     * @param aSubstring
+     *        a substring or regular expression to identify a substring
+     *
+     * @return a cleaned up substring
+     */
+    public static String removeSubstring(String aString, String aSubstring) {
+
+        ParameterCheckHelper.checkObjectParameter(aString);
+        ParameterCheckHelper.checkObjectParameter(aSubstring);
+
+        return aString.replaceAll(aSubstring, EMPTY_STRING);
     }
 
 }

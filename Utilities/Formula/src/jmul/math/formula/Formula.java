@@ -1,7 +1,7 @@
 /*
  * SPDX-License-Identifier: GPL-3.0
- * 
- * 
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -95,6 +95,13 @@ public class Formula {
     public void setVariable(String aLabel, Object aReference) {
 
         Variable variable = variableManager.getVariable(aLabel);
+
+        if (variable == null) {
+
+            String message = "The formula (\"" + this + "\") doesn't have a variable with the name \"" + aLabel + "\"!";
+            throw new IllegalArgumentException(message);
+        }
+
         variable.setVariableReference(aReference);
     }
 

@@ -1,7 +1,7 @@
 /*
  * SPDX-License-Identifier: GPL-3.0
- * 
- * 
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -28,6 +28,7 @@
 package jmul.math.formula.parser.tokens;
 
 
+import java.util.ArrayList;
 import java.util.Collection;
 
 import jmul.math.formula.parser.patterns.OperatorTokenPattern;
@@ -40,6 +41,19 @@ import jmul.math.formula.parser.patterns.TokenPattern;
  * @author Kristian Kutin
  */
 public final class TokenFactory {
+
+    /**
+     * A constant for no matching token patterns.
+     */
+    private static final Collection<TokenPattern> NO_MATCHING_PATTERNS;
+
+    /*
+     * The static initializer.
+     */
+    static {
+
+        NO_MATCHING_PATTERNS = new ArrayList<>();
+    }
 
     /**
      * The default constructor.
@@ -73,6 +87,19 @@ public final class TokenFactory {
 
             return new TokenImpl(aString, someMatchingPatterns);
         }
+    }
+
+    /**
+     * The method creates a token without token patterns.
+     *
+     * @param aString
+     *        a string
+     *
+     * @return a token
+     */
+    public static Token newUndefinedToken(String aString) {
+
+        return new TokenImpl(aString, NO_MATCHING_PATTERNS);
     }
 
     /**

@@ -28,9 +28,6 @@
 package jmul.math.formula.parser.tokens;
 
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -92,16 +89,17 @@ public class TokenParserImpl implements TokenParser {
      * @param anExpression
      *        an expression
      *
-     * @return a parsed expression
+     * @return a parsed expression or <code>null</code> if none could be identified
      */
     @Override
     public TokenSequence parseExpression(String anExpression) {
 
         TokenSequence determinedSequence = null;
+        List<TokenSequence> results = TokenParserHelper.splitString(anExpression, tokenPatterns);
 
         // Check the seqeunces on ambiguity and try to resolve the ambiguity.
         // The first sequence that has no ambiguity will be returned.
-        for (TokenSequence sequence : splitString(anExpression)) {
+        for (TokenSequence sequence : results) {
 
             boolean undefined = sequence.containsUndefinedToken();
             if (!undefined) {
@@ -217,136 +215,6 @@ public class TokenParserImpl implements TokenParser {
         }
 
         return false;
-    }
-
-    /**
-     * The method will split a string into a sequence of tokens. Due to
-     * ambigous tokens the method may identify more than one sequence. The
-     * caller will have to examine each returned sequence and determine which
-     * sequence is the most plausible one.
-     *
-     * @param aString
-     *        a string to be split
-     *
-     * @return several sequences of tokens
-     */
-    private List<TokenSequence> splitString(String aString) {
-
-        List<TokenSequence> allSequences = new ArrayList<>();
-
-        String string = aString.trim(); // The sequence may still have leading
-        // and trailing spaces
-
-        if (hasNext(string)) {
-
-            Map<Integer, Token> next = getNextToken(string);
-
-            for (Map.Entry<Integer, Token> entry : next.entrySet()) {
-
-                Token token = entry.getValue();
-
-                int length = token.getToken().length();
-                String rest = string.substring(length);
-                rest = rest.trim(); // Remove leading spaces.
-
-                List<TokenSequence> subSequences = splitString(rest);
-
-                if (subSequences.isEmpty()) {
-
-                    TokenSequence subSequence = new TokenSequence();
-                    subSequence.add(0, token);
-                    allSequences.add(subSequence);
-
-                } else {
-
-                    for (TokenSequence subSequence : subSequences) {
-
-                        subSequence.add(0, token);
-                        allSequences.add(subSequence);
-                    }
-                }
-            }
-        }
-
-        return allSequences;
-    }
-
-    /**
-     * The method checks if a string may contain more tokens.
-     *
-     * @param aString
-     *        a string to be examined
-     *
-     * @return true, if the string may contain more tokens, else false
-     */
-    private static boolean hasNext(String aString) {
-
-        return aString.length() > 0;
-    }
-
-    /**
-     * This method will try to identify the next token according to the known
-     * token patterns. More than one token might be identified. The tokens might
-     * also vary in length. The method returns all possible tokens and orders
-     * them according to their lengths.
-     *
-     * @param aString
-     *        a string a string to be examined
-     *
-     * @return matching tokens of varying lengths
-     */
-    private Map<Integer, Token> getNextToken(String aString) {
-
-        Map<Integer, Token> identifiedTokens = new HashMap<>();
-
-        int length = aString.length();
-        for (int a = 1; a <= length; a++) {
-
-            String substring = aString.substring(0, a);
-            Token token = identifyToken(substring);
-
-            if (token != null) {
-
-                identifiedTokens.put(a, token);
-            }
-        }
-
-        return identifiedTokens;
-    }
-
-    /**
-     * The method will try to identify the patterns that will exactly match this
-     * string (from head to tail). If more than one pattern is recognized the
-     * information will be packed into one token.
-     *
-     * @param aString
-     *        a string a string to be examined
-     *
-     * @return a token exactly matching the string, otherwise null
-     */
-    private Token identifyToken(String aString) {
-
-        Collection<TokenPattern> matchingPatterns = new ArrayList<>();
-
-        // Recognize all matching patterns.
-        for (TokenPattern pattern : tokenPatterns) {
-
-            boolean matches = pattern.isToken(aString);
-
-            if (matches) {
-
-                matchingPatterns.add(pattern);
-            }
-        }
-
-        if (matchingPatterns.isEmpty()) {
-
-            return null;
-
-        } else {
-
-            return TokenFactory.newToken(aString, matchingPatterns);
-        }
     }
 
     /**
@@ -550,6 +418,10 @@ public class TokenParserImpl implements TokenParser {
 
             // As this is the first token it doesn't meet the
             // criteria.
+
+
+
+
 
 
 

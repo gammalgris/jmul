@@ -31,8 +31,6 @@ package jmul.math.formula.parser.tokens;
 import java.util.ArrayList;
 import java.util.List;
 
-import jmul.string.TextHelper;
-
 
 /**
  * A helper class for better readability.
@@ -130,13 +128,30 @@ public class TokenSequence extends ArrayList<Token> implements List<Token> {
     @Override
     public String toString() {
 
-        StringBuilder representation = new StringBuilder();
+        StringBuilder buffer = new StringBuilder();
+
+        buffer.append("[");
+        boolean first = true;
+
         for (Token token : this) {
 
-            TextHelper.append2StringBuilder(representation, token);
+            if (first) {
+
+                first = !first;
+
+            } else {
+
+                buffer.append(",");
+            }
+
+            buffer.append("'");
+            buffer.append(token);
+            buffer.append("'");
         }
 
-        return representation.toString();
+        buffer.append("]");
+
+        return buffer.toString();
     }
 
 }

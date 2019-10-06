@@ -1,7 +1,7 @@
 /*
  * SPDX-License-Identifier: GPL-3.0
- * 
- * 
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -70,7 +70,7 @@ class VariableManager {
      * @param aVariableName
      *        a variable name
      *
-     * @return a variable
+     * @return a variable or <code>null</code> if no such variable exists
      */
     public Variable getVariable(String aVariableName) {
 

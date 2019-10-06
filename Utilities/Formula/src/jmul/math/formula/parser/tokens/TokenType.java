@@ -30,6 +30,9 @@ package jmul.math.formula.parser.tokens;
 
 /**
  * The enumeration lists all types of tokens.
+ * 
+ * TODO move unary, binary and ternary to token properties. These should not be token types.
+ * TODO the distinction between operand and operator isn't clear.
  *
  * @author Kristian Kutin
  */
@@ -45,7 +48,7 @@ public enum TokenType {
 
     UNARY("unary"),
     BINARY("binary"),
-    TERNARY("ernary"), ;
+    TERNARY("ternary"), ;
 
 
     /**

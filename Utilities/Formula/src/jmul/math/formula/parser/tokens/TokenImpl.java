@@ -1,7 +1,7 @@
 /*
  * SPDX-License-Identifier: GPL-3.0
- * 
- * 
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -30,6 +30,8 @@ package jmul.math.formula.parser.tokens;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
 import jmul.math.formula.parser.patterns.TokenPattern;
 
@@ -49,7 +51,7 @@ public class TokenImpl implements Token {
     /**
      * The class member contains all matching patterns.
      */
-    private final Collection<TokenPattern> matchingPatterns;
+    private final Set<TokenPattern> matchingPatterns;
 
     /**
      * The default constructor.
@@ -61,8 +63,16 @@ public class TokenImpl implements Token {
      */
     public TokenImpl(String aToken, Collection<TokenPattern> someMatchingPatterns) {
 
+        super();
+
         token = aToken;
-        matchingPatterns = someMatchingPatterns;
+
+        matchingPatterns = new HashSet<>();
+
+        if (someMatchingPatterns != null) {
+
+            matchingPatterns.addAll(someMatchingPatterns);
+        }
     }
 
     /**
@@ -120,7 +130,7 @@ public class TokenImpl implements Token {
      * @param aType
      *        a category
      *
-     * @return true, if the token belongs to the specified category, else false
+     * @return <code>true</code>, if the token belongs to the specified category, else <code>false</code>
      */
     @Override
     public boolean isOfType(TokenType aType) {
@@ -139,7 +149,7 @@ public class TokenImpl implements Token {
      * In certain cases a string might match several token patterns. The token
      * will then be labeled as 'ambigous'.
      *
-     * @return true, if this token is ambigous, else false
+     * @return <code>true</code>, if this token is ambigous, else <code>false</code>
      */
     @Override
     public boolean isAmbigous() {
@@ -151,12 +161,12 @@ public class TokenImpl implements Token {
      * In certain cases a string might not match any token pattern. The token
      * will then be labeled as 'undefined'.
      *
-     * @return true, if the token is undefined, else false
+     * @return <code>true</code>, if the token is undefined, else <code>false</code>
      */
     @Override
     public boolean isUndefined() {
 
-        return (matchingPatterns == null) || ((matchingPatterns != null) && (matchingPatterns.isEmpty()));
+        return matchingPatterns.isEmpty();
     }
 
     /**

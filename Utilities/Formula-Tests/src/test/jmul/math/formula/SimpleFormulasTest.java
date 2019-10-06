@@ -1,7 +1,7 @@
 /*
  * SPDX-License-Identifier: GPL-3.0
- * 
- * 
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -69,12 +69,18 @@ public class SimpleFormulasTest extends FormulaTestBase {
         parameters.add(new Object[] { "(-4) +5", 1 });
         parameters.add(new Object[] { "10-7", 3 });
         parameters.add(new Object[] { "5*5", 25 });
+        parameters.add(new Object[] { "5*5*5", 125 });
         parameters.add(new Object[] { "25/5", 5 });
         parameters.add(new Object[] { "21/5", 4 });
         parameters.add(new Object[] { "1 +2 - ( 1 + 2 )", 0 });
         parameters.add(new Object[] { "100+205-15+234", 524 });
         parameters.add(new Object[] { "((100+205)-15)+234", 524 });
         parameters.add(new Object[] { "100+205+234-15", 524 });
+        parameters.add(new Object[] { "(1+2)+(3+4)", 10 });
+        parameters.add(new Object[] { "(1+2)*(3+4)", 21 });
+        parameters.add(new Object[] { "(1-2)*(3-4)", 1 });
+        parameters.add(new Object[] { "(1+2)/(3-4)", -3 });
+        parameters.add(new Object[] { "1", 1 });
 
         return parameters;
     }

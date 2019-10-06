@@ -1,7 +1,7 @@
 /*
  * SPDX-License-Identifier: GPL-3.0
- * 
- * 
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -135,6 +135,24 @@ public class TokenPatternImpl implements TokenPattern {
     public boolean isToken(String aString, int startIndex, int endIndex) {
 
         return isToken(aString.substring(startIndex, endIndex));
+    }
+
+    /**
+     * Returns a string representation for this object.
+     *
+     * @return a string representation
+     */
+    @Override
+    public String toString() {
+
+        StringBuilder buffer = new StringBuilder();
+
+        buffer.append("pattern=\"");
+        buffer.append(pattern);
+        buffer.append("\"; classification=");
+        buffer.append(classification);
+
+        return buffer.toString();
     }
 
 }

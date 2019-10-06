@@ -123,7 +123,7 @@ public class FileExtensionFilterTest extends FileFilterTestBase {
 
         FileFilter filter = getFileFilter();
 
-        File basedir = new File("testdata-io");
+        File basedir = new File("testdata-io\\folder4");
         File[] results = basedir.listFiles(filter);
 
         assertEquals(2, results.length);

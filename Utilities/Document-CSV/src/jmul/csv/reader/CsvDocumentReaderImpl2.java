@@ -37,8 +37,6 @@ import java.util.List;
 
 import static jmul.document.csv.CsvHelper.normalizeValue;
 import jmul.document.csv.structure.HeaderType;
-import static jmul.document.csv.structure.HeaderType.FIRST_LINE_IS_HEADER;
-import static jmul.document.csv.structure.HeaderType.NO_HEADER;
 import jmul.document.csv.structure.StructureType;
 import static jmul.document.csv.structure.StructureType.FLEXIBLE;
 import static jmul.document.csv.structure.StructureType.RIGID;
@@ -251,31 +249,7 @@ public class CsvDocumentReaderImpl2 extends CsvDocumentReaderBase {
         }
 
 
-        int maxColumns = substrings.size();
-        HeaderType actualHeaderType = getHeaderType();
-
-        if (actualHeaderType == FIRST_LINE_IS_HEADER) {
-
-            resizeTable(aTable, maxColumns, 0);
-
-            for (int a = 0; a < maxColumns; a++) {
-
-                aTable.setColumnName(a, substrings.get(a));
-            }
-
-        } else if (actualHeaderType == NO_HEADER) {
-
-            resizeTable(aTable, maxColumns, 1);
-
-            for (int a = 0; a < maxColumns; a++) {
-
-                aTable.updateCell(a, 0, normalizeValue(substrings.get(a)));
-            }
-
-        } else {
-
-            throw new UnsupportedOperationException();
-        }
+        parseLine(aTable, substrings);
     }
 
     /**

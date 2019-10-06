@@ -1,7 +1,7 @@
 /*
  * SPDX-License-Identifier: GPL-3.0
- * 
- * 
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -61,6 +61,7 @@ public class VariableFormulasTest extends FormulaTestBase {
 
         parameters.add(new Object[] { "4+a", new Variable[] { new Variable("a", 5) }, 9 });
         parameters.add(new Object[] { "a*b", new Variable[] { new Variable("a", 3), new Variable("b", 7) }, 21 });
+        parameters.add(new Object[] { "c", new Variable[] { new Variable("c", 1) }, 1 });
 
         return parameters;
     }

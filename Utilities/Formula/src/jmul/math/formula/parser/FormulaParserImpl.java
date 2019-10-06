@@ -1,7 +1,7 @@
 /*
  * SPDX-License-Identifier: GPL-3.0
- * 
- * 
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -35,10 +35,7 @@ import jmul.math.formula.Formula;
 import jmul.math.formula.Operand;
 import jmul.math.formula.Term;
 import jmul.math.formula.Variable;
-import jmul.math.formula.operations.Operation;
 import jmul.math.formula.operations.Operator;
-import jmul.math.formula.parser.patterns.PatternFactory;
-import jmul.math.formula.parser.patterns.TermTokenPatternImpl;
 import jmul.math.formula.parser.patterns.TokenPattern;
 import jmul.math.formula.parser.tokens.OperatorToken;
 import jmul.math.formula.parser.tokens.Token;
@@ -46,6 +43,7 @@ import jmul.math.formula.parser.tokens.TokenFactory;
 import jmul.math.formula.parser.tokens.TokenGroup;
 import jmul.math.formula.parser.tokens.TokenGroupSequence;
 import jmul.math.formula.parser.tokens.TokenParser;
+import jmul.math.formula.parser.tokens.TokenPatternSets;
 import jmul.math.formula.parser.tokens.TokenSequence;
 import jmul.math.formula.parser.tokens.TokenType;
 
@@ -72,27 +70,10 @@ public class FormulaParserImpl implements FormulaParser {
 
         TokenParser parser = TokenFactory.newTokenParser();
 
-        // Add operator patterns first.
-        for (Operation operation : Operation.values()) {
+        for (TokenPattern pattern : TokenPatternSets.getDefaultMathTokenPatterns()) {
 
-            TokenPattern pattern = PatternFactory.newTokenPattern(operation.getOperator());
             parser.addTokenPattern(pattern);
         }
-
-
-        // Add operand pattern (variable) now.
-        String regex = "([a-zA-Z][a-zA-Z-0-9_]*)";
-        TokenPattern pattern = PatternFactory.newTokenPattern(regex, TokenType.OPERAND, TokenType.VARIABLE);
-        parser.addTokenPattern(pattern);
-
-        // Add operand pattern (constant) now.
-        regex = "(([1-9][0-9]*)|0)";
-        pattern = PatternFactory.newTokenPattern(regex, TokenType.OPERAND, TokenType.CONSTANT);
-        parser.addTokenPattern(pattern);
-
-        // Add operand pattern (term) now.
-        pattern = new TermTokenPatternImpl();
-        parser.addTokenPattern(pattern);
 
         return parser;
     }
@@ -262,7 +243,9 @@ public class FormulaParserImpl implements FormulaParser {
                         throw new FormulaParserException(message);
                     }
 
-                    Operator operator = operatorToken.getMatchingOperators().iterator().next();
+                    Operator operator = operatorToken.getMatchingOperators()
+                                                     .iterator()
+                                                     .next();
                     Term term = new Term(aFormula, operator);
 
                     term.addOperand(parseString(aFormula, operandToken.toString()));
@@ -294,7 +277,9 @@ public class FormulaParserImpl implements FormulaParser {
 
             int operatorIndex = group.getIndexOfLastGroupOperator();
             OperatorToken operatorToken = (OperatorToken) tokenSequence.get(operatorIndex);
-            Operator operator = operatorToken.getMatchingOperators().iterator().next();
+            Operator operator = operatorToken.getMatchingOperators()
+                                             .iterator()
+                                             .next();
 
             TokenSequence[] parts = tokenSequence.splitSequence(operatorIndex);
 

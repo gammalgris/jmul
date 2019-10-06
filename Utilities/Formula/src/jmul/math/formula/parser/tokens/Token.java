@@ -1,7 +1,7 @@
 /*
  * SPDX-License-Identifier: GPL-3.0
- * 
- * 
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -83,7 +83,7 @@ public interface Token {
      * @param aType
      *        a category
      *
-     * @return true, if the token belongs to the specified category, else false
+     * @return <code>true</code>, if the token belongs to the specified category, else <code>false</code>
      */
     boolean isOfType(TokenType aType);
 
@@ -91,7 +91,7 @@ public interface Token {
      * In certain cases a string might match several token patterns. The token
      * will then be labeled as 'ambigous'.
      *
-     * @return true, if this token is ambigous, else false
+     * @return <code>true</code>, if this token is ambigous, else <code>false</code>
      */
     boolean isAmbigous();
 
@@ -99,7 +99,7 @@ public interface Token {
      * In certain cases a string might not match any token pattern. The token
      * will then be labeled as 'undefined'.
      *
-     * @return true, if the token is undefined, else false
+     * @return <code>true</code>, if the token is undefined, else <code>false</code>
      */
     boolean isUndefined();
 

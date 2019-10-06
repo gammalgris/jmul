@@ -111,7 +111,7 @@ public class DirectoryFilterTest extends FileFilterTestBase {
         File basedir = new File("testdata-io");
         File[] results = basedir.listFiles(filter);
 
-        assertEquals(5, results.length);
+        assertEquals(6, results.length);
     }
 
 }
