@@ -6,7 +6,7 @@
 
 # Java source files and properties
 
-*.java eol=lf
+*.java eol=lf ident
 *.properties eol=lf
 
 
