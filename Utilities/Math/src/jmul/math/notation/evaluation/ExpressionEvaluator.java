@@ -25,6 +25,12 @@
  * e-mail: kristian.kutin@arcor.de
  */
 
+/*
+ * This section contains meta informations.
+ *
+ * $Id$
+ */
+
 package jmul.math.notation.evaluation;
 
 
@@ -43,8 +49,11 @@ public interface ExpressionEvaluator {
      * Evaluates the specified expression.
      *
      * @param firstNumber
+     *        the first number as string
      * @param aComparator
+     *        a comparator to compare both numbers
      * @param secondNumber
+     *        the second number as string
      *
      * @return <code>true</code> if the statement is true, else <code>false</code>
      */

@@ -25,6 +25,12 @@
  * e-mail: kristian.kutin@arcor.de
  */
 
+/*
+ * This section contains meta informations.
+ *
+ * $Id$
+ */
+
 package jmul.transformation;
 
 
@@ -75,6 +81,13 @@ public class TransformationFactoryImpl implements TransformationFactory {
 
     /**
      * The default constructor.
+     *
+     * @param anInitializerClass
+     *        the class name of an entity which does the actual initialization of this factory
+     * @param aFilterClass
+     *        the class name of a file filter
+     * @param anApplicationStrategyClass
+     *        the class name of an entity which applies the transformation rules
      */
     public TransformationFactoryImpl(Class anInitializerClass, Class aFilterClass, Class anApplicationStrategyClass) {
 

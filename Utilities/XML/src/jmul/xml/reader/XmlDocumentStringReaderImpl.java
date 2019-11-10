@@ -25,6 +25,12 @@
  * e-mail: kristian.kutin@arcor.de
  */
 
+/*
+ * This section contains meta informations.
+ *
+ * $Id$
+ */
+
 package jmul.xml.reader;
 
 
@@ -119,7 +125,7 @@ public class XmlDocumentStringReaderImpl extends XmlDocumentReaderBase {
      *         is thrown if an error occurs while reading from the archive
      */
     @Override
-    public Document readFrom(String archiveName, String filename) throws SAXException, IOException {
+    public Document readFrom(String anArchiveName, String aFilename) throws SAXException, IOException {
 
         throw new UnsupportedOperationException();
     }

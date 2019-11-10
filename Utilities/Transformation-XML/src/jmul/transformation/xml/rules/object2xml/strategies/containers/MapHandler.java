@@ -25,6 +25,12 @@
  * e-mail: kristian.kutin@arcor.de
  */
 
+/*
+ * This section contains meta informations.
+ *
+ * $Id$
+ */
+
 package jmul.transformation.xml.rules.object2xml.strategies.containers;
 
 

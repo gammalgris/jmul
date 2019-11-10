@@ -25,6 +25,12 @@
  * e-mail: kristian.kutin@arcor.de
  */
 
+/*
+ * This section contains meta informations.
+ *
+ * $Id$
+ */
+
 package jmul.math.notation.precision;
 
 
@@ -53,6 +59,7 @@ abstract class PrecisionCheckerBase implements PrecisionChecker {
      * the number) for the specified number string.
      *
      * @param aString
+     *        a number string
      *
      * @return a precision
      */

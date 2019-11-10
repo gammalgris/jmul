@@ -25,6 +25,12 @@
  * e-mail: kristian.kutin@arcor.de
  */
 
+/*
+ * This section contains meta informations.
+ *
+ * $Id$
+ */
+
 package jmul.transformation.message;
 
 
@@ -39,6 +45,7 @@ public interface MessageFactory {
      * Returns a message for the specified object.
      *
      * @param anObject
+     *        an object for which to create a message
      *
      * @return a message
      */

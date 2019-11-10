@@ -25,7 +25,14 @@
  * e-mail: kristian.kutin@arcor.de
  */
 
+/*
+ * This section contains meta informations.
+ *
+ * $Id$
+ */
+
 package test.jmul.binary.reader;
+
 
 import java.io.IOException;
 

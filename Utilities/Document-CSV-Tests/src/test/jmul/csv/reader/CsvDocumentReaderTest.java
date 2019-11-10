@@ -25,6 +25,12 @@
  * e-mail: kristian.kutin@arcor.de
  */
 
+/*
+ * This section contains meta informations.
+ *
+ * $Id$
+ */
+
 package test.jmul.csv.reader;
 
 
@@ -647,6 +653,50 @@ public class CsvDocumentReaderTest {
         String message = "expected: " + expectedString + "; row=" + b + "; column=" + a + "; actual=" + actualString;
 
         assertNotEquals(message, expectedString, actualString);
+    }
+
+    /**
+     * Tests parsing a CSV file. The first line is a header line and contains
+     * 3 data lines. The column separator is a semicolon. The row separator is
+     * a windows style line break. One column doesn't have a header title.
+     */
+    @Test
+    public void testParseDocument13() {
+
+        String filename = "testdata-csv\\example12.csv";
+        CsvDocumentReader reader = new CsvDocumentReaderImpl();
+
+        CsvDocument document;
+
+        try {
+
+            document = reader.readFrom(filename);
+
+        } catch (IOException e) {
+
+            throw new FailedTestException(e);
+        }
+
+
+        assertEquals(DocumentTypes.CSV, document.getDocumentType());
+        assertEquals(SEMICOLON, document.getStructure().getColumnSeparator());
+        assertEquals(NEW_LINE_WINDOWS, document.getStructure().getRowSeparator());
+        assertEquals(HeaderType.FIRST_LINE_IS_HEADER, document.getStructure().getHeaderType());
+        assertEquals(StructureType.RIGID, document.getStructure().getStructureType());
+
+        String[] header1 = document.getStructure().getHeader();
+        List<String> header2 = document.getContent().getColumnNames();
+
+        Table<String> table = document.getContent();
+        int columns = table.columns();
+
+        for (int a = 0; a < columns; a++) {
+
+            assertEquals(header1[a], header2.get(a));
+        }
+
+
+        checkTableData(table);
     }
 
 }

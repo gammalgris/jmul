@@ -1,7 +1,7 @@
 /*
  * SPDX-License-Identifier: GPL-3.0
- * 
- * 
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -25,11 +25,19 @@
  * e-mail: kristian.kutin@arcor.de
  */
 
+/*
+ * This section contains meta informations.
+ *
+ * $Id$
+ */
+
 package test.jmul.misc.table;
 
 
 import jmul.misc.table.ModifiableTable;
 import jmul.misc.table.ModifiableTableImpl;
+
+import jmul.test.classification.UnitTest;
 
 import org.junit.After;
 import static org.junit.Assert.assertEquals;
@@ -44,6 +52,7 @@ import org.junit.Test;
  *
  * @author Kristian Kutin
  */
+@UnitTest
 public class ModifiableTable3Test {
 
     /**

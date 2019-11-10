@@ -1,7 +1,7 @@
 /*
  * SPDX-License-Identifier: GPL-3.0
- * 
- * 
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -25,6 +25,12 @@
  * e-mail: kristian.kutin@arcor.de
  */
 
+/*
+ * This section contains meta informations.
+ *
+ * $Id$
+ */
+
 package test.jmul.misc.table;
 
 
@@ -32,6 +38,8 @@ import java.util.List;
 
 import jmul.misc.table.Table;
 import jmul.misc.table.UnmodifiableTableImpl;
+
+import jmul.test.classification.UnitTest;
 
 import org.junit.After;
 import static org.junit.Assert.assertEquals;
@@ -41,10 +49,14 @@ import org.junit.Test;
 
 
 /**
- * A collection of tests for unmodifiable tables.
+ * A collection of tests for unmodifiable tables.<br>
+ * <br>
+ * <i>Note:<br>
+ * The test data consists of a table with correctly filled header and with gaps/ empty data cells.</i>
  *
  * @author Kristian Kutin
  */
+@UnitTest
 public class UnmodifiableTableTest {
 
     /**
@@ -58,9 +70,9 @@ public class UnmodifiableTableTest {
     @Before
     public void setUp() {
 
-        table = new UnmodifiableTableImpl<Integer>(new String[] { "A", "B", "C" }, new Integer[][] {
-                                                   { 1, 2, 3 }, { 4, 5, 6 }, { 7, 8, null }
-            });
+        table =
+            new UnmodifiableTableImpl<Integer>(new String[] { "A", "B", "C" },
+                                               new Integer[][] { { 1, 2, 3 }, { 4, 5, 6 }, { 7, 8, null } });
     }
 
     /**

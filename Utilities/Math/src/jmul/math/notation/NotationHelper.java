@@ -25,6 +25,12 @@
  * e-mail: kristian.kutin@arcor.de
  */
 
+/*
+ * This section contains meta informations.
+ *
+ * $Id$
+ */
+
 package jmul.math.notation;
 
 
@@ -298,6 +304,7 @@ public final class NotationHelper {
      * the lowest possible precision type to store the number).
      *
      * @param aString
+     *        a string containing a number
      *
      * @return a corresponding precision type
      */

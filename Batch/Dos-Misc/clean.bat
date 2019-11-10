@@ -11,6 +11,7 @@
 
 :main
 
+	call:defineMacros
 	call:setUp
 
 	echo.
@@ -30,7 +31,31 @@
 
 	pause
 
-exit /b 0
+%return%
+
+
+@rem ================================================================================
+@rem ===
+@rem ===   Internal Subroutines
+@rem ===
+
+@rem --------------------------------------------------------------------------------
+@rem ---
+@rem ---   void defineMacros()
+@rem ---
+@rem ---   The subroutine defines required macros.
+@rem ---
+
+:defineMacros
+
+	set "ifError=set foundErr=1&(if errorlevel 0 if not errorlevel 1 set foundErr=)&if defined foundErr"
+	
+	set "cprintln=echo"
+	set "cprint=echo|set /p="
+	
+	set "return=exit /b"
+
+%return%
 
 
 @rem --------------------------------------------------------------------------------
@@ -117,7 +142,7 @@ exit /b 0
 	set directory[66]=%projectDir%..\Batch\Gradle-Build\.gradle\
 	set directory[67]=%projectDir%..\Batch\Gradle-Build\build\
 
-exit /b 0
+%return%
 
 
 @rem --------------------------------------------------------------------------------
@@ -138,7 +163,7 @@ exit /b 0
 
 	set projectDir=
 
-exit /b 0
+%return%
 
 
 @rem --------------------------------------------------------------------------------
@@ -158,7 +183,7 @@ exit /b 0
 	if '%_path%'=='' (
 
 		echo No directory has been specified! >&2
-		exit /b 2
+		%return% 2
 	)
 	set "_path=%_path:"=%"
 
@@ -176,4 +201,4 @@ exit /b 0
 
 	set _path=
 
-exit /b 0
+%return%

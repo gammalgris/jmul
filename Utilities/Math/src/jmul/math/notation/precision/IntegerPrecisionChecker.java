@@ -25,6 +25,12 @@
  * e-mail: kristian.kutin@arcor.de
  */
 
+/*
+ * This section contains meta informations.
+ *
+ * $Id$
+ */
+
 package jmul.math.notation.precision;
 
 
@@ -130,7 +136,9 @@ public class IntegerPrecisionChecker extends PrecisionCheckerBase {
      * the number) for the specified number string.
      *
      * @param aString
+     *        a number string
      * @param someProperties
+     *        the properties of the number
      *
      * @return a precision
      */

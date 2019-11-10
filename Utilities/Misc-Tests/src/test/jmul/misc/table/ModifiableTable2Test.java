@@ -25,16 +25,22 @@
  * e-mail: kristian.kutin@arcor.de
  */
 
+/*
+ * This section contains meta informations.
+ *
+ * $Id$
+ */
+
 package test.jmul.misc.table;
 
 
 import jmul.misc.table.ModifiableTable;
 import jmul.misc.table.ModifiableTableImpl;
 
+import jmul.test.classification.UnitTest;
+
 import org.junit.After;
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -44,6 +50,7 @@ import org.junit.Test;
  *
  * @author Kristian Kutin
  */
+@UnitTest
 public class ModifiableTable2Test {
 
     /**

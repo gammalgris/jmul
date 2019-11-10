@@ -25,6 +25,12 @@
  * e-mail: kristian.kutin@arcor.de
  */
 
+/*
+ * This section contains meta informations.
+ *
+ * $Id$
+ */
+
 package jmul.transformation.message.rules;
 
 
@@ -68,6 +74,7 @@ abstract class MessageCreatorBase implements MessageCreator {
      * object.
      *
      * @param anObject
+     *        an object for which to create a message
      *
      * @return <code>true</code> if this creator can handle the specified
      *         object, else <code>false</code>

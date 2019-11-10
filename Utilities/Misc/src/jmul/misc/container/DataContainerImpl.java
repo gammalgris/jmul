@@ -25,7 +25,14 @@
  * e-mail: kristian.kutin@arcor.de
  */
 
+/*
+ * This section contains meta informations.
+ *
+ * $Id$
+ */
+
 package jmul.misc.container;
+
 
 import java.util.HashMap;
 import java.util.Map;

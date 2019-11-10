@@ -25,6 +25,12 @@
  * e-mail: kristian.kutin@arcor.de
  */
 
+/*
+ * This section contains meta informations.
+ *
+ * $Id$
+ */
+
 package jmul.xml.reader;
 
 
@@ -133,12 +139,12 @@ public class XmlDocumentReaderImpl extends XmlDocumentReaderBase {
      */
     @Inefficient
     @Override
-    public Document readFrom(String archiveName, String filename) throws SAXException, IOException {
+    public Document readFrom(String anArchiveName, String aFilename) throws SAXException, IOException {
 
         DocumentBuilder builder = newDocumentBuilder();
-        JarResources resources = new JarResources(archiveName);
+        JarResources resources = new JarResources(anArchiveName);
 
-        try (ByteArrayInputStream byteStream = new ByteArrayInputStream(resources.getResource(filename))) {
+        try (ByteArrayInputStream byteStream = new ByteArrayInputStream(resources.getResource(aFilename))) {
 
             return builder.parse(byteStream);
         }
