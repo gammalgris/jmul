@@ -35,8 +35,9 @@ package jmul.document.markdown.content.chapter;
 
 
 import jmul.document.markdown.content.node.ContentNode;
-import jmul.document.markdown.content.node.TextNodeImpl;
-import jmul.document.markdown.content.node.TreeHelper;
+import jmul.document.markdown.content.node.ContentNodeImpl;
+
+import static jmul.string.Constants.EMPTY_STRING;
 
 
 /**
@@ -44,7 +45,12 @@ import jmul.document.markdown.content.node.TreeHelper;
  *
  * @author Kristian Kutin
  */
-public class HeadlineImpl extends TextNodeImpl implements Headline {
+public class HeadlineImpl extends ContentNodeImpl implements Headline {
+
+    /**
+     * Contains the actual headline.
+     */
+    private final CharSequence headline;
 
     /**
      * The default constructor.
@@ -52,51 +58,111 @@ public class HeadlineImpl extends TextNodeImpl implements Headline {
     public HeadlineImpl() {
 
         super();
+
+        headline = EMPTY_STRING;
     }
 
     /**
      * Creates a new headline according to the specified parameters.
      *
-     * @param aText
+     * @param aHeadline
      *        the headline text
      */
-    public HeadlineImpl(CharSequence aText) {
+    public HeadlineImpl(CharSequence aHeadline) {
 
         super();
 
-        setText(aText.toString());
+        if (aHeadline == null) {
+
+            headline = EMPTY_STRING;
+
+        } else {
+
+            headline = aHeadline;
+        }
     }
 
     /**
-     * Returns the type of the headline (e.g. type 1 is a headline on the
-     * topmost level, type 2 is a headline below the topmost level, etc.)
-     * as a numeric value.
+     * Returns the type of the headline (e.g. type 1 is a headline on the topmost level,
+     * type 2 is a headline below the topmost level, etc.) as a numeric value. A zero
+     * indicates that tghis headline has not yet been assigned to a chapter.
      *
      * @return a headline type
      */
     @Override
     public int getHeadlineType() {
 
-        int level = 1;
-        ContentNode node = (ContentNode) this;
-        ContentNode parent = node.getParent();
+        int level = 0;
+        ContentNode node = this;
 
         while (true) {
 
-            if (parent == null) {
-
-                break;
-            }
-
-            if (TreeHelper.isChapterNode(parent)) {
+            Class actualClass = node.getClass();
+            if (Chapter.class.isAssignableFrom(actualClass)) {
 
                 level++;
             }
 
-            parent = parent.getParent();
+            if (!node.hasParent()) {
+
+                break;
+            }
+
+            node = node.getParent();
         }
 
         return level;
+    }
+
+    /**
+     * Returns the length of the headline string.
+     *
+     * @return
+     */
+    @Override
+    public int length() {
+
+        return headline.length();
+    }
+
+    /**
+     * Returns the character at the specified index position.
+     *
+     * @param index
+     *        an index position (i.e. a number is zero or higher and lesser than the headline length)
+     *
+     * @return a character
+     */
+    @Override
+    public char charAt(int index) {
+
+        return headline.charAt(index);
+    }
+
+    /**
+     * Returns a subsequence of this headline specified by the specified index parameters.
+     *
+     * @param start
+     *        a start index (i.e. a number is zero or higher and lesser than the end index)
+     * @param end
+     *        an end index (i.e. a number is higher than the start index and lesser than the headline length)
+     *
+     * @return a sub sequence
+     */
+    @Override
+    public CharSequence subSequence(int start, int end) {
+
+        return headline.subSequence(start, end);
+    }
+
+    /**
+     * Returns a string representation of this object.
+     *
+     * @return a string representation
+     */
+    public String toString() {
+
+        return headline.toString();
     }
 
 }

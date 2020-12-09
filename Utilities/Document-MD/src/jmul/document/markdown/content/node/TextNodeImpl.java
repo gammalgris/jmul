@@ -38,7 +38,10 @@ package jmul.document.markdown.content.node;
  * An implementation of a text node.
  *
  * @author Kristian Kutin
+ *
+ * @deprecated Remove dependencies and delete this class.
  */
+@Deprecated
 public class TextNodeImpl implements TextNode {
 
     /**

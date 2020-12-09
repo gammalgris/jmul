@@ -38,7 +38,11 @@ package jmul.document.markdown.content.node;
  * This interface describes a chapter node.
  *
  * @author Kristian Kutin
+ *
+ * @deprecated Remove dependencies and delete interface and implementation. Solve
+ *             sibling functionalities by traversing tree.
  */
+@Deprecated
 public interface ChapterNode {
 
     /**

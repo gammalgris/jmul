@@ -36,6 +36,8 @@ package jmul.document.markdown.content.text;
 
 import jmul.document.markdown.content.paragraph.Paragraph;
 
+import jmul.misc.text.ModifiableText;
+
 
 /**
  * This interface describes a text block within a markdown document. Text
@@ -43,5 +45,5 @@ import jmul.document.markdown.content.paragraph.Paragraph;
  *
  * @author Kristian Kutin
  */
-public interface TextBlock extends Paragraph {
+public interface TextBlock extends Paragraph, ModifiableText {
 }

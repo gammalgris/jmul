@@ -42,7 +42,10 @@ import jmul.document.markdown.content.enumeration.UnorderedList;
  * A helper class for the markdown document tree.
  *
  * @author Kristian Kutin
+ *
+ * @deprecated Remove dependencies and delete class.
  */
+@Deprecated
 public final class TreeHelper {
 
     /**

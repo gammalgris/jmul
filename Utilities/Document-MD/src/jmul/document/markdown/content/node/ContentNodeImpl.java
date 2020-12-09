@@ -80,4 +80,15 @@ public class ContentNodeImpl implements ContentNode {
         parent = aParent;
     }
 
+    /**
+     * Checks if this node has a parent node.
+     *
+     * @return <code>true</code> if this node has ap arent node, else <code>false</code>
+     */
+    @Override
+    public boolean hasParent() {
+
+        return getParent() != null;
+    }
+
 }

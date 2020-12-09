@@ -38,7 +38,10 @@ package jmul.document.markdown.content.node;
  * This interface describes a text node.
  *
  * @author Kristian Kutin
+ *
+ * @deprecated Remove dependencies and delete this interface and its implementation.
  */
+@Deprecated
 public interface TextNode extends CharSequence {
 
     /**

@@ -66,7 +66,7 @@ public class CitationImpl extends ContentNodeImpl implements Citation {
     /**
      * Creates a new citation block according to the specified parameters.
      *
-     * @param aText
+     * @param aParagraph
      *        the quoted text
      */
     public CitationImpl(Paragraph aParagraph) {

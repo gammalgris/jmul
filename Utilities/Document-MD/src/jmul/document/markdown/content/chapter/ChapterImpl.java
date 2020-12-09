@@ -37,6 +37,7 @@ package jmul.document.markdown.content.chapter;
 import java.util.ArrayList;
 import java.util.List;
 
+import jmul.document.markdown.content.node.ContentNode;
 import jmul.document.markdown.content.node.ContentNodeImpl;
 import jmul.document.markdown.content.paragraph.Paragraph;
 
@@ -100,7 +101,18 @@ public class ChapterImpl extends ContentNodeImpl implements Chapter {
     public Headline setHeadline(Headline aHeadline) {
 
         Headline previousHeadline = headline;
+        ContentNode previousNode = (ContentNode) headline;
+        if (previousNode != null) {
+
+            previousNode.setParent(null);
+        }
+
         headline = aHeadline;
+        ContentNode newNode = (ContentNode) aHeadline;
+        if (newNode != null) {
+
+            newNode.setParent(this);
+        }
 
         return previousHeadline;
     }

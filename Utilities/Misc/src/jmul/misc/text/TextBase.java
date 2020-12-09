@@ -36,7 +36,7 @@ package jmul.misc.text;
 
 import java.util.List;
 
-import static jmul.string.Constants.FILE_SEPARATOR;
+import static jmul.string.Constants.NEW_LINE;
 
 
 /**
@@ -107,7 +107,7 @@ abstract class TextBase implements Text {
     @Override
     public String getContentAsString() {
 
-        return getContentAsString(FILE_SEPARATOR);
+        return getContentAsString(NEW_LINE);
     }
 
     /**

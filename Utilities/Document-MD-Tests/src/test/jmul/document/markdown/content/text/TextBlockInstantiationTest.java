@@ -7,7 +7,7 @@
  * JMUL is a central repository for utilities which are used in my
  * other public and private repositories.
  *
- * Copyright (C) 2017  Kristian Kutin
+ * Copyright (C) 2020  Kristian Kutin
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -31,37 +31,39 @@
  * $Id$
  */
 
-package jmul.document.markdown.content.node;
+package test.jmul.document.markdown.content.text;
+
+
+import jmul.document.markdown.content.text.TextBlock;
+import jmul.document.markdown.content.text.TextBlockImpl;
+
+import jmul.test.classification.UnitTest;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import org.junit.Test;
 
 
 /**
- * This interface decsribes a node within a markdown document object.
+ * This class tests the instantiation of a text block.
  *
  * @author Kristian Kutin
  */
-public interface ContentNode {
+@UnitTest
+public class TextBlockInstantiationTest {
 
     /**
-     * Returns a reference to the parent text node.
-     *
-     * @return a reference to a parent text node or <code>null</code> if
-     *         this text node is the topmost parent node
+     * Tests the instantiation of a text block implementation.
      */
-    ContentNode getParent();
+    @Test
+    public void testInstantiationTextBlockImplementation1() {
 
-    /**
-     * Sets (i.e. updates) the parent reference of this text node.
-     *
-     * @param aParent
-     *        the new parent of this node
-     */
-    void setParent(ContentNode aParent);
+        TextBlock textBlock = new TextBlockImpl();
+        assertNotNull(textBlock);
 
-    /**
-     * Checks if this node has a parent node.
-     *
-     * @return <code>true</code> if this node has ap arent node, else <code>false</code>
-     */
-    boolean hasParent();
+        assertEquals(0, textBlock.lines());
+        assertEquals(0, textBlock.getContent().size());
+        assertEquals("", textBlock.getContentAsString());
+    }
 
 }
