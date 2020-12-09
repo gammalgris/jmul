@@ -41,11 +41,7 @@ import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import jmul.math.formula.parser.tokens.TokenPatternSets;
-
 import jmul.test.classification.CodingStyleCheck;
-
-import jmul.transformation.xml.rules.xml2object.RuleHelper;
 
 import org.junit.After;
 import static org.junit.Assert.assertEquals;
@@ -211,6 +207,8 @@ public class HelperConstructorTest {
         parameters.add(new Object[] { jmul.reflection.classes.ClassHelper.class });
         parameters.add(new Object[] { jmul.math.formula.parser.tokens.TokenPatternSets.class });
         parameters.add(new Object[] { jmul.math.formula.parser.tokens.TokenParserHelper.class });
+        parameters.add(new Object[] { jmul.math.formula.parser.patterns.ClassificationHelper.class });
+        parameters.add(new Object[] { jmul.math.formula.parser.patterns.TokenPatterns.class });
 
         return parameters;
     }

@@ -21,6 +21,9 @@
     <property name="sonar.java.source" value="${project.java.version}" />
     <property name="sonar.sources" value="${project.tmp.src.dir}" />
     <property name="sonar.java.binaries" value="${project.tmp.build.dir}" />
+    <!-- property name="sonar.java.libraries" value="" / -->
+    <property name="sonar.java.test.binaries" value="${project.tmp.tests-build.dir}" />
+    <property name="sonar.java.test.libraries" value="${project.lib.junit.dir}" />
     <property name="sonar.projectBaseDir" value="${project.tmp.dir}" />
     <property name="sonar.junit.reportsPath" value="${project.tmp.tests-results.dir}" />
     <property name="sonar.surefire.reportsPath" value="${project.tmp.tests-results.dir}" />
