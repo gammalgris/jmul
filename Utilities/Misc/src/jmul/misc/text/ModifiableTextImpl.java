@@ -53,7 +53,7 @@ public class ModifiableTextImpl extends TextBase implements ModifiableText {
      */
     public ModifiableTextImpl() {
 
-        super(new ArrayList<String>());
+        this(new ArrayList<String>());
     }
 
     /**
@@ -75,7 +75,7 @@ public class ModifiableTextImpl extends TextBase implements ModifiableText {
      */
     public ModifiableTextImpl(List<String> allLines) {
 
-        super(new ArrayList<>(ParameterCheckHelper.checkStringListParameter(allLines)));
+        super(ParameterCheckHelper.checkStringListParameter(allLines), READ_AND_WRITE_ACCESS);
     }
 
     /**

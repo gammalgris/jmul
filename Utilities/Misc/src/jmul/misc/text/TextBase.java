@@ -34,8 +34,11 @@
 package jmul.misc.text;
 
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
+import static jmul.string.Constants.EMPTY_STRING;
 import static jmul.string.Constants.NEW_LINE;
 
 
@@ -47,19 +50,77 @@ import static jmul.string.Constants.NEW_LINE;
 abstract class TextBase implements Text {
 
     /**
+     * An access flag value for read only access.
+     */
+    protected static final boolean READ_ONLY_ACCESS;
+
+    /**
+     * An access flag value for read and write access.
+     */
+    protected static final boolean READ_AND_WRITE_ACCESS;
+
+    /*
+     * The static initializer.
+     */
+    static {
+
+        READ_ONLY_ACCESS = false;
+        READ_AND_WRITE_ACCESS = !READ_ONLY_ACCESS;
+    }
+
+    /**
      * The actual text container.
      */
     private final List<String> content;
 
     /**
-     * The default constructor.
+     * Creates a new insatnce according to the specified parameters.
      *
      * @param allLines
      *        the whole text
+     * @param anAccessFlag
+     *        an access flag for the underlying list (i.e. read only or read and write)
      */
-    protected TextBase(List<String> allLines) {
+    protected TextBase(List<String> allLines, boolean anAccessFlag) {
 
-        content = allLines;
+        content = sanitizeInput(allLines, anAccessFlag);
+    }
+
+    /**
+     * Sanitizes the specified input and returns it (i.e. <code>null</code> lines are replaced with an
+     * empty string. The access flag determines if a modifiable or unmodifiable list is returned.
+     *
+     * @param allLines
+     *        a list containing all lines
+     * @param anAccessFlag
+     *        an access flag for the returned list
+     *
+     * @return the sanitized input
+     */
+    protected static List<String> sanitizeInput(List<String> allLines, boolean anAccessFlag) {
+
+        List<String> sanitizedInput = new ArrayList<>();
+
+        for (String line : allLines) {
+
+            if (line == null) {
+
+                sanitizedInput.add(EMPTY_STRING);
+
+            } else {
+
+                sanitizedInput.add(line);
+            }
+        }
+
+        if (READ_ONLY_ACCESS == anAccessFlag) {
+
+            return Collections.unmodifiableList(sanitizedInput);
+
+        } else {
+
+            return sanitizedInput;
+        }
     }
 
     /**

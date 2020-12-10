@@ -35,7 +35,6 @@ package jmul.misc.text;
 
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 import jmul.checks.ParameterCheckHelper;
@@ -67,7 +66,7 @@ public class TextImpl extends TextBase {
      */
     public TextImpl(List<String> allLines) {
 
-        super(Collections.unmodifiableList(ParameterCheckHelper.checkStringListParameter(allLines)));
+        super(ParameterCheckHelper.checkStringListParameter(allLines), READ_ONLY_ACCESS);
     }
 
 }
