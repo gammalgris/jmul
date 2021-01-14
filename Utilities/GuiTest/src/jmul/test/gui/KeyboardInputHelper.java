@@ -37,8 +37,10 @@ package jmul.test.gui;
 import java.awt.Robot;
 import java.awt.event.KeyEvent;
 
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static jmul.test.gui.logging.TestLogger.getLogger;
@@ -63,6 +65,11 @@ public final class KeyboardInputHelper {
      * this was not verified.</i>
      */
     private final static Map<Character, Integer> keyMapping;
+
+    /**
+     * A mapping for special keys.
+     */
+    private final static Map<Character, List<Integer>> specialKeyMapping;
 
     /*
      * The static initializer.
@@ -100,7 +107,6 @@ public final class KeyboardInputHelper {
         tmp.put('y', KeyEvent.VK_Y);
         tmp.put('z', KeyEvent.VK_Z);
 
-        tmp.put('_', KeyEvent.VK_UNDERSCORE);
         tmp.put('-', KeyEvent.VK_MINUS);
         tmp.put(' ', KeyEvent.VK_SPACE);
 
@@ -116,6 +122,13 @@ public final class KeyboardInputHelper {
         tmp.put('9', KeyEvent.VK_9);
 
         keyMapping = Collections.unmodifiableMap(tmp);
+
+
+        Map<Character, List<Integer>> tmp2 = new HashMap<>();
+
+        tmp2.put('_', toList(KeyEvent.VK_SHIFT, KeyEvent.VK_MINUS));
+
+        specialKeyMapping = Collections.unmodifiableMap(tmp2);
     }
 
     /**
@@ -180,6 +193,39 @@ public final class KeyboardInputHelper {
     }
 
     /**
+     * Produces the specified key event (i.e. holds the specified key).
+     *
+     * @param aRobot
+     *        a robot that executes GUI actions
+     * @param anEventName
+     *        a name for the key event
+     * @param aKeyCode
+     *        a key code
+     */
+    public static void holdKey(Robot aRobot, String anEventName, int aKeyCode) {
+
+        getLogger().logDebug("key event: " + anEventName);
+        aRobot.keyPress(aKeyCode);
+
+    }
+
+    /**
+     * Produces the specified key event (i.e. releases the specified key).
+     *
+     * @param aRobot
+     *        a robot that executes GUI actions
+     * @param anEventName
+     *        a name for the key event
+     * @param aKeyCode
+     *        a key code
+     */
+    public static void releaseKey(Robot aRobot, String anEventName, int aKeyCode) {
+
+        getLogger().logDebug("key event: " + anEventName);
+        aRobot.keyRelease(aKeyCode);
+    }
+
+    /**
      * Produces the specified key event (i.e. two keys pressed simultaneously).
      *
      * @param aTest
@@ -194,6 +240,36 @@ public final class KeyboardInputHelper {
     public static void pressKey(GUITestBase aTest, String anEventName, int a1stKeyCode, int a2ndKeyCode) {
 
         pressKey(aTest.getRobot(), anEventName, a1stKeyCode, a2ndKeyCode);
+    }
+
+    /**
+     * Produces the specified key event (i.e. holds the specified key).
+     *
+     * @param aTest
+     *        a reference to the test and all its resources
+     * @param anEventName
+     *        a name for the key event
+     * @param aKeyCode
+     *        a key code
+     */
+    public static void holdKey(GUITestBase aTest, String anEventName, int aKeyCode) {
+
+        holdKey(aTest.getRobot(), anEventName, aKeyCode);
+    }
+
+    /**
+     * Produces the specified key event (i.e. releases the specified key).
+     *
+     * @param aTest
+     *        a reference to the test and all its resources
+     * @param anEventName
+     *        a name for the key event
+     * @param aKeyCode
+     *        a key code
+     */
+    public static void releaseKey(GUITestBase aTest, String anEventName, int aKeyCode) {
+
+        releaseKey(aTest.getRobot(), anEventName, aKeyCode);
     }
 
     /**
@@ -222,6 +298,17 @@ public final class KeyboardInputHelper {
                     pressKey(aRobot, "" + c, KeyEvent.VK_SHIFT, value);
                 }
 
+            } else if (specialKeyMapping.containsKey(c)) {
+
+                List<Integer> keys = specialKeyMapping.get(c);
+
+                if (keys.size() != 2) {
+
+                    throw new UnsupportedOperationException();
+                }
+
+                pressKey(aRobot, "" + c, keys.get(0), keys.get(1));
+
             } else {
 
                 int value = keyMapping.get(c);
@@ -242,6 +329,19 @@ public final class KeyboardInputHelper {
     public static void enterString(GUITestBase aTest, String aString) {
 
         enterString(aTest.getRobot(), aString);
+    }
+
+    /**
+     * Creates a list with the specified values.
+     *
+     * @param someValues
+     *        some integer values
+     *
+     * @return a list
+     */
+    private static List<Integer> toList(Integer... someValues) {
+
+        return Arrays.asList(someValues);
     }
 
 }
