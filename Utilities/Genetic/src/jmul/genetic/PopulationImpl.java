@@ -236,7 +236,7 @@ public class PopulationImpl<T> implements Population<T> {
 
         for (int a = newPopulation.size(); a < aPopulationSize; a++) {
 
-            int index = die.roll();
+            int index = die.roll() - 1;
             T clone = getIndividual(index);
             newPopulation.add(clone);
         }
