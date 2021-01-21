@@ -14,7 +14,9 @@ File targetDir = getProject().getBuildDir()
 task copyBatchFiles(type: Copy) {
 	from '../../Utilities/Document-Binary-Tests/create-testdata-binary.bat'
 	from '../../Utilities/Document-CSV-Tests/create-testdata-csv.bat'
+	from '../../Utilities/Document-CSV-Tests/create-testdata-csv2.bat'
 	from '../../Utilities/Document-Text-Tests/create-testdata-text.bat'
+	from '../../Utilities/Document-Text-Tests/create-testdata-text2.bat'
 	from '../../Utilities/External-Tests/create-testdata-external.bat'
 	from '../../Utilities/IO-Tests/create-testdata-io.bat'
 	from '../../Utilities/XML-Tests/create-testdata-xml.bat'
@@ -34,15 +36,30 @@ task executeBatchFile02(type: Exec) {
 
 task executeBatchFile03(type: Exec) {
 	workingDir = targetDir
-	commandLine = ['cmd', '/c', 'create-testdata-text.bat']
+	commandLine = ['cmd', '/c', 'create-testdata-csv2.bat']
 }
 
 task executeBatchFile04(type: Exec) {
 	workingDir = targetDir
-	commandLine = ['cmd', '/c', 'create-testdata-io.bat']
+	commandLine = ['cmd', '/c', 'create-testdata-text.bat']
 }
 
 task executeBatchFile05(type: Exec) {
+	workingDir = targetDir
+	commandLine = ['cmd', '/c', 'create-testdata-text2.bat']
+}
+
+task executeBatchFile06(type: Exec) {
+	workingDir = targetDir
+	commandLine = ['cmd', '/c', 'create-testdata-external.bat']
+}
+
+task executeBatchFile07(type: Exec) {
+	workingDir = targetDir
+	commandLine = ['cmd', '/c', 'create-testdata-io.bat']
+}
+
+task executeBatchFile08(type: Exec) {
 	workingDir = targetDir
 	commandLine = ['cmd', '/c', 'create-testdata-xml.bat']
 }
@@ -55,13 +72,16 @@ task preBuild {
 	dependsOn executeBatchFile03
 	dependsOn executeBatchFile04
 	dependsOn executeBatchFile05
+	dependsOn executeBatchFile06
+	dependsOn executeBatchFile07
+	dependsOn executeBatchFile08
 }
 
 
 build.dependsOn preBuild
 
-sourceCompatibility = 1.7
-targetCompatibility = 1.7
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
 
 sourceSets {
 
@@ -77,6 +97,7 @@ sourceSets {
 						'../../Utilities/Document-Text/src',
 						'../../Utilities/External/src',
 						'../../Utilities/Formula/src',
+						'../../Utilities/Genetic/src',
 						'../../Utilities/IO/src',
 						'../../Utilities/Logging/src',
 						'../../Utilities/Math/src',
@@ -87,6 +108,7 @@ sourceSets {
 						'../../Utilities/Persistence/src',
 						'../../Utilities/Reflection/src',
 						'../../Utilities/String/src',
+						'../../Utilities/Test/src',
 						'../../Utilities/Time/src',
 						'../../Utilities/Transformation/src',
 						'../../Utilities/Transformation-XML/src',

@@ -6,6 +6,11 @@ Utility functions and classes have been moved from my other projects to this pro
 - Test and code coverage need to be improved.
 
 
+## [1.10.1] - 2021-01-21
+### Updates & Fixes
+- added a project Genetic with utility classes for genetic algorithms
+- fixed various issues since the last entry
+
 ## [1.1.1] - 2016-02-16
 ### Refactored
 - Extracted XML transformation code from package Persistence into seperate package Transformation-XML
@@ -34,3 +39,10 @@ Utility functions and classes have been moved from my other projects to this pro
 - transformation utilities (e.g. rule based transformation framework)
 - web utilities (e.g. simple web server implementation)
 - XML utilities
+
+
+# ToDo
+- package Document-MD needs to be finished and integrated
+- package Formula needs to be reworked. There is a major flaw in parsing formulas. Rewrite with ANTLR.
+- package GuiTest needs some examples and documentation
+- package Messaging might be obsolete

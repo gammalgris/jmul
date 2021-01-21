@@ -49,6 +49,9 @@
             <fileset dir="${package.formula.src.dir}">
                 <include name="**/*.java" />
             </fileset>
+            <fileset dir="${package.genetic.src.dir}">
+                <include name="**/*.java" />
+            </fileset>
             <fileset dir="${package.io.src.dir}">
                 <include name="**/*.java" />
             </fileset>

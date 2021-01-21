@@ -83,6 +83,8 @@
         <echo message="  package external src dir .................... ${package.external.src.dir}" />
         <echo message="  package formula dir ......................... ${package.formula.dir}" />
         <echo message="  package formula src dir ..................... ${package.formula.src.dir}" />
+        <echo message="  package genetic dir ......................... ${package.genetic.dir}" />
+        <echo message="  package genetic src dir ..................... ${package.genetic.src.dir}" />
         <echo message="  package guitest dir ......................... ${package.guitest.dir}" />
         <echo message="  package guitest src dir ..................... ${package.guitest.src.dir}" />
         <echo message="  package guitest cfg dir ..................... ${package.guitest.cfg.dir}" />

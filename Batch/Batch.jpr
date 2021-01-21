@@ -189,6 +189,14 @@
                   <url path="Dos-WebServer/"/>
                </list>
             </hash>
+            <hash>
+               <list n="pattern-filters">
+                  <string v="+**"/>
+               </list>
+               <list n="url-path">
+                  <url path="Gradle-Build/"/>
+               </list>
+            </hash>
          </list>
          <list n="url-path"/>
       </hash>
