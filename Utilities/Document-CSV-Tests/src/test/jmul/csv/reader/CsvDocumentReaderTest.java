@@ -699,4 +699,192 @@ public class CsvDocumentReaderTest {
         checkTableData(table);
     }
 
+    /**
+     * Tests parsing a CSV file. The first line is a header line and contains
+     * 3 data lines. The column separator is a semicolon. The row separator is
+     * a windows style line break. One cell contains a quoted string containing
+     * a column separator.
+     */
+    @Test
+    public void testParseDocument14() {
+
+        String filename = "testdata-csv\\example13.csv";
+        CsvDocumentReader reader = new CsvDocumentReaderImpl();
+
+        CsvDocument document;
+
+        try {
+
+            document = reader.readFrom(filename);
+
+        } catch (IOException e) {
+
+            throw new FailedTestException(e);
+        }
+
+
+        assertEquals(DocumentTypes.CSV, document.getDocumentType());
+        assertEquals(SEMICOLON, document.getStructure().getColumnSeparator());
+        assertEquals(NEW_LINE_WINDOWS, document.getStructure().getRowSeparator());
+        assertEquals(HeaderType.FIRST_LINE_IS_HEADER, document.getStructure().getHeaderType());
+        assertEquals(StructureType.RIGID, document.getStructure().getStructureType());
+
+        String[] header1 = document.getStructure().getHeader();
+        List<String> header2 = document.getContent().getColumnNames();
+
+        Table<String> table = document.getContent();
+        int columns = table.columns();
+
+        for (int a = 0; a < columns; a++) {
+
+            assertEquals(header1[a], header2.get(a));
+        }
+
+
+        String actualString = table.getCell(2, 1);
+        String expectedString = "\"Hallo;Welt\"";
+        assertEquals(expectedString, actualString);
+    }
+
+    /**
+     * Tests parsing a CSV file. The first line is a header line and contains
+     * 3 data lines. The column separator is a semicolon. The row separator is
+     * a windows style line break. One cell contains a quoted string containing
+     * a column separator.
+     */
+    @Test
+    public void testParseDocument15() {
+
+        String filename = "testdata-csv\\example14.csv";
+        CsvDocumentReader reader = new CsvDocumentReaderImpl();
+
+        CsvDocument document;
+
+        try {
+
+            document = reader.readFrom(filename);
+
+        } catch (IOException e) {
+
+            throw new FailedTestException(e);
+        }
+
+
+        assertEquals(DocumentTypes.CSV, document.getDocumentType());
+        assertEquals(SEMICOLON, document.getStructure().getColumnSeparator());
+        assertEquals(NEW_LINE_WINDOWS, document.getStructure().getRowSeparator());
+        assertEquals(HeaderType.FIRST_LINE_IS_HEADER, document.getStructure().getHeaderType());
+        assertEquals(StructureType.RIGID, document.getStructure().getStructureType());
+
+        String[] header1 = document.getStructure().getHeader();
+        List<String> header2 = document.getContent().getColumnNames();
+
+        Table<String> table = document.getContent();
+        int columns = table.columns();
+
+        for (int a = 0; a < columns; a++) {
+
+            assertEquals(header1[a], header2.get(a));
+        }
+
+
+        String actualString = table.getCell(2, 1);
+        String expectedString = "'Hallo;Welt'";
+        assertEquals(expectedString, actualString);
+    }
+
+    /**
+     * Tests parsing a CSV file. The first line is a header line and contains
+     * 3 data lines. The column separator is a semicolon. The row separator is
+     * a windows style line break. One cell contains a quoted string containing
+     * a column separator.
+     */
+    @Test
+    public void testParseDocument16() {
+
+        String filename = "testdata-csv\\example15.csv";
+        CsvDocumentReader reader = new CsvDocumentReaderImpl();
+
+        CsvDocument document;
+
+        try {
+
+            document = reader.readFrom(filename);
+
+        } catch (IOException e) {
+
+            throw new FailedTestException(e);
+        }
+
+
+        assertEquals(DocumentTypes.CSV, document.getDocumentType());
+        assertEquals(SEMICOLON, document.getStructure().getColumnSeparator());
+        assertEquals(NEW_LINE_WINDOWS, document.getStructure().getRowSeparator());
+        assertEquals(HeaderType.FIRST_LINE_IS_HEADER, document.getStructure().getHeaderType());
+        assertEquals(StructureType.RIGID, document.getStructure().getStructureType());
+
+        String[] header1 = document.getStructure().getHeader();
+        List<String> header2 = document.getContent().getColumnNames();
+
+        Table<String> table = document.getContent();
+        int columns = table.columns();
+
+        for (int a = 0; a < columns; a++) {
+
+            assertEquals(header1[a], header2.get(a));
+        }
+
+
+        String actualString = table.getCell(2, 1);
+        String expectedString = "\"Hallo'Welt\"";
+        assertEquals(expectedString, actualString);
+    }
+
+    /**
+     * Tests parsing a CSV file. The first line is a header line and contains
+     * 3 data lines. The column separator is a semicolon. The row separator is
+     * a windows style line break. One cell contains a quoted string containing
+     * a column separator.
+     */
+    @Test
+    public void testParseDocument17() {
+
+        String filename = "testdata-csv\\example16.csv";
+        CsvDocumentReader reader = new CsvDocumentReaderImpl();
+
+        CsvDocument document;
+
+        try {
+
+            document = reader.readFrom(filename);
+
+        } catch (IOException e) {
+
+            throw new FailedTestException(e);
+        }
+
+
+        assertEquals(DocumentTypes.CSV, document.getDocumentType());
+        assertEquals(SEMICOLON, document.getStructure().getColumnSeparator());
+        assertEquals(NEW_LINE_WINDOWS, document.getStructure().getRowSeparator());
+        assertEquals(HeaderType.FIRST_LINE_IS_HEADER, document.getStructure().getHeaderType());
+        assertEquals(StructureType.RIGID, document.getStructure().getStructureType());
+
+        String[] header1 = document.getStructure().getHeader();
+        List<String> header2 = document.getContent().getColumnNames();
+
+        Table<String> table = document.getContent();
+        int columns = table.columns();
+
+        for (int a = 0; a < columns; a++) {
+
+            assertEquals(header1[a], header2.get(a));
+        }
+
+
+        String actualString = table.getCell(2, 1);
+        String expectedString = "'Hallo\"Welt'";
+        assertEquals(expectedString, actualString);
+    }
+
 }

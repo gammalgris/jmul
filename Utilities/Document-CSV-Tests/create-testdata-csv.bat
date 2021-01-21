@@ -268,6 +268,34 @@ set functionCalls.length=
 		echo 7;8;9
 	) > testdata-csv\example12.csv
 
+	(
+		echo A;B;C
+		echo 1;2;3
+		echo 4;5;"Hallo;Welt"
+		echo 7;8;9
+	) > testdata-csv\example13.csv
+
+	(
+		echo A;B;C
+		echo 1;2;3
+		echo 4;5;'Hallo;Welt'
+		echo 7;8;9
+	) > testdata-csv\example14.csv
+
+	(
+		echo A;B;C
+		echo 1;2;3
+		echo 4;5;"Hallo'Welt"
+		echo 7;8;9
+	) > testdata-csv\example15.csv
+
+	(
+		echo A;B;C
+		echo 1;2;3
+		echo 4;5;'Hallo"Welt'
+		echo 7;8;9
+	) > testdata-csv\example16.csv
+
 %return%
 
 

@@ -135,6 +135,7 @@ public final class TextHelper {
     public static int nextSeparatorIndex(String aString, String aSeparator) {
 
         boolean isQuote = false;
+        String quote = null;
         int length = aString.length();
         int separatorLength = aSeparator.length();
 
@@ -144,16 +145,27 @@ public final class TextHelper {
 
             String s = aString.substring(a, Math.min(a + separatorLength, length));
 
-            if (startsWithQuotes(s)) {
 
+            if ((quote == null) && startsWithQuotes(s)) {
+
+                quote = getFirstCharacter(s);
+                isQuote = !isQuote;
+                continue;
+
+            } else if ((quote != null) && startsWithQuotes(s, quote)) {
+
+                quote = null;
                 isQuote = !isQuote;
                 continue;
             }
 
             if (s.startsWith(aSeparator)) {
 
-                index = a;
-                break;
+                if (!isQuote) {
+
+                    index = a;
+                    break;
+                }
             }
         }
 
@@ -172,12 +184,41 @@ public final class TextHelper {
      * @param aString
      *        a string
      *
-     * @return <code>true</code> if the string starts qith a quote, else
+     * @return <code>true</code> if the string starts with a quote, else
      *         <code>false</code>
      */
     public static boolean startsWithQuotes(String aString) {
 
         return aString.startsWith(QUOTATION_MARK) || aString.startsWith(APOSTROPHE);
+    }
+
+    /**
+     * Checks if the specified string starts with the specified quote character.
+     *
+     * @param aString
+     *        a string
+     * @param aQuoteCharacter
+     *        a quote character
+     *
+     * @return <code>true</code> if the string starts with the specified quote
+     *         character, else <code>false</code>
+     */
+    public static boolean startsWithQuotes(String aString, String aQuoteCharacter) {
+
+        return aString.startsWith(aQuoteCharacter);
+    }
+
+    /**
+     * Returns a string that only contains the first character of the specified string.
+     *
+     * @param aString
+     *        a string
+     *
+     * @return a string containing only one character
+     */
+    public static String getFirstCharacter(String aString) {
+
+        return aString.substring(0, 1);
     }
 
     /**
