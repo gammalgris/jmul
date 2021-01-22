@@ -44,7 +44,6 @@ import jmul.reflection.classes.ClassHelper;
 import jmul.string.TextHelper;
 
 import jmul.transformation.TransformationException;
-import jmul.transformation.TransformationResources;
 import jmul.transformation.TransformationRule;
 import static jmul.transformation.configuration.ConfigurationMarkups.CLASSNAME_ATTRIBUTE;
 import static jmul.transformation.configuration.ConfigurationMarkups.CLASSPATH_ATTRIBUTE;
@@ -60,6 +59,7 @@ import static jmul.xml.XmlParserHelper.assertHasXmlSubelements;
 import static jmul.xml.XmlParserHelper.assertMatchesXmlElement;
 import static jmul.xml.XmlParserHelper.existsXmlAttribute;
 import static jmul.xml.XmlParserHelper.getXmlAttribute;
+import jmul.xml.XmlResources;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
@@ -249,7 +249,7 @@ public class ConfigurationReaderImpl implements ConfigurationReader {
          */
         ConfigurationData(String aFilename) throws SAXException, IOException {
 
-            this(TransformationResources.getXmlDocumentReader().readFrom(aFilename));
+            this(XmlResources.getXmlDocumentReader().readFrom(aFilename));
         }
 
         /**

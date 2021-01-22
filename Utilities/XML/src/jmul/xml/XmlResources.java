@@ -1,7 +1,7 @@
 /*
  * SPDX-License-Identifier: GPL-3.0
- * 
- * 
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -34,6 +34,7 @@
 package jmul.xml;
 
 
+import javax.xml.XMLConstants;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -117,12 +118,11 @@ public final class XmlResources {
 
         if (documentBuilderFactorySingleton == null) {
 
-            documentBuilderFactorySingleton =
-                    DocumentBuilderFactory.newInstance();
+            documentBuilderFactorySingleton = DocumentBuilderFactory.newInstance();
+            documentBuilderFactorySingleton.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
         }
 
-        DocumentBuilder builder =
-            documentBuilderFactorySingleton.newDocumentBuilder();
+        DocumentBuilder builder = documentBuilderFactorySingleton.newDocumentBuilder();
 
         return builder.newDocument();
     }

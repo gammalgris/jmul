@@ -54,6 +54,7 @@ import jmul.transformation.container.ModifiableRulesContainer;
 import jmul.transformation.container.RulesContainer;
 import jmul.transformation.container.RulesContainerImpl;
 
+import jmul.xml.XmlResources;
 import jmul.xml.reader.XmlDocumentReader;
 
 import org.w3c.dom.Document;
@@ -110,7 +111,7 @@ public class RulesContainerInitializerImpl implements RulesContainerInitializer 
         ResourceType resourceType = new ResourceType(fileExtension);
 
         ConfigurationReader configurationReader = TransformationResources.getConfigurationReader();
-        XmlDocumentReader documentReader = TransformationResources.getXmlDocumentReader();
+        XmlDocumentReader documentReader = XmlResources.getXmlDocumentReader();
 
 
         ResourceScanner resourceScanner = new ResourceScanner(resourceType);

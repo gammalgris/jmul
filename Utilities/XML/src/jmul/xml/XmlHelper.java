@@ -39,8 +39,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 
 import jmul.metainfo.annotations.Modified;
 
@@ -219,13 +218,11 @@ public final class XmlHelper {
 
         try {
 
-            DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
-            return docBuilder.newDocument();
+            return XmlResources.newDocument();
 
-        } catch (Exception e) {
+        } catch (ParserConfigurationException e) {
 
-            String message = "Coulnd't create a new XML document!";
+            String message = "Couldn't create a new XML document!";
             throw new InstantiationException(message, e);
         }
     }

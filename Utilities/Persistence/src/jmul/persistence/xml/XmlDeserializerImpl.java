@@ -49,6 +49,7 @@ import jmul.transformation.TransformationResources;
 import jmul.transformation.xml.TransformationHelper;
 
 import jmul.xml.reader.XmlDocumentReader;
+import jmul.xml.reader.XmlDocumentReaderImpl;
 
 import org.w3c.dom.Document;
 
@@ -76,11 +77,18 @@ public class XmlDeserializerImpl implements Deserializer {
     }
 
     /**
+     * A XML document reader.
+     */
+    private final XmlDocumentReader documentReader;
+
+    /**
      * The default constructor.
      */
     public XmlDeserializerImpl() {
 
         super();
+
+        documentReader = new XmlDocumentReaderImpl();
     }
 
     /**
@@ -112,10 +120,7 @@ public class XmlDeserializerImpl implements Deserializer {
     @Override
     public Object deserialize(File aFile) throws IOException {
 
-        XmlDocumentReader documentReader = TransformationResources.getXmlDocumentReader();
-
-        Document document = null;
-
+        Document document;
         try {
 
             document = documentReader.readFrom(aFile);

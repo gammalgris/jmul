@@ -1,7 +1,7 @@
 /*
  * SPDX-License-Identifier: GPL-3.0
- * 
- * 
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -34,11 +34,11 @@
 package jmul.transformation.xml.rules.object2xml;
 
 
-import javax.xml.parsers.ParserConfigurationException;
-
+import jmul.transformation.TransformationException;
+import jmul.transformation.TransformationParameters;
+import jmul.transformation.xml.TransformationHelper;
 import jmul.transformation.xml.annotations.AnnotationHelper;
 import jmul.transformation.xml.annotations.RootNode;
-import jmul.transformation.xml.TransformationHelper;
 import jmul.transformation.xml.cache.Object2XmlCache;
 import jmul.transformation.xml.cache.Object2XmlCacheImpl;
 import static jmul.transformation.xml.rules.PersistenceMarkups.OBJECTS_ELEMENT;
@@ -46,11 +46,7 @@ import static jmul.transformation.xml.rules.TransformationConstants.OBJECT_CACHE
 import static jmul.transformation.xml.rules.TransformationConstants.ROOT_ELEMENT;
 import static jmul.transformation.xml.rules.TransformationConstants.XML_DOCUMENT;
 
-import jmul.transformation.TransformationException;
-import jmul.transformation.TransformationParameters;
-
 import jmul.xml.XmlHelper;
-import jmul.xml.XmlResources;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -127,17 +123,7 @@ public class RootNode2XmlRule extends Composite2XmlRule {
 
         // Create a new xml document.
 
-        Document document = null;
-
-        try {
-
-            document = XmlResources.newDocument();
-
-        } catch (ParserConfigurationException e) {
-
-            String message = "Couldn't create a new xml document!";
-            throw new TransformationException(message, e);
-        }
+        Document document = XmlHelper.newXmlDocument();
 
 
         // A cache is required to manage IDs of fields.

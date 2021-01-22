@@ -44,9 +44,6 @@ import jmul.transformation.creation.ObjectFactoryImpl;
 import jmul.transformation.message.MessageFactory;
 import jmul.transformation.message.MessageFactoryImpl;
 
-import jmul.xml.reader.XmlDocumentReader;
-import jmul.xml.reader.XmlDocumentReaderImpl;
-
 
 /**
  * A utility class which contains required resources.
@@ -54,11 +51,6 @@ import jmul.xml.reader.XmlDocumentReaderImpl;
  * @author Kristian Kutin
  */
 public final class TransformationResources {
-
-    /**
-     * A singleton.
-     */
-    private static XmlDocumentReader xmlDocumentReaderSingleton;
 
     /**
      * A singleton.
@@ -84,21 +76,6 @@ public final class TransformationResources {
      * The default constructor.
      */
     private TransformationResources() {
-    }
-
-    /**
-     * Returns a reference to an xml document reader.
-     *
-     * @return an xml document reader
-     */
-    public static synchronized XmlDocumentReader getXmlDocumentReader() {
-
-        if (xmlDocumentReaderSingleton == null) {
-
-            xmlDocumentReaderSingleton = new XmlDocumentReaderImpl();
-        }
-
-        return xmlDocumentReaderSingleton;
     }
 
     /**

@@ -34,9 +34,12 @@
 package jmul.xml.reader;
 
 
+import javax.xml.XMLConstants;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+
+import jmul.misc.exceptions.InstantiationException;
 
 import jmul.string.TextHelper;
 
@@ -59,6 +62,16 @@ public abstract class XmlDocumentReaderBase implements XmlDocumentReader {
     protected XmlDocumentReaderBase() {
 
         factory = DocumentBuilderFactory.newInstance();
+
+        try {
+
+            factory.setFeature(XMLConstants.FEATURE_SECURE_PROCESSING, true);
+
+        } catch (ParserConfigurationException e) {
+
+            String message = "Couldn't instantiate the XML document reader!";
+            throw new InstantiationException(message, e);
+        }
     }
 
     /**

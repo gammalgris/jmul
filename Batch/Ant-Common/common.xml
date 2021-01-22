@@ -16,7 +16,7 @@
     <property name="batch.base.dir" location="${project.dir}\Batch" />
 
 
-    <property name="project.java.version" value="1.7" />
+    <property name="project.java.version" value="1.8" />
 
 
     <loadproperties srcfile="${batch.base.dir}\Ant-Common\directories.properties" />

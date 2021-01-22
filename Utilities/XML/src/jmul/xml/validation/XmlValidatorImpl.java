@@ -39,6 +39,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import javax.xml.XMLConstants;
 import javax.xml.bind.ValidationException;
 import javax.xml.transform.sax.SAXSource;
 import javax.xml.validation.Schema;
@@ -105,9 +106,12 @@ public class XmlValidatorImpl implements XmlValidator {
         for (String schemaKey : archive.getSchemaKeys()) {
 
             Schema schema = archive.getSchema(schemaKey);
-            Validator validator = schema.newValidator();
 
             try {
+
+                Validator validator = schema.newValidator();
+                validator.setProperty(XMLConstants.ACCESS_EXTERNAL_DTD, "");
+                validator.setProperty(XMLConstants.ACCESS_EXTERNAL_SCHEMA, "");
 
                 validator.validate(new SAXSource(new InputSource(aFileName)));
                 return new XmlValidationResult(aFileName, schemaKey);

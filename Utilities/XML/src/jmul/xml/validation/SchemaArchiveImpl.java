@@ -49,7 +49,11 @@ import javax.xml.validation.SchemaFactory;
 import jmul.io.DirectoryDetailsImpl;
 import jmul.io.FileHelper;
 
+import jmul.misc.exceptions.InstantiationException;
+
 import org.xml.sax.SAXException;
+import org.xml.sax.SAXNotRecognizedException;
+import org.xml.sax.SAXNotSupportedException;
 
 
 /**
@@ -92,7 +96,18 @@ public class SchemaArchiveImpl extends DirectoryDetailsImpl implements SchemaArc
 
 
         Map<String, Schema> map = new HashMap<>();
-        SchemaFactory schemaFactory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
+        SchemaFactory schemaFactory;
+        try {
+
+            schemaFactory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
+            schemaFactory.setProperty(XMLConstants.ACCESS_EXTERNAL_DTD, "");
+            schemaFactory.setProperty(XMLConstants.ACCESS_EXTERNAL_SCHEMA, "");
+
+        } catch (SAXNotRecognizedException | SAXNotSupportedException e) {
+
+            String message = "Couldn't instantiate a new XML schema factory!";
+            throw new InstantiationException(message, e);
+        }
 
         for (File file : FileHelper.getFiles(aDirectoryName, FILE_SUFFIX, RECURSE)) {
 

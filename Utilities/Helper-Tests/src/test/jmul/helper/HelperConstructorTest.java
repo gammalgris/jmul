@@ -207,8 +207,6 @@ public class HelperConstructorTest {
         parameters.add(new Object[] { jmul.reflection.classes.ClassHelper.class });
         parameters.add(new Object[] { jmul.math.formula.parser.tokens.TokenPatternSets.class });
         parameters.add(new Object[] { jmul.math.formula.parser.tokens.TokenParserHelper.class });
-        parameters.add(new Object[] { jmul.math.formula.parser.patterns.ClassificationHelper.class });
-        parameters.add(new Object[] { jmul.math.formula.parser.patterns.TokenPatterns.class });
 
         return parameters;
     }

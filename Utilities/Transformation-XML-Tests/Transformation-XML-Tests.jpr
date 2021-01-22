@@ -129,8 +129,8 @@
    </hash>
    <hash n="oracle.jdeveloper.compiler.OjcConfiguration">
       <value n="internalEncoding" v="UTF-8"/>
-      <value n="source" v="1.7"/>
-      <value n="target" v="1.7"/>
+      <value n="source" v="1.8"/>
+      <value n="target" v="1.8"/>
       <value n="webIANAEncoding" v="UTF-8"/>
    </hash>
    <hash n="oracle.jdevimpl.config.JProjectLibraries">
@@ -141,6 +141,44 @@
          </hash>
       </list>
       <hash n="internalDefinitions">
+         <list n="jdkDefinitions">
+            <hash>
+               <list n="classPath">
+                  <url protocol="jar" path="file:/C:/Program Files/Java/jdk1.8.0_171/jre/lib/resources.jar!/"/>
+                  <url protocol="jar" path="file:/C:/Program Files/Java/jdk1.8.0_171/jre/lib/rt.jar!/"/>
+                  <url protocol="jar" path="file:/C:/Program Files/Java/jdk1.8.0_171/jre/lib/sunrsasign.jar!/"/>
+                  <url protocol="jar" path="file:/C:/Program Files/Java/jdk1.8.0_171/jre/lib/jsse.jar!/"/>
+                  <url protocol="jar" path="file:/C:/Program Files/Java/jdk1.8.0_171/jre/lib/jce.jar!/"/>
+                  <url protocol="jar" path="file:/C:/Program Files/Java/jdk1.8.0_171/jre/lib/charsets.jar!/"/>
+                  <url protocol="jar" path="file:/C:/Program Files/Java/jdk1.8.0_171/jre/lib/jfr.jar!/"/>
+                  <url protocol="file" path="/C:/Program Files/Java/jdk1.8.0_171/jre/classes/"/>
+               </list>
+               <value n="description" v="1.8.0_171"/>
+               <list n="docPath">
+                  <url protocol="http" host="docs.oracle.com" path="/javase/8/docs/api/"/>
+               </list>
+               <list n="expandedClassPath">
+                  <url protocol="jar" path="file:/C:/Program Files/Java/jdk1.8.0_171/jre/lib/resources.jar!/"/>
+                  <url protocol="jar" path="file:/C:/Program Files/Java/jdk1.8.0_171/jre/lib/rt.jar!/"/>
+                  <url protocol="jar" path="file:/C:/Program Files/Java/jdk1.8.0_171/jre/lib/sunrsasign.jar!/"/>
+                  <url protocol="jar" path="file:/C:/Program Files/Java/jdk1.8.0_171/jre/lib/jsse.jar!/"/>
+                  <url protocol="jar" path="file:/C:/Program Files/Java/jdk1.8.0_171/jre/lib/jce.jar!/"/>
+                  <url protocol="jar" path="file:/C:/Program Files/Java/jdk1.8.0_171/jre/lib/charsets.jar!/"/>
+                  <url protocol="jar" path="file:/C:/Program Files/Java/jdk1.8.0_171/jre/lib/jfr.jar!/"/>
+                  <url protocol="file" path="/C:/Program Files/Java/jdk1.8.0_171/jre/classes/"/>
+               </list>
+               <list n="expandedSourcePath">
+                  <url protocol="jar" path="file:/C:/Program Files/Java/jdk1.8.0_171/src.zip!/"/>
+               </list>
+               <value n="id" v="1.8.0_171"/>
+               <url n="javaExecutable" protocol="file" path="/C:/Program Files/Java/jdk1.8.0_171/bin/java.exe"/>
+               <url n="sdkBinDir" protocol="file" path="/C:/Program Files/Java/jdk1.8.0_171/bin/"/>
+               <list n="sourcePath">
+                  <url protocol="jar" path="file:/C:/Program Files/Java/jdk1.8.0_171/src.zip!/"/>
+               </list>
+               <value n="version" v="1.8.0_171"/>
+            </hash>
+         </list>
          <list n="libraryDefinitions">
             <hash>
                <list n="classPath">
@@ -159,6 +197,11 @@
                </list>
             </hash>
          </list>
+      </hash>
+      <hash n="jdkReference">
+         <value n="id" v="1.8.0_171"/>
+         <value n="isJDK" v="true"/>
+         <value n="jdkVersion" v="1.8.0_171"/>
       </hash>
       <list n="libraryReferences">
          <hash>

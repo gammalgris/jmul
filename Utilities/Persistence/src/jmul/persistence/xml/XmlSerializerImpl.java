@@ -45,8 +45,8 @@ import jmul.transformation.TransformationPath;
 import jmul.transformation.TransformationResources;
 import jmul.transformation.xml.TransformationHelper;
 
-import jmul.xml.XmlResources;
 import jmul.xml.writer.XmlDocumentWriter;
+import jmul.xml.writer.XmlDocumentWriterImpl;
 
 import org.w3c.dom.Document;
 
@@ -72,11 +72,18 @@ public class XmlSerializerImpl implements Serializer {
     }
 
     /**
+     * A XML document writer.
+     */
+    private final XmlDocumentWriter writer;
+
+    /**
      * The default constructor.
      */
     public XmlSerializerImpl() {
 
         super();
+
+        writer = new XmlDocumentWriterImpl();
     }
 
     /**
@@ -118,7 +125,6 @@ public class XmlSerializerImpl implements Serializer {
         TransformationFactory factory = TransformationResources.getTransformationFactory();
         Document document = (Document) factory.transform(parameters);
 
-        XmlDocumentWriter writer = XmlResources.getXmlDocumentWriter();
         writer.writeTo(aFile, document);
     }
 
