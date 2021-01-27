@@ -34,6 +34,9 @@
 package jmul.math.graph;
 
 
+import java.util.List;
+
+
 /**
  * This interface describes a node which is part of a tree.
  *
@@ -45,18 +48,11 @@ package jmul.math.graph;
 public interface Node<T> extends Content<T> {
 
     /**
-     * Checks if this node has a parent node.
+     * Checks if the node has child nodes.
      *
-     * @return <code>true</code> if this node has a parent node, else <code>false</code>
+     * @return <code>true</code> if this node has child nodes, else <code>false</code>
      */
-    boolean hasParent();
-
-    /**
-     * Returns the parent node of this node.
-     *
-     * @return a parent node or <code>null</code> if this node has no parent node
-     */
-    Node getParent();
+    boolean hasChildren();
 
     /**
      * Returns the number of child nodes of this node.
@@ -68,9 +64,9 @@ public interface Node<T> extends Content<T> {
     /**
      * Returns all child nodes as array.
      *
-     * @return an array of nodes
+     * @return a list of child nodes
      */
-    Node<T> getChildren();
+    List<Node<T>> getChildren();
 
     /**
      * Returns the child node at the specified index position.

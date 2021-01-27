@@ -35,21 +35,22 @@ package jmul.math.graph;
 
 
 /**
- * This interface describes a simple tree structure with implicit edges between nodes.
- * The tree and all its nodes cannot be changed after creation.
+ * This interface describes a general graph.
  *
- * @param <T>
- *        the content type of a node
+ * @param <E>
+ *        the content type of an edge
+ * @param <V>
+ *        the content type of a vertice
  *
  * @author Kristian Kutin
  */
-public interface Tree<T> {
+public interface Graph<V, E> {
 
     /**
-     * Returns the root node of the tree.
+     * Returns the root node/ vertice of a general graph.
      *
-     * @return a root node
+     * @return a root node/ vertice
      */
-    Node<T> getRoot();
+    Vertice<V, E> getRoot();
 
 }

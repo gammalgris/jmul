@@ -35,7 +35,7 @@ package jmul.math.graph;
 
 
 /**
- * This interface describes a simple tree structure with implicit edges between nodes.
+ * An implementation of a simple tree structure with implicit edges between nodes.
  * The tree and all its nodes cannot be changed after creation.
  *
  * @param <T>
@@ -43,13 +43,42 @@ package jmul.math.graph;
  *
  * @author Kristian Kutin
  */
-public interface Tree<T> {
+public class TreeImpl<T> implements Tree<T> {
+
+    /**
+     * A reference to a root node.
+     */
+    private final Node<T> root;
+
+    /**
+     * Creates a new tree without root node.
+     */
+    public TreeImpl() {
+
+        this(null);
+    }
+
+    /**
+     * Creates a new tree with thespecified node as root node.
+     *
+     * @param aRoot
+     */
+    public TreeImpl(Node<T> aRoot) {
+
+        super();
+
+        root = aRoot;
+    }
 
     /**
      * Returns the root node of the tree.
      *
      * @return a root node
      */
-    Node<T> getRoot();
+    @Override
+    public Node<T> getRoot() {
+
+        return root;
+    }
 
 }

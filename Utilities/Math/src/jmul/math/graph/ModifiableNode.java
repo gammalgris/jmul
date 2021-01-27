@@ -33,6 +33,8 @@
 
 package jmul.math.graph;
 
+import java.util.List;
+
 
 /**
  * This interface describes a node which is part of a tree. The tree and all its nodes can be
@@ -43,7 +45,53 @@ package jmul.math.graph;
  *
  * @author Kristian Kutin
  */
-public interface ModifiableNode<T> extends Node<T>, ModifiableContent<T> {
+public interface ModifiableNode<T> extends Content<T>, ModifiableContent<T> {
+
+    /**
+     * Checks if this node has a parent node.
+     *
+     * @return <code>true</code> if this node has a parent node, else <code>false</code>
+     */
+    boolean hasParent();
+
+    /**
+     * Returns the parent node of this node.
+     *
+     * @return a parent node or <code>null</code> if this node has no parent node
+     */
+    ModifiableNode<T> getParent();
+
+    /**
+     * Checks if the node has child nodes.
+     *
+     * @return <code>true</code> if this node has child nodes, else <code>false</code>
+     */
+    boolean hasChildren();
+
+    /**
+     * Returns the number of child nodes of this node.
+     *
+     * @return the number of child nodes
+     */
+    int children();
+
+    /**
+     * Returns all child nodes as array.
+     *
+     * @return a list of child nodes
+     */
+    List<ModifiableNode<T>> getChildren();
+
+    /**
+     * Returns the child node at the specified index position.
+     *
+     * @param anIndex
+     *        an index position, i.e. a number greater than or equal to zero
+     *        or lesser than the number of child nodes
+     *
+     * @return a node
+     */
+    ModifiableNode<T> getChild(int anIndex);
 
     /**
      * Sets the parent node of this node. In order to maintain a consistent tree structure
