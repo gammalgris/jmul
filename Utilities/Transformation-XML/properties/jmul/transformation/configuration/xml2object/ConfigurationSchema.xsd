@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<xsd:schema
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xmlns="http://www.transformation-template.org"
+    targetNamespace="http://www.transformation-template.org"
+    elementFormDefault="qualified">
+
+
+    <xsd:simpleType name="ClassnameAttribute">
+        <xsd:restriction base="xsd:string"/>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="ClasspathAttribute">
+        <xsd:restriction base="xsd:string"/>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="DestinationAttribute">
+        <xsd:restriction base="xsd:string"/>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="OriginAttribute">
+        <xsd:restriction base="xsd:string"/>
+    </xsd:simpleType>
+
+    <xsd:simpleType name="PriorityAttribute">
+        <xsd:restriction base="xsd:integer"/>
+    </xsd:simpleType>
+
+
+    <xsd:complexType name="ImplementationElement">
+        <xsd:attribute name="classname" type="ClassnameAttribute" use="required"/>
+        <xsd:attribute name="classpath" type="ClasspathAttribute" use="optional"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="RuleElement">
+        <xsd:sequence>
+            <xsd:element name="transformation-path" type="TransformationPathElement" minOccurs="1" maxOccurs="1"/>
+            <xsd:element name="implementation" type="ImplementationElement" minOccurs="1" maxOccurs="1"/>
+        </xsd:sequence>
+        <xsd:attribute name="priority" type="PriorityAttribute" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="TransformationPathElement">
+        <xsd:attribute name="origin" type="OriginAttribute" use="required"/>
+        <xsd:attribute name="destination" type="DestinationAttribute" use="required"/>
+    </xsd:complexType>
+
+
+    <xsd:element name="rule" type="RuleElement">
+    </xsd:element>
+
+</xsd:schema>
