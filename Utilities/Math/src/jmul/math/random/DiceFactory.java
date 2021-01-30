@@ -34,6 +34,10 @@
 package jmul.math.random;
 
 
+import java.util.ArrayList;
+import java.util.List;
+
+
 /**
  * A factory class.
  *
@@ -73,6 +77,28 @@ public final class DiceFactory {
     public static Dice createDice(Die... someDice) {
 
         return new DiceImpl(someDice);
+    }
+
+    /**
+     * Creates a new set of dice.
+     *
+     * @param dice
+     *        the number of dice
+     * @param sides
+     *        the sides of each die
+     *
+     * @return a new set of dice
+     */
+    public static Dice createDice(int dice, int sides) {
+
+        List<Die> tmp = new ArrayList<>();
+        for (int a = 0; a < dice; a++) {
+
+            Die die = createDie(sides);
+            tmp.add(die);
+        }
+
+        return createDice(tmp.toArray(new Die[] { }));
     }
 
 }
