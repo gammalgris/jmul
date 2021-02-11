@@ -39,7 +39,7 @@ package jmul.math.graph;
  * The tree and all its nodes cannot be changed after creation.
  *
  * @param <T>
- *        the content type of a node
+ *        the class type which represents a node
  *
  * @author Kristian Kutin
  */
@@ -48,7 +48,7 @@ public class TreeImpl<T> implements Tree<T> {
     /**
      * A reference to a root node.
      */
-    private final Node<T> root;
+    private final T root;
 
     /**
      * Creates a new tree without root node.
@@ -63,7 +63,7 @@ public class TreeImpl<T> implements Tree<T> {
      *
      * @param aRoot
      */
-    public TreeImpl(Node<T> aRoot) {
+    public TreeImpl(T aRoot) {
 
         super();
 
@@ -76,7 +76,7 @@ public class TreeImpl<T> implements Tree<T> {
      * @return a root node
      */
     @Override
-    public Node<T> getRoot() {
+    public T getRoot() {
 
         return root;
     }

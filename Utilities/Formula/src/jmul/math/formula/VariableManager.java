@@ -34,63 +34,81 @@
 package jmul.math.formula;
 
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.Set;
 
 
 /**
- * The class manages known variables.
+ * This interface describes an entity which manages all variables that appear within a formula.
+ * Every variable can occur one or more times within a formula.
  *
  * @author Kristian Kutin
  */
-class VariableManager {
+public interface VariableManager {
 
     /**
-     * The class member contains all variables.
-     */
-    Map<String, Variable> variables;
-
-    /**
-     * The default constructor.
-     */
-    protected VariableManager() {
-
-        variables = new HashMap<>();
-    }
-
-    /**
-     * The method adds a variable.
+     * Returns the names of all variables found within the formula.
      *
-     * @param aVariable
-     *        a variable
+     * @return all variable names
      */
-    public void addVariable(Variable aVariable) {
-
-        variables.put(aVariable.getLabel(), aVariable);
-    }
+    Set<String> getAllVariableNames();
 
     /**
-     * The method returns a variable.
+     * Returns the names of all variables for which no value was specified.
+     *
+     * @return all unresolved variable names
+     */
+    Set<String> getUnresolvedVariableNames();
+
+    /**
+     * Checks if the specified variable name is found within the formula.
+     *
+     * @param aVariableName
+     *        the name of a variable
+     *
+     * @return <code>true</code> if the specified variable name is found within the formula,
+     *         else <code>false</code>
+     */
+    boolean containsVariable(String aVariableName);
+
+    /**
+     * Returns the value or reference assigned to the specified variable.
+     *
+     * @param aVariableName
+     *        the name of a variable
+     *
+     * @return the value or reference or <code>null</code> if no value or reference
+     *         was assigned
+     */
+    Number getVariable(String aVariableName);
+
+    /**
+     * Assigns a value to the specified variable.
+     *
+     * @param aVariableName
+     *        the name of a variable
+     * @param aReference
+     *        a value or a reference to an entity which provides a value
+     *
+     * @return the previous value or reference or <code>null</code> if no value or reference
+     *         was assigned
+     */
+    Number setVariable(String aVariableName, Number aReference);
+
+    /**
+     * Checks if there are unresolved variables.
+     *
+     * @return <code>true</code> if there are unresolved variables, else <code>false</code>
+     */
+    boolean existUnresolvedVariables();
+
+    /**
+     * Checks if the specified variable is unresolved (i.e. has no value or reference assigned to it).
      *
      * @param aVariableName
      *        a variable name
      *
-     * @return a variable or <code>null</code> if no such variable exists
+     * @return <code>true</code> if the variable is unresolved, else <code>false</code>
      */
-    public Variable getVariable(String aVariableName) {
-
-        return variables.get(aVariableName);
-    }
-
-    /**
-     * The method returns the names of all known variables.
-     *
-     * @return the names of all known variables
-     */
-    public Collection<String> getKnownVariableNames() {
-
-        return variables.keySet();
-    }
+    boolean isUnresolvedVariable(String aVariableName);
 
 }

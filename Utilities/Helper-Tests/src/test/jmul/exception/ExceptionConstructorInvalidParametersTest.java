@@ -49,7 +49,7 @@ import jmul.io.FileDeletionException;
 import jmul.io.NestedStreamsException;
 import jmul.io.archives.ArchiveException;
 
-import jmul.math.formula.parser.FormulaParserException;
+import jmul.math.formula.parser.FormulaParsingException;
 import jmul.math.hash.archive.ExistingEntryException;
 import jmul.math.hash.archive.UnknownClassException;
 
@@ -230,7 +230,7 @@ public class ExceptionConstructorInvalidParametersTest {
 
         // Exceptions from package Formula
 
-        addDefaultTestCases(parameters, FormulaParserException.class);
+        addDefaultTestCases(parameters, FormulaParsingException.class);
 
 
         // Exceptions from package Math

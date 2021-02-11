@@ -50,7 +50,7 @@ public interface ModifiableTree<T> {
      *
      * @return a root node
      */
-    ModifiableNode<T> getRoot();
+    T getRoot();
 
     /**
      * Replaces the current root node with the specified root node thus replacing the
@@ -61,6 +61,6 @@ public interface ModifiableTree<T> {
      *
      * @return the root node of the previous tree
      */
-    ModifiableNode<T> setRoot(ModifiableNode<T> aNode);
+    T setRoot(T aNode);
 
 }

@@ -34,79 +34,13 @@
 package jmul.math.formula.parser.tokens;
 
 
-import java.util.Collection;
-
-import jmul.math.formula.parser.patterns.TokenPattern;
-
-
 /**
- * The interface describes a token. A TokenPattern is used to identify a token.
- * This class will provide the token string and some additional informations.
- * <br>
- * Implementations should be able to handle ambiguities to some extent, e.g.
- * different operators with the same symbols. An operator symbol that is a
- * substring of another operator's symbol must be handled by the parser as it
- * requires examining a different sequence of tokens.
+ * The interface describes a token. A formula is parsed from a string which
+ * is split up into tokens. A token can be a number, an operator, paranthesis
+ * or a variable.
  *
  * @author Kristian Kutin
  */
-public interface Token {
-
-    /**
-     * The method returns the token.
-     *
-     * @return a token
-     */
-    String getToken();
-
-    /**
-     * The method returns all patterns that match this token.
-     *
-     * @return some patterns
-     */
-    Collection<TokenPattern> getMatchingPatterns();
-
-    /**
-     * The method removes a pattern for this token.
-     *
-     * @param aPattern
-     *        a pattern
-     */
-    void removePattern(TokenPattern aPattern);
-
-    /**
-     * The method removes all patterns, except this pattern.
-     *
-     * @param aPattern
-     *        a pattern
-     */
-    void retainPattern(TokenPattern aPattern);
-
-    /**
-     * The method checks whether this kind of token belongs to a specific
-     * category.
-     *
-     * @param aType
-     *        a category
-     *
-     * @return <code>true</code>, if the token belongs to the specified category, else <code>false</code>
-     */
-    boolean isOfType(TokenType aType);
-
-    /**
-     * In certain cases a string might match several token patterns. The token
-     * will then be labeled as 'ambigous'.
-     *
-     * @return <code>true</code>, if this token is ambigous, else <code>false</code>
-     */
-    boolean isAmbigous();
-
-    /**
-     * In certain cases a string might not match any token pattern. The token
-     * will then be labeled as 'undefined'.
-     *
-     * @return <code>true</code>, if the token is undefined, else <code>false</code>
-     */
-    boolean isUndefined();
+public interface Token extends CharSequence, Traited {
 
 }

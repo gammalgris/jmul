@@ -34,125 +34,33 @@
 package jmul.math.formula;
 
 
-import jmul.math.formula.parser.FormulaParser;
-import jmul.math.formula.parser.FormulaParserImpl;
-
-
 /**
- * An implementation for a generic formula.
+ * This interface describes a formula entity. Formula strings are parsed at
+ * runtime and transformed into formula entities. Formulas can be used for
+ * calculations at runtime. This mechanism is used for situations when
+ * formulas cannot be hard coded.
  *
  * @author Kristian Kutin
  */
-public class Formula {
+public interface Formula {
 
     /**
-     * The class member references a parser.
-     */
-    private static FormulaParser parser;
-
-    /**
-     * The class member manages all known variables. Each formula has its own
-     * variable manager.
-     */
-    private VariableManager variableManager;
-
-    /**
-     * The class member contains an operand.
-     */
-    private Operand operand;
-
-    /**
-     * The default constructor.
-     */
-    public Formula() {
-
-        variableManager = new VariableManager();
-    }
-
-    /**
-     * The method return the variable manager of this formula.
+     * The method calculates a result for the formula. If a formula
+     * contains variables these variables have to be resolved, i.e.
+     * values should be provided for all of them.
      *
-     * @return a variable manager
+     * @return a result
      */
-    protected VariableManager getVariableManager() {
-
-        return variableManager;
-    }
+    int calculate();
 
     /**
-     * The method calculates a result for the formula. The result depends on
-     * the current values of the variables and evetnually some random values.
+     * The method allows to change a variable at runtime.
      *
-     * @return a result for the formula
-     */
-    public int calculate() {
-
-        return operand.getValue();
-    }
-
-    /**
-     * The method allows to change a variable at any time.
-     *
-     * @param aLabel
+     * @param aVariableName
      *        the name of a variable
      * @param aReference
      *        the object which contains the variable value
      */
-    public void setVariable(String aLabel, Object aReference) {
-
-        Variable variable = variableManager.getVariable(aLabel);
-
-        if (variable == null) {
-
-            String message = "The formula (\"" + this + "\") doesn't have a variable with the name \"" + aLabel + "\"!";
-            throw new IllegalArgumentException(message);
-        }
-
-        variable.setVariableReference(aReference);
-    }
-
-    /**
-     * The method sets the operand. Every formula consist of only one operand.
-     *
-     * @param anOperand
-     *        an operand
-     */
-    public void setOperand(Operand anOperand) {
-
-        operand = anOperand;
-    }
-
-    /**
-     * The overridden toString-method.
-     *
-     * @return a string representation
-     */
-    @Override
-    public String toString() {
-
-        return operand.toString();
-    }
-
-    /**
-     * The method parses a string and instantiates a formula. Variables are not
-     * initialised and have to be set up accordingly. <br>
-     * This is a convenience method which uses a default parser to parse
-     * strings. If instead another parser is to be used then calling the
-     * parseString method of the desired parser is recommended.
-     *
-     * @param aString
-     *        a string
-     *
-     * @return a formula
-     */
-    public static Formula parseString(String aString) {
-
-        if (parser == null) {
-
-            parser = new FormulaParserImpl();
-        }
-
-        return parser.parseString(aString);
-    }
+    void setVariable(String aVariableName, Number aReference);
 
 }

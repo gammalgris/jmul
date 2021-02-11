@@ -37,7 +37,7 @@ package test.jmul.math.formula;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import jmul.math.formula.parser.FormulaParserException;
+import jmul.math.formula.parser.FormulaParsingException;
 
 import jmul.test.classification.ModuleTest;
 
@@ -69,6 +69,8 @@ public class InvalidFormulasTest extends FormulaTestBase {
         parameters.add(new Object[] { ")))((((" });
         parameters.add(new Object[] { "-(1" });
         parameters.add(new Object[] { "d-1)(" });
+        parameters.add(new Object[] { "" });
+        parameters.add(new Object[] { "       " });
 
         return parameters;
     }
@@ -93,7 +95,7 @@ public class InvalidFormulasTest extends FormulaTestBase {
      * The actual test method. The specified formula string is evaluated and the
      * result is compared with the specified result.
      */
-    @Test(expected = FormulaParserException.class)
+    @Test(expected = FormulaParsingException.class)
     public void testFormula() {
 
         getFormulaParser().parseString(formulaString);

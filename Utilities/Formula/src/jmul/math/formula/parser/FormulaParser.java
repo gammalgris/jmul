@@ -1,7 +1,7 @@
 /*
  * SPDX-License-Identifier: GPL-3.0
- * 
- * 
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -38,7 +38,7 @@ import jmul.math.formula.Formula;
 
 
 /**
- * The class deescribes the functionality of a formula parser.
+ * The class describes the functionality of a formula parser.
  *
  * @author Kristian Kutin
  */

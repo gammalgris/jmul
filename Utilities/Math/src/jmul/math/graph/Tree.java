@@ -39,7 +39,7 @@ package jmul.math.graph;
  * The tree and all its nodes cannot be changed after creation.
  *
  * @param <T>
- *        the content type of a node
+ *        the class type which represents a node
  *
  * @author Kristian Kutin
  */
@@ -50,6 +50,6 @@ public interface Tree<T> {
      *
      * @return a root node
      */
-    Node<T> getRoot();
+    T getRoot();
 
 }

@@ -1,7 +1,7 @@
 /*
  * SPDX-License-Identifier: GPL-3.0
- * 
- * 
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -34,68 +34,14 @@
 package jmul.math.formula.parser.patterns;
 
 
-import java.util.Set;
-
-import jmul.math.formula.parser.tokens.TokenType;
+import jmul.math.formula.parser.tokens.Traited;
 
 
 /**
  * The interface describes a token pattern. This entity helps with identifying
- * substrings withing other strings, especially if it's not possible to use a
- * separator character or sequence to split the string.
+ * tokens within a string.
  *
  * @author Kristian Kutin
  */
-public interface TokenPattern {
-
-    /**
-     * The method returns the pattern which identifies the token. The pattern
-     * is a regular expression.
-     *
-     * @return a pattern
-     */
-    String getTokenPattern();
-
-    /**
-     * The method returns the classification for this token.
-     *
-     * @return a classification
-     */
-    Set<TokenType> getTokenTypes();
-
-    /**
-     * The method checks whether this kind of token belongs to a specific
-     * category.
-     *
-     * @param aType
-     *        a category
-     *
-     * @return true, if the token belongs to the specified category, else false
-     */
-    boolean isOfType(TokenType aType);
-
-    /**
-     * The method checks if a string matches this kind of token.
-     *
-     * @param aString
-     *        a string
-     *
-     * @return true, if a string matches this kind of token, else false
-     */
-    boolean isToken(String aString);
-
-    /**
-     * The method checks if a substring matches this kind of token.
-     *
-     * @param aString
-     *        a string
-     * @param startIndex
-     *        the strating index of the substring
-     * @param endIndex
-     *        the
-     *
-     * @return true, if a string matches this kind of token, else false
-     */
-    boolean isToken(String aString, int startIndex, int endIndex);
-
+public interface TokenPattern extends CharSequence, Traited {
 }

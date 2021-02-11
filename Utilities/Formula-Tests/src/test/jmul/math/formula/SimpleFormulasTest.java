@@ -42,7 +42,6 @@ import jmul.math.formula.Formula;
 import jmul.test.classification.ModuleTest;
 
 import static org.junit.Assert.assertEquals;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -54,7 +53,6 @@ import org.junit.runners.Parameterized;
  * @author Kristian Kutin
  */
 @ModuleTest
-@Ignore("Tests are broken. Need to fix package first!")
 @RunWith(Parameterized.class)
 public class SimpleFormulasTest extends FormulaTestBase {
 
@@ -89,6 +87,9 @@ public class SimpleFormulasTest extends FormulaTestBase {
         parameters.add(new Object[] { "(1-2)*(3-4)", 1 });
         parameters.add(new Object[] { "(1+2)/(3-4)", -3 });
         parameters.add(new Object[] { "1", 1 });
+        //parameters.add(new Object[] { "", 0 });
+        parameters.add(new Object[] { "3%2", 1 });
+        parameters.add(new Object[] { "3/2", 1 });
 
         return parameters;
     }
@@ -106,15 +107,15 @@ public class SimpleFormulasTest extends FormulaTestBase {
     /**
      * Constructs this test object.
      *
-     * @param formulaString
+     * @param aFormulaString
      *        a formula string
-     * @param expectedResult
+     * @param theExpectedResult
      *        the expected result
      */
-    public SimpleFormulasTest(String formulaString, int expectedResult) {
+    public SimpleFormulasTest(String aFormulaString, int theExpectedResult) {
 
-        this.formulaString = formulaString;
-        this.expectedResult = expectedResult;
+        formulaString = aFormulaString;
+        expectedResult = theExpectedResult;
     }
 
     /**

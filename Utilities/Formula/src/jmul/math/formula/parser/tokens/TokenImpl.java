@@ -34,156 +34,156 @@
 package jmul.math.formula.parser.tokens;
 
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.Set;
-
-import jmul.math.formula.parser.patterns.TokenPattern;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 
 /**
- * An implementation for a token.
+ * An implementation of a token.
  *
  * @author Kristian Kutin
  */
 public class TokenImpl implements Token {
 
     /**
-     * The class member contains the token string.
+     * Contains all traits associated with this token.
      */
-    private final String token;
+    private final List<TokenTrait> traits;
 
     /**
-     * The class member contains all matching patterns.
+     * The actual token.
      */
-    private final Set<TokenPattern> matchingPatterns;
+    private final String string;
 
     /**
-     * The default constructor.
+     * Creates a new instane according to the specified parameters.
      *
-     * @param aToken
-     *        a token string
-     * @param someMatchingPatterns
-     *        all matching patterns
+     * @param aCharSequence
+     *        a character sequence representing the token
      */
-    public TokenImpl(String aToken, Collection<TokenPattern> someMatchingPatterns) {
+    public TokenImpl(CharSequence aCharSequence) {
+
+        this(aCharSequence.toString(), new TokenTrait[] { });
+    }
+
+    /**
+     * Creates a new instane according to the specified parameters.
+     *
+     * @param aString
+     */
+    public TokenImpl(String aString) {
+
+        this(aString, new TokenTrait[] { });
+    }
+
+    /**
+     * Creates a new instane according to the specified parameters.
+     *
+     * @param aCharSequence
+     *        a character sequence representing the token
+     * @param someTraits
+     *        traits of the token
+     */
+    public TokenImpl(CharSequence aCharSequence, TokenTrait... someTraits) {
+
+        this(aCharSequence.toString(), someTraits);
+    }
+
+    /**
+     * Creates a new instane according to the specified parameters.
+     *
+     * @param aString
+     *        a string representing the token
+     * @param someTraits
+     *        traits of the token
+     */
+    public TokenImpl(String aString, TokenTrait... someTraits) {
 
         super();
 
-        token = aToken;
-
-        matchingPatterns = new HashSet<>();
-
-        if (someMatchingPatterns != null) {
-
-            matchingPatterns.addAll(someMatchingPatterns);
-        }
+        traits = Collections.unmodifiableList(Arrays.asList(TokenTraitsHelper.validate(someTraits)));
+        string = aString;
     }
 
     /**
-     * The method returns the token.
+     * Returns the length of this token.
      *
-     * @return a token
+     * @return a length
      */
     @Override
-    public String getToken() {
+    public int length() {
 
-        return token;
+        return string.length();
     }
 
     /**
-     * The method returns all patterns that match this token.
+     * Returns the character at the specified index.
      *
-     * @return some patterns
+     * @param index
+     *        an index, i.e. a number equals to or greater than zero and
+     *        lesser than the token length
+     *
+     * @return a character
      */
     @Override
-    public Collection<TokenPattern> getMatchingPatterns() {
+    public char charAt(int index) {
 
-        return matchingPatterns;
+        return string.charAt(index);
     }
 
     /**
-     * The method removes a pattern for this token.
+     * Returns a substring according to the specified parameters.
      *
-     * @param aPattern
-     *        a pattern
+     * @param start
+     *        a start index, i.e. a number equals to or greater than zero and
+     *        lesser than the end index
+     * @param end
+     *        an end index, i.e. a number greater than the start index and lesser
+     *        than the token length
+     *
+     * @return a substring
      */
     @Override
-    public void removePattern(TokenPattern aPattern) {
+    public CharSequence subSequence(int start, int end) {
 
-        matchingPatterns.remove(aPattern);
+        return string.subSequence(start, end);
     }
 
     /**
-     * The method removes all patterns, except this pattern.
+     * Returns all traits which are attributed to the entity.
      *
-     * @param aPattern
-     *        a pattern
+     * @return a list of traits
      */
     @Override
-    public void retainPattern(TokenPattern aPattern) {
+    public List<TokenTrait> getTraits() {
 
-        Collection<TokenPattern> retainables = new ArrayList<>();
-        retainables.add(aPattern);
-        matchingPatterns.retainAll(retainables);
+        return traits;
     }
 
     /**
-     * The method checks whether this kind of token belongs to a specific
-     * category.
+     * Checks if the entity has the specified trait.
      *
-     * @param aType
-     *        a category
+     * @param aTrait
+     *        a trait
      *
-     * @return <code>true</code>, if the token belongs to the specified category, else <code>false</code>
+     * @return <code>true</code> if the entity has the specifiedtrait, else <code>false</code>
      */
     @Override
-    public boolean isOfType(TokenType aType) {
+    public boolean hasTrait(TokenTrait aTrait) {
 
-        boolean matches = true;
-
-        for (TokenPattern pattern : matchingPatterns) {
-
-            matches = pattern.isOfType(aType) && matches;
-        }
-
-        return matches;
+        return traits.contains(aTrait);
     }
 
     /**
-     * In certain cases a string might match several token patterns. The token
-     * will then be labeled as 'ambigous'.
+     * Returns a string representation of this token.
      *
-     * @return <code>true</code>, if this token is ambigous, else <code>false</code>
-     */
-    @Override
-    public boolean isAmbigous() {
-
-        return matchingPatterns.size() > 1;
-    }
-
-    /**
-     * In certain cases a string might not match any token pattern. The token
-     * will then be labeled as 'undefined'.
-     *
-     * @return <code>true</code>, if the token is undefined, else <code>false</code>
-     */
-    @Override
-    public boolean isUndefined() {
-
-        return matchingPatterns.isEmpty();
-    }
-
-    /**
-     * The overridden toString-method.
-     *
-     * @return a string representation
+     * @return a string represetnation
      */
     @Override
     public String toString() {
 
-        return getToken();
+        return string;
     }
 
 }
