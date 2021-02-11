@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+
+		<meta charset="utf-8">
+
+		<title>persisted_data_structures_01_01</title>
+
+		<script src="google-code-prettify/run_prettify.js?autoload=true&amp;skin=sons-of-obsidian&amp;lang=css" defer="defer"></script>
+
+	</head>
+
+	<body bgcolor="Black">
+
+		<?prettify linenums=1?>
+		<pre class="prettyprint" id="quine">
+
+      ...
+
+      Strung variableName = "x";
+      FormulaParser parser = new FormulaParserImpl();
+
+      Formula formula;
+      try {
+         
+         formula = parser.parseString("1+x");
+         
+      } catch (FormulaParsingException e) {
+
+         // handle exception and/ or rethrow
+         ...
+	  }
+
+      formula.setVariable(variableName, 2);
+
+      int result;
+      try {
+         
+         result = formula.calculate();
+
+      } catch (FormulaException e) {
+
+         // handle exception and/ or rethrow
+         ...
+      }
+      
+      ...
+
+		</pre>
+
+	</body>
+
+</html>

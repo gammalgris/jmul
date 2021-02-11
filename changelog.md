@@ -5,6 +5,10 @@ Utility functions and classes have been moved from my other projects to this pro
 - Legacy tests have to be rewritten.
 - Test and code coverage need to be improved.
 
+## [2.0.0] - 2021-02-11
+### Updates
+- The new Package Formula is ready and resolves most issues of the previous implementation.
+- Added some documentation on how to use the Formula module
 
 ## [1.10.1] - 2021-01-21
 ### Updates & Fixes
@@ -43,6 +47,5 @@ Utility functions and classes have been moved from my other projects to this pro
 
 # ToDo
 - package Document-MD needs to be finished and integrated
-- package Formula needs to be reworked. There is a major flaw in parsing formulas. Rewrite with ANTLR.
 - package GuiTest needs some examples and documentation
 - package Messaging might be obsolete
