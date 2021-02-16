@@ -41,6 +41,10 @@ import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.Collection;
 
+import jmul.math.formula.parser.ParserHelper;
+
+import jmul.math.formula.parser.transformation.tokentree2componenttree.TransformationHelper;
+
 import jmul.test.classification.CodingStyleCheck;
 
 import org.junit.After;
@@ -205,8 +209,9 @@ public class HelperConstructorTest {
         parameters.add(new Object[] { jmul.document.csv.CsvHelper.class });
         parameters.add(new Object[] { jmul.reflection.ReflectionHelper.class });
         parameters.add(new Object[] { jmul.reflection.classes.ClassHelper.class });
-        parameters.add(new Object[] { jmul.math.formula.parser.tokens.TokenPatternSets.class });
-        parameters.add(new Object[] { jmul.math.formula.parser.tokens.TokenParserHelper.class });
+        parameters.add(new Object[] { jmul.math.formula.parser.ParserHelper.class });
+        parameters.add(new Object[] { jmul.math.formula.parser.transformation.tokentree2componenttree.TransformationHelper.class });
+        parameters.add(new Object[] { jmul.math.formula.parser.transformation.tokensequence2tokentree.TransformationHelper.class });
 
         return parameters;
     }

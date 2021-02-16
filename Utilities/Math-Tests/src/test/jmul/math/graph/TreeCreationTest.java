@@ -94,7 +94,7 @@ public class TreeCreationTest {
 
         Node<String> root = new NodeImpl<>();
 
-        Tree<String> tree = new TreeImpl<>(root);
+        Tree<Node<String>> tree = new TreeImpl<>(root);
         assertNotNull(tree.getRoot());
     }
 
