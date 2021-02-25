@@ -181,8 +181,9 @@ public class PopulationImpl<T> implements Population<T> {
         List<Entry<T, Integer>> orderedAssessedPopulation = new ArrayList<>(assessedPopulation.entrySet());
         orderedAssessedPopulation.sort(Entry.comparingByValue());
 
+        int minIndex = orderedAssessedPopulation.size() - aPopulationSize - 1;
         List<T> newPopulation = new ArrayList<>(aPopulationSize);
-        for (int a = 0; a < aPopulationSize; a++) {
+        for (int a = minIndex; a < orderedAssessedPopulation.size(); a++) {
 
             Map.Entry<T, Integer> entry = orderedAssessedPopulation.get(a);
             T individual = entry.getKey();

@@ -125,7 +125,7 @@ public final class TransformationHelper {
     }
 
     /**
-     * Calls the trnasformation framework. Calling the transformation framwork from within a
+     * Calls the transformation framework. Calling the transformation framwork from within a
      * transformation rule will result in a recursion.
      *
      * @param someParameters
