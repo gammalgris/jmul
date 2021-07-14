@@ -159,6 +159,12 @@ public class ChapterImpl extends ContentNodeImpl implements Chapter {
     @Override
     public void addSubchapter(Chapter aChapter) {
 
+        ContentNode newNode = (ContentNode) aChapter;
+        if (newNode != null) {
+
+            newNode.setParent(this);
+        }
+
         allSubchapters.add(aChapter);
     }
 
@@ -172,6 +178,12 @@ public class ChapterImpl extends ContentNodeImpl implements Chapter {
      */
     @Override
     public void insertSubchapter(Chapter aChapter, int anIndex) {
+
+        ContentNode newNode = (ContentNode) aChapter;
+        if (newNode != null) {
+
+            newNode.setParent(this);
+        }
 
         allSubchapters.add(anIndex, aChapter);
     }
@@ -201,7 +213,14 @@ public class ChapterImpl extends ContentNodeImpl implements Chapter {
     @Override
     public Chapter removeSubchapter(int anIndex) {
 
-        return allSubchapters.remove(anIndex);
+        Chapter removedChapter = allSubchapters.remove(anIndex);
+        ContentNode removedNode = (ContentNode) removedChapter;
+        if (removedNode != null) {
+
+            removedNode.setParent(null);
+        }
+
+        return removedChapter;
     }
 
     /**
@@ -224,6 +243,12 @@ public class ChapterImpl extends ContentNodeImpl implements Chapter {
     @Override
     public void addParagraph(Paragraph aParagraph) {
 
+        ContentNode newNode = (ContentNode) aParagraph;
+        if (newNode != null) {
+
+            newNode.setParent(this);
+        }
+
         allParagraphs.add(aParagraph);
     }
 
@@ -238,6 +263,12 @@ public class ChapterImpl extends ContentNodeImpl implements Chapter {
      */
     @Override
     public void insertParagraph(Paragraph aParagraph, int anIndex) {
+
+        ContentNode newNode = (ContentNode) aParagraph;
+        if (newNode != null) {
+
+            newNode.setParent(this);
+        }
 
         allParagraphs.add(anIndex, aParagraph);
     }
@@ -267,7 +298,14 @@ public class ChapterImpl extends ContentNodeImpl implements Chapter {
     @Override
     public Paragraph removeParagraph(int anIndex) {
 
-        return allParagraphs.remove(anIndex);
+        Paragraph removedParagraph = allParagraphs.remove(anIndex);
+        ContentNode removedNode = (ContentNode) removedParagraph;
+        if (removedNode != null) {
+
+            removedNode.setParent(null);
+        }
+
+        return removedParagraph;
     }
 
 }

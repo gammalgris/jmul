@@ -217,7 +217,7 @@ public class TransformationParametersImpl implements TransformationParameters {
 
     /**
      * The method allows to specify more additional informations or
-     * prerequisites.
+     * prerequisites. Existing prerequisites are overridden.
      *
      * @param aName
      *        the name of a prerequisite
