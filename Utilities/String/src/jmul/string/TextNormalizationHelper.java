@@ -324,7 +324,7 @@ public final class TextNormalizationHelper {
             }
 
             CharSequence remainder = aCharSequence.subSequence(token.length(), length);
-            String replacementToken = STRING_TO_XML_STRING_CHARACTER_MAPPINGS.get(token);
+            String replacementToken = STRING_TO_JAVA_STRING_CHARACTER_MAPPINGS.get(token);
 
             return replacementToken + toNormalizedJavaString(theFullCharSequence, remainder);
         }
