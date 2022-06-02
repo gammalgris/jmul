@@ -65,6 +65,7 @@ abstract class EnumeratedBase extends ContentNodeImpl implements Enumerated {
      * item to the end of the current list).
      *
      * @param aListItem
+     *        adds a new list item to this enumeration
      */
     @Override
     public void addListItem(ListItem aListItem) {
@@ -93,6 +94,7 @@ abstract class EnumeratedBase extends ContentNodeImpl implements Enumerated {
      * Removes the list item at the specified index.
      *
      * @param anIndex
+     *        a number (i.e. equal or greater than zero and lesser than the total number of list items)
      *
      * @return the removed list item
      */
@@ -117,8 +119,9 @@ abstract class EnumeratedBase extends ContentNodeImpl implements Enumerated {
      * Returns the list item at the specified index.
      *
      * @param anIndex
+     *        a number (i.e. equal or greater than zero and lesser than the total number of list items)
      *
-     * @return  the list item
+     * @return the list item
      */
     @Override
     public ListItem getListItem(int anIndex) {
@@ -146,6 +149,7 @@ abstract class EnumeratedBase extends ContentNodeImpl implements Enumerated {
      * Returns the predecessor of the list item at the specified index.
      *
      * @param anIndex
+     *        a number (i.e. equal or greater than zero and lesser than the total number of list items)
      *
      * @return the predecessor of the list item at the specified index or
      *          <code>null</code> if no predecessor exists
@@ -166,6 +170,7 @@ abstract class EnumeratedBase extends ContentNodeImpl implements Enumerated {
      * Returns the successor of the list item at the specified index.
      *
      * @param anIndex
+     *        a number (i.e. equal or greater than zero and lesser than the total number of list items)
      *
      * @return the successor of the list item at the specified index or
      *          <code>null</code> if no successor exists

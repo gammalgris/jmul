@@ -53,13 +53,14 @@ public interface TextNode extends CharSequence {
      * Sets the specified text as the text content of this text node.
      *
      * @param aText
+     *        the new text for this text node
      */
     void setText(CharSequence aText);
 
     /**
      * Returns the text content of this text node.
      *
-     * @return a text
+     * @return the text of this text node
      */
     String getText();
 

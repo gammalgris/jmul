@@ -71,6 +71,7 @@ public class TokenImpl implements Token {
      * Creates a new instane according to the specified parameters.
      *
      * @param aString
+     *        a string representing the token
      */
     public TokenImpl(String aString) {
 

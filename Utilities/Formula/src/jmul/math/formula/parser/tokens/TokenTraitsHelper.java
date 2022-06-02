@@ -53,6 +53,7 @@ public final class TokenTraitsHelper {
      * Validates the specified parameter.
      *
      * @param someTraits
+     *        an array of traits
      *
      * @return the specified parameter
      */

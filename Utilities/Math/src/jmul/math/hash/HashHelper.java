@@ -86,12 +86,31 @@ public final class HashHelper {
      */
     public static int calculateHashCode(Class aClass, Object... someObjects) {
 
+        List<Integer> primeNumbers = getTwoPrimeNumbers(aClass);
+
+        return calculateHashCode(primeNumbers, someObjects);
+    }
+
+    /**
+     * Associates two random prime numbers with the specified class. In some cases the method
+     * {@link #calculateHashCode} cannot be used because the underlying data structure cannot easily
+     * be put in an object array or would lead to some unneccessary calculation overhead.<br>
+     * In those cases use this method to always work with the same prime numbers and do your own
+     * hash calculation.
+     *
+     * @param aClass
+     *        a class object
+     *
+     * @return a list containing two prime numbers
+     */
+    public static List<Integer> getTwoPrimeNumbers(Class aClass) {
+
         if (!archive.existsEntry(aClass)) {
 
             archive.addEntry(aClass, determineTwoPrimeNumbers());
         }
 
-        return calculateHashCode(archive.getEntry(aClass), someObjects);
+        return archive.getEntry(aClass);
     }
 
     /**

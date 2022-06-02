@@ -51,6 +51,9 @@ import org.junit.Test;
 /**
  * This class contains tests to test for hash collisions.
  *
+ * <i>Note:<br>
+ * Reconsider the usefulnesss of this test. Hash collissions can occur and are not bad per se.</i>
+ *
  * @author Kristian Kutin
  */
 @UnitTest

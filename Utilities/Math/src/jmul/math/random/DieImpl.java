@@ -123,7 +123,7 @@ public class DieImpl implements Die {
     /**
      * Checks if the specified numeric value is withing the allowed value range.
      *
-     * @param anAbilityScore
+     * @param aNumericValue
      */
     private static void checkParameter(int aNumericValue) {
 

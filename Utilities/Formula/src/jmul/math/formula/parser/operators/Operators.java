@@ -69,7 +69,10 @@ public enum Operators implements Operator {
      * Creates a new enumeration element according to the specified parameters.
      *
      * @param aTokenTrait
+     *        a trait for this enumeration element
      * @param aPrecedence
+     *        the order of precedence for this enumeration element (i.e. the higher the number
+     *        the higher the precedence)
      */
     private Operators(TokenTrait aTokenTrait, int aPrecedence) {
 
@@ -104,6 +107,7 @@ public enum Operators implements Operator {
      * Returns a operator which matches the specified token.
      *
      * @param aToken
+     *        a token representing an operator
      *
      * @return an operator
      */

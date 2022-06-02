@@ -73,11 +73,11 @@ public interface State {
      * @param newState
      *        the new state
      *
+     * @return the new state
+     *
      * @throws IllegalStateTransitionException
      *         is thrown if the current state doesn't allow a transition to the
      *         specified state
-     *
-     * @return the new state
      */
     State transitionTo(State newState);
 

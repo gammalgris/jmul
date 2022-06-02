@@ -343,7 +343,7 @@ public final class XmlHelper {
      *
      * @return a list of child nodes
      */
-    static List<Node> extractChildNodes(Node aParentNode, short aRequiredType) {
+    public static List<Node> extractChildNodes(Node aParentNode, short aRequiredType) {
 
         List<Node> elementNodes = new ArrayList<>();
 

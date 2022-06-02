@@ -169,6 +169,7 @@ set functionCalls.length=
 	echo create root directory...
 
 	call:createDirectory testdata-text %TRUE%
+	call:createDirectory testdata-text/output %TRUE%
 
 %return%
 

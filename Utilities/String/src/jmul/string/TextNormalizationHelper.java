@@ -192,7 +192,10 @@ public final class TextNormalizationHelper {
 
         int length = aCharSequence.length();
 
-        for (String token : STRING_TO_XML_STRING_CHARACTER_MAPPINGS.keySet()) {
+        for (Map.Entry<String, String> entry : STRING_TO_XML_STRING_CHARACTER_MAPPINGS.entrySet()) {
+
+            String token = entry.getKey();
+            String replacementToken = entry.getValue();
 
             int tokenLength = token.length();
 
@@ -218,7 +221,6 @@ public final class TextNormalizationHelper {
             }
 
             CharSequence remainder = aCharSequence.subSequence(token.length(), length);
-            String replacementToken = STRING_TO_XML_STRING_CHARACTER_MAPPINGS.get(token);
 
             return replacementToken + toNormalizedXmlString(theFullCharSequence, remainder);
         }
@@ -232,10 +234,10 @@ public final class TextNormalizationHelper {
 
 
     /**
-     * When writing a text file string values should be normalized, i.e. some
-     * language dependent special character need to be replaced to preserve the actual character
-     * (e.g. in german this applies to &#196;, &#214;, &#220;, etc.). When the output file
-     * has a lesser encoding (e.g. UTF-16 to UTF-8) there is some loss.<br>
+     * When writing a text file string values can be normalized, i.e. some
+     * language dependent special character can be replaced to preserve the actual character
+     * (e.g. in german this applies to &#196;, &#214;, &#220;, etc.). Depending on the output file
+     * encoding characters might be illegible or get broken when using certain editors.<br>
      * <br>
      * This operation returns a normalized string where some of these issues are resolved.<br>
      * <br>
@@ -298,7 +300,10 @@ public final class TextNormalizationHelper {
 
         int length = aCharSequence.length();
 
-        for (String token : STRING_TO_JAVA_STRING_CHARACTER_MAPPINGS.keySet()) {
+        for (Map.Entry<String, String> entry : STRING_TO_JAVA_STRING_CHARACTER_MAPPINGS.entrySet()) {
+
+            String token = entry.getKey();
+            String replacementToken = entry.getValue();
 
             int tokenLength = token.length();
 
@@ -324,7 +329,102 @@ public final class TextNormalizationHelper {
             }
 
             CharSequence remainder = aCharSequence.subSequence(token.length(), length);
-            String replacementToken = STRING_TO_JAVA_STRING_CHARACTER_MAPPINGS.get(token);
+
+            return replacementToken + toNormalizedJavaString(theFullCharSequence, remainder);
+        }
+
+
+        char first = aCharSequence.charAt(0);
+        CharSequence remainder = aCharSequence.subSequence(1, length);
+
+        return first + toNormalizedJavaString(theFullCharSequence, remainder);
+    }
+
+    /**
+     * The method denormalizes the specified string (i.e. some replacement codes are resolved).
+     *
+     * @param aCharSequence
+     *        a string which is normalized
+     *
+     * @return a denormalized string
+     */
+    public static String toDenormalizedJavaString(CharSequence aCharSequence) {
+
+        return toDenormalizedJavaString(aCharSequence, aCharSequence);
+    }
+
+    /**
+     * This operation recurses into the specified string and replaces certain characters in order to
+     * preserve the characters when exporting to a text file.
+     *
+     * @param theFullCharSequence
+     *        the full string is needed for error messages
+     * @param aCharSequence
+     *        the string which is normalized
+     *
+     * @return a normalized string
+     */
+    private static String toDenormalizedJavaString(CharSequence theFullCharSequence, CharSequence aCharSequence) {
+
+        if (aCharSequence == null) {
+
+            return null;
+        }
+
+        if (aCharSequence.length() == 0) {
+
+            return String.valueOf(aCharSequence);
+        }
+
+
+        // Check for unrecognized characters. If such a character is found then the string
+        // contains an illegal character. At this point it's not possible to restore or map
+        // the actual character.
+        {
+            char c1 = aCharSequence.charAt(0);
+            char c2 = FALLBACK_CHARACTER.charAt(0);
+
+            if (c1 == c2) {
+
+                String message =
+                    String.format("The specified string (%s) contains at least one unrecognized character (%s)!",
+                                  theFullCharSequence, c2);
+                throw new IllegalArgumentException(message);
+            }
+        }
+
+
+        int length = aCharSequence.length();
+
+        for (Map.Entry<String, String> entry : STRING_TO_JAVA_STRING_CHARACTER_MAPPINGS.entrySet()) {
+
+            String replacementToken = entry.getKey();
+            String token = entry.getValue();
+
+            int tokenLength = token.length();
+
+            boolean match = true;
+            for (int i = 0; i < tokenLength; i++) {
+
+                char c1 = token.charAt(i);
+
+                if (i >= length) {
+
+                    match = false;
+                    break;
+                }
+
+                char c2 = aCharSequence.charAt(i);
+
+                match = match && c1 == c2;
+            }
+
+            if (!match) {
+
+                continue;
+            }
+
+            CharSequence remainder = aCharSequence.subSequence(token.length(), length);
 
             return replacementToken + toNormalizedJavaString(theFullCharSequence, remainder);
         }

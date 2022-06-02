@@ -54,6 +54,7 @@ public interface Population<T> {
      * up to one below the population size.
      *
      * @param anIndex
+     *        a number (i.e. equal or higher than 0 and lesser than the popuplation size)
      *
      * @return an individual
      */
@@ -82,6 +83,7 @@ public interface Population<T> {
      * Grows the population to the specified population size.
      *
      * @param aPopulationSize
+     *        the new population size
      *
      * @return a population with the new population size
      */

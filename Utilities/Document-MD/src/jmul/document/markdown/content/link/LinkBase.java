@@ -61,6 +61,7 @@ abstract class LinkBase extends ContentNodeImpl implements Link {
      * Creates a new instance according to the specified parameters.
      *
      * @param aPath
+     *        a string representing a path or URL
      */
     LinkBase(CharSequence aPath) {
 
@@ -73,6 +74,7 @@ abstract class LinkBase extends ContentNodeImpl implements Link {
      * Sets the path or URL.
      *
      * @param aPath
+     *        a string representing a path or URL
      */
     @Override
     public void setPath(CharSequence aPath) {

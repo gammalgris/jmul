@@ -72,12 +72,17 @@ public class PopulationImpl<T> implements Population<T> {
     private final List<T> population;
 
     /**
-     * Creates a new population with the specified parameters.
+     * Creates a new population according to the specified parameters.
      *
      * @param anEvaluator
+     *        an entity that evaluates the fitness of an individual (i.e. an individual with one or more
+     *        desired traits)
      * @param aMutator
+     *        an entity that mutates individuals
      * @param aPopulationSize
+     *        a population size
      * @param anIndividual
+     *        the individual which will be the ancestor for this new population
      */
     public PopulationImpl(Evaluator<T> anEvaluator, Mutator<T> aMutator, int aPopulationSize, T anIndividual) {
 
@@ -97,11 +102,15 @@ public class PopulationImpl<T> implements Population<T> {
     }
 
     /**
-     * Creates a new population with the specified parameters.
+     * Creates a new population according to the specified parameters.
      *
      * @param anEvaluator
+     *        an entity that evaluates the fitness of an individual (i.e. an individual with one or more
+     *        desired traits)
      * @param aMutator
+     *        an entity that mutates individuals
      * @param aPopulation
+     *        a population size
      */
     public PopulationImpl(Evaluator<T> anEvaluator, Mutator<T> aMutator, Collection<T> aPopulation) {
 
@@ -109,11 +118,15 @@ public class PopulationImpl<T> implements Population<T> {
     }
 
     /**
-     * Creates a new population with the specified parameters.
+     * Creates a new population according to the specified parameters.
      *
      * @param anEvaluator
+     *        an entity that evaluates the fitness of an individual (i.e. an individual with one or more
+     *        desired traits)
      * @param aMutator
+     *        an entity that mutates individuals
      * @param aPopulation
+     *        a population size
      */
     public PopulationImpl(Evaluator<T> anEvaluator, Mutator<T> aMutator, List<T> aPopulation) {
 
@@ -141,6 +154,7 @@ public class PopulationImpl<T> implements Population<T> {
      * up to one below the population size.
      *
      * @param anIndex
+     *        a number (i.e. equal or higher than 0 and lesser than the popuplation size)
      *
      * @return an individual
      */
@@ -219,6 +233,7 @@ public class PopulationImpl<T> implements Population<T> {
      * cloned until the new population has the specified population size.
      *
      * @param aPopulationSize
+     *        the new population size
      *
      * @return a population with the new population size
      */

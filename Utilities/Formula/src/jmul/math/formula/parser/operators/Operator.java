@@ -34,6 +34,8 @@
 package jmul.math.formula.parser.operators;
 
 
+import java.io.Serializable;
+
 import jmul.math.formula.parser.tokens.TokenTrait;
 
 
@@ -42,7 +44,7 @@ import jmul.math.formula.parser.tokens.TokenTrait;
  *
  * @author Kristian Kutin
  */
-public interface Operator {
+public interface Operator extends Serializable {
 
     /**
      * Returns the token trait associated with this operator.

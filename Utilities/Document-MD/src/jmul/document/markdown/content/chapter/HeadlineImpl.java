@@ -117,7 +117,7 @@ public class HeadlineImpl extends ContentNodeImpl implements Headline {
     /**
      * Returns the length of the headline string.
      *
-     * @return
+     * @return the length of the headline string
      */
     @Override
     public int length() {

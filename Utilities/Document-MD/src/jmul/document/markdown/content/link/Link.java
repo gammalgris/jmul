@@ -49,6 +49,7 @@ public interface Link extends Paragraph {
      * Sets the path or URL.
      *
      * @param aPath
+     *        a string representing a path or URL
      */
     void setPath(CharSequence aPath);
 

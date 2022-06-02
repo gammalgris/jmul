@@ -53,6 +53,7 @@ public class ImageLinkImpl extends LinkBase implements ImageLink {
      * Creates a new instance according to the specified parameters.
      *
      * @param aPath
+     *        a string representing a path or URL
      */
     public ImageLinkImpl(CharSequence aPath) {
 

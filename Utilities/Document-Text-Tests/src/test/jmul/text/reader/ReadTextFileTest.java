@@ -155,4 +155,28 @@ public class ReadTextFileTest {
         assertEquals("", text.getContent().get(1));
     }
 
+    /**
+     * Tests reading a text file.
+     *
+     * @throws IOException
+     *         is thrown if an error occurrs while trying to read from the
+     *         specified file
+     */
+    @Test
+    public void testReadTextFile5() throws IOException {
+
+        TextDocumentReader reader = new TextDocumentReaderImpl(StandardCharsets.ISO_8859_1);
+
+        TextDocument document = reader.readFrom("testdata-text/example05.txt");
+
+        assertEquals(11, document.getSize());
+
+
+        Text text = document.getContent();
+
+        assertEquals(2, text.getContent().size());
+        assertEquals("\u00c4\u00e4\u00d6\u00f6\u00dc\u00fc\u00df", text.getContent().get(0));
+        assertEquals("", text.getContent().get(1));
+    }
+
 }

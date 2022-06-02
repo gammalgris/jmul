@@ -56,6 +56,7 @@ public class TableLinkImpl extends LinkBase implements TableLink {
      * Creates a new instance according to the specified parameters.
      *
      * @param aPath
+     *        a string representing a path or URL
      */
     public TableLinkImpl(CharSequence aPath) {
 

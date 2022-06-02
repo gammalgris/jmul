@@ -34,10 +34,13 @@
 package jmul.math.formula.parser.tokens;
 
 
+import java.io.Serializable;
+
+
 /**
  * This is a marker interface for token trait.
  *
  * @author Kristian Kutin
  */
-public interface TokenTrait {
+public interface TokenTrait extends Serializable {
 }

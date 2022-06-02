@@ -76,7 +76,7 @@ public final class StateHelper {
      *
      * @return an exception
      */
-    public static IllegalArgumentException newUnknownStateException(State aState) {
+    public static UnknownStateException newUnknownStateException(State aState) {
 
         return newUnknownStateException(aState.getStateName());
     }
@@ -90,7 +90,7 @@ public final class StateHelper {
      *
      * @return an exception
      */
-    public static IllegalArgumentException newUnknownStateException(String aStateName) {
+    public static UnknownStateException newUnknownStateException(String aStateName) {
 
         StringBuilder message = new StringBuilder();
         message.append("The specified state \"");

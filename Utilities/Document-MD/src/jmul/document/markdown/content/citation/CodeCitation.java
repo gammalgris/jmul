@@ -48,13 +48,14 @@ public interface CodeCitation extends Paragraph {
      * Sets the programming language for the code citation.
      *
      * @param aProgrammingLanguage
+     *        the name of a programming language
      */
     void setProgrammingLanguage(CharSequence aProgrammingLanguage);
 
     /**
      * Returns the programming language for the code citation.
      *
-     * @return a programming language
+     * @return the name of a programming language
      */
     String getProgrammingLanguage();
 

@@ -78,6 +78,7 @@ public class CodeCitationImpl extends TextNodeImpl implements CodeCitation {
      * Sets the programming language for the code citation.
      *
      * @param aProgrammingLanguage
+     *        the name of a programming language
      */
     @Override
     public void setProgrammingLanguage(CharSequence aProgrammingLanguage) {
@@ -88,7 +89,7 @@ public class CodeCitationImpl extends TextNodeImpl implements CodeCitation {
     /**
      * Returns the programming language for the code citation.
      *
-     * @return a programming language
+     * @return the name of a programming language
      */
     @Override
     public String getProgrammingLanguage() {

@@ -64,7 +64,7 @@ public class NodeImpl<T> implements Node<T> {
      */
     public NodeImpl() {
 
-        this(null, null);
+        this(null, (Node<T>[]) null);
     }
 
     /**
@@ -74,7 +74,7 @@ public class NodeImpl<T> implements Node<T> {
      */
     public NodeImpl(T someContent) {
 
-        this(someContent, null);
+        this(someContent, (Node<T>[]) null);
     }
 
     /**

@@ -96,7 +96,7 @@ public class WriteTextFileWithInvalidParameters2Test {
     /**
      * Creates a new test according to the specified parameters.
      *
-     * @param aFileName
+     * @param aFile
      *        a file path
      * @param aDocument
      *        a document object

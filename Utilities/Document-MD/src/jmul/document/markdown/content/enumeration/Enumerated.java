@@ -49,6 +49,7 @@ public interface Enumerated extends Paragraph {
      * item to the end of the current list).
      *
      * @param aListItem
+     *        a new list item
      */
     void addListItem(ListItem aListItem);
 
@@ -63,6 +64,7 @@ public interface Enumerated extends Paragraph {
      * Removes the list item at the specified index.
      *
      * @param anIndex
+     *        a number (i.e. a number greater or equal to zero and lesser than the total number of list items)
      *
      * @return the removed list item
      */
@@ -72,8 +74,9 @@ public interface Enumerated extends Paragraph {
      * Returns the list item at the specified index.
      *
      * @param anIndex
+     *        a number (i.e. a number greater or equal to zero and lesser than the total number of list items)
      *
-     * @return  the list item
+     * @return the list item
      */
     ListItem getListItem(int anIndex);
 

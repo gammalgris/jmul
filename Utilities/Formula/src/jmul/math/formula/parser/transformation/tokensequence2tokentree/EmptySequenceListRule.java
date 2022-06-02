@@ -53,8 +53,11 @@ public class EmptySequenceListRule extends TransformationRuleBase {
      * Creates a new transformation rule according to the specified parameters.
      *
      * @param anOrigin
+     *        the origin of the transformation
      * @param aDestination
+     *        the destination of the transformation
      * @param aPriority
+     *        the priority of this transformation rule
      */
     public EmptySequenceListRule(String anOrigin, String aDestination, int aPriority) {
 
@@ -65,6 +68,7 @@ public class EmptySequenceListRule extends TransformationRuleBase {
      * Checks if this rule is applicable on the specified parameter.
      *
      * @param someParameters
+     *        a parameter which contains everything that is needed for the transformation
      *
      * @return <code>true</code> if this rule is applicable, else <code>false</code>
      */

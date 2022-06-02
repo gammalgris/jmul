@@ -59,6 +59,7 @@ public class ListItemImpl extends ListItemNodeImpl implements ListItem {
      * Creates a new instance according to the specified parameters.
      *
      * @param aText
+     *        the new text for this list item
      */
     public ListItemImpl(CharSequence aText) {
 
