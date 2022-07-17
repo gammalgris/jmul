@@ -47,7 +47,10 @@ import static jmul.checks.ParameterCheckHelper.checkExceptionMessage;
  * and an exception which occurs during the exception handling).
  *
  * @author Kristian Kutin
+ *
+ * @deprecated obsolete, see suppressed exceptions in Throwable implementation
  */
+ @Deprecated
 public class MultipleCausesException extends Exception implements Iterable<Throwable> {
 
     /**
