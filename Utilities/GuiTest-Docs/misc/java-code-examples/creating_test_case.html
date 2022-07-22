@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+
+		<meta charset="utf-8">
+
+		<title>creating test case</title>
+
+		<script src="google-code-prettify/run_prettify.js?autoload=true&amp;skin=sons-of-obsidian&amp;lang=css" defer="defer"></script>
+
+	</head>
+
+	<body bgcolor="Black">
+
+		<?prettify linenums=1?>
+		<pre class="prettyprint" id="quine">
+
+      ...
+
+      // wait for the GUI component (frame) htat get the focus
+
+      PauseHelper.waitForComponentWithFocus();
+      PauseHelper.sleepSeconds(5);
+
+      // press a single key
+
+      KeyboardInputHelper.holdKey(getRobot(), "hold ALT", KeyEvent.VK_ALT);
+      KeyboardInputHelper.pressKey(getRobot(), "press F", KeyEvent.VK_F);
+      KeyboardInputHelper.releaseKey(getRobot(), "release ALT", KeyEvent.VK_ALT);
+      PauseHelper.sleepSeconds(1);
+
+      //hold a key (ALT) and press a second key
+
+      KeyboardInputHelper.holdKey(getRobot(), "hold ALT", KeyEvent.VK_ALT);
+      KeyboardInputHelper.pressKey(getRobot(), "press E", KeyEvent.VK_E);
+      KeyboardInputHelper.releaseKey(getRobot(), "release ALT", KeyEvent.VK_ALT);
+      PauseHelper.sleepSeconds(5);
+      
+      ...
+
+		</pre>
+
+	</body>
+
+</html>

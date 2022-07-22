@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+
+		<meta charset="utf-8">
+
+		<title>creating test suite</title>
+
+		<script src="google-code-prettify/run_prettify.js?autoload=true&amp;skin=sons-of-obsidian&amp;lang=css" defer="defer"></script>
+
+	</head>
+
+	<body bgcolor="Black">
+
+		<?prettify linenums=1?>
+		<pre class="prettyprint" id="quine">
+
+      ...
+
+      // Inherit from a base class for GUI tests
+
+      public class MyGuiTest extends GUITestBase {
+
+          ...
+
+          public DummyGuiTest() {
+
+              // The test suite needs to know how to start the GUI
+
+              super(new MyGuiStarter());
+          }
+
+          ...
+
+          // A test case is a simple JUnit test
+
+          @Test
+          public void testStartAndExit() {
+
+              // The base class handles starting the GUI application.
+              // Test test case only needs to send mouse and key events and check
+              // the status of the GUI components.
+
+              PauseHelper.waitForComponentWithFocus();
+              PauseHelper.sleepSeconds(5);
+
+              ...
+
+          }
+
+      }
+      
+      ...
+
+		</pre>
+
+	</body>
+
+</html>
