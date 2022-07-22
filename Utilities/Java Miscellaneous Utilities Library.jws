@@ -48,7 +48,9 @@
       <hash><url n="URL" path="Formula/Formula.jpr"/></hash>
       <hash><url n="URL" path="Formula-Tests/Formula-Tests.jpr"/></hash>
       <hash><url n="URL" path="Genetic/Genetic.jpr"/></hash>
+      <hash><url n="URL" path="Gui/Gui.jpr"/></hash>
       <hash><url n="URL" path="GuiTest/GuiTest.jpr"/></hash>
+      <hash><url n="URL" path="GuiTest-Tests/GuiTest-Tests.jpr"/></hash>
       <hash><url n="URL" path="Helper-Tests/Helper-Tests.jpr"/></hash>
       <hash><url n="URL" path="IO/IO.jpr"/></hash>
       <hash><url n="URL" path="IO-Tests/IO-Tests.jpr"/></hash>

@@ -7,6 +7,7 @@
 * Concurrent
 * Constants
 * Gui
+* GuiTest
 * Logging
 * Math
 * String

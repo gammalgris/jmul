@@ -37,6 +37,9 @@
             <fileset dir="${package.misc.src.dir}">
                 <include name="**/*.java" />
             </fileset>
+            <fileset dir="${package.gui.src.dir}">
+                <include name="**/*.java" />
+            </fileset>
             <fileset dir="${package.guitest.src.dir}">
                 <include name="**/*.java" />
             </fileset>

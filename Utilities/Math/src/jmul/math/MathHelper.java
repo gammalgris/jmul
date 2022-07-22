@@ -63,7 +63,10 @@ public final class MathHelper {
      *        all numbers which have to be compared
      *
      * @return the highest number
+     * 
+     * @deprecated inefficient implementation. Use an implementation based on sorted set instead.
      */
+    @Deprecated
     public static int max(int... someNumbers) {
 
         checkArray(someNumbers);
