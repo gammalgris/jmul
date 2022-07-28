@@ -152,6 +152,8 @@ Error message and password prompt
 
 <li>Persisted Data Structures</li>
 
+<li>Recommendations</li>
+
 <li>Table of Contents</li>
 
 <li>Testing</li>
@@ -8402,7 +8404,7 @@ Error message and password prompt
 <div created="20150606171842764" creator="K" modified="20150606171842937" modifier="K" title="$:/status/UserName">
 <pre>KK</pre>
 </div>
-<div list="" title="$:/StoryList">
+<div list="[[Table of Contents]] Recommendations" title="$:/StoryList">
 <pre></pre>
 </div>
 <div plugin-type="info" title="$:/temp/info-plugin" type="application/json">
@@ -8418,19 +8420,19 @@ Error message and password prompt
         },
         &quot;$:/info/url/full&quot;: {
             &quot;title&quot;: &quot;$:/info/url/full&quot;,
-            &quot;text&quot;: &quot;http://tiddlywiki.com/upgrade.html&quot;
+            &quot;text&quot;: &quot;file:///D:/repositories/jmul/Utilities/Persistence-Docs/Persistence.html&quot;
         },
         &quot;$:/info/url/host&quot;: {
             &quot;title&quot;: &quot;$:/info/url/host&quot;,
-            &quot;text&quot;: &quot;tiddlywiki.com&quot;
+            &quot;text&quot;: &quot;&quot;
         },
         &quot;$:/info/url/hostname&quot;: {
             &quot;title&quot;: &quot;$:/info/url/hostname&quot;,
-            &quot;text&quot;: &quot;tiddlywiki.com&quot;
+            &quot;text&quot;: &quot;&quot;
         },
         &quot;$:/info/url/protocol&quot;: {
             &quot;title&quot;: &quot;$:/info/url/protocol&quot;,
-            &quot;text&quot;: &quot;http:&quot;
+            &quot;text&quot;: &quot;file:&quot;
         },
         &quot;$:/info/url/port&quot;: {
             &quot;title&quot;: &quot;$:/info/url/port&quot;,
@@ -8438,7 +8440,7 @@ Error message and password prompt
         },
         &quot;$:/info/url/pathname&quot;: {
             &quot;title&quot;: &quot;$:/info/url/pathname&quot;,
-            &quot;text&quot;: &quot;/upgrade.html&quot;
+            &quot;text&quot;: &quot;/D:/repositories/jmul/Utilities/Persistence-Docs/Persistence.html&quot;
         },
         &quot;$:/info/url/search&quot;: {
             &quot;title&quot;: &quot;$:/info/url/search&quot;,
@@ -8446,7 +8448,7 @@ Error message and password prompt
         },
         &quot;$:/info/url/origin&quot;: {
             &quot;title&quot;: &quot;$:/info/url/origin&quot;,
-            &quot;text&quot;: &quot;http://tiddlywiki.com&quot;
+            &quot;text&quot;: &quot;null&quot;
         }
     }
 }</pre>
@@ -8700,7 +8702,49 @@ This example is similar to example #5 except that the map informations are provi
 &lt;html&gt;&lt;iframe src=&quot;misc/java-code-examples/persisted_data_structures_04_02.html&quot; seamless width=&quot;90%&quot; height=&quot;430&quot; /&gt;&lt;/html&gt;
 </pre>
 </div>
-<div created="20160517133754080" creator="KK" modified="20161104124644059" modifier="KK" title="Table of Contents">
+<div created="20220728103914717" creator="KK" modified="20220728104958966" modifier="KK" title="Recommendations">
+<pre>&lt;ul&gt;
+&lt;li&gt;Transformation Paths&lt;br&gt;&lt;br&gt;
+  The persistence currently uses a specific serialization (object-&gt; XML)
+  and deserialization (XML-&gt; object). The actual implementation consists
+  of two corresponding sets of transformation rules.
+  The transformation can easily be customized or changed as needed. Other
+  transformations (object-&gt; custom XML data, object-&gt; binary data,
+  object-&gt; JSON, etc.) are
+  possible.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Persistence Location&lt;br&gt;&lt;br&gt;
+  The current implementation persists objects as XMl files within the file
+  system. Other locations (e.g. database) are also possible.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Changing Data Structures&lt;br&gt;&lt;br&gt;
+  There are several ways to cope with changing data structures with
+  persisted data.&lt;br&gt;
+  &lt;ol&gt;
+  &lt;li&gt;Start a downtime. Transform the legacy data to the new data
+     structure. Test the result. Stop the downtime.&lt;/li&gt;
+  &lt;li&gt;Introduce a version number to your data structure. This information must be
+     available and processed at runtime.&lt;br&gt;
+     Mark obsolete parts of your data structure (e.g. fields, aggregates, etc.)
+     as deprecated. These can only be removed when there is no corresponding
+     legacy data.&lt;br&gt;
+     Add meta data to every field, aggregate, etc. to document in which version
+     it was introduced. This serves no other goal as to document the changes
+     for the developer.&lt;br&gt;
+     You now need additional transformations paths for the different versions
+     of the data and the underlying data structure. When accessing legacy data
+     it is recommended to not only restored it to its past state but also to
+     transform it to the current state. Ideally over time the legacy data will be
+     updated.&lt;/li&gt;
+  &lt;/ol&gt;
+&lt;/li&gt;
+&lt;/ul&gt;</pre>
+</div>
+<div created="20160517133754080" creator="KK" modified="20220728103857258" modifier="KK" title="Table of Contents">
 <pre>//in alphabetical order//
 
 !C
@@ -8712,6 +8756,10 @@ This example is similar to example #5 except that the map informations are provi
 [[Introduction]]
 
 [[Implementation Details]]
+
+!R
+
+[[Recommendations]]
 
 !P
 
