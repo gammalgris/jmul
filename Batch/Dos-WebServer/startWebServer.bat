@@ -70,10 +70,10 @@ if exist "%webServerLibraryPath%" (
 echo.
 echo.
 
-echo java.exe -cp %webServerClasspath% %webServerRunner% %webServerParameters%
+echo java.exe -cp "%webServerClasspath%" %webServerRunner% %webServerParameters%
 echo.
 
-java.exe -cp %webServerClasspath% %webServerRunner% %webServerParameters%
+java.exe -cp "%webServerClasspath%" %webServerRunner% %webServerParameters%
 if %ERRORLEVEL%==0 (
 
 	rem OK
@@ -175,7 +175,7 @@ exit /b 0
 		%return% 3
 	)
 
-	for /F "tokens=*" %%a in (%_fileName%) do (
+	for /F "tokens=*" %%a in ('type "%_fileName%"') do (
 
 		call:setProperty "%%a"
 		%ifError% (

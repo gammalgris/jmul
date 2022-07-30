@@ -17,15 +17,11 @@
 		<pre class="prettyprint" id="quine">
       ...
 
-      :setJava
 
-        set JAVA_HOME=D:\Programme\jdk1.7.0_80\
+        set JAVA_HOME=D:\Dependencies\Java\
         set JAVA_BIN=%JAVA_HOME%bin\
         set JAVA_EXE=%JAVA_BIN%java.exe
-
-        call:addApplication JAVA JAVA_HOME JAVA_EXE 1.7.0
-
-      %return%
+        set JAVA_VERSION=1.7.0
 
       ...
 		</pre>
