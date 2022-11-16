@@ -65,6 +65,7 @@ import org.xml.sax.SAXException;
  *
  * @author Kristian Kutin
  */
+@Deprecated
 @UnitTest
 @RunWith(Parameterized.class)
 public class XmlValidatorInvalidInputTest {

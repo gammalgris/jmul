@@ -64,6 +64,7 @@ import static test.jmul.xml.writer.TestFileMarkups.TEST_ATTRIBUTE;
 import static test.jmul.xml.writer.TestFileMarkups.TEST_NODE;
 
 
+
 @UnitTest
 public class NormalizingXmlDocumentWriterTest {
 

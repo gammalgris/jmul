@@ -1,7 +1,7 @@
 /*
  * SPDX-License-Identifier: GPL-3.0
- * 
- * 
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -63,8 +63,6 @@ public class FloatCreator implements ObjectCreator {
     @Override
     public Object createObject(String anInitialValue, String aPattern) {
 
-        // Check the specified parameters.
-
         if (anInitialValue == null) {
 
             String message = "No initial value has been specified!";
@@ -77,10 +75,8 @@ public class FloatCreator implements ObjectCreator {
             throw new IllegalArgumentException(message);
         }
 
-
-        // Create a new instance.
-
-        return Float.parseFloat(anInitialValue);
+        String normalizedValue = NormalizationHelper.normalizeRealNumber(anInitialValue);
+        return Float.parseFloat(normalizedValue);
     }
 
 }

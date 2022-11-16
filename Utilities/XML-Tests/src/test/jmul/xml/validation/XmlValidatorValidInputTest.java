@@ -56,6 +56,7 @@ import org.junit.runners.Parameterized;
  *
  * @author Kristian Kutin
  */
+@Deprecated
 @UnitTest
 @RunWith(Parameterized.class)
 public class XmlValidatorValidInputTest {

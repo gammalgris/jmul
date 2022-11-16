@@ -53,6 +53,7 @@ import org.w3c.dom.Document;
  *
  * @author Kristian Kutin
  */
+@Deprecated
 public class NormalizingXmlDocumentWriterImpl implements XmlDocumentWriter {
 
     /**
