@@ -91,4 +91,8 @@ Example:
 ```
 
 By convention, parameters that are not marked with the annotation should not be
-modified. 
+modified.
+There is no guarantee that parameters are not modified or that this convention
+might be misleading if not applied and updated properly. But sticking to this
+convention should make it easier to identify the cases when a parameter is
+actually modified.

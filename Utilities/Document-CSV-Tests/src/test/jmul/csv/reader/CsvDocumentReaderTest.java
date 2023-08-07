@@ -887,4 +887,52 @@ public class CsvDocumentReaderTest {
         assertEquals(expectedString, actualString);
     }
 
+    /**
+     * Tests parsing a CSV file. The first line is a header line and contains
+     * 3 data lines. The column separator is a semicolon. The row separator is
+     * a windows style line break. The second data line contains a cell with
+     * a ' character.
+     */
+    @Test(expected = QuoteNotClosedException.class)
+    public void testParseDocument18() {
+
+        String filename = "testdata-csv\\example18.csv";
+        CsvDocumentReader reader = new CsvDocumentReaderImpl();
+
+        CsvDocument document;
+
+        try {
+
+            document = reader.readFrom(filename);
+
+        } catch (IOException e) {
+
+            throw new FailedTestException(e);
+        }
+    }
+
+    /**
+     * Tests parsing a CSV file. The first line is a header line and contains
+     * 3 data lines. The column separator is a semicolon. The row separator is
+     * a windows style line break. The second data line contains a cell with
+     * a " character.
+     */
+    @Test(expected = QuoteNotClosedException.class)
+    public void testParseDocument19() {
+
+        String filename = "testdata-csv\\example19.csv";
+        CsvDocumentReader reader = new CsvDocumentReaderImpl();
+
+        CsvDocument document;
+
+        try {
+
+            document = reader.readFrom(filename);
+
+        } catch (IOException e) {
+
+            throw new FailedTestException(e);
+        }
+    }
+
 }

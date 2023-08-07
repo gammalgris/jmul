@@ -108,3 +108,19 @@ Purpose: Analysing code with SonarQube
 
 Link: http://docs.sonarqube.org/display/SCAN/Analyzing+with+SonarQube+Scanner+for+Ant
 
+
+Note: How to embed a specific JDK depends on the actual IDE. It might be easier
+to create a symbolic link (e.g. .\dependencies\jdk\) and to reference that
+symbolic link within the IDE. This way the configuration for all subprojects
+doesn't need to be changed on updating the JDK.
+
+Note: In Windows environments simply create a symbolic link (i.e.
+C:\Program Files\Java\jdk1.8.0_171) that references the actual JDK. This way
+no further change to the project configuration is needed.
+
+Note: Using a different IDE requires recreating the project and subprojects
+within the other IDE. Keep a copy of your project configuration. Updating the
+local project should be easy then.
+
+Note: Before checking in changes to the repository clean up the project and
+remove garbage created by the IDE.
