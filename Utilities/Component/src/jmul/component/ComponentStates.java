@@ -49,6 +49,7 @@ import jmul.misc.state.UnknownStateException;
  *
  * @author Kristian Kutin
  */
+ @Deprecated
 public enum ComponentStates implements State {
 
 

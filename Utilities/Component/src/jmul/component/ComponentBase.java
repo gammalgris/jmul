@@ -46,6 +46,7 @@ import jmul.misc.state.State;
  *
  * @author Kristian Kutin
  */
+ @Deprecated
 public abstract class ComponentBase implements Component {
 
     /**

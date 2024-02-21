@@ -42,6 +42,7 @@ import jmul.misc.state.State;
  *
  * @author Kristian Kutin
  */
+ @Deprecated
 public interface ComponentController {
 
     /**

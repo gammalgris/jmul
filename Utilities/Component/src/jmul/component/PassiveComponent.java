@@ -40,5 +40,6 @@ package jmul.component;
  *
  * @author Kristian Kutin
  */
+ @Deprecated
 public interface PassiveComponent extends Component {
 }
