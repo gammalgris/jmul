@@ -38,13 +38,13 @@ import java.io.IOException;
 
 import java.nio.charset.StandardCharsets;
 
-import java.util.List;
-
 import jmul.csv.reader.CsvDocumentReader;
 import jmul.csv.reader.CsvDocumentReaderImpl2;
+import jmul.csv.reader.CsvStructureException;
 
 import jmul.document.csv.CsvDocument;
 import jmul.document.csv.structure.HeaderType;
+import static jmul.document.csv.structure.HeaderType.FIRST_LINE_IS_HEADER;
 import static jmul.document.csv.structure.HeaderType.NO_HEADER;
 import jmul.document.csv.structure.StructureType;
 import static jmul.document.csv.structure.StructureType.FLEXIBLE;
@@ -57,13 +57,13 @@ import static jmul.string.Constants.COMMA;
 import static jmul.string.Constants.NEW_LINE_UNIX;
 import static jmul.string.Constants.NEW_LINE_WINDOWS;
 import static jmul.string.Constants.SEMICOLON;
+import jmul.string.QuoteNotClosedException;
 
 import jmul.test.classification.ModuleTest;
-import jmul.test.exceptions.FailedTestException;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+import org.junit.ComparisonFailure;
 import org.junit.Test;
 
 
@@ -76,781 +76,430 @@ import org.junit.Test;
 public class CsvDocumentReader2Test {
 
     /**
-     * The table data is checked.
-     *
-     * @param aTable
-     *        a reference to a table
-     */
-    private void checkTableData(Table<String> aTable) {
-
-        int columns = aTable.columns();
-        int rows = aTable.rows();
-
-        assertEquals(3, columns);
-        assertEquals(3, rows);
-
-        for (int a = 0; a < columns; a++) {
-
-            for (int b = 0; b < rows; b++) {
-
-                int expectedNumber = (b * 3) + (a + 1);
-                String expectedString = "" + expectedNumber;
-                String actualString = aTable.getCell(a, b);
-                String message =
-                    "expected: " + expectedString + "; row=" + b + "; column=" + a + "; actual=" + actualString;
-
-                assertEquals(message, expectedString, actualString);
-            }
-        }
-    }
-
-    /**
-     * Tests parsing a CSV file. The first line is a header line and the contains
-     * 3 data lines. The column separator is a semicolon. The row separator is
-     * a windows style line break.
+     * Tests parsing a CSV file (see CSV file or testdata creation script for details).<br>
+     * <br>
+     * The first line is a header line and contains 3 data lines. The column separator is a
+     * semicolon. The row separator is a windows style line break.<br>
+     * <br>
+     * The CSV file is expected to be parsable.
      */
     @Test
-    public void testParseDocument() {
+    public void testParseDocument() throws IOException {
 
         String filename = "testdata-csv\\example01.csv";
-        CsvDocumentReader reader = new CsvDocumentReaderImpl2();
+        CsvDocumentReader reader = new CsvDocumentReaderImpl2(StandardCharsets.UTF_8);
+        CsvDocument document = reader.readFrom(filename);
 
-        CsvDocument document;
-
-        try {
-
-            document = reader.readFrom(filename);
-
-        } catch (IOException e) {
-
-            throw new FailedTestException(e);
-        }
-
-
-        assertEquals(DocumentTypes.CSV, document.getDocumentType());
-        assertEquals(SEMICOLON, document.getStructure().getColumnSeparator());
-        assertEquals(NEW_LINE_WINDOWS, document.getStructure().getRowSeparator());
-        assertEquals(HeaderType.FIRST_LINE_IS_HEADER, document.getStructure().getHeaderType());
-        assertEquals(StructureType.RIGID, document.getStructure().getStructureType());
-
-        String[] header1 = document.getStructure().getHeader();
-        List<String> header2 = document.getContent().getColumnNames();
+        CsvHelper.checkMetaData(document, StandardCharsets.UTF_8, DocumentTypes.CSV, SEMICOLON, NEW_LINE_WINDOWS,
+                                HeaderType.FIRST_LINE_IS_HEADER, StructureType.RIGID);
 
         Table<String> table = document.getContent();
-        int columns = table.columns();
 
-        for (int a = 0; a < columns; a++) {
-
-            assertEquals(header1[a], header2.get(a));
-        }
-
-
-        checkTableData(table);
+        CsvHelper.checkTableSize(table, 3, 3);
+        CsvHelper.checkHeader(table, "A", "B", "C");
+        CsvHelper.checkCellsWithNumbers(table);
     }
 
     /**
-     * Tests parsing a CSV file. The first line is a header line and the contains
-     * 3 data lines. The column separator is a comma. The row separator is
-     * a windows style line break.
+     * Tests parsing a CSV file (see CSV file or testdata creation script for details).<br>
+     * <br>
+     * The first line is a header line and contains 3 data lines. The column separator is a
+     * comma. The row separator is a windows style line break.<br>
+     * <br>
+     * The CSV file is expected to be parsable.
      */
     @Test
-    public void testParseDocument2() {
+    public void testParseDocument2() throws IOException {
 
         String filename = "testdata-csv\\example02.csv";
-        CsvDocumentReader reader = new CsvDocumentReaderImpl2(COMMA);
+        CsvDocumentReader reader = new CsvDocumentReaderImpl2(StandardCharsets.UTF_8, COMMA);
+        CsvDocument document = reader.readFrom(filename);
 
-        CsvDocument document;
-
-        try {
-
-            document = reader.readFrom(filename);
-
-        } catch (IOException e) {
-
-            throw new FailedTestException(e);
-        }
-
-
-        assertEquals(DocumentTypes.CSV, document.getDocumentType());
-        assertEquals(COMMA, document.getStructure().getColumnSeparator());
-        assertEquals(NEW_LINE_WINDOWS, document.getStructure().getRowSeparator());
-        assertEquals(HeaderType.FIRST_LINE_IS_HEADER, document.getStructure().getHeaderType());
-        assertEquals(StructureType.RIGID, document.getStructure().getStructureType());
-
-        String[] header1 = document.getStructure().getHeader();
-        List<String> header2 = document.getContent().getColumnNames();
+        CsvHelper.checkMetaData(document, StandardCharsets.UTF_8, DocumentTypes.CSV, COMMA, NEW_LINE_WINDOWS,
+                                HeaderType.FIRST_LINE_IS_HEADER, StructureType.RIGID);
 
         Table<String> table = document.getContent();
-        int columns = table.columns();
 
-        for (int a = 0; a < columns; a++) {
-
-            assertEquals(header1[a], header2.get(a));
-        }
-
-
-        checkTableData(table);
+        CsvHelper.checkTableSize(table, 3, 3);
+        CsvHelper.checkHeader(table, "A", "B", "C");
+        CsvHelper.checkCellsWithNumbers(table);
     }
 
     /**
-     * Tests parsing a CSV file. The first line is a header line and the contains
-     * 3 data lines. The column separator is a semicolon. The row separator is
-     * a unix style line break.
+     * Tests parsing a CSV file (see CSV file or testdata creation script for details).<br>
+     * <br>
+     * The first line is a header line and contains 3 data lines. The column separator is a
+     * semicolon. The row separator is a unix style line break.<br>
+     * <br>
+     * The CSV file is expected to be parsable.
      */
     @Test
-    public void testParseDocument3() {
+    public void testParseDocument3() throws IOException {
 
         String filename = "testdata-csv\\example03.csv";
-        CsvDocumentReader reader = new CsvDocumentReaderImpl2(SEMICOLON, NEW_LINE_UNIX);
+        CsvDocumentReader reader = new CsvDocumentReaderImpl2(StandardCharsets.UTF_8, SEMICOLON, NEW_LINE_UNIX);
+        CsvDocument document = reader.readFrom(filename);
 
-        CsvDocument document;
-
-        try {
-
-            document = reader.readFrom(filename);
-
-        } catch (IOException e) {
-
-            throw new FailedTestException(e);
-        }
-
-
-        assertEquals(DocumentTypes.CSV, document.getDocumentType());
-        assertEquals(SEMICOLON, document.getStructure().getColumnSeparator());
-        assertEquals(NEW_LINE_UNIX, document.getStructure().getRowSeparator());
-        assertEquals(HeaderType.FIRST_LINE_IS_HEADER, document.getStructure().getHeaderType());
-        assertEquals(StructureType.RIGID, document.getStructure().getStructureType());
-
-        String[] header1 = document.getStructure().getHeader();
-        List<String> header2 = document.getContent().getColumnNames();
+        CsvHelper.checkMetaData(document, StandardCharsets.UTF_8, DocumentTypes.CSV, SEMICOLON, NEW_LINE_UNIX,
+                                HeaderType.FIRST_LINE_IS_HEADER, StructureType.RIGID);
 
         Table<String> table = document.getContent();
-        int columns = table.columns();
 
-        for (int a = 0; a < columns; a++) {
-
-            assertEquals(header1[a], header2.get(a));
-        }
-
-
-        checkTableData(table);
+        CsvHelper.checkTableSize(table, 3, 3);
+        CsvHelper.checkHeader(table, "A", "B", "C");
+        CsvHelper.checkCellsWithNumbers(table);
     }
 
     /**
-     * Tests parsing a CSV file. The first line is a header line and the contains
-     * 3 data lines. The column separator is a semicolon. The row separator is
-     * a windows style line break. Data cells are quoted.
+     * Tests parsing a CSV file (see CSV file or testdata creation script for details).<br>
+     * <br>
+     * The first line is a header line and contains 3 data lines. The column separator is a
+     * semicolon. The row separator is a windows style line break. Data cells are quoted.<br>
+     * <br>
+     * The CSV file is expected to be parsable.
      */
     @Test
-    public void testParseDocument4() {
+    public void testParseDocument4() throws IOException {
 
         String filename = "testdata-csv\\example04.csv";
-        CsvDocumentReader reader = new CsvDocumentReaderImpl2();
+        CsvDocumentReader reader = new CsvDocumentReaderImpl2(StandardCharsets.UTF_8);
+        CsvDocument document = reader.readFrom(filename);
 
-        CsvDocument document;
-
-        try {
-
-            document = reader.readFrom(filename);
-
-        } catch (IOException e) {
-
-            throw new FailedTestException(e);
-        }
-
-
-        assertEquals(DocumentTypes.CSV, document.getDocumentType());
-        assertEquals(SEMICOLON, document.getStructure().getColumnSeparator());
-        assertEquals(NEW_LINE_WINDOWS, document.getStructure().getRowSeparator());
-        assertEquals(HeaderType.FIRST_LINE_IS_HEADER, document.getStructure().getHeaderType());
-        assertEquals(StructureType.RIGID, document.getStructure().getStructureType());
-
-        String[] header1 = document.getStructure().getHeader();
-        List<String> header2 = document.getContent().getColumnNames();
+        CsvHelper.checkMetaData(document, StandardCharsets.UTF_8, DocumentTypes.CSV, SEMICOLON, NEW_LINE_WINDOWS,
+                                HeaderType.FIRST_LINE_IS_HEADER, StructureType.RIGID);
 
         Table<String> table = document.getContent();
-        int columns = table.columns();
-        int rows = table.rows();
 
-        for (int a = 0; a < columns; a++) {
-
-            assertEquals(header1[a], header2.get(a));
-        }
-
-
-        assertEquals(3, columns);
-        assertEquals(3, rows);
-
-
-        for (int a = 0; a < columns; a++) {
-
-            for (int b = 0; b < rows; b++) {
-
-                int expectedNumber = (b * 3) + (a + 1);
-                String expectedString = "\"" + expectedNumber + "\"";
-                String actualString = table.getCell(a, b);
-                String message =
-                    "expected: " + expectedString + "; row=" + b + "; column=" + a + "; actual=" + actualString;
-
-                assertEquals(message, expectedString, actualString);
-            }
-        }
+        CsvHelper.checkTableSize(table, 3, 3);
+        CsvHelper.checkHeader(table, "A", "B", "C");
+        CsvHelper.checkCellsWithNumbers(table);
     }
 
     /**
-     * Tests parsing a CSV file. The csv file contains a table row which spans two lines.
+     * Tests parsing a CSV file (see CSV file or testdata creation script for details).<br>
+     * <br>
+     * The csv file contains a table cell which contains a line break.<br>
+     * <br>
+     * The CSV file is expected to be parsable.
      */
     @Test
-    public void testParseDocument5() {
+    public void testParseDocument5() throws IOException {
 
         String filename = "testdata-csv\\example05.csv";
-        CsvDocumentReader reader = new CsvDocumentReaderImpl2();
+        CsvDocumentReader reader = new CsvDocumentReaderImpl2(StandardCharsets.UTF_8);
+        CsvDocument document = reader.readFrom(filename);
 
-        CsvDocument document;
-
-        try {
-
-            document = reader.readFrom(filename);
-
-        } catch (IOException e) {
-
-            throw new FailedTestException(e);
-        }
-
-
-        assertEquals(DocumentTypes.CSV, document.getDocumentType());
-        assertEquals(SEMICOLON, document.getStructure().getColumnSeparator());
-        assertEquals(NEW_LINE_WINDOWS, document.getStructure().getRowSeparator());
-        assertEquals(HeaderType.FIRST_LINE_IS_HEADER, document.getStructure().getHeaderType());
-        assertEquals(StructureType.RIGID, document.getStructure().getStructureType());
-
-        String[] header1 = document.getStructure().getHeader();
-        List<String> header2 = document.getContent().getColumnNames();
+        CsvHelper.checkMetaData(document, StandardCharsets.UTF_8, DocumentTypes.CSV, SEMICOLON, NEW_LINE_WINDOWS,
+                                HeaderType.FIRST_LINE_IS_HEADER, StructureType.RIGID);
 
         Table<String> table = document.getContent();
-        int columns = table.columns();
-        int rows = table.rows();
 
-        for (int a = 0; a < columns; a++) {
+        CsvHelper.checkTableSize(table, 3, 3);
+        CsvHelper.checkHeader(table, "A", "B", "C");
+        CsvHelper.checkCellsWithNumbers(table);
 
-            assertEquals(header1[a], header2.get(a));
-        }
-
-
-        assertEquals(3, columns);
-        assertEquals(3, rows);
-
-
-        for (int a = 0; a < columns; a++) {
-
-            for (int b = 0; b < rows; b++) {
-
-                int expectedNumber = (b * 3) + (a + 1);
-                String expectedString;
-
-                if (expectedNumber == 5) {
-
-                    expectedString = "HalloWelt";
-
-                } else {
-
-                    expectedString = "" + expectedNumber;
-                }
-
-                String actualString = table.getCell(a, b);
-                String message =
-                    "expected: " + expectedString + "; row=" + b + "; column=" + a + "; actual=" + actualString;
-
-                assertEquals(message, expectedString, actualString);
-            }
-        }
+        String actualString = table.getCell(1, 1);
+        String expectedString = "Hallo" + NEW_LINE_WINDOWS + "Welt";
+        assertEquals(expectedString, actualString);
     }
 
     /**
-     * Tests parsing a CSV file. The csv file contains a table row which spans two lines and contains
-     * a quoted cell.
+     * Tests parsing a CSV file (see CSV file or testdata creation script for details).<br>
+     * <br>
+     * The csv file contains a table cell which is quoted and contains a line break.<br>
+     * <br>
+     * The CSV file is expected to be parsable.
      */
     @Test
-    public void testParseDocument6() {
+    public void testParseDocument6() throws IOException {
 
         String filename = "testdata-csv\\example06.csv";
-        CsvDocumentReader reader = new CsvDocumentReaderImpl2();
+        CsvDocumentReader reader = new CsvDocumentReaderImpl2(StandardCharsets.UTF_8);
+        CsvDocument document = reader.readFrom(filename);
 
-        CsvDocument document;
-
-        try {
-
-            document = reader.readFrom(filename);
-
-        } catch (IOException e) {
-
-            throw new FailedTestException(e);
-        }
-
-
-        assertEquals(DocumentTypes.CSV, document.getDocumentType());
-        assertEquals(SEMICOLON, document.getStructure().getColumnSeparator());
-        assertEquals(NEW_LINE_WINDOWS, document.getStructure().getRowSeparator());
-        assertEquals(HeaderType.FIRST_LINE_IS_HEADER, document.getStructure().getHeaderType());
-        assertEquals(StructureType.RIGID, document.getStructure().getStructureType());
-
-        String[] header1 = document.getStructure().getHeader();
-        List<String> header2 = document.getContent().getColumnNames();
+        CsvHelper.checkMetaData(document, StandardCharsets.UTF_8, DocumentTypes.CSV, SEMICOLON, NEW_LINE_WINDOWS,
+                                HeaderType.FIRST_LINE_IS_HEADER, StructureType.RIGID);
 
         Table<String> table = document.getContent();
-        int columns = table.columns();
-        int rows = table.rows();
 
-        for (int a = 0; a < columns; a++) {
+        CsvHelper.checkTableSize(table, 3, 3);
+        CsvHelper.checkHeader(table, "A", "B", "C");
+        CsvHelper.checkCellsWithNumbers(table);
 
-            assertEquals(header1[a], header2.get(a));
-        }
-
-
-        assertEquals(3, columns);
-        assertEquals(3, rows);
-
-
-        for (int a = 0; a < columns; a++) {
-
-            for (int b = 0; b < rows; b++) {
-
-                int expectedNumber = (b * 3) + (a + 1);
-                String expectedString;
-
-                if (expectedNumber == 6) {
-
-                    expectedString = "\"HalloWelt\"";
-
-                } else {
-
-                    expectedString = "" + expectedNumber;
-                }
-
-                String actualString = table.getCell(a, b);
-                String message =
-                    "expected: " + expectedString + "; row=" + b + "; column=" + a + "; actual=" + actualString;
-
-                assertEquals(message, expectedString, actualString);
-            }
-        }
+        String actualString = table.getCell(2, 1);
+        String expectedString = "\"Hallo" + NEW_LINE_WINDOWS + "Welt\"";
+        assertEquals(expectedString, actualString);
     }
 
     /**
-     * Tests parsing a CSV file. The file doesn't have a header and contains
-     * 3 data lines. The column separator is a semicolon. The row separator is
-     * a windows style line break.
+     * Tests parsing a CSV file (see CSV file or testdata creation script for details).<br>
+     * <br>
+     * The csv file contains a table cell which is quoted and contains a line break.<br>
+     * <br>
+     * The CSV file is expected to be parsable.
      */
     @Test
-    public void testParseDocument7() {
+    public void testParseDocument7() throws IOException {
 
         String filename = "testdata-csv\\example07.csv";
-        CsvDocumentReader reader = new CsvDocumentReaderImpl2(NO_HEADER, RIGID);
+        CsvDocumentReader reader = new CsvDocumentReaderImpl2(StandardCharsets.UTF_8);
+        CsvDocument document = reader.readFrom(filename);
 
-        CsvDocument document;
-
-        try {
-
-            document = reader.readFrom(filename);
-
-        } catch (IOException e) {
-
-            throw new FailedTestException(e);
-        }
-
-
-        assertEquals(DocumentTypes.CSV, document.getDocumentType());
-        assertEquals(SEMICOLON, document.getStructure().getColumnSeparator());
-        assertEquals(NEW_LINE_WINDOWS, document.getStructure().getRowSeparator());
-        assertEquals(HeaderType.NO_HEADER, document.getStructure().getHeaderType());
-        assertEquals(StructureType.RIGID, document.getStructure().getStructureType());
-
-        String[] header1 = document.getStructure().getHeader();
-        List<String> header2 = document.getContent().getColumnNames();
+        CsvHelper.checkMetaData(document, StandardCharsets.UTF_8, DocumentTypes.CSV, SEMICOLON, NEW_LINE_WINDOWS,
+                                HeaderType.FIRST_LINE_IS_HEADER, StructureType.RIGID);
 
         Table<String> table = document.getContent();
-        int columns = table.columns();
 
-        for (int a = 0; a < columns; a++) {
+        CsvHelper.checkTableSize(table, 3, 3);
+        CsvHelper.checkHeader(table, "A", "B", "C");
+        CsvHelper.checkCellsWithNumbers(table);
 
-            assertEquals(header1[a], header2.get(a));
-        }
-
-
-        checkTableData(table);
+        String actualString = table.getCell(2, 1);
+        String expectedString = "'Hallo" + NEW_LINE_WINDOWS + "Welt'";
+        assertEquals(expectedString, actualString);
     }
 
     /**
-     * Tests parsing a CSV file. The file doesn't have a header and contains
-     * 3 data lines with different column counts. The column separator is a semicolon.
-     * The row separator is a windows style line break.
+     * Tests parsing a CSV file (see CSV file or testdata creation script for details).<br>
+     * <br>
+     * The file doesn't have a header and contains 3 data lines. The column separator is a
+     * semicolon. The row separator is a windows style line break.<br>
+     * <br>
+     * The CSV file is expected to be parsable.
      */
     @Test
-    public void testParseDocument8() {
+    public void testParseDocument8() throws IOException {
 
         String filename = "testdata-csv\\example08.csv";
-        CsvDocumentReader reader = new CsvDocumentReaderImpl2(NO_HEADER, FLEXIBLE);
+        CsvDocumentReader reader = new CsvDocumentReaderImpl2(StandardCharsets.UTF_8, NO_HEADER, RIGID);
+        CsvDocument document = reader.readFrom(filename);
 
-        CsvDocument document;
-
-        try {
-
-            document = reader.readFrom(filename);
-
-        } catch (IOException e) {
-
-            throw new FailedTestException(e);
-        }
-
-
-        assertEquals(DocumentTypes.CSV, document.getDocumentType());
-        assertEquals(SEMICOLON, document.getStructure().getColumnSeparator());
-        assertEquals(NEW_LINE_WINDOWS, document.getStructure().getRowSeparator());
-        assertEquals(HeaderType.NO_HEADER, document.getStructure().getHeaderType());
-        assertEquals(StructureType.FLEXIBLE, document.getStructure().getStructureType());
-
-        String[] header1 = document.getStructure().getHeader();
-        List<String> header2 = document.getContent().getColumnNames();
+        CsvHelper.checkMetaData(document, StandardCharsets.UTF_8, DocumentTypes.CSV, SEMICOLON, NEW_LINE_WINDOWS,
+                                HeaderType.NO_HEADER, StructureType.RIGID);
 
         Table<String> table = document.getContent();
-        int columns = table.columns();
-        int rows = table.rows();
 
-        for (int a = 0; a < columns; a++) {
-
-            assertEquals(header1[a], header2.get(a));
-        }
-
-
-        String[][] expectedData = { { "1", "2", null, null }, { "3", "4", "5", null }, { "6", "7", "8", "9" } };
-
-        assertEquals(4, columns);
-        assertEquals(3, rows);
-
-        for (int a = 0; a < columns; a++) {
-
-            for (int b = 0; b < rows; b++) {
-
-                String expectedString = expectedData[b][a];
-                String actualString = table.getCell(a, b);
-                String message =
-                    "expected: " + expectedString + "; row=" + b + "; column=" + a + "; actual=" + actualString;
-
-                assertEquals(message, expectedString, actualString);
-            }
-        }
+        CsvHelper.checkTableSize(table, 3, 3);
+        CsvHelper.checkHeader(table, "column0", "column1", "column2");
+        CsvHelper.checkCellsWithNumbers(table);
     }
 
     /**
-     * Tests parsing a CSV file. The file doesn't have a header and contains
-     * 3 data lines. The column separator is a semicolon. The row separator is
-     * a windows style line break.
+     * Tests parsing a CSV file (see CSV file or testdata creation script for details).<br>
+     * <br>
+     * The file doesn't have a header and contains 3 data lines with different column counts. The
+     * column separator is a semicolon. The row separator is a windows style line break.<br>
+     * <br>
+     * The CSV file is expected to be parsable.
      */
     @Test
-    public void testParseDocument9() {
+    public void testParseDocument9a() throws IOException {
 
         String filename = "testdata-csv\\example09.csv";
-        CsvDocumentReader reader = new CsvDocumentReaderImpl2(NO_HEADER, RIGID);
+        CsvDocumentReader reader = new CsvDocumentReaderImpl2(StandardCharsets.UTF_8, NO_HEADER, FLEXIBLE);
+        CsvDocument document = reader.readFrom(filename);
 
-        CsvDocument document;
-
-        try {
-
-            document = reader.readFrom(filename);
-
-        } catch (IOException e) {
-
-            throw new FailedTestException(e);
-        }
-
-
-        assertEquals(DocumentTypes.CSV, document.getDocumentType());
-        assertEquals(SEMICOLON, document.getStructure().getColumnSeparator());
-        assertEquals(NEW_LINE_WINDOWS, document.getStructure().getRowSeparator());
-        assertEquals(HeaderType.NO_HEADER, document.getStructure().getHeaderType());
-        assertEquals(StructureType.RIGID, document.getStructure().getStructureType());
-
-        String[] header1 = document.getStructure().getHeader();
-        List<String> header2 = document.getContent().getColumnNames();
+        CsvHelper.checkMetaData(document, StandardCharsets.UTF_8, DocumentTypes.CSV, SEMICOLON, NEW_LINE_WINDOWS,
+                                HeaderType.NO_HEADER, StructureType.FLEXIBLE);
 
         Table<String> table = document.getContent();
-        int columns = table.columns();
-        int rows = table.rows();
 
-        for (int a = 0; a < columns; a++) {
+        CsvHelper.checkTableSize(table, 4, 3);
+        CsvHelper.checkHeader(table, "column0", "column1", "column2", "column3");
+        CsvHelper.checkCellsWithNumbers(table);
 
-            assertEquals(header1[a], header2.get(a));
-        }
-
-
-        assertEquals(3, columns);
-        assertEquals(3, rows);
-
-        for (int a = 0; a < columns; a++) {
-
-            for (int b = 0; b < rows; b++) {
-
-                String expectedString = null;
-                String actualString = table.getCell(a, b);
-                String message =
-                    "expected: " + expectedString + "; row=" + b + "; column=" + a + "; actual=" + actualString;
-
-                assertEquals(message, expectedString, actualString);
-                assertTrue("The cell is not empty as expected!", table.isEmptyCell(a, b));
-            }
-        }
+        assertEquals(null, table.getCell(2, 0));
+        assertEquals(null, table.getCell(3, 0));
+        assertEquals(null, table.getCell(3, 1));
     }
 
     /**
-     * Tests parsing a CSV file. The file doesn't have a header and contains
-     * 1 data line with a single column. The row separator is a windows style
-     * line break. The cell contains several special characters.
+     * Tests parsing a CSV file (see CSV file or testdata creation script for details).<br>
+     * <br>
+     * The file doesn't have a header and contains 3 data lines with different column counts. The
+     * column separator is a semicolon. The row separator is a windows style line break.<br>
+     * <br>
+     * The CSV document reader is expected to throw an exception because it cannot handle
+     * a flexible table structure.
+     */
+    @Test(expected = CsvStructureException.class)
+    public void testParseDocument9b() throws IOException {
+
+        String filename = "testdata-csv\\example09.csv";
+        CsvDocumentReader reader = new CsvDocumentReaderImpl2(StandardCharsets.UTF_8, NO_HEADER, RIGID);
+        reader.readFrom(filename);
+    }
+
+    /**
+     * Tests parsing a CSV file (see CSV file or testdata creation script for details).<br>
+     * <br>
+     * The file doesn't have a header and contains 3 data lines. The column separator is a
+     * semicolon. The row separator is a windows style line break. Every cell is empty.<br>
+     * <br>
+     * The CSV file is expected to be parsable.
      */
     @Test
-    public void testParseDocument10() {
+    public void testParseDocument10() throws IOException {
 
         String filename = "testdata-csv\\example10.csv";
         CsvDocumentReader reader = new CsvDocumentReaderImpl2(StandardCharsets.UTF_8, NO_HEADER, RIGID);
+        CsvDocument document = reader.readFrom(filename);
 
-        CsvDocument document;
-
-        try {
-
-            document = reader.readFrom(filename);
-
-        } catch (IOException e) {
-
-            throw new FailedTestException(e);
-        }
-
-
-        assertEquals(DocumentTypes.CSV, document.getDocumentType());
-        assertEquals(SEMICOLON, document.getStructure().getColumnSeparator());
-        assertEquals(NEW_LINE_WINDOWS, document.getStructure().getRowSeparator());
-        assertEquals(HeaderType.NO_HEADER, document.getStructure().getHeaderType());
-        assertEquals(StructureType.RIGID, document.getStructure().getStructureType());
-
-        String[] header1 = document.getStructure().getHeader();
-        List<String> header2 = document.getContent().getColumnNames();
+        CsvHelper.checkMetaData(document, StandardCharsets.UTF_8, DocumentTypes.CSV, SEMICOLON, NEW_LINE_WINDOWS,
+                                HeaderType.NO_HEADER, StructureType.RIGID);
 
         Table<String> table = document.getContent();
-        int columns = table.columns();
-        int rows = table.rows();
 
-        for (int a = 0; a < columns; a++) {
-
-            assertEquals(header1[a], header2.get(a));
-        }
-
-
-        assertEquals(1, columns);
-        assertEquals(1, rows);
-
-        int a = 0;
-        int b = 0;
-
-        String expectedString = "\u00c4\u00e4\u00d6\u00f6\u00dc\u00fc\u00df";
-        String actualString = table.getCell(a, b);
-        String message = "expected: " + expectedString + "; row=" + b + "; column=" + a + "; actual=" + actualString;
-
-        assertEquals(message, expectedString, actualString);
+        CsvHelper.checkTableSize(table, 3, 3);
+        CsvHelper.checkHeader(table, "column0", "column1", "column2");
+        CsvHelper.checkCellsAreEmpty(table);
     }
 
     /**
-     * Tests parsing a CSV file. The file doesn't have a header and contains
-     * 1 data line with a single column. The row separator is a windows style
-     * line break. The cell contains several special characters.
+     * Tests parsing a CSV file (see CSV file or testdata creation script for details).<br>
+     * <br>
+     * The file doesn't have a header and contains 1 data line with a single column. The row
+     * separator is a windows style line break. The cell contains several special characters.<br>
+     * <br>
+     * The CSV file is expected to be parsable.
      */
     @Test
-    public void testParseDocument11() {
-
-        String filename = "testdata-csv\\example11.csv";
-        CsvDocumentReader reader = new CsvDocumentReaderImpl2(StandardCharsets.ISO_8859_1, NO_HEADER, RIGID);
-
-        CsvDocument document;
-
-        try {
-
-            document = reader.readFrom(filename);
-
-        } catch (IOException e) {
-
-            throw new FailedTestException(e);
-        }
-
-
-        assertEquals(DocumentTypes.CSV, document.getDocumentType());
-        assertEquals(SEMICOLON, document.getStructure().getColumnSeparator());
-        assertEquals(NEW_LINE_WINDOWS, document.getStructure().getRowSeparator());
-        assertEquals(HeaderType.NO_HEADER, document.getStructure().getHeaderType());
-        assertEquals(StructureType.RIGID, document.getStructure().getStructureType());
-
-        String[] header1 = document.getStructure().getHeader();
-        List<String> header2 = document.getContent().getColumnNames();
-
-        Table<String> table = document.getContent();
-        int columns = table.columns();
-        int rows = table.rows();
-
-        for (int a = 0; a < columns; a++) {
-
-            assertEquals(header1[a], header2.get(a));
-        }
-
-
-        assertEquals(1, columns);
-        assertEquals(1, rows);
-
-        int a = 0;
-        int b = 0;
-
-        String expectedString = "\u00c4\u00e4\u00d6\u00f6\u00dc\u00fc\u00df";
-        String actualString = table.getCell(a, b);
-        String message = "expected: " + expectedString + "; row=" + b + "; column=" + a + "; actual=" + actualString;
-
-        assertEquals(message, expectedString, actualString);
-    }
-
-    /**
-     * Tests parsing a CSV file. The file doesn't have a header and contains
-     * 1 data line with a single column. The row separator is a windows style
-     * line break. The cell contains several special characters. The reader
-     * assumes a wrong encoding.
-     */
-    @Test
-    public void testParseDocument12() {
+    public void testParseDocument11() throws IOException {
 
         String filename = "testdata-csv\\example11.csv";
         CsvDocumentReader reader = new CsvDocumentReaderImpl2(StandardCharsets.UTF_8, NO_HEADER, RIGID);
+        CsvDocument document = reader.readFrom(filename);
 
-        CsvDocument document;
-
-        try {
-
-            document = reader.readFrom(filename);
-
-        } catch (IOException e) {
-
-            throw new FailedTestException(e);
-        }
-
-
-        assertEquals(DocumentTypes.CSV, document.getDocumentType());
-        assertEquals(SEMICOLON, document.getStructure().getColumnSeparator());
-        assertEquals(NEW_LINE_WINDOWS, document.getStructure().getRowSeparator());
-        assertEquals(HeaderType.NO_HEADER, document.getStructure().getHeaderType());
-        assertEquals(StructureType.RIGID, document.getStructure().getStructureType());
-
-        String[] header1 = document.getStructure().getHeader();
-        List<String> header2 = document.getContent().getColumnNames();
+        CsvHelper.checkMetaData(document, StandardCharsets.UTF_8, DocumentTypes.CSV, SEMICOLON, NEW_LINE_WINDOWS,
+                                HeaderType.NO_HEADER, StructureType.RIGID);
 
         Table<String> table = document.getContent();
-        int columns = table.columns();
-        int rows = table.rows();
 
-        for (int a = 0; a < columns; a++) {
-
-            assertEquals(header1[a], header2.get(a));
-        }
-
-
-        assertEquals(1, columns);
-        assertEquals(1, rows);
-
-        int a = 0;
-        int b = 0;
+        CsvHelper.checkTableSize(table, 1, 1);
+        CsvHelper.checkHeader(table, "column0");
 
         String expectedString = "\u00c4\u00e4\u00d6\u00f6\u00dc\u00fc\u00df";
-        String actualString = table.getCell(a, b);
-        String message = "expected: " + expectedString + "; row=" + b + "; column=" + a + "; actual=" + actualString;
+        String actualString = table.getCell(0, 0);
 
-        assertNotEquals(message, expectedString, actualString);
+        assertEquals(expectedString, actualString);
     }
 
     /**
-     * Tests parsing a CSV file. The first line is a header line and the contains
-     * 3 data lines. The column separator is a semicolon. The row separator is
-     * a windows style line break.
+     * Tests parsing a CSV file (see CSV file or testdata creation script for details).<br>
+     * <br>
+     * The file doesn't have a header and contains 1 data line with a single column. The row
+     * separator is a windows style line break. The cell contains several special characters.<br>
+     * <br>
+     * The CSV file is expected to be parsable.
      */
     @Test
-    public void testParseDocument13() {
+    public void testParseDocument12a() throws IOException {
 
         String filename = "testdata-csv\\example12.csv";
-        CsvDocumentReader reader = new CsvDocumentReaderImpl2();
+        CsvDocumentReader reader = new CsvDocumentReaderImpl2(StandardCharsets.ISO_8859_1, NO_HEADER, RIGID);
+        CsvDocument document = reader.readFrom(filename);
 
-        CsvDocument document;
-
-        try {
-
-            document = reader.readFrom(filename);
-
-        } catch (IOException e) {
-
-            throw new FailedTestException(e);
-        }
-
-
-        assertEquals(DocumentTypes.CSV, document.getDocumentType());
-        assertEquals(SEMICOLON, document.getStructure().getColumnSeparator());
-        assertEquals(NEW_LINE_WINDOWS, document.getStructure().getRowSeparator());
-        assertEquals(HeaderType.FIRST_LINE_IS_HEADER, document.getStructure().getHeaderType());
-        assertEquals(StructureType.RIGID, document.getStructure().getStructureType());
-
-        String[] header1 = document.getStructure().getHeader();
-        List<String> header2 = document.getContent().getColumnNames();
+        CsvHelper.checkMetaData(document, StandardCharsets.ISO_8859_1, DocumentTypes.CSV, SEMICOLON, NEW_LINE_WINDOWS,
+                                HeaderType.NO_HEADER, StructureType.RIGID);
 
         Table<String> table = document.getContent();
-        int columns = table.columns();
 
-        for (int a = 0; a < columns; a++) {
+        CsvHelper.checkTableSize(table, 1, 1);
+        CsvHelper.checkHeader(table, "column0");
 
-            assertEquals(header1[a], header2.get(a));
-        }
+        String expectedString = "\u00c4\u00e4\u00d6\u00f6\u00dc\u00fc\u00df";
+        String actualString = table.getCell(0, 0);
 
-
-        checkTableData(table);
+        assertEquals(expectedString, actualString);
     }
 
     /**
-     * Tests parsing a CSV file. The first line is a header line and the contains
-     * 3 data lines. The column separator is a semicolon. The row separator is
-     * a windows style line break.
+     * Tests parsing a CSV file (see CSV file or testdata creation script for details).<br>
+     * <br>
+     * The file doesn't have a header and contains 1 data line with a single column. The row
+     * separator is a windows style line break. The cell contains several special characters.<br>
+     * <br>
+     * The reader assumes a wrong encoding.
      */
     @Test
-    public void testParseDocument14() {
+    public void testParseDocument12b() throws IOException {
 
-        String filename = "testdata-csv\\example13.csv";
-        CsvDocumentReader reader = new CsvDocumentReaderImpl2();
+        String filename = "testdata-csv\\example12.csv";
+        CsvDocumentReader reader = new CsvDocumentReaderImpl2(StandardCharsets.UTF_8, NO_HEADER, RIGID);
+        CsvDocument document = reader.readFrom(filename);
 
-        CsvDocument document;
+        CsvHelper.checkMetaData(document, StandardCharsets.UTF_8, DocumentTypes.CSV, SEMICOLON, NEW_LINE_WINDOWS,
+                                HeaderType.NO_HEADER, StructureType.RIGID);
+
+        Table<String> table = document.getContent();
+
+        CsvHelper.checkTableSize(table, 1, 1);
+        CsvHelper.checkHeader(table, "column0");
+
+        String expectedString = "\u00c4\u00e4\u00d6\u00f6\u00dc\u00fc\u00df";
+        String actualString = table.getCell(0, 0);
 
         try {
 
-            document = reader.readFrom(filename);
+            assertEquals(expectedString, actualString);
+            fail("The comparison passed unexpectedly!");
 
-        } catch (IOException e) {
+        } catch (ComparisonFailure e) {
 
-            throw new FailedTestException(e);
+            // Everything is OK, the comparison exception is expected.
         }
+    }
 
+    /**
+     * Tests parsing a CSV file (see CSV file or testdata creation script for details).<br>
+     * <br>
+     * The file has a header with gaps (i.e. missing header names) and contains 3 data lines
+     * with 3 columns. The column separator is a semicolon. The row separator is a windows style
+     * line break.<br>
+     * <br>
+     * The CSV file is expected to be parsable.
+     */
+    @Test
+    public void testParseDocument13() throws IOException {
 
-        assertEquals(DocumentTypes.CSV, document.getDocumentType());
-        assertEquals(SEMICOLON, document.getStructure().getColumnSeparator());
-        assertEquals(NEW_LINE_WINDOWS, document.getStructure().getRowSeparator());
-        assertEquals(HeaderType.FIRST_LINE_IS_HEADER, document.getStructure().getHeaderType());
-        assertEquals(StructureType.RIGID, document.getStructure().getStructureType());
+        String filename = "testdata-csv\\example13.csv";
+        CsvDocumentReader reader = new CsvDocumentReaderImpl2(StandardCharsets.UTF_8, FIRST_LINE_IS_HEADER, RIGID);
+        CsvDocument document = reader.readFrom(filename);
 
-        String[] header1 = document.getStructure().getHeader();
-        List<String> header2 = document.getContent().getColumnNames();
+        CsvHelper.checkMetaData(document, StandardCharsets.UTF_8, DocumentTypes.CSV, SEMICOLON, NEW_LINE_WINDOWS,
+                                HeaderType.FIRST_LINE_IS_HEADER, StructureType.RIGID);
 
         Table<String> table = document.getContent();
-        int columns = table.columns();
 
-        for (int a = 0; a < columns; a++) {
+        CsvHelper.checkTableSize(table, 3, 3);
+        CsvHelper.checkHeader(table, "A", "", "C");
+        CsvHelper.checkCellsWithNumbers(table);
+    }
 
-            assertEquals(header1[a], header2.get(a));
-        }
+    /**
+     * Tests parsing a CSV file (see CSV file or testdata creation script for details).<br>
+     * <br>
+     * The first line is a header line and contains 3 data lines. The column separator is a
+     * semicolon. The row separator is a windows style line break. One cell contains a quoted
+     * string containing a column separator.<br>
+     * <br>
+     * The CSV file is expected to be parsable.
+     */
+    @Test
+    public void testParseDocument14() throws IOException {
 
+        String filename = "testdata-csv\\example14.csv";
+        CsvDocumentReader reader = new CsvDocumentReaderImpl2(StandardCharsets.UTF_8, FIRST_LINE_IS_HEADER, RIGID);
+        CsvDocument document = reader.readFrom(filename);
+
+        CsvHelper.checkMetaData(document, StandardCharsets.UTF_8, DocumentTypes.CSV, SEMICOLON, NEW_LINE_WINDOWS,
+                                HeaderType.FIRST_LINE_IS_HEADER, StructureType.RIGID);
+
+        Table<String> table = document.getContent();
+
+        CsvHelper.checkTableSize(table, 3, 3);
+        CsvHelper.checkHeader(table, "A", "B", "C");
+        CsvHelper.checkCellsWithNumbers(table);
 
         String actualString = table.getCell(2, 1);
         String expectedString = "\"Hallo;Welt\"";
@@ -858,45 +507,29 @@ public class CsvDocumentReader2Test {
     }
 
     /**
-     * Tests parsing a CSV file. The first line is a header line and the contains
-     * 3 data lines. The column separator is a semicolon. The row separator is
-     * a windows style line break.
+     * Tests parsing a CSV file (see CSV file or testdata creation script for details).<br>
+     * <br>
+     * The first line is a header line and contains 3 data lines. The column separator is a
+     * semicolon. The row separator is a windows style line break. One cell contains a single
+     * quoted string containing a column separator.<br>
+     * <br>
+     * The CSV file is expected to be parsable.
      */
     @Test
-    public void testParseDocument15() {
+    public void testParseDocument15() throws IOException {
 
-        String filename = "testdata-csv\\example14.csv";
-        CsvDocumentReader reader = new CsvDocumentReaderImpl2();
+        String filename = "testdata-csv\\example15.csv";
+        CsvDocumentReader reader = new CsvDocumentReaderImpl2(StandardCharsets.UTF_8, FIRST_LINE_IS_HEADER, RIGID);
+        CsvDocument document = reader.readFrom(filename);
 
-        CsvDocument document;
-
-        try {
-
-            document = reader.readFrom(filename);
-
-        } catch (IOException e) {
-
-            throw new FailedTestException(e);
-        }
-
-
-        assertEquals(DocumentTypes.CSV, document.getDocumentType());
-        assertEquals(SEMICOLON, document.getStructure().getColumnSeparator());
-        assertEquals(NEW_LINE_WINDOWS, document.getStructure().getRowSeparator());
-        assertEquals(HeaderType.FIRST_LINE_IS_HEADER, document.getStructure().getHeaderType());
-        assertEquals(StructureType.RIGID, document.getStructure().getStructureType());
-
-        String[] header1 = document.getStructure().getHeader();
-        List<String> header2 = document.getContent().getColumnNames();
+        CsvHelper.checkMetaData(document, StandardCharsets.UTF_8, DocumentTypes.CSV, SEMICOLON, NEW_LINE_WINDOWS,
+                                HeaderType.FIRST_LINE_IS_HEADER, StructureType.RIGID);
 
         Table<String> table = document.getContent();
-        int columns = table.columns();
 
-        for (int a = 0; a < columns; a++) {
-
-            assertEquals(header1[a], header2.get(a));
-        }
-
+        CsvHelper.checkTableSize(table, 3, 3);
+        CsvHelper.checkHeader(table, "A", "B", "C");
+        CsvHelper.checkCellsWithNumbers(table);
 
         String actualString = table.getCell(2, 1);
         String expectedString = "'Hallo;Welt'";
@@ -904,45 +537,30 @@ public class CsvDocumentReader2Test {
     }
 
     /**
-     * Tests parsing a CSV file. The first line is a header line and the contains
+     * Tests parsing a CSV file (see CSV file or testdata creation script for details).<br>
+     * <br>
+     * Tests parsing a CSV file. The first line is a header line and contains
      * 3 data lines. The column separator is a semicolon. The row separator is
-     * a windows style line break.
+     * a windows style line break. One cell contains a quoted string containing
+     * a column separator.<br>
+     * <br>
+     *  The CSV file is expected to be parsable.
      */
     @Test
-    public void testParseDocument16() {
+    public void testParseDocument16() throws IOException {
 
-        String filename = "testdata-csv\\example15.csv";
-        CsvDocumentReader reader = new CsvDocumentReaderImpl2();
+        String filename = "testdata-csv\\example16.csv";
+        CsvDocumentReader reader = new CsvDocumentReaderImpl2(StandardCharsets.UTF_8, FIRST_LINE_IS_HEADER, RIGID);
+        CsvDocument document = reader.readFrom(filename);
 
-        CsvDocument document;
-
-        try {
-
-            document = reader.readFrom(filename);
-
-        } catch (IOException e) {
-
-            throw new FailedTestException(e);
-        }
-
-
-        assertEquals(DocumentTypes.CSV, document.getDocumentType());
-        assertEquals(SEMICOLON, document.getStructure().getColumnSeparator());
-        assertEquals(NEW_LINE_WINDOWS, document.getStructure().getRowSeparator());
-        assertEquals(HeaderType.FIRST_LINE_IS_HEADER, document.getStructure().getHeaderType());
-        assertEquals(StructureType.RIGID, document.getStructure().getStructureType());
-
-        String[] header1 = document.getStructure().getHeader();
-        List<String> header2 = document.getContent().getColumnNames();
+        CsvHelper.checkMetaData(document, StandardCharsets.UTF_8, DocumentTypes.CSV, SEMICOLON, NEW_LINE_WINDOWS,
+                                HeaderType.FIRST_LINE_IS_HEADER, StructureType.RIGID);
 
         Table<String> table = document.getContent();
-        int columns = table.columns();
 
-        for (int a = 0; a < columns; a++) {
-
-            assertEquals(header1[a], header2.get(a));
-        }
-
+        CsvHelper.checkTableSize(table, 3, 3);
+        CsvHelper.checkHeader(table, "A", "B", "C");
+        CsvHelper.checkCellsWithNumbers(table);
 
         String actualString = table.getCell(2, 1);
         String expectedString = "\"Hallo'Welt\"";
@@ -950,48 +568,299 @@ public class CsvDocumentReader2Test {
     }
 
     /**
-     * Tests parsing a CSV file. The first line is a header line and the contains
-     * 3 data lines. The column separator is a semicolon. The row separator is
-     * a windows style line break.
+     * Tests parsing a CSV file (see CSV file or testdata creation script for details).<br>
+     * <br>
+     * The first line is a header line and contains 3 data lines. The column separator is a
+     * semicolon. The row separator is a windows style line break. One cell contains a quoted
+     * string containing a column separator.<br>
+     * <br>
+     * The CSV file is expected to be parsable.
      */
     @Test
-    public void testParseDocument17() {
+    public void testParseDocument17() throws IOException {
 
-        String filename = "testdata-csv\\example16.csv";
-        CsvDocumentReader reader = new CsvDocumentReaderImpl2();
+        String filename = "testdata-csv\\example17.csv";
+        CsvDocumentReader reader = new CsvDocumentReaderImpl2(StandardCharsets.UTF_8, FIRST_LINE_IS_HEADER, RIGID);
+        CsvDocument document = reader.readFrom(filename);
 
-        CsvDocument document;
-
-        try {
-
-            document = reader.readFrom(filename);
-
-        } catch (IOException e) {
-
-            throw new FailedTestException(e);
-        }
-
-
-        assertEquals(DocumentTypes.CSV, document.getDocumentType());
-        assertEquals(SEMICOLON, document.getStructure().getColumnSeparator());
-        assertEquals(NEW_LINE_WINDOWS, document.getStructure().getRowSeparator());
-        assertEquals(HeaderType.FIRST_LINE_IS_HEADER, document.getStructure().getHeaderType());
-        assertEquals(StructureType.RIGID, document.getStructure().getStructureType());
-
-        String[] header1 = document.getStructure().getHeader();
-        List<String> header2 = document.getContent().getColumnNames();
+        CsvHelper.checkMetaData(document, StandardCharsets.UTF_8, DocumentTypes.CSV, SEMICOLON, NEW_LINE_WINDOWS,
+                                HeaderType.FIRST_LINE_IS_HEADER, StructureType.RIGID);
 
         Table<String> table = document.getContent();
-        int columns = table.columns();
 
-        for (int a = 0; a < columns; a++) {
-
-            assertEquals(header1[a], header2.get(a));
-        }
-
+        CsvHelper.checkTableSize(table, 3, 3);
+        CsvHelper.checkHeader(table, "A", "B", "C");
+        CsvHelper.checkCellsWithNumbers(table);
 
         String actualString = table.getCell(2, 1);
         String expectedString = "'Hallo\"Welt'";
+        assertEquals(expectedString, actualString);
+    }
+
+    /**
+     * Tests parsing a CSV file (see CSV file or testdata creation script for details).<br>
+     * <br>
+     * The first line is a header line and contains 3 data lines. The column separator is a
+     * semicolon. The row separator is a windows style line break. One cell contains a single
+     * quoted string containing a column separator.<br>
+     * <br>
+     * The CSV file is expected to be parsable.
+     */
+    @Test
+    public void testParseDocument18() throws IOException {
+
+        String filename = "testdata-csv\\example18.csv";
+        CsvDocumentReader reader = new CsvDocumentReaderImpl2(StandardCharsets.UTF_8, FIRST_LINE_IS_HEADER, RIGID);
+        CsvDocument document = reader.readFrom(filename);
+
+        CsvHelper.checkMetaData(document, StandardCharsets.UTF_8, DocumentTypes.CSV, SEMICOLON, NEW_LINE_WINDOWS,
+                                HeaderType.FIRST_LINE_IS_HEADER, StructureType.RIGID);
+
+        Table<String> table = document.getContent();
+
+        CsvHelper.checkTableSize(table, 3, 3);
+        CsvHelper.checkHeader(table, "A", "B", "C");
+        CsvHelper.checkCellsWithNumbers(table);
+
+        String actualString = table.getCell(2, 1);
+        String expectedString = "'Hallo;Welt'";
+        assertEquals(expectedString, actualString);
+    }
+
+    /**
+     * Tests parsing a CSV file (see CSV file or testdata creation script for details).<br>
+     * <br>
+     * The first line is a header line and contains 3 data lines. The column separator is a
+     * semicolon. The row separator is a windows style line break. The second data line
+     * contains a cell with a ' character.<br>
+     * <br>
+     * There is an ambiguitity which cannot be easily resolved. The CSV document reader is
+     * expected to throw an exception because the ' is missing an corresponding end of the
+     * quote.
+     */
+    @Test(expected = QuoteNotClosedException.class)
+    public void testParseDocument19a() throws IOException {
+
+        String filename = "testdata-csv\\example19.csv";
+        CsvDocumentReader reader = new CsvDocumentReaderImpl2(StandardCharsets.UTF_8, FIRST_LINE_IS_HEADER, RIGID);
+        CsvDocument document = reader.readFrom(filename);
+
+        // In case the reader throws no exception, check some basic plausibilities.
+        CsvHelper.checkMetaData(document, StandardCharsets.UTF_8, DocumentTypes.CSV, SEMICOLON, NEW_LINE_WINDOWS,
+                                HeaderType.FIRST_LINE_IS_HEADER, StructureType.RIGID);
+
+        Table<String> table = document.getContent();
+
+        CsvHelper.checkTableSize(table, 3, 3);
+        CsvHelper.checkHeader(table, "A", "B", "C");
+        CsvHelper.checkCellsWithNumbers(table);
+    }
+
+    /**
+     * Tests parsing a CSV file (see CSV file or testdata creation script for details).<br>
+     * <br>
+     * The first line is a header line and contains 3 data lines. The column separator is a
+     * semicolon. The row separator is a windows style line break. The second data line
+     * contains a cell with a ' character.<br>
+     * <br>
+     * There is an ambiguitity which cannot be easily resolved. The CSV document reader is
+     * expected to throw an exception because the ' is missing an corresponding end of the
+     * quote.
+     */
+    @Test(expected = QuoteNotClosedException.class)
+    public void testParseDocument19b() throws IOException {
+
+        String filename = "testdata-csv\\example19.csv";
+        CsvDocumentReader reader = new CsvDocumentReaderImpl2(StandardCharsets.UTF_8, FIRST_LINE_IS_HEADER, FLEXIBLE);
+        CsvDocument document = reader.readFrom(filename);
+
+        // In case the reader throws no exception, check some basic plausibilities.
+        CsvHelper.checkMetaData(document, StandardCharsets.UTF_8, DocumentTypes.CSV, SEMICOLON, NEW_LINE_WINDOWS,
+                                HeaderType.FIRST_LINE_IS_HEADER, StructureType.FLEXIBLE);
+
+        Table<String> table = document.getContent();
+
+        CsvHelper.checkTableSize(table, 3, 3);
+        CsvHelper.checkHeader(table, "A", "B", "C");
+        CsvHelper.checkCellsWithNumbers(table);
+    }
+
+    /**
+     * Tests parsing a CSV file (see CSV file or testdata creation script for details).<br>
+     * <br>
+     * The first line is a header line and contains 3 data lines. The column separator is a
+     * semicolon. The row separator is a windows style line break. The second data line
+     * contains a cell with a " character.<br>
+     * <br>
+     * There is an ambiguitity which cannot be easily resolved. The CSV document reader is
+     * expected to throw an exception because the " is missing an corresponding end of the
+     * quote.
+     */
+    @Test(expected = QuoteNotClosedException.class)
+    public void testParseDocument20a() throws IOException {
+
+        String filename = "testdata-csv\\example20.csv";
+        CsvDocumentReader reader = new CsvDocumentReaderImpl2(StandardCharsets.UTF_8, FIRST_LINE_IS_HEADER, RIGID);
+        CsvDocument document = reader.readFrom(filename);
+
+        // In case the reader throws no exception, check some basic plausibilities.
+        CsvHelper.checkMetaData(document, StandardCharsets.UTF_8, DocumentTypes.CSV, SEMICOLON, NEW_LINE_WINDOWS,
+                                HeaderType.FIRST_LINE_IS_HEADER, StructureType.RIGID);
+
+        Table<String> table = document.getContent();
+
+        CsvHelper.checkTableSize(table, 3, 3);
+        CsvHelper.checkHeader(table, "A", "B", "C");
+        CsvHelper.checkCellsWithNumbers(table);
+    }
+
+    /**
+     * Tests parsing a CSV file (see CSV file or testdata creation script for details).<br>
+     * <br>
+     * The first line is a header line and contains 3 data lines. The column separator is a
+     * semicolon. The row separator is a windows style line break. The second data line
+     * contains a cell with a " character.<br>
+     * <br>
+     * There is an ambiguitity which cannot be easily resolved. The CSV document reader is
+     * expected to throw an exception because the " is missing an corresponding end of the
+     * quote.
+     */
+    @Test(expected = QuoteNotClosedException.class)
+    public void testParseDocument20b() throws IOException {
+
+        String filename = "testdata-csv\\example20.csv";
+        CsvDocumentReader reader = new CsvDocumentReaderImpl2(StandardCharsets.UTF_8, FIRST_LINE_IS_HEADER, FLEXIBLE);
+        CsvDocument document = reader.readFrom(filename);
+
+        // In case the reader throws no exception, check some basic plausibilities.
+        CsvHelper.checkMetaData(document, StandardCharsets.UTF_8, DocumentTypes.CSV, SEMICOLON, NEW_LINE_WINDOWS,
+                                HeaderType.FIRST_LINE_IS_HEADER, StructureType.FLEXIBLE);
+
+        Table<String> table = document.getContent();
+
+        CsvHelper.checkTableSize(table, 3, 3);
+        CsvHelper.checkHeader(table, "A", "B", "C");
+        CsvHelper.checkCellsWithNumbers(table);
+    }
+
+    /**
+     * Tests parsing a CSV file (see CSV file or testdata creation script for details).<br>
+     * <br>
+     * The first line is a header line and contains 3 data lines. The column separator is a
+     * semicolon. The row separator is a windows style line break. One cell contains a string
+     * containing an apostrophe character which is not used for quoting.<br>
+     * <br>
+     * The CSV file is expected to be parsable.
+     */
+    @Test
+    public void testParseDocument21() throws IOException {
+
+        String filename = "testdata-csv\\example21.csv";
+        CsvDocumentReader reader = new CsvDocumentReaderImpl2(StandardCharsets.UTF_8, FIRST_LINE_IS_HEADER, RIGID);
+        CsvDocument document = reader.readFrom(filename);
+
+        CsvHelper.checkMetaData(document, StandardCharsets.UTF_8, DocumentTypes.CSV, SEMICOLON, NEW_LINE_WINDOWS,
+                                HeaderType.FIRST_LINE_IS_HEADER, StructureType.RIGID);
+
+        Table<String> table = document.getContent();
+
+        CsvHelper.checkTableSize(table, 3, 3);
+        CsvHelper.checkHeader(table, "A", "B", "C");
+        CsvHelper.checkCellsWithNumbers(table);
+
+        String actualString = table.getCell(2, 1);
+        String expectedString = "l\u00b4auberge"; // using the char ´ makes the comparison fail
+        assertEquals(expectedString, actualString);
+    }
+
+    /**
+     * Tests parsing a CSV file (see CSV file or testdata creation script for details).<br>
+     * <br>
+     * The first line is a header line and contains 3 data lines. The column separator is a
+     * semicolon. The row separator is a windows style line break. One cell contains a string
+     * containing an apostrophe character which is not used for quoting.<br>
+     * <br>
+     * The CSV file is expected to be parsable.
+     */
+    @Test
+    public void testParseDocument22() throws IOException {
+
+        String filename = "testdata-csv\\example22.csv";
+        CsvDocumentReader reader = new CsvDocumentReaderImpl2(StandardCharsets.UTF_8, FIRST_LINE_IS_HEADER, RIGID);
+        CsvDocument document = reader.readFrom(filename);
+
+        CsvHelper.checkMetaData(document, StandardCharsets.UTF_8, DocumentTypes.CSV, SEMICOLON, NEW_LINE_WINDOWS,
+                                HeaderType.FIRST_LINE_IS_HEADER, StructureType.RIGID);
+
+        Table<String> table = document.getContent();
+
+        CsvHelper.checkTableSize(table, 3, 3);
+        CsvHelper.checkHeader(table, "A", "B", "C");
+        CsvHelper.checkCellsWithNumbers(table);
+
+        String actualString = table.getCell(2, 1);
+        String expectedString = "l`auberge";
+        assertEquals(expectedString, actualString);
+    }
+
+    /**
+     * Tests parsing a CSV file (see CSV file or testdata creation script for details).<br>
+     * <br>
+     * Tests parsing a CSV file. The first line is a header line and contains
+     * 3 data lines. The column separator is a semicolon. The row separator is
+     * a windows style line break. One cell contains a quoted string containing
+     * a column separator.<br>
+     * <br>
+     *  The CSV file is expected to be parsable.
+     */
+    @Test
+    public void testParseDocument23() throws IOException {
+
+        String filename = "testdata-csv\\example23.csv";
+        CsvDocumentReader reader = new CsvDocumentReaderImpl2(StandardCharsets.UTF_8, FIRST_LINE_IS_HEADER, RIGID);
+        CsvDocument document = reader.readFrom(filename);
+
+        CsvHelper.checkMetaData(document, StandardCharsets.UTF_8, DocumentTypes.CSV, SEMICOLON, NEW_LINE_WINDOWS,
+                                HeaderType.FIRST_LINE_IS_HEADER, StructureType.RIGID);
+
+        Table<String> table = document.getContent();
+
+        CsvHelper.checkTableSize(table, 3, 3);
+        CsvHelper.checkHeader(table, "A", "B", "C");
+        CsvHelper.checkCellsWithNumbers(table);
+
+        String actualString = table.getCell(2, 1);
+        String expectedString = "Hal\"lo'We\"lt";
+        assertEquals(expectedString, actualString);
+    }
+
+    /**
+     * Tests parsing a CSV file (see CSV file or testdata creation script for details).<br>
+     * <br>
+     * The first line is a header line and contains 3 data lines. The column separator is a
+     * semicolon. The row separator is a windows style line break. One cell contains a quoted
+     * string containing a column separator.<br>
+     * <br>
+     * The CSV file is expected to be parsable.
+     */
+    @Test
+    public void testParseDocument24() throws IOException {
+
+        String filename = "testdata-csv\\example24.csv";
+        CsvDocumentReader reader = new CsvDocumentReaderImpl2(StandardCharsets.UTF_8, FIRST_LINE_IS_HEADER, RIGID);
+        CsvDocument document = reader.readFrom(filename);
+
+        CsvHelper.checkMetaData(document, StandardCharsets.UTF_8, DocumentTypes.CSV, SEMICOLON, NEW_LINE_WINDOWS,
+                                HeaderType.FIRST_LINE_IS_HEADER, StructureType.RIGID);
+
+        Table<String> table = document.getContent();
+
+        CsvHelper.checkTableSize(table, 3, 3);
+        CsvHelper.checkHeader(table, "A", "B", "C");
+        CsvHelper.checkCellsWithNumbers(table);
+
+        String actualString = table.getCell(2, 1);
+        String expectedString = "Hal'lo\"We'lt";
         assertEquals(expectedString, actualString);
     }
 

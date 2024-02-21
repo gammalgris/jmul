@@ -41,7 +41,13 @@ import jmul.document.csv.CsvDocument;
 
 
 /**
- * This interface describes an entity that reads CSV files.
+ * This interface describes an entity that reads CSV files.<br>
+ * <br>
+ * <i>Note:<br>
+ * It's best to provide different implementations in order to be able to read
+ * a variety of CSV files. This way a single implementation will not be
+ * overburdened by too many edge cases or non standard behaviour and avoids
+ * issues with ambiguity.</i>
  *
  * @author Kristian Kutin
  */

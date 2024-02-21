@@ -188,7 +188,8 @@ abstract class CsvDocumentReaderBase implements CsvDocumentReader {
             parseRemainingContent(br, table);
         }
 
-        return new CsvDocumentImpl(documentType, headerType, structureType, columnSeparator, rowSeparator, table);
+        return new CsvDocumentImpl(documentType, charset, headerType, structureType, columnSeparator, rowSeparator,
+                                   table);
     }
 
     /**

@@ -39,6 +39,7 @@ import java.io.IOException;
 
 import java.nio.charset.Charset;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static jmul.document.csv.CsvHelper.normalizeValue;
@@ -59,14 +60,30 @@ import jmul.string.TextHelper;
 
 
 /**
- * An implementation for a CSV document reader. The reader expects a uniformly
- * structured CSV file with
+ * An implementation for a CSV document reader which reads simple CSV files with following
+ * properties:
  * <ul>
- * <li>a defined header line,</li>
- * <li>a defined column separator,</li>
- * <li>in each line exists the same number of columns as indicated by the header line</li>
- * <li>and a table row may be spread along several lines</li>
+ * <li>(optional) The first line of the CSV file can be a header line.</li>
+ * <li>(optional) The CSV file doesn't need a header line.</li>
+ * <li>(optional) Each row can have the same number of columns.</li>
+ * <li>(optional) Each row can have a varying number of columns.</li>
+ * <li>(optional) Cells are allowed to contain line separators.</li>
+ * <li>(mandatory) " and ' can be used to quote a cell's content (i.e. in part or whole).
+ *     Thus ' cannot be used as apostrophe.
+ * </li>
  * </ul>
+ * The reader implements following requirements:
+ * <ul>
+ * <li>Any string can be used as column or row separator. The default column separator
+ *     is a semicolon. The default row separator is the system's line separator.
+ * </li>
+ * <li>Various encodings can be used (see supported charsets by Java). The default
+ *     encoding is the current system's default encoding.</li>
+ * <li>Line separators within cells are removed.</li>
+ * </ul>
+ * <br>
+ * <i>Note:<br>
+ * Freely add additional constructors if some parameter variations are missing.</i>
  *
  * @author Kristian Kutin
  */
@@ -223,7 +240,7 @@ public class CsvDocumentReaderImpl2 extends CsvDocumentReaderBase {
     protected void parseFirstLine(BufferedReader aReader, @Modified ModifiableTable<String> aTable) throws IOException {
 
         StringBuilder buffer = new StringBuilder();
-        List<String> substrings;
+        List<String> substrings = null;
 
         while (true) {
 
@@ -231,7 +248,12 @@ public class CsvDocumentReaderImpl2 extends CsvDocumentReaderBase {
 
             if (result.isEndOfFile() && result.isEmpty()) {
 
-                return;
+                if (substrings == null) {
+
+                    substrings = new ArrayList<>();
+                }
+
+                break;
             }
 
             String line = result.getLine();
@@ -277,15 +299,24 @@ public class CsvDocumentReaderImpl2 extends CsvDocumentReaderBase {
         int expectedColumns = aTable.columns();
 
         StringBuilder buffer = new StringBuilder();
-        List<String> substrings;
+        List<String> substrings = null;
+        boolean endOfFile = false;
 
         while (true) {
+
+            // Assemble a table row, which may span several lines.
 
             ReadBuffer result = TextFileHelper.readLine(aReader, getRowSeparator());
 
             if (result.isEndOfFile() && result.isEmpty()) {
 
-                return;
+                endOfFile = true;
+
+                if (buffer.length() == 0) {
+
+                    // If we processed the last table row then we can leave.
+                    break;
+                }
             }
 
             String line = result.getLine();
@@ -297,10 +328,14 @@ public class CsvDocumentReaderImpl2 extends CsvDocumentReaderBase {
 
                 if (substrings.size() < expectedColumns) {
 
-                    continue;
+                    if (!endOfFile) {
+
+                        continue;
+                    }
                 }
 
-                buffer = new StringBuilder();
+                // The current table row is stored in the variable substrings.
+                buffer = new StringBuilder(); // Thus we can clear the buffer.
 
             } catch (QuoteNotClosedException e) {
 
@@ -310,13 +345,19 @@ public class CsvDocumentReaderImpl2 extends CsvDocumentReaderBase {
                 // table row is spread over several text lines.
                 // If there is an issue with the table structure (i.e. number of identified
                 // columns) then an exception will be thrown.
+                if (endOfFile) {
+
+                    throw e;
+                }
+
                 continue;
             }
 
 
-            currentRow++;
+            // Process a table row.
 
-            int nextRowIndex = aTable.rows();
+            int nextRowIndex = currentRow;
+            currentRow++;
             int actualColumns = substrings.size();
 
             StructureType actualStructureType = getStructureType();

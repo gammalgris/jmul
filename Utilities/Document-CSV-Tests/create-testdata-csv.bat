@@ -205,7 +205,6 @@ set functionCalls.length=
 	<NUL set /P=4;5;6^%LF%%LF%>> testdata-csv\example03.csv
 	<NUL set /P=7;8;9^%LF%%LF%>> testdata-csv\example03.csv
 
-
 	call:resetErrorlevel
 
 
@@ -236,29 +235,38 @@ set functionCalls.length=
 
 
 	(
+		echo A;B;C
 		echo 1;2;3
-		echo 4;5;6
+		echo 4;5;'Hallo
+		echo Welt'
 		echo 7;8;9
 	) > testdata-csv\example07.csv
 
 
 	(
-		echo 1;2
-		echo 3;4;5
-		echo 6;7;8;9
+		echo 1;2;3
+		echo 4;5;6
+		echo 7;8;9
 	) > testdata-csv\example08.csv
 
 
 	(
-		echo ;;
-		echo ;;
-		echo ;;
+		echo 1;2
+		echo 5;6;7
+		echo 9;10;11;12
 	) > testdata-csv\example09.csv
 
 
 	(
-		echo ÄäÖöÜüß
+		echo ;;
+		echo ;;
+		echo ;;
 	) > testdata-csv\example10.csv
+
+
+	(
+		echo ÄäÖöÜüß
+	) > testdata-csv\example11.csv
 
 
 	(
@@ -266,49 +274,84 @@ set functionCalls.length=
 		echo 1;2;3
 		echo 4;5;6
 		echo 7;8;9
-	) > testdata-csv\example12.csv
+	) > testdata-csv\example13.csv
 
 	(
 		echo A;B;C
 		echo 1;2;3
 		echo 4;5;"Hallo;Welt"
 		echo 7;8;9
-	) > testdata-csv\example13.csv
+	) > testdata-csv\example14.csv
 
 	(
 		echo A;B;C
 		echo 1;2;3
 		echo 4;5;'Hallo;Welt'
 		echo 7;8;9
-	) > testdata-csv\example14.csv
+	) > testdata-csv\example15.csv
 
 	(
 		echo A;B;C
 		echo 1;2;3
 		echo 4;5;"Hallo'Welt"
 		echo 7;8;9
-	) > testdata-csv\example15.csv
+	) > testdata-csv\example16.csv
 
 	(
 		echo A;B;C
 		echo 1;2;3
 		echo 4;5;'Hallo"Welt'
 		echo 7;8;9
-	) > testdata-csv\example16.csv
+	) > testdata-csv\example17.csv
 
 	(
 		echo A;B;C
 		echo 1;2;3
-		echo 4;5;l'auberge
+		echo 4;5;'Hallo;Welt'
 		echo 7;8;9
 	) > testdata-csv\example18.csv
 
 	(
 		echo A;B;C
 		echo 1;2;3
-		echo 4;5;l"auberge
+		echo 4;5;l'auberge
 		echo 7;8;9
 	) > testdata-csv\example19.csv
+
+	(
+		echo A;B;C
+		echo 1;2;3
+		echo 4;5;l"auberge
+		echo 7;8;9
+	) > testdata-csv\example20.csv
+
+	(
+		echo A;B;C
+		echo 1;2;3
+		echo 4;5;l´auberge
+		echo 7;8;9
+	) > testdata-csv\example21.csv
+
+	(
+		echo A;B;C
+		echo 1;2;3
+		echo 4;5;l`auberge
+		echo 7;8;9
+	) > testdata-csv\example22.csv
+
+	(
+		echo A;B;C
+		echo 1;2;3
+		echo 4;5;Hal"lo'We"lt
+		echo 7;8;9
+	) > testdata-csv\example23.csv
+
+	(
+		echo A;B;C
+		echo 1;2;3
+		echo 4;5;Hal'lo"We'lt
+		echo 7;8;9
+	) > testdata-csv\example24.csv
 
 %return%
 
