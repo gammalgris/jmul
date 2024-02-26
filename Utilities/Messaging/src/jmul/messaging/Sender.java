@@ -7,7 +7,7 @@
  * JMUL is a central repository for utilities which are used in my
  * other public and private repositories.
  *
- * Copyright (C) 2018  Kristian Kutin
+ * Copyright (C) 2024  Kristian Kutin
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -35,9 +35,16 @@ package jmul.messaging;
 
 
 /**
- * This interface describes an entity which contains a message category.
+ * This interface describes a component (i.e. sender) which sends messages to other
+ * components (i.e. receivers) within a monolithic application.
  *
  * @author Kristian Kutin
  */
-public interface MessageCategory {
+public interface Sender {
+
+    /**
+     * Returns the name of this sender.
+     */
+    String senderName();
+
 }

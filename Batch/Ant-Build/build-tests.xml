@@ -62,6 +62,9 @@
             <fileset dir="${package.measures-tests.src.dir}">
                 <include name="**/*.java" />
             </fileset>
+            <fileset dir="${package.messaging-tests.src.dir}">
+                <include name="**/*.java" />
+            </fileset>
             <fileset dir="${package.misc-tests.src.dir}">
                 <include name="**/*.java" />
             </fileset>

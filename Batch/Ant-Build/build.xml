@@ -64,6 +64,9 @@
             <fileset dir="${package.measures.src.dir}">
                 <include name="**/*.java" />
             </fileset>
+            <fileset dir="${package.messaging.src.dir}">
+                <include name="**/*.java" />
+            </fileset>
             <fileset dir="${package.metainfo.src.dir}">
                 <include name="**/*.java" />
             </fileset>
