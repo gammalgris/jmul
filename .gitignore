@@ -46,3 +46,9 @@
 /**/.gradle
 /**/Gradle-Build/temp/*
 /**/gradle.properties
+
+
+#
+# Ignore external dependencies
+#
+/ExternalDependencies/JDK

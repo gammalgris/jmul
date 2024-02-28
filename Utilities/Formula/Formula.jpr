@@ -198,47 +198,45 @@
          <list n="jdkDefinitions">
             <hash>
                <list n="classPath">
-                  <url protocol="jar" path="file:/C:/Program Files/Java/jdk1.8.0_171/jre/lib/resources.jar!/"/>
-                  <url protocol="jar" path="file:/C:/Program Files/Java/jdk1.8.0_171/jre/lib/rt.jar!/"/>
-                  <url protocol="jar" path="file:/C:/Program Files/Java/jdk1.8.0_171/jre/lib/sunrsasign.jar!/"/>
-                  <url protocol="jar" path="file:/C:/Program Files/Java/jdk1.8.0_171/jre/lib/jsse.jar!/"/>
-                  <url protocol="jar" path="file:/C:/Program Files/Java/jdk1.8.0_171/jre/lib/jce.jar!/"/>
-                  <url protocol="jar" path="file:/C:/Program Files/Java/jdk1.8.0_171/jre/lib/charsets.jar!/"/>
-                  <url protocol="jar" path="file:/C:/Program Files/Java/jdk1.8.0_171/jre/lib/jfr.jar!/"/>
-                  <url protocol="file" path="/C:/Program Files/Java/jdk1.8.0_171/jre/classes/"/>
+                  <url path="../../ExternalDependencies/JDK/jre/lib/resources.jar" jar-entry=""/>
+                  <url path="../../ExternalDependencies/JDK/jre/lib/rt.jar" jar-entry=""/>
+                  <url path="../../ExternalDependencies/JDK/jre/lib/jsse.jar" jar-entry=""/>
+                  <url path="../../ExternalDependencies/JDK/jre/lib/jce.jar" jar-entry=""/>
+                  <url path="../../ExternalDependencies/JDK/jre/lib/charsets.jar" jar-entry=""/>
+                  <url path="../../ExternalDependencies/JDK/jre/lib/jfr.jar" jar-entry=""/>
+                  <url path="../../ExternalDependencies/JDK/jre/classes/"/>
                </list>
-               <value n="description" v="1.8.0_171"/>
+               <value n="description" v="1.8.0_361"/>
                <list n="docPath">
                   <url protocol="http" host="docs.oracle.com" path="/javase/8/docs/api/"/>
                </list>
                <list n="expandedClassPath">
-                  <url protocol="jar" path="file:/C:/Program Files/Java/jdk1.8.0_171/jre/lib/resources.jar!/"/>
-                  <url protocol="jar" path="file:/C:/Program Files/Java/jdk1.8.0_171/jre/lib/rt.jar!/"/>
-                  <url protocol="jar" path="file:/C:/Program Files/Java/jdk1.8.0_171/jre/lib/sunrsasign.jar!/"/>
-                  <url protocol="jar" path="file:/C:/Program Files/Java/jdk1.8.0_171/jre/lib/jsse.jar!/"/>
-                  <url protocol="jar" path="file:/C:/Program Files/Java/jdk1.8.0_171/jre/lib/jce.jar!/"/>
-                  <url protocol="jar" path="file:/C:/Program Files/Java/jdk1.8.0_171/jre/lib/charsets.jar!/"/>
-                  <url protocol="jar" path="file:/C:/Program Files/Java/jdk1.8.0_171/jre/lib/jfr.jar!/"/>
-                  <url protocol="file" path="/C:/Program Files/Java/jdk1.8.0_171/jre/classes/"/>
+                  <url path="../../ExternalDependencies/JDK/jre/lib/resources.jar" jar-entry=""/>
+                  <url path="../../ExternalDependencies/JDK/jre/lib/rt.jar" jar-entry=""/>
+                  <url path="../../ExternalDependencies/JDK/jre/lib/jsse.jar" jar-entry=""/>
+                  <url path="../../ExternalDependencies/JDK/jre/lib/jce.jar" jar-entry=""/>
+                  <url path="../../ExternalDependencies/JDK/jre/lib/charsets.jar" jar-entry=""/>
+                  <url path="../../ExternalDependencies/JDK/jre/lib/jfr.jar" jar-entry=""/>
+                  <url path="../../ExternalDependencies/JDK/jre/classes/"/>
                </list>
                <list n="expandedSourcePath">
-                  <url protocol="jar" path="file:/C:/Program Files/Java/jdk1.8.0_171/src.zip!/"/>
+                  <url path="../../ExternalDependencies/JDK/src.zip" jar-entry=""/>
                </list>
-               <value n="id" v="1.8.0_171"/>
-               <url n="javaExecutable" protocol="file" path="/C:/Program Files/Java/jdk1.8.0_171/bin/java.exe"/>
-               <url n="sdkBinDir" protocol="file" path="/C:/Program Files/Java/jdk1.8.0_171/bin/"/>
+               <value n="id" v="1.8.0_361"/>
+               <url n="javaExecutable" path="../../ExternalDependencies/JDK/bin/java.exe"/>
+               <url n="sdkBinDir" path="../../ExternalDependencies/JDK/bin/"/>
                <list n="sourcePath">
-                  <url protocol="jar" path="file:/C:/Program Files/Java/jdk1.8.0_171/src.zip!/"/>
+                  <url path="../../ExternalDependencies/JDK/src.zip" jar-entry=""/>
                </list>
-               <value n="version" v="1.8.0_171"/>
+               <value n="version" v="1.8.0_361"/>
             </hash>
          </list>
          <list n="libraryDefinitions"/>
       </hash>
       <hash n="jdkReference">
-         <value n="id" v="1.8.0_171"/>
+         <value n="id" v="1.8.0_361"/>
          <value n="isJDK" v="true"/>
-         <value n="jdkVersion" v="1.8.0_171"/>
+         <value n="jdkVersion" v="1.8.0_361"/>
       </hash>
    </hash>
    <hash n="oracle.jdevimpl.config.JProjectPaths">
