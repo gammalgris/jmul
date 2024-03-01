@@ -42,10 +42,9 @@ import jmul.messaging.Receiver;
 
 import jmul.query.NoResultException;
 
-import static org.junit.Assert.assertEquals;
-
 import jmul.test.classification.UnitTest;
 
+import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
 
@@ -99,7 +98,7 @@ public class QueuingMessagebusTest {
             }
         };
 
-        QueuingMessagebus messagebus = new QueuingMessagebus();
+        QueuingMessagebus<Message<String>> messagebus = new QueuingMessagebus<>();
         assertEquals(0, messagebus.size());
 
         messagebus.send(message);
@@ -163,7 +162,7 @@ public class QueuingMessagebusTest {
             }
         };
 
-        QueuingMessagebus messagebus = new QueuingMessagebus();
+        QueuingMessagebus<Message<String>> messagebus = new QueuingMessagebus<>();
         assertEquals(0, messagebus.size());
 
         messagebus.send(message);
@@ -179,10 +178,10 @@ public class QueuingMessagebusTest {
         };
 
         MessageQuery query = new MessageQuery(receiver);
-        MessageQueryResult result = messagebus.fetch(query);
+        MessageQueryResult<Message<String>> result = messagebus.fetch(query);
         assertEquals(true, result.existsResult());
 
-        Message<String> fetchedMessage = (Message<String>) result.result();
+        Message<String> fetchedMessage = result.result();
         assertEquals(message, fetchedMessage);
     }
 
@@ -219,7 +218,7 @@ public class QueuingMessagebusTest {
             }
         };
 
-        QueuingMessagebus messagebus = new QueuingMessagebus();
+        QueuingMessagebus<Message<String>> messagebus = new QueuingMessagebus<>();
         assertEquals(0, messagebus.size());
 
         messagebus.send(message);
@@ -246,7 +245,7 @@ public class QueuingMessagebusTest {
      */
     @Test
     public void testFetchingOrderForSameReceiver() {
-        
+
         Message<String> message1 = new Message<String>() {
             @Override
             public String topic() {
@@ -299,7 +298,7 @@ public class QueuingMessagebusTest {
             }
         };
 
-        QueuingMessagebus messagebus = new QueuingMessagebus();
+        QueuingMessagebus<Message<String>> messagebus = new QueuingMessagebus<>();
         assertEquals(0, messagebus.size());
 
         messagebus.send(message1);
@@ -320,14 +319,14 @@ public class QueuingMessagebusTest {
 
         MessageQuery query = new MessageQuery(receiver);
         MessageQueryResult result;
-        
+
         result = messagebus.fetch(query);
-        assertEquals(1,messagebus.size());
+        assertEquals(1, messagebus.size());
         assertEquals(true, result.existsResult());
         assertEquals("1", result.result().topic());
 
         result = messagebus.fetch(query);
-        assertEquals(0,messagebus.size());
+        assertEquals(0, messagebus.size());
         assertEquals(true, result.existsResult());
         assertEquals("2", result.result().topic());
     }

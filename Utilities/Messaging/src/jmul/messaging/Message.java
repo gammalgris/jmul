@@ -55,6 +55,9 @@ package jmul.messaging;
  * The content may vary depending on the actual message type and the purpose of the
  * communication between the entities.
  *
+ * @param <T>
+ *        the actual type of the message content
+ *
  * @author Kristian Kutin
  */
 public interface Message<T> extends Sender, Receiver {

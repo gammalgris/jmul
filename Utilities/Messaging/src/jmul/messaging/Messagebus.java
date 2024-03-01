@@ -43,7 +43,7 @@ package jmul.messaging;
  *
  * @author Kristian Kutin
  */
-public interface Messagebus<T> {
+public interface Messagebus<T extends Message<? extends Object>> {
 
     /**
      * Sends the specified message. The message is stored until the receiver
@@ -62,7 +62,7 @@ public interface Messagebus<T> {
      *
      * @return a wrapper containing the query result
      */
-    MessageQueryResult fetch(MessageQuery query);
+    MessageQueryResult<T> fetch(MessageQuery query);
 
     /**
      * Returns the toal count of messages on the message bus.

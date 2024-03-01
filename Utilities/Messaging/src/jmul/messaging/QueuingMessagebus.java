@@ -49,14 +49,14 @@ import java.util.concurrent.ConcurrentLinkedQueue;
  *
  * @author Kristian Kutin
  */
-public class QueuingMessagebus implements Messagebus<Message<? extends Object>> {
+public class QueuingMessagebus<T extends Message<? extends Object>> implements Messagebus<T> {
 
     /**
      * This messagebus implementation puts the messages into individual queues for
      * every receiver. This way the queuing mechanism isn't blocked when one receiver
      * doesn't fetch his messages.
      */
-    private volatile Map<String, Queue<Message<? extends Object>>> queueMap;
+    private volatile Map<String, Queue<T>> queueMap;
 
     /**
      * The default constructor.
@@ -76,11 +76,11 @@ public class QueuingMessagebus implements Messagebus<Message<? extends Object>> 
      *        a message for another component
      */
     @Override
-    public void send(Message<? extends Object> message) {
+    public void send(T message) {
 
         String receiver = message.receiverName();
 
-        Queue<Message<? extends Object>> queue;
+        Queue<T> queue;
         synchronized (queueMap) {
 
             queue = queueMap.get(receiver);
@@ -104,11 +104,11 @@ public class QueuingMessagebus implements Messagebus<Message<? extends Object>> 
      * @return a wrapper containing the query result
      */
     @Override
-    public MessageQueryResult fetch(MessageQuery query) {
+    public MessageQueryResult<T> fetch(MessageQuery query) {
 
         String receiver = query.queryString();
 
-        Queue<Message<? extends Object>> queue;
+        Queue<T> queue;
         synchronized (queueMap) {
 
             queue = queueMap.get(receiver);
@@ -116,12 +116,12 @@ public class QueuingMessagebus implements Messagebus<Message<? extends Object>> 
 
         if (queue == null) {
 
-            return new MessageQueryResult();
+            return new MessageQueryResult<>();
 
         } else {
 
-            Message<? extends Object> message = queue.poll();
-            return new MessageQueryResult(message);
+            T message = queue.poll();
+            return new MessageQueryResult<>(message);
         }
     }
 
@@ -135,15 +135,15 @@ public class QueuingMessagebus implements Messagebus<Message<? extends Object>> 
 
         int size = 0;
 
-        Set<Map.Entry<String, Queue<Message<? extends Object>>>> entries;
+        Set<Map.Entry<String, Queue<T>>> entries;
         synchronized (queueMap) {
 
             entries = new HashSet<>(queueMap.entrySet());
         }
 
-        for (Map.Entry<String, Queue<Message<? extends Object>>> entry : entries) {
+        for (Map.Entry<String, Queue<T>> entry : entries) {
 
-            Queue<Message<? extends Object>> queue = entry.getValue();
+            Queue<T> queue = entry.getValue();
             size += queue.size();
         }
 

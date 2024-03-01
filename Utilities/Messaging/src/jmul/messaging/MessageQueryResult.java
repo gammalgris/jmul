@@ -43,12 +43,12 @@ import jmul.query.QueryResult;
  *
  * @author Kristian Kutin
  */
-public class MessageQueryResult implements QueryResult<Message<? extends Object>> {
+public class MessageQueryResult<T extends Message<? extends Object>> implements QueryResult<T> {
 
     /**
      * The actual query result.
      */
-    private final Message<? extends Object> message;
+    private final T message;
 
     /**
      * The default constructor.
@@ -64,7 +64,7 @@ public class MessageQueryResult implements QueryResult<Message<? extends Object>
      * @param message
      *        a message or no message (i.e. <code>null</code>)
      */
-    public MessageQueryResult(Message<? extends Object> message) {
+    public MessageQueryResult(T message) {
 
         super();
 
@@ -89,7 +89,7 @@ public class MessageQueryResult implements QueryResult<Message<? extends Object>
      * @return a query result, otherwise a {@link jmul.query.NoResultException}
      */
     @Override
-    public Message<? extends Object> result() {
+    public T result() {
 
         if (message == null) {
 
