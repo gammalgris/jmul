@@ -1,7 +1,7 @@
 /*
  * SPDX-License-Identifier: GPL-3.0
- * 
- * 
+ *
+ *
  * (J)ava (M)iscellaneous (U)tilities (L)ibrary
  *
  * JMUL is a central repository for utilities which are used in my
@@ -40,11 +40,10 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import jmul.io.NestedStreams;
 import jmul.io.NestedStreamsImpl;
+
+import jmul.list.ByteNode;
 
 import jmul.misc.exceptions.MultipleCausesException;
 
@@ -107,7 +106,7 @@ public class PageLoader {
         }
 
 
-        byte[] content = null;
+        ByteNode content = null;
 
         try {
 
@@ -191,11 +190,12 @@ public class PageLoader {
      * @throws IOException
      *         is thrown if an error occurred while reading from the file
      */
-    private static byte[] loadContent(NestedStreams someNestedStreams) throws IOException {
+    private static ByteNode loadContent(NestedStreams someNestedStreams) throws IOException {
 
         InputStream reader = (InputStream) someNestedStreams.getOuterStream();
-        List<Byte> buffer = new ArrayList<>();
 
+        ByteNode firstNode = null;
+        ByteNode currentNode = null;
         while (true) {
 
             int next = reader.read();
@@ -204,20 +204,25 @@ public class PageLoader {
                 break;
             }
 
-            buffer.add((byte) next);
+            ByteNode newNode = new ByteNode((byte) next);
+
+            if (firstNode == null) {
+
+                firstNode = newNode;
+            }
+
+            if (currentNode == null) {
+
+                currentNode = newNode;
+
+            } else {
+
+                currentNode.setNext(newNode);
+                currentNode = currentNode.next();
+            }
         }
 
-
-        int size = buffer.size();
-        byte[] bytes = new byte[size];
-
-        for (int a = 0; a < size; a++) {
-
-            Byte b = buffer.get(a);
-            bytes[a] = b;
-        }
-
-        return bytes;
+        return firstNode;
     }
 
     /**

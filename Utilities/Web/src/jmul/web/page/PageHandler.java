@@ -41,6 +41,8 @@ import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
 
+import jmul.list.ByteNode;
+
 import jmul.logging.Logger;
 
 import static jmul.network.http.ResponseCodes.RC200;
@@ -128,17 +130,22 @@ public class PageHandler implements HttpHandler {
 
 
         String path = page.getPath();
-        byte[] content = page.getContent();
+        ByteNode content = page.getContent();
 
 
         String message = "requested page: " + path;
         logger.logInfo(message);
 
 
-        httpExchange.sendResponseHeaders(RC200.getValue(), content.length);
+        httpExchange.sendResponseHeaders(RC200.getValue(), content.size());
 
         OutputStream os = httpExchange.getResponseBody();
-        os.write(content);
+
+        for (ByteNode currentNode = content; currentNode.hasNext(); currentNode = currentNode.next()) {
+
+            os.write(currentNode.content());
+        }
+
         os.close();
     }
 
