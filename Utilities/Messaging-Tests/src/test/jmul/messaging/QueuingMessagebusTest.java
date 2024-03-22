@@ -37,8 +37,10 @@ package test.jmul.messaging;
 import jmul.messaging.Message;
 import jmul.messaging.MessageQuery;
 import jmul.messaging.MessageQueryResult;
+import jmul.messaging.Messagebus;
 import jmul.messaging.QueuingMessagebus;
 import jmul.messaging.Receiver;
+import jmul.messaging.StandardMessage;
 
 import jmul.query.NoResultException;
 
@@ -72,33 +74,9 @@ public class QueuingMessagebusTest {
     @Test
     public void testSendingMessage() {
 
-        Message<String> message = new Message<String>() {
-            @Override
-            public String topic() {
+        Message message = new StandardMessage("a", "b", "c");
 
-                return "";
-            }
-
-            @Override
-            public String content() {
-
-                return "";
-            }
-
-            @Override
-            public String senderName() {
-
-                return "sender";
-            }
-
-            @Override
-            public String receiverName() {
-
-                return "receiver";
-            }
-        };
-
-        QueuingMessagebus<Message<String>> messagebus = new QueuingMessagebus<>();
+        QueuingMessagebus messagebus = new QueuingMessagebus();
         assertEquals(0, messagebus.size());
 
         messagebus.send(message);
@@ -136,33 +114,9 @@ public class QueuingMessagebusTest {
     @Test
     public void testFetchingMessage() {
 
-        Message<String> message = new Message<String>() {
-            @Override
-            public String topic() {
+        Message message = new StandardMessage("a", "receiver", "c");
 
-                return "";
-            }
-
-            @Override
-            public String content() {
-
-                return "";
-            }
-
-            @Override
-            public String senderName() {
-
-                return "sender";
-            }
-
-            @Override
-            public String receiverName() {
-
-                return "receiver";
-            }
-        };
-
-        QueuingMessagebus<Message<String>> messagebus = new QueuingMessagebus<>();
+        Messagebus messagebus = new QueuingMessagebus();
         assertEquals(0, messagebus.size());
 
         messagebus.send(message);
@@ -178,10 +132,10 @@ public class QueuingMessagebusTest {
         };
 
         MessageQuery query = new MessageQuery(receiver);
-        MessageQueryResult<Message<String>> result = messagebus.fetch(query);
+        MessageQueryResult result = messagebus.fetch(query);
         assertEquals(true, result.existsResult());
 
-        Message<String> fetchedMessage = result.result();
+        Message fetchedMessage = result.result();
         assertEquals(message, fetchedMessage);
     }
 
@@ -192,33 +146,9 @@ public class QueuingMessagebusTest {
     @Test(expected = NoResultException.class)
     public void testFetchingMessageWithDifferentReceiver() {
 
-        Message<String> message = new Message<String>() {
-            @Override
-            public String topic() {
+        Message message = new StandardMessage("a", "b", "c");
 
-                return "";
-            }
-
-            @Override
-            public String content() {
-
-                return "";
-            }
-
-            @Override
-            public String senderName() {
-
-                return "sender";
-            }
-
-            @Override
-            public String receiverName() {
-
-                return "receiver";
-            }
-        };
-
-        QueuingMessagebus<Message<String>> messagebus = new QueuingMessagebus<>();
+        Messagebus messagebus = new QueuingMessagebus();
         assertEquals(0, messagebus.size());
 
         messagebus.send(message);
@@ -246,59 +176,11 @@ public class QueuingMessagebusTest {
     @Test
     public void testFetchingOrderForSameReceiver() {
 
-        Message<String> message1 = new Message<String>() {
-            @Override
-            public String topic() {
+        Message message1 = new StandardMessage("a", "receiver", "1");
 
-                return "1";
-            }
+        Message message2 = new StandardMessage("a", "receiver", "2");
 
-            @Override
-            public String content() {
-
-                return "";
-            }
-
-            @Override
-            public String senderName() {
-
-                return "sender";
-            }
-
-            @Override
-            public String receiverName() {
-
-                return "receiver";
-            }
-        };
-
-        Message<String> message2 = new Message<String>() {
-            @Override
-            public String topic() {
-
-                return "2";
-            }
-
-            @Override
-            public String content() {
-
-                return "";
-            }
-
-            @Override
-            public String senderName() {
-
-                return "sender";
-            }
-
-            @Override
-            public String receiverName() {
-
-                return "receiver";
-            }
-        };
-
-        QueuingMessagebus<Message<String>> messagebus = new QueuingMessagebus<>();
+        Messagebus messagebus = new QueuingMessagebus();
         assertEquals(0, messagebus.size());
 
         messagebus.send(message1);

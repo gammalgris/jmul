@@ -40,7 +40,7 @@ package jmul.messaging;
  * <li>an identifier or name of the sender,</li>
  * <li>an identifier or name of the receiver,</lI>
  * <li>a topic and</li>
- * <li>some content.</li>
+ * <li>varying content.</li>
  * </ul>
  * The sender and the receiver may be the same entity. A sender has to be a unique
  * entity among all connected entities (i.e. must have a unique name or identifier).
@@ -55,12 +55,9 @@ package jmul.messaging;
  * The content may vary depending on the actual message type and the purpose of the
  * communication between the entities.
  *
- * @param <T>
- *        the actual type of the message content
- *
  * @author Kristian Kutin
  */
-public interface Message<T> extends Sender, Receiver {
+public interface Message extends Sender, Receiver {
 
     /**
      * Returns the topic of this message.
@@ -70,10 +67,24 @@ public interface Message<T> extends Sender, Receiver {
     String topic();
 
     /**
-     * Returns the content of this message.
+     * Returns the content which is associated with the specified key.
+     *
+     * @param key
+     *        a key to access the content within this message
      *
      * @return some content
      */
-    T content();
+    Object get(PropertyKey key);
+
+    /**
+     * Checks if this message contains content which is associated with
+     * the specified property key.
+     *
+     * @param key
+     *        a property key
+     *
+     * @return <code>true</code> if such content exists, else <code>false</code>
+     */
+    boolean contains(PropertyKey key);
 
 }

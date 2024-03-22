@@ -49,14 +49,14 @@ import java.util.concurrent.ConcurrentLinkedQueue;
  *
  * @author Kristian Kutin
  */
-public class QueuingMessagebus<T extends Message<? extends Object>> implements Messagebus<T> {
+public class QueuingMessagebus implements Messagebus {
 
     /**
      * This messagebus implementation puts the messages into individual queues for
      * every receiver. This way the queuing mechanism isn't blocked when one receiver
      * doesn't fetch his messages.
      */
-    private volatile Map<String, Queue<T>> queueMap;
+    private volatile Map<String, Queue<Message>> queueMap;
 
     /**
      * The default constructor.
@@ -76,11 +76,11 @@ public class QueuingMessagebus<T extends Message<? extends Object>> implements M
      *        a message for another component
      */
     @Override
-    public void send(T message) {
+    public void send(Message message) {
 
         String receiver = message.receiverName();
 
-        Queue<T> queue;
+        Queue<Message> queue;
         synchronized (queueMap) {
 
             queue = queueMap.get(receiver);
@@ -104,11 +104,11 @@ public class QueuingMessagebus<T extends Message<? extends Object>> implements M
      * @return a wrapper containing the query result
      */
     @Override
-    public MessageQueryResult<T> fetch(MessageQuery query) {
+    public MessageQueryResult fetch(MessageQuery query) {
 
         String receiver = query.queryString();
 
-        Queue<T> queue;
+        Queue<Message> queue;
         synchronized (queueMap) {
 
             queue = queueMap.get(receiver);
@@ -116,12 +116,12 @@ public class QueuingMessagebus<T extends Message<? extends Object>> implements M
 
         if (queue == null) {
 
-            return new MessageQueryResult<>();
+            return new MessageQueryResult();
 
         } else {
 
-            T message = queue.poll();
-            return new MessageQueryResult<>(message);
+            Message message = queue.poll();
+            return new MessageQueryResult(message);
         }
     }
 
@@ -135,15 +135,15 @@ public class QueuingMessagebus<T extends Message<? extends Object>> implements M
 
         int size = 0;
 
-        Set<Map.Entry<String, Queue<T>>> entries;
+        Set<Map.Entry<String, Queue<Message>>> entries;
         synchronized (queueMap) {
 
             entries = new HashSet<>(queueMap.entrySet());
         }
 
-        for (Map.Entry<String, Queue<T>> entry : entries) {
+        for (Map.Entry<String, Queue<Message>> entry : entries) {
 
-            Queue<T> queue = entry.getValue();
+            Queue<Message> queue = entry.getValue();
             size += queue.size();
         }
 

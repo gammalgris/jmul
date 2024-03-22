@@ -7,7 +7,7 @@
  * JMUL is a central repository for utilities which are used in my
  * other public and private repositories.
  *
- * Copyright (C) 2024  Kristian Kutin
+ * Copyright (C) 2023  Kristian Kutin
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -35,37 +35,19 @@ package jmul.messaging;
 
 
 /**
- * This interface describes a databus which manages the distribution of data (i.e. messages)
- * between various components within a monolithic application.
+ * This interface describes a property key which is used to access a messages
+ * content.
  *
  * @author Kristian Kutin
  */
-public interface Messagebus {
+public interface PropertyKey {
 
     /**
-     * Sends the specified message. The message is stored until the receiver
-     * picks up the message.
+     * Returns a string representation of this property key.
      *
-     * @param message
-     *        a message for another component
+     * @return a string representation
      */
-    void send(Message message);
-
-    /**
-     * This method allows a receiver to fetch the latest message.
-     *
-     * @param query
-     *        the actual query (i.e. wrapped query string)
-     *
-     * @return a wrapper containing the query result
-     */
-    MessageQueryResult fetch(MessageQuery query);
-
-    /**
-     * Returns the toal count of messages on the message bus.
-     *
-     * @return the toal count of messages
-     */
-    int size();
+    String toString();
 
 }
+

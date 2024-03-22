@@ -36,6 +36,7 @@ package test.jmul.messaging;
 
 import jmul.messaging.Message;
 import jmul.messaging.MessageQueryResult;
+import jmul.messaging.StandardMessage;
 
 import jmul.query.NoResultException;
 
@@ -84,32 +85,7 @@ public class MessageQueryResultTest {
     @Test
     public void instantiateMessageQueryResultWithValidResult() {
 
-        Message message = new Message() {
-
-            @Override
-            public String topic() {
-
-                return "";
-            }
-
-            @Override
-            public Object content() {
-
-                return "";
-            }
-
-            @Override
-            public String senderName() {
-
-                return "";
-            }
-
-            @Override
-            public String receiverName() {
-
-                return "";
-            }
-        };
+        Message message = new StandardMessage("a", "b", "c");
 
         MessageQueryResult result = new MessageQueryResult(message);
         assertEquals(true, result.existsResult());

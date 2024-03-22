@@ -50,7 +50,7 @@ public class SortedMessageStorage {
     /**
      * The actual storage container.
      */
-    private final Map<String, Queue<Message<? extends Object>>> storageMap;
+    private final Map<String, Queue<Message>> storageMap;
 
     /**
      * The default constructor.
@@ -69,7 +69,7 @@ public class SortedMessageStorage {
      * @param message
      *        a message
      */
-    public void put(Message<? extends Object> message) {
+    public void put(Message message) {
 
         if (message == null) {
 
@@ -78,7 +78,7 @@ public class SortedMessageStorage {
 
         String topic = message.topic();
 
-        Queue<Message<? extends Object>> queue = storageMap.get(topic);
+        Queue<Message> queue = storageMap.get(topic);
         if (queue == null) {
 
             queue = new LinkedList<>();
@@ -98,9 +98,9 @@ public class SortedMessageStorage {
      */
     public MessageQueryResult fetch(String topic) {
 
-        Queue<Message<? extends Object>> queue = storageMap.get(topic);
+        Queue<Message> queue = storageMap.get(topic);
 
-        Message<? extends Object> message = null;
+        Message message = null;
         if (queue != null) {
 
             message = queue.poll();
@@ -143,9 +143,9 @@ public class SortedMessageStorage {
 
         int size = 0;
 
-        for (Map.Entry<String, Queue<Message<? extends Object>>> entry : storageMap.entrySet()) {
+        for (Map.Entry<String, Queue<Message>> entry : storageMap.entrySet()) {
 
-            Queue<Message<? extends Object>> queue = entry.getValue();
+            Queue<Message> queue = entry.getValue();
             size += queue.size();
         }
 

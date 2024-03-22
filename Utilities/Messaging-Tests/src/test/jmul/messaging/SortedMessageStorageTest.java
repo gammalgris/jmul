@@ -37,6 +37,7 @@ package test.jmul.messaging;
 import jmul.messaging.Message;
 import jmul.messaging.MessageQueryResult;
 import jmul.messaging.SortedMessageStorage;
+import jmul.messaging.StandardMessage;
 
 import jmul.test.classification.UnitTest;
 
@@ -68,31 +69,7 @@ public class SortedMessageStorageTest {
     @Test
     public void testAddingMessageToStorage() {
 
-        Message<String> message = new Message<String>() {
-            @Override
-            public String topic() {
-
-                return "a";
-            }
-
-            @Override
-            public String content() {
-
-                return "b";
-            }
-
-            @Override
-            public String senderName() {
-
-                return "c";
-            }
-
-            @Override
-            public String receiverName() {
-
-                return "d";
-            }
-        };
+        Message message = new StandardMessage("a", "b", "c");
 
         SortedMessageStorage storage = new SortedMessageStorage();
         assertEquals(0, storage.size());
@@ -106,11 +83,11 @@ public class SortedMessageStorageTest {
      */
     @Test
     public void testFetchingMessageFromEmptyStorage() {
-        
+
         SortedMessageStorage storage = new SortedMessageStorage();
         assertEquals(0, storage.size());
 
-        MessageQueryResult result =  storage.fetch("any");
+        MessageQueryResult result = storage.fetch("any");
         assertEquals(false, result.existsResult());
     }
 
@@ -120,31 +97,7 @@ public class SortedMessageStorageTest {
     @Test
     public void testFetchingMessageFromTheStorage() {
 
-        Message<String> message = new Message<String>() {
-            @Override
-            public String topic() {
-
-                return "a";
-            }
-
-            @Override
-            public String content() {
-
-                return "b";
-            }
-
-            @Override
-            public String senderName() {
-
-                return "c";
-            }
-
-            @Override
-            public String receiverName() {
-
-                return "d";
-            }
-        };
+        Message message = new StandardMessage("a", "b", "c");
 
         SortedMessageStorage storage = new SortedMessageStorage();
         assertEquals(0, storage.size());
@@ -152,7 +105,7 @@ public class SortedMessageStorageTest {
         storage.put(message);
         assertEquals(1, storage.size());
 
-        MessageQueryResult result = storage.fetch("a");
+        MessageQueryResult result = storage.fetch("c");
         assertEquals(true, result.existsResult());
     }
 
@@ -163,31 +116,7 @@ public class SortedMessageStorageTest {
     @Test
     public void testFetchingMessageWithWrongTopic() {
 
-        Message<String> message = new Message<String>() {
-            @Override
-            public String topic() {
-
-                return "a";
-            }
-
-            @Override
-            public String content() {
-
-                return "b";
-            }
-
-            @Override
-            public String senderName() {
-
-                return "c";
-            }
-
-            @Override
-            public String receiverName() {
-
-                return "d";
-            }
-        };
+        Message message = new StandardMessage("a", "b", "c");
 
         SortedMessageStorage storage = new SortedMessageStorage();
         assertEquals(0, storage.size());
@@ -205,57 +134,9 @@ public class SortedMessageStorageTest {
     @Test
     public void testFetchingMessagesByPriority() {
 
-        Message<String> message1 = new Message<String>() {
-            @Override
-            public String topic() {
+        Message message1 = new StandardMessage("a", "b", "c");
 
-                return "a";
-            }
-
-            @Override
-            public String content() {
-
-                return "b";
-            }
-
-            @Override
-            public String senderName() {
-
-                return "c";
-            }
-
-            @Override
-            public String receiverName() {
-
-                return "d";
-            }
-        };
-
-        Message<String> message2 = new Message<String>() {
-            @Override
-            public String topic() {
-
-                return "e";
-            }
-
-            @Override
-            public String content() {
-
-                return "f";
-            }
-
-            @Override
-            public String senderName() {
-
-                return "g";
-            }
-
-            @Override
-            public String receiverName() {
-
-                return "h";
-            }
-        };
+        Message message2 = new StandardMessage("a", "b", "d");
 
         SortedMessageStorage storage = new SortedMessageStorage();
         assertEquals(0, storage.size());
@@ -267,20 +148,20 @@ public class SortedMessageStorageTest {
         assertEquals(2, storage.size());
 
 
-        String[] priorities = new String[] {"e", "a"};
+        String[] priorities = new String[] { "d", "c" };
 
         MessageQueryResult result;
-        
-        result= storage.fetch(priorities);
+
+        result = storage.fetch(priorities);
         assertEquals(1, storage.size());
         assertEquals(true, result.existsResult());
-        assertEquals("e", result.result().topic());
+        assertEquals("d", result.result().topic());
 
 
-        result= storage.fetch(priorities);
+        result = storage.fetch(priorities);
         assertEquals(0, storage.size());
         assertEquals(true, result.existsResult());
-        assertEquals("a", result.result().topic());
+        assertEquals("c", result.result().topic());
     }
 
     /**
@@ -289,57 +170,9 @@ public class SortedMessageStorageTest {
     @Test
     public void testFetchingOrder() {
 
-        Message<String> message1 = new Message<String>() {
-            @Override
-            public String topic() {
+        Message message1 = new StandardMessage("1", "b", "c");
 
-                return "a";
-            }
-
-            @Override
-            public String content() {
-
-                return "1";
-            }
-
-            @Override
-            public String senderName() {
-
-                return "c";
-            }
-
-            @Override
-            public String receiverName() {
-
-                return "d";
-            }
-        };
-
-        Message<String> message2 = new Message<String>() {
-            @Override
-            public String topic() {
-
-                return "a";
-            }
-
-            @Override
-            public String content() {
-
-                return "2";
-            }
-
-            @Override
-            public String senderName() {
-
-                return "c";
-            }
-
-            @Override
-            public String receiverName() {
-
-                return "d";
-            }
-        };
+        Message message2 = new StandardMessage("2", "b", "c");
 
         SortedMessageStorage storage = new SortedMessageStorage();
         assertEquals(0, storage.size());
@@ -352,17 +185,16 @@ public class SortedMessageStorageTest {
 
 
         MessageQueryResult result;
-        
-        result= storage.fetch("a");
+
+        result = storage.fetch("c");
         assertEquals(1, storage.size());
         assertEquals(true, result.existsResult());
-        assertEquals("1", result.result().content());
+        assertEquals("1", result.result().senderName());
 
-
-        result= storage.fetch("a");
+        result = storage.fetch("c");
         assertEquals(0, storage.size());
         assertEquals(true, result.existsResult());
-        assertEquals("2", result.result().content());
+        assertEquals("2", result.result().senderName());
     }
 
 }
