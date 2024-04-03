@@ -41,8 +41,6 @@ import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
 
-import jmul.list.ByteNode;
-
 import jmul.logging.Logger;
 
 import static jmul.network.http.ResponseCodes.RC200;
@@ -67,9 +65,14 @@ public class PageHandler implements HttpHandler {
     private final PageLoader loader;
 
     /**
+     * Details about the actual page and the underlying file.
+     */
+    private final Page page;
+
+    /**
      * The loaded web content.
      */
-    private PublishedPage page;
+    private PageLoadingResult loadedPage;
 
     /**
      * Creates a new content handler according to the specified parameters.
@@ -85,8 +88,9 @@ public class PageHandler implements HttpHandler {
 
         logger = aLogger;
 
-        loader = new PageLoader(aBaseDirectory, aFile);
-        page = null;
+        page = new Page(aBaseDirectory, aFile);
+        loader = new PageLoader(logger, page);
+        loadedPage = null;
     }
 
     /**
@@ -96,7 +100,20 @@ public class PageHandler implements HttpHandler {
      */
     public String getPath() {
 
-        return loader.getPath();
+        String path = null;
+
+        try {
+
+            path = page.determineWebPath();
+
+        } catch (IOException e) {
+
+            String message =
+                "Unable to resolve paths (\"" + page.baseDirectory() + "\" & \"" + page.filePath() + "\")!";
+            throw new PageLoaderException(message, e);
+        }
+
+        return path;
     }
 
     /**
@@ -114,39 +131,31 @@ public class PageHandler implements HttpHandler {
 
         synchronized (this) {
 
-            if (page == null) {
+            if (loadedPage == null) {
 
-                try {
-
-                    page = loader.loadContent();
-
-                } catch (Exception e) {
-
-                    logger.logError(e);
-                    throw new PageHandlerException(e);
-                }
+                loadedPage = loader.loadContent();
             }
         }
 
-
-        String path = page.getPath();
-        ByteNode content = page.getContent();
-
+        String path = loadedPage.path();
 
         String message = "requested page: " + path;
         logger.logInfo(message);
 
+        if (loadedPage.pageWasLoaded()) {
 
-        httpExchange.sendResponseHeaders(RC200.getValue(), content.size());
+            byte[] content = loadedPage.pageContent();
+            httpExchange.sendResponseHeaders(loadedPage.responseCode().getValue(), content.length);
+            OutputStream os = httpExchange.getResponseBody();
+            os.write(content);
+            os.close();
 
-        OutputStream os = httpExchange.getResponseBody();
+        } else {
 
-        for (ByteNode currentNode = content; currentNode.hasNext(); currentNode = currentNode.next()) {
-
-            os.write(currentNode.content());
+            httpExchange.sendResponseHeaders(loadedPage.responseCode().getValue(), 0);
+            OutputStream os = httpExchange.getResponseBody();
+            os.close();
         }
-
-        os.close();
     }
 
 }

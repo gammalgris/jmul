@@ -36,12 +36,16 @@ package test.jmul.web.page;
 
 import java.io.File;
 
-import jmul.list.ByteNode;
+import jmul.logging.ConsoleLogger;
+import jmul.logging.Logger;
+
+import jmul.network.http.ResponseCodes;
 
 import jmul.test.classification.UnitTest;
 
+import jmul.web.page.Page;
 import jmul.web.page.PageLoader;
-import jmul.web.page.PublishedPage;
+import jmul.web.page.PageLoadingResult;
 
 import static org.junit.Assert.assertEquals;
 import org.junit.Test;
@@ -59,16 +63,49 @@ public class PageLoaderTest {
      * Tests loading a page and then checks the loaded page content.
      */
     @Test
-    public void testLoadPage() {
+    public void testCreatingPageLoaderWithValidParameters() {
+
+        Logger logger = new ConsoleLogger();
 
         File baseDirectory = new File(".\\web-content\\");
-        File file = new File(".\\web-content\\test\\hello-world.html");
+        File filePath = new File(".\\web-content\\test\\hello-world.html");
+        Page page = new Page(baseDirectory, filePath);
 
-        PageLoader loader = new PageLoader(baseDirectory.getAbsoluteFile(), file.getAbsoluteFile());
+        PageLoader loader = new PageLoader(logger, page);
 
-        PublishedPage page = loader.loadContent();
-        ByteNode content = page.getContent();
-        assertEquals(211, content.size());
+        PageLoadingResult result = loader.loadContent();
+        assertEquals(true, result.pageWasLoaded());
+        assertEquals(ResponseCodes.RC200, result.responseCode());
+        byte[] content = result.pageContent();
+        assertEquals(211, content.length);
+    }
+
+    /**
+     * Tests creating a loader insatne with invalid parameters.
+     */
+    @Test(expected = IllegalArgumentException.class)
+    public void testCreatingPageLoaderWithNullLoggerReference() {
+
+        Logger logger = null;
+
+        File baseDirectory = new File(".\\web-content\\");
+        File filePath = new File(".\\web-content\\test\\hello-world.html");
+        Page page = new Page(baseDirectory, filePath);
+
+        new PageLoader(logger, page);
+    }
+
+    /**
+     * Tests creating a loader insatne with invalid parameters.
+     */
+    @Test(expected = IllegalArgumentException.class)
+    public void testCreatingPageLoaderWithNullPageParameter() {
+
+        Logger logger = new ConsoleLogger();
+
+        Page page = null;
+
+        new PageLoader(logger, page);
     }
 
 }

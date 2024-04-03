@@ -34,21 +34,15 @@
 package jmul.web.page;
 
 
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 
 import jmul.io.NestedStreams;
-import jmul.io.NestedStreamsImpl;
 
-import jmul.list.ByteNode;
+import jmul.logging.Logger;
 
-import jmul.misc.exceptions.MultipleCausesException;
-
-import static jmul.string.Constants.FILE_SEPARATOR;
-import static jmul.string.Constants.SLASH;
+import jmul.network.http.ResponseCodes;
 
 
 /**
@@ -60,27 +54,39 @@ import static jmul.string.Constants.SLASH;
 public class PageLoader {
 
     /**
-     * The base directory of the web content.
+     * A reference to a logger.
      */
-    private final File baseDirectory;
+    private final Logger logger;
 
     /**
-     * The file with the page content.
+     * Details about the actual page and the underlying file.
      */
-    private final File file;
+    private final Page page;
 
     /**
      * Creates a new instance of a content loader.
      *
-     * @param aBaseDirectory
-     *        a base directory
-     * @param aFile
-     *        a file (i.e. file path)
+     * @param aLogger
+     *        a logger instance
+     * @param aPage
+     *        details about the page and the underlying file
      */
-    public PageLoader(File aBaseDirectory, File aFile) {
+    public PageLoader(Logger aLogger, Page aPage) {
 
-        baseDirectory = aBaseDirectory;
-        file = aFile;
+        super();
+
+        if (aLogger == null) {
+
+            throw new IllegalArgumentException("No logger reference (null) was passed!");
+        }
+
+        if (aPage == null) {
+
+            throw new IllegalArgumentException("No page (null) was specified!");
+        }
+
+        logger = aLogger;
+        page = aPage;
     }
 
     /**
@@ -88,33 +94,37 @@ public class PageLoader {
      *
      * @return web content
      */
-    public PublishedPage loadContent() {
+    public PageLoadingResult loadContent() {
 
-        String path = getPath();
-
-
-        NestedStreams nestedStreams = null;
-
+        String path;
         try {
 
-            nestedStreams = openStreams(file);
+            path = getPath();
+
+        } catch (PageLoaderException e) {
+
+            logger.logError(e);
+            return new PageLoadingResult(getPath(), ResponseCodes.RC500);
+        }
+
+        NestedStreams nestedStreams = null;
+        try {
+
+            nestedStreams = page.openStream();
 
         } catch (FileNotFoundException e) {
 
-            String message = "Unable to load the web content (\"" + file + "\")!";
-            throw new PageLoaderException(message, e);
+            String message = "Unable to load the web content (\"" + page.filePath() + "\")!";
+            logger.logError(message);
+            return new PageLoadingResult(path, ResponseCodes.RC500);
         }
 
-
-        ByteNode content = null;
-
+        long fileSize = page.filePath().length();
         try {
 
-            content = loadContent(nestedStreams);
+            return loadContent(path, nestedStreams, fileSize);
 
         } catch (IOException e) {
-
-            Throwable followupError = null;
 
             try {
 
@@ -122,80 +132,45 @@ public class PageLoader {
 
             } catch (IOException f) {
 
-                followupError = f;
+                logger.logError(f.getMessage());
             }
 
-            String message = "Error while reading from file (\"" + file + "\")!";
-
-            if (followupError != null) {
-
-                throw new PageLoaderException(message, new MultipleCausesException(e, followupError));
-
-            } else {
-
-                throw new PageLoaderException(message, followupError);
-            }
+            String message = "Error while reading from file (\"" + page.filePath() + "\")!";
+            logger.logError(message);
+            return new PageLoadingResult(path, ResponseCodes.RC500);
         }
-
-
-        return new PublishedPage(path, content);
-    }
-
-    /**
-     * Determines the web path for this file relative to the base directory.
-     *
-     * @param aBaseDirectory
-     * @param aFile
-     *
-     * @return a path
-     *
-     * @throws IOException
-     *         is thrown if the specified directory or file cannot be resolved to
-     *         absolute paths
-     */
-    private static String determinePath(File aBaseDirectory, File aFile) throws IOException {
-
-        String directory = aBaseDirectory.getCanonicalPath();
-        String fileName = aFile.getCanonicalPath();
-
-        String path = fileName.replace(directory, "");
-        path = path.replace(FILE_SEPARATOR, SLASH);
-
-        return path;
-    }
-
-    /**
-     * Opens a stream to read from the specified file.
-     *
-     * @param aFile
-     *
-     * @return an input stream
-     *
-     * @throws FileNotFoundException
-     *         is thrown if the specified file doesn't exist
-     */
-    private static NestedStreams openStreams(File aFile) throws FileNotFoundException {
-
-        InputStream reader = new FileInputStream(aFile);
-        return new NestedStreamsImpl(reader);
     }
 
     /**
      * Tries to load the web content from the specified file.
      *
+     * @param path
+     *        a file path
      * @param someNestedStreams
+     *        the input stream
+     * @param pageSize
+     *        the size of the underlying file
      *
      * @return some web content
      *
      * @throws IOException
      *         is thrown if an error occurred while reading from the file
      */
-    private static ByteNode loadContent(NestedStreams someNestedStreams) throws IOException {
+    private static PageLoadingResult loadContent(String path, NestedStreams someNestedStreams,
+                                                 long pageSize) throws IOException {
 
         InputStream reader = (InputStream) someNestedStreams.getOuterStream();
 
-        ByteNode firstNode = null;
-        ByteNode currentNode = null;
+        long maxSize = Integer.MAX_VALUE;
+        if (pageSize > maxSize) {
+
+            return new PageLoadingResult(path, ResponseCodes.RC500);
+        }
+
+        int size = (int) pageSize;
+        byte[] content = new byte[size];
+
+        int index = 0;
         while (true) {
 
             int next = reader.read();
@@ -204,25 +179,11 @@ public class PageLoader {
                 break;
             }
 
-            ByteNode newNode = new ByteNode((byte) next);
-
-            if (firstNode == null) {
-
-                firstNode = newNode;
-            }
-
-            if (currentNode == null) {
-
-                currentNode = newNode;
-
-            } else {
-
-                currentNode.setNext(newNode);
-                currentNode = currentNode.next();
-            }
+            content[index] = (byte) next;
+            index++;
         }
 
-        return firstNode;
+        return new PageLoadingResult(path, content);
     }
 
     /**
@@ -236,11 +197,12 @@ public class PageLoader {
 
         try {
 
-            path = determinePath(baseDirectory, file);
+            path = page.determineWebPath();
 
         } catch (IOException e) {
 
-            String message = "Unable to resolve paths (\"" + baseDirectory + "\" & \"" + file + "\")!";
+            String message =
+                "Unable to resolve paths (\"" + page.baseDirectory() + "\" & \"" + page.filePath() + "\")!";
             throw new PageLoaderException(message, e);
         }
 

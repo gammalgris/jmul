@@ -138,7 +138,7 @@ public class WebServicesContainer extends WebServerBase {
     /**
      * Binds the web service handlers to the web server.
      *
-     * @param someContentFiles
+     * @param someConfigurationFiles
      */
     private void bindWebServices(List<File> someConfigurationFiles) {
 
