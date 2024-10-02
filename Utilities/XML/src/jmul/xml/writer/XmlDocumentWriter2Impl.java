@@ -7,7 +7,7 @@
  * JMUL is a central repository for utilities which are used in my
  * other public and private repositories.
  *
- * Copyright (C) 2013  Kristian Kutin
+ * Copyright (C) 2024  Kristian Kutin
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -34,12 +34,19 @@
 package jmul.xml.writer;
 
 
-import com.sun.org.apache.xml.internal.serialize.OutputFormat;
-import com.sun.org.apache.xml.internal.serialize.XMLSerializer;
-
+import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
+
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerConfigurationException;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+
+import jmul.misc.exceptions.InitializationException;
 
 import org.w3c.dom.Document;
 
@@ -47,19 +54,32 @@ import org.w3c.dom.Document;
 /**
  * An implementation of an xml document writer.
  *
- * @deprecated This implementation uses old Sun classes. This might not work everywhere.
- *
  * @author Kristian Kutin
  */
-@Deprecated
-public class XmlDocumentWriterImpl implements XmlDocumentWriter {
+public class XmlDocumentWriter2Impl implements XmlDocumentWriter {
+
+    /**
+     * A transformer instance.
+     */
+    private final Transformer transformer;
 
     /**
      * The default constructor.
      */
-    public XmlDocumentWriterImpl() {
+    public XmlDocumentWriter2Impl() {
 
         super();
+
+        TransformerFactory transformerFactory = TransformerFactory.newInstance();
+
+        try {
+
+            transformer = transformerFactory.newTransformer();
+
+        } catch (TransformerConfigurationException e) {
+
+            throw new InitializationException("The XML document reader couldn't be initialized!", e);
+        }
     }
 
     /**
@@ -93,13 +113,18 @@ public class XmlDocumentWriterImpl implements XmlDocumentWriter {
     @Override
     public void writeTo(File aFile, Document aDocument) throws IOException {
 
-        OutputFormat format = new OutputFormat(aDocument);
-        format.setIndenting(true);
+        DOMSource domSource = new DOMSource(aDocument);
 
-        try (FileOutputStream fos = new FileOutputStream(aFile)) {
+        BufferedWriter writer = new BufferedWriter(new FileWriter(aFile));
+        StreamResult streamResult = new StreamResult(writer);
 
-            XMLSerializer serializer = new XMLSerializer(fos, format);
-            serializer.serialize(aDocument);
+        try {
+
+            transformer.transform(domSource, streamResult);
+
+        } catch (TransformerException e) {
+
+            throw new WriteXmlException(e);
         }
     }
 
