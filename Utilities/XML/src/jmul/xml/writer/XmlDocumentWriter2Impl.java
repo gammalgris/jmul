@@ -126,6 +126,15 @@ public class XmlDocumentWriter2Impl implements XmlDocumentWriter {
 
             throw new WriteXmlException(e);
         }
+
+        try {
+
+            writer.flush();
+
+        } finally {
+
+            writer.flush();
+        }
     }
 
 }
