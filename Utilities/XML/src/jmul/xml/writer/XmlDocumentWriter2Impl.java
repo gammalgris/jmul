@@ -36,8 +36,11 @@ package jmul.xml.writer;
 
 import java.io.BufferedWriter;
 import java.io.File;
-import java.io.FileWriter;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
+
+import java.nio.charset.Charset;
 
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerConfigurationException;
@@ -114,8 +117,10 @@ public class XmlDocumentWriter2Impl implements XmlDocumentWriter {
     public void writeTo(File aFile, Document aDocument) throws IOException {
 
         DOMSource domSource = new DOMSource(aDocument);
+        String encoding = aDocument.getXmlEncoding();
+        Charset charset = Charset.forName(encoding);
 
-        BufferedWriter writer = new BufferedWriter(new FileWriter(aFile));
+        BufferedWriter writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(aFile), charset));
         StreamResult streamResult = new StreamResult(writer);
 
         try {
