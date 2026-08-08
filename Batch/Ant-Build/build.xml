@@ -125,6 +125,9 @@
             <fileset dir="${package.document.cfg.dir}">
                 <include name="**/*.properties" />
             </fileset>
+            <fileset dir="${package.formula.cfg.dir}">
+                <include name="**/*.configuration" />
+            </fileset>
             <fileset dir="${package.measures.cfg.dir}">
                 <include name="**/*.properties" />
                 <include name="**/*.units" />

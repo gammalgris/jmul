@@ -90,6 +90,7 @@ public class SimpleFormulasTest extends FormulaTestBase {
         //parameters.add(new Object[] { "", 0 });
         parameters.add(new Object[] { "3%2", 1 });
         parameters.add(new Object[] { "3/2", 1 });
+        parameters.add(new Object[] { "3", 3 });
 
         return parameters;
     }

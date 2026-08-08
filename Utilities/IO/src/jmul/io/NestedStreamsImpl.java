@@ -46,7 +46,10 @@ import java.util.List;
  * A class that manages nested streams.<br>
  * <br>
  * See <a href="http://stackoverflow.com/questions/884007/best-way-to-close-nested-streams-in-java-6">Best way to close nested streams in Java 6</a>.
+ * 
+ * @deprecated This class is superfluous.
  */
+@Deprecated
 public class NestedStreamsImpl implements NestedStreams {
 
     /**

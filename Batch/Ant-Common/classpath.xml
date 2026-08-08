@@ -12,7 +12,8 @@
     <property name="project.lib.hamcrest.file" location="${project.lib.junit.dir}\hamcrest-core-1.3.jar" />
 
     <property name="project.lib.sonar-ant-task.dir" location="${project.lib.dir}\SonarAntTask" />
-    <property name="project.lib.sonar-ant-task.file" location="${project.lib.sonar-ant-task.dir}\sonarqube-ant-task-2.4.jar" />
+    <!-- property name="project.lib.sonar-ant-task.file" location="${project.lib.sonar-ant-task.dir}\sonarqube-ant-task-2.4.jar" / -->
+    <property name="project.lib.sonar-ant-task.file" location="${project.lib.sonar-ant-task.dir}\sonarqube-ant-task-2.6.0.1426.jar" />
 
 
     <property name="project.lib.cobertura.dir" location="${project.lib.dir}\Cobertura" />

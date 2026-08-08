@@ -24,6 +24,13 @@
  *
  * e-mail: kristian.kutin@arcor.de
  */
+ 
+ /*
+ * This section contains meta informations.
+ *
+ * $Id$
+ */
+
 package jmul.concurrent.threads;
 
 

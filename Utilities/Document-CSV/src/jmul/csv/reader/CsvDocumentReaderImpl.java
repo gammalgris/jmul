@@ -58,25 +58,12 @@ import jmul.string.TextHelper;
 
 
 /**
- * An implementation for a CSV document reader which reads simple CSV files with following
- * properties:
+ * An implementation for a CSV document reader. The reader expects uniformly
+ * structured CSV file where there exist
  * <ul>
- * <li>(optional) The first line of the CSV file can be a header line.</li>
- * <li>(optional) The CSV file doesn't need a header line.</li>
- * <li>(optional) Each row can have the same number of columns.</li>
- * <li>(optional) Each row can have a varying number of columns.</li>
- * <li>(mandatory) Cells are not allowed to contain line separators.</li>
- * <li>(mandatory) " and ' can be used to quote a cell's content (i.e. in part or whole).
- *     Thus ' cannot be used as apostrophe.
- * </li>
- * </ul>
- * The reader implements following requirements:
- * <ul>
- * <li>Any string can be used as column or row separator. The default column separator
- *     is a semicolon. The default row separator is the system's line separator.
- * </li>
- * <li>Various encodings can be used (see supported charsets by Java). The default
- *     encoding is the current system's default encoding.</li>
+ * <li>a defined header line,</li>
+ * <li>a defined column separator</li>
+ * <li>and in each line exists the same number of columns as indicated by the header line</li>
  * </ul>
  * <br>
  * <i>Note:<br>
@@ -294,7 +281,7 @@ public class CsvDocumentReaderImpl extends CsvDocumentReaderBase {
 
                 if (previousColumns != actualColumns) {
 
-                    String message = "A rigid structure is expected but a flexible structure was encountered!";
+                    String message = String.format("A rigid structure is expected but a flexible structure was encountered (line: %d;\"%s\")!", currentRow, line );;
                     throw new CsvStructureException(message);
                 }
 
